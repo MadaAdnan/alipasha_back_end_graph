@@ -1,0 +1,11 @@
+extend type Query{
+    categories:[Category] @all
+}
+
+type Category{
+    id:ID!,
+    name:String,
+    image:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImage")
+
+
+}

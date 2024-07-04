@@ -1,0 +1,21 @@
+extend type Query{
+    users: [User] @paginate
+    user (id: ID @eq): User @find
+}
+
+type User{
+    id: ID
+    name: String
+    seller_name: String
+    email_verified_at:String
+    email:String
+    products:[Product]  @hasMany
+}
+
+extend type Mutation{
+    createUser(name:String!,email:String! @rules(apply:["email","unique:users,email"]),password:String!) : User @create
+
+    updateUser(id:ID! ,name:String,email:String @rules(apply:["email","unique:users,email"]),password:String) : User @update
+
+    deleteUser(id:ID!) : User @delete
+}

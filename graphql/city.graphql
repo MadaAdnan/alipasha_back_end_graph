@@ -1,0 +1,11 @@
+extend type Query{
+    cities:[City] @all
+}
+
+
+type City{
+    id:ID!
+    name:String
+    image:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImage")
+    city:City @belongsTo
+}

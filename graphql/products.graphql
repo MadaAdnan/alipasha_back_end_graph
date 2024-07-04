@@ -1,0 +1,60 @@
+extend type Query{
+    products(type:String @eq,city_id:Int @eq ,name:String @search):[Product] @paginate
+    product(id:ID! @eq) : Product @find
+}
+
+
+
+
+
+type Product{
+    id:ID!,
+    # Relations
+    user:User @belongsTo
+    city:City @belongsTo
+    category:Category @belongsTo
+    sub1:Category @belongsTo
+    sub2:Category @belongsTo
+    sub3:Category @belongsTo
+    sub4:Category @belongsTo
+    # Fields
+    name:String,
+    info:String,
+    expert:String,
+    tags:[String]
+    is_discount:Boolean
+    is_delivary:Boolean
+    is_available:Boolean
+    level:String
+    phone:String
+    email:String
+    address:String
+    url:String
+    longitude:String
+    latitude:String
+    price:Float
+    discount:Float
+    start_date:String
+    end_date:String
+    code:String
+    type:String
+# Files From Media
+    main:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getMain")
+    image:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImage")
+    video:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getVideo")
+    images:[String] @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImages")
+    docs:[String] @field(resolver: "App\\GraphQL\\Resolvers\\Image@getDocs")
+    liistOfDocs:[DataImage] @field(resolver: "App\\GraphQL\\Resolvers\\Image@getDocsWithId")
+    dateTime:DateTime! @field(resolver: "App\\GraphQL\\Resolvers\\DateFormat@getDateTime")
+
+}
+
+type DataImage{
+    id:ID!
+    url:String!
+}
+
+type DateTime{
+    date:String
+    time:String!
+}
