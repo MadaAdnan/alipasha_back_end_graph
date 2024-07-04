@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Enums\CategoryTypeEnum;
+use App\Enums\ProductActiveEnum;
 use App\Filament\Resources\JobResource\Pages;
 use App\Filament\Resources\JobResource\RelationManagers;
 use App\Helpers\HelperMedia;
@@ -60,6 +61,11 @@ class JobResource extends Resource
                         Forms\Components\TextInput::make('phone')->label('رقم الهاتف'),
 
                     ]),
+                    Forms\Components\Radio::make('active')->options([
+                        ProductActiveEnum::PENDING->value => ProductActiveEnum::PENDING->getLabel(),
+                        ProductActiveEnum::ACTIVE->value => ProductActiveEnum::ACTIVE->getLabel(),
+                        ProductActiveEnum::BLOCK->value => ProductActiveEnum::BLOCK->getLabel(),
+                    ])->label('حالة الوظيفة')->default(ProductActiveEnum::PENDING->value),
                     Forms\Components\Fieldset::make('التصنيف')->schema([
                         Forms\Components\Select::make('category_id')->options(Category::job()->pluck('name', 'id'))->label('يتبع القسم')->searchable()->live()->required(),
                         Forms\Components\Select::make('sub1_id')->options(fn($get) => Category::find($get('category_id'))?->children?->pluck('name', 'id'))->label('يتبع القسم')->searchable()->live(),
@@ -120,12 +126,16 @@ class JobResource extends Resource
                 Tables\Columns\TextColumn::make('end_date')->label('نهاية التقديم'),
                 Tables\Columns\TextColumn::make('views_count')->label('عدد المشاهدات'),
                 Tables\Columns\TextColumn::make('created_at')->since()->label('أضيف منذ'),
+                Tables\Columns\TextColumn::make('active')->formatStateUsing(fn($state)=>ProductActiveEnum::tryFrom($state)?->getLabel())->color(fn($state)=>ProductActiveEnum::tryFrom($state)?->getColor())->icon(fn($state)=>ProductActiveEnum::tryFrom($state)?->getIcon())->label('الحالة'),
+
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\RestoreAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

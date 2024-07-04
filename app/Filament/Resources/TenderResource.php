@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Enums\CategoryTypeEnum;
+use App\Enums\ProductActiveEnum;
 use App\Filament\Resources\TenderResource\Pages;
 use App\Filament\Resources\TenderResource\RelationManagers;
 use App\Models\Attribute;
@@ -51,6 +52,11 @@ class TenderResource extends Resource
                         Forms\Components\TextInput::make('email')->label('البريد الإلكتروني')->email(),
                         Forms\Components\TextInput::make('phone')->label('رقم الهاتف')->reactive(),
                     ]),
+                    Forms\Components\Radio::make('active')->options([
+                        ProductActiveEnum::PENDING->value => ProductActiveEnum::PENDING->getLabel(),
+                        ProductActiveEnum::ACTIVE->value => ProductActiveEnum::ACTIVE->getLabel(),
+                        ProductActiveEnum::BLOCK->value => ProductActiveEnum::BLOCK->getLabel(),
+                    ])->label('حالة المناقصة')->default(ProductActiveEnum::PENDING->value),
                     Forms\Components\Fieldset::make('التصنيف')->schema([
                         Forms\Components\Select::make('category_id')->options(Category::tender()->pluck('name', 'id'))->label('يتبع القسم')->searchable()->live()->required(),
                         Forms\Components\Select::make('sub1_id')->options(fn($get) => Category::find($get('category_id'))?->children?->pluck('name', 'id'))->label('يتبع القسم')->searchable()->live(),
@@ -76,6 +82,8 @@ class TenderResource extends Resource
                 Tables\Columns\TextColumn::make('end_date')->label('نهاية التقديم'),
                 Tables\Columns\TextColumn::make('views_count')->label('عدد المشاهدات'),
                 Tables\Columns\TextColumn::make('created_at')->since()->label('أضيف منذ'),
+                Tables\Columns\TextColumn::make('active')->formatStateUsing(fn($state)=>ProductActiveEnum::tryFrom($state)?->getLabel())->color(fn($state)=>ProductActiveEnum::tryFrom($state)?->getColor())->icon(fn($state)=>ProductActiveEnum::tryFrom($state)?->getIcon())->label('الحالة'),
+
             ])
             ->filters([
                 //

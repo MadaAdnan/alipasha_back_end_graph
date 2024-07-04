@@ -20,7 +20,12 @@ class AttributeResource extends Resource
     protected static ?string $model = Attribute::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
+    protected static ?string $label = 'سمة';
+    protected static ?string $modelLabel = 'سمة';
+    protected static ?string $navigationLabel = 'السمات';
+    protected static ?string $pluralLabel = 'السمات';
+    protected static ?int $navigationSort = 27;
+    protected static ?string $navigationGroup = 'الأساسي';
     public static function form(Form $form): Form
     {
         return $form

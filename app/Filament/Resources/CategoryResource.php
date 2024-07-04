@@ -41,6 +41,7 @@ class CategoryResource extends Resource
                         CategoryTypeEnum::JOB->value => CategoryTypeEnum::JOB->getLabel(),
                         CategoryTypeEnum::SEARCH_JOB->value => CategoryTypeEnum::SEARCH_JOB->getLabel(),
                         CategoryTypeEnum::NEWS->value => CategoryTypeEnum::NEWS->getLabel(),
+                        CategoryTypeEnum::SERVICE->value => CategoryTypeEnum::SERVICE->getLabel(),
                         CategoryTypeEnum::TENDER->value => CategoryTypeEnum::TENDER->getLabel(),
                     ])->label('نوع القسم')->visible(fn($get) => $get('is_main')),
 
@@ -53,7 +54,8 @@ class CategoryResource extends Resource
         return $table
             ->columns([
                 HelperMedia::getImageColumn(),
-                Tables\Columns\TextColumn::make('name')->label('اسم القسم'),
+                Tables\Columns\TextColumn::make('name')->label('اسم القسم')->searchable(),
+                Tables\Columns\TextColumn::make('products_count')->formatStateUsing(fn($record,$state)=>$state===0?$record->products2_count:$state)->label('عدد المنتجات')->sortable(),
 
                 Tables\Columns\TextColumn::make('type')->formatStateUsing(fn($state)=>CategoryTypeEnum::tryFrom($state)?->getLabel())->color(fn($state)=>CategoryTypeEnum::tryFrom($state)?->getColor())->label('اسم القسم'),
             ])->reorderable('sortable')

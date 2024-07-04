@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\GraphQL\Directives\SearchDirectiveDirective;
+use GraphQL\Type\Definition\Directive;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +21,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+
     }
 }

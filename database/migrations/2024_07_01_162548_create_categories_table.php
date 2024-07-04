@@ -18,7 +18,9 @@ return new class extends Migration {
             $table->boolean('is_main')->nullable();
             $table->string('type')->nullable()->default('category');
             $table->integer('sortable')->nullable();
+            $table->softDeletes();
             $table->timestamps();
+
         });
         Schema::create('category_parent', function (Blueprint $table) {
             $table->id();

@@ -3,23 +3,54 @@
 namespace App\Models;
 
 use App\Enums\CategoryTypeEnum;
+use App\Enums\ProductActiveEnum;
 use App\Traits\MediaTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Searchable;
 use Spatie\MediaLibrary\HasMedia;
 
 class Product extends Model implements HasMedia
 {
-    use HasFactory, MediaTrait;
+    use HasFactory, MediaTrait, Searchable,SoftDeletes;
 
     protected $guarded = [];
     protected $casts = [
         'tags' => 'array'
     ];
 
+    /**
+     * Get the indexable data array for the model.
+     *
+     * @return array<string, mixed>
+     */
+    public function toSearchableArray(): array
+    {
+        return [
+            'id'=>(string)$this->id,
+            'name'=>$this->name,
+            'info'=>$this->info,
+            'tags'=>$this->tags,
+        ];
+    }
+
+    public function searchableAs()
+    {
+        return 'search_post';
+    }
+
+    public function scopePending($query)
+    {
+        return $query->where('active', ProductActiveEnum::PENDING->value);
+    }
+    public function scopeNotPending($query)
+    {
+        return $query->where('active','!=', ProductActiveEnum::PENDING->value);
+    }
     public function scopeProduct($query)
     {
         return $query->whereHas('category', fn($query) => $query->where('categories.type', CategoryTypeEnum::PRODUCT->value));
@@ -38,6 +69,11 @@ class Product extends Model implements HasMedia
     public function scopeNews($query)
     {
         return $query->whereHas('category', fn($query) => $query->where('categories.type', CategoryTypeEnum::NEWS->value));
+    }
+
+    public function scopeService($query)
+    {
+        return $query->whereHas('category', fn($query) => $query->where('categories.type', CategoryTypeEnum::SERVICE->value));
     }
 
     public function category(): BelongsTo

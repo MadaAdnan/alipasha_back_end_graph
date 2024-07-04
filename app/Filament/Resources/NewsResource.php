@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\ProductActiveEnum;
 use App\Filament\Resources\NewsResource\Pages;
 use App\Filament\Resources\NewsResource\RelationManagers;
 use App\Helpers\HelperMedia;
@@ -49,6 +50,11 @@ class NewsResource extends Resource
                         Forms\Components\Select::make('sub3_id')->options(fn($get) => Category::find($get('sub2_id'))?->children?->pluck('name', 'id'))->label('يتبع القسم')->searchable()->live(),
                         Forms\Components\Select::make('sub4_id')->options(fn($get) => Category::find($get('sub3_id'))?->children?->pluck('name', 'id'))->label('يتبع القسم')->searchable()->live(),
                     ]),
+                    Forms\Components\Radio::make('active')->options([
+                        ProductActiveEnum::PENDING->value => ProductActiveEnum::PENDING->getLabel(),
+                        ProductActiveEnum::ACTIVE->value => ProductActiveEnum::ACTIVE->getLabel(),
+                        ProductActiveEnum::BLOCK->value => ProductActiveEnum::BLOCK->getLabel(),
+                    ])->label('حالة الخبر')->default(ProductActiveEnum::PENDING->value),
                 ])
             ]);
     }
@@ -64,6 +70,8 @@ class NewsResource extends Resource
                 Tables\Columns\TextColumn::make('user.name')->label('الناشر')->url(fn($record) => UserResource::getUrl('edit', ['record' => $record->user_id])),
                 Tables\Columns\TextColumn::make('views_count')->label('عدد المشاهدات'),
                 Tables\Columns\TextColumn::make('created_at')->since()->label('أضيف منذ'),
+                Tables\Columns\TextColumn::make('active')->formatStateUsing(fn($state)=>ProductActiveEnum::tryFrom($state)?->getLabel())->color(fn($state)=>ProductActiveEnum::tryFrom($state)?->getColor())->icon(fn($state)=>ProductActiveEnum::tryFrom($state)?->getIcon())->label('الحالة'),
+
             ])
             ->filters([
                 //

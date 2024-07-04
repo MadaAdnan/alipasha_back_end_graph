@@ -1,11 +1,7 @@
 extend type Query{
-    products(type:String @eq,city_id:Int @eq ,name:String @search):[Product] @paginate
+    products(type:String @eq,city_id:Int @eq,user_id:Int @eq,category_id:Int @eq,sub1_id:Int @eq):[Product]  @paginate
     product(id:ID! @eq) : Product @find
 }
-
-
-
-
 
 type Product{
     id:ID!,

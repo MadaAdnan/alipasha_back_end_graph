@@ -9,6 +9,7 @@ enum CategoryTypeEnum: string
     case SEARCH_JOB = 'search_job';
     case NEWS = 'news';
     case TENDER = 'tender';
+    case SERVICE = 'service';
 
 
     public function getLabel()
@@ -19,6 +20,7 @@ enum CategoryTypeEnum: string
             self::SEARCH_JOB => 'شواغر',
             self::NEWS => 'اخبار',
             self::TENDER => 'مناقصات',
+            self::SERVICE => 'خدمات',
         };
     }
 
@@ -40,6 +42,7 @@ enum CategoryTypeEnum: string
             self::SEARCH_JOB => 'info',
             self::NEWS => 'primary',
             self::TENDER => 'success',
+            self::SERVICE => 'gold',
         };
     }
 }
