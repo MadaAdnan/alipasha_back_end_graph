@@ -1,0 +1,32 @@
+extend type Query{
+    coupons:[Coupon]
+    myCoupons:[CouponUsed] @guard @paginate(builder: "App\\GraphQL\\Queries\\MyCoupons")
+}
+
+
+type Coupon{
+    id:ID!
+    #    code:String!
+    #    password:String!
+    #    used_at:String
+    #    bay_at:String
+    price:Float!
+    #    used: User @belongsTo
+    #    user: User @belongsTo
+}
+
+type CouponUsed{
+    id:ID!
+    code:String!
+    password:String!
+    used_at:String
+    bay_at:String
+    price:Float!
+    used: User @belongsTo
+    user: User @belongsTo
+
+}
+
+
+
+

@@ -2,9 +2,16 @@
 
 
 
+
 #import user.graphql
-#import products.graphql
+#import product.graphql
 #import category.graphql
+#import color.graphql
 #import city.graphql
+#import plan.graphql
+#import advice.graphql
+#import slider.graphql
+#import question.graphql
+#import coupon.graphql
 
 #import auth.graphql

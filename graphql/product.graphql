@@ -13,6 +13,7 @@ type Product{
     sub2:Category @belongsTo
     sub3:Category @belongsTo
     sub4:Category @belongsTo
+    colors:[Color] @belongsToMany
     # Fields
     name:String,
     info:String,
@@ -34,6 +35,7 @@ type Product{
     end_date:String
     code:String
     type:String
+
 # Files From Media
     main:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getMain")
     image:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImage")

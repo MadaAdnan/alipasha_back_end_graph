@@ -25,7 +25,7 @@ class AttributeResource extends Resource
     protected static ?string $navigationLabel = 'السمات';
     protected static ?string $pluralLabel = 'السمات';
     protected static ?int $navigationSort = 27;
-    protected static ?string $navigationGroup = 'الأساسي';
+    protected static ?string $navigationGroup = 'خصائص / خيارات';
     public static function form(Form $form): Form
     {
         return $form

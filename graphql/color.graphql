@@ -1,0 +1,13 @@
+extend type Query{
+    colors:[Color] @all
+    color(id:ID!  @eq):Color @find
+}
+
+
+type Color{
+    id:ID!
+    code:String
+}
+
+
+

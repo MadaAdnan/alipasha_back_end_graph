@@ -64,6 +64,8 @@ class ProductResource extends Resource
                         Forms\Components\Select::make('sub3_id')->options(fn($get) => Category::find($get('sub2_id'))?->children?->pluck('name', 'id'))->label('يتبع القسم')->searchable()->live(),
                         Forms\Components\Select::make('sub4_id')->options(fn($get) => Category::find($get('sub3_id'))?->children?->pluck('name', 'id'))->label('يتبع القسم')->searchable()->live(),
                     ]),
+                    Forms\Components\Select::make('colors')->relationship('colors', 'name')->preload()->label('الألوان')->visible(fn($get) => Category::find($get('category_id'))?->has_color)->multiple()->searchable(),
+
                     Forms\Components\Fieldset::make('الخصائص')->schema(function ($get) {
                         $list = [];
 
@@ -116,7 +118,7 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('city.name')->label('المدينة'),
                 Tables\Columns\TextColumn::make('user.name')->label('المتجر')->url(fn($record) => UserResource::getUrl('edit', ['record' => $record->user_id]))->searchable(),
                 Tables\Columns\TextColumn::make('views_count')->label('عدد المشاهدات'),
-Tables\Columns\TextColumn::make('active')->formatStateUsing(fn($state)=>ProductActiveEnum::tryFrom($state)?->getLabel())->color(fn($state)=>ProductActiveEnum::tryFrom($state)?->getColor())->icon(fn($state)=>ProductActiveEnum::tryFrom($state)?->getIcon())->label('الحالة'),
+                Tables\Columns\TextColumn::make('active')->formatStateUsing(fn($state) => ProductActiveEnum::tryFrom($state)?->getLabel())->color(fn($state) => ProductActiveEnum::tryFrom($state)?->getColor())->icon(fn($state) => ProductActiveEnum::tryFrom($state)?->getIcon())->label('الحالة'),
                 Tables\Columns\TextColumn::make('created_at')->since()->label('أضيف منذ'),
 
             ])

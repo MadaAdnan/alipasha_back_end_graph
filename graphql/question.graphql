@@ -1,0 +1,14 @@
+extend type Query{
+    questions(category_id:Int @eq,user_id:Int @eq,city_id:Int @eq):[Question] @all
+    question(id:ID!  @eq):Question @find
+}
+
+
+type Question{
+    id:ID!
+    ask:String!
+    answer:String
+    image:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImage")
+}
+
+

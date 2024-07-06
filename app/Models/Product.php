@@ -16,7 +16,7 @@ use Spatie\MediaLibrary\HasMedia;
 
 class Product extends Model implements HasMedia
 {
-    use HasFactory, MediaTrait, Searchable,SoftDeletes;
+    use HasFactory, MediaTrait, Searchable, SoftDeletes;
 
     protected $guarded = [];
     protected $casts = [
@@ -31,10 +31,10 @@ class Product extends Model implements HasMedia
     public function toSearchableArray(): array
     {
         return [
-            'id'=>(string)$this->id,
-            'name'=>$this->name,
-            'info'=>$this->info,
-            'tags'=>$this->tags,
+            'id' => (string)$this->id,
+            'name' => $this->name,
+            'info' => $this->info,
+            'tags' => $this->tags,
         ];
     }
 
@@ -47,10 +47,12 @@ class Product extends Model implements HasMedia
     {
         return $query->where('active', ProductActiveEnum::PENDING->value);
     }
+
     public function scopeNotPending($query)
     {
-        return $query->where('active','!=', ProductActiveEnum::PENDING->value);
+        return $query->where('active', '!=', ProductActiveEnum::PENDING->value);
     }
+
     public function scopeProduct($query)
     {
         return $query->whereHas('category', fn($query) => $query->where('categories.type', CategoryTypeEnum::PRODUCT->value));
@@ -124,6 +126,11 @@ class Product extends Model implements HasMedia
     public function views(): HasMany
     {
         return $this->hasMany(ProductView::class, 'product_id');
+    }
+
+    public function colors(): BelongsToMany
+    {
+        return $this->belongsToMany(Color::class);
     }
 
     public function getViewsCountAttribute(): int

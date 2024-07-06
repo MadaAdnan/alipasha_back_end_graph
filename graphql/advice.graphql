@@ -1,0 +1,13 @@
+extend type Query{
+    advices(category_id:Int @eq,user_id:Int @eq,city_id:Int @eq):[Advice] @all
+    advice(id:ID!  @eq):Advice @find
+}
+
+
+type Advice{
+    id:ID!
+    url:String
+    image:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImage")
+}
+
+

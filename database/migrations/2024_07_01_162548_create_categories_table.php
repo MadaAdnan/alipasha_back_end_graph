@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->string('name')->nullable();
             //$table->foreignId('category_id')->nullable()->constrained()->cascadeOnDelete();
             $table->boolean('is_active')->nullable();
+            $table->boolean('has_color')->nullable()->default(false);
             $table->boolean('is_main')->nullable();
             $table->string('type')->nullable()->default('category');
             $table->integer('sortable')->nullable();

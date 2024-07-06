@@ -1,0 +1,13 @@
+extend type Query{
+    sliders(category_id:Int @eq,user_id:Int @eq,city_id:Int @eq):[Slider] @all
+    slide(id:ID!  @eq):Slider @find
+}
+
+
+type Slider{
+    id:ID!
+    url:String
+    image:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImage")
+}
+
+

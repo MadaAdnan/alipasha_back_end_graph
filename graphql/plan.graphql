@@ -1,0 +1,35 @@
+extend type Query{
+    plans:[Plan] @all
+    plan(id:ID  @eq):Plan @find
+
+}
+
+
+type Plan{
+    id:ID!
+    price:Float
+    name:String
+    is_discount:Boolean
+    discount:Float
+    type:String
+    info:String
+    items:[PlanItem]
+    options:PlanOption
+
+    pivot:PlanUserPivot
+}
+type PlanItem{
+    active:Boolean
+    item:String
+}
+type PlanOption{
+    ads:Int
+    slider:Int
+    special:Int
+}
+
+
+type PlanUserPivot {
+    expired_date: String!
+    subscription_date: String
+}
