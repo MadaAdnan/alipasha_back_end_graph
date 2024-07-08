@@ -1,6 +1,6 @@
 extend type Query{
-    products(type:String @eq,city_id:Int @eq,user_id:Int @eq,category_id:Int @eq,sub1_id:Int @eq):[Product]  @paginate
-    product(id:ID! @eq) : Product @find
+    products(type:String ,city_id:Int ,user_id:Int ,category_id:Int ,sub1_id:Int,serach:String,first:Int,page:Int):[Product] @field(resolver: "App\\GraphQL\\Queries\\Products@__invoke")  #@paginate(builder:"App\\GraphQL\\Queries\\Products")
+    product(id:ID!) : Product @field(resolver: "App\\GraphQL\\Queries\\Product@__invoke")
 }
 
 type Product{
@@ -14,6 +14,7 @@ type Product{
     sub3:Category @belongsTo
     sub4:Category @belongsTo
     colors:[Color] @belongsToMany
+    comments:[Comment] @hasMany(defaultCount:10,type:PAGINATOR)
     # Fields
     name:String,
     info:String,
@@ -34,16 +35,17 @@ type Product{
     start_date:String
     end_date:String
     code:String
-    type:String
+    type:String,
 
-# Files From Media
+
+    # Files From Media
     main:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getMain")
     image:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImage")
     video:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getVideo")
     images:[String] @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImages")
     docs:[String] @field(resolver: "App\\GraphQL\\Resolvers\\Image@getDocs")
     liistOfDocs:[DataImage] @field(resolver: "App\\GraphQL\\Resolvers\\Image@getDocsWithId")
-    dateTime:DateTime! @field(resolver: "App\\GraphQL\\Resolvers\\DateFormat@getDateTime")
+    created_at:CustomDate
 
 }
 
@@ -52,7 +54,151 @@ type DataImage{
     url:String!
 }
 
-type DateTime{
-    date:String
-    time:String!
+extend type Mutation{
+    createProduct(input:CreateProductInput) : Product @guard
+
+    #    UpdateProduct(id:ID! ,name:String,email:String @rules(apply:["email","unique:users,email"]),password:String) : Product @update
+
+    #    deleteProduct(id:ID!) : Boolean @delete
+
+    #    deletProductMedia(id:ID!) : Boolean @delete
 }
+
+input CreateProductInput{
+    name:String @rules(apply: ["nullable","min:3"],messages:[
+        {
+            rule:"min",
+            message:"يرجى إدخال 3 أحرف على الأقل"
+        }
+    ])
+    city_id:Int @rules(apply: ["required","integer","exists:cities,id"],messages:[
+        {
+            rule:"required",
+            message:"يرجى إدخال المدينة"
+        }
+        {
+            rule:"integer",
+            message:"يرجى إدخال مدينة صالحة"
+        }
+        {
+            rule:"exists",
+            message:"يرجى إدخال مدينة صالحة"
+        }
+    ])
+        main:Upload!
+    #    images
+
+    video:String @rules(apply: ["nullable","string"],messages:[
+        {
+            rule:"string",
+            message:"يرجى إدخال قيمة صالحة"
+        }
+    ])
+    info:String @rules(apply: ["nullable","string"],messages:[
+        {
+            rule:"string",
+            message:"يرجى إدخال قيمة صالحة"
+        }
+    ])
+    tags:[String] @rules(apply: ["nullable"]) @rulesForArray(apply:["min:0"],messages:[
+        {
+            rule:"string",
+            message:"يرجى إدخال قيمة نصية صالحة"
+        }
+    ]
+
+
+    )
+
+    is_available:Boolean @rules(apply: ["boolean"],messages:[
+        {
+            rule:"boolean",
+            message:"يرجى إدخال قيمة صالحة"
+        }
+    ])
+    price:Float @rules(apply: ["required","numeric"],messages:[
+        {
+            rule:"numeric",
+            message:"يرجى إدخال قيمة صالحة"
+        }
+        {
+            rule:"required",
+            message:"يرجى إدخال السعر"
+        }
+    ])
+    is_discount:Boolean  @rules(apply: ["boolean"],messages:[
+        {
+            rule:"boolean",
+            message:"يرجى إدخال قيمة صالحة"
+        }
+    ])
+    discount:Float  @rules(apply: ["required_if:is_discount,true"],messages:[
+
+        {
+            rule:"required_if",
+            message:"يرجى إدخال سعر العرض"
+        }
+    ])
+    category_id:Int!  @rules(apply: ["required","integer","exists:categories,id"],messages:[
+        {
+            rule:"required",
+            message:"يرجى إدخال التصنيف الرئيسي"
+        }
+        {
+            rule:"integer",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+        {
+            rule:"exists",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+    ])
+    sub1_id:Int! @rules(apply: ["required","integer","exists:categories,id"],messages:[
+        {
+            rule:"required",
+            message:"يرجى إدخال التصنيف الفرعي"
+        }
+        {
+            rule:"integer",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+        {
+            rule:"exists",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+    ])
+    sub2_id:Int @rules(apply: ["nullable","integer","exists:categories,id"],messages:[
+        {
+            rule:"integer",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+        {
+            rule:"exists",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+    ])
+    sub3_id:Int @rules(apply: ["nullable","integer","exists:categories,id"],messages:[
+        {
+            rule:"integer",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+        {
+            rule:"exists",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+    ])
+    sub4_id:Int @rules(apply: ["nullable","integer","exists:categories,id"],messages:[
+        {
+            rule:"integer",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+        {
+            rule:"exists",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+    ])
+    options:[Int]
+    #    write:
+    attribute:[Int]
+}
+

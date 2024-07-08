@@ -62,7 +62,7 @@ class NewsResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->modifyQueryUsing(fn($query)=>$query->news())
+            ->modifyQueryUsing(fn($query) => $query->news())
             ->columns([
                 Tables\Columns\TextColumn::make('id')->label('رقم الخبر')->searchable(),
                 Tables\Columns\TextColumn::make('name')->label('عنوان  الخبر')->description(fn($record) => $record->expert),
@@ -70,7 +70,7 @@ class NewsResource extends Resource
                 Tables\Columns\TextColumn::make('user.name')->label('الناشر')->url(fn($record) => UserResource::getUrl('edit', ['record' => $record->user_id])),
                 Tables\Columns\TextColumn::make('views_count')->label('عدد المشاهدات'),
                 Tables\Columns\TextColumn::make('created_at')->since()->label('أضيف منذ'),
-                Tables\Columns\TextColumn::make('active')->formatStateUsing(fn($state)=>ProductActiveEnum::tryFrom($state)?->getLabel())->color(fn($state)=>ProductActiveEnum::tryFrom($state)?->getColor())->icon(fn($state)=>ProductActiveEnum::tryFrom($state)?->getIcon())->label('الحالة'),
+                Tables\Columns\TextColumn::make('active')->formatStateUsing(fn($state) => ProductActiveEnum::tryFrom($state)?->getLabel())->color(fn($state) => ProductActiveEnum::tryFrom($state)?->getColor())->icon(fn($state) => ProductActiveEnum::tryFrom($state)?->getIcon())->label('الحالة'),
 
             ])
             ->filters([
@@ -89,7 +89,7 @@ class NewsResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\CommentsRelationManager::class
         ];
     }
 

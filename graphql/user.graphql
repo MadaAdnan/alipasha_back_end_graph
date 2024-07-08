@@ -11,7 +11,8 @@ type User{
     email_verified_at:String
     email:String
     products:[Product]  @hasMany
-    plans:[Plan] @belongsToMany(relation:"plans")
+    plans:[Plan] @belongsToMany(relation:"plans"),
+
 }
 
 extend type Mutation{

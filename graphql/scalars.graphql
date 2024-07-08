@@ -1,0 +1,2 @@
+scalar CustomDate @scalar(class: "App\\GraphQL\\Scalars\\CustomDate")
+scalar HumanDate @scalar(class: "App\\GraphQL\\Scalars\\HumanDate")

@@ -137,4 +137,9 @@ class Product extends Model implements HasMedia
     {
         return $this->views->sum('count');
     }
+
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

@@ -12,8 +12,6 @@ final class MyCoupons
      */
     public function __invoke($_, array $args)
     {
-
-
         return Coupon::where('user_id', auth()->id())
             ->latest();
     }

@@ -1,0 +1,14 @@
+extend type Mutation{
+    createComment(product_id:Int!,comment:String! @rules(apply:["min:10"])):Comment! @guard
+}
+#
+
+
+type Comment{
+    id:ID!
+    comment:String
+    created_at:HumanDate
+    user: User @belongsTo
+}
+
+
