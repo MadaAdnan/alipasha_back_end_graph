@@ -1,0 +1,106 @@
+extend type Mutation{
+    createService(input:CreateServiceInput):Product @guard
+    updateService(id:ID!,input:CreateServiceInput):Product @guard
+}
+
+input CreateServiceInput{
+    image:Upload! @rules(apply:["required","image"],messages:[
+        {
+            rule:"required",
+            message:"يرجى إدخال الصورة"
+        }
+        {
+            rule:"image",
+            message:"يرجى إدخال صورة صالحة"
+        }
+    ])
+    name:String @rules(apply: ["nullable","min:3"],messages:[
+        {
+            rule:"min",
+            message:"يرجى إدخال 3 أحرف على الأقل"
+        }
+    ])
+    city_id:Int @rules(apply: ["required","integer","exists:cities,id"],messages:[
+        {
+            rule:"required",
+            message:"يرجى إدخال المدينة"
+        }
+        {
+            rule:"integer",
+            message:"يرجى إدخال مدينة صالحة"
+        }
+        {
+            rule:"exists",
+            message:"يرجى إدخال مدينة صالحة"
+        }
+    ])
+    info:String! @rules(apply: ["required","string"],messages:[
+        {
+            rule:"required",
+            message:"يرجى إدخال قيمة صالحة"
+        }
+        {
+            rule:"string",
+            message:"يرجى إدخال قيمة صالحة"
+        }
+    ])
+    tags:[String] @rules(apply: ["nullable"]) @rulesForArray(apply:["min:0"],messages:[
+        {
+            rule:"string",
+            message:"يرجى إدخال قيمة نصية صالحة"
+        }
+    ])
+    category_id:Int!  @rules(apply: ["required","integer","exists:categories,id"],messages:[
+        {
+            rule:"required",
+            message:"يرجى إدخال التصنيف الرئيسي"
+        }
+        {
+            rule:"integer",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+        {
+            rule:"exists",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+    ])
+    sub1_id:Int! @rules(apply: ["required","integer","exists:categories,id"],messages:[
+        {
+            rule:"required",
+            message:"يرجى إدخال التصنيف الفرعي"
+        }
+        {
+            rule:"integer",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+        {
+            rule:"exists",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+    ])
+    email:String @rules(apply: ["required","email"],messages:[
+        {
+            rule:"required",
+            message:"حقل البريد الإلكتروني مطلوب"
+        }
+        {
+            rule:"required",
+            message:"يرجى إدخال بريد الإلكتروني صالح"
+        }
+    ])
+    phone:String @rules(apply: ["nullable"],messages:[
+        {
+            rule:"required",
+            message:"حقل رقم التواصل مطلوب"
+        }
+
+    ])
+    address:String @rules(apply: ["nullable"],messages:[
+        {
+            rule:"required",
+            message:"حقل العنوان  التفصيلي مطلوب"
+        }
+
+    ])
+
+}

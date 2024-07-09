@@ -15,7 +15,7 @@ final class Image
      */
     public static function getMain($root): string
     {
-        return $root->getFirstMediaUrl('main', 'webp');
+        return $root->getFirstMediaUrl('image', 'webp');
     }
 
     /**

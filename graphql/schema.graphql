@@ -15,5 +15,9 @@
 #import question.graphql
 #import coupon.graphql
 #import comment.graphql
+#import job.graphql
+#import tender.graphql
+#import service.graphql
+
 
 #import auth.graphql

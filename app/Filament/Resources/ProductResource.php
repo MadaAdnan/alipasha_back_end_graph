@@ -39,7 +39,7 @@ class ProductResource extends Resource
                 Forms\Components\Section::make('المنتجات')->schema([
                     Forms\Components\Select::make('user_id')->options(User::seller()->pluck('users.name', 'users.id'))->label('المتجر')->live()->afterStateUpdated(fn($set, $state) => $set('city_id', User::find($state)?->city_id)),
                     Forms\Components\Select::make('city_id')->options(City::pluck('name', 'id'))->searchable()->label('المدينة'),
-                    HelperMedia::getFileUpload(label: 'الصورة الرئيسية', collection: 'main', is_multible: false, ratio: ['1:1']),
+                    HelperMedia::getFileUpload(label: 'الصورة الرئيسية', collection: 'image', is_multible: false, ratio: ['1:1']),
                     HelperMedia::getFileUpload(label: 'صور إضافية', name: 'images', collection: 'images', is_multible: true),
                     Forms\Components\SpatieMediaLibraryFileUpload::make('film')->collection('video')->label('فيديو قصير')->acceptedFileTypes(['video/quicktime', 'video/x-ms-wmv', 'video/x-msvideo', 'video/mp4']),
                     Forms\Components\TextInput::make('name')->label('اسم المنتج'),
@@ -111,7 +111,7 @@ class ProductResource extends Resource
         return $table
             ->modifyQueryUsing(fn($query) => $query->product())
             ->columns([
-                HelperMedia::getImageColumn(collection: 'main'),
+                HelperMedia::getImageColumn(collection: 'image'),
                 Tables\Columns\TextColumn::make('id')->label('رقم المنتج')->searchable(),
                 Tables\Columns\TextColumn::make('name')->label('اسم المنتج')->description(fn($record) => $record->expert)->searchable(),
                 Tables\Columns\TextColumn::make('category.name')->label('القسم الرئيسي')->toggleable(isToggledHiddenByDefault: true),
@@ -132,7 +132,8 @@ class ProductResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()->label('نقل إلى سلة المحذوفات'),
+                    Tables\Actions\ForceDeleteBulkAction::make()
                 ]),
             ]);
     }

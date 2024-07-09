@@ -10,4 +10,70 @@ type Advice{
     image:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImage")
 }
 
+extend type Mutation{
+    createAdvice(input:CreateAdviceInput):Advice @guard
+    updateAdvice(id:ID!,input:CreateAdviceInput):Advice @guard
+    deleteAdvice(id:ID!):Advice @guard @delete
+}
+input CreateAdviceInput{
+    name:String! @rules(apply:["required"],messages:[
+        {
+            rule:"required",
+            message:"حقل اسم الإعلان مطلوب"
+        }
+    ])
+    url:String
+    city_id:Int @rules(apply: ["required","integer","exists:cities,id"],messages:[
+        {
+            rule:"required",
+            message:"يرجى إدخال المدينة"
+        }
+        {
+            rule:"integer",
+            message:"يرجى إدخال مدينة صالحة"
+        }
+        {
+            rule:"exists",
+            message:"يرجى إدخال مدينة صالحة"
+        }
+    ])
+    category_id:Int!  @rules(apply: ["required","integer","exists:categories,id"],messages:[
+        {
+            rule:"required",
+            message:"يرجى إدخال التصنيف الرئيسي"
+        }
+        {
+            rule:"integer",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+        {
+            rule:"exists",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+    ])
+    sub1_id:Int! @rules(apply: ["required","integer","exists:categories,id"],messages:[
+        {
+            rule:"required",
+            message:"يرجى إدخال التصنيف الفرعي"
+        }
+        {
+            rule:"integer",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+        {
+            rule:"exists",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+    ])
+    image:Upload! @rules(apply:["required","image"],messages:[
+        {
+            rule:"required",
+            message:"يرجى إدخال الصورة"
+        }
+        {
+            rule:"image",
+            message:"يرجى إدخال صورة صالحة"
+        }
+    ])
+}
 

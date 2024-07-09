@@ -1,0 +1,38 @@
+<?php declare(strict_types=1);
+
+namespace App\GraphQL\Mutations;
+
+use App\Enums\ProductActiveEnum;
+use App\Models\Product;
+
+final class UpdateService
+{
+    /**
+     * @param null $_
+     * @param array{} $args
+     */
+    public function __invoke($_, array $args)
+    {
+        $data = $args['input'];
+        $userId = auth()->id();
+        $serviceId = $args['id'];
+        $product = Product::service()->where('user_id', $userId)->find($serviceId);
+        $product->update([
+            'name' => $data['name'] ?? null,
+            'city_id' => $data['city_id'] ?? null,
+            'info' => $data['info'] ?? null,
+            'tags' => $data['tags'] ?? null,
+            'category_id' => $data['category_id'] ?? null,
+            'sub1_id' => $data['sub1_id'] ?? null,
+            'email' => $data['email'] ?? null,
+            'phone' => $data['phone'] ?? null,
+            'address' => $data['address'] ?? null,
+        ]);
+
+        if (isset($data['image'])) {
+            $product->clearMediaCollection('image');
+            $product->addMedia($data['image'])->toMediaCollection('image');
+        }
+        return $product;
+    }
+}

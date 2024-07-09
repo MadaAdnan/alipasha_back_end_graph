@@ -3,9 +3,8 @@
 namespace App\GraphQL\Mutations;
 
 use App\Enums\ProductActiveEnum;
-use App\GraphQL\Queries\Product;
 
-final class CreateProduct
+final class UpdateProduct
 {
     /**
      * @param null $_
@@ -14,12 +13,16 @@ final class CreateProduct
     public function __invoke($_, array $args)
     {
         $data = $args['input'];
-
-        $user = auth()->user();
+        $productId = $args['id'];
+        $userId = auth()->id();
         try {
-            $product = \App\Models\Product::create([
-                'name' => $data['name'] ?? '',
-                'info' => $data['info'] ?? '',
+            $product = \App\Models\Product::product()->where('user_id', $userId)->find($productId);
+            if (!$product) {
+                throw new \Exception('المنتج رقم ' . $productId . ' غير موجود');
+            }
+            $product->update([
+                'name' => $data["name"] ?? null,
+                'info' => array_key_exists('info', $data) ? $data['info'] : null,
                 'tags' => $data['tags'] ?? null,
                 'category_id' => $data['category_id'] ?? null,
                 'sub1_id' => $data['sub1_id'] ?? null,
@@ -30,11 +33,8 @@ final class CreateProduct
                 'discount' => $data['discount'] ?? null,
                 'is_available' => $data['is_available'] ?? false,
                 'price' => $data['price'] ?? 0,
-                'active' => ProductActiveEnum::PENDING->value,
-                'user_id' => $user->id,
                 'city_id' => $data['city_id'] ?? null,
                 'video' => $data['video'] ?? '',
-                'type' => 'product',
                 'expert' => \Str::words($data['info'], 10),
                 'end_date' => $data['end_date'] ?? null,
                 'is_delivery' => $data['is_delivery'] ?? false,
@@ -43,16 +43,19 @@ final class CreateProduct
 
             ]);
 
-            if(isset($data['image']) && $data['image']!==null){
+            if (isset($data['image']) && $data['image'] !== null) {
+                $product->clearMediaCollection('image');
                 $product->addMedia($data['image'])->toMediaCollection('image');
             }
 
-            if(isset($data['images']) && $data['images'] !==null){
+            if (isset($data['images']) && $data['images'] !== null) {
                 foreach ($data['images'] as $image) {
                     $product->addMedia($image)->toMediaCollection('images');
                 }
             }
         } catch (\Exception | \Error $e) {
+            \Log::info(get_class($e));
+            \Log::info($e->getMessage());
             throw new \Exception($e->getMessage());
         }
 

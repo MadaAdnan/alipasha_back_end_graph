@@ -1,0 +1,172 @@
+extend type Mutation{
+    createTender(input:CreateTenderInput):Product @guard
+    updateTender(id:ID!,input:CreateTenderInput):Product @guard
+}
+
+input CreateTenderInput{
+    docs:Upload @rules(apply:["nullable","mimetypes:application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"],messages:[
+        {
+            rule:"required_if",
+            message:"يرجى رفع ملف"
+        }
+        {
+            rule:"mimetypes",
+            message:"صيغة الملف غير مدعومة"
+        }
+    ])
+    city_id:Int @rules(apply: ["required","integer","exists:cities,id"],messages:[
+        {
+            rule:"required",
+            message:"يرجى إدخال المدينة"
+        }
+        {
+            rule:"integer",
+            message:"يرجى إدخال مدينة صالحة"
+        }
+        {
+            rule:"exists",
+            message:"يرجى إدخال مدينة صالحة"
+        }
+    ])
+    name:String @rules(apply: ["nullable","min:3"],messages:[
+        {
+            rule:"min",
+            message:"يرجى إدخال 3 أحرف على الأقل"
+        }
+    ])
+
+    info:String! @rules(apply: ["required","string"],messages:[
+        {
+            rule:"required",
+            message:"يرجى إدخال قيمة صالحة"
+        }
+        {
+            rule:"string",
+            message:"يرجى إدخال قيمة صالحة"
+        }
+    ])
+    tags:[String] @rules(apply: ["nullable"]) @rulesForArray(apply:["min:0"],messages:[
+        {
+            rule:"string",
+            message:"يرجى إدخال قيمة نصية صالحة"
+        }
+    ])
+
+    email:String @rules(apply: ["required","email"],messages:[
+        {
+            rule:"required",
+            message:"حقل البريد الإلكتروني مطلوب"
+        }
+        {
+            rule:"required",
+            message:"يرجى إدخال بريد الإلكتروني صالح"
+        }
+    ])
+    phone:String @rules(apply: ["nullable"],messages:[
+        {
+            rule:"required",
+            message:"حقل رقم التواصل مطلوب"
+        }
+
+    ])
+    start_date:String @rules(apply: ["required_if:type,job"],messages:[
+        {
+            rule:"required_if",
+            message:"حقل تاريخ بداية التقديم مطلوب"
+        }
+        {
+            rule:"date",
+            message:"يرجى إدخال تاريخ صالح"
+        }
+
+    ])
+
+    end_date:String @rules(apply: ["required_if:type,job"],messages:[
+        {
+            rule:"required_if",
+            message:"حقل تاريخ نهاية التقديم مطلوب"
+        }
+        {
+            rule:"date",
+            message:"يرجى إدخال تاريخ صالح"
+        }
+
+    ])
+
+    code:String @rules(apply: ["required"],messages:[
+        {
+            rule:"required",
+            message:"حقل كود الوظيفة مطلوب"
+        }
+
+    ])
+    url:String @rules(apply: ["nullable","url"],messages:[
+        {
+            rule:"url",
+            message:"يرجى إدخال رابط صحيح"
+        }
+
+    ])
+    #    ##############
+
+
+
+    category_id:Int!  @rules(apply: ["required","integer","exists:categories,id"],messages:[
+        {
+            rule:"required",
+            message:"يرجى إدخال التصنيف الرئيسي"
+        }
+        {
+            rule:"integer",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+        {
+            rule:"exists",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+    ])
+    sub1_id:Int! @rules(apply: ["required","integer","exists:categories,id"],messages:[
+        {
+            rule:"required",
+            message:"يرجى إدخال التصنيف الفرعي"
+        }
+        {
+            rule:"integer",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+        {
+            rule:"exists",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+    ])
+    sub2_id:Int @rules(apply: ["nullable","integer","exists:categories,id"],messages:[
+        {
+            rule:"integer",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+        {
+            rule:"exists",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+    ])
+    sub3_id:Int @rules(apply: ["nullable","integer","exists:categories,id"],messages:[
+        {
+            rule:"integer",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+        {
+            rule:"exists",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+    ])
+    sub4_id:Int @rules(apply: ["nullable","integer","exists:categories,id"],messages:[
+        {
+            rule:"integer",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+        {
+            rule:"exists",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+    ])
+}
