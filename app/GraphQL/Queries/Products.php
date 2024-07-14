@@ -22,7 +22,9 @@ final class Products
             ->when(isset($args['sub1_id']), fn($query) => $query->where('sub1_id', $args['sub1_id']))
             ->when(isset($args['city_id']), fn($query) => $query->where('city_id', $args['city_id']))
             ->when(isset($args['user_id']), fn($query) => $query->where('user_id', $args['user_id']))
-            ->when(isset($args['search']), fn($query) => $query->search($args['search']))->latest();
+            ->when(isset($args['search']), fn($query) => $query->search($args['search']))
+            ->inRandomOrder()
+            ->orderBy('level')->orderBy('created_at');
 
         $ids = $products->paginate($args['first'] ?? 15, ['*'], 'page', $args['page'] ?? 1)->pluck('id')->toArray();
         $today = today();
