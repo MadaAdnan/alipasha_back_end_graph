@@ -8,8 +8,8 @@ type Category{
     id:ID!,
     name:String,
     image:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImage")
-    parents:[Category] @belongsToMAny
-    children:[Category] @belongsToMAny
+    parents:[Category] @belongsToMany
+    children:[Category] @belongsToMany
 
 
 }
