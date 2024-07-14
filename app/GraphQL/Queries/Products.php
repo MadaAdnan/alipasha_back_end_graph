@@ -14,6 +14,7 @@ final class Products
      * @param array{} $args
      */
     public function __invoke($_, array $args)
+
     {
         $products = Product::query()->where('active',ProductActiveEnum::ACTIVE->value)
             ->when(isset($args['type']), fn($query) => $query->where('type', $args['type']))
