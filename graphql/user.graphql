@@ -4,22 +4,137 @@ extend type Query{
 
 }
 
+
 type User{
     id: ID
     name: String
     seller_name: String
     email_verified_at:String
     email:String
+    phone:String
+    address:String
+    image:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImage")
+    logo:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getLogo")
+    email_verified_at:String
+    open_time:String
+    close_time:String
+    is_delivery:Boolean
+    is_restaurant:Boolean
+    is_active:Boolean
+    affiliate:String
+    info:String
     products:[Product]  @hasMany
-    plans:[Plan] @belongsToMany(relation:"plans"),
+    plans:[Plan] @belongsToMany(relation:"plans")
+    city:City @belongsTo
+    is_special:Boolean
+
 
 }
+
 
 extend type Mutation{
-    createUser(name:String!,email:String! @rules(apply:["email","unique:users,email"]),password:String!) : User @create
 
-    updateUser(id:ID! ,name:String,email:String @rules(apply:["email","unique:users,email"]),password:String) : User @update
 
-    deleteUser(id:ID!) : User @delete
+    updateUser(input:UpdateUserInput) : User  @guard
+
+    createSeller(input:CreateSellerInput): User @guard
+
+    updateAvatar(input:ImageUpdate) :User @guard
+
+    updateSellerLogo(input:ImageUpdate) :User @guard
+    #    deleteUser(id:ID!) : User @delete
 }
 
+input ImageUpdate{
+    image:Upload! @rules(apply:["required","image"],messages:[
+        {
+            rule:"required"
+            message:"يرجى تحديد صورة"
+        }
+        {
+            rule:"image"
+            message:"صيغة الملف غير مدعومةة"
+        }
+    ])
+}
+input CreateSellerInput{
+    seller_name:String! @rules(apply:["required","min:3"],messages:[
+        {
+            rule:"required"
+            message:"اسم المتجر مطلوب"
+        }
+        {
+            rule:"min"
+            message:"يجب ان يحوي اسم المتجر 3 أحرف على الأقل"
+        }
+    ])
+    info:String
+    is_delivery:Boolean
+    is_active_seller:Boolean
+    open_time:String
+    close_time:String
+    address:String! @rules(apply:["required"],messages:[
+        {
+            rule:"required"
+            message:"عنوان المتجر مطلوب"
+        }
+
+    ])
+    image:Upload @rules(apply:["nullable","image"],messages:[
+        {
+            rule:"image"
+            message:"صيغة الملف غير مدعومة"
+        }
+    ])
+
+}
+
+
+input UpdateUserInput{
+    name:String! @rules(apply:["required","min:3"],messages:[
+        {
+            rule:"required"
+            message:"الاسم مطلوب"
+        }
+        {
+            rule:"min"
+            message:"يجب ان يحوي الاسم 3 أحرف على الأقل"
+        }
+    ])
+    email:String!  @rules(apply:["required","email"],messages:[
+        {
+            rule:"required"
+            message:"البريد الإلكتروني مطلوب"
+        }
+        {
+            rule:"email"
+            message:"يرجى إدخال بريد إلكتروني صالح"
+        }
+        {
+            rule:"unique"
+            message:"البريد الإلكتروني مستخدم من قبل"
+        }
+    ])
+    password:String! @rules(apply:["required","min:8"],messages:[
+        {
+            rule:"required"
+            message:"كلمة المرور مطلوبة"
+        }
+        {
+            rule:"min"
+            message:"يجب ان تحوي كلمة المرور 8 أحرف على الأقل"
+        }
+    ])
+    image:Upload @rules(apply:["nullable","image"],messages:[
+        {
+            rule:"image"
+            message:"صيغة الملف غير مدعومة"
+        }
+    ])
+    phone:String
+    city_id:Int
+    device_token:String
+
+
+
+}

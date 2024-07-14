@@ -5,6 +5,8 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Enums\CategoryTypeEnum;
 use App\Models\Category;
+use App\Models\City;
+use App\Models\Color;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,6 +17,22 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
+      $city=  City::create([
+            'name'=>'إدلب',
+            'is_active'=>true,
+            'is_delivery'=>true,
+            'is_main'=>true,
+        ]);
+       $city->children()->create([
+           'name'=>'سرمدا',
+           'is_active'=>true,
+           'is_delivery'=>true,
+       ]);
+        $city->children()->create([
+            'name'=>'الدانا',
+            'is_active'=>true,
+            'is_delivery'=>true,
+        ]);
          /*\App\Models\Category::factory(10)->create();*/
         Category::create([
             'name'=>'مركبات',
@@ -83,6 +101,31 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
          \App\Models\User::factory(100)->create();
          \App\Models\Product::factory(100)->create();
+         Color::create([
+             'name'=>'أحمر',
+             'code'=>'#FF0000',
+         ]);
+        Color::create([
+            'name'=>'أسود',
+            'code'=>'#000000',
+        ]);
+        Color::create([
+            'name'=>'أبيض',
+            'code'=>'#FFFFFF',
+        ]);
+        Color::create([
+            'name'=>'أخضر',
+            'code'=>'#00FF00',
+        ]);
+        Color::create([
+            'name'=>'أزرق',
+            'code'=>'#0000FF',
+        ]);
+        Color::create([
+            'name'=>'برتقالي',
+            'code'=>'#FFFF00',
+        ]);
+
 
     }
 }

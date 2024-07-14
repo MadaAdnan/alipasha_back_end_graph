@@ -2,10 +2,12 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\IsVerifiedEmailEnum;
 use App\Enums\LevelSellerEnum;
 use App\Enums\LevelUserEnum;
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
+use App\Helpers\HelperMedia;
 use App\Helpers\HelpersEnum;
 use App\Models\City;
 use App\Models\User;
@@ -76,7 +78,11 @@ class UserResource extends Resource
                            Forms\Components\Toggle::make('is_seller')->label('تفعيل المتجر'),
                        ]),
                         Forms\Components\TimePicker::make('open_time')->label('يفتح من الساعة'),
-                        Forms\Components\TimePicker::make('close_time')->label('يغلق في الساعة')
+                        Forms\Components\TimePicker::make('close_time')->label('يغلق في الساعة'),
+                        Forms\Components\Fieldset::make('متجر مميز')->schema([
+                            Forms\Components\Toggle::make('is_special')->label('تمييز المتجر')->live()->hint('عند تفعيل هذا الخيار سيظهر المتجر في الصفحة الرئيسية'),
+                            HelperMedia::getFileUpload('صورة مميزة','custom','custom',false,['2:1'])->required(fn($get)=>$get('is_special'))
+                        ])
                     ])
                 ])
             ]);
@@ -94,15 +100,16 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('email')->label('البريد الإلكتروني')->toggleable(isToggledHiddenByDefault: false)->searchable(),
                 Tables\Columns\TextColumn::make('seller_name')->label('اسم المتجر')->toggleable(isToggledHiddenByDefault: false)->searchable(),
                 Tables\Columns\TextColumn::make('products_count')->label('عدد المنتجات')->toggleable(isToggledHiddenByDefault: false),
-                Tables\Columns\TextColumn::make('email_verified_at')->label('حالة التأكيد')->formatStateUsing(fn($state) => HelpersEnum::getEmailVerified($state))
+                Tables\Columns\TextColumn::make('is_verified_email')->label('حالة التأكيد')->formatStateUsing(fn($state) => HelpersEnum::getEmailVerified($state,'label'))
                     ->icon(fn($state) => HelpersEnum::getEmailVerified($state, 'icon'))
                     ->color(fn($state) => HelpersEnum::getEmailVerified($state, 'color'))
-                    ->toggleable(isToggledHiddenByDefault: true)->searchable(),
+                    ->toggleable(isToggledHiddenByDefault: true),
 
                 Tables\Columns\TextColumn::make('level_seller')->label('نوع الإشتراك')
                     ->formatStateUsing(fn($state) => LevelSellerEnum::tryFrom($state)->getLabel())
                     ->color(fn($state) => LevelSellerEnum::tryFrom($state)->getColor())
                     ->toggleable(isToggledHiddenByDefault: true)->searchable(),
+
                 Tables\Columns\TextColumn::make('created_at')->date('Y-m-d')->label('تاريخ التسجيل')->toggleable(isToggledHiddenByDefault: false)->sortable(),
             ])
             ->filters([

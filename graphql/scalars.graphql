@@ -1,2 +1,4 @@
 scalar CustomDate @scalar(class: "App\\GraphQL\\Scalars\\CustomDate")
 scalar HumanDate @scalar(class: "App\\GraphQL\\Scalars\\HumanDate")
+scalar Upload
+@scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Upload")

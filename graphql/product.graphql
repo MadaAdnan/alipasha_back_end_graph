@@ -1,9 +1,7 @@
-scalar Upload
-@scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Upload")
-
 extend type Query{
-    products(type:String ,city_id:Int ,user_id:Int ,category_id:Int ,sub1_id:Int,serach:String,first:Int,page:Int):[Product] @field(resolver: "App\\GraphQL\\Queries\\Products@__invoke")  #@paginate(builder:"App\\GraphQL\\Queries\\Products")
+    products(type:String ,city_id:Int ,user_id:Int ,category_id:Int ,sub1_id:Int,serach:String,first:Int,page:Int):[Product] @paginate(builder:"App\\GraphQL\\Queries\\Products")
     product(id:ID!) : Product @field(resolver: "App\\GraphQL\\Queries\\Product@__invoke")
+    tags(type:String!):[String]
 }
 
 type Product{
@@ -39,14 +37,14 @@ type Product{
     end_date:String
     code:String
     type:String,
-
+    views_count:Int
 
     # Files From Media
-    main:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getMain")
     image:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImage")
     video:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getVideo")
     images:[String] @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImages")
     docs:[String] @field(resolver: "App\\GraphQL\\Resolvers\\Image@getDocs")
+    liistOfImages:[DataImage] @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImagesWithId")
     liistOfDocs:[DataImage] @field(resolver: "App\\GraphQL\\Resolvers\\Image@getDocsWithId")
     created_at:CustomDate
 
@@ -61,7 +59,16 @@ extend type Mutation {
     createProduct(input:CreateProductInput) : Product @guard
 
     updateProduct(id:ID! ,input:updateProductInput) : Product @guard
-
+    addSpecialProduct(id:ID!,level:String! @rules(apply:["required","in:normal,special"],messages:[
+        {
+            rule:"required",
+            message:"حقل الرتبة مطلوب"
+        }
+        {
+            rule:"in",
+            message:"القيم المتاحة فقط [normal,special]"
+        }
+    ])):Product @guard
     #    deleteProduct(id:ID!) : Boolean @delete
 
     #    deletProductMedia(id:ID!) : Boolean @delete

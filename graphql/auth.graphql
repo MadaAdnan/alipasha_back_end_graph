@@ -1,7 +1,54 @@
 extend type Mutation{
-    login(email:String!,password:String!): String!
+    login(email:String!,password:String!,device_token:String): UserWithToken!
+    createUser(input:CreateUserInput) : UserWithToken
+}
+type UserWithToken{
+    user:User
+    token:String!
 }
 
 extend type Query{
     me:User @auth
+}
+
+input CreateUserInput{
+    name:String! @rules(apply:["required","min:3"],messages:[
+        {
+            rule:"required"
+            message:"الاسم مطلوب"
+        }
+        {
+            rule:"min"
+            message:"يجب ان يحوي الاسم 3 أحرف على الأقل"
+        }
+    ])
+    email:String!  @rules(apply:["required","email","unique:users,email"],messages:[
+        {
+            rule:"required"
+            message:"البريد الإلكتروني مطلوب"
+        }
+        {
+            rule:"email"
+            message:"يرجى إدخال بريد إلكتروني صالح"
+        }
+        {
+            rule:"unique"
+            message:"البريد الإلكتروني مستخدم من قبل"
+        }
+    ])
+    password:String! @rules(apply:["required","min:8"],messages:[
+        {
+            rule:"required"
+            message:"كلمة المرور مطلوبة"
+        }
+        {
+            rule:"min"
+            message:"يجب ان تحوي كلمة المرور 8 أحرف على الأقل"
+        }
+    ])
+    phone:String
+    city_id:Int
+    device_token:String
+
+
 }

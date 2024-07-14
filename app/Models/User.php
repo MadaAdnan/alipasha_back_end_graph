@@ -8,6 +8,7 @@ use App\Enums\LevelUserEnum;
 use App\Traits\MediaTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -64,7 +65,17 @@ class User extends Authenticatable implements HasMedia
 
     public function plans(): BelongsToMany
     {
-        return $this->belongsToMany(Plan::class)->withPivot(['expired_date','subscription_date']);
+        return $this->belongsToMany(Plan::class)->withPivot(['expired_date', 'subscription_date']);
+    }
+
+    public function getIsVerifiedEmailAttribute()
+    {
+        return is_null($this->email_verified_at) ? 'not' : $this->email_verified_at;
+    }
+
+    public function city(): BelongsTo
+    {
+        return $this->belongsTo(City::class);
     }
 
 }

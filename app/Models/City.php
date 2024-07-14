@@ -6,6 +6,7 @@ use App\Traits\MediaTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\MediaLibrary\HasMedia;
 
 class City extends Model implements HasMedia
@@ -16,6 +17,11 @@ class City extends Model implements HasMedia
 
     public function city(): BelongsTo
     {
-        return $this->belongsTo(City::class);
+        return $this->belongsTo(__CLASS__);
+    }
+
+    public function children(): HasMany
+    {
+        return $this->hasMany(__CLASS__);
     }
 }

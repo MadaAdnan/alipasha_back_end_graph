@@ -35,6 +35,7 @@ class CategoryResource extends Resource
                     HelperMedia::getFileUpload(),
                     Forms\Components\TextInput::make('name')->label('اسم القسم'),
                     Forms\Components\Toggle::make('is_main')->label('قسم رئيسي')->live(),
+                    Forms\Components\Toggle::make('is_active')->label('حالة القسم '),
                     Forms\Components\Select::make('parents')->relationship('parents', 'name')->preload()->multiple()->label('ضمن الأقسام')->visible(fn($get) => !$get('is_main')),
                     Forms\Components\Select::make('type')->options([
                         CategoryTypeEnum::PRODUCT->value => CategoryTypeEnum::PRODUCT->getLabel(),

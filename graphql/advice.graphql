@@ -6,14 +6,16 @@ extend type Query{
 
 type Advice{
     id:ID!
+    name:String
     url:String
     image:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImage")
+    user:User @belongsTo
 }
 
 extend type Mutation{
     createAdvice(input:CreateAdviceInput):Advice @guard
     updateAdvice(id:ID!,input:CreateAdviceInput):Advice @guard
-    deleteAdvice(id:ID!):Advice @guard @delete
+    deleteAdvice(id:ID!):Advice @guard
 }
 input CreateAdviceInput{
     name:String! @rules(apply:["required"],messages:[
@@ -65,7 +67,7 @@ input CreateAdviceInput{
             message:"يرجى إدخال تصنيف صالح"
         }
     ])
-    image:Upload! @rules(apply:["required","image"],messages:[
+    image:Upload @rules(apply:["nullable","image"],messages:[
         {
             rule:"required",
             message:"يرجى إدخال الصورة"

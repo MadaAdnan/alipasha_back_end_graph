@@ -1,6 +1,7 @@
 extend type Mutation{
     createService(input:CreateServiceInput):Product @guard
     updateService(id:ID!,input:CreateServiceInput):Product @guard
+    deleteService(id:ID!) : Product @guard
 }
 
 input CreateServiceInput{

@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Enums\CategoryTypeEnum;
+use App\Enums\LevelProductEnum;
 use App\Enums\ProductActiveEnum;
 use App\Filament\Resources\ProductResource\Pages;
 use App\Filament\Resources\ProductResource\RelationManagers;
@@ -119,11 +120,18 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('user.name')->label('المتجر')->url(fn($record) => UserResource::getUrl('edit', ['record' => $record->user_id]))->searchable(),
                 Tables\Columns\TextColumn::make('views_count')->label('عدد المشاهدات'),
                 Tables\Columns\TextColumn::make('active')->formatStateUsing(fn($state) => ProductActiveEnum::tryFrom($state)?->getLabel())->color(fn($state) => ProductActiveEnum::tryFrom($state)?->getColor())->icon(fn($state) => ProductActiveEnum::tryFrom($state)?->getIcon())->label('الحالة'),
+                Tables\Columns\TextColumn::make('level')->formatStateUsing(fn($state) => LevelProductEnum::tryFrom($state)?->getLabel())->color(fn($state) => LevelProductEnum::tryFrom($state)?->getColor())->icon(fn($state) => LevelProductEnum::tryFrom($state)?->getIcon())->label('تمييز المنتج'),
                 Tables\Columns\TextColumn::make('created_at')->since()->label('أضيف منذ'),
 
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('user_id')->options(User::seller()->pluck('seller_name', 'id'))->label('المتجر')->searchable(),
+                Tables\Filters\Filter::make('level')->form([
+                    Forms\Components\Select::make('level')->options([
+                        LevelProductEnum::NORMAL->value => LevelProductEnum::NORMAL->getLabel(),
+                        LevelProductEnum::SPECIAL->value => LevelProductEnum::SPECIAL->getLabel(),
+                    ])->label('نوع المنتج')
+                ])->query(fn($query, $data) => $query->when($data['level'] != null, fn($q) => $q->where('level', $data['level'])))
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

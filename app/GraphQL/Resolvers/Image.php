@@ -4,6 +4,7 @@ namespace App\GraphQL\Resolvers;
 
 use App\Enums\CategoryTypeEnum;
 use App\Models\Product;
+use Illuminate\Database\Eloquent\Model;
 
 final class Image
 {
@@ -15,7 +16,7 @@ final class Image
      */
     public static function getMain($root): string
     {
-        return $root->getFirstMediaUrl('image', 'webp');
+        return $root->getFirstMediaUrl('image', 'webp') ?? asset('images/noImage.jpeg');
     }
 
     /**
@@ -27,6 +28,7 @@ final class Image
     {
         return $root->getFirstMediaUrl('video');
     }
+
     /**
      * @param $root
      * @return string
@@ -34,8 +36,26 @@ final class Image
      */
     public static function getImage($root): string
     {
-        return $root->getFirstMediaUrl('image', 'webp');
+        if($root->hasMedia('image')){
+
+            return $root->getFirstMediaUrl('image', 'webp') ;
+        }
+        return  url('/').asset('images/noImage.jpeg');
     }
+
+    /**
+     * @param $root
+     * @return string
+     * Get Single IMage from logo collection
+     */
+    public static function getLogo($root): string
+    {
+        if($root->hasMedia('logo')){
+            return $root->getFirstMediaUrl('logo', 'webp') ;
+        }
+       return  url('/').asset('images/noImage.jpeg');
+    }
+
 
     /**
      * @param $root
@@ -49,6 +69,7 @@ final class Image
             return $media->getUrl('webp');
         })->toArray();
     }
+
     /**
      * @param $root
      * @return array
@@ -63,6 +84,7 @@ final class Image
 
         return $list;
     }
+
     /**
      * @param $root
      * @return array

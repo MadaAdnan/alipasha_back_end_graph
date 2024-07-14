@@ -4,9 +4,9 @@ namespace App\Enums;
 
 enum ProductActiveEnum: string
 {
-    case PENDING = 'product';
-    case ACTIVE = 'job';
-    case BLOCK = 'search_job';
+    case PENDING = 'pending';
+    case ACTIVE = 'active';
+    case BLOCK = 'block';
 
 
 

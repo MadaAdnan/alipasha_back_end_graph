@@ -1,5 +1,6 @@
 extend type Query{
     categories:[Category] @all
+    mainCategories:[Category]
     category(id:ID! @eq): Category @find
 }
 

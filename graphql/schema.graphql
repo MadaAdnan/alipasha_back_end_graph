@@ -1,23 +1,26 @@
-
-
-
-
-
 #import scalars.graphql
-#import user.graphql
-#import product.graphql
 #import category.graphql
-#import color.graphql
 #import city.graphql
+#import color.graphql
 #import plan.graphql
 #import advice.graphql
 #import slider.graphql
 #import question.graphql
+
+
 #import coupon.graphql
 #import comment.graphql
+#import product.graphql
 #import job.graphql
 #import tender.graphql
+
+
 #import service.graphql
 
-
+#import user.graphql
 #import auth.graphql
+
+
+
+
+

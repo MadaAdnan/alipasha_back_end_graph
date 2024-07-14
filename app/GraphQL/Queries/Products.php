@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Queries;
 
+use App\Enums\ProductActiveEnum;
 use App\Models\Product;
 use App\Models\ProductView;
 use Carbon\Carbon;
@@ -14,15 +15,15 @@ final class Products
      */
     public function __invoke($_, array $args)
     {
-        $products = Product::query()
+        $products = Product::query()->where('active',ProductActiveEnum::ACTIVE->value)
             ->when(isset($args['type']), fn($query) => $query->where('type', $args['type']))
             ->when(isset($args['category_id']), fn($query) => $query->where('category_id', $args['category_id']))
             ->when(isset($args['sub1_id']), fn($query) => $query->where('sub1_id', $args['sub1_id']))
             ->when(isset($args['city_id']), fn($query) => $query->where('city_id', $args['city_id']))
             ->when(isset($args['user_id']), fn($query) => $query->where('user_id', $args['user_id']))
-            ->when(isset($args['search']), fn($query) => $query->search($args['search']))->latest()->paginate($args['first'] ?? 15, ['*'], 'page', $args['page'] ?? 1);
+            ->when(isset($args['search']), fn($query) => $query->search($args['search']))->latest();
 
-        $ids = $products->pluck('id')->toArray();
+        $ids = $products->paginate($args['first'] ?? 15, ['*'], 'page', $args['page'] ?? 1)->pluck('id')->toArray();
         $today = today();
           \DB::transaction(function() use ($ids,$today) {
 

@@ -4,27 +4,32 @@ namespace App\Helpers;
 
 class HelpersEnum
 {
-    public static function getEmailVerified($verfied = null, $type = 'label')
+    public static function getEmailVerified($verfied = '', $type = 'label')
     {
+        $data=null;
         switch ($type) {
             case 'label':
-                return match ($verfied) {
-                    null => 'غير مؤكد',
+                $data= match ($verfied) {
+                    'not' => 'غير مؤكد',
                     default => 'مؤكد'
                 };
                 break;
             case 'icon':
-                return match ($verfied) {
-                    null => 'fas-circle-xmark',
+                $data =match ($verfied) {
+                    'not' => 'fas-circle-xmark',
                     default => 'fas-check'
                 };
                 break;
             case 'color':
-                return match ($verfied) {
-                    null => 'danger',
+                $data= match ($verfied) {
+                    'not' => 'danger',
                     default => 'success'
                 };
                 break;
         }
+        if($verfied==='test'){
+          //  dd($data);
+        }
+        return $data;
     }
 }

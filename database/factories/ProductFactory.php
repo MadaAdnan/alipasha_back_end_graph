@@ -32,6 +32,8 @@ class ProductFactory extends Factory
             'type' =>$category->type,
             'sub1_id' => $category->children?->first()?->id,
             'user_id' =>User::inRandomOrder()->first()?->id,
+            'city_id' => fake()->randomElement([1,2,3]),
+            'active' => fake()->randomElement(['active','pending','block'])
         ];
     }
 }

@@ -21,11 +21,11 @@ final class UpdateAdvice
             throw new \Exception('الإعلان غير موجود');
         }
         $advice->update([
-            'name' => $data['name'] ?? null,
-            'url' => $data['url'] ?? null,
-            'city_id' => $data['city_id'] ?? null,
-            'category_id' => $data['category_id'] ?? null,
-            'sub1_id' => $data['sub1_id'] ?? null,
+            'name' => $data['name'] ?? $advice->name,
+            'url' => $data['url'] ?? $advice->url,
+            'city_id' => $data['city_id'] ?? $advice->city_id,
+            'category_id' => $data['category_id'] ?? $advice->category_id,
+            'sub1_id' => $data['sub1_id'] ?? $advice->sub1_id,
 
         ]);
 
