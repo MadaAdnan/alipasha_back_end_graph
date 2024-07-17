@@ -42,6 +42,19 @@ final class Image
         }
         return  url('/').asset('images/noImage.jpeg');
     }
+    /**
+     * @param $root
+     * @return string
+     * Get Single IMage from image collection
+     */
+    public static function getCustomImage($root): string
+    {
+        if($root->hasMedia('custom')){
+
+            return $root->getFirstMediaUrl('custom', 'webp') ;
+        }
+        return  url('/').asset('images/noImage.jpeg');
+    }
 
     /**
      * @param $root

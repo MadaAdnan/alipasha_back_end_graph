@@ -33,8 +33,7 @@ return new class extends Migration {
             $table->string('email')->nullable();
             $table->string('address')->nullable();
             $table->string('url')->nullable();
-            $table->string('longitude')->nullable();
-            $table->string('latitude')->nullable();
+
             $table->string('price')->nullable();
             $table->string('discount')->nullable();
             $table->string('start_date')->nullable();

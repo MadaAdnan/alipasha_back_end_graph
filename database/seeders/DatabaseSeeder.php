@@ -17,113 +17,106 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-      $city=  City::create([
-            'name'=>'إدلب',
-            'is_active'=>true,
-            'is_delivery'=>true,
-            'is_main'=>true,
+        $city = City::create([
+            'name' => 'إدلب',
+            'is_active' => true,
+            'is_delivery' => true,
+            'is_main' => true,
         ]);
-       $city->children()->create([
-           'name'=>'سرمدا',
-           'is_active'=>true,
-           'is_delivery'=>true,
-       ]);
         $city->children()->create([
-            'name'=>'الدانا',
-            'is_active'=>true,
-            'is_delivery'=>true,
+            'name' => 'سرمدا',
+            'is_active' => true,
+            'is_delivery' => true,
         ]);
-         /*\App\Models\Category::factory(10)->create();*/
-        Category::create([
-            'name'=>'مركبات',
-            'is_main'=>true,
-            'has_color'=>true,
-            'type'=>CategoryTypeEnum::PRODUCT->value,
-        ])->parents()->insert([
-          [
-              'name'=>'سيارات',
-              'is_main'=>false,
-              'has_color'=>false,
-              'created_at'=>now(),
-              'updated_at'=>now(),
-          ],
-            [
-                'name'=>'متورات',
-                'is_main'=>false,
-                'has_color'=>false,
-                'created_at'=>now(),
-                'updated_at'=>now(),
-            ]
+        $city->children()->create([
+            'name' => 'الدانا',
+            'is_active' => true,
+            'is_delivery' => true,
+        ]);
+        /*\App\Models\Category::factory(10)->create();*/
+        $categoryProduct = Category::create([
+            'name' => 'مركبات',
+            'is_main' => true,
+            'has_color' => true,
+            'type' => CategoryTypeEnum::PRODUCT->value,
         ]);
 
-        Category::create([
-            'name'=>'أخبار',
-            'is_main'=>true,
-            'has_color'=>false,
-            'type'=>CategoryTypeEnum::NEWS->value,
-        ])->parents()->insert([
-            [
-                'name'=>'تقني',
-                'is_main'=>false,
-                'has_color'=>false,
-                'created_at'=>now(),
-                'updated_at'=>now(),
-            ],
-            [
-                'name'=>'رياضة',
-                'is_main'=>false,
-                'has_color'=>false,
-                'created_at'=>now(),
-                'updated_at'=>now(),
-            ]
+        $categoryProduct->children()->create([
+            'name' => 'متورات',
+            'is_main' => false,
+            'has_color' => false,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
-        Category::create([
-            'name'=>'وظائف',
-            'is_main'=>true,
-            'has_color'=>false,
-            'type'=>CategoryTypeEnum::JOB->value,
-        ])->parents()->insert([
-            [
-                'name'=>'أعمال حرة',
-                'is_main'=>false,
-                'has_color'=>false,
-                'created_at'=>now(),
-                'updated_at'=>now(),
-            ],
-            [
-                'name'=>'وظائف مكتبية',
-                'is_main'=>false,
-                'has_color'=>false,
-                'created_at'=>now(),
-                'updated_at'=>now(),
-            ]
+        $categoryNews = Category::create([
+            'name' => 'أخبار',
+            'is_main' => true,
+            'has_color' => false,
+            'type' => CategoryTypeEnum::NEWS->value,
+        ]);
+        $categoryNews->children()->create([
+            'name' => 'تقني',
+            'is_main' => false,
+            'has_color' => false,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        $categoryNews->children()->create([
+
+            'name' => 'رياضة',
+            'is_main' => false,
+            'has_color' => false,
+            'created_at' => now(),
+            'updated_at' => now(),
+
+        ]);
+        $categoryJob = Category::create([
+            'name' => 'وظائف',
+            'is_main' => true,
+            'has_color' => false,
+            'type' => CategoryTypeEnum::JOB->value,
+        ]);
+        $categoryJob->children()->create([
+
+            'name' => 'أعمال حرة',
+            'is_main' => false,
+            'has_color' => false,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        $categoryJob->children()->create([
+            'name' => 'وظائف مكتبية',
+            'is_main' => false,
+            'has_color' => false,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
         $this->call(UserSeeder::class);
-         \App\Models\User::factory(100)->create();
-         \App\Models\Product::factory(100)->create();
-         Color::create([
-             'name'=>'أحمر',
-             'code'=>'#FF0000',
-         ]);
+        \App\Models\User::factory(100)->create();
+        \App\Models\Product::factory(100)->create();
         Color::create([
-            'name'=>'أسود',
-            'code'=>'#000000',
+            'name' => 'أحمر',
+            'code' => '#FF0000',
         ]);
         Color::create([
-            'name'=>'أبيض',
-            'code'=>'#FFFFFF',
+            'name' => 'أسود',
+            'code' => '#000000',
         ]);
         Color::create([
-            'name'=>'أخضر',
-            'code'=>'#00FF00',
+            'name' => 'أبيض',
+            'code' => '#FFFFFF',
         ]);
         Color::create([
-            'name'=>'أزرق',
-            'code'=>'#0000FF',
+            'name' => 'أخضر',
+            'code' => '#00FF00',
         ]);
         Color::create([
-            'name'=>'برتقالي',
-            'code'=>'#FFFF00',
+            'name' => 'أزرق',
+            'code' => '#0000FF',
+        ]);
+        Color::create([
+            'name' => 'برتقالي',
+            'code' => '#FFFF00',
         ]);
 
 

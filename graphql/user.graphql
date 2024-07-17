@@ -1,6 +1,8 @@
 extend type Query{
     users: [User] @paginate
     user (id: ID @eq): User @find
+    specialSeller: [User]
+
 
 }
 
@@ -14,6 +16,7 @@ type User{
     phone:String
     address:String
     image:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImage")
+    custom:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getCustomImage")
     logo:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getLogo")
     email_verified_at:String
     open_time:String

@@ -45,6 +45,7 @@ class CategoryResource extends Resource
                         CategoryTypeEnum::SERVICE->value => CategoryTypeEnum::SERVICE->getLabel(),
                         CategoryTypeEnum::TENDER->value => CategoryTypeEnum::TENDER->getLabel(),
                     ])->label('نوع القسم')->visible(fn($get) => $get('is_main')),
+                    Forms\Components\ColorPicker::make('color')->visible(fn($get) => $get('is_main'))->label('لون القسم'),
 
                 ])
             ]);
@@ -61,7 +62,8 @@ class CategoryResource extends Resource
                 Tables\Columns\TextColumn::make('type')->formatStateUsing(fn($state)=>CategoryTypeEnum::tryFrom($state)?->getLabel())->color(fn($state)=>CategoryTypeEnum::tryFrom($state)?->getColor())->label('اسم القسم'),
             ])->reorderable('sortable')
             ->filters([
-                Tables\Filters\SelectFilter::make('parents')->relationship('parents','name')->label('القسم الرئيسي')
+
+                Tables\Filters\SelectFilter::make('parents')->relationship('parents','name')->label('القسم الرئيسي'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

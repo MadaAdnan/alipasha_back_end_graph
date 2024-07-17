@@ -58,6 +58,10 @@ class ProductResource extends Resource
                         ProductActiveEnum::ACTIVE->value => ProductActiveEnum::ACTIVE->getLabel(),
                         ProductActiveEnum::BLOCK->value => ProductActiveEnum::BLOCK->getLabel(),
                     ])->label('حالة المنتج')->default(ProductActiveEnum::PENDING->value),
+                    Forms\Components\Radio::make('level')->options([
+                        LevelProductEnum::NORMAL->value =>  LevelProductEnum::NORMAL->getLabel(),
+                        LevelProductEnum::SPECIAL->value =>  LevelProductEnum::SPECIAL->getLabel(),
+                    ])->label('رتبة المنتج')->default( LevelProductEnum::NORMAL->value),
                     Forms\Components\Fieldset::make('التصنيف')->schema([
                         Forms\Components\Select::make('category_id')->options(Category::product()->pluck('name', 'id'))->label('يتبع القسم')->searchable()->live()->required(),
                         Forms\Components\Select::make('sub1_id')->options(fn($get) => Category::find($get('category_id'))?->children?->pluck('name', 'id'))->label('يتبع القسم')->searchable()->live(),

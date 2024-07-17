@@ -33,6 +33,8 @@ return new class extends Migration {
             $table->date('notify_date')->nullable();
             $table->boolean('is_seller')->nullable()->default(false);
 //  seller
+            $table->double('longitude')->nullable();
+            $table->double('latitude')->nullable();
             $table->string('seller_name')->nullable();
             $table->string('address')->nullable();
             $table->string('info')->nullable();
