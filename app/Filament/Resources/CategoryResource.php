@@ -11,6 +11,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -57,13 +58,24 @@ class CategoryResource extends Resource
             ->columns([
                 HelperMedia::getImageColumn(),
                 Tables\Columns\TextColumn::make('name')->label('اسم القسم')->searchable(),
-                Tables\Columns\TextColumn::make('products_count')->formatStateUsing(fn($record,$state)=>$state===0?$record->products2_count:$state)->label('عدد المنتجات')->sortable(),
+                Tables\Columns\TextColumn::make('products_count')->formatStateUsing(fn($record, $state) =>  ($record->products4_count > 0) ? $record->products4_count :
+                    (($record->products3_count > 0) ? $record->products3_count :
+                        (($record->products2_count > 0) ? $record->products2_count : $state)))->label('عدد المنتجات')->sortable(),
 
-                Tables\Columns\TextColumn::make('type')->formatStateUsing(fn($state)=>CategoryTypeEnum::tryFrom($state)?->getLabel())->color(fn($state)=>CategoryTypeEnum::tryFrom($state)?->getColor())->label('اسم القسم'),
+                Tables\Columns\TextColumn::make('type')->formatStateUsing(fn($state) => CategoryTypeEnum::tryFrom($state)?->getLabel())->color(fn($state) => CategoryTypeEnum::tryFrom($state)?->getColor())->label('اسم القسم'),
             ])->reorderable('sortable')
             ->filters([
-
-                Tables\Filters\SelectFilter::make('parents')->relationship('parents','name')->label('القسم الرئيسي'),
+                TernaryFilter::make('email_verified_at')
+                    ->label('الأقسام')
+                    ->placeholder('جميع الأقسام')
+                    ->trueLabel('الرئيسية فقط')
+                    ->falseLabel('الفرعية من الرئيسية فقط')
+                    ->queries(
+                        true: fn(Builder $query) => $query->whereDoesntHave('parents'),
+                        false: fn(Builder $query) => $query->whereHas('parents', fn($query) => $query->where('is_main', true)),
+                        blank: fn(Builder $query) => $query // In this example, we do not want to filter the query when it is blank.
+                    ),
+                Tables\Filters\SelectFilter::make('parents')->relationship('parents', 'name')->label('فلتر حسب القسم'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

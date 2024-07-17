@@ -49,6 +49,7 @@ input CreateUserInput{
     phone:String
     city_id:Int
     device_token:String
+    affiliate:String
 
 
 }

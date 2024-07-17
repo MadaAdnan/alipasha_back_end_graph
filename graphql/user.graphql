@@ -93,6 +93,8 @@ input CreateSellerInput{
 }
 
 
+
+
 input UpdateUserInput{
     name:String! @rules(apply:["required","min:3"],messages:[
         {
@@ -128,16 +130,31 @@ input UpdateUserInput{
             message:"يجب ان تحوي كلمة المرور 8 أحرف على الأقل"
         }
     ])
+
+    phone:String
+    city_id:Int
+    seller_name:String
+    address:String
+    is_delivery:Boolean
+    close_time:String
+    open_time:String
+    info:String
+    device_token:String
+    latitude:Float
+    longitude:Float
+
     image:Upload @rules(apply:["nullable","image"],messages:[
         {
             rule:"image"
             message:"صيغة الملف غير مدعومة"
         }
     ])
-    phone:String
-    city_id:Int
-    device_token:String
-
+    logo:Upload @rules(apply:["nullable","image"],messages:[
+        {
+            rule:"image"
+            message:"صيغة الملف غير مدعومة"
+        }
+    ])
 
 
 }

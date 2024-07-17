@@ -23,16 +23,35 @@ final class UpdateUser
             throw new \Exception('البريد مستخدم من قبل');
         }
         $user->update([
-            'name' => $data['name'] ?? null,
-            'email' => $data['email'] ?? null,
+            'name' => $data['name'] ?? $user->name,
+            'email' => $data['email'] ?? $user->email,
             'password' => $data['password'] ?? $user->password,
-            'phone' => $data['phone'] ?? null,
-            'city_id' => $data['city_id'] ?? null,
+            'phone' => $data['phone'] ?? $user->phone,
+            'city_id' => $data['city_id'] ?? $user->city_id,
+            'seller_name'=>$data['seller_name']??$user->seller_name,
+            'address'=>$data['address']??$user->address,
+            'is_delivery'=>$data['is_delivery']??$user->is_delivery,
+            'close_time'=>$data['close_time']??$user->close_time,
+            'open_time'=>$data['open_time']??$user->open_time,
+            'info'=>$data['info']??$user->info,
+            'device_token'=>$data['device_token']??$user->device_token,
+            'longitude'=>$data['longitude']??$user->longitude,
+            'latitude'=>$data['latitude']??$user->latitude,
         ]);
 
         if (isset($data['image']) && $data['image'] != null) {
+            try {
             $user->clearMediaCollection('image');
             $user->addMedia($data['image'])->toMediaCollection('image');
+             }catch (\Exception |\Error $e){}
+        }
+
+        if (isset($data['logo']) && $data['logo'] != null) {
+            try {
+                $user->clearMediaCollection('logo');
+                $user->addMedia($data['logo'])->toMediaCollection('image');
+            }catch (\Exception |\Error $e){}
+
         }
 
         return $user;
