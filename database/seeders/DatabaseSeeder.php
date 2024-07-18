@@ -39,6 +39,7 @@ class DatabaseSeeder extends Seeder
             'is_main' => true,
             'has_color' => true,
             'type' => CategoryTypeEnum::PRODUCT->value,
+            'is_active'=>1,
         ]);
 
         $categoryProduct->children()->create([
@@ -47,12 +48,14 @@ class DatabaseSeeder extends Seeder
             'has_color' => false,
             'created_at' => now(),
             'updated_at' => now(),
+            'is_active'=>1,
         ]);
         $categoryNews = Category::create([
             'name' => 'أخبار',
             'is_main' => true,
             'has_color' => false,
             'type' => CategoryTypeEnum::NEWS->value,
+            'is_active'=>1,
         ]);
         $categoryNews->children()->create([
             'name' => 'تقني',
@@ -60,6 +63,7 @@ class DatabaseSeeder extends Seeder
             'has_color' => false,
             'created_at' => now(),
             'updated_at' => now(),
+            'is_active'=>1,
         ]);
         $categoryNews->children()->create([
 
@@ -68,6 +72,7 @@ class DatabaseSeeder extends Seeder
             'has_color' => false,
             'created_at' => now(),
             'updated_at' => now(),
+            'is_active'=>1,
 
         ]);
         $categoryJob = Category::create([
@@ -75,6 +80,7 @@ class DatabaseSeeder extends Seeder
             'is_main' => true,
             'has_color' => false,
             'type' => CategoryTypeEnum::JOB->value,
+            'is_active'=>1,
         ]);
         $categoryJob->children()->create([
 
@@ -83,6 +89,7 @@ class DatabaseSeeder extends Seeder
             'has_color' => false,
             'created_at' => now(),
             'updated_at' => now(),
+            'is_active'=>1,
         ]);
         $categoryJob->children()->create([
             'name' => 'وظائف مكتبية',
@@ -90,6 +97,7 @@ class DatabaseSeeder extends Seeder
             'has_color' => false,
             'created_at' => now(),
             'updated_at' => now(),
+            'is_active'=>1,
         ]);
         $this->call(UserSeeder::class);
         \App\Models\User::factory(100)->create();
