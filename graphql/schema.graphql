@@ -20,7 +20,7 @@
 #import user.graphql
 #import auth.graphql
 
-
+#import attribute.graphql
 
 
 
