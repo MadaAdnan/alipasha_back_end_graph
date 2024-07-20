@@ -1,5 +1,5 @@
 type Query{
-    attributes:[Attribute]
+    attributes(category_id:Int!):[Attribute]
 }
 
 type Attribute{
