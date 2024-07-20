@@ -1,0 +1,9 @@
+type Query{
+    attributes:[Attribute]
+}
+
+type Attribute{
+    id:ID!
+    name:String!
+    attributes:[Attribute] @hasMany
+}
