@@ -139,7 +139,7 @@ class ProductResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make()->mutateFormDataUsing(function ($data) {
-                    $data['expert'] = \Str::words($data['info'], 10);
+                    $data['expert'] = \Str::words(html_entity_decode($data['info']), 10);
                     return $data;
                 }),
                 Tables\Actions\DeleteAction::make(),
