@@ -23,9 +23,25 @@ final class Products
             ->when(isset($args['city_id']), fn($query) => $query->where('city_id', $args['city_id']))
             ->when(isset($args['user_id']), fn($query) => $query->where('user_id', $args['user_id']))
             ->when(isset($args['search']) && !empty($args['search']), fn($query) => $query->where(function ($query)use($args){
-                $query->where('name','Like',"%{$args['search']}%");
+              /*  $query->where('name','Like',"%{$args['search']}%");
                 $query->orWhere('expert','Like',"%{$args['search']}%");
-                $query->orWhere('info','Like',"%{$args['search']}%");
+                $query->orWhere('info','Like',"%{$args['search']}%");*/
+                /**
+                 * @var $searchTerms array<string>
+                 */
+                $searchTerms = explode(' ', $args['search']); // تحويل البحث إلى مصفوفة كلمات
+                /**
+                 * @var $term string
+                 */
+                $term ='';
+                foreach ($searchTerms as $term) {
+                    $query->orWhere(function ($query) use ($term) {
+                        $query->where('name', 'LIKE', "%$term%")
+                            ->orWhere('expert', 'LIKE', "%$term%")
+                            ->orWhere('info', 'LIKE', "%$term%");
+                    });
+                }
+
             }))
             ->inRandomOrder()
             ->orderBy('level')->orderBy('created_at');
