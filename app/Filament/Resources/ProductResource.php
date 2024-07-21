@@ -59,9 +59,9 @@ class ProductResource extends Resource
                         ProductActiveEnum::BLOCK->value => ProductActiveEnum::BLOCK->getLabel(),
                     ])->label('حالة المنتج')->default(ProductActiveEnum::PENDING->value),
                     Forms\Components\Radio::make('level')->options([
-                        LevelProductEnum::NORMAL->value =>  LevelProductEnum::NORMAL->getLabel(),
-                        LevelProductEnum::SPECIAL->value =>  LevelProductEnum::SPECIAL->getLabel(),
-                    ])->label('رتبة المنتج')->default( LevelProductEnum::NORMAL->value),
+                        LevelProductEnum::NORMAL->value => LevelProductEnum::NORMAL->getLabel(),
+                        LevelProductEnum::SPECIAL->value => LevelProductEnum::SPECIAL->getLabel(),
+                    ])->label('رتبة المنتج')->default(LevelProductEnum::NORMAL->value),
                     Forms\Components\Fieldset::make('التصنيف')->schema([
                         Forms\Components\Select::make('category_id')->options(Category::product()->pluck('name', 'id'))->label('يتبع القسم')->searchable()->live()->required(),
                         Forms\Components\Select::make('sub1_id')->options(fn($get) => Category::find($get('category_id'))?->children?->pluck('name', 'id'))->label('يتبع القسم')->searchable()->live(),
@@ -138,7 +138,10 @@ class ProductResource extends Resource
                 ])->query(fn($query, $data) => $query->when($data['level'] != null, fn($q) => $q->where('level', $data['level'])))
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()->mutateFormDataUsing(function ($data) {
+                    $data['expert'] = \Str::words($data['info'], 10);
+                    return $data;
+                }),
                 Tables\Actions\DeleteAction::make(),
                 Tables\Actions\RestoreAction::make(),
             ])
