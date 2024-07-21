@@ -24,8 +24,8 @@ final class Products
             ->when(isset($args['user_id']), fn($query) => $query->where('user_id', $args['user_id']))
             ->when(isset($args['search']) && !empty($args['search']), fn($query) => $query->where(function ($query)use($args){
                 $query->where('name','Like',"%{$args['search']}%");
-                $query->orWhhere('expert','Like',"%{$args['search']}%");
-                $query->orWhhere('info','Like',"%{$args['search']}%");
+                $query->orWhere('expert','Like',"%{$args['search']}%");
+                $query->orWhere('info','Like',"%{$args['search']}%");
             }))
             ->inRandomOrder()
             ->orderBy('level')->orderBy('created_at');
