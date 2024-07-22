@@ -9,9 +9,10 @@ class PointObserve
     /**
      * Handle the Point "created" event.
      */
-    public function created(Point $point): void
+    public function creating(Point $balance): void
     {
-        //
+        $total = \DB::table('points')->where('user_id', $balance->user_id)->selectRaw('SUM(credit)-SUM(debit) as total')->first()->total;
+        $balance->total = ($total ?? 0) + ($balance->credit??0) - ($balance->debit ?? 0);
     }
 
     /**

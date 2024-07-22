@@ -11,8 +11,8 @@ class BalanceObserve
      */
     public function creating(Balance $balance): void
     {
-        $total = \DB::table('balances')->where('user_id', $balance->user_id)->selectRaw('SUM(credit)-SUM(debit) as total')->first();
-        $balance->total = $total ?? 0;
+        $total = \DB::table('balances')->where('user_id', $balance->user_id)->selectRaw('SUM(credit)-SUM(debit) as total')->first()->total;
+        $balance->total = ($total ?? 0) + ($balance->credit??0) - ($balance->debit ?? 0);
     }
 
     /**
