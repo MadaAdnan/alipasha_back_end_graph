@@ -12,8 +12,6 @@ final class Advices
      */
     public function __invoke($_, array $args)
     {
-
-
         $advices = Advice::
         when(isset($args['category_id']) && !empty($args['category_id']), fn($query) => $query->where('category_id', $args['category_id']))
             ->when(isset($args['user_id']) && !empty($args['user_id']), fn($query) => $query->where('user_id', $args['user_id']))

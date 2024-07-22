@@ -11,7 +11,8 @@ class AdviceView extends Model
     use HasFactory;
 
     protected $guarded = [];
-protected $table='advice_views';
+    protected $table = 'advice_views';
+
     public function advice(): BelongsTo
     {
         return $this->belongsTo(Advice::class);
