@@ -42,8 +42,10 @@ class SliderResource extends Resource
                         ProductActiveEnum::ACTIVE->value => ProductActiveEnum::ACTIVE->getLabel(),
                         ProductActiveEnum::BLOCK->value => ProductActiveEnum::BLOCK->getLabel(),
                     ])->label('حالة الإعلان')->inline()->default(ProductActiveEnum::ACTIVE->value),
-                    Forms\Components\Select::make('user_id')->options(User::whereNotNull('seller_name')->pluck('name', 'id'))->label('المتجر')->searchable(),
+                    Forms\Components\Select::make('user_id')->options(User::whereNotNull('seller_name')->pluck('seller_name', 'id'))->label('المتجر')->searchable()->live(),
                     Forms\Components\Select::make('category_id')->options(Category::where('is_main', true)->pluck('name', 'id'))->label('القسم')->live()->afterStateUpdated(fn($set) => $set('sub1_id', null))->searchable(),
+                    Forms\Components\DatePicker::make('expired_date')->label('تاريخ الإنتهاء')->required(fn($get)=>$get('user_id')!=null)->minDate(fn($context)=>$context=='create' ?now()->addDay():null),
+
                 ])
             ]);
     }
