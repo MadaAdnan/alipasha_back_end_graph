@@ -13,6 +13,9 @@ class Slider extends Model implements HasMedia
     use HasFactory, MediaTrait;
 
     protected $guarded = [];
+    protected $casts=[
+        'expired_date'=>'date',
+    ];
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

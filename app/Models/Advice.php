@@ -14,6 +14,10 @@ class Advice extends Model implements HasMedia
 
     protected $guarded = [];
 
+    protected $casts=[
+        'expired_date'=>'date',
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
