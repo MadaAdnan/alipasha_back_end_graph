@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('advice_views', function (Blueprint $table) {
             $table->id();
             $table->foreignId('advice_id')->constrained()->cascadeOnDelete();
-            $table->date('views_at')->nullable();
+            $table->date('view_at')->nullable();
             $table->integer('count')->default(0)->nullable();
             $table->timestamps();
         });
