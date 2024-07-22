@@ -9,6 +9,6 @@ type Balance{
     debit:Float
     total:Float
     info:String
-    created_at:String
+    created_at:CustomDate
     user:User @belongsTo
 }
