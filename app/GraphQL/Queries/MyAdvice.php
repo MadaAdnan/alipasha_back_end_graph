@@ -13,7 +13,7 @@ final class MyAdvice
      */
     public function __invoke($_, array $args)
     {
-        $advices = Advice::where('user_id', auth()->id())->get();
+        $advices = Advice::where('user_id', auth()->id())->latest('expired_date')->get();
         $sliderCount=Slider::where('user_id',auth()->id())->count();
         $viewsCount=$advices->sum('views_count');
         return [
