@@ -1,6 +1,7 @@
 extend type Query{
     products(type:String ,city_id:Int ,user_id:Int ,category_id:Int ,sub1_id:Int,search:String,first:Int,page:Int):[Product] @paginate(builder:"App\\GraphQL\\Queries\\Products")
     product(id:ID!) : Product @field(resolver: "App\\GraphQL\\Queries\\Product@__invoke")
+    myProducts(search:String):[Product] @paginate(builder:"App\\GraphQL\\Queries\MyProducts") @guard
     tags(type:String!):[String]
 }
 
