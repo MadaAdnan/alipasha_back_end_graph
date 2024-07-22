@@ -12,6 +12,16 @@ final class MyAdvice
      */
     public function __invoke($_, array $args)
     {
-        return Advice::where('user_id', auth()->id())->get();
+        $advices = Advice::where('user_id', auth()->id())->get();
+
+        return [
+            'advices' > $advices,
+            'advice_count' => $advices->count(),
+            'my_balance'=>190.5,
+            'my_point'=>100,
+            'my_wins'=>20.8,
+            'views'=>300,
+            'slider_count'=>3,
+        ];
     }
 }
