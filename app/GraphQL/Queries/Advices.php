@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Queries;
 
+use App\Enums\ProductActiveEnum;
 use App\Models\Advice;
 
 final class Advices
@@ -12,8 +13,9 @@ final class Advices
      */
     public function __invoke($_, array $args)
     {
-        $advices = Advice::
-        when(isset($args['category_id']) && !empty($args['category_id']), fn($query) => $query->where('category_id', $args['category_id']))
+        $advices = Advice::where('advices..status', ProductActiveEnum::ACTIVE->value)
+            ->where('expired_date', ">=", now())
+            ->when(isset($args['category_id']) && !empty($args['category_id']), fn($query) => $query->where('category_id', $args['category_id']))
             ->when(isset($args['user_id']) && !empty($args['user_id']), fn($query) => $query->where('user_id', $args['user_id']))
             ->when(isset($args['city_id']) && !empty($args['city_id']), fn($query) => $query->where('city_id', $args['city_id']))
             ->get();
