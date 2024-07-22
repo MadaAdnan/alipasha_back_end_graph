@@ -6,6 +6,7 @@ use App\Traits\MediaTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\MediaLibrary\HasMedia;
 
 class Advice extends Model implements HasMedia
@@ -14,9 +15,10 @@ class Advice extends Model implements HasMedia
 
     protected $guarded = [];
 
-    protected $casts=[
-        'expired_date'=>'date',
+    protected $casts = [
+        'expired_date' => 'date',
     ];
+
 
     public function user(): BelongsTo
     {
@@ -36,5 +38,15 @@ class Advice extends Model implements HasMedia
     public function city(): BelongsTo
     {
         return $this->belongsTo(City::class);
+    }
+
+    public function views(): HasMany
+    {
+        return $this->hasMany(AdviceView::class, 'advice_id');
+    }
+
+    public function getViewsCountAttribute(): int
+    {
+        return $this->views->sum('count');
     }
 }

@@ -1,5 +1,5 @@
 extend type Query{
-    advices(category_id:Int @eq,user_id:Int @eq,city_id:Int @eq):[Advice] @all
+    advices(category_id:Int,user_id:Int ,city_id:Int):[Advice]
     advice(id:ID!  @eq):Advice @find
     myAdvice :[Advice] @guard
 }
@@ -10,6 +10,7 @@ type Advice{
     name:String
     url:String
     expired_date: String
+    views_count:Int
     image:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImage")
     user:User @belongsTo
 }
