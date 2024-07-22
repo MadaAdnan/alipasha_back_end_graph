@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('city_id')->nullable()->constrained()->cascadeOnDelete();
             $table->foreignId('category_id')->nullable()->constrained()->cascadeOnDelete();
             $table->string('url')->nullable();
+            $table->date('expired_date')->nullable();
             $table->string('status')->nullable()->default('pending');
             $table->timestamps();
         });

@@ -9,6 +9,7 @@ type Advice{
     id:ID!
     name:String
     url:String
+    expired_date: String
     image:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImage")
     user:User @belongsTo
 }

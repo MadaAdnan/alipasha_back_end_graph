@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->foreignId('sub1_id')->nullable()->constrained('categories')->cascadeOnDelete();
             $table->string('name')->nullable();
             $table->string('url')->nullable();
+            $table->date('expired_date')->nullable();
             $table->string('status')->nullable()->default('pending');
             $table->timestamps();
         });
