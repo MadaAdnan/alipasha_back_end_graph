@@ -11,6 +11,6 @@ final class MyProducts
     public function __invoke($_, array $args)
     {
         return \App\Models\Product::where('user_id', auth()->id())
-            ->where(fn($query) => $query->where('name', 'LIKE', "%{$args['search']}%")->orWhere('expert', 'LIKE', "%{$args['search']}%"));
+           ->when(isset($args['search']) && !empty($args['search']),fn($query)=>$query ->where(fn($query) => $query->where('name', 'LIKE', "%{$args['search']}%")->orWhere('expert', 'LIKE', "%{$args['search']}%")));
     }
 }
