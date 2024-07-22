@@ -79,4 +79,29 @@ class User extends Authenticatable implements HasMedia
         return $this->belongsTo(City::class);
     }
 
+    public function followers(): HasMany
+    {
+        return $this->hasMany(UserFollow::class, 'user_id');
+    }
+
+    public function balances(): HasMany
+    {
+        return $this->hasMany(Balance::class);
+    }
+
+    public function points(): HasMany
+    {
+        return $this->hasMany(Balance::class);
+    }
+
+    public function getFollowMeAttribute(): int
+    {
+        return \DB::table('user_follow')->where('seller_id', $this->id)->count() ?? 0;
+    }
+
+    public function getFollowHimAttribute(): int
+    {
+        return \DB::table('user_follow')->where('user_id', $this->id)->count() ?? 0;
+    }
+
 }

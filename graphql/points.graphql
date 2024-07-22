@@ -1,0 +1,5 @@
+extend type Query{
+    points:[Balance] @paginate(builder:"App\\GraphQL\\Queries\\Points") @guard
+}
+
+

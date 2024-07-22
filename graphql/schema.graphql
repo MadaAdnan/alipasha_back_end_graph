@@ -18,6 +18,8 @@
 #import service.graphql
 
 #import user.graphql
+#import balance.graphql
+#import points.graphql
 #import auth.graphql
 
 #import attribute.graphql

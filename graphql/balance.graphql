@@ -1,0 +1,14 @@
+extend type Query{
+    balances:[Balance] @paginate(builder:"App\\GraphQL\\Queries\\Balances") @guard
+}
+
+
+type Balance{
+    id:ID!
+    credit:Float
+    debit:Float
+    total:Float
+    info:String
+    created_at:String
+    user:User @belongsTo
+}
