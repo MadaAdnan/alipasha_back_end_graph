@@ -15,7 +15,7 @@ final class MyAdvice
         $advices = Advice::where('user_id', auth()->id())->get();
 
         return [
-            'data' > $advices,
+            'advices' => $advices,
             'advice_count' => $advices->count(),
             'my_balance'=>190.5,
             'my_point'=>100,
