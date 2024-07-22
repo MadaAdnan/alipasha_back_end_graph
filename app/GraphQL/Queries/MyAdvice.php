@@ -20,7 +20,7 @@ final class MyAdvice
             'my_balance'=>190.5,
             'my_point'=>100,
             'my_wins'=>20.8,
-            'views'=>300,
+            'views'=>auth()->id(),
             'slider_count'=>3,
         ];
     }
