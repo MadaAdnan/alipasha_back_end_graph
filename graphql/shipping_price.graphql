@@ -7,5 +7,5 @@ type ShippingPrice{
 }
 
 extend type Query {
-    pricing:[ShippingPrice] @all @orderBy(columns:["weight","size"])
+    pricing:[ShippingPrice] @all @orderBy(column:"weight") @orderBy(column:"size")
 }
