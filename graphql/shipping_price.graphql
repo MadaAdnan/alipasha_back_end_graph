@@ -1,0 +1,11 @@
+type ShippingPrice{
+    weight:Float
+    size:Float
+    internal_price:Float
+    external_price:Float
+
+}
+
+extend type Query {
+    pricing:[ShippingPrice] @all @orderBy(columns:["weight","size"])
+}
