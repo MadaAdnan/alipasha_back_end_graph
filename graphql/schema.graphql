@@ -21,6 +21,8 @@
 #import balance.graphql
 #import points.graphql
 #import auth.graphql
+#import shipping_price.graphql
+
 
 #import attribute.graphql
 
