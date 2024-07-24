@@ -76,7 +76,8 @@ final class CreateOrder
             ];
 
         } catch (\Exception | \Error $exception) {
-            throw new \Exception('حصل خطأ في الطلب يرجى المحاولة لاحقا');
+            \DB::rollBack();
+            throw new \Exception('حصل خطأ في الطلب يرجى المحاولة لاحقا' .$exception->getMessage());
         }
 
 
