@@ -1,0 +1,119 @@
+type Order{
+    id:ID
+    size:String
+    weight:String
+    height:String
+    width:String
+    length:String
+    receive_name:String
+    receive_address:String
+    receive_phone:String
+    sender_name:String
+    sender_phone:String
+    status:String
+    price:String
+    created_at:String
+    from:City @belongsTo
+    to:City @belongsTo
+
+}
+
+extend type Query{
+    orders:[Order] @paginate(builder:"App\\GraphQL\\Queries\\MyOrders") @guard
+}
+
+
+extend type Mutation{
+    createOrder(input:InputCreateOrder):Order @guard
+
+}
+
+type InputCreateOrder{
+    weight:Float! @rules(apply:["required","numeric"],messages:[
+        {
+            rule:"required",
+            message:"يرجى إدخال وزن الحمولة"
+        }
+        {
+            rule:"numeric",
+            message:"يرجى إدخال أرقام فقط"
+        }
+    ])
+    height:Float! @rules(apply:["required","numeric"],messages:[
+        {
+            rule:"required",
+            message:"يرجى إدخال إرتفاع الحمولة"
+        }
+        {
+            rule:"numeric",
+            message:"يرجى إدخال أرقام فقط"
+        }
+    ])
+    width:Float! @rules(apply:["required","numeric"],messages:[
+        {
+            rule:"required",
+            message:"يرجى إدخال عرض الحمولة"
+        }
+        {
+            rule:"numeric",
+            message:"يرجى إدخال أرقام فقط"
+        }
+    ])
+    length:Float! @rules(apply:["required","numeric"],messages:[
+        {
+            rule:"required",
+            message:"يرجى إدخال طول الحمولة"
+        }
+        {
+            rule:"numeric",
+            message:"يرجى إدخال أرقام فقط"
+        }
+    ])
+    receive_name:String! @rules(apply:["required"],messages:[
+        {
+            rule:"required",
+            message:"يرجى إدخال اسم المرسل إليه"
+        }
+    ])
+    receive_phone:String! @rules(apply:["required"],messages:[
+        {
+            rule:"required",
+            message:"يرجى إدخال رقم هاتف المرسل إليه"
+        }
+    ])
+    sender_name:String  @rules(apply:["required"],messages:[
+        {
+            rule:"required",
+            message:"يرجى إدخال اسم المرسل "
+        }
+    ])
+    sender_phone:String  @rules(apply:["required"],messages:[
+        {
+            rule:"required",
+            message:"يرجى إدخال هاتف المرسل "
+        }
+    ])
+
+    from_id:Int! @rules(apply:["required","exists:cities,id"],messages:[
+        {
+            rule:"required",
+            message:"يرجى إدخال مدينة المرسل"
+        }
+        {
+            rule:"exists",
+            message:"المدينة غير موجودة"
+        }
+    ])
+
+    to_id:Int! @rules(apply:["required","exists:cities,id"],messages:[
+        {
+            rule:"required",
+            message:"يرجى إدخال مدينة المرسل إليه"
+        }
+        {
+            rule:"exists",
+            message:"المدينة غير موجودة"
+        }
+    ])
+
+}

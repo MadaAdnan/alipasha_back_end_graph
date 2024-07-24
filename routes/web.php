@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\ShippingPrice;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,16 +15,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    \App\Models\Balance::create([
-        'user_id' => 7,
-        'info' => 'تجريب',
-        'credit'=>10,
-    ]);
-    \App\Models\Balance::create([
-        'user_id' => 7,
-        'info' => 'تجريب',
-        'debit'=>5,
-    ]);
+    $maxSize = ShippingPrice::where('size', '>=', 0.12)
+        ->orderBy('size')
+        ->union(
+            ShippingPrice::orderBy('size', 'desc')->limit(1)
+        )
+        ->first();
+    dd($maxSize);
 
     /*    $products = DB::select(DB::raw("
         SELECT *

@@ -22,6 +22,7 @@
 #import points.graphql
 #import auth.graphql
 #import shipping_price.graphql
+#import order.graphql
 
 
 #import attribute.graphql
