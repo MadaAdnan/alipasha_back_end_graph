@@ -91,18 +91,8 @@ input InputCreateOrder{
             message:"يرجى إدخال عنوان المرسل إليه"
         }
     ])
-    sender_name:String  @rules(apply:["required"],messages:[
-        {
-            rule:"required",
-            message:"يرجى إدخال اسم المرسل "
-        }
-    ])
-    sender_phone:String  @rules(apply:["required"],messages:[
-        {
-            rule:"required",
-            message:"يرجى إدخال هاتف المرسل "
-        }
-    ])
+    sender_name:String
+    sender_phone:String
 
     from_id:Int! @rules(apply:["required","exists:cities,id"],messages:[
         {
