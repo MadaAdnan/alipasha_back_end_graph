@@ -50,8 +50,9 @@ final class CreateOrder
 
             $order = Order::create([
                 'user_id' => auth()->id(),
-                'from_id'=>$data['from_id'],
-                'to_id'=>$data['to_id'],
+                'from_id' => $data['from_id'],
+                'size' => $size,
+                'to_id' => $data['to_id'],
                 'status' => OrderStatusEnum::PENDING->value,
                 'sender_name' => $data['sender_name'],
                 'sender_phone' => $data['sender_phone'],
@@ -79,7 +80,7 @@ final class CreateOrder
 
         } catch (\Exception | \Error $exception) {
             \DB::rollBack();
-            throw new \Exception('حصل خطأ في الطلب يرجى المحاولة لاحقا' .$exception->getMessage());
+            throw new \Exception('حصل خطأ في الطلب يرجى المحاولة لاحقا' . $exception->getMessage());
         }
 
 
