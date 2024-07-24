@@ -85,6 +85,12 @@ input InputCreateOrder{
             message:"يرجى إدخال رقم هاتف المرسل إليه"
         }
     ])
+    receive_address:String! @rules(apply:["required"],messages:[
+        {
+            rule:"required",
+            message:"يرجى إدخال عنوان المرسل إليه"
+        }
+    ])
     sender_name:String  @rules(apply:["required"],messages:[
         {
             rule:"required",
