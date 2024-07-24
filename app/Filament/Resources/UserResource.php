@@ -9,10 +9,12 @@ use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Helpers\HelperMedia;
 use App\Helpers\HelpersEnum;
+use App\Models\Balance;
 use App\Models\City;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -117,6 +119,32 @@ class UserResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\Action::make('add_balance')->form([
+                        Forms\Components\TextInput::make('value')->label('القيمة')->required()->gt(0),
+                        Forms\Components\TextInput::make('info')->label('ملاحظات')
+                    ])->action(function($record,$data){
+                        Balance::create([
+                            'credit'=>$data['value'],
+                            'debit'=>0,
+                            'info'=>$data['info'],
+                            'user_id'=>$record->id
+                        ]);
+                        Notification::make('success')->title('نجاح')->body('تم إضافة الرصيد بنجاح')->send()->success();
+                    }),
+                    Tables\Actions\Action::make('sub_balance')->form([
+                        Forms\Components\TextInput::make('value')->label('القيمة')->required()->gt(0),
+                        Forms\Components\TextInput::make('info')->label('ملاحظات')
+                    ])->action(function($record,$data){
+                        Balance::create([
+                            'credit'=>0,
+                            'debit'=>$data['value'],
+                            'info'=>$data['info'],
+                            'user_id'=>$record->id
+                        ]);
+                        Notification::make('success')->title('نجاح')->body('تم السحب من الرصيد بنجاح')->send()->success();
+                    })
+                ]),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
