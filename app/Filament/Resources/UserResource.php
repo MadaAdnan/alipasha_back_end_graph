@@ -130,7 +130,7 @@ class UserResource extends Resource
                             'info'=>$data['info'],
                             'user_id'=>$record->id
                         ]);
-                        Notification::make('success')->title('نجاح')->body('تم إضافة الرصيد بنجاح')->send()->success();
+                        Notification::make('success')->success()->title('نجاح')->body('تم إضافة الرصيد بنجاح')->send();
                     }),
                     Tables\Actions\Action::make('sub_balance')->form([
                         Forms\Components\TextInput::make('value')->label('القيمة')->required()->gt(0),
@@ -142,7 +142,7 @@ class UserResource extends Resource
                             'info'=>$data['info'],
                             'user_id'=>$record->id
                         ]);
-                        Notification::make('success')->title('نجاح')->body('تم السحب من الرصيد بنجاح')->send()->success();
+                        Notification::make('success')->success()->title('نجاح')->body('تم السحب من الرصيد بنجاح')->send();
                     })
                 ]),
             ])
