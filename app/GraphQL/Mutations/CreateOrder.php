@@ -50,6 +50,8 @@ final class CreateOrder
 
             $order = Order::create([
                 'user_id' => auth()->id(),
+                'from_id'=>$data['from_id'],
+                'to_id'=>$data['to_id'],
                 'status' => OrderStatusEnum::PENDING->value,
                 'sender_name' => $data['sender_name'],
                 'sender_phone' => $data['sender_phone'],
