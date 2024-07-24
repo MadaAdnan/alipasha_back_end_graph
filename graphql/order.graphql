@@ -32,7 +32,7 @@ type ResponseCreateOrder{
     order:Order
 }
 
-type InputCreateOrder{
+input InputCreateOrder{
     weight:Float! @rules(apply:["required","numeric"],messages:[
         {
             rule:"required",
