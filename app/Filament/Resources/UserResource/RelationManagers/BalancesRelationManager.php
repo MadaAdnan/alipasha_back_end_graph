@@ -40,6 +40,7 @@ class BalancesRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(fn($query)=>$query->latest())
             ->recordTitleAttribute('info')
             ->columns([
                 Tables\Columns\TextColumn::make('credit')->label('ايداع'),
@@ -55,7 +56,7 @@ class BalancesRelationManager extends RelationManager
                 Tables\Actions\CreateAction::make(),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
