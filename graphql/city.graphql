@@ -7,5 +7,7 @@ type City{
     id:ID!
     name:String
     image:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImage")
+    city_id:Int
     city:City @belongsTo
+    is_delivery:Boolean
 }
