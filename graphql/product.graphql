@@ -60,7 +60,7 @@ type DataImage{
 
 extend type Mutation {
     changeAvilable(id:ID!):Product @guard
-
+    deleteProduct(id:ID!):Product
     createProduct(input:CreateProductInput) : Product @guard
 
     updateProduct(id:ID! ,input:updateProductInput) : Product @guard
