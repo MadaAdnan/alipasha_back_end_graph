@@ -13,7 +13,7 @@ type User{
     seller_name: String
     email_verified_at:String
     email:String
-    code_verified:String
+
     level:String
     phone:String
     address:String
