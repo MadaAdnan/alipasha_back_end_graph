@@ -119,6 +119,7 @@ class UserResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\Action::make('add_balance')->form([
                         Forms\Components\TextInput::make('value')->label('القيمة')->required()->gt(0),
