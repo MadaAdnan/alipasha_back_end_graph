@@ -8,7 +8,7 @@ Button Text
 </x-mail::button>--}}
 ##  الكود الخاص بك
 
-     # {{$user->code_verified}}
+# {{$user->code_verified}}
 
 شكرا لك,<br>
 {{ config('app.name') }}
