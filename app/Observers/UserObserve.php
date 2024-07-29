@@ -2,8 +2,10 @@
 
 namespace App\Observers;
 
+use App\Mail\RegisteredEmail;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Mail;
 
 class UserObserve
 {
@@ -12,7 +14,7 @@ class UserObserve
      */
     public function created(User $user): void
     {
-        event(new Registered($user));
+        Mail::to($user)->send(new RegisteredEmail($user));
     }
 
     /**
