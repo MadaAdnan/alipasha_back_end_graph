@@ -11,7 +11,7 @@ final class VerifyEmail
     public function __invoke($_, array $args)
     {
         $code = $args['code'];
-        if (auth()->user()->code_verified === $code) {
+        if (auth()->user()->code_verified == $code) {
             auth()->user()->update(['email_verified_at' => now()]);
         }else{
             throw new \Exception('كود التفعيل غير صحيح');
