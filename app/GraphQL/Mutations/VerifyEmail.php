@@ -11,6 +11,8 @@ final class VerifyEmail
     public function __invoke($_, array $args)
     {
         $code = $args['code'];
+        \Log::info($code);
+        \Log::info(auth()->user()->code_verified);
         if (auth()->user()->code_verified == $code) {
             auth()->user()->update(['email_verified_at' => now()]);
         }else{
