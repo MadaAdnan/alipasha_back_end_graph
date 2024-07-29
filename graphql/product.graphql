@@ -3,6 +3,8 @@ extend type Query{
     product(id:ID!) : Product @field(resolver: "App\\GraphQL\\Queries\\Product@__invoke")
     myProducts(search:String):[Product] @paginate(builder:"App\\GraphQL\\Queries\\MyProducts") @guard
     tags(type:String!):[String]
+
+
 }
 
 type Product{
@@ -57,6 +59,8 @@ type DataImage{
 }
 
 extend type Mutation {
+    changeAvilable(id:ID!):Product @guard
+
     createProduct(input:CreateProductInput) : Product @guard
 
     updateProduct(id:ID! ,input:updateProductInput) : Product @guard
