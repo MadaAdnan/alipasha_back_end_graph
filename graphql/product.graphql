@@ -21,6 +21,7 @@ type Product{
     comments:[Comment] @hasMany(defaultCount:10,type:PAGINATOR)
     # Fields
     name:String,
+    active:String
     info:String,
     expert:String,
     tags:[String]
