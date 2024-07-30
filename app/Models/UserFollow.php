@@ -10,6 +10,8 @@ class UserFollow extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     protected $table = 'user_follow';
 
     public function user(): BelongsTo
