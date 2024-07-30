@@ -34,9 +34,13 @@ type User{
     is_special:Boolean
     total_balance:Float @field(resolver: "App\\GraphQL\\Resolvers\\HelperBalanceResolve@getTotalBalance")
     total_point:Float @field(resolver: "App\\GraphQL\\Resolvers\\HelperBalanceResolve@getTotalPoint")
+    followers: [Follower] @hasMany
 
 
-
+}
+type Follower{
+    user_id:Int
+    seller_id:Int
 }
 
 
@@ -50,6 +54,8 @@ extend type Mutation{
     updateAvatar(input:ImageUpdate) :User @guard
 
     updateSellerLogo(input:ImageUpdate) :User @guard
+
+    followAccount(id:ID!):User @guard
     #    deleteUser(id:ID!) : User @delete
 }
 
