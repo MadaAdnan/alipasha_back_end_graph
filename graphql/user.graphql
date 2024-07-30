@@ -4,6 +4,8 @@ extend type Query{
     specialSeller: [User]
     resendEmailVerify:User @guard
 
+    getMyFollowers:[Follower] @guard @paginate(builder:"App\\GraphQL\\Queries\\GetMyFollowers")
+
 }
 
 
