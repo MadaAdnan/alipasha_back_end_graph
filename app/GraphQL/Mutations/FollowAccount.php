@@ -21,7 +21,7 @@ final class FollowAccount
         $user=auth()->user();
        $follow= UserFollow::where(['seller_id'=>$sellerId,'user_id' => $user->id])->exists();
        if($follow){
-           $follow->delete();
+           UserFollow::where(['seller_id'=>$sellerId,'user_id' => $user->id])->delete();
        }else{
            UserFollow::create(['seller_id'=>$sellerId,'user_id' => $user->id]);
        }
