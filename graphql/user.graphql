@@ -39,8 +39,7 @@ type User{
 
 }
 type Follower{
-    user_id:Int
-    seller_id:Int
+   user:User @belongsTo
     seller:User @belongsTo
 }
 
