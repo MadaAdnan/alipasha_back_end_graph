@@ -16,16 +16,22 @@ final class Products
     public function __invoke($_, array $args)
 
     {
-        $products = Product::query()->where('active',ProductActiveEnum::ACTIVE->value)
-            ->when(isset($args['type']), fn($query) => $query->where('type', $args['type']))
+        $products = Product::query()->where('active', ProductActiveEnum::ACTIVE->value)
+            ->when(isset($args['type']), function ($query) use ($args) {
+                if ($args['type'] == 'job' || $args['type'] == 'search_job') {
+                    $query->where('type', 'job')->orWhere('type', 'search_job');
+                } else {
+                    $query->where('type', $args['type']);
+                }
+            })
             ->when(isset($args['category_id']), fn($query) => $query->where('category_id', $args['category_id']))
             ->when(isset($args['sub1_id']), fn($query) => $query->where('sub1_id', $args['sub1_id']))
             ->when(isset($args['city_id']), fn($query) => $query->where('city_id', $args['city_id']))
             ->when(isset($args['user_id']), fn($query) => $query->where('user_id', $args['user_id']))
-            ->when(isset($args['search']) && !empty($args['search']), fn($query) => $query->where(function ($query)use($args){
-              /*  $query->where('name','Like',"%{$args['search']}%");
-                $query->orWhere('expert','Like',"%{$args['search']}%");
-                $query->orWhere('info','Like',"%{$args['search']}%");*/
+            ->when(isset($args['search']) && !empty($args['search']), fn($query) => $query->where(function ($query) use ($args) {
+                /*  $query->where('name','Like',"%{$args['search']}%");
+                  $query->orWhere('expert','Like',"%{$args['search']}%");
+                  $query->orWhere('info','Like',"%{$args['search']}%");*/
                 /**
                  * @var $searchTerms array<string>
                  */
@@ -33,7 +39,7 @@ final class Products
                 /**
                  * @var $term string
                  */
-                $term ='';
+                $term = '';
                 foreach ($searchTerms as $term) {
                     $query->orWhere(function ($query) use ($term) {
                         $query->where('name', 'LIKE', "%$term%")
@@ -48,38 +54,37 @@ final class Products
 
         $ids = $products->paginate($args['first'] ?? 15, ['*'], 'page', $args['page'] ?? 1)->pluck('id')->toArray();
         $today = today();
-          \DB::transaction(function() use ($ids,$today) {
+        \DB::transaction(function () use ($ids, $today) {
 
-              // تحديث السجلات الموجودة
-              \DB::table('product_views')
-                  ->whereIn('product_id', $ids)
-                  ->whereDate('view_at', $today)
-                  ->update(['count' => \DB::raw('count + 1')]);
+            // تحديث السجلات الموجودة
+            \DB::table('product_views')
+                ->whereIn('product_id', $ids)
+                ->whereDate('view_at', $today)
+                ->update(['count' => \DB::raw('count + 1')]);
 
-              // إدخال السجلات الجديدة
-              $existingIds = \DB::table('product_views')
-                  ->whereIn('product_id', $ids)
-                  ->whereDate('view_at', $today)
-                  ->pluck('product_id')
-                  ->toArray();
+            // إدخال السجلات الجديدة
+            $existingIds = \DB::table('product_views')
+                ->whereIn('product_id', $ids)
+                ->whereDate('view_at', $today)
+                ->pluck('product_id')
+                ->toArray();
 
-              $newIds = array_diff($ids, $existingIds);
+            $newIds = array_diff($ids, $existingIds);
 
-              if (!empty($newIds)) {
-                  $inserts = array_map(function($id) use ($today) {
-                      return [
-                          'product_id' => $id,
-                          'view_at' => $today,
-                          'count' => 1,
-                          'created_at'=>now(),
-                          'updated_at'=>now(),
-                      ];
-                  }, $newIds);
+            if (!empty($newIds)) {
+                $inserts = array_map(function ($id) use ($today) {
+                    return [
+                        'product_id' => $id,
+                        'view_at' => $today,
+                        'count' => 1,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ];
+                }, $newIds);
 
-                  \DB::table('product_views')->insert($inserts);
-              }
-          });
-
+                \DB::table('product_views')->insert($inserts);
+            }
+        });
 
 
         return $products;
