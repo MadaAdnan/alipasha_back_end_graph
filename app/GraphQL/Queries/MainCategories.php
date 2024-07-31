@@ -12,6 +12,6 @@ final class MainCategories
      */
     public function __invoke($_, array $args)
     {
-       return  Category::where(['is_active'=>true,'is_main'=>true,'type' => 'product'])->get();
+       return  Category::where(['is_active'=>true,'is_main'=>true/*,'type' => 'product'*/])->get();
     }
 }
