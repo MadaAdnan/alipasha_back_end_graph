@@ -95,7 +95,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
 
     public function followersMe(): HasMany
     {
-        return $this->hasMany(UserFollow::class, 'seller_id');
+        return $this->hasMany(UserFollow::class, 'seller_id','id');
     }
 
 
