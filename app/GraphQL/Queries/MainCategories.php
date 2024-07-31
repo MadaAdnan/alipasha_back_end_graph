@@ -14,6 +14,7 @@ final class MainCategories
     {
        return  Category::where(['is_active'=>true,'is_main'=>true/*,'type' => 'product'*/])
            ->orderByRaw("FIELD(type, 'product', 'job', 'search_job','tender','service','news')")
+           ->orderBy('sortable')
            ->get();
     }
 }
