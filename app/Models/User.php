@@ -18,7 +18,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\MediaLibrary\HasMedia;
 
-class User extends Authenticatable implements HasMedia , MustVerifyEmail
+class User extends Authenticatable implements HasMedia, MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable, MediaTrait;
 
@@ -53,6 +53,7 @@ class User extends Authenticatable implements HasMedia , MustVerifyEmail
 
     protected $withCount = [
         'products',
+        'followersMe'
 
     ];
 
@@ -91,6 +92,12 @@ class User extends Authenticatable implements HasMedia , MustVerifyEmail
     {
         return $this->hasMany(UserFollow::class, 'user_id');
     }
+
+    public function followersMe(): HasMany
+    {
+        return $this->hasMany(UserFollow::class, 'seller_id');
+    }
+
 
     public function balances(): HasMany
     {
