@@ -30,7 +30,7 @@ type User{
     is_active:Boolean
     affiliate:String
     info:String
-    followersMe_count:Int
+    following_count:Int
     products:[Product]  @hasMany
     plans:[Plan] @belongsToMany(relation:"plans")
     city:City @belongsTo

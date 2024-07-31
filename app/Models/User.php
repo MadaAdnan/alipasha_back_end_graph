@@ -53,7 +53,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
 
     protected $withCount = [
         'products',
-        'followersMe'
+        'following'
 
     ];
 
@@ -93,7 +93,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         return $this->hasMany(UserFollow::class, 'user_id');
     }
 
-    public function followersMe(): HasMany
+    public function following(): HasMany
     {
         return $this->hasMany(UserFollow::class, 'seller_id','id');
     }
