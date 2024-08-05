@@ -42,7 +42,7 @@ type Product{
     code:String
     type:String,
     views_count:Int
-
+    turkey_price:TurkeyPrice  @field(resolver: "App\\GraphQL\\Resolvers\\TurkeyPrice@getTurkeyPrice")
     # Files From Media
     image:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImage")
     video:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getVideo")
@@ -53,7 +53,10 @@ type Product{
     created_at:CustomDate
 
 }
-
+type TurkeyPrice{
+    price:Float
+    discount:Float
+}
 type DataImage{
     id:ID!
     url:String!
