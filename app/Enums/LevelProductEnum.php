@@ -6,6 +6,7 @@ enum LevelProductEnum: string
 {
     case NORMAL = 'normal';
     case SPECIAL = 'special';
+    case NEWS = 'news';
 
 
 
@@ -13,6 +14,7 @@ enum LevelProductEnum: string
     public function getLabel()
     {
         return match ($this) {
+            self::NEWS => 'جديد',
             self::NORMAL => 'عادي',
             self::SPECIAL => 'مميز',
 
@@ -23,6 +25,7 @@ enum LevelProductEnum: string
     public function getIcon()
     {
         return match ($this) {
+            self::NEWS => 'fas-first-order-alt',
             self::NORMAL => 'fas-square-check',
             self::SPECIAL =>'fas-list-check',
         };
@@ -31,6 +34,7 @@ enum LevelProductEnum: string
     public function getColor()
     {
         return match ($this) {
+            self::NEWS => 'success',
             self::NORMAL => 'info',
             self::SPECIAL => 'gold',
 
