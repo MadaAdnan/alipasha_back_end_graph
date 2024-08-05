@@ -36,12 +36,13 @@ final class Image
      */
     public static function getImage($root): string
     {
-        if($root->hasMedia('image')){
+        if ($root->hasMedia('image')) {
 
-            return $root->getFirstMediaUrl('image', 'webp') ;
+            return $root->getFirstMediaUrl('image', 'webp');
         }
-        return  url('/').asset('images/noImage.jpeg');
+        return url('/') . asset('images/noImage.jpeg');
     }
+
     /**
      * @param $root
      * @return string
@@ -49,11 +50,11 @@ final class Image
      */
     public static function getCustomImage($root): string
     {
-        if($root->hasMedia('custom')){
+        if ($root->hasMedia('custom')) {
 
-            return $root->getFirstMediaUrl('custom', 'webp') ;
+            return $root->getFirstMediaUrl('custom', 'webp');
         }
-        return  url('/').asset('images/noImage.jpeg');
+        return url('/') . asset('images/noImage.jpeg');
     }
 
     /**
@@ -63,10 +64,10 @@ final class Image
      */
     public static function getLogo($root): string
     {
-        if($root->hasMedia('logo')){
-            return $root->getFirstMediaUrl('logo', 'webp') ;
+        if ($root->hasMedia('logo')) {
+            return $root->getFirstMediaUrl('logo', 'webp');
         }
-       return  url('/').asset('images/noImage.jpeg');
+        return url('/') . asset('images/noImage.jpeg');
     }
 
 
@@ -77,10 +78,16 @@ final class Image
      */
     public static function getImages($root): array
     {
-        $mediaItems = $root->getMedia('images');
-        return $mediaItems->map(function ($media) {
-            return $media->getUrl('webp');
-        })->toArray();
+        if ($root->hasMedia('images')) {
+            $mediaItems = $root->getMedia('images');
+            return $mediaItems->map(function ($media) {
+                return $media->getUrl('webp');
+            })->toArray();
+        }
+        return [];
+
+
+
     }
 
     /**
@@ -100,15 +107,18 @@ final class Image
 
     /**
      * @param $root
-     * @return array
+     * @return array[string]
      * Get Array Of docs  from docs of [job,tender] collection
      */
     public static function getDocs($root): array
     {
-        $mediaItems = $root->getMedia('docs');
-        return $mediaItems->map(function ($media) {
-            return $media->getUrl();
-        })->toArray();
+        if ($root->hasMedia('docs')) {
+            $mediaItems = $root->getMedia('docs');
+            return $mediaItems->map(function ($media) {
+                return $media->getUrl();
+            })->toArray();
+        }
+        return [];
     }
 
     /**
