@@ -5,7 +5,7 @@ namespace App\GraphQL\Resolvers;
 final class TurkeyPrice
 {
 
-    public function getTurkeyPrice($root):array
+    public function getTurkeyPrice($root)
     {
         $usd=33;
         return [
