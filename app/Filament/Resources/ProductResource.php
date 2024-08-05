@@ -59,6 +59,7 @@ class ProductResource extends Resource
                         ProductActiveEnum::BLOCK->value => ProductActiveEnum::BLOCK->getLabel(),
                     ])->label('حالة المنتج')->default(ProductActiveEnum::PENDING->value),
                     Forms\Components\Radio::make('level')->options([
+                        LevelProductEnum::NEWS->value => LevelProductEnum::NEWS->getLabel(),
                         LevelProductEnum::NORMAL->value => LevelProductEnum::NORMAL->getLabel(),
                         LevelProductEnum::SPECIAL->value => LevelProductEnum::SPECIAL->getLabel(),
                     ])->label('رتبة المنتج')->default(LevelProductEnum::NORMAL->value),
