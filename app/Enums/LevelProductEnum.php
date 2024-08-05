@@ -25,7 +25,7 @@ enum LevelProductEnum: string
     public function getIcon()
     {
         return match ($this) {
-            self::NEWS => 'fas-first-order-alt',
+            self::NEWS => 'fas-star',
             self::NORMAL => 'fas-square-check',
             self::SPECIAL =>'fas-list-check',
         };
