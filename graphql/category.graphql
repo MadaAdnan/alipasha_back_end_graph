@@ -9,6 +9,7 @@ type Category{
     name:String,
     color:String,
     type:String
+    has_color:Boolean
     image:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImage")
     parents:[Category] @belongsToMany
     children:[Category] @belongsToMany
