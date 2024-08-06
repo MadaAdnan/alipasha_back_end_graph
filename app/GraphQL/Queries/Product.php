@@ -20,7 +20,7 @@ final class Product
 
         $products= \App\Models\Product::query()->where('active', ProductActiveEnum::ACTIVE->value)
             ->where('category_id',$proudct->category_id)
-            ->where('sub1_id',$proudct->sub1_id)->inRandomOrder()->latest()->limit(6)->get();
+            ->where('sub1_id',$proudct->sub1_id)->inRandomOrder()->latest()->take(6)->get();
         $ids = $products->pluck('id')->toArray();
         $today = today();
         \DB::transaction(function () use ($ids, $today) {
