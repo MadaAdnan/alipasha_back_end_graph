@@ -24,7 +24,6 @@ final class Product
         $ids = $products->pluck('id')->toArray();
         $today = today();
         \DB::transaction(function () use ($ids, $today) {
-
             // تحديث السجلات الموجودة
             \DB::table('product_views')
                 ->whereIn('product_id', $ids)
