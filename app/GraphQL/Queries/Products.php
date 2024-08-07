@@ -16,25 +16,26 @@ final class Products
     public function __invoke($_, array $args)
 
     {
-        $colors=$args['colors']??[];
-        $type=$args['type'];
+        $colors = $args['colors'] ?? [];
+        $type = $args['type'];
         $products = Product::query()->where('active', ProductActiveEnum::ACTIVE->value)
-            ->when(isset($args['type']), function ($query) use ($type,$args) {
+            ->when(isset($args['type']), function ($query) use ($type, $args) {
                 if ($type === 'job' || $type === 'search_job') {
                     $query->where('type', 'job')->orWhere('type', 'search_job');
-                } elseif($type==='seller'){
-                    $query->whereHas('user',fn($query)=>$query->where('seller_name','like',"%".$args['search']."%"));
+                } elseif ($type === 'seller') {
+                    $query->whereHas('user', fn($query) => $query->where('seller_name', 'like', "%" . $args['search'] . "%"));
 
-                }else {
+                } else {
                     $query->where('type', $type);
                 }
             })
-            ->when(count($colors)>0,fn($query)=>$query->whereHas('colors',fn($q)=>$q->whereIn('colors.id',$colors)))
+            ->when($type === 'product' && isset($args['max_price']) && $args['max_price'] > 0, fn($query) => $query->whereBetween('price', [$args['min_price'] ?? 0, $args['max_price']]))
+            ->when(count($colors) > 0, fn($query) => $query->whereHas('colors', fn($q) => $q->whereIn('colors.id', $colors)))
             ->when(isset($args['category_id']), fn($query) => $query->where('category_id', $args['category_id']))
             ->when(isset($args['sub1_id']), fn($query) => $query->where('sub1_id', $args['sub1_id']))
             ->when(isset($args['city_id']), fn($query) => $query->where('city_id', $args['city_id']))
             ->when(isset($args['user_id']), fn($query) => $query->where('user_id', $args['user_id']))
-            ->when(isset($args['search']) && !empty($args['search']) && $type!=='seller', fn($query) => $query->where(function ($query) use ($args) {
+            ->when(isset($args['search']) && !empty($args['search']) && $type !== 'seller', fn($query) => $query->where(function ($query) use ($args) {
                 /*  $query->where('name','Like',"%{$args['search']}%");
                   $query->orWhere('expert','Like',"%{$args['search']}%");
                   $query->orWhere('info','Like',"%{$args['search']}%");*/
