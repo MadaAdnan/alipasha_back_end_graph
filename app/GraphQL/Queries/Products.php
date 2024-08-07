@@ -17,7 +17,7 @@ final class Products
 
     {
         $colors = $args['colors'] ?? [];
-        $type = $args['type'];
+        $type = $args['type']??null;
         $products = Product::query()->where('active', ProductActiveEnum::ACTIVE->value)
             ->when(isset($args['type']), function ($query) use ($type, $args) {
                 if ($type === 'job' || $type === 'search_job') {
