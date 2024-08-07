@@ -16,14 +16,16 @@ final class Products
     public function __invoke($_, array $args)
 
     {
+        $colors=$args['colors']??[];
         $products = Product::query()->where('active', ProductActiveEnum::ACTIVE->value)
             ->when(isset($args['type']), function ($query) use ($args) {
-                if ($args['type'] == 'job' || $args['type'] == 'search_job') {
+                if ($args['type'] === 'job' || $args['type'] === 'search_job') {
                     $query->where('type', 'job')->orWhere('type', 'search_job');
                 } else {
                     $query->where('type', $args['type']);
                 }
             })
+            ->when(count($colors)>0,fn($query)=>$query->whereHas('colors',fn($q)=>$q->whereIn('colors.id',$colors)))
             ->when(isset($args['category_id']), fn($query) => $query->where('category_id', $args['category_id']))
             ->when(isset($args['sub1_id']), fn($query) => $query->where('sub1_id', $args['sub1_id']))
             ->when(isset($args['city_id']), fn($query) => $query->where('city_id', $args['city_id']))
