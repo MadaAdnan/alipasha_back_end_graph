@@ -17,12 +17,16 @@ final class Products
 
     {
         $colors=$args['colors']??[];
+        $type=$args['type'];
         $products = Product::query()->where('active', ProductActiveEnum::ACTIVE->value)
-            ->when(isset($args['type']), function ($query) use ($args) {
-                if ($args['type'] === 'job' || $args['type'] === 'search_job') {
+            ->when(isset($args['type']), function ($query) use ($type,$args) {
+                if ($type === 'job' || $type === 'search_job') {
                     $query->where('type', 'job')->orWhere('type', 'search_job');
-                } else {
-                    $query->where('type', $args['type']);
+                } elseif($type==='seller'){
+                    $query->whereHas('user',fn($query)=>$query->where('seller_name','like',"%".$args['search']."%"));
+
+                }else {
+                    $query->where('type', $type);
                 }
             })
             ->when(count($colors)>0,fn($query)=>$query->whereHas('colors',fn($q)=>$q->whereIn('colors.id',$colors)))
@@ -30,7 +34,7 @@ final class Products
             ->when(isset($args['sub1_id']), fn($query) => $query->where('sub1_id', $args['sub1_id']))
             ->when(isset($args['city_id']), fn($query) => $query->where('city_id', $args['city_id']))
             ->when(isset($args['user_id']), fn($query) => $query->where('user_id', $args['user_id']))
-            ->when(isset($args['search']) && !empty($args['search']), fn($query) => $query->where(function ($query) use ($args) {
+            ->when(isset($args['search']) && !empty($args['search']) && $type!=='seller', fn($query) => $query->where(function ($query) use ($args) {
                 /*  $query->where('name','Like',"%{$args['search']}%");
                   $query->orWhere('expert','Like',"%{$args['search']}%");
                   $query->orWhere('info','Like',"%{$args['search']}%");*/
