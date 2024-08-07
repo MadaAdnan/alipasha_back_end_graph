@@ -29,7 +29,7 @@ final class Products
                     $query->where('type', $type);
                 }
             })
-            ->when($type === 'product' && isset($args['max_price']) && $args['max_price'] > 0, fn($query) => $query->whereBetween('price', [$args['min_price'] ?? 0, $args['max_price']]))
+            ->when($type === 'product' && isset($args['max_price']) && $args['max_price'] > 0, fn($query) => $query->where('price', '>=',[$args['min_price'] ?? 0])->where('price',"<=", $args['max_price']??10000))
             ->when(count($colors) > 0, fn($query) => $query->whereHas('colors', fn($q) => $q->whereIn('colors.id', $colors)))
             ->when(isset($args['category_id']), fn($query) => $query->where('category_id', $args['category_id']))
             ->when(isset($args['sub1_id']), fn($query) => $query->where('sub1_id', $args['sub1_id']))
