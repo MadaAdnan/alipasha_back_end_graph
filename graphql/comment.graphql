@@ -1,5 +1,5 @@
 extend type Mutation{
-    createComment(product_id:Int!,comment:String! @rules(apply:["min:10"])):Comment! @guard
+    createComment(product_id:Int!,comment:String!):Comment! @guard
 }
 #
 
