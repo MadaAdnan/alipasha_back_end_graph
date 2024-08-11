@@ -1,0 +1,30 @@
+#extend type Query{
+#    messages:Message @all
+#}
+
+
+type Message{
+    id:ID!
+    user:User  @belongsTo
+    community:Community @belongsTo
+    message:String
+    created_at:CustomDate
+}
+
+type Community{
+    id:ID!
+    user:User  @belongsTo
+    seller:User  @belongsTo
+
+    created_at:CustomDate
+}
+
+extend type Mutation{
+    createMessage(userId:Int,sellerId:Int,message:String,attach:Upload):Message @guard   @broadcast(subscription: "messageSentSubscription")
+
+}
+extend type Subscription {
+    messageSentSubscription: Message
+
+}
+

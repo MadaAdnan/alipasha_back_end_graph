@@ -17,13 +17,8 @@ Auth::routes([
     'verify' => true,
 ]);
 Route::get('/', function () {
-    $maxSize = ShippingPrice::where('size', '>=', 0.12)
-        ->orderBy('size')
-        ->union(
-            ShippingPrice::orderBy('size', 'desc')->limit(1)
-        )
-        ->first();
-    dd($maxSize);
+
+    dd("فثسف");
 
     /*    $products = DB::select(DB::raw("
         SELECT *

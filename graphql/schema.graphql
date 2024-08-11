@@ -23,6 +23,7 @@
 #import auth.graphql
 #import shipping_price.graphql
 #import order.graphql
+#import message.graphql
 
 
 #import attribute.graphql
