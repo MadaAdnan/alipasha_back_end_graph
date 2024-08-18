@@ -2,8 +2,8 @@
 
 namespace App\Events;
 
-use App\Http\Resources\Community\MessageResource;
-use App\Models\Message;
+use App\Http\Resources\Community\CommunityResource;
+use App\Models\Community;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -13,19 +13,19 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class MessageSentEvent implements ShouldBroadcastNow
+class CreateCommunityEvent implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    private Message $message;
+    private Community $community;
 
     /**
      * Create a new event instance.
      */
-    public function __construct(Message $message)
+    public function __construct(Community $community)
     {
-
-        $this->message = $message;
+        //
+        $this->community = $community;
     }
 
     /**
@@ -35,23 +35,20 @@ class MessageSentEvent implements ShouldBroadcastNow
      */
     public function broadcastOn(): array
     {
-        $id = $this->message->user_id != $this->message->community->user_id ? $this->message->community->user_id : $this->message->community->seller_id;
-
         return [
-            new PrivateChannel('message.' . $this->message->community_id . '.' . $id),
+            new PrivateChannel('community.' . $this->community->seller_id),
         ];
     }
 
     public function broadcastAs(): string
     {
-        return 'message.create';
+        return 'community.create';
     }
 
     public function broadcastWith(): array
     {
-        $this->message->load(['user', 'community','media']);
+        $this->community->load('user', 'seller');
 
-        return ['message' => new MessageResource($this->message)];
+        return ['community' => new CommunityResource($this->community)];
     }
-
 }

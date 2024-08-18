@@ -18,7 +18,7 @@ final class Advices
             ->when(isset($args['category_id']) && !empty($args['category_id']), fn($query) => $query->where('category_id', $args['category_id']))
             ->when(isset($args['user_id']) && !empty($args['user_id']), fn($query) => $query->where('user_id', $args['user_id']))
             ->when(isset($args['city_id']) && !empty($args['city_id']), fn($query) => $query->where('city_id', $args['city_id']))
-            ->get();
+            ->inRandomOrder()->get();
         $ids = $advices->pluck('id')->toArray();
         $today = today();
         \DB::transaction(function () use ($ids, $today) {

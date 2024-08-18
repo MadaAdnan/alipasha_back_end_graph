@@ -12,11 +12,7 @@ class MessageObServe
      */
     public function created(Message $message): void
     {
-        try {
-            //  \Nuwave\Lighthouse\Execution\Utils\Subscription::broadcast('messageSentSubscription', $message);
-            event(new MessageSentEvent($message));
-        } catch (\Exception | \Error $e) {
-        }
+
     }
 
     /**

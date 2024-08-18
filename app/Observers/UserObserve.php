@@ -14,7 +14,7 @@ class UserObserve
      */
     public function created(User $user): void
     {
-        Mail::to($user)->send(new RegisteredEmail($user));
+        //Mail::to($user)->send(new RegisteredEmail($user));
     }
 
     /**

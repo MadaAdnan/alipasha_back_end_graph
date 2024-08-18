@@ -2,9 +2,13 @@
 
 namespace App\GraphQL\Queries;
 
+use App\Enums\InteractionTypeEnum;
+use App\Enums\LevelProductEnum;
 use App\Enums\ProductActiveEnum;
+use App\Models\Interaction;
 use App\Models\Product;
 use App\Models\ProductView;
+use Cache;
 use Carbon\Carbon;
 
 final class Products
@@ -17,47 +21,13 @@ final class Products
 
     {
         $colors = $args['colors'] ?? [];
-        $type = $args['type']??null;
-        $products = Product::query()->where('active', ProductActiveEnum::ACTIVE->value)
-            ->when(isset($args['type']), function ($query) use ($type, $args) {
-                if ($type === 'job' || $type === 'search_job') {
-                    $query->where('type', 'job')->orWhere('type', 'search_job');
-                } elseif ($type === 'seller') {
-                    $query->whereHas('user', fn($query) => $query->where('seller_name', 'like', "%" . $args['search'] . "%"));
-
-                } else {
-                    $query->where('type', $type);
-                }
-            })
-            ->when($type === 'product' && isset($args['max_price']) && $args['max_price'] > 0, fn($query) => $query->where('price', '>=',[$args['min_price'] ?? 0])->where('price',"<=", $args['max_price']??10000))
-            ->when(count($colors) > 0, fn($query) => $query->whereHas('colors', fn($q) => $q->whereIn('colors.id', $colors)))
-            ->when(isset($args['category_id']), fn($query) => $query->where('category_id', $args['category_id']))
-            ->when(isset($args['sub1_id']), fn($query) => $query->where('sub1_id', $args['sub1_id']))
-            ->when(isset($args['city_id']), fn($query) => $query->where('city_id', $args['city_id']))
-            ->when(isset($args['user_id']), fn($query) => $query->where('user_id', $args['user_id']))
-            ->when(isset($args['search']) && !empty($args['search']) && $type !== 'seller', fn($query) => $query->where(function ($query) use ($args) {
-                /*  $query->where('name','Like',"%{$args['search']}%");
-                  $query->orWhere('expert','Like',"%{$args['search']}%");
-                  $query->orWhere('info','Like',"%{$args['search']}%");*/
-                /**
-                 * @var $searchTerms array<string>
-                 */
-                $searchTerms = explode(' ', $args['search']); // تحويل البحث إلى مصفوفة كلمات
-                /**
-                 * @var $term string
-                 */
-                $term = '';
-                foreach ($searchTerms as $term) {
-                    $query->orWhere(function ($query) use ($term) {
-                        $query->where('name', 'LIKE', "%$term%")
-                            ->orWhere('expert', 'LIKE', "%$term%")
-                            ->orWhere('info', 'LIKE', "%$term%");
-                    });
-                }
-
-            }))
-            ->inRandomOrder()
-            ->orderBy('level')->orderBy('created_at');
+        $type = $args['type'] ?? null;
+        if (auth()->check()) {
+            $products = $this->getSuggestProducts($type, $args, $colors);
+            // $products = $this->suggestProducts($type, $args, $colors);
+        } else {
+            $products = $this->getProducts($type, $args, $colors);
+        }
 
         $ids = $products->paginate($args['first'] ?? 15, ['*'], 'page', $args['page'] ?? 1)->pluck('id')->toArray();
         $today = today();
@@ -96,4 +66,137 @@ final class Products
 
         return $products;
     }
+
+    private function getProducts($type, $args, $colors)
+    {
+        $products = Product::query()->where('active', ProductActiveEnum::ACTIVE->value)
+            ->when(isset($args['type']), function ($query) use ($type, $args) {
+                if ($type === 'job' || $type === 'search_job') {
+                    $query->where('type', 'job')->orWhere('type', 'search_job');
+                } elseif ($type === 'seller') {
+                    $query->whereHas('user', fn($query) => $query->where('seller_name', 'like', "%" . $args['search'] . "%"));
+
+                } else {
+                    $query->where('type', $type);
+                }
+            })
+            ->when($type === 'product' && isset($args['max_price']) && $args['max_price'] > 0, fn($query) => $query->where('price', '>=', [$args['min_price'] ?? 0])->where('price', "<=", $args['max_price'] ?? 10000))
+            ->when(collect($colors ?? [])->count() > 0, fn($query) => $query->whereHas('colors', fn($q) => $q->whereIn('colors.id', $colors)))
+            ->when(isset($args['category_id']), fn($query) => $query->where('category_id', $args['category_id']))
+            ->when(isset($args['sub1_id']), fn($query) => $query->where('sub1_id', $args['sub1_id']))
+            ->when(isset($args['city_id']), fn($query) => $query->where('city_id', $args['city_id']))
+            ->when(isset($args['user_id']), fn($query) => $query->where('user_id', $args['user_id']))
+            ->when(isset($args['search']) && !empty($args['search']) && $type !== 'seller', fn($query) => $query->where(function ($query) use ($args) {
+                /*  $query->where('name','Like',"%{$args['search']}%");
+                  $query->orWhere('expert','Like',"%{$args['search']}%");
+                  $query->orWhere('info','Like',"%{$args['search']}%");*/
+                /**
+                 * @var $searchTerms array<string>
+                 */
+                $searchTerms = explode(' ', $args['search']); // تحويل البحث إلى مصفوفة كلمات
+                /**
+                 * @var $term string
+                 */
+                $term = '';
+                foreach ($searchTerms as $term) {
+                    $query->orWhere(function ($query) use ($term) {
+                        $query->where('name', 'LIKE', "%$term%")
+                            ->orWhere('expert', 'LIKE', "%$term%")
+                            ->orWhere('info', 'LIKE', "%$term%");
+                    });
+                }
+
+            }))
+            ->inRandomOrder()
+            ->orderBy('level')->orderBy('created_at');
+        return $products;
+    }
+
+
+    private function getPopularCategoryProducts()
+    {
+        return Interaction::groupBy('category_id')
+            ->orderByRaw('SUM(visited) DESC')
+            ->value('category_id');
+    }
+
+    private function getCommentedCategoryProducts()
+    {
+        return Interaction::whereNotNull('comment_id')
+            ->groupBy('category_id')
+            ->orderByRaw('COUNT(comment_id) DESC')
+            ->value('category_id');
+    }
+
+    private function getFollowedStoreProducts($userId)
+    {
+        return Interaction::where('user_id', $userId)
+            ->where('type', InteractionTypeEnum::FOLLOWER->value)
+            ->pluck('seller_id');
+    }
+
+    private function getSuggestProducts($type, $args, $colors)
+    {
+        // جلب القسم الأكثر زيارة
+        $popularCategory = $this->getPopularCategoryProducts();
+
+        // جلب القسم الأكثر تعليقًا عليه
+        $commentedCategory = $this->getCommentedCategoryProducts();
+
+        // جلب المتاجر التي تم متابعتها من قبل المستخدم
+        $followedStores =  $this->getFollowedStoreProducts(auth()->id())->toArray();
+
+
+        $products = Product::query()
+            ->where('active', ProductActiveEnum::ACTIVE->value)
+            ->leftJoin('interactions', 'products.id', '=', 'interactions.product_id')
+            ->select('products.*', \DB::raw('SUM(interactions.visited) as total_interactions'))
+            ->when(isset($args['type']), function ($query) use ($type, $args) {
+                if ($type === 'job' || $type === 'search_job') {
+                    $query->where('products.type', 'job')->orWhere('products.type', 'search_job');
+                } elseif ($type === 'seller') {
+                    $query->whereHas('user', fn($query) => $query->where('seller_name', 'like', "%" . $args['search'] . "%"));
+                } else {
+                    $query->where('products.type', $type);
+                }
+            })
+            ->when($type === 'product' && isset($args['max_price']) && $args['max_price'] > 0, fn($query) => $query->where('price', '>=', [$args['min_price'] ?? 0])->where('price', "<=", $args['max_price'] ?? 10000))
+            ->when(collect($colors??[])->count() > 0, fn($query) => $query->whereHas('colors', fn($q) => $q->whereIn('colors.id', $colors)))
+            ->when(isset($args['category_id']), fn($query) => $query->where('products.category_id', $args['category_id']))
+            ->when(isset($args['sub1_id']), fn($query) => $query->where('sub1_id', $args['sub1_id']))
+            ->when(isset($args['city_id']), fn($query) => $query->where('city_id', $args['city_id']))
+            ->when(isset($args['user_id']), fn($query) => $query->where('products.user_id', $args['user_id']))
+            ->when(isset($args['search']) && !empty($args['search']) && $type !== 'seller', fn($query) => $query->where(function ($query) use ($args) {
+                $searchTerms = explode(' ', $args['search']); // تحويل البحث إلى مصفوفة كلمات
+                $term=null;
+                foreach ($searchTerms as $term) {
+                    $query->orWhere(function ($query) use ($term) {
+                        $query->where('name', 'LIKE', "%$term%")
+                            ->orWhere('expert', 'LIKE', "%$term%")
+                            ->orWhere('info', 'LIKE', "%$term%");
+                    });
+                }
+            }))
+            ->when($popularCategory || $commentedCategory || !empty($followedStores), function ($query) use ($popularCategory, $commentedCategory, $followedStores) {
+                // إعطاء الأولوية للأقسام التي تم زيارتها أو التعليق عليها والمتاجر التي تم متابعتها
+                $query->orderByRaw(
+                    "CASE
+                    WHEN products.level = ? THEN 1
+                    WHEN products.category_id = ? THEN 2
+                    WHEN products.category_id = ? THEN 3
+                    WHEN products.user_id IN (?) THEN 4
+                    ELSE 5
+                END ASC", [LevelProductEnum::SPECIAL->value,$popularCategory, $commentedCategory,implode(',', $followedStores)]
+                );
+            })
+            ->groupBy('products.id') // نضمن أن المنتجات يتم جمعها وتجنب التكرار
+            ->orderBy('total_interactions', 'DESC') // ترتيب المنتجات بناءً على مجموع التفاعلات
+            ->orderByRaw('RAND()') // ترتيب عشوائي للمنتجات مع نفس مستوى التفاعل
+            ->orderBy('level')
+            ->orderBy('created_at');
+
+        return $products;
+    }
+
+
 }

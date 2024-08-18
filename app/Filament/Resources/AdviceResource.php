@@ -57,11 +57,13 @@ class AdviceResource extends Resource
         return $table
             ->columns([
                 HelperMedia::getImageColumn(),
+
                 Tables\Columns\TextColumn::make('name')->label('اسم الإعلان'),
                 Tables\Columns\TextColumn::make('url')->formatStateUsing(fn($state) => \Str::substr($state, 0, 30))->url(fn($state) => $state, true)->label('اسم الإعلان'),
                 Tables\Columns\TextColumn::make('status')->formatStateUsing(fn($state) => ProductActiveEnum::tryFrom($state)?->getLabel())->color(fn($state) => ProductActiveEnum::tryFrom($state)?->getColor())->icon(fn($state) => ProductActiveEnum::tryFrom($state)?->getIcon())->label('حالة الإعلان'),
                 Tables\Columns\TextColumn::make('city.name')->label('المدينة'),
                 Tables\Columns\TextColumn::make('sub1.name')->label('القسم'),
+              //  Tables\Columns\TextColumn::make('views_count')->label('مرات الظهور'),
             ])
             ->filters([
                 //

@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->foreignId('community_id')->constrained()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->text('message')->nullable();
+            $table->boolean('is_seen')->nullable()->default(false);
             $table->timestamps();
         });
     }

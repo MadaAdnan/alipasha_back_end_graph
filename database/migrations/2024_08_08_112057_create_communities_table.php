@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('seller_id')->nullable()->constrained('users')->nullOnDelete();
+            $table->dateTime('last_change')->nullable();
             $table->timestamps();
         });
 

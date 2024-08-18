@@ -135,4 +135,13 @@ final class Image
 
         return $list;
     }
+
+    public static function getAttach($root): string|null
+    {
+        if ($root->hasMedia('attach')) {
+
+            return $root->getFirstMediaUrl('attach');
+        }
+        return null;
+    }
 }

@@ -18,7 +18,14 @@ Auth::routes([
 ]);
 Route::get('/', function () {
 
-    dd("فثسف");
+   for($i=0;$i<40;$i++){
+       \App\Models\Message::create([
+           'community_id'=>2,
+           'message'=>fake()->name,
+           'user_id'=>$i%2==0?1:3,
+           'created_at'=>fake()->dateTimeBetween('-3 days','now'),
+       ]);
+   }
 
     /*    $products = DB::select(DB::raw("
         SELECT *

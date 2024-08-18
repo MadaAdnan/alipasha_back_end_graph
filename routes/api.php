@@ -19,3 +19,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Log::info($request->header());
     return $request->user();
 });
+
+Route::middleware('auth:sanctum')->group(function(){
+   Route::apiResource('/messages',\App\Http\Controllers\Api\V1\MessageController::class)->only('store');
+});

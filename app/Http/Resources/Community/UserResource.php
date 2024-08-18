@@ -15,9 +15,11 @@ class UserResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'name'=>$this->name,
-            'seller_name'=>$this->seller_name,
-
+            'id' => $this->id,
+            'name' => $this->name,
+            'seller_name' => $this->seller_name,
+            'image' => $this->hasMedia('image') ? $this->getFirstMediaUrl('image', 'webp') : url('/') . asset('images/noImage.jpeg'),
+            'logo' => $this->hasMedia('logo') ? $this->getFirstMediaUrl('logo', 'webp') : url('/') . asset('images/noImage.jpeg'),
         ];
     }
 }
