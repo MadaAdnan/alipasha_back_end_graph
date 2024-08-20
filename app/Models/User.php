@@ -95,7 +95,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
 
     public function following(): HasMany
     {
-        return $this->hasMany(UserFollow::class, 'seller_id','id');
+        return $this->hasMany(UserFollow::class, 'seller_id', 'id');
     }
 
 
@@ -119,4 +119,8 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         return \DB::table('user_follow')->where('user_id', $this->id)->count() ?? 0;
     }
 
+    public function getTotalBalance():float
+    {
+        return \DB::table('balances')->where('user_id', $this->id)->selectRaw('SUM(credit) - SUM(debit) as total')->first()?->total ?? 0;
+    }
 }

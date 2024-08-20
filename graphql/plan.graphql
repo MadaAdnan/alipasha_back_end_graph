@@ -33,3 +33,7 @@ type PlanUserPivot {
     expired_date: String!
     subscription_date: String
 }
+
+extend type Mutation{
+    subscribePlan(id:ID!) : User @guard
+}
