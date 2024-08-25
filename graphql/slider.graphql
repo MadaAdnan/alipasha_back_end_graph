@@ -1,5 +1,5 @@
 extend type Query{
-    sliders(category_id:Int @eq,user_id:Int @eq,city_id:Int @eq):[Slider] @all
+    sliders(category_id:Int ,user_id:Int,city_id:Int ,type:String):[Slider]
     slide(id:ID!  @eq):Slider @find
 
 
@@ -11,6 +11,7 @@ type Slider{
     url:String
     image:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImage")
     user:User @belongsTo
+    category:Category @belongsTo
 }
 
 extend type Mutation{

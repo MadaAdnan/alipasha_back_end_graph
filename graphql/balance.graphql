@@ -2,7 +2,9 @@ extend type Query{
     balances:[Balance] @paginate(builder:"App\\GraphQL\\Queries\\Balances") @guard
 }
 
-
+type Total{
+    user:User
+}
 type Balance{
     id:ID!
     credit:Float

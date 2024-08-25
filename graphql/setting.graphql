@@ -1,0 +1,82 @@
+type Setting{
+   social:Social
+    address:String,
+    longitude:Float
+    latitude:Float
+    weather_api:String
+    current_version:String
+    force_upgrade:Boolean
+    advice_url:String
+    active_advice:Boolean
+    delivery_service:String
+    msg_delivery:String
+    auto_update_exchange:Boolean
+    dollar_value:String
+    less_amount_point_pull:String
+    about:String
+    privacy:String
+    active_live:Boolean
+    live_id:String
+    material_izaz:[Material]
+    material_idlib:[Material]
+    gold:ExchangeGold
+    dollar:ExchangeCur
+    created_at:HumanDate
+}
+
+type ExchangeGold{
+izaz:Gold
+idlib:Gold
+}
+
+type ExchangeCur{
+    izaz:Dollar
+    idlib:Dollar
+}
+
+type Gold{
+    gold24:Sale
+    gold21:Sale
+    gold18:Sale
+    sliver:Sale
+
+}
+type Dollar{
+    usd:Sale
+    eur:Sale
+    syr:Sale
+}
+
+
+
+type Sale{
+    sale:String
+    bay:String
+}
+
+
+
+
+type Material{
+    name:String
+    bay:String
+    sale:String
+}
+type Social{
+    twitter:String
+    face:String
+    instagram:String
+    youtube:String
+    linkedin:String
+    telegram:String
+    name:String
+    email:String
+    sub_email:String
+    phone:String
+    sub_phone:String
+}
+
+
+extend type Query{
+    settings:Setting @first
+}

@@ -104,7 +104,6 @@ class SettingResource extends Resource
                             Forms\Components\Toggle::make('active_live')->label('تفعيل وضع البث')->reactive(),
                             Forms\Components\TextInput::make('live_id')->label('ID البث ')->required(fn($get) => $get('is_live'))
                         ]),
-
                     ])->skippable(),
 
 
@@ -117,7 +116,13 @@ class SettingResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('social.name')->label('اسم الموقع'),
+                Tables\Columns\TextColumn::make('social.email')->label('بريد الموقع'),
+                Tables\Columns\TextColumn::make('social.phone')->label('هاتف الموقع'),
+                Tables\Columns\TextColumn::make('email_delivery')->label('مسؤول التوصيل'),
+                Tables\Columns\TextColumn::make('email_support')->label('مسؤول الدعم الفني'),
+                Tables\Columns\TextColumn::make('dollar_value')->label('سعر الدولار'),
+                Tables\Columns\TextColumn::make('active_live')->label('حالة البث'),
             ])
             ->filters([
                 //

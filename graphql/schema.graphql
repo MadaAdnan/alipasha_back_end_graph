@@ -24,7 +24,7 @@
 #import shipping_price.graphql
 #import order.graphql
 #import message.graphql
-
+#import setting.graphql
 
 #import attribute.graphql
 

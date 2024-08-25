@@ -9,6 +9,7 @@ class ErrorGraphHandler implements ErrorHandler
 {
     public function __invoke(?Error $error, \Closure $next): ?array
     {
+
         if ($error !== null && $error->getPrevious() instanceof GraphQLExceptionHandler) {
             $customError = $error->getPrevious();
 
