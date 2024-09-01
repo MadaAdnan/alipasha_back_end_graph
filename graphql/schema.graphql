@@ -25,6 +25,9 @@
 #import order.graphql
 #import message.graphql
 #import setting.graphql
+#import partner.graphql
+#import seller.graphql
+
 
 #import attribute.graphql
 

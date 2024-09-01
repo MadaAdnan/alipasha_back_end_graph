@@ -1,3 +1,6 @@
+
+
+
 extend type Query{
     advices(category_id:Int,user_id:Int ,city_id:Int):[Advice]
     advice(id:ID!  @eq):Advice @find

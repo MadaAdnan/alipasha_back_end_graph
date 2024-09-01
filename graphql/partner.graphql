@@ -1,0 +1,15 @@
+extend type Query{
+    partners(city_id:ID):[Partner] @paginate(builder:"App\\GraphQL\\Queries\\Partners")
+}
+
+type Partner{
+    id:ID!,
+    name:String,
+    city:City @belongsTo
+    address:String
+    phone:String
+    image:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImage")
+
+
+
+}

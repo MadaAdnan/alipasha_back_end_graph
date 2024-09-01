@@ -14,16 +14,16 @@ final class MyAdvice
     public function __invoke($_, array $args)
     {
         $advices = Advice::where('user_id', auth()->id())->latest('expired_date')->get();
-        $sliderCount=Slider::where('user_id',auth()->id())->count();
-        $viewsCount=$advices->sum('views_count');
+        $slider=Slider::where('user_id',auth()->id())->get();
+        $viewsCount=$advices->sum('views_count')+$slider->sum('views_count');
         return [
             'advices' => $advices,
             'advice_count' => $advices->count(),
-            'my_balance'=>45.5,
-            'my_point'=>20,
-            'my_wins'=>10.7,
+            'my_balance'=>auth()->user()?->getTotalBalance()??0,
+            'my_point'=>auth()->user()?->gettotalPoint()??0,
+            'my_wins'=>0,
             'views'=>$viewsCount,
-            'slider_count'=>$sliderCount,
+            'slider_count'=>$slider->count(),
         ];
     }
 }

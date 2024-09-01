@@ -1,5 +1,5 @@
 extend type Query{
-    questions(category_id:Int @eq,user_id:Int @eq,city_id:Int @eq):[Question] @all
+    questions:[Question] @all
     question(id:ID!  @eq):Question @find
 }
 

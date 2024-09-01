@@ -2,6 +2,7 @@ extend type Query{
     products(type:String ,city_id:Int ,user_id:Int ,category_id:Int ,sub1_id:Int,colors:[Int],min_price:Float,max_price:Float,search:String,first:Int,page:Int):[Product] @paginate(builder:"App\\GraphQL\\Queries\\Products")
     product(id:ID!) : ProductDetails @field(resolver: "App\\GraphQL\\Queries\\Product@__invoke")
     myProducts(search:String):[Product] @paginate(builder:"App\\GraphQL\\Queries\\MyProducts") @guard
+    mySpecialProducts(search:String):[Product]  @guard
     tags(type:String!):[String]
 
 

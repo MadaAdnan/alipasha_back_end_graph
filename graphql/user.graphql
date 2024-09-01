@@ -28,6 +28,7 @@ type User{
     is_delivery:Boolean
     is_restaurant:Boolean
     is_active:Boolean
+    is_seller:Boolean
     affiliate:String
     info:String
     following_count:Int
@@ -134,11 +135,8 @@ input UpdateUserInput{
             message:"البريد الإلكتروني مستخدم من قبل"
         }
     ])
-    password:String! @rules(apply:["required","min:8"],messages:[
-        {
-            rule:"required"
-            message:"كلمة المرور مطلوبة"
-        }
+    password:String @rules(apply:["nullable","min:8"],messages:[
+
         {
             rule:"min"
             message:"يجب ان تحوي كلمة المرور 8 أحرف على الأقل"

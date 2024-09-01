@@ -10,6 +10,7 @@ type Category{
     color:String,
     type:String
     has_color:Boolean
+    products2_count:Int
     image:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImage")
     parents:[Category] @belongsToMany
     children:[Category] @belongsToMany

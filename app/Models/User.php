@@ -123,4 +123,8 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
     {
         return \DB::table('balances')->where('user_id', $this->id)->selectRaw('SUM(credit) - SUM(debit) as total')->first()?->total ?? 0;
     }
+    public function getTotalPoint():float
+    {
+        return \DB::table('points')->where('user_id', $this->id)->selectRaw('SUM(credit) - SUM(debit) as total')->first()?->total ?? 0;
+    }
 }
