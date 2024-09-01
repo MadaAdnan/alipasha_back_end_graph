@@ -1,0 +1,20 @@
+extend type Query{
+    notifications:[Notification] @guard
+
+}
+
+
+type Notification{
+    data:NotificationData
+    id:ID
+    read_at:String
+    image:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImage")
+}
+type NotificationData{
+    msg:String
+    path:String
+
+}
+
+
+
