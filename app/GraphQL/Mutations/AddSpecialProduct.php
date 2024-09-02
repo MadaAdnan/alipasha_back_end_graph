@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Exceptions\GraphQLExceptionHandler;
 use App\Models\Product;
 
 final class AddSpecialProduct
@@ -15,7 +16,7 @@ final class AddSpecialProduct
         $productId = $args['id'];
         $product = Product::where('user_id', auth()->id())->find($productId);
         if (!$product) {
-            throw new \Exception('المنتج غير موجود');
+            throw new GraphQLExceptionHandler('المنتج غير موجود');
         }
         $product->update([
             'level' => $args['level']

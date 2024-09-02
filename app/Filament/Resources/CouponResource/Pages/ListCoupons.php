@@ -24,6 +24,7 @@ class ListCoupons extends ListRecords
                         'price' => $data['price'],
                         'code' => \Str::random(6),
                         'password' => \Str::random(6),
+                        'is_active' => true,
                     ]);
                 }
 

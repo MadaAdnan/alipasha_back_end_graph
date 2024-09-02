@@ -1,6 +1,7 @@
 extend type Query{
     coupons:[Coupon]
     myCoupons:[CouponUsed] @guard @paginate(builder: "App\\GraphQL\\Queries\\MyCoupons")
+
 }
 
 
@@ -26,7 +27,9 @@ type CouponUsed{
     user: User @belongsTo
 
 }
-
+extend type Mutation{
+    charge(code:String!,password:String!):User @guard
+}
 
 
 
