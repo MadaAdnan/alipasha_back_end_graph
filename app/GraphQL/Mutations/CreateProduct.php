@@ -50,6 +50,8 @@ final class CreateProduct
 
             $product->colors()->sync($data['colors']);
 
+            $product->attributes()->sync($data['options']);
+
             if (isset($data['images']) && $data['images'] !== null) {
                 foreach ($data['images'] as $key => $image) {
                     if ($key == 0) {
