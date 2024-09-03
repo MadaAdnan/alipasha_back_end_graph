@@ -14,6 +14,7 @@ type Category{
     image:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImage")
     parents:[Category] @belongsToMany
     children:[Category] @belongsToMany
+    attributes:[Attribute] @hasMany
 
 
 }
