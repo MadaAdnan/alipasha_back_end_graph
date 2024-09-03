@@ -47,6 +47,7 @@ class CategoryResource extends Resource
                         CategoryTypeEnum::TENDER->value => CategoryTypeEnum::TENDER->getLabel(),
                     ])->label('نوع القسم')->visible(fn($get) => $get('is_main')),
                     Forms\Components\ColorPicker::make('color')->visible(fn($get) => $get('is_main'))->label('لون القسم'),
+                    Forms\Components\Toggle::make('has_color')->label('يحوي ألوان '),
 
                 ])
             ]);
