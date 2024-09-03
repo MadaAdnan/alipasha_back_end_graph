@@ -18,7 +18,7 @@ final class CreateProduct
         try {
             $product = \App\Models\Product::create([
                 'city_id' => $user->city_id,
-                'name' => $data['name'] ?? '',
+                'name' => $data['name'] ?? \Str::words($data['info'], 10),
                 'video' => $data['video'] ?? '',
                 'info' => $data['info'] ?? '',
                 'tags' => $data['tags'] ?? null,
