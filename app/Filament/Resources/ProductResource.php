@@ -142,6 +142,23 @@ class ProductResource extends Resource
                 Tables\Actions\EditAction::make()->mutateFormDataUsing(function ($data) {
                     $data['expert'] = \Str::words(strip_tags(html_entity_decode($data['info'])), 15);
                     return $data;
+                })->mutateRecordDataUsing(function ($data){
+                    foreach ($this->record->attributes()->whereHas('attribute', fn($q) => $q->limited())->get() as $attribute) {
+                        $data['attribute'][$attribute->attribute->id] = $attribute->id;
+                    }
+
+                    foreach ($this->record->attributeProduct()->whereNotNull('value')->get() as $attr) {
+                        $data['write'][$attr->attribute_id] = $attr->value;
+                    }
+                    $array_attr = $this->record->attributes->pluck('id')->toArray();
+
+                    foreach (Attribute::multiple()->where('category_id', $this->record->sub1_id)->get() as $attribute) {
+
+                        foreach ($attribute->attributes->pluck('id') as $id) {
+                            $data['options'][$id] = in_array($id, $array_attr) ? true : null;
+                        }
+                    }
+                    return $data;
                 }),
                 Tables\Actions\DeleteAction::make(),
                 Tables\Actions\RestoreAction::make(),
@@ -166,7 +183,7 @@ class ProductResource extends Resource
         return [
             'index' => Pages\ListProducts::route('/'),
             'create' => Pages\CreateProduct::route('/create'),
-            'edit' => Pages\EditProduct::route('/{record}/edit'),
+//            'edit' => Pages\EditProduct::route('/{record}/edit'),
         ];
     }
 }
