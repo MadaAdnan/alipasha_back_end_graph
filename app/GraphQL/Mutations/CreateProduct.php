@@ -48,9 +48,10 @@ final class CreateProduct
                 $product->addMedia($data['image'])->toMediaCollection('image');
             }*/
 
-            $product->colors()->sync($data['colors']);
+            $product->colors()->sync($data['colors']??[]);
 
-            $product->attributes()->sync($data['options']);
+            $product->attributes()->sync($data['options']??[]);
+
 
             if (isset($data['images']) && $data['images'] !== null) {
                 foreach ($data['images'] as $key => $image) {
