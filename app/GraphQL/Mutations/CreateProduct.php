@@ -44,13 +44,17 @@ final class CreateProduct
 
             ]);
 
-            if (isset($data['image']) && $data['image'] !== null) {
+            /*if (isset($data['image']) && $data['image'] !== null) {
                 $product->addMedia($data['image'])->toMediaCollection('image');
-            }
+            }*/
 
             if (isset($data['images']) && $data['images'] !== null) {
-                foreach ($data['images'] as $image) {
-                    $product->addMedia($image)->toMediaCollection('images');
+                foreach ($data['images'] as $key => $image) {
+                    if ($key == 0) {
+                        $product->addMedia($image)->toMediaCollection('image');
+                    } else {
+                        $product->addMedia($image)->toMediaCollection('images');
+                    }
                 }
             }
         } catch (\Exception | \Error $e) {
