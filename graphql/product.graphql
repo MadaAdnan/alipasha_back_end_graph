@@ -111,7 +111,7 @@ input CreateProductInput{
     #        }
     #    ])
 
-    images: [Upload] @rulesForArray(apply: ["mimetypes:image/webp,image/png,image/jpeg,image/jpg"], messages: [{ rule: "mimetypes", message: "يرجى إدخال صورة صالحة" }])
+    images: [Upload] @rulesForArray(apply: ["mimes:png,webp,jpg,jpeg"], messages: [{ rule: "mimetypes", message: "يرجى إدخال صورة صالحة" }])
 
     video:String @rules(apply: ["nullable","string"],messages:[
         {
