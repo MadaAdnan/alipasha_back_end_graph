@@ -39,8 +39,8 @@ final class CreateProduct
                 'expert' => \Str::words($data['info'], 10),
                 'end_date' => $data['period'] != null ? now()->addDays($data['period']) : null,
                 'is_delivery' => $data['is_delivery'] ?? false,
-                'latitude' => $data['latitude'] ?? null,
-                'longitude' => $data['longitude'] ?? null,
+               // 'latitude' => $data['latitude'] ?? null,
+                //'longitude' => $data['longitude'] ?? null,
 
             ]);
 
