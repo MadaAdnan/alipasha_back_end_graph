@@ -50,7 +50,7 @@ final class CreateProduct
 
             $product->colors()->sync($data['colors']??[]);
 
-            $product->attributes()->sync($data['options']??[]);
+            $product->attributeProduct()->sync($data['options']??[]);
 
 
             if (isset($data['images']) && $data['images'] !== null) {
