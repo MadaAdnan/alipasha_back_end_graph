@@ -16,7 +16,7 @@ input CreateJobInput{
             message:"يرجى إدخال 3 أحرف على الأقل"
         }
     ])
-    city_id:Int @rules(apply: ["required","integer","exists:cities,id"],messages:[
+    city_id:Int @rules(apply: ["nullable","integer","exists:cities,id"],messages:[
         {
             rule:"required",
             message:"يرجى إدخال المدينة"
