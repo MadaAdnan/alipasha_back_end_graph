@@ -30,7 +30,7 @@ final class CreateJob
             'code' => $data['code'] ?? null,
             'url' => $data['url'] ?? null,
             'active' => ProductActiveEnum::PENDING->value,
-            'expert'=>\Str::words($data['info'],10),
+            'expert' => \Str::words($data['info'], 10),
             'category_id' => $data['category_id'] ?? null,
             'sub1_id' => $data['sub1_id'] ?? null,
             'sub2_id' => $data['sub2_id'] ?? null,
@@ -39,7 +39,8 @@ final class CreateJob
         ]);
 
         if (isset($data['cv']) && $data['cv'] !== null) {
-            $product->addMedia($data['cv'])->toMediaCollection('docs');
+            foreach ($data['cv'] as $value)
+                $product->addMedia($value)->toMediaCollection('docs');
         }
 
         return $product;
