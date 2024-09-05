@@ -4,6 +4,12 @@ extend type Mutation{
 }
 
 input CreateJobInput{
+    is_available:Boolean @rules(apply: ["boolean"],messages:[
+        {
+            rule:"boolean",
+            message:"يرجى إدخال قيمة صالحة"
+        }
+    ])
     name:String @rules(apply: ["nullable","min:3"],messages:[
         {
             rule:"min",
