@@ -107,7 +107,7 @@ input CreateJobInput{
 
     ])
     #    ##############
-    cv:[Upload]
+    attach:[Upload]
 #    @rules(apply:["required_if:type,search_job","mimetypes:application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"],messages:[
 #        {
 #            rule:"required_if",

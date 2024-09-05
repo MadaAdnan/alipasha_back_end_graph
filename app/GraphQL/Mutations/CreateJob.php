@@ -38,8 +38,8 @@ final class CreateJob
             'sub4_id' => $data['sub4_id'] ?? null,
         ]);
 
-        if (isset($data['cv']) && $data['cv'] !== null) {
-            foreach ($data['cv'] as $value)
+        if ( $data['attach'] !== null) {
+            foreach ($data['attach'] as $value)
                 $product->addMedia($value)->toMediaCollection('docs');
         }
 
