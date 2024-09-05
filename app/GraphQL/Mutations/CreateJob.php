@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations;
 
 use App\Enums\ProductActiveEnum;
+use App\Exceptions\GraphQLExceptionHandler;
 use App\Models\Product;
 use Carbon\Carbon;
 
@@ -14,7 +15,9 @@ final class CreateJob
      */
     public function __invoke($_, array $args)
     {
+
         $data = $args['input'];
+        throw new GraphQLExceptionHandler($data['attach'][0]);
         $userId = auth()->id();
         $product = Product::create([
             'user_id' => $userId,
