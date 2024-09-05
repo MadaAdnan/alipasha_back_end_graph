@@ -107,17 +107,17 @@ input CreateJobInput{
 
     ])
     #    ##############
-    cv:Upload @rules(apply:["required_if:type,search_job","mimetypes:application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"],messages:[
-        {
-            rule:"required_if",
-            message:"يرجى رفع ملف"
-        }
-        {
-            rule:"mimetypes",
-            message:"صيغة الملف غير مدعومة"
-        }
-    ])
-
+    cv:[Upload]
+#    @rules(apply:["required_if:type,search_job","mimetypes:application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"],messages:[
+#        {
+#            rule:"required_if",
+#            message:"يرجى رفع ملف"
+#        }
+#        {
+#            rule:"mimetypes",
+#            message:"صيغة الملف غير مدعومة"
+#        }
+#    ])
 
     category_id:Int!  @rules(apply: ["required","integer","exists:categories,id"],messages:[
         {
