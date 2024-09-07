@@ -74,28 +74,26 @@ input CreateJobInput{
         }
 
     ])
-    start_date:String @rules(apply: ["required_if:type,job"],messages:[
+    start_date: String @rules(apply: ["required_if:type,job", "date"], messages: [
         {
-            rule:"required_if",
-            message:"حقل تاريخ بداية التقديم مطلوب"
-        }
+            rule: "required_if",
+            message: "حقل تاريخ بداية التقديم مطلوب"
+        },
         {
-            rule:"date",
-            message:"يرجى إدخال تاريخ صالح"
+            rule: "date",
+            message: "يرجى إدخال تاريخ صالح"
         }
-
     ])
 
-    end_date:String @rules(apply: ["required_if:type,job"],messages:[
+    end_date: String @rules(apply: ["required_if:type,job", "date"], messages: [
         {
-            rule:"required_if",
-            message:"حقل تاريخ نهاية التقديم مطلوب"
-        }
+            rule: "required_if",
+            message: "حقل تاريخ بداية التقديم مطلوب"
+        },
         {
-            rule:"date",
-            message:"يرجى إدخال تاريخ صالح"
+            rule: "date",
+            message: "يرجى إدخال تاريخ صالح"
         }
-
     ])
 
     code:String @rules(apply: ["required"],messages:[
