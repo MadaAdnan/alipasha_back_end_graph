@@ -4,13 +4,14 @@ extend type Mutation{
 }
 
 input CreateTenderInput{
-    attach:Upload @rules(apply:["nullable","mimetypes:application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"],messages:[
-
-        {
-            rule:"mimetypes",
-            message:"صيغة الملف غير مدعومة"
-        }
-    ])
+    attach:[Upload]
+#    @rules(apply:["nullable","mimetypes:application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"],messages:[
+#
+#        {
+#            rule:"mimetypes",
+#            message:"صيغة الملف غير مدعومة"
+#        }
+#    ])
     city_id:Int @rules(apply: ["nullable","integer","exists:cities,id"],messages:[
         {
             rule:"required",
