@@ -14,7 +14,7 @@ final class UpdateUser
     public function __invoke($_, array $args)
     {
         $data = $args['input'];
-        throw new GraphQLExceptionHandler($data['password']);
+
         /**
          * @var $user User
          */
@@ -40,7 +40,7 @@ final class UpdateUser
             'longitude' => $data['longitude'] ?? $user->longitude,
             'latitude' => $data['latitude'] ?? $user->latitude,
         ];
-        if (!empty(trim($data['password']))) {
+        if (isset($data['password']) && $data['password'] !== null && !empty(trim($data['password']))) {
             $input['password'] = bcrypt($data['password']);
         }
         $user->update($input);
