@@ -20,7 +20,7 @@ final class CreateTender
             'user_id' => $userId,
             'name' => $data['name'] ?? \Str::words($data['info'], 10),
             'info' => $data['info'] ?? null,
-            'city_id' => $data['city_id'] ?? null,
+            'city_id' => $data['city_id'] ?? auth()->user()->city_id,
             'tags' => $data['tags'] ?? null,
             'type' => 'tender',
             'email' => $data['email'] ?? null,

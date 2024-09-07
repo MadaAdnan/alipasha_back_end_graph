@@ -17,7 +17,7 @@ final class CreateProduct
         $user = auth()->user();
         try {
             $product = \App\Models\Product::create([
-                'city_id' => $user->city_id,
+                'city_id' => $data['city_id']??$user->city_id,
                 'name' => $data['name'] ?? \Str::words($data['info'], 10),
                 'video' => $data['video'] ?? '',
                 'info' => $data['info'] ?? '',
