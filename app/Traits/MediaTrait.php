@@ -15,7 +15,7 @@ trait MediaTrait
      * */
     public function registerMediaConversions(Media $media = null): void
     {
-
+info('MEdia Type '.$media->mime_type);
         $this
             ->addMediaConversion('webp')
             ->quality(60)
