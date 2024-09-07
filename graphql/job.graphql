@@ -96,7 +96,7 @@ input CreateJobInput{
         }
     ])
 
-    code:String @rules(apply: ["required"],messages:[
+    code:String @rules(apply: ["required_if:type,job"],messages:[
         {
             rule:"required",
             message:"حقل كود الوظيفة مطلوب"
