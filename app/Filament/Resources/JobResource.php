@@ -42,7 +42,7 @@ class JobResource extends Resource
                     Forms\Components\Select::make('user_id')->options(User::seller()->pluck('users.seller_name', 'users.id'))->label('المتجر')->live()->afterStateUpdated(fn($set, $state) => $set('city_id', User::find($state)?->city_id)),
                     Forms\Components\Select::make('city_id')->options(City::pluck('name', 'id'))->searchable()->label('المدينة'),
                     Forms\Components\TextInput::make('name')->label('اسم الوظيفة'),
-                    Forms\Components\RichEditor::make('info')->label('وصف الوظيفة'),
+                    Forms\Components\Textarea::make('info')->label('وصف الوظيفة'),
                     Forms\Components\TagsInput::make('tags')->suggestions(fn() => Product::job()->pluck('tags')->flatten()->unique())->label('تاغات'),
                     Forms\Components\Select::make('type')->options([
                         CategoryTypeEnum::SEARCH_JOB->value => CategoryTypeEnum::SEARCH_JOB->getLabel(),
@@ -55,7 +55,9 @@ class JobResource extends Resource
                             Forms\Components\TextInput::make('code')->label('كود الوظيفة'),
                             Forms\Components\TextInput::make('url')->label('رابط التقديم')->url(),
                         ])->visible(fn($get) => $get('type') === CategoryTypeEnum::JOB->value),
-                        Forms\Components\SpatieMediaLibraryFileUpload::make('docs')->collection('docs')->acceptedFileTypes(['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'])->label('رفع CV')->visible(fn($get) => $get('type') === CategoryTypeEnum::SEARCH_JOB->value)->columnSpan(2),
+                        Forms\Components\SpatieMediaLibraryFileUpload::make('docs')->collection('docs')->acceptedFileTypes(['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'])->label('رفع CV')
+                            ->openable()->deletable()
+                            ->visible(fn($get) => $get('type') === CategoryTypeEnum::SEARCH_JOB->value)->columnSpan(2),
 
                         Forms\Components\TextInput::make('email')->label('البريد الإلكتروني')->email(),
                         Forms\Components\TextInput::make('phone')->label('رقم الهاتف'),
