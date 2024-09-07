@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Exceptions\GraphQLExceptionHandler;
 use App\Models\User;
 
 final class UpdateUser
@@ -13,7 +14,7 @@ final class UpdateUser
     public function __invoke($_, array $args)
     {
         $data = $args['input'];
-
+        throw new GraphQLExceptionHandler($data['password']);
         /**
          * @var $user User
          */
@@ -23,7 +24,7 @@ final class UpdateUser
         if ($is_exists_email > 0) {
             throw new \Exception('البريد مستخدم من قبل');
         }
-        $input=[
+        $input = [
             'name' => $data['name'] ?? $user->name,
             'email' => $data['email'] ?? $user->email,
 
@@ -39,8 +40,8 @@ final class UpdateUser
             'longitude' => $data['longitude'] ?? $user->longitude,
             'latitude' => $data['latitude'] ?? $user->latitude,
         ];
-        if(!empty(trim($data['password']))){
-            $input['password']=bcrypt($data['password']);
+        if (!empty(trim($data['password']))) {
+            $input['password'] = bcrypt($data['password']);
         }
         $user->update($input);
 
