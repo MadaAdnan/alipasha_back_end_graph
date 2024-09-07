@@ -13,7 +13,7 @@ final class UpdateUser
     public function __invoke($_, array $args)
     {
         $data = $args['input'];
-        info($data);
+
         /**
          * @var $user User
          */
@@ -23,10 +23,10 @@ final class UpdateUser
         if ($is_exists_email > 0) {
             throw new \Exception('البريد مستخدم من قبل');
         }
-        $user->update([
+        $input=[
             'name' => $data['name'] ?? $user->name,
             'email' => $data['email'] ?? $user->email,
-            'password' => $data['password'] ?? $user->password,
+
             'phone' => $data['phone'] ?? $user->phone,
             'city_id' => $data['city_id'] ?? $user->city_id,
             'seller_name' => $data['seller_name'] ?? $user->seller_name,
@@ -38,7 +38,11 @@ final class UpdateUser
             'device_token' => $data['device_token'] ?? $user->device_token,
             'longitude' => $data['longitude'] ?? $user->longitude,
             'latitude' => $data['latitude'] ?? $user->latitude,
-        ]);
+        ];
+        if(!empty(trim($data['password']))){
+            $input['password']=bcrypt($data['password']);
+        }
+        $user->update($input);
 
         if (isset($data['image']) && $data['image'] != null) {
             try {
