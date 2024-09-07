@@ -50,7 +50,7 @@ input CreateTenderInput{
         }
     ])
 
-    email:String @rules(apply: ["required","email"],messages:[
+    email:String! @rules(apply: ["required","email"],messages:[
         {
             rule:"required",
             message:"حقل البريد الإلكتروني مطلوب"
@@ -79,7 +79,7 @@ input CreateTenderInput{
 
     ])
 
-    end_date:String @rules(apply: ["required","date"],messages:[
+    end_date:String! @rules(apply: ["required","date"],messages:[
         {
             rule:"required",
             message:"حقل تاريخ نهاية التقديم مطلوب"

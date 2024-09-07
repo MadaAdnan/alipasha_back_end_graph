@@ -42,7 +42,7 @@ class TenderResource extends Resource
                     Forms\Components\Select::make('user_id')->options(User::seller()->pluck('users.seller_name', 'users.id'))->label('المتجر')->live()->afterStateUpdated(fn($set, $state) => $set('city_id', User::find($state)?->city_id)),
                     Forms\Components\Select::make('city_id')->options(City::pluck('name', 'id'))->searchable()->label('المدينة'),
                     Forms\Components\TextInput::make('name')->label('اسم المناقصة'),
-                    Forms\Components\RichEditor::make('info')->label('وصف المناقصة'),
+                    Forms\Components\Textarea::make('info')->label('وصف المناقصة'),
                     Forms\Components\TagsInput::make('tags')->suggestions(fn() => Product::tender()->pluck('tags')->flatten()->unique())->label('تاغات'),
                     Forms\Components\Fieldset::make('بيانات المناقصة')->schema([
                         Forms\Components\DatePicker::make('start_date')->label('تاريخ بداية التقديم'),
