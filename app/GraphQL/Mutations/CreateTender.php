@@ -18,7 +18,7 @@ final class CreateTender
         $userId = auth()->id();
         $product = Product::create([
             'user_id' => $userId,
-            'name' => $data['name'] ?? null,
+            'name' => $data['name'] ?? \Str::words($data['info'], 10),
             'info' => $data['info'] ?? null,
             'city_id' => $data['city_id'] ?? null,
             'tags' => $data['tags'] ?? null,
@@ -37,13 +37,13 @@ final class CreateTender
             'sub3_id' => $data['sub3_id'] ?? null,
             'sub4_id' => $data['sub4_id'] ?? null,
         ]);
-        if (isset($data['docs'])) {
-            if (is_array($data['docs'])) {
-                foreach ($data['docs'] as $doc) {
+        if (isset($data['attach'])) {
+            if (is_array($data['attach'])) {
+                foreach ($data['attach'] as $doc) {
                     $product->addMedia($doc)->toMediaCollection('docs');
                 }
             } else {
-                $product->addMedia($data['docs'])->toMediaCollection('docs');
+                $product->addMedia($data['attach'])->toMediaCollection('docs');
             }
         }
         return $product;

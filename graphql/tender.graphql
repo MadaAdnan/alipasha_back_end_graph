@@ -4,17 +4,14 @@ extend type Mutation{
 }
 
 input CreateTenderInput{
-    docs:Upload @rules(apply:["nullable","mimetypes:application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"],messages:[
-        {
-            rule:"required_if",
-            message:"يرجى رفع ملف"
-        }
+    attach:Upload @rules(apply:["nullable","mimetypes:application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"],messages:[
+
         {
             rule:"mimetypes",
             message:"صيغة الملف غير مدعومة"
         }
     ])
-    city_id:Int @rules(apply: ["required","integer","exists:cities,id"],messages:[
+    city_id:Int @rules(apply: ["nullable","integer","exists:cities,id"],messages:[
         {
             rule:"required",
             message:"يرجى إدخال المدينة"
@@ -69,9 +66,9 @@ input CreateTenderInput{
         }
 
     ])
-    start_date:String @rules(apply: ["required_if:type,job"],messages:[
+    start_date:String @rules(apply: ["required","date"],messages:[
         {
-            rule:"required_if",
+            rule:"required",
             message:"حقل تاريخ بداية التقديم مطلوب"
         }
         {
@@ -81,9 +78,9 @@ input CreateTenderInput{
 
     ])
 
-    end_date:String @rules(apply: ["required_if:type,job"],messages:[
+    end_date:String @rules(apply: ["required","date"],messages:[
         {
-            rule:"required_if",
+            rule:"required",
             message:"حقل تاريخ نهاية التقديم مطلوب"
         }
         {
