@@ -15,13 +15,21 @@ trait MediaTrait
      * */
     public function registerMediaConversions(Media $media = null): void
     {
-info('MEdia Type '.$media->mime_type);
-        $this
-            ->addMediaConversion('webp')
-            ->quality(60)
+        $mims = [
+            'image/png',
+            'image/jpeg',
+            'image/jpg',
+            'image/webp',
+        ];
+        if (in_array($media?->mime_type, $mims)) {
+            $this
+                ->addMediaConversion('webp')
+                ->quality(60)
 //            ->fit(Manipulations::FIT_STRETCH, 600,0)
-            ->format('webp')
-            ->nonQueued();
+                ->format('webp')
+                ->nonQueued();
+
+        }
 
     }
 
