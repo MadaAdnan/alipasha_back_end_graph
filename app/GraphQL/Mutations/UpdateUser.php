@@ -14,7 +14,7 @@ final class UpdateUser
     public function __invoke($_, array $args)
     {
         $data = $args['input'];
-        throw new GraphQLExceptionHandler($data['password']);
+
         /**
          * @var $user User
          */
