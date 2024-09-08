@@ -18,20 +18,21 @@ final class UpdateService
         $serviceId = $args['id'];
         $product = Product::service()->where('user_id', $userId)->find($serviceId);
         $product->update([
-            'name' => $data['name'] ?? null,
-            'city_id' => $data['city_id'] ?? null,
+            'name' => \Str::words(10,$data['info'])??'',
+            'city_id' => $data['city_id'] ?? $product->city_id,
             'info' => $data['info'] ?? null,
+            'expert'=>\Str::words(10,$data['info'])??'',
             'tags' => $data['tags'] ?? null,
-            'category_id' => $data['category_id'] ?? null,
-            'sub1_id' => $data['sub1_id'] ?? null,
-            'email' => $data['email'] ?? null,
-            'phone' => $data['phone'] ?? null,
-            'address' => $data['address'] ?? null,
+            'category_id' => $data['category_id'] ?? $product->category_id,
+            'sub1_id' => $data['sub1_id'] ?? $product->sub1_id,
+            'email' => $data['email'] ?? $product->email,
+            'phone' => $data['phone'] ?? $product->phone,
+            'address' => $data['address'] ?? $product->address,
         ]);
 
-        if (isset($data['image'])) {
+        if (isset($data['attach'])) {
             $product->clearMediaCollection('image');
-            $product->addMedia($data['image'])->toMediaCollection('image');
+            $product->addMedia($data['attach'])->toMediaCollection('image');
         }
         return $product;
     }
