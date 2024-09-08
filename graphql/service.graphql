@@ -5,16 +5,7 @@ extend type Mutation{
 }
 
 input CreateServiceInput{
-    image:Upload! @rules(apply:["required","image"],messages:[
-        {
-            rule:"required",
-            message:"يرجى إدخال الصورة"
-        }
-        {
-            rule:"image",
-            message:"يرجى إدخال صورة صالحة"
-        }
-    ])
+    attach:[Upload]
     name:String @rules(apply: ["nullable","min:3"],messages:[
         {
             rule:"min",
@@ -45,6 +36,38 @@ input CreateServiceInput{
             message:"يرجى إدخال قيمة صالحة"
         }
     ])
+    email:String @rules(apply: ["required","email"],messages:[
+        {
+            rule:"required",
+            message:"حقل البريد الإلكتروني مطلوب"
+        }
+        {
+            rule:"required",
+            message:"يرجى إدخال بريد الإلكتروني صالح"
+        }
+    ])
+    phone:String @rules(apply: ["nullable"],messages:[
+        {
+            rule:"required",
+            message:"حقل رقم التواصل مطلوب"
+        }
+
+    ])
+    address:String @rules(apply: ["nullable"],messages:[
+        {
+            rule:"required",
+            message:"حقل العنوان  التفصيلي مطلوب"
+        }
+
+    ])
+    url:String @rules(apply: ["nullable"],messages:[
+        {
+            rule:"required",
+            message:"حقل رابط الخدمة مطلوب"
+        }
+
+    ])
+
     tags:[String] @rules(apply: ["nullable"]) @rulesForArray(apply:["min:0"],messages:[
         {
             rule:"string",
@@ -79,29 +102,6 @@ input CreateServiceInput{
             message:"يرجى إدخال تصنيف صالح"
         }
     ])
-    email:String @rules(apply: ["required","email"],messages:[
-        {
-            rule:"required",
-            message:"حقل البريد الإلكتروني مطلوب"
-        }
-        {
-            rule:"required",
-            message:"يرجى إدخال بريد الإلكتروني صالح"
-        }
-    ])
-    phone:String @rules(apply: ["nullable"],messages:[
-        {
-            rule:"required",
-            message:"حقل رقم التواصل مطلوب"
-        }
 
-    ])
-    address:String @rules(apply: ["nullable"],messages:[
-        {
-            rule:"required",
-            message:"حقل العنوان  التفصيلي مطلوب"
-        }
-
-    ])
 
 }
