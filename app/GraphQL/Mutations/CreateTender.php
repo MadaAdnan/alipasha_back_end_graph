@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Enums\CategoryTypeEnum;
 use App\Enums\ProductActiveEnum;
 use App\Models\Product;
 use Carbon\Carbon;
@@ -22,7 +23,7 @@ final class CreateTender
             'info' => $data['info'] ?? null,
             'city_id' => $data['city_id'] ?? auth()->user()->city_id,
             'tags' => $data['tags'] ?? null,
-            'type' => 'tender',
+            'type' => CategoryTypeEnum::TENDER->value,
             'email' => $data['email'] ?? null,
             'phone' => $data['phone'] ?? null,
             'start_date' => isset($data['start_date']) ? Carbon::parse($data['start_date']) : null,

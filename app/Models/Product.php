@@ -75,7 +75,7 @@ class Product extends Model implements HasMedia
 
     public function scopeService($query)
     {
-        return $query->whereHas('category', fn($query) => $query->where('categories.type', CategoryTypeEnum::SERVICE->value));
+        return $query->where('type','service');
     }
 
     public function category(): BelongsTo

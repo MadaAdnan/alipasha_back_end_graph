@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Enums\CategoryTypeEnum;
 use App\Enums\ProductActiveEnum;
 use App\GraphQL\Queries\Product;
 
@@ -35,7 +36,7 @@ final class CreateProduct
                 'active' => ProductActiveEnum::PENDING->value,
                 'user_id' => $user->id,
 
-                'type' => 'product',
+                'type' => CategoryTypeEnum::PRODUCT->value,
                 'expert' => \Str::words($data['info'], 10),
                 'end_date' => $data['period'] != null ? now()->addDays($data['period']) : null,
                 'is_delivery' => $data['is_delivery'] ?? false,

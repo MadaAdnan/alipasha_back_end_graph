@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Enums\CategoryTypeEnum;
 use App\Enums\ProductActiveEnum;
 use App\Models\Product;
 
@@ -17,6 +18,7 @@ final class CreateService
         $userId = auth()->id();
         $product = Product::create([
             'user_id' => $userId,
+            'type'=>CategoryTypeEnum::SERVICE->value,
             'active' => ProductActiveEnum::PENDING->value,
             'name' => $data['name'] ?? \Str::words($data['info'] ,10),
             'city_id' => $data['city_id'] ?? null,
