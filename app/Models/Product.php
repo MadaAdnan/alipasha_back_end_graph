@@ -55,27 +55,27 @@ class Product extends Model implements HasMedia
 
     public function scopeProduct($query)
     {
-        return $query->whereHas('category', fn($query) => $query->where('categories.type', CategoryTypeEnum::PRODUCT->value));
+        return $query->where('type',CategoryTypeEnum::PRODUCT->value);
     }
 
     public function scopeJob($query)
     {
-        return $query->whereHas('category', fn($query) => $query->where('categories.type', CategoryTypeEnum::JOB->value)->orWhere('categories.type', CategoryTypeEnum::SEARCH_JOB->value));
+        return $query->where('type',CategoryTypeEnum::JOB->value)->orWhere('type',CategoryTypeEnum::SEARCH_JOB->value);
     }
 
     public function scopeTender($query)
     {
-        return $query->whereHas('category', fn($query) => $query->where('categories.type', CategoryTypeEnum::TENDER->value));
+        return $query->where('type',CategoryTypeEnum::TENDER->value);
     }
 
     public function scopeNews($query)
     {
-        return $query->whereHas('category', fn($query) => $query->where('categories.type', CategoryTypeEnum::NEWS->value));
+        return $query->where('type',CategoryTypeEnum::NEWS->value);
     }
 
     public function scopeService($query)
     {
-        return $query->where('type','service');
+        return $query->where('type',CategoryTypeEnum::SERVICE->value);
     }
 
     public function category(): BelongsTo
