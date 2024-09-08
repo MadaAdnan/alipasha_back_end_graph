@@ -18,9 +18,10 @@ final class CreateService
         $product = Product::create([
             'user_id' => $userId,
             'active' => ProductActiveEnum::PENDING->value,
-            'name' => $data['name'] ?? null,
+            'name' => $data['name'] ?? \Str::words($data['info'] ,10),
             'city_id' => $data['city_id'] ?? null,
             'info' => $data['info'] ?? null,
+            'expert'=>\Str::words($data['info'] ,10),
             'tags' => $data['tags'] ?? null,
             'category_id' => $data['category_id'] ?? null,
             'sub1_id' => $data['sub1_id'] ?? null,

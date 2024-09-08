@@ -45,6 +45,7 @@ class ServiceResource extends Resource
                     Forms\Components\Select::make('category_id')->options(Category::service()->pluck('name', 'id'))->label('يتبع القسم')->searchable()->live()->required(),
                     Forms\Components\Select::make('sub1_id')->options(fn($get) => Category::find($get('category_id'))?->children?->pluck('name', 'id'))->label('يتبع القسم')->searchable()->live(),
 
+                    Forms\Components\TextInput::make('url')->label('رابط الخدمة'),
                     Forms\Components\TextInput::make('address')->label('العنوان التفصيلي'),
                     Forms\Components\TextInput::make('phone')->label('رقم الهاتف'),
                     Forms\Components\TextInput::make('email')->label('البريد الإلكتروني')->email(),
