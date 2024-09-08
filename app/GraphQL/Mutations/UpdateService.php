@@ -18,10 +18,10 @@ final class UpdateService
         $serviceId = $args['id'];
         $product = Product::service()->where('user_id', $userId)->find($serviceId);
         $product->update([
-            'name' => \Str::words(10,$data['info'])??'',
+            'name' => \Str::words($data['info'],10)??'',
             'city_id' => $data['city_id'] ?? $product->city_id,
             'info' => $data['info'] ?? null,
-            'expert'=>\Str::words(10,$data['info'])??'',
+            'expert'=>\Str::words($data['info'],10)??'',
             'tags' => $data['tags'] ?? null,
             'category_id' => $data['category_id'] ?? $product->category_id,
             'sub1_id' => $data['sub1_id'] ?? $product->sub1_id,
