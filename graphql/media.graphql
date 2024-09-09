@@ -1,0 +1,8 @@
+type Media{
+    id:Int
+}
+
+
+extend type Mutation{
+    deleteMedia(id:ID!): Media @guard
+}
