@@ -39,13 +39,13 @@ final class UpdateTender
             'sub3_id' => $data['sub3_id'] ?? null,
             'sub4_id' => $data['sub4_id'] ?? null,
         ]);
-        if (isset($data['docs'])) {
-            if (is_array($data['docs'])) {
-                foreach ($data['docs'] as $doc) {
+        if (isset($data['attach'])) {
+            if (is_array($data['attach'])) {
+                foreach ($data['attach'] as $doc) {
                     $product->addMedia($doc)->toMediaCollection('docs');
                 }
             } else {
-                $product->addMedia($data['docs'])->toMediaCollection('docs');
+                $product->addMedia($data['attach'])->toMediaCollection('docs');
             }
         }
         return $product;
