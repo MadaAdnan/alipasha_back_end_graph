@@ -52,8 +52,8 @@ type Product{
     video:String
     images:[String] @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImages")
     docs:[String] @field(resolver: "App\\GraphQL\\Resolvers\\Image@getDocs")
-    liistOfImages:[DataImage] @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImagesWithId")
-    liistOfDocs:[DataImage] @field(resolver: "App\\GraphQL\\Resolvers\\Image@getDocsWithId")
+    listOfImages:[DataImage] @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImagesWithId")
+    listOfDocs:[DataImage] @field(resolver: "App\\GraphQL\\Resolvers\\Image@getDocsWithId")
     created_at:CustomDate
 
 }
