@@ -22,11 +22,11 @@ final class UpdateJob
             throw new \Exception('الوظيفة رقم ' . $jobId . ' غير موجود');
         }
         $product->update([
-            'name' => $data['name'] ?? null,
+            'name' => \Str::words($data['info'], 10),
             'info' => $data['info'] ?? null,
             'city_id' => $data['city_id'] ?? null,
             'tags' => $data['tags'] ?? null,
-            'type' => $data['type'] ?? null,
+           // 'type' => $data['type'] ?? null,
             'email' => $data['email'] ?? null,
             'phone' => $data['phone'] ?? null,
             'start_date' => isset($data['start_date']) ? Carbon::parse($data['start_date']) : null,
@@ -41,9 +41,14 @@ final class UpdateJob
             'sub4_id' => $data['sub4_id'] ?? null,
         ]);
 
-        if (isset($data['cv']) && $data['cv'] !== null) {
-            $product->clearMediaCollection('docs');
-            $product->addMedia($data['cv'])->toMediaCollection('docs');
+        if (isset($data['attach'])) {
+            if (is_array($data['attach'])) {
+                foreach ($data['attach'] as $doc) {
+                    $product->addMedia($doc)->toMediaCollection('docs');
+                }
+            } else {
+                $product->addMedia($data['attach'])->toMediaCollection('docs');
+            }
         }
 
         return $product;

@@ -22,7 +22,7 @@ final class UpdateTender
             throw new \Exception('المناقصة رقم '.$tenderId.' غير موجودة');
         }
         $product->update([
-            'name' => $data['name'] ?? null,
+            'name' =>  \Str::words($data['info'], 10),
             'info' => $data['info'] ?? null,
             'city_id' => $data['city_id'] ?? null,
             'tags' => $data['tags'] ?? null,
