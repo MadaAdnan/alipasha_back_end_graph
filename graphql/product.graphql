@@ -77,7 +77,7 @@ extend type Mutation {
     deleteProduct(id:ID!):Product
     createProduct(input:CreateProductInput) : Product @guard
 
-    updateProduct(id:ID! ,input:updateProductInput) : Product @guard
+    updateProduct(id:ID! ,input:UpdateProductInput) : Product @guard
     addSpecialProduct(id:ID!,level:String! @rules(apply:["required","in:normal,special"],messages:[
         {
             rule:"required",
@@ -238,7 +238,7 @@ input CreateProductInput{
     period:Int
 }
 
-input updateProductInput{
+input UpdateProductInput{
     name:String @rules(apply: ["nullable","min:3"],messages:[
         {
             rule:"min",
