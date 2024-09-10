@@ -33,7 +33,7 @@ final class UpdateProduct
                 'discount' => $data['discount'] ?? null,
                 'is_available' => $data['is_available'] ?? false,
                 'price' => $data['price'] ?? 0,
-                'city_id' => $data['city_id'] ?? null,
+                'city_id' => $data['city_id']  ??$product->city_id,
                 'video' => $data['video'] ?? '',
                 'expert' => \Str::words($data['info'], 10),
                 'end_date' => $data['end_date'] ?? null,
