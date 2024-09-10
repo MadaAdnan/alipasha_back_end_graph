@@ -42,7 +42,7 @@ final class UpdateProduct
                // 'longitude' => $data['longitude'] ?? null,
 
             ]);
-
+            $product->colors()->sync($data['colors']??[]);
             if (isset($data['images']) && $data['images'] !== null) {
                 foreach ($data['images'] as $key=>$image) {
                         $product->addMedia($image)->toMediaCollection('images');

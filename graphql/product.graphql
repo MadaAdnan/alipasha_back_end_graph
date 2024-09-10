@@ -393,5 +393,7 @@ input UpdateProductInput{
     options:[Int]
     #    write:
     attribute:[Int]
+    period:Int
+    colors:[Int]
 }
 
