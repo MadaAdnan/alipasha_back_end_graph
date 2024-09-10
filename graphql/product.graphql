@@ -55,8 +55,12 @@ type Product{
     listOfImages:[DataImage] @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImagesWithId")
     listOfDocs:[DataImage] @field(resolver: "App\\GraphQL\\Resolvers\\Image@getDocsWithId")
     created_at:CustomDate
-    options:[Int]
+    attributes:[AttributeProducts] @belongsToMany
 
+}
+type AttributeProducts{
+    attribute_id:Int,
+    product_id:Int
 }
 type TurkeyPrice{
     price:Float
