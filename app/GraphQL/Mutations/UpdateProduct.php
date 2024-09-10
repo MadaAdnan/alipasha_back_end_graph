@@ -43,14 +43,9 @@ final class UpdateProduct
 
             ]);
 
-            if (isset($data['image']) && $data['image'] !== null) {
-                $product->clearMediaCollection('image');
-                $product->addMedia($data['image'])->toMediaCollection('image');
-            }
-
             if (isset($data['images']) && $data['images'] !== null) {
-                foreach ($data['images'] as $image) {
-                    $product->addMedia($image)->toMediaCollection('images');
+                foreach ($data['images'] as $key=>$image) {
+                        $product->addMedia($image)->toMediaCollection('images');
                 }
             }
         } catch (\Exception | \Error $e) {

@@ -56,11 +56,7 @@ final class CreateProduct
 
             if (isset($data['images']) && $data['images'] !== null) {
                 foreach ($data['images'] as $key => $image) {
-                    if ($key == 0) {
-                        $product->addMedia($image)->toMediaCollection('image');
-                    } else {
                         $product->addMedia($image)->toMediaCollection('images');
-                    }
                 }
             }
         } catch (\Exception | \Error $e) {
