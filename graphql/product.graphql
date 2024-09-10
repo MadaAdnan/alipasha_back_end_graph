@@ -259,7 +259,7 @@ input UpdateProductInput{
             message:"يرجى إدخال مدينة صالحة"
         }
     ])
-    image:[Upload]
+    images:[Upload]
 #    @rules(apply:["nullable","image"],messages:[
 #        {
 #            rule:"required",
