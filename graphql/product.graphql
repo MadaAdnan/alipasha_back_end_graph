@@ -259,22 +259,23 @@ input UpdateProductInput{
             message:"يرجى إدخال مدينة صالحة"
         }
     ])
-    image:Upload @rules(apply:["nullable","image"],messages:[
-        {
-            rule:"required",
-            message:"يرجى إدخال الصورة"
-        }
-        {
-            rule:"image",
-            message:"يرجى إدخال صورة صالحة"
-        }
-    ])
-    images:[Upload] @rules(apply:["nullable"]) @rulesForArray(apply:["image"],messages:[
-        {
-            rule:"image",
-            message:"يرجى إدخال صورة صالحة"
-        }
-    ])
+    image:[Upload]
+#    @rules(apply:["nullable","image"],messages:[
+#        {
+#            rule:"required",
+#            message:"يرجى إدخال الصورة"
+#        }
+#        {
+#            rule:"image",
+#            message:"يرجى إدخال صورة صالحة"
+#        }
+#    ])
+#    images:[Upload] @rules(apply:["nullable"]) @rulesForArray(apply:["image"],messages:[
+#        {
+#            rule:"image",
+#            message:"يرجى إدخال صورة صالحة"
+#        }
+#    ])
 
     video:String @rules(apply: ["nullable","string"],messages:[
         {
@@ -318,12 +319,12 @@ input UpdateProductInput{
             message:"يرجى إدخال السعر"
         }
     ])
-    is_discount:Boolean  @rules(apply: ["boolean"],messages:[
-        {
-            rule:"boolean",
-            message:"يرجى إدخال قيمة صالحة"
-        }
-    ])
+#    is_discount:Boolean  @rules(apply: ["boolean"],messages:[
+#        {
+#            rule:"boolean",
+#            message:"يرجى إدخال قيمة صالحة"
+#        }
+#    ])
     discount:Float  @rules(apply: ["required_if:is_discount,true","numeric"],messages:[
 
         {
