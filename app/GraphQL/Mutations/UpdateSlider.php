@@ -20,13 +20,14 @@ final class UpdateSlider
         if (!$slider) {
             throw new \Exception('الإعلان غير موجود');
         }
-        /*$slider->update([
+      $slider->update([
 
-          //  'status' => ProductActiveEnum::PENDING->value,
-            //'city_id' => $data['city_id'] ?? null,
-            'category_id' => $data['category_id'],
-            'url' => $data['url'],
-        ]);*/
+           'status' =>  auth()->user()->is_default_active?ProductActiveEnum::ACTIVE->value:ProductActiveEnum::PENDING->value,
+
+          //'city_id' => $data['city_id'] ?? null,
+//            'category_id' => $data['category_id'],
+//            'url' => $data['url'],
+        ]);
         if (isset($data['image']) && $data['image'] !== null) {
             $slider->clearMediaCollection('image');
             $slider->addMedia($data['image'])->toMediaCollection('image');

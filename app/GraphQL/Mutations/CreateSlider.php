@@ -17,7 +17,8 @@ final class CreateSlider
         $userId = auth()->id();
         $slider = Slider::create([
             'user_id' => $userId,
-            'status' => ProductActiveEnum::PENDING->value,
+            'status' => auth()->user()->is_default_active?ProductActiveEnum::ACTIVE->value:ProductActiveEnum::PENDING->value,
+
             'city_id' => $data['city_id'] ?? null,
             'category_id' => $data['category_id'],
             'url' => $data['url'],

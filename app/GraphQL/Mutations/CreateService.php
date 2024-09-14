@@ -19,7 +19,8 @@ final class CreateService
         $product = Product::create([
             'user_id' => $userId,
             'type'=>CategoryTypeEnum::SERVICE->value,
-            'active' => ProductActiveEnum::PENDING->value,
+            'active' => auth()->user()->is_default_active?ProductActiveEnum::ACTIVE->value:ProductActiveEnum::PENDING->value,
+
             'name' => $data['name'] ?? \Str::words($data['info'] ,10),
             'city_id' => $data['city_id'] ?? null,
             'info' => $data['info'] ?? null,

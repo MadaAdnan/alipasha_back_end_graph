@@ -33,7 +33,7 @@ final class CreateJob
                 'end_date' => isset($data['end_date']) ? Carbon::parse($data['end_date']) : null,
                 'code' => $data['code'] ?? null,
                 'url' => $data['url'] ?? null,
-                'active' => ProductActiveEnum::PENDING->value,
+                'active' => auth()->user()->is_default_active?ProductActiveEnum::ACTIVE->value:ProductActiveEnum::PENDING->value,
                 'expert' => \Str::words($data['info'], 10),
                 'category_id' => $data['category_id'] ?? null,
                 'sub1_id' => $data['sub1_id'] ?? null,

@@ -23,7 +23,8 @@ final class CreateAdvice
             'category_id' => $data['category_id'] ?? null,
             'sub1_id' => $data['sub1_id'] ?? null,
             'user_id' => $userId,
-            'status' => ProductActiveEnum::PENDING->value,
+            'status' =>  auth()->user()->is_default_active?ProductActiveEnum::ACTIVE->value:ProductActiveEnum::PENDING->value,
+
         ]);
 
         if (isset($data['image'])) {

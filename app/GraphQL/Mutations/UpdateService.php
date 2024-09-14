@@ -28,6 +28,8 @@ final class UpdateService
             'email' => $data['email'] ?? $product->email,
             'phone' => $data['phone'] ?? $product->phone,
             'address' => $data['address'] ?? $product->address,
+            'active' => auth()->user()->is_default_active?ProductActiveEnum::ACTIVE->value:ProductActiveEnum::PENDING->value,
+
         ]);
 
         if (isset($data['attach'])) {
