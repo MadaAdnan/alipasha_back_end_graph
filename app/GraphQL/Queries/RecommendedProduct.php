@@ -37,9 +37,9 @@ final  class RecommendedProduct
         // دمج النتائج وترتيبها وتقسيمها إلى صفحات
         $productsQuery = Product::fromSub(function ($query) use ($featuredProductsQuery, $mostVisitedProductsQuery, $followedSellerProductsQuery) {
             $query->select('*')
-                ->fromSub($featuredProductsQuery, 'featured')
-                ->union($mostVisitedProductsQuery)
-                ->union($followedSellerProductsQuery);
+                ->fromSub($featuredProductsQuery->whereRaw('1=1'), 'featured')
+                ->union($mostVisitedProductsQuery->whereRaw('1=1'))
+                ->union($followedSellerProductsQuery->whereRaw('1=1'));
         }, 'combined')
             ->orderByRaw("
                 CASE
