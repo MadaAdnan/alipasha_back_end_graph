@@ -38,8 +38,7 @@ final class UpdateTender
             'sub2_id' => $data['sub2_id'] ?? null,
             'sub3_id' => $data['sub3_id'] ?? null,
             'sub4_id' => $data['sub4_id'] ?? null,
-            'active' => auth()->user()->is_default_active?ProductActiveEnum::ACTIVE->value:ProductActiveEnum::PENDING->value,
-
+            'active' =>auth()->user()->is_default_active?$product->active:ProductActiveEnum::PENDING->value,
         ]);
         if (isset($data['attach'])) {
             if (is_array($data['attach'])) {

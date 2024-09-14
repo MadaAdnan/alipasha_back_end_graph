@@ -26,8 +26,7 @@ final class UpdateJob
             'info' => $data['info'] ?? null,
             'city_id' => $data['city_id'] ?? null,
             'tags' => $data['tags'] ?? null,
-            'active' => auth()->user()->is_default_active?ProductActiveEnum::ACTIVE->value:ProductActiveEnum::PENDING->value,
-
+            'active' =>auth()->user()->is_default_active?$product->active:ProductActiveEnum::PENDING->value,
             'email' => $data['email'] ?? null,
             'phone' => $data['phone'] ?? null,
             'start_date' => isset($data['start_date']) ? Carbon::parse($data['start_date']) : null,

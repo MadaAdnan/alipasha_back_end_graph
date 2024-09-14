@@ -26,8 +26,7 @@ final class UpdateAdvice
             'city_id' => $data['city_id'] ?? $advice->city_id,
             'category_id' => $data['category_id'] ?? $advice->category_id,
             'sub1_id' => $data['sub1_id'] ?? $advice->sub1_id,
-            'status' =>  auth()->user()->is_default_active?ProductActiveEnum::ACTIVE->value:ProductActiveEnum::PENDING->value,
-
+            'status' =>  auth()->user()->is_default_active? $advice->status :ProductActiveEnum::PENDING->value,
 
         ]);
 

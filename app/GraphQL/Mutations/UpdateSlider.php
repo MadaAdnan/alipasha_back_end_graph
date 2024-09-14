@@ -22,7 +22,7 @@ final class UpdateSlider
         }
       $slider->update([
 
-           'status' =>  auth()->user()->is_default_active?ProductActiveEnum::ACTIVE->value:ProductActiveEnum::PENDING->value,
+           'status' =>  auth()->user()->is_default_active?$slider->status:ProductActiveEnum::PENDING->value,
 
           //'city_id' => $data['city_id'] ?? null,
 //            'category_id' => $data['category_id'],

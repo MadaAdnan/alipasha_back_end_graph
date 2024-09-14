@@ -40,7 +40,7 @@ final class UpdateProduct
                 'is_delivery' => $data['is_delivery'] ?? false,
                 // 'latitude' => $data['latitude'] ?? null,
                 // 'longitude' => $data['longitude'] ?? null,
-                'active' => auth()->user()->is_default_active?ProductActiveEnum::ACTIVE->value:ProductActiveEnum::PENDING->value,
+                'active' =>auth()->user()->is_default_active?$product->active:ProductActiveEnum::PENDING->value,
 
 
             ]);
