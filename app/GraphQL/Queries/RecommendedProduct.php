@@ -5,15 +5,12 @@ namespace App\GraphQL\Queries;
 use App\Enums\LevelProductEnum;
 use App\Models\Interaction;
 use App\Models\Product;
-final class RecomandedProduct
+use Illuminate\Database\Eloquent\Builder;
+
+final  class RecommendedProduct
 {
-    /**
-     * @param  null  $_
-     * @param  array{}  $args
-     */
-    public function __invoke($root, array $args, $context, $info)
+    public function __invoke($root, array $args, $context, $info): Builder
     {
-        $follower="";
         // التحقق من وجود المستخدم
         if (auth()->user()) {
             $userId = auth()->id();
@@ -25,9 +22,6 @@ final class RecomandedProduct
                 ->whereNotNull('seller_id')
                 ->pluck('seller_id');
             $followedSellerProductsQuery = Product::whereIn('user_id', $followedSellers);
-
-            $follower=" WHEN sub1_id = $mostVisitedCategoryId THEN 1
-                    WHEN user_id IN (".implode(',', $followedSellers).") THEN 2";
         } else {
             // في حالة عدم وجود المستخدم، يتم جلب المنتجات المميزة فقط
             $mostVisitedProductsQuery = Product::whereRaw('1=0'); // يجب أن يكون الاستعلام فارغًا
@@ -38,7 +32,7 @@ final class RecomandedProduct
         $featuredProductsQuery = Product::where('level', LevelProductEnum::SPECIAL->value)->take(10);
 
         // دمج النتائج وترتيبها وتقسيمها إلى صفحات
-        $productsQuery = Product::whereNull('products.deleted_at')->fromSub(function ($query) use ($featuredProductsQuery, $mostVisitedProductsQuery, $followedSellerProductsQuery) {
+        $productsQuery = Product::fromSub(function ($query) use ($featuredProductsQuery, $mostVisitedProductsQuery, $followedSellerProductsQuery) {
             $query->select('*')
                 ->fromSub($featuredProductsQuery, 'featured')
                 ->union($mostVisitedProductsQuery)
@@ -47,7 +41,8 @@ final class RecomandedProduct
             ->orderByRaw("
                 CASE
                     WHEN level = '".LevelProductEnum::SPECIAL->value."' THEN 0
-                   {$follower}
+                    WHEN sub1_id = $mostVisitedCategoryId THEN 1
+                    WHEN user_id IN (".implode(',', $followedSellers).") THEN 2
                     ELSE 3
                 END
             ")

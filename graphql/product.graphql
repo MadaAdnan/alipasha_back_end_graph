@@ -4,7 +4,7 @@ extend type Query{
     myProducts(search:String):[Product] @paginate(builder:"App\\GraphQL\\Queries\\MyProducts") @guard
     mySpecialProducts(search:String):[Product]  @guard
     tags(type:String!):[String]
-    recomandedProduct(first:Int,page:Int):[Product]  @paginate(builder:"App\\GraphQL\\Queries\\RecomandedProduct")
+    recomendedProduct(first:Int,page:Int):[Product]  @paginate(builder:"App\\GraphQL\\Queries\\RecommendedProduct")
 
 
 }
