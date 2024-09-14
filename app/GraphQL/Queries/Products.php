@@ -115,23 +115,18 @@ final class Products
 
     private function getPopularCategoryProducts()
     {
-        return Interaction::groupBy('category_id')
+        return Interaction::whereNotNull('category_id')
+            ->groupBy('category_id')
             ->orderByRaw('SUM(visited) DESC')
             ->value('category_id');
     }
 
-    private function getCommentedCategoryProducts()
-    {
-        return Interaction::whereNotNull('comment_id')
-            ->groupBy('category_id')
-            ->orderByRaw('COUNT(comment_id) DESC')
-            ->value('category_id');
-    }
+
 
     private function getFollowedStoreProducts($userId)
     {
-        return Interaction::where('user_id', $userId)
-            ->where('type', InteractionTypeEnum::FOLLOWER->value)
+        return Interaction::where('user_id', $userId)->whereNotNull('seller_id')
+
             ->pluck('seller_id');
     }
 
@@ -140,8 +135,6 @@ final class Products
         // جلب القسم الأكثر زيارة
         $popularCategory = $this->getPopularCategoryProducts();
 
-        // جلب القسم الأكثر تعليقًا عليه
-        $commentedCategory = $this->getCommentedCategoryProducts();
 
         // جلب المتاجر التي تم متابعتها من قبل المستخدم
         $followedStores =  $this->getFollowedStoreProducts(auth()->id())->toArray();
@@ -149,8 +142,6 @@ final class Products
 
         $products = Product::query()
             ->where('active', ProductActiveEnum::ACTIVE->value)
-            ->leftJoin('interactions', 'products.id', '=', 'interactions.product_id')
-            ->select('products.*', \DB::raw('SUM(interactions.visited) as total_interactions'))
             ->when(isset($args['type']), function ($query) use ($type, $args) {
                 if ($type === 'job' || $type === 'search_job') {
                     $query->where('products.type', 'job')->orWhere('products.type', 'search_job');
@@ -177,22 +168,22 @@ final class Products
                     });
                 }
             }))
-            ->when($popularCategory || $commentedCategory || !empty($followedStores), function ($query) use ($popularCategory, $commentedCategory, $followedStores) {
+            ->when($popularCategory || !empty($followedStores), function ($query) use ($popularCategory, $followedStores) {
                 // إعطاء الأولوية للأقسام التي تم زيارتها أو التعليق عليها والمتاجر التي تم متابعتها
                 $query->orderByRaw(
                     "CASE
                     WHEN products.level = ? THEN 1
-                    WHEN products.category_id = ? THEN 2
-                    WHEN products.category_id = ? THEN 3
-                    WHEN products.user_id IN (?) THEN 4
-                    ELSE 5
-                END ASC", [LevelProductEnum::SPECIAL->value,$popularCategory, $commentedCategory,implode(',', $followedStores)]
+                    WHEN products.sub1_id = ? THEN 2
+
+                    WHEN products.user_id IN (?) THEN 3
+                    ELSE 4
+                END ASC", [LevelProductEnum::SPECIAL->value,$popularCategory,implode(',', $followedStores)]
                 );
             })
             ->groupBy('products.id') // نضمن أن المنتجات يتم جمعها وتجنب التكرار
-            ->orderBy('total_interactions', 'DESC') // ترتيب المنتجات بناءً على مجموع التفاعلات
+
             ->orderByRaw('RAND()') // ترتيب عشوائي للمنتجات مع نفس مستوى التفاعل
-            ->orderBy('level')
+//            ->orderBy('level')
             ->orderBy('created_at');
 
         return $products;
