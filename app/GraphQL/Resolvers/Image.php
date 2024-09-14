@@ -16,21 +16,6 @@ final class Image
      */
     public static function getMain($root): string
     {
-        info("IS INSTANCE : ".$root->id);
-        info($root instanceof Product);
-        if ($root instanceof Product) {
-            info($root->type);
-            switch ($root->type) {
-                case CategoryTypeEnum::PRODUCT->value:
-                    return $root->getFirstMediaUrl('images', 'webp') ?? asset('images/noImage.jpeg');
-                case CategoryTypeEnum::TENDER->value:
-                case CategoryTypeEnum::JOB->value:
-                case CategoryTypeEnum::SEARCH_JOB->value:
-                case CategoryTypeEnum::SERVICE->value:
-                case CategoryTypeEnum::NEWS->value:
-                   return $root->getFirstMediaUrl('image', 'webp')?? $root->user?->getFirstMediaUrl('logo', 'webp') ?? asset('images/noImage.jpeg');
-            }
-        }
         return $root->getFirstMediaUrl('image', 'webp') ?? asset('images/noImage.jpeg');
     }
 
@@ -54,6 +39,10 @@ final class Image
         if ($root->hasMedia('image')) {
 
             return $root->getFirstMediaUrl('image', 'webp');
+        }elseif ($root->hasMedia('images')){
+            return $root->getFirstMediaUrl('images', 'webp');
+        }elseif($root->user!=null && $root->user->hasMedia('logo')){
+            return $root->user->getFirstMediaUrl('logo', 'webp');
         }
         return url('/') . asset('images/noImage.jpeg');
     }
