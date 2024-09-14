@@ -51,6 +51,9 @@ final  class RecommendedProduct
             ")
             ->orderBy('created_at', 'desc');
 
+        // تجاهل التحقق من عمود deleted_at
+        $productsQuery->whereNull('deleted_at');
+
         return $productsQuery;
     }
 }
