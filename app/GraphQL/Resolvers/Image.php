@@ -16,7 +16,10 @@ final class Image
      */
     public static function getMain($root): string
     {
+        info("IS INSTANCE : ".$root->id);
+        info($root instanceof Product);
         if ($root instanceof Product) {
+            info($root->type);
             switch ($root->type) {
                 case CategoryTypeEnum::PRODUCT->value:
                     return $root->getFirstMediaUrl('images', 'webp') ?? asset('images/noImage.jpeg');
