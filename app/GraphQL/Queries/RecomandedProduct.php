@@ -38,7 +38,7 @@ final class RecomandedProduct
         $featuredProductsQuery = Product::where('level', LevelProductEnum::SPECIAL->value)->take(10);
 
         // دمج النتائج وترتيبها وتقسيمها إلى صفحات
-        $productsQuery = Product::fromSub(function ($query) use ($featuredProductsQuery, $mostVisitedProductsQuery, $followedSellerProductsQuery) {
+        $productsQuery = Product::whereNull('products.deleted_at')->fromSub(function ($query) use ($featuredProductsQuery, $mostVisitedProductsQuery, $followedSellerProductsQuery) {
             $query->select('*')
                 ->fromSub($featuredProductsQuery, 'featured')
                 ->union($mostVisitedProductsQuery)
