@@ -13,6 +13,7 @@ final class RecomandedProduct
      */
     public function __invoke($root, array $args, $context, $info)
     {
+        $follower="";
         // التحقق من وجود المستخدم
         if (auth()->user()) {
             $userId = auth()->id();
@@ -24,6 +25,9 @@ final class RecomandedProduct
                 ->whereNotNull('seller_id')
                 ->pluck('seller_id');
             $followedSellerProductsQuery = Product::whereIn('user_id', $followedSellers);
+
+            $follower=" WHEN sub1_id = $mostVisitedCategoryId THEN 1
+                    WHEN user_id IN (".implode(',', $followedSellers).") THEN 2";
         } else {
             // في حالة عدم وجود المستخدم، يتم جلب المنتجات المميزة فقط
             $mostVisitedProductsQuery = Product::whereRaw('1=0'); // يجب أن يكون الاستعلام فارغًا
@@ -43,8 +47,7 @@ final class RecomandedProduct
             ->orderByRaw("
                 CASE
                     WHEN level = '".LevelProductEnum::SPECIAL->value."' THEN 0
-                    WHEN sub1_id = $mostVisitedCategoryId THEN 1
-                    WHEN user_id IN (".implode(',', $followedSellers).") THEN 2
+                   {$follower}
                     ELSE 3
                 END
             ")
