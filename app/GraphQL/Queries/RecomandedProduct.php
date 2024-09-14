@@ -4,7 +4,7 @@ namespace App\GraphQL\Queries;
 
 use App\Enums\LevelProductEnum;
 use App\Models\Interaction;
-
+use App\Models\Product;
 final class RecomandedProduct
 {
     /**
@@ -25,7 +25,7 @@ final class RecomandedProduct
             $followedSellerProductsQuery = Product::whereIn('user_id', $followedSellers);
         } else {
             // في حالة عدم وجود المستخدم، يتم جلب المنتجات المميزة فقط
-            $mostVisitedProductsQuery = Product::whereRaw('1=0'); // يجب أن يكون الاستعلام فارغًا
+            $mostVisitedProductsQuery =Product::whereRaw('1=0'); // يجب أن يكون الاستعلام فارغًا
             $followedSellerProductsQuery = Product::whereRaw('1=0'); // يجب أن يكون الاستعلام فارغًا
         }
 
