@@ -12,6 +12,9 @@ final  class RecommendedProduct
     public function __invoke($root, array $args, $context, $info): Builder
     {
         // التحقق من وجود المستخدم
+        $mostVisitedCategoryId = null;
+        $followedSellers = [];
+
         if (auth()->user()) {
             $userId = auth()->id();
             $mostVisitedCategoryId = Interaction::where('user_id', $userId)
