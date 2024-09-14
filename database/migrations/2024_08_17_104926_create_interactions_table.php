@@ -15,11 +15,7 @@ return new class extends Migration {
             $table->foreignId('user_id')->nullable()->constrained()->cascadeOnDelete();
             $table->foreignId('seller_id')->nullable()->constrained('users')->cascadeOnDelete();
             $table->foreignId('category_id')->nullable()->constrained()->cascadeOnDelete();
-            $table->foreignId('comment_id')->nullable()->constrained()->cascadeOnDelete();
-            $table->foreignId('product_id')->nullable()->constrained()->cascadeOnDelete();
             $table->integer('visited')->nullable()->default(0);
-            $table->integer('point')->nullable()->default(0);
-            $table->string('type')->nullable()->default('visited');
             $table->timestamps();
         });
     }
