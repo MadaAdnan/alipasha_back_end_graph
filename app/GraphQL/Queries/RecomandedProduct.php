@@ -18,11 +18,11 @@ final class RecomandedProduct
             $mostVisitedCategoryId = Interaction::where('user_id', $userId)
                 ->orderBy('visited', 'desc')
                 ->value('category_id');
-            $mostVisitedProductsQuery = Product::where('category_id', $mostVisitedCategoryId);
+            $mostVisitedProductsQuery = Product::where('sub1_id', $mostVisitedCategoryId);
             $followedSellers = Interaction::where('user_id', $userId)
                 ->whereNotNull('seller_id')
                 ->pluck('seller_id');
-            $followedSellerProductsQuery = Product::whereIn('seller_id', $followedSellers);
+            $followedSellerProductsQuery = Product::whereIn('user_id', $followedSellers);
         } else {
             // في حالة عدم وجود المستخدم، يتم جلب المنتجات المميزة فقط
             $mostVisitedProductsQuery = Product::whereRaw('1=0'); // يجب أن يكون الاستعلام فارغًا
@@ -39,8 +39,8 @@ final class RecomandedProduct
                 ->union($mostVisitedProductsQuery)
                 ->union($followedSellerProductsQuery);
         }, 'combined')
-            ->orderBy('is_featured', 'desc')
-            ->orderBy('category_id', 'desc')
-            ->orderBy('seller_id', 'desc');
+            ->orderBy('level', 'desc')
+            ->orderBy('sub1_id', 'desc')
+            ->orderBy('user_id', 'desc');
     }
 }
