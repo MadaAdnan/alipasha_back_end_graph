@@ -42,8 +42,8 @@ type Product{
     latitude:String
     price:Float
     discount:Float
-    start_date:String
-    end_date:String
+    start_date:CustomDate
+    end_date:CustomDate
     code:String
     type:String,
     views_count:Int
