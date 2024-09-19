@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Models\Product;
 use App\Models\Rate;
 
 final class AddVote
@@ -18,6 +19,6 @@ final class AddVote
         ], [
             'vote' => $args['vote'],
         ]);
-        return true;
+        return Product::find($args['productId']);
     }
 }

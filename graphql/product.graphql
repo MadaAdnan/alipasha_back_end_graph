@@ -77,7 +77,7 @@ type DataImage{
 
 extend type Mutation {
     changeAvilable(id:ID!):Product @guard
-addVote(productId:Int,vote:Int): Boolean @guard
+addVote(productId:Int,vote:Int): Product @guard
     deleteProduct(id:ID!):Product
     createProduct(input:CreateProductInput) : Product @guard
 
