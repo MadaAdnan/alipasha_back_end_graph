@@ -13,7 +13,7 @@ class VoteAvg
      */
     public static function getAvg($root): float
     {
-        return (float)$root->rates()->avg('vote');
+        return (float)$root->rates->avg('vote');
 
     }
 
