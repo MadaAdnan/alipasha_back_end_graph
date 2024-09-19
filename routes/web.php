@@ -32,3 +32,16 @@ Route::get('/', function () {
 
     return view('welcome');
 });
+
+
+Route::get('/.well-known/assetlinks.json',function(){
+    return json_decode( '[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.mada.company.ali.basha",
+    "sha256_cert_fingerprints":
+    ["38:87:1C:5A:17:98:C0:AE:30:7D:58:50:38:80:6B:6E:18:CD:23:A0:72:74:B8:46:DB:5F:B2:AD:A6:49:F9:82"]
+  }
+}]');
+});
