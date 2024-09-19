@@ -57,8 +57,8 @@ type Product{
     listOfDocs:[DataImage] @field(resolver: "App\\GraphQL\\Resolvers\\Image@getDocsWithId")
     created_at:CustomDate
     attributes:[AttributeProducts] @belongsToMany
-    vote_avg:[Float] @field(resolver: "App\\GraphQL\\Resolvers\\VoteAvg@getAvg")
-    is_rate:[Boolean] @field(resolver: "App\\GraphQL\\Resolvers\\VoteAvg@isRate")
+    vote_avg:Float @field(resolver: "App\\GraphQL\\Resolvers\\VoteAvg@getAvg")
+    is_rate:Boolean @field(resolver: "App\\GraphQL\\Resolvers\\VoteAvg@isRate")
 
 
 }
