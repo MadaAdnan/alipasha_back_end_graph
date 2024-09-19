@@ -142,4 +142,9 @@ class Product extends Model implements HasMedia
     {
         return $this->hasMany(Comment::class);
     }
+
+    public function rates(): HasMany
+    {
+        return $this->hasMany(Rate::class, 'product_id');
+    }
 }
