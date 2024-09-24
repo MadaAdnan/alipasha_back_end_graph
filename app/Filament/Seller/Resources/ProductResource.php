@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Seller\Resources;
 
-use App\Enums\CategoryTypeEnum;
 use App\Enums\LevelProductEnum;
 use App\Enums\ProductActiveEnum;
-use App\Filament\Resources\ProductResource\Pages;
-use App\Filament\Resources\ProductResource\RelationManagers;
+use App\Filament\Resources\UserResource;
+use App\Filament\Seller\Resources\ProductResource\Pages;
+use App\Filament\Seller\Resources\ProductResource\RelationManagers;
 use App\Helpers\HelperMedia;
 use App\Models\Attribute;
 use App\Models\Category;
@@ -26,20 +26,14 @@ class ProductResource extends Resource
     protected static ?string $model = Product::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    protected static ?string $label = 'منتج';
-    protected static ?string $modelLabel = 'منتج';
-    protected static ?string $navigationLabel = 'المنتجات';
-    protected static ?string $pluralLabel = 'المنتجات';
-    protected static ?int $navigationSort = -15;
-    protected static ?string $navigationGroup = 'العروض';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\Section::make('المنتجات')->schema([
-                    Forms\Components\Select::make('user_id')->options(User::seller()->pluck('users.name', 'users.id'))->label('المتجر')->live()->afterStateUpdated(fn($set, $state) => $set('city_id', User::find($state)?->city_id)),
-                    Forms\Components\Select::make('city_id')->options(City::pluck('name', 'id'))->searchable()->label('المدينة'),
+//                    Forms\Components\Select::make('user_id')->options(User::seller()->pluck('users.name', 'users.id'))->label('المتجر')->live()->afterStateUpdated(fn($set, $state) => $set('city_id', User::find($state)?->city_id)),
+//                    Forms\Components\Select::make('city_id')->options(City::pluck('name', 'id'))->searchable()->label('المدينة'),
                     HelperMedia::getFileUpload(label: 'الصورة الرئيسية', collection: 'image', is_multible: false, ratio: ['1:1']),
                     HelperMedia::getFileUpload(label: 'صور إضافية', name: 'images', collection: 'images', is_multible: true),
 //                    Forms\Components\SpatieMediaLibraryFileUpload::make('film')->collection('video')->label('فيديو قصير')->acceptedFileTypes(['video/quicktime', 'video/x-ms-wmv', 'video/x-msvideo', 'video/mp4']),
@@ -54,16 +48,16 @@ class ProductResource extends Resource
                         Forms\Components\TextInput::make('discount')->label('سعر العرض')->numeric()->required(fn($get) => $get('is_discount')),
 
                     ])->columns(1),
-                    Forms\Components\Radio::make('active')->options([
-                        ProductActiveEnum::PENDING->value => ProductActiveEnum::PENDING->getLabel(),
-                        ProductActiveEnum::ACTIVE->value => ProductActiveEnum::ACTIVE->getLabel(),
-                        ProductActiveEnum::BLOCK->value => ProductActiveEnum::BLOCK->getLabel(),
-                    ])->label('حالة المنتج')->default(ProductActiveEnum::PENDING->value),
-                    Forms\Components\Radio::make('level')->options([
-                        LevelProductEnum::NEWS->value => LevelProductEnum::NEWS->getLabel(),
-                        LevelProductEnum::NORMAL->value => LevelProductEnum::NORMAL->getLabel(),
-                        LevelProductEnum::SPECIAL->value => LevelProductEnum::SPECIAL->getLabel(),
-                    ])->label('رتبة المنتج')->default(LevelProductEnum::NORMAL->value),
+//                    Forms\Components\Radio::make('active')->options([
+//                        ProductActiveEnum::PENDING->value => ProductActiveEnum::PENDING->getLabel(),
+//                        ProductActiveEnum::ACTIVE->value => ProductActiveEnum::ACTIVE->getLabel(),
+//                        ProductActiveEnum::BLOCK->value => ProductActiveEnum::BLOCK->getLabel(),
+//                    ])->label('حالة المنتج')->default(ProductActiveEnum::PENDING->value),
+//                    Forms\Components\Radio::make('level')->options([
+//                        LevelProductEnum::NEWS->value => LevelProductEnum::NEWS->getLabel(),
+//                        LevelProductEnum::NORMAL->value => LevelProductEnum::NORMAL->getLabel(),
+//                        LevelProductEnum::SPECIAL->value => LevelProductEnum::SPECIAL->getLabel(),
+//                    ])->label('رتبة المنتج')->default(LevelProductEnum::NORMAL->value),
                     Forms\Components\Fieldset::make('التصنيف')->schema([
                         Forms\Components\Select::make('category_id')->options(Category::product()->pluck('name', 'id'))->label('يتبع القسم')->searchable()->live()->required(),
                         Forms\Components\Select::make('sub1_id')->options(fn($get) => Category::find($get('category_id'))?->children?->pluck('name', 'id'))->label('يتبع القسم')->searchable()->live(),
@@ -116,14 +110,14 @@ class ProductResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->modifyQueryUsing(fn($query) => $query->product())
+            ->modifyQueryUsing(fn($query) => $query->product()->where('user_id',auth()->id()))
             ->columns([
                 HelperMedia::getImageColumn(collection: 'image'),
                 Tables\Columns\TextColumn::make('id')->label('رقم المنتج')->searchable(),
                 Tables\Columns\TextColumn::make('name')->label('اسم المنتج')->description(fn($record) => $record->expert)->searchable(),
                 Tables\Columns\TextColumn::make('category.name')->label('القسم الرئيسي')->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('city.name')->label('المدينة'),
-                Tables\Columns\TextColumn::make('user.name')->label('المتجر')->url(fn($record) => UserResource::getUrl('edit', ['record' => $record->user_id]))->searchable(),
+//                Tables\Columns\TextColumn::make('city.name')->label('المدينة'),
+//                Tables\Columns\TextColumn::make('user.name')->label('المتجر')->url(fn($record) => UserResource::getUrl('edit', ['record' => $record->user_id]))->searchable(),
                 Tables\Columns\TextColumn::make('views_count')->label('عدد المشاهدات'),
                 Tables\Columns\TextColumn::make('active')->formatStateUsing(fn($state) => ProductActiveEnum::tryFrom($state)?->getLabel())->color(fn($state) => ProductActiveEnum::tryFrom($state)?->getColor())->icon(fn($state) => ProductActiveEnum::tryFrom($state)?->getIcon())->label('الحالة'),
                 Tables\Columns\TextColumn::make('level')->formatStateUsing(fn($state) => LevelProductEnum::tryFrom($state)?->getLabel())->color(fn($state) => LevelProductEnum::tryFrom($state)?->getColor())->icon(fn($state) => LevelProductEnum::tryFrom($state)?->getIcon())->label('تمييز المنتج'),
@@ -131,7 +125,7 @@ class ProductResource extends Resource
 
             ])
             ->filters([
-                Tables\Filters\SelectFilter::make('user_id')->options(User::seller()->pluck('seller_name', 'id'))->label('المتجر')->searchable(),
+//                Tables\Filters\SelectFilter::make('user_id')->options(User::seller()->pluck('seller_name', 'id'))->label('المتجر')->searchable(),
                 Tables\Filters\Filter::make('level')->form([
                     Forms\Components\Select::make('level')->options([
                         LevelProductEnum::NORMAL->value => LevelProductEnum::NORMAL->getLabel(),
