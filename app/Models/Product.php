@@ -110,7 +110,7 @@ class Product extends Model implements HasMedia
 
     public function city(): BelongsTo
     {
-        return $this->belongsTo(City::class);
+        return $this->belongsTo(City::class)->withDefault(fn()=>$this->user()->city);
     }
 
     public function attributeProduct(): HasMany
