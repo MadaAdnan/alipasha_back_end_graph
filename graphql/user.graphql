@@ -15,7 +15,8 @@ type User{
     seller_name: String
     email_verified_at:String
     email:String
-
+    is_verified:Boolean
+    id_color:String
     level:String
     phone:String
     address:String
