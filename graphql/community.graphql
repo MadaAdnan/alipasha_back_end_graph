@@ -9,7 +9,7 @@ type Community{
 }
 
 extend type Query{
-    getMyCommunity(search:String,first:Int,page:Int):[Community] @guard @paginate(builder:"App\\GraphQl\\Queries\\GetMyCommunity")
+    getMyCommunity(search:String,first:Int,page:Int):[Community]  @paginate(builder:"App\\GraphQL\\Queries\\GetMyCommunity") @guard
 }
 
 extend type Mutation{
