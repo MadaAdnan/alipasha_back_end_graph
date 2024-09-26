@@ -37,65 +37,67 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Grid::make()->schema(Forms\Components\Wizard::make([
-                    Forms\Components\Wizard\Step::make('بيانات المستخدم')->schema([
-                        Forms\Components\Fieldset::make('بيانات المستخدم')->schema([
-                            Forms\Components\SpatieMediaLibraryFileUpload::make('image')->collection('image')->conversion('webp')->imageCropAspectRatio('1:1')->imageEditor()->columnSpan(2),
-                            Forms\Components\TextInput::make('name')->required()->label('الاسم'),
-                            Forms\Components\TextInput::make('email')->required()->email()->unique(ignoreRecord: true)->label('البريد الإلكتروني'),
-                            Forms\Components\TextInput::make('password')->required(fn($context) => $context === 'create')
-                                ->dehydrateStateUsing(fn($state) => \Hash::make($state))->dehydrated(fn($state) => filled($state))->password()
-                                ->same('passwordConfirmation')
-                                ->label('كلمة المرور'),
-                            Forms\Components\TextInput::make('passwordConfirmation')->required(fn($context) => $context === 'create')
-                                ->dehydrated(false)->password()
-                                ->label('تأكيد كلمة المرور'),
-                            Forms\Components\TextInput::make('phone')->label('رقم الهاتف'),
+                Forms\Components\Grid::make()->schema([
+                    Forms\Components\Wizard::make([
+                        Forms\Components\Wizard\Step::make('بيانات المستخدم')->schema([
+                            Forms\Components\Fieldset::make('بيانات المستخدم')->schema([
+                                Forms\Components\SpatieMediaLibraryFileUpload::make('image')->collection('image')->conversion('webp')->imageCropAspectRatio('1:1')->imageEditor()->columnSpan(2),
+                                Forms\Components\TextInput::make('name')->required()->label('الاسم'),
+                                Forms\Components\TextInput::make('email')->required()->email()->unique(ignoreRecord: true)->label('البريد الإلكتروني'),
+                                Forms\Components\TextInput::make('password')->required(fn($context) => $context === 'create')
+                                    ->dehydrateStateUsing(fn($state) => \Hash::make($state))->dehydrated(fn($state) => filled($state))->password()
+                                    ->same('passwordConfirmation')
+                                    ->label('كلمة المرور'),
+                                Forms\Components\TextInput::make('passwordConfirmation')->required(fn($context) => $context === 'create')
+                                    ->dehydrated(false)->password()
+                                    ->label('تأكيد كلمة المرور'),
+                                Forms\Components\TextInput::make('phone')->label('رقم الهاتف'),
 
 //                        Forms\Components\DatePicker::make('upgrade_date')/*->required(fn($get) => $get('plan') != null)*/ ->label('تاريخ آخر ترقية'),
-                            Forms\Components\DatePicker::make('email_verified_at')->label('حدد تاريخ لتأكيد الحساب'),
-                            Forms\Components\Select::make('city_id')->options(City::pluck('name', 'id'))->label('المدينة'),
-                            Forms\Components\Select::make('level')->options([
-                                LevelUserEnum::ADMIN->value => LevelUserEnum::ADMIN->getLabel(),
-                                LevelUserEnum::SELLER->value => LevelUserEnum::SELLER->getLabel(),
-                                LevelUserEnum::USER->value => LevelUserEnum::USER->getLabel(),
-                                LevelUserEnum::RESTAURANT->value => LevelUserEnum::RESTAURANT->getLabel(),
+                                Forms\Components\DatePicker::make('email_verified_at')->label('حدد تاريخ لتأكيد الحساب'),
+                                Forms\Components\Select::make('city_id')->options(City::pluck('name', 'id'))->label('المدينة'),
+                                Forms\Components\Select::make('level')->options([
+                                    LevelUserEnum::ADMIN->value => LevelUserEnum::ADMIN->getLabel(),
+                                    LevelUserEnum::SELLER->value => LevelUserEnum::SELLER->getLabel(),
+                                    LevelUserEnum::USER->value => LevelUserEnum::USER->getLabel(),
+                                    LevelUserEnum::RESTAURANT->value => LevelUserEnum::RESTAURANT->getLabel(),
+                                ]),
+                                Forms\Components\Toggle::make('is_active')->label('حالة المستخدم'),
+                                Forms\Components\Toggle::make('is_seller')->label('تفعيل المتجر')->live(),
                             ]),
-                            Forms\Components\Toggle::make('is_active')->label('حالة المستخدم'),
-                            Forms\Components\Toggle::make('is_seller')->label('تفعيل المتجر')->live(),
                         ]),
-                    ]),
-                    Forms\Components\Wizard\Step::make('بيانات المتجر')->schema([
+                        Forms\Components\Wizard\Step::make('بيانات المتجر')->schema([
 
-                        Forms\Components\Fieldset::make('بيانات المتجر')->schema([
-                            Forms\Components\TextInput::make('seller_name')->label('اسم المتجر'),
-                            Forms\Components\TextInput::make('address')->label('عنوان المتجر'),
-                            Forms\Components\Textarea::make('info')->label('وصف مختصر')->columnSpan(2),
+                            Forms\Components\Fieldset::make('بيانات المتجر')->schema([
+                                Forms\Components\TextInput::make('seller_name')->label('اسم المتجر'),
+                                Forms\Components\TextInput::make('address')->label('عنوان المتجر'),
+                                Forms\Components\Textarea::make('info')->label('وصف مختصر')->columnSpan(2),
 
-                            Forms\Components\SpatieMediaLibraryFileUpload::make('logo')->collection('logo')->conversion('webp')->label('لوغو المتجر')->columnSpan(2),
+                                Forms\Components\SpatieMediaLibraryFileUpload::make('logo')->collection('logo')->conversion('webp')->label('لوغو المتجر')->columnSpan(2),
 
-                            /* Forms\Components\Select::make('level_seller')->options([
-                                 LevelSellerEnum::GOLD->value => LevelSellerEnum::GOLD->getLabel(),
-                                 LevelSellerEnum::PLATINUM->value => LevelSellerEnum::PLATINUM->getLabel(),
-                                 LevelSellerEnum::SILVER->value => LevelSellerEnum::SILVER->getLabel(),
-                                 LevelSellerEnum::BRONZE->value => LevelSellerEnum::BRONZE->getLabel(),
-                             ])->label('نوع الإشتراك'),*/
+                                /* Forms\Components\Select::make('level_seller')->options([
+                                     LevelSellerEnum::GOLD->value => LevelSellerEnum::GOLD->getLabel(),
+                                     LevelSellerEnum::PLATINUM->value => LevelSellerEnum::PLATINUM->getLabel(),
+                                     LevelSellerEnum::SILVER->value => LevelSellerEnum::SILVER->getLabel(),
+                                     LevelSellerEnum::BRONZE->value => LevelSellerEnum::BRONZE->getLabel(),
+                                 ])->label('نوع الإشتراك'),*/
 
-                            Forms\Components\Grid::make(3)->schema([
-                                Forms\Components\Toggle::make('is_default_active')->label('تفعيل المنتجات تلقائيا'),
-                                Forms\Components\Toggle::make('is_delivery')->label('خدمة التوصيل'),
-                            ]),
-                            Forms\Components\TimePicker::make('open_time')->label('يفتح من الساعة'),
-                            Forms\Components\TimePicker::make('close_time')->label('يغلق في الساعة'),
-                            Forms\Components\Fieldset::make('متجر مميز')->schema([
-                                Forms\Components\Toggle::make('is_special')->label('تمييز المتجر')->live()->hint('عند تفعيل هذا الخيار سيظهر المتجر في الصفحة الرئيسية'),
-                                HelperMedia::getFileUpload('صورة مميزة', 'custom', 'custom', false, ['2:1'])->required(fn($get) => $get('is_special'))
-                            ]),
-                            Forms\Components\Toggle::make('is_verified')->label('توثيق المتجر'),
-                            Forms\Components\ColorPicker::make('id_color')->label('هوية المتجر')->default("#FF0000"),
-                        ])
-                    ])->visible(fn($get)=>$get('is_seller'))
-                ])->skippable()->columnSpan(2))
+                                Forms\Components\Grid::make(3)->schema([
+                                    Forms\Components\Toggle::make('is_default_active')->label('تفعيل المنتجات تلقائيا'),
+                                    Forms\Components\Toggle::make('is_delivery')->label('خدمة التوصيل'),
+                                ]),
+                                Forms\Components\TimePicker::make('open_time')->label('يفتح من الساعة'),
+                                Forms\Components\TimePicker::make('close_time')->label('يغلق في الساعة'),
+                                Forms\Components\Fieldset::make('متجر مميز')->schema([
+                                    Forms\Components\Toggle::make('is_special')->label('تمييز المتجر')->live()->hint('عند تفعيل هذا الخيار سيظهر المتجر في الصفحة الرئيسية'),
+                                    HelperMedia::getFileUpload('صورة مميزة', 'custom', 'custom', false, ['2:1'])->required(fn($get) => $get('is_special'))
+                                ]),
+                                Forms\Components\Toggle::make('is_verified')->label('توثيق المتجر'),
+                                Forms\Components\ColorPicker::make('id_color')->label('هوية المتجر')->default("#FF0000"),
+                            ])
+                        ])->visible(fn($get)=>$get('is_seller'))
+                    ])->skippable()->columnSpan(2)
+                ])
             ]);
     }
 
