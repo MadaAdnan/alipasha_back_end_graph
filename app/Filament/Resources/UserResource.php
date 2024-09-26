@@ -37,7 +37,7 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Wizard::make([
+                Forms\Components\Grid::make()->schema(Forms\Components\Wizard::make([
                     Forms\Components\Wizard\Step::make('بيانات المستخدم')->schema([
                         Forms\Components\Fieldset::make('بيانات المستخدم')->schema([
                             Forms\Components\SpatieMediaLibraryFileUpload::make('image')->collection('image')->conversion('webp')->imageCropAspectRatio('1:1')->imageEditor()->columnSpan(2),
@@ -74,12 +74,12 @@ class UserResource extends Resource
 
                             Forms\Components\SpatieMediaLibraryFileUpload::make('logo')->collection('logo')->conversion('webp')->label('لوغو المتجر')->columnSpan(2),
 
-                           /* Forms\Components\Select::make('level_seller')->options([
-                                LevelSellerEnum::GOLD->value => LevelSellerEnum::GOLD->getLabel(),
-                                LevelSellerEnum::PLATINUM->value => LevelSellerEnum::PLATINUM->getLabel(),
-                                LevelSellerEnum::SILVER->value => LevelSellerEnum::SILVER->getLabel(),
-                                LevelSellerEnum::BRONZE->value => LevelSellerEnum::BRONZE->getLabel(),
-                            ])->label('نوع الإشتراك'),*/
+                            /* Forms\Components\Select::make('level_seller')->options([
+                                 LevelSellerEnum::GOLD->value => LevelSellerEnum::GOLD->getLabel(),
+                                 LevelSellerEnum::PLATINUM->value => LevelSellerEnum::PLATINUM->getLabel(),
+                                 LevelSellerEnum::SILVER->value => LevelSellerEnum::SILVER->getLabel(),
+                                 LevelSellerEnum::BRONZE->value => LevelSellerEnum::BRONZE->getLabel(),
+                             ])->label('نوع الإشتراك'),*/
 
                             Forms\Components\Grid::make(3)->schema([
                                 Forms\Components\Toggle::make('is_default_active')->label('تفعيل المنتجات تلقائيا'),
@@ -95,7 +95,7 @@ class UserResource extends Resource
                             Forms\Components\ColorPicker::make('id_color')->label('هوية المتجر')->default("#FF0000"),
                         ])
                     ])->visible(fn($get)=>$get('is_seller'))
-                ])
+                ])->skippable()->columnSpan(2))
             ]);
     }
 
