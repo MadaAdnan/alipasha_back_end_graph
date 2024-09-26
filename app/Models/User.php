@@ -51,7 +51,9 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         'social' => 'array',
     ];
 
-
+protected $appends=[
+    'total_views'
+];
     protected $withCount = [
         'products',
         'following'
