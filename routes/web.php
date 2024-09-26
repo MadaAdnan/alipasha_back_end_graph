@@ -18,6 +18,8 @@ Auth::routes([
     'verify' => true,
 ]);
 Route::get('/', function () {
+
+
 //   /* $search='ايام';
 //    try{
 //        $user=User::whereRaw('MATCH(name) AGAINST(? IN NATURAL LANGUAGE MODE)', [$search])->get();

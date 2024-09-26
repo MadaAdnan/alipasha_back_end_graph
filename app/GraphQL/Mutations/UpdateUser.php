@@ -14,7 +14,8 @@ final class UpdateUser
     public function __invoke($_, array $args)
     {
         $data = $args['input'];
-
+        \Log::error("DATA PROFILE");
+        \Log::error(json_encode($data));
         /**
          * @var $user User
          */
@@ -22,7 +23,7 @@ final class UpdateUser
 
         $is_exists_email = User::where('email', $data['email'])->whereNot('id', $user->id)->count();
         if ($is_exists_email > 0) {
-            throw new \Exception('البريد مستخدم من قبل');
+            throw new GraphQLExceptionHandler('البريد مستخدم من قبل');
         }
         $input = [
             'name' => $data['name'] ?? $user->name,
@@ -50,6 +51,7 @@ final class UpdateUser
                 $user->clearMediaCollection('image');
                 $user->addMedia($data['image'])->toMediaCollection('image');
             } catch (\Exception | \Error $e) {
+                \Log::error("Error Upload Image {$e->getMessage()}");
             }
         }
 
@@ -58,6 +60,7 @@ final class UpdateUser
                 $user->clearMediaCollection('logo');
                 $user->addMedia($data['logo'])->toMediaCollection('logo');
             } catch (\Exception | \Error $e) {
+                \Log::error("Error Upload LOGO {$e->getMessage()}");
             }
 
         }

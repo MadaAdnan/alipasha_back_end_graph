@@ -23,12 +23,12 @@
 #import auth.graphql
 #import shipping_price.graphql
 #import order.graphql
-#import message.graphql
+
 #import setting.graphql
 #import partner.graphql
 #import seller.graphql
 
-
+#import community.graphql
 #import attribute.graphql
 #import media.graphql
 
