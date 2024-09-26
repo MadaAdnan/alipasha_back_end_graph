@@ -14,8 +14,7 @@ final class UpdateUser
     public function __invoke($_, array $args)
     {
         $data = $args['input'];
-        \Log::error("DATA PROFILE");
-        \Log::error(json_encode($data));
+
         /**
          * @var $user User
          */
