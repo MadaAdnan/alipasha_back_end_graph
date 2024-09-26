@@ -15,6 +15,7 @@ return new class extends Migration
             $table->integer('product_count')->nullable()->default(0);// عدد المنتجات في الخطة الحالية
             $table->boolean('is_verified')->nullable()->default(false);// توثيق الحساب
             $table->string('id_color')->nullable()->default('#FF0000');//  لون الهوية
+            $table->text('social')->nullable();
 
         });
     }
@@ -25,7 +26,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['product_count','is_verified','id_color']);
+            $table->dropColumn(['product_count','is_verified','id_color','social']);
         });
     }
 };
