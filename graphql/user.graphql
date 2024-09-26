@@ -20,6 +20,7 @@ type User{
     level:String
     phone:String
     address:String
+    social:Social
     image:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImage")
     custom:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getCustomImage")
     logo:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getLogo")
