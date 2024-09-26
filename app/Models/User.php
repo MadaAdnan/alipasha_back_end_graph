@@ -48,7 +48,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
         'is_special' => 'boolean',
-        'social'=>'array',
+        'social' => 'array',
     ];
 
 
@@ -120,14 +120,19 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         return \DB::table('user_follow')->where('user_id', $this->id)->count() ?? 0;
     }
 
-    public function getTotalBalance():float
+    public function getTotalBalance(): float
     {
         return \DB::table('balances')->where('user_id', $this->id)->selectRaw('SUM(credit) - SUM(debit) as total')->first()?->total ?? 0;
     }
-    public function getTotalPoint():float
+
+    public function getTotalPoint(): float
     {
         return \DB::table('points')->where('user_id', $this->id)->selectRaw('SUM(credit) - SUM(debit) as total')->first()?->total ?? 0;
     }
 
+    public function getTotalViewsAttribute(): int
+    {
+        ProductView::whereHas('product', fn($query) => $query->where('products.user_id', $this->id))->selectRaw('SUM(count) as count')->first()?->count ?? 0;
+    }
 
 }
