@@ -134,7 +134,7 @@ protected $appends=[
 
     public function getTotalViewsAttribute(): int
     {
-        ProductView::whereHas('product', fn($query) => $query->where('products.user_id', $this->id))->selectRaw('SUM(count) as count')->first()?->count ?? 0;
+       return ProductView::whereHas('product', fn($query) => $query->where('products.user_id', $this->id))->selectRaw('SUM(count) as count')->first()?->count ?? 0;
     }
 
 }
