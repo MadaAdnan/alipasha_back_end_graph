@@ -18,7 +18,7 @@ final class GetMyCommunity
             $query->where('users.id', Auth::id());
         })
             ->with(['communityUsers' => function ($query) {
-                $query->where('users.id', '!=', Auth::id())
+                $query
                     ->limit(3);
             }])
             ->when(!empty($search), function ($query) use ($search) {
