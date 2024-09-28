@@ -157,7 +157,7 @@ input UpdateUserInput{
     latitude:Float
     longitude:Float
     colorId:String
-    social:Social
+    social:UserSocial
 
     image:Upload @rules(apply:["nullable","image"],messages:[
         {
@@ -173,4 +173,11 @@ input UpdateUserInput{
     ])
 
 
+}
+type UserSocial{
+    instagram:String
+    face:String
+    linkedin:String
+    tiktok:String
+    twitter:String
 }
