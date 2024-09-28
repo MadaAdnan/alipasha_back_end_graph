@@ -14,7 +14,7 @@ final class UpdateUser
     public function __invoke($_, array $args)
     {
         $data = $args['input'];
-
+        info($data);
         /**
          * @var $user User
          */
@@ -39,8 +39,8 @@ final class UpdateUser
             'device_token' => $data['device_token'] ?? $user->device_token,
             'longitude' => $data['longitude'] ?? $user->longitude,
             'latitude' => $data['latitude'] ?? $user->latitude,
-            'id_color'=>$data['colorId']??$user->id_color,
-            'social'=>$data['social']??$user->social,
+            'id_color' => $data['colorId'] ?? $user->id_color,
+            'social' => $data['social'] ?? $user->social,
         ];
         if (isset($data['password']) && $data['password'] !== null && !empty(trim($data['password']))) {
             $input['password'] = bcrypt($data['password']);
