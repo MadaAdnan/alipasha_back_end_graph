@@ -14,7 +14,7 @@ final class GetMyCommunity
     {
         $search = $args['search'] ?? '';
         $communities = Community::whereHas('users', fn($query) => $query->where('users.id', auth()->id()))
-            ->with(['users'=>fn($query)=>$query->whereNot('users.id',auth()->id())->limit(3)])
+            ->with(['users'=>fn($query)=>$query->where('users.id','!=',auth()->id())->limit(3)])
             ->when(!empty($search), fn($query) => $query->where('name', 'like', "%$search%"))
             ->latest('last_update');
         return $communities;
