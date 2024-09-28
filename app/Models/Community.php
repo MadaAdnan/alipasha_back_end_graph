@@ -22,7 +22,7 @@ class Community extends Model
 
     public function scopeChannel(Builder $query): Builder
     {
-        return $query->where('type','');
+        return $query->where('type','channel');
     }
 
     public function users(): BelongsToMany
