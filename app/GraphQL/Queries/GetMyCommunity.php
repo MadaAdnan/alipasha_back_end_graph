@@ -3,6 +3,7 @@
 namespace App\GraphQL\Queries;
 
 use App\Models\Community;
+use Auth;
 
 final class GetMyCommunity
 {
@@ -13,9 +14,16 @@ final class GetMyCommunity
     public function __invoke($_, array $args)
     {
         $search = $args['search'] ?? '';
-        $communities = Community::whereHas('users', fn($query) => $query->where('users.id', auth()->id()))
-            ->with(['users'=>fn($query)=>$query->where('users.id','!=',auth()->id())->limit(3)])
-            ->when(!empty($search), fn($query) => $query->where('name', 'like', "%$search%"))
+        $communities = Community::whereHas('users', function ($query) {
+            $query->where('users.id', Auth::id());
+        })
+            ->with(['users' => function ($query) {
+                $query->where('users.id', '!=', Auth::id())
+                    ->limit(3);
+            }])
+            ->when(!empty($search), function ($query) use ($search) {
+                $query->where('name', 'like', "%$search%");
+            })
             ->latest('last_update');
         return $communities;
     }
