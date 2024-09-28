@@ -14,7 +14,6 @@ final class UpdateUser
     public function __invoke($_, array $args)
     {
         $data = $args['input'];
-        info($data);
         /**
          * @var $user User
          */
