@@ -17,7 +17,10 @@ final class GetMyCommunity
         $communities = Community::whereHas('users', function ($query) {
             $query->where('users.id', Auth::id());
         })
-            ->with('communityUsers')
+            ->with(['communityUsers' => function ($query) {
+                $query->where('users.id', '!=', Auth::id())
+                    ->limit(3);
+            }])
             ->when(!empty($search), function ($query) use ($search) {
                 $query->where('name', 'like', "%$search%");
             })
