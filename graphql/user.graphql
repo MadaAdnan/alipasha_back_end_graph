@@ -156,6 +156,8 @@ input UpdateUserInput{
     device_token:String
     latitude:Float
     longitude:Float
+    colorId:String
+    social:Social
 
     image:Upload @rules(apply:["nullable","image"],messages:[
         {
