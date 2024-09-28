@@ -17,7 +17,7 @@ final class GetMyCommunity
         $communities = Community::whereHas('users', function ($query) {
             $query->where('users.id', Auth::id());
         })
-            ->with(['communityUsers' => function ($query) {
+            ->with(['users' => function ($query) {
                 $query
                     ->limit(3);
             }])
