@@ -19,7 +19,7 @@ final class GetMyCommunity
         })
             ->with(['users' => function ($query) {
                 $query->select('users.*')
-                    ->join('community_user', 'users.id', '=', 'community_user.user_id')
+                    ->join('community_user as t', 'users.id', '=', 't.user_id')
                     ->where('users.id', '!=', Auth::id())
                     ->limit(3);
             }])
