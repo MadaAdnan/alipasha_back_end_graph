@@ -4,7 +4,7 @@ type Community{
     manager:User
     type:String
     url:String
-    users:[User] @belongsToMany
+    communityUsers:[User] @belongsToMany
     lastUpdate:HumanDate
 }
 
