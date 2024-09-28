@@ -27,7 +27,11 @@ class Community extends Model
 
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class)->limit(2);
+        return $this->belongsToMany(User::class);
+    }
+    public function communityUsers(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class,'community_user','user_id')->limit(3);
     }
 
 }
