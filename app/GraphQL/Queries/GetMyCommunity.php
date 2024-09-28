@@ -19,7 +19,7 @@ final class GetMyCommunity
         })
             ->with(['users' => function ($query) {
                 $query
-                    ->limit(3);
+                    ->take(3);
             }])
             ->when(!empty($search), function ($query) use ($search) {
                 $query->where('name', 'like', "%$search%");
