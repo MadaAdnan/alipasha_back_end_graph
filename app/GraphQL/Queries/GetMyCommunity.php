@@ -18,8 +18,12 @@ final class GetMyCommunity
             $query->where('users.id', Auth::id());
         })
             ->with(['users' => function ($query) {
-                $query
-                    ->take(3);
+                $query->select('users.*')
+                    ->join('community_user', 'users.id', '=', 'community_user.user_id')
+                    ->where('users.id', '!=', Auth::id())
+                    ->groupBy('users.id')
+                    ->orderBy('community_user.created_at', 'desc')
+                    ->limit(3);
             }])
             ->when(!empty($search), function ($query) use ($search) {
                 $query->where('name', 'like', "%$search%");
