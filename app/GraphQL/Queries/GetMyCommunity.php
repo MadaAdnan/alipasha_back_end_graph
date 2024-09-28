@@ -21,8 +21,6 @@ final class GetMyCommunity
                 $query->select('users.*')
                     ->join('community_user', 'users.id', '=', 'community_user.user_id')
                     ->where('users.id', '!=', Auth::id())
-                    ->groupBy('users.id')
-                    ->orderBy('community_user.created_at', 'desc')
                     ->limit(3);
             }])
             ->when(!empty($search), function ($query) use ($search) {
