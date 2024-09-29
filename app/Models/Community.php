@@ -29,7 +29,7 @@ protected $withCount=[
 
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class)->where('users.id','!=',auth()->id());
+        return $this->belongsToMany(User::class);
     }
 
 
