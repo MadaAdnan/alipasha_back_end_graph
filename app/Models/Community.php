@@ -14,7 +14,9 @@ class Community extends Model
     use HasFactory;
 
     protected $guarded = [];
-
+protected $withCount=[
+    'users',
+];
     public function manager(): BelongsTo
     {
         return $this->belongsTo(User::class, 'manager_id');
@@ -27,12 +29,9 @@ class Community extends Model
 
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class)->take(3);
+        return $this->belongsToMany(User::class)->where('users.id','!=',auth()->id());
     }
-    public function allUsers(): BelongsToMany
-    {
-        return $this->belongsToMany(User::class);
-    }
+
 
 
 

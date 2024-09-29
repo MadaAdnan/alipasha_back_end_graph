@@ -14,7 +14,7 @@ final class GetMyCommunity
     public function __invoke($_, array $args)
     {
         $search = $args['search'] ?? '';
-        $communities = Community::whereHas('allUsers', function ($query) {
+        $communities = Community::whereHas('users', function ($query) {
             $query->where('users.id', Auth::id());  // جلب المجتمعات التي يشارك فيها المستخدم الحالي
         })
             ->with('users')

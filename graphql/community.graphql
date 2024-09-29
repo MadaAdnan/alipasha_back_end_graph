@@ -5,6 +5,7 @@ type Community{
     type:String
     url:String
     users:[User] @belongsToMany
+    user_count:Int
     lastUpdate:HumanDate
 }
 
