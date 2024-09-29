@@ -14,7 +14,7 @@ final class GetMyCommunity
     public function __invoke($_, array $args)
     {
         $search = $args['search'] ?? '';
-        $communities = auth()->user()?->communities()->latest('last_update')->get();
+        $communities = auth()->user()?->communities()->latest('last_update');
 
 // اجلب 3 مستخدمين فقط لكل مجتمع
         $communities->each(function($community) {
