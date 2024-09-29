@@ -137,4 +137,8 @@ protected $appends=[
        return ProductView::whereHas('product', fn($query) => $query->where('products.user_id', $this->id))->selectRaw('SUM(count) as count')->first()?->count ?? 0;
     }
 
+    public function communities():BelongsToMany{
+        return $this->belongsToMany(Community::class);
+    }
+
 }
