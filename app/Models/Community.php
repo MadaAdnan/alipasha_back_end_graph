@@ -32,6 +32,11 @@ protected $withCount=[
         return $this->belongsToMany(User::class);
     }
 
+    public function allUsers(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class);
+    }
+
 
 
 
