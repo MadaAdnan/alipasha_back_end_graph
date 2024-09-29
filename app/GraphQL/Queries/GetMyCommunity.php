@@ -30,7 +30,7 @@ final class GetMyCommunity
         $communities = Community::whereHas('users', function ($query) {
             $query->where('users.id', Auth::id());  // جلب المجتمعات التي يشارك فيها المستخدم الحالي
         })
-            ->with(['users' => function ($query) {
+            ->with(['users2' => function ($query) {
                 $query->where('users.id', '!=', Auth::id()) // استبعاد المستخدم الحالي
                 ->limit(3);  // جلب 3 مستخدمين فقط
             }])
