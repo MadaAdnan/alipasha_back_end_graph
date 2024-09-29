@@ -14,11 +14,12 @@ final class GetMyCommunity
     public function __invoke($_, array $args)
     {
         $search = $args['search'] ?? '';
-        $communities = auth()->user()?->communities()
-            ->with(['users' => function($q) {
-                $q->take(3);
-            }])
-            ->latest('last_update');
+        $communities = auth()->user()?->communities()->latest('last_update');
+
+// اجلب 3 مستخدمين فقط لكل مجتمع
+        $communities->each(function($community) {
+            $community->setRelation('users', $community->users()->take(3)->get());
+        });
         return $communities;
     }
 }
