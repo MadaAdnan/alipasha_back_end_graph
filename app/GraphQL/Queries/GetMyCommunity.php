@@ -14,12 +14,19 @@ final class GetMyCommunity
     public function __invoke($_, array $args)
     {
         $search = $args['search'] ?? '';
-        $communities = auth()->user()?->communities()->latest('last_update');
-
-// اجلب 3 مستخدمين فقط لكل مجتمع
-        $communities->each(function($community) {
-            $community->setRelation('users', $community->users()->take(3)->get());
-        });
+        $communities = Community::whereHas('users', function ($query) {
+            $query->where('users.id', Auth::id());
+        })
+            ->with(['users' => function ($query) {
+                $query->select('users.*')
+                    ->join('community_user as t', 'users.id', '=', 't.user_id')
+                    ->where('users.id', '!=', Auth::id())
+                    ->take(3);
+            }])
+            ->when(!empty($search), function ($query) use ($search) {
+                $query->where('name', 'like', "%$search%");
+            })
+            ->latest('last_update');
         return $communities;
     }
 }
