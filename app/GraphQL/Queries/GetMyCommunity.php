@@ -14,7 +14,11 @@ final class GetMyCommunity
     public function __invoke($_, array $args)
     {
         $search = $args['search'] ?? '';
-       $communities=auth()->user()->communities()->with(['users'=>fn($q)=>$q->take(3)])->latest('last_update');
+        $communities = auth()->user()?->communities()
+            ->with(['users' => function($q) {
+                $q->take(3);
+            }])
+            ->latest('last_update');
         return $communities;
     }
 }
