@@ -14,7 +14,7 @@ final class GetMyCommunity
     public function __invoke($_, array $args)
     {
         $search = $args['search'] ?? '';
-        $communities = Community::whereHas('users', function ($query) {
+      /*  $communities = Community::whereHas('users', function ($query) {
             $query->where('users.id', Auth::id());
         })
             ->with(['users' => function ($query) {
@@ -22,6 +22,18 @@ final class GetMyCommunity
                     ->join('community_user as t', 'users.id', '=', 't.user_id')
                     ->where('users.id', '!=', Auth::id())
                     ->take(3);
+            }])
+            ->when(!empty($search), function ($query) use ($search) {
+                $query->where('name', 'like', "%$search%");
+            })
+            ->latest('last_update');*/
+        $communities = Community::whereHas('users', function ($query) {
+            $query->where('users.id', Auth::id());
+        })
+            ->with(['users' => function ($query) {
+                $query->select('users.*')
+                    ->where('users.id', '!=', Auth::id())
+                    ->limit(3); // استخدم limit لجلب 3 مستخدمين فقط
             }])
             ->when(!empty($search), function ($query) use ($search) {
                 $query->where('name', 'like', "%$search%");
