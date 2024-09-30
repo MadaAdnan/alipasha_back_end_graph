@@ -10,12 +10,13 @@ class Message extends Model
 {
     use HasFactory;
 
-    protected $guarded=[];
+    protected $guarded = [];
 
     public function community(): BelongsTo
     {
         return $this->belongsTo(Community::class);
     }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

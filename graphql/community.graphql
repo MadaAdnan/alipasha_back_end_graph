@@ -24,7 +24,7 @@ extend type Mutation{
 
 type Message{
 #    community:Community @belongsTo
-#    user:User @belongsTo
+    user:User @belongsTo
     body:String
     type:String
     created_at:HumanDate
