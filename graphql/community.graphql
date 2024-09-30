@@ -6,7 +6,7 @@ type Community{
     url:String
     users:[User] @belongsToMany
     users_count:Int
-    lastUpdate:HumanDate
+    last_update:HumanDate
     created_at:HumanDate
 }
 
