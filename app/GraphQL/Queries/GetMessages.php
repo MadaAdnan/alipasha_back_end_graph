@@ -14,6 +14,7 @@ final class GetMessages
      */
     public function __invoke($_, array $args)
     {
+        return Message::latest();
         $communityId = $args['communityId'];
         $userId = auth()->id();
         $community = Community::whereHas('allUsers', fn($query) => $query->where('users.id', $userId))->where('id', $communityId)->first();
