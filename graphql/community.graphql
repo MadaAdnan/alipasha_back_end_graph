@@ -12,7 +12,7 @@ type Community{
 
 extend type Query{
     getMyCommunity(search:String,first:Int,page:Int):[Community]  @paginate(builder:"App\\GraphQL\\Queries\\GetMyCommunity") @guard
-    getMessages(communityId:Int!,first:Int,page:Int):[Message]  @paginate(builder:"App\\GraphQL\\Queries\\GetMyCommunity") @guard
+    getMessages(communityId:Int!,first:Int,page:Int):[Message]  @paginate(builder:"App\\GraphQL\\Queries\\GetMessages") @guard
 }
 
 extend type Mutation{
@@ -23,7 +23,7 @@ extend type Mutation{
 
 
 type Message{
-#    community:Community @belongsTo
+    community:Community @belongsTo
     user:User @belongsTo
     body:String
     type:String
