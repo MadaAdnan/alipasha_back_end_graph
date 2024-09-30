@@ -18,7 +18,7 @@ final class GetMessages
         $userId = auth()->id();
         $community = Community::whereHas('allUsers', fn($query) => $query->where('users.id', $userId))->where('id', $communityId)->first();
         if ($community != null) {
-            return Message::where('community_id', $communityId)->latest();
+            return Message::where('community_id', $communityId)->with('user')->latest();
         }
         throw new GraphQLExceptionHandler("المجتمع غير موجود");
 
