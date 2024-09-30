@@ -11,6 +11,7 @@ type Community{
 
 extend type Query{
     getMyCommunity(search:String,first:Int,page:Int):[Community]  @paginate(builder:"App\\GraphQL\\Queries\\GetMyCommunity") @guard
+    getMessages(communityId:Int!,first:Int,page:Int):[Message]  @paginate(builder:"App\\GraphQL\\Queries\\GetMyCommunity") @guard
 }
 
 extend type Mutation{
@@ -30,5 +31,5 @@ type Message{
 }
 
 extend type Mutation{
-    CreateMessage(communityId:Int,body:String,image:Upload):Boolean @guard
+    CreateMessage(communityId:Int,body:String,image:Upload):Message @guard
 }

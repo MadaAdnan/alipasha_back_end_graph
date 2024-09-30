@@ -28,7 +28,7 @@ if(isset($args['image']) && !empty($args['image'])){
                 'type'=>$type,
             ]);
 
-          $message;
+       return $message;
         } catch (\Exception | \Error $e) {
             throw new GraphQLExceptionHandler($e->getMessage());
         }
