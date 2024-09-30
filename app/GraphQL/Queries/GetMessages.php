@@ -16,7 +16,7 @@ final class GetMessages
     {
         $communityId = $args['communityId'];
         $userId = auth()->id();
-        $community = Community::whereHas('users', fn($query) => $query->where('users.id', $userId))->where('id', $communityId)->first();
+        $community = Community::whereHas('allUsers', fn($query) => $query->where('users.id', $userId))->where('id', $communityId)->first();
         if ($community != null) {
             return Message::where('community_id', $communityId)->latest();
         }
