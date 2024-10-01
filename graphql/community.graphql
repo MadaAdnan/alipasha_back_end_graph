@@ -7,7 +7,7 @@ type Community{
     users:[User] @belongsToMany
     users_count:Int
     last_update:HumanDate
-    created_at:HumanDate
+   # created_at:HumanDate
 }
 
 extend type Query{
