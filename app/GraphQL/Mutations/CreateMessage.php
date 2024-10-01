@@ -30,6 +30,9 @@ if(isset($args['attach']) && !empty($args['attach'])){
 if($type!=='text'){
     $message->addMedia($args['attach'])->toMediaCollection('attach');
 }
+$message->community()->update([
+    'last_update'=>now(),
+]);
        return $message;
         } catch (\Exception | \Error $e) {
             throw new GraphQLExceptionHandler($e->getMessage());
