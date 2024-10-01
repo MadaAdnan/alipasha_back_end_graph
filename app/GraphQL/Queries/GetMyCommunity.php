@@ -29,12 +29,7 @@ final class GetMyCommunity
             ->latest('last_update');*/
         $communities = Community::whereHas('allUsers', function ($query) {
             $query->where('users.id', Auth::id());  // جلب المجتمعات التي يشارك فيها المستخدم الحالي
-        })
-            ->with(['users' => function ($query) {
-                $query/*->where('users.id', '!=', Auth::id())*/ // استبعاد المستخدم الحالي
-                ->limit(3);  // جلب 3 مستخدمين فقط
-            }])
-            ->when(!empty($search), function ($query) use ($search) {
+        })->when(!empty($search), function ($query) use ($search) {
                 $query->where('name', 'like', "%$search%");  // البحث عن المجتمعات بناءً على الاسم
             })
             ->latest('last_update');
