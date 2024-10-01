@@ -17,10 +17,12 @@ final class CreateChat
         $userId=auth()->id();
         $memberId=$args['memberId'];
         $member=User::find($memberId);
-       $community=Community::where('type',CommunityTypeEnum::CHAT->value)->whereHas('users',fn($query)=>
-       $query->where(
-           fn($q)=>$q->where('users.id',auth()->id())->where('users.id',$memberId)))
-           ->first();
+        $community = Community::whereHas('users', function($query) use ($userId, $memberId) {
+            $query->whereIn('users.id', [$userId, $memberId]);
+        })->where('type', CommunityTypeEnum::CHAT->value)
+            ->withCount('users')
+            ->having('users_count', '=', 2)
+            ->first();
        if($community===null){
            $community=Community::create([
                'last_update'=>now(),
