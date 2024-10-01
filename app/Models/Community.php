@@ -14,12 +14,13 @@ class Community extends Model
     use HasFactory;
 
     protected $guarded = [];
-protected $withCount=[
-    'users',
-];
-protected $casts=[
-    'last_update' => 'datetime',
-];
+    protected $withCount = [
+        'users',
+    ];
+    protected $casts = [
+        'last_update' => 'datetime',
+    ];
+
     public function manager(): BelongsTo
     {
         return $this->belongsTo(User::class, 'manager_id');
@@ -27,7 +28,7 @@ protected $casts=[
 
     public function scopeChannel(Builder $query): Builder
     {
-        return $query->where('type','channel');
+        return $query->where('type', 'channel');
     }
 
     public function users(): BelongsToMany
@@ -39,8 +40,6 @@ protected $casts=[
     {
         return $this->belongsToMany(User::class);
     }
-
-
 
 
 }
