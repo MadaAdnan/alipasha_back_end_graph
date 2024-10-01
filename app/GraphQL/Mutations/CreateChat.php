@@ -18,7 +18,7 @@ final class CreateChat
         $memberId=$args['memberId'];
         $member=User::find($memberId);
         $community = Community::whereHas('users', function($query) use ($userId, $memberId) {
-            $query->where('users.id', $userId)->orWhere('user_id',$memberId);
+            $query->where('users.id', $userId)->orWhere('users.id',$memberId);
         })->where('type', CommunityTypeEnum::CHAT->value)
             ->withCount('users')
             ->having('users_count', '=', 2)
