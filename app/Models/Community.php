@@ -17,6 +17,9 @@ class Community extends Model
 protected $withCount=[
     'users',
 ];
+protected $casts=[
+    'last_update' => 'datetime',
+];
     public function manager(): BelongsTo
     {
         return $this->belongsTo(User::class, 'manager_id');
