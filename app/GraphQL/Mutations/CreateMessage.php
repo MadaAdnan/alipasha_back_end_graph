@@ -16,8 +16,8 @@ final class CreateMessage
         $userId = auth()->id();
         $communityId = $args['communityId'];
 $type='text';
-if(isset($args['image']) && !empty($args['image'])){
-    $file=$args['image'];
+if(isset($args['attach']) && !empty($args['attach'])){
+    $file=$args['attach'];
     $type=$file->getClientOriginalExtension();
 }
         try {
@@ -27,7 +27,9 @@ if(isset($args['image']) && !empty($args['image'])){
                 'user_id' => $userId,
                 'type'=>$type,
             ]);
-
+if($type!=='text'){
+    $message->addMedia($args['attach'])->toMediaCollection('attach');
+}
        return $message;
         } catch (\Exception | \Error $e) {
             throw new GraphQLExceptionHandler($e->getMessage());

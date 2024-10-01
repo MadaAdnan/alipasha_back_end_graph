@@ -28,9 +28,10 @@ type Message{
     body:String
     type:String
     created_at:HumanDate
+    attach:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getAttach")
 
 }
 
 extend type Mutation{
-    CreateMessage(communityId:Int,body:String,image:Upload):Message @guard
+    CreateMessage(communityId:Int,body:String,attach:Upload):Message @guard
 }
