@@ -3,7 +3,7 @@ extend type Query{
     mainCategories(type: String ):[Category]
     category(id:ID! @eq): Category @find
 
-    categoryBySeller(sellerId:Int!):[Category] @guard
+    categoryBySeller(sellerId:Int!):[Category]
 }
 
 type Category{
