@@ -2,6 +2,8 @@ extend type Query{
     categories:[Category] @all
     mainCategories(type: String ):[Category]
     category(id:ID! @eq): Category @find
+
+    categoryBySeller:[Category] @guard
 }
 
 type Category{
