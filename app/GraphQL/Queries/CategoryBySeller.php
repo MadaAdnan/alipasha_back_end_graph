@@ -12,8 +12,8 @@ final class CategoryBySeller
      */
     public function __invoke($_, array $args)
     {
-        $user = auth()->user();
-        $categorisId = \DB::table('products')->where('user_id', auth()->id())->pluck('sub1_id')->toArray();
+        $userId = $args['sellerId'];
+        $categorisId = \DB::table('products')->where('user_id', $userId)->pluck('sub1_id')->toArray();
         return Category::whereIn('id', $categorisId)->get();
     }
 }
