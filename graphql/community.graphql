@@ -14,7 +14,7 @@ extend type Query{
     getMyCommunity(search:String,first:Int,page:Int):[Community]  @paginate(builder:"App\\GraphQL\\Queries\\GetMyCommunity") @guard
     getMessages(communityId:Int!,first:Int,page:Int):[Message]  @paginate(builder:"App\\GraphQL\\Queries\\GetMessages") @guard
     getLiveMessages(first:Int,page:Int):[Message]  @paginate(builder:"App\\GraphQL\\Queries\\GetLiveMessages") @guard
-    getLiveCommunity:Community
+
 }
 
 extend type Mutation{
@@ -37,5 +37,5 @@ type Message{
 
 extend type Mutation{
     CreateMessage(communityId:Int,body:String,attach:Upload):Message @guard
-    createLiveMessage(communityId:Int,body:String!):Message @guard
+    createLiveMessage(body:String!):Message @guard
 }
