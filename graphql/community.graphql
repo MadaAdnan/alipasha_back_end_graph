@@ -20,6 +20,7 @@ extend type Mutation{
     createChat(memberId:Int!):Community @guard
     createGroup(name:String!):Community @guard
     createChannel(name:String!):Community @guard
+
 }
 
 
@@ -35,4 +36,5 @@ type Message{
 
 extend type Mutation{
     CreateMessage(communityId:Int,body:String,attach:Upload):Message @guard
+    createLiveMessage(communityId:Int,body:String!):Message @guard
 }
