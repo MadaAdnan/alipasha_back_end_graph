@@ -19,7 +19,7 @@ Auth::routes([
 ]);
 Route::get('/test', function () {
 
-    for ($i = 0; $i < 60; $i++) {
+   /* for ($i = 0; $i < 60; $i++) {
         \App\Models\Message::create([
             'body' => fake()->name,
             'community_id' => 5,
@@ -27,7 +27,7 @@ Route::get('/test', function () {
             'user_id' => User::inRandomOrder()->first()->id,
 
         ]);
-    }
+    }*/
 //   /* $search='ايام';
 //    try{
 //        $user=User::whereRaw('MATCH(name) AGAINST(? IN NATURAL LANGUAGE MODE)', [$search])->get();
