@@ -16,7 +16,7 @@ final class GetLiveCommunity
     {
         $setting = Setting::first();
         if ($setting->active_live) {
-            return Community::firstOrCreate(['name' => $setting->live_id], ['is_global' => true, 'type' => CommunityTypeEnum::LIVE->value])->first();
+            return Community::firstOrCreate(['name' => $setting->live_id], ['is_global' => true, 'type' => CommunityTypeEnum::LIVE->value]);
         }
     }
 }
