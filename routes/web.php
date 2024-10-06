@@ -17,9 +17,17 @@ use Illuminate\Support\Facades\Route;
 Auth::routes([
     'verify' => true,
 ]);
-Route::get('/', function () {
+Route::get('/test', function () {
 
+    for ($i = 0; $i < 60; $i++) {
+        \App\Models\Message::create([
+            'body' => fake()->name,
+            'community_id' => 5,
+            'type' => 'text',
+            'user_id' => User::inRandomOrder()->first()->id,
 
+        ]);
+    }
 //   /* $search='ايام';
 //    try{
 //        $user=User::whereRaw('MATCH(name) AGAINST(? IN NATURAL LANGUAGE MODE)', [$search])->get();
@@ -30,14 +38,12 @@ Route::get('/', function () {
 //    }*/
 
 
-
-
     return view('welcome');
 });
 
 
-Route::get('/.well-known/assetlinks.json',function(){
-    return json_decode( '[{
+Route::get('/.well-known/assetlinks.json', function () {
+    return json_decode('[{
   "relation": ["delegate_permission/common.handle_all_urls"],
   "target": {
     "namespace": "android_app",
