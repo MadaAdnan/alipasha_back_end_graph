@@ -22,7 +22,7 @@ final class GetLiveMessages
                 'name'=>$setting->live_id,
                 'type' => CommunityTypeEnum::LIVE->value
             ])->first();
-            return Message::where('community_id',$community->id)->latest();
+            return Message::where('community_id',$community?->id)->latest();
         }
         throw new GraphQLExceptionHandler('إنتهى البث');
     }
