@@ -35,11 +35,13 @@ class MessageSentEvent implements ShouldBroadcastNow
      */
     public function broadcastOn(): array
     {
-        $id = $this->message->user_id != $this->message->community->user_id ? $this->message->community->user_id : $this->message->community->seller_id;
-
-        return [
-            new PrivateChannel('message.' . $this->message->community_id . '.' . $id),
-        ];
+        // $id = $this->message->user_id != $this->message->community->user_id ? $this->message->community->user_id : $this->message->community->seller_id;
+        $chaneels = [];
+        $users = $this->message->community->users()->whereNot('users.id', $this->message->user_id)->pluck('id');
+        foreach ($users as $item) {
+           $chaneels[]= new PrivateChannel('message.' . $this->message->community_id . '.' . $item);
+        }
+        return $chaneels;
     }
 
     public function broadcastAs(): string
@@ -49,7 +51,7 @@ class MessageSentEvent implements ShouldBroadcastNow
 
     public function broadcastWith(): array
     {
-        $this->message->load(['user', 'community','media']);
+        $this->message->load(['user', 'community', 'media']);
 
         return ['message' => new MessageResource($this->message)];
     }

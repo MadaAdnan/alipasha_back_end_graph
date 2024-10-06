@@ -7,6 +7,7 @@ enum CommunityTypeEnum: string
     case CHANNEL = 'channel';
     case CHAT = 'chat';
     case GROUP = 'group';
+    case LIVE = 'live';
 
 
 
@@ -16,6 +17,7 @@ enum CommunityTypeEnum: string
             self::CHANNEL => 'قناة',
             self::CHAT => 'محادثة',
             self::GROUP => 'مجموعة',
+            self::LIVE => 'بث',
 
         };
     }
@@ -26,6 +28,7 @@ enum CommunityTypeEnum: string
             self::CHANNEL => 'fas-satellite-dish',
             self::CHAT =>'fas-comments',
             self::GROUP =>'fas-users',
+            self::LIVE =>'fas-youtube',
 
         };
     }
@@ -36,6 +39,7 @@ enum CommunityTypeEnum: string
             self::CHANNEL => 'danger',
             self::CHAT => 'warning',
             self::GROUP => 'info',
+            self::LIVE => 'success',
 
         };
     }

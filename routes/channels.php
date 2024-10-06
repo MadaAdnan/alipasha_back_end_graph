@@ -17,9 +17,8 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int)$user->id === (int)$id;
 });
 Broadcast::channel('message.{communityId}.{id}', function ($user, $communityId, $id) {
-
     $community = \App\Models\Community::find($communityId);
-    $isUser = (int)$community->user_id === (int)$id || (int)$community->seller_id === (int)$id;
+    $isUser=  $community->users()->where('users.id',$id)->exists();
     return (int)$user->id === (int)$id && $isUser;
 });
 

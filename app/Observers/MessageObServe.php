@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Events\MessageSentEvent;
 use App\Models\Message;
 
+
 class MessageObServe
 {
     /**
@@ -12,7 +13,7 @@ class MessageObServe
      */
     public function created(Message $message): void
     {
-
+        event(new MessageSentEvent($message));
     }
 
     /**
