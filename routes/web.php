@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ImportController;
 use App\Models\ShippingPrice;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -52,4 +53,11 @@ Route::get('/.well-known/assetlinks.json', function () {
     ["38:87:1C:5A:17:98:C0:AE:30:7D:58:50:38:80:6B:6E:18:CD:23:A0:72:74:B8:46:DB:5F:B2:AD:A6:49:F9:82"]
   }
 }]');
+});
+
+####################################################################
+###################### IMPORT DATA #################################
+Route::post('/import', [ImportController::class, 'import'])->name('import');
+Route::get('/import', function () {
+    return view('import');
 });

@@ -12,13 +12,20 @@ final class HumanDate extends ScalarType
     /** Serializes an internal value to include in a response. */
     public function serialize(mixed $value): mixed
     {
-        return $value->diffForHumans();
+        if($value instanceof  Carbon) {
+            return $value->diffForHumans();
+        }
+        return null;
     }
 
     /** Parses an externally provided value (query variable) to use as an input. */
     public function parseValue(mixed $value): mixed
     {
-        return Carbon::parse($value);
+        if(!empty($value)){
+            return Carbon::parse($value);
+        }
+        return null;
+
     }
 
     /**

@@ -15,6 +15,7 @@ use App\Models\Product;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -121,7 +122,7 @@ class ProductResource extends Resource
                 HelperMedia::getImageColumn(collection: 'image'),
                 Tables\Columns\TextColumn::make('id')->label('رقم المنتج')->searchable(),
                 Tables\Columns\TextColumn::make('name')->label('اسم المنتج')->description(fn($record) => $record->expert)->searchable(),
-                Tables\Columns\TextColumn::make('category.name')->label('القسم الرئيسي')->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\SelectColumn::make('category.name')->label('القسم الرئيسي')->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('city.name')->label('المدينة'),
                 Tables\Columns\TextColumn::make('user.name')->label('المتجر')->url(fn($record) => UserResource::getUrl('edit', ['record' => $record->user_id]))->searchable(),
                 Tables\Columns\TextColumn::make('views_count')->label('عدد المشاهدات'),
@@ -150,7 +151,25 @@ class ProductResource extends Resource
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make()->label('نقل إلى سلة المحذوفات'),
-                    Tables\Actions\ForceDeleteBulkAction::make()
+                    Tables\Actions\ForceDeleteBulkAction::make(),
+                    Tables\Actions\BulkAction::make('category')->form([
+                        Forms\Components\Fieldset::make('التصنيف')->schema([
+                            Forms\Components\Select::make('category_id')->options(Category::product()->pluck('name', 'id'))->label('يتبع القسم')->searchable()->live()->required(),
+                            Forms\Components\Select::make('sub1_id')->options(fn($get) => Category::find($get('category_id'))?->children?->pluck('name', 'id'))->label('يتبع القسم')->searchable()->live(),
+                            Forms\Components\Select::make('sub2_id')->options(fn($get) => Category::find($get('sub1_id'))?->children?->pluck('name', 'id'))->label('يتبع القسم')->searchable()->reactive(),
+                            Forms\Components\Select::make('sub3_id')->options(fn($get) => Category::find($get('sub2_id'))?->children?->pluck('name', 'id'))->label('يتبع القسم')->searchable()->live(),
+                            Forms\Components\Select::make('sub4_id')->options(fn($get) => Category::find($get('sub3_id'))?->children?->pluck('name', 'id'))->label('يتبع القسم')->searchable()->live(),
+                        ]),
+                    ])->action(function($data,$records){
+                        $ids=$records->pluck('id')->toArray();
+                        Product::whereIn('id',$ids)->update([
+                            'category_id'=>$data['category_id'],
+                            'sub1_id'=>$data['sub1_id'],
+                            'sub2_id'=>$data['sub2_id'],
+                            'sub3_id'=>$data['sub3_id'],
+                        ]);
+                        Notification::make('success')->title('نجاح العملية')->body('تم تخصيص الأقسام بنجاح')->success()->send();
+                    })
                 ]),
             ]);
     }

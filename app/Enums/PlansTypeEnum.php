@@ -4,8 +4,8 @@ namespace App\Enums;
 
 enum PlansTypeEnum: string
 {
-    case FREE = 'free';
-    case MONTH = 'month';
+    case PRESENT = 'present';
+    case SERVICE = 'service';
 
 
 
@@ -13,8 +13,8 @@ enum PlansTypeEnum: string
     public function getLabel()
     {
         return match ($this) {
-            self::FREE => 'مجاني',
-            self::MONTH => 'اشتراك شهري',
+            self::PRESENT => 'عروض',
+            self::SERVICE => 'خدمات إعلامية',
 
 
         };
@@ -23,8 +23,8 @@ enum PlansTypeEnum: string
     public function getIcon()
     {
         return match ($this) {
-            self::FREE => 'fas-handshake',
-            self::MONTH =>'fas-sack-dollar',
+            self::PRESENT => 'fas-chalkboard-user',
+            self::SERVICE =>'fas-video',
 
 
         };
@@ -33,8 +33,8 @@ enum PlansTypeEnum: string
     public function getColor()
     {
         return match ($this) {
-            self::FREE => 'info',
-            self::MONTH => 'success',
+            self::PRESENT => 'info',
+            self::SERVICE => 'success',
 
 
         };
