@@ -121,6 +121,7 @@ class ProductResource extends Resource
             ->columns([
                 HelperMedia::getImageColumn(collection: 'image'),
                 Tables\Columns\TextColumn::make('id')->label('رقم المنتج')->searchable(),
+                Tables\Columns\TextColumn::make('category.name')->label('اسم القسم'),
                 Tables\Columns\TextColumn::make('name')->label('اسم المنتج')->description(fn($record) => $record->expert)->searchable(),
                 Tables\Columns\SelectColumn::make('category.name')->label('القسم الرئيسي')->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('city.name')->label('المدينة'),
@@ -138,7 +139,8 @@ class ProductResource extends Resource
                         LevelProductEnum::NORMAL->value => LevelProductEnum::NORMAL->getLabel(),
                         LevelProductEnum::SPECIAL->value => LevelProductEnum::SPECIAL->getLabel(),
                     ])->label('نوع المنتج')
-                ])->query(fn($query, $data) => $query->when($data['level'] != null, fn($q) => $q->where('level', $data['level'])))
+                ])->query(fn($query, $data) => $query->when($data['level'] != null, fn($q) => $q->where('level', $data['level']))),
+                Tables\Filters\Filter::make('category')->modifyQueryUsing(fn($query)=>$query->whereNull('category_id')),
             ])
             ->actions([
                 Tables\Actions\EditAction::make()->mutateFormDataUsing(function ($data) {
