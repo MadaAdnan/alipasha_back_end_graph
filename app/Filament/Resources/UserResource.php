@@ -152,7 +152,7 @@ class UserResource extends Resource
                             'user_id'=>$record->id
                         ]);
                         Notification::make('success')->success()->title('نجاح')->body('تم إضافة الرصيد بنجاح')->send();
-                    }),
+                    })->label('إضافة رصيد')->icon('fas-hand-holding-dollar'),
                     Tables\Actions\Action::make('sub_balance')->form([
                         Forms\Components\TextInput::make('value')->label('القيمة')->required()->gt(0),
                         Forms\Components\TextInput::make('info')->label('ملاحظات')
@@ -164,7 +164,8 @@ class UserResource extends Resource
                             'user_id'=>$record->id
                         ]);
                         Notification::make('success')->success()->title('نجاح')->body('تم السحب من الرصيد بنجاح')->send();
-                    })
+                    })->label('سحب من الرصيد')->icon('fas-cash-register'),
+                    Tables\Actions\Action::make('email_verified_at')->action(fn($record)=>$record->update(['email_verified_at'=>now()]))->label('تأكيد البريد'),
                 ]),
             ])
             ->bulkActions([
