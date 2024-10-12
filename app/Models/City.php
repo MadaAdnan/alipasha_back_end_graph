@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\PartnerTypeEnum;
 use App\Enums\ProductActiveEnum;
 use App\Traits\MediaTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -33,5 +34,15 @@ class City extends Model implements HasMedia
     public function products(): HasMany
     {
         return $this->hasMany(Product::class)->where('products.active',ProductActiveEnum::ACTIVE->value);
+    }
+
+    public function sellers(): HasMany
+    {
+        return $this->hasMany(Partner::class,'city_id')->where('partners.type',PartnerTypeEnum::SELLER->value);
+    }
+
+    public function partners(): HasMany
+    {
+        return $this->hasMany(Partner::class,'city_id')->where('partners.type',PartnerTypeEnum::PARTNER->value);
     }
 }

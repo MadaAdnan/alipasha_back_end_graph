@@ -1,6 +1,7 @@
 extend type Query{
     cities:[City] @all
     citiesByCategory(categoryId:Int):[City]
+    citiesHasVendor(type:String):[City]
 }
 
 
