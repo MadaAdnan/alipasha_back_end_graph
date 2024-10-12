@@ -68,7 +68,7 @@ class ServiceResource extends Resource
                 Tables\Columns\TextColumn::make('name')->label('اسم المنتج')->description(fn($record) => $record->expert),
                 Tables\Columns\TextColumn::make('category.name')->label('القسم الرئيسي'),
                 Tables\Columns\TextColumn::make('city.name')->label('المدينة'),
-                Tables\Columns\TextColumn::make('user.name')->label('المتجر')->url(fn($record) => UserResource::getUrl('edit', ['record' => $record->user_id])),
+                Tables\Columns\TextColumn::make('user.name')->label('المتجر')->url(fn($record) => $record->user_id!=null ?UserResource::getUrl('edit', ['record' => $record->user_id]):null),
                 Tables\Columns\TextColumn::make('views_count')->label('عدد المشاهدات'),
                 Tables\Columns\TextColumn::make('created_at')->since()->label('أضيف منذ'),
                 Tables\Columns\TextColumn::make('active')->formatStateUsing(fn($state)=>ProductActiveEnum::tryFrom($state)?->getLabel())->color(fn($state)=>ProductActiveEnum::tryFrom($state)?->getColor())->icon(fn($state)=>ProductActiveEnum::tryFrom($state)?->getIcon())->label('الحالة'),
