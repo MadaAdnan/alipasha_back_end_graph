@@ -37,7 +37,6 @@ final class Image
     public static function getImage($root): string
     {
         if ($root->hasMedia('image')) {
-
             return $root->getFirstMediaUrl('image', 'webp');
         }elseif ($root->hasMedia('images')){
             return $root->getFirstMediaUrl('images', 'webp');

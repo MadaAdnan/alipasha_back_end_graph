@@ -45,6 +45,7 @@ class SellerResource extends Resource
         return $table
             ->modifyQueryUsing(fn($query) => $query->where('type', PartnerTypeEnum::SELLER->value))
             ->columns([
+                Tables\Columns\SpatieMediaLibraryImageColumn::make('image')->collection('image')->conversion('webp')->label('صورة لمتجر')->circular(),
                 Tables\Columns\TextColumn::make('name')->label('اسم التاجر')->searchable(),
                 Tables\Columns\TextColumn::make('phone')->label('رقم التاجر'),
                 Tables\Columns\TextColumn::make('city.name')->label('المدينة'),
