@@ -28,4 +28,9 @@ class City extends Model implements HasMedia
     {
         return $this->hasMany(__CLASS__);
     }
+
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class);
+    }
 }
