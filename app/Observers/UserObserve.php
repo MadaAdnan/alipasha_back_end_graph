@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Enums\PlansDurationEnum;
+use App\Jobs\SendEmailJob;
 use App\Mail\RegisteredEmail;
 use App\Models\Plan;
 use App\Models\User;
@@ -16,7 +17,9 @@ class UserObserve
      */
     public function created(User $user): void
     {
-        //Mail::to($user)->send(new RegisteredEmail($user));
+
+      $job=new SendEmailJob([$user],new RegisteredEmail($user));
+      dispatch($job);
         $plan=Plan::where('duration',PlansDurationEnum::FREE->value)->first();
         if($plan){
             $user->plans()->sync([$plan->id]);
