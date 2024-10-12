@@ -27,7 +27,7 @@ class PartnerResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Section::make('الوكلاء')->schema([
-                    Forms\Components\SpatieMediaLibraryFileUpload::make('image')->collection('logo')->conversion('webp')->imageCropAspectRatio('1:1')
+                    Forms\Components\SpatieMediaLibraryFileUpload::make('image')->collection('image')->conversion('webp')->imageCropAspectRatio('1:1')
                         ->image()->label('لوغو المتجر'),
                     Forms\Components\Select::make('city_id')->options(City::orderBy('name')->pluck('name', 'id'))->searchable()->label('المدينة'),
                     Forms\Components\TextInput::make('name')->label('اسم الوكيل'),
