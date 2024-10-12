@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ProductActiveEnum;
 use App\Traits\MediaTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -31,6 +32,6 @@ class City extends Model implements HasMedia
 
     public function products(): HasMany
     {
-        return $this->hasMany(Product::class);
+        return $this->hasMany(Product::class)->where('products.active',ProductActiveEnum::ACTIVE->value);
     }
 }
