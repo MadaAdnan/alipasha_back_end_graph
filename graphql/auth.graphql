@@ -49,6 +49,7 @@ input CreateGoogleUserInput{
             message:"يجب ان تحوي كلمة المرور 8 أحرف على الأقل"
         }
     ])
+    device_token:String
 }
 
 input CreateUserInput{
