@@ -15,9 +15,9 @@ final class CitiesHasVendor
         $type=$args['type']??'seller';
         switch ($type){
             case 'seller':
-                return City::whereHas('sellers')->get();
+                return City::whereHas('sellers')->orderBy('sortable')->get();
             default:
-                return City::whereHas('partners')->get();
+                return City::whereHas('partners')->orderBy('sortable')->get();
         }
 
     }
