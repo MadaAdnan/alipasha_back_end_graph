@@ -25,7 +25,7 @@ input CreateGoogleUserInput{
             message:"يجب ان يحوي الاسم 3 أحرف على الأقل"
         }
     ])
-    email:String!  @rules(apply:["required","email","unique:users,email"],messages:[
+    email:String!  @rules(apply:["required","email"],messages:[
         {
             rule:"required"
             message:"البريد الإلكتروني مطلوب"
@@ -34,10 +34,7 @@ input CreateGoogleUserInput{
             rule:"email"
             message:"يرجى إدخال بريد إلكتروني صالح"
         }
-        {
-            rule:"unique"
-            message:"البريد الإلكتروني مستخدم من قبل"
-        }
+
     ])
     password:String! @rules(apply:["required","min:8"],messages:[
         {
