@@ -13,6 +13,6 @@ final class CitiesByCategory
     public function __invoke($_, array $args)
     {
        $categoryId=$args['categoryId'];
-       return City::whereHas('products',fn($query)=>$query->where(['products.sub1_id',$categoryId,'products.active','active']))->orderBy('sortable');
+       return City::whereHas('products',fn($query)=>$query->where(['products.sub1_id'=>$categoryId,'products.active'=>'active']))->orderBy('sortable');
     }
 }
