@@ -31,6 +31,9 @@ class SendEmailJob implements ShouldQueue
      */
     public function handle(): void
     {
-        Mail::to($this->users)->send($this->emailable);
+        try{
+            Mail::to($this->users)->send($this->emailable);
+        }catch(\Exception | \Error $e){}
+
     }
 }
