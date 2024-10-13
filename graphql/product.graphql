@@ -43,7 +43,7 @@ type Product{
     price:Float
     discount:Float
     start_date:CustomDate
-    end_date:CustomDate
+    end_date:HumanDate
     code:String
     type:String,
     views_count:Int
