@@ -43,7 +43,7 @@ type Product{
     price:Float
     discount:Float
     start_date:CustomDate
-    end_date:HumanDate
+    end_date:CustomDate
     code:String
     type:String,
     views_count:Int
@@ -55,8 +55,8 @@ type Product{
     docs:[String] @field(resolver: "App\\GraphQL\\Resolvers\\Image@getDocs")
     listOfImages:[DataImage] @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImagesWithId")
     listOfDocs:[DataImage] @field(resolver: "App\\GraphQL\\Resolvers\\Image@getDocsWithId")
-    created_at:CustomDate
-    updated_at:CustomDate
+    created_at:HumanDate
+    updated_at:HumanDate
     attributes:[AttributeProducts] @belongsToMany
     vote_avg:Float @field(resolver: "App\\GraphQL\\Resolvers\\VoteAvg@getAvg")
     is_rate:Boolean @field(resolver: "App\\GraphQL\\Resolvers\\VoteAvg@isRate")
