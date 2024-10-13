@@ -21,7 +21,9 @@ class Product extends Model implements HasMedia
 
     protected $guarded = [];
     protected $casts = [
-        'tags' => 'array'
+        'tags' => 'array',
+        'start_date' => 'datetime',
+        'end_date' => 'datetime'
     ];
 
     protected static function boot()
