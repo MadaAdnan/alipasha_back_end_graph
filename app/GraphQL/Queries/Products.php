@@ -20,6 +20,7 @@ final class Products
     public function __invoke($_, array $args)
 
     {
+        $orderBy=$args['orderBy']??['end_date','desc'];
         $colors = $args['colors'] ?? [];
         $type = $args['type'] ?? null;
         if (auth()->check()) {
@@ -29,7 +30,7 @@ final class Products
             $products = $this->getProducts($type, $args, $colors);
         }
 
-        $ids = $products->paginate($args['first'] ?? 15, ['*'], 'page', $args['page'] ?? 1)->pluck('id')->toArray();
+        $ids = $products->orderBy($orderBy[0],$orderBy[1])->paginate($args['first'] ?? 15, ['*'], 'page', $args['page'] ?? 1)->pluck('id')->toArray();
         $today = today();
         \DB::transaction(function () use ($ids, $today) {
 
