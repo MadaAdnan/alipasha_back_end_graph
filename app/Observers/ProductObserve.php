@@ -12,7 +12,7 @@ class ProductObserve
     public function created(Product $product): void
     {
         if($product->user!=null &&  $product->user->is_seller!=true){
-            $product->user->update(['is_seller'=>true]);
+            $product->user->update(['is_seller'=>true,'seller_name'=>$product->user?->name]);
         }
     }
 
