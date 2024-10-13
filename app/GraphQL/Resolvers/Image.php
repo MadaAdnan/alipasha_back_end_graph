@@ -40,8 +40,8 @@ final class Image
             return $root->getFirstMediaUrl('image', 'webp');
         }elseif ($root->hasMedia('images')){
             return $root->getFirstMediaUrl('images', 'webp');
-        }elseif($root->user!=null && $root->user->hasMedia('logo')){
-            return $root->user->getFirstMediaUrl('logo', 'webp');
+        }elseif($root->user!=null && $root->user->hasMedia('image')){
+            return $root->user->getFirstMediaUrl('image', 'webp');
         }
         return url('/') . asset('images/noImage.jpeg');
     }
