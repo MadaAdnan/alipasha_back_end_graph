@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Events\MessageSentEvent;
 use App\Models\Message;
+use Mockery\Exception;
 
 
 class MessageObServe
@@ -13,7 +14,12 @@ class MessageObServe
      */
     public function created(Message $message): void
     {
-        event(new MessageSentEvent($message));
+        try{
+            event(new MessageSentEvent($message));
+        }catch (Exception $e){
+
+        }
+
     }
 
     /**
