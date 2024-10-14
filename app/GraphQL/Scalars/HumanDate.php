@@ -46,6 +46,6 @@ final class HumanDate extends ScalarType
         if (!$valueNode->value) {
             throw new \Error("تاريخ غير صحيح");
         }
-        return Carbon::parse($valueNode->value);
+        //return Carbon::parse($valueNode->value);
     }
 }
