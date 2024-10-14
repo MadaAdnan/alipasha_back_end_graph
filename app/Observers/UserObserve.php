@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Enums\PlansDurationEnum;
 use App\Jobs\SendEmailJob;
 use App\Mail\RegisteredEmail;
+use App\Models\Community;
 use App\Models\Plan;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
@@ -24,6 +25,8 @@ class UserObserve
         if($plan){
             $user->plans()->sync([$plan->id]);
         }
+        $groups=Community::where('is_global',true)->pluck('id')->toArray();
+        $user->communities()->syncWithoutDetaching($groups);
     }
 
     /**

@@ -24,6 +24,12 @@ class CommunityObServe
             });
 
         }
+        if($community->manager_id!=null){
+           $user= $community->manager;
+           $community->users()->syncWithoutDetaching($user->id);
+        }elseif (auth()->check()){
+            $community->users()->syncWithoutDetaching(auth()->id());
+        }
 
     }
 
