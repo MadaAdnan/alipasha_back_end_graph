@@ -6,8 +6,8 @@ type Community{
     url:String
     users:[User] @field(resolver: "App\\GraphQL\\Resolvers\\CommunityUserResolve@users")
     users_count:Int
-    last_update:String
-   # created_at:HumanDate
+    last_update:HumanDate
+    created_at:HumanDate
 }
 
 extend type Query{
