@@ -35,9 +35,14 @@ final class CreateMessage
                     info('UPLOAD : '.$e->getMessage());
                 }
             }
-            $message->community()->update([
-                'last_update' => now(),
-            ]);
+            try{
+                $message->community()->update([
+                    'last_update' => now(),
+                ]);
+            }catch (\Exception $exception){
+                info('COMM : '.$e->getMessage());
+            }
+
             return $message;
         } catch (\Exception | \Error $e) {
             throw new GraphQLExceptionHandler($e->getMessage());
