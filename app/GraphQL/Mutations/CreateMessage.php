@@ -2,8 +2,10 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Events\MessageSentEvent;
 use App\Exceptions\GraphQLExceptionHandler;
 use App\Models\Message;
+use Mockery\Exception;
 
 final class CreateMessage
 {
@@ -53,7 +55,11 @@ final class CreateMessage
             }catch (\Exception $exception){
                 info('COMM : '.$e->getMessage());
             }
-
+        try{
+               event(new MessageSentEvent($message));
+        }catch (Exception $e){
+            info('Error Websockets');
+        }
 
         return $message;
     }
