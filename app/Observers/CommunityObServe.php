@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Events\CreateCommunityEvent;
 use App\Models\Community;
+use App\Models\User;
 use Mockery\Exception;
 
 class CommunityObServe
@@ -14,8 +15,15 @@ class CommunityObServe
     public function created(Community $community): void
     {
         try{
-            event(new CreateCommunityEvent($community));
+          //  event(new CreateCommunityEvent($community));
         }catch (Exception | \Error $e){}
+        if($community->is_global){
+            User::chunk(1000, function ($users) use ($community) {
+                $userIds = $users->pluck('id')->toArray();
+                $community->users()->syncWithoutDetaching($userIds);
+            });
+
+        }
 
     }
 
