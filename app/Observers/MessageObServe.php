@@ -15,7 +15,7 @@ class MessageObServe
     public function created(Message $message): void
     {
         try{
-            event(new MessageSentEvent($message));
+         //   event(new MessageSentEvent($message));
         }catch (Exception $e){
 info('Error Websockets');
         }
