@@ -28,7 +28,7 @@ final class CreateMessage
                 'type' => $type,
             ]);
         } catch (\Exception | \Error $e) {
-            throw new GraphQLExceptionHandler('Message :'.$e->getMessage());
+            throw new GraphQLExceptionHandler('Message :'.$e->getLine());
         }
             if ($type !== 'text') {
                 try{

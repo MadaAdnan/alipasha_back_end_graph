@@ -30,7 +30,7 @@ type Message{
     user:User @belongsTo
     body:String
     type:String
-    created_at:HumanDate
+    created_at:String
     attach:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getAttach")
 
 }
