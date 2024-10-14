@@ -15,25 +15,30 @@ final class CreateMessage
     {
         $userId = auth()->id();
         $communityId = $args['communityId'];
-$type='text';
-if(isset($args['attach']) && !empty($args['attach'])){
-    $file=$args['attach'];
-    $type=$file->getClientOriginalExtension();
-}
+        $type = 'text';
+        if (isset($args['attach']) && !empty($args['attach'])) {
+            $file = $args['attach'];
+            $type = $file->getClientOriginalExtension();
+        }
         try {
-          $message=  Message::create([
+            $message = Message::create([
                 'body' => $args['body'] ?? '',
                 'community_id' => $communityId,
                 'user_id' => $userId,
-                'type'=>$type,
+                'type' => $type,
             ]);
-if($type!=='text'){
-    $message->addMedia($args['attach'])->toMediaCollection('attach');
-}
-$message->community()->update([
-    'last_update'=>now(),
-]);
-       return $message;
+            if ($type !== 'text') {
+                try{
+                    $message->addMedia($args['attach'])->toMediaCollection('attach');
+                    info('UPLOAD : success');
+                }catch (\Exception $e){
+                    info('UPLOAD : '.$e->getMessage());
+                }
+            }
+            $message->community()->update([
+                'last_update' => now(),
+            ]);
+            return $message;
         } catch (\Exception | \Error $e) {
             throw new GraphQLExceptionHandler($e->getMessage());
         }
