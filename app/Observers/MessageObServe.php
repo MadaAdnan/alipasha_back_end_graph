@@ -17,7 +17,7 @@ class MessageObServe
         try{
             event(new MessageSentEvent($message));
         }catch (Exception $e){
-
+info('Error Websockets');
         }
 
     }
