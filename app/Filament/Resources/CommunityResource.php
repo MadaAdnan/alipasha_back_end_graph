@@ -41,6 +41,7 @@ class CommunityResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(fn($query)=>$query->latest('last_update'))
             ->columns([
                 Tables\Columns\TextColumn::make('id')->label('#')->searchable(),
                 Tables\Columns\TextColumn::make('name')->label('name')->searchable(),
