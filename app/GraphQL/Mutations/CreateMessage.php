@@ -16,10 +16,15 @@ final class CreateMessage
         $userId = auth()->id();
         $communityId = $args['communityId'];
         $type = 'text';
-        if (isset($args['attach']) && !empty($args['attach'])) {
-            $file = $args['attach'];
-            $type = $file->getClientOriginalExtension();
+        try{
+            if (isset($args['attach']) && !empty($args['attach'])) {
+                $file = $args['attach'];
+                $type = $file->getClientOriginalExtension();
+            }
+        }catch (\Exception $err){
+            \Log::debug('DEBUG:'.$err->getMessage());
         }
+
         try {
             $message = Message::create([
                 'body' => $args['body'] ?? '',
