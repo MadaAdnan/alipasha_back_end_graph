@@ -27,6 +27,9 @@ final class CreateMessage
                 'user_id' => $userId,
                 'type' => $type,
             ]);
+        } catch (\Exception | \Error $e) {
+            throw new GraphQLExceptionHandler('Message :'.$e->getMessage());
+        }
             if ($type !== 'text') {
                 try{
                     $message->addMedia($args['attach'])->toMediaCollection('attach');
@@ -44,8 +47,6 @@ final class CreateMessage
             }
 
             return $message;
-        } catch (\Exception | \Error $e) {
-            throw new GraphQLExceptionHandler($e->getMessage());
-        }
+
     }
 }
