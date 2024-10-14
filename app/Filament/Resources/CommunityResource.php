@@ -49,6 +49,8 @@ class CommunityResource extends Resource
                     ->icon(fn($state)=>CommunityTypeEnum::tryFrom($state)?->getIcon())
                     ->color(fn($state)=>CommunityTypeEnum::tryFrom($state)?->getColor())
                     ->label('name')->searchable(),
+                Tables\Columns\TextColumn::make('users_count')->label('عدد الأعضاء')->sortable(),
+                Tables\Columns\TextColumn::make('last_update')->since()->label('آخر تعديل')->sortable(),
             ])
             ->filters([
                 //
