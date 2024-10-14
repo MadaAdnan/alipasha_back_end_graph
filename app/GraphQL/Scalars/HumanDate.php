@@ -15,7 +15,7 @@ final class HumanDate extends ScalarType
         \Log::warning('Value:'.$value);
         if($value!='') {
             $carbon=Carbon::parse($value);
-           // return $carbon->diffForHumans();
+            return $carbon->diffForHumans();
         }
         return null;
     }
@@ -25,7 +25,7 @@ final class HumanDate extends ScalarType
     {
         \Log::warning('Value:'.$value);
         if(!empty($value)){
-         //   return Carbon::parse($value);
+            return Carbon::parse($value);
         }
         return null;
 
@@ -46,6 +46,6 @@ final class HumanDate extends ScalarType
         if (!$valueNode->value) {
             throw new \Error("تاريخ غير صحيح");
         }
-        //return Carbon::parse($valueNode->value);
+        return Carbon::parse($valueNode->value);
     }
 }
