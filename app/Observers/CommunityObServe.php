@@ -12,6 +12,11 @@ class CommunityObServe
     /**
      * Handle the Community "created" event.
      */
+    public function creating(Community $community): void
+    {
+        $community->last_update=now();
+    }
+
     public function created(Community $community): void
     {
         try{
