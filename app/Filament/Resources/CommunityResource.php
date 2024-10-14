@@ -42,7 +42,13 @@ class CommunityResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('id')->label('#')->searchable(),
+                Tables\Columns\TextColumn::make('name')->label('name')->searchable(),
+                Tables\Columns\TextColumn::make('type')
+                    ->formatStateUsing(fn($state)=>CommunityTypeEnum::tryFrom($state)?->getLabel())
+                    ->icon(fn($state)=>CommunityTypeEnum::tryFrom($state)?->getIcon())
+                    ->color(fn($state)=>CommunityTypeEnum::tryFrom($state)?->getColor())
+                    ->label('name')->searchable(),
             ])
             ->filters([
                 //
