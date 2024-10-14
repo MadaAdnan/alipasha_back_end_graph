@@ -42,6 +42,7 @@ final class CreateMessage
                     $message->addMedia($args['attach'])->toMediaCollection('attach');
                     info('UPLOAD : success');
                 }catch (\Exception $e){
+
                     info('UPLOAD : '.$e->getMessage());
                 }
             }

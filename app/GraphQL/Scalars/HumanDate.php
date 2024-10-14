@@ -12,7 +12,7 @@ final class HumanDate extends ScalarType
     /** Serializes an internal value to include in a response. */
     public function serialize(mixed $value): mixed
     {
-        \Log::warning('Value:'.$value);
+       // \Log::warning('Value:'.$value);
         if($value!='') {
             $carbon=Carbon::parse($value);
             return $carbon->diffForHumans();
@@ -23,7 +23,7 @@ final class HumanDate extends ScalarType
     /** Parses an externally provided value (query variable) to use as an input. */
     public function parseValue(mixed $value): mixed
     {
-        \Log::warning('Value:'.$value);
+      //  \Log::warning('Value:'.$value);
         if(!empty($value)){
             return Carbon::parse($value);
         }
@@ -41,8 +41,8 @@ final class HumanDate extends ScalarType
      */
     public function parseLiteral(Node $valueNode, ?array $variables = null): mixed
     {
-        info('Value Array:');
-        info($valueNode->toArray());
+     //   info('Value Array:');
+     //   info($valueNode->toArray());
         if (!$valueNode->value) {
             throw new \Error("تاريخ غير صحيح");
         }
