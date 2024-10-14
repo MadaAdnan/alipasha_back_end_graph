@@ -16,6 +16,7 @@ final class CreateMessage
         $userId = auth()->id();
         $communityId = $args['communityId'];
         info($args);
+        info("USer:{$userId}");
         $type = 'text';
         try{
             if (isset($args['attach']) && !empty($args['attach'])) {
