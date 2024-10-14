@@ -20,7 +20,7 @@ class CommunityResource extends JsonResource
             'user' => new UserResource($this->user),
             'seller' => new UserResource($this->seller),
             'last_update' => $this->last_update->diffForHumans(),
-            'not_seen_count' => $this->getUnread(auth()->id() == $this->user_id ? $this->user_id : $this->seller_id),
+           // 'not_seen_count' => $this->getUnread(auth()->id() == $this->user_id ? $this->user_id : $this->seller_id),
 
         ];
     }
