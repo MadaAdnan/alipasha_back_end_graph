@@ -49,6 +49,9 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         'password' => 'hashed',
         'is_special' => 'boolean',
         'social' => 'array',
+        'notify_date' => 'date',
+        'send_at' => 'datetime',
+
     ];
 
 protected $appends=[
