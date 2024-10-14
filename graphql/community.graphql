@@ -6,7 +6,7 @@ type Community{
     url:String
     users:[User] @field(resolver: "App\\GraphQL\\Resolvers\\CommunityUserResolve@users")
     users_count:Int
-    last_update:HumanDate
+    last_update:String
    # created_at:HumanDate
 }
 
@@ -30,7 +30,7 @@ type Message{
     user:User @belongsTo
     body:String
     type:String
-    created_at:String
+    created_at:HumanDate
     attach:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getAttach")
 
 }
