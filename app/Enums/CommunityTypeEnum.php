@@ -28,7 +28,7 @@ enum CommunityTypeEnum: string
             self::CHANNEL => 'fas-satellite-dish',
             self::CHAT =>'fas-comments',
             self::GROUP =>'fas-users',
-            self::LIVE =>'fas-youtube',
+            self::LIVE =>'fab-youtube',
 
         };
     }
