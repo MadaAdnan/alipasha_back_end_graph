@@ -31,9 +31,9 @@ class CommunityObServe
         }
         if($community->manager_id!=null){
            $user= $community->manager;
-           $community->users()->syncWithoutDetaching($user->id);
+           $community->users()->syncWithPivotValues([$user->id],['is_manager'=>true,]);
         }elseif (auth()->check()){
-            $community->users()->syncWithoutDetaching(auth()->id());
+            $community->users()->syncWithPivotValues([auth()->id()],['is_manager'=>true,]);
         }
 
     }
