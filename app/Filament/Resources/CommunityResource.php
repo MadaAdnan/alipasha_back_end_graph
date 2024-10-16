@@ -31,6 +31,7 @@ class CommunityResource extends Resource
                         CommunityTypeEnum::GROUP->value=>CommunityTypeEnum::GROUP->getLabel(),
                         CommunityTypeEnum::CHANNEL->value=>CommunityTypeEnum::CHANNEL->getLabel(),
                     ])->default(CommunityTypeEnum::CHAT->value)->live()->required()->label('النوع'),
+                    Forms\Components\SpatieMediaLibraryFileUpload::make('image')->collection('image')->conversion('webp')->label('الصورة')->image()->imageCropAspectRatio(1/1),
                     Forms\Components\TextInput::make('name')->label('الاسم')->required(),
                     Forms\Components\Select::make('manager_id')->options(User::pluck('name','id'))->required()->searchable()->label('المدير الرئيسي'),
                     Forms\Components\Toggle::make('is_global')->visible(fn($get)=>$get('type')!==CommunityTypeEnum::CHAT->value)->hint('سيتم إضافة جميع المستخدمين عند تفعيل الخيار')->label('عامة')
@@ -44,6 +45,7 @@ class CommunityResource extends Resource
             ->modifyQueryUsing(fn($query)=>$query->latest('last_update'))
             ->columns([
                 Tables\Columns\TextColumn::make('id')->label('#')->searchable(),
+                Tables\Columns\SpatieMediaLibraryImageColumn::make('image')->collection('image')->conversion('webp')->label('الصورة'),
                 Tables\Columns\TextColumn::make('name')->label('name')->searchable(),
                 Tables\Columns\TextColumn::make('type')
                     ->formatStateUsing(fn($state)=>CommunityTypeEnum::tryFrom($state)?->getLabel())
