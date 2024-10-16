@@ -19,8 +19,8 @@ extend type Query{
 
 extend type Mutation{
     createChat(memberId:Int!):Community @guard
-    createGroup(name:String!):Community @guard
-    createChannel(name:String!):Community @guard
+    createGroup(name:String!,image:Upload!):Community @guard
+    createChannel(name:String!,,image:Upload!):Community @guard
 
 }
 

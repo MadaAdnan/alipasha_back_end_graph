@@ -4,15 +4,17 @@ namespace App\Models;
 
 
 use App\Observers\CommunityObServe;
+use App\Traits\MediaTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Spatie\MediaLibrary\HasMedia;
 
-class Community extends Model
+class Community extends Model implements HasMedia
 {
-    use HasFactory;
+    use HasFactory,MediaTrait;
 
     protected $guarded = [];
     protected $withCount = [

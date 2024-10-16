@@ -32,6 +32,9 @@ final class CreateGroup
             'last_update' => now(),
             'url' => $url,
         ]);
+        if(isset($args['image']) && $args['image']!=null){
+            $community->addMedia($args['image'])->toMediaCollection('image');
+        }
         $community->users()->sync([$userId]);
         return $community;
     }
