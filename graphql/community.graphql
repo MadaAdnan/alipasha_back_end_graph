@@ -6,6 +6,7 @@ type Community{
     url:String
     users:[User] @field(resolver: "App\\GraphQL\\Resolvers\\CommunityUserResolve@users")
     users_count:Int
+    image:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImage")
     last_update:HumanDate
     created_at:HumanDate
 }
