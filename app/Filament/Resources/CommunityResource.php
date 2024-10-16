@@ -45,7 +45,7 @@ class CommunityResource extends Resource
             ->modifyQueryUsing(fn($query)=>$query->latest('last_update'))
             ->columns([
                 Tables\Columns\TextColumn::make('id')->label('#')->searchable(),
-                Tables\Columns\SpatieMediaLibraryImageColumn::make('image')->collection('image')->conversion('webp')->label('الصورة'),
+                Tables\Columns\SpatieMediaLibraryImageColumn::make('image')->collection('image')->conversion('webp')->label('الصورة')->circular(),
                 Tables\Columns\TextColumn::make('name')->label('name')->searchable(),
                 Tables\Columns\TextColumn::make('type')
                     ->formatStateUsing(fn($state)=>CommunityTypeEnum::tryFrom($state)?->getLabel())
