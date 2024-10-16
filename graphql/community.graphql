@@ -9,7 +9,7 @@ type Community{
     image:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImage")
     last_update:HumanDate
     created_at:HumanDate
-    pivot:PivotCommunity
+
 }
 type PivotCommunity{
     is_manager:Boolean
