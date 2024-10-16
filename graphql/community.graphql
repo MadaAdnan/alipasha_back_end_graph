@@ -20,13 +20,14 @@ extend type Query{
     getMessages(communityId:Int!,first:Int,page:Int):[Message]  @paginate(builder:"App\\GraphQL\\Queries\\GetMessages") @guard
     getLiveMessages(first:Int,page:Int):[Message]  @paginate(builder:"App\\GraphQL\\Queries\\GetLiveMessages")
     leaveCommunity(communityId:ID!):Boolean @guard
-    muteCommunity(communityId:ID!):Community @guard
+
 }
 
 extend type Mutation{
     createChat(memberId:Int!):Community @guard
     createGroup(name:String!,image:Upload!):Community @guard
     createChannel(name:String!,,image:Upload!):Community @guard
+    muteCommunity(communityId:ID!):Community @guard
 
 }
 
