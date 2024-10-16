@@ -6,10 +6,9 @@ type Community{
     url:String
     users:[User] @field(resolver: "App\\GraphQL\\Resolvers\\CommunityUserResolve@users")
     users_count:Int
-    image:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImage")
     last_update:HumanDate
-    created_at:HumanDate
-#    PivotCommunity:PivotCommunity  @field(resolver: "App\\GraphQL\\Resolvers\\PivotCommunity@getPivot")
+    image:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImage")
+     created_at:HumanDate
 }
 #type PivotCommunity{
 #    is_manager:Boolean
