@@ -9,13 +9,18 @@ type Community{
     image:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImage")
     last_update:HumanDate
     created_at:HumanDate
+    pivot:PivotCommunity
 }
-
+type PivotCommunity{
+    is_manager:Boolean
+    notify:Boolean
+}
 extend type Query{
     getMyCommunity(search:String,first:Int,page:Int):[Community]  @paginate(builder:"App\\GraphQL\\Queries\\GetMyCommunity") @guard
     getMessages(communityId:Int!,first:Int,page:Int):[Message]  @paginate(builder:"App\\GraphQL\\Queries\\GetMessages") @guard
     getLiveMessages(first:Int,page:Int):[Message]  @paginate(builder:"App\\GraphQL\\Queries\\GetLiveMessages")
-
+    leaveCommunity(communityId:ID!):Boolean @guard
+    muteCommunity(communityId:ID!):Boolean @guard
 }
 
 extend type Mutation{
