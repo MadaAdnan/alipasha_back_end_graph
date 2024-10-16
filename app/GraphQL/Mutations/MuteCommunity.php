@@ -34,6 +34,6 @@ final class MuteCommunity
                 $community->users()->syncWithPivotValues([$user->id], ['notify' => true], false);
             }
         }
-        return $community;
+        return $user->communities()->where('communities.id',$communityId)->first();
     }
 }
