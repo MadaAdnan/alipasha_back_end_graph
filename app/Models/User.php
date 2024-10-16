@@ -141,7 +141,7 @@ protected $appends=[
     }
 
     public function communities():BelongsToMany{
-        return $this->belongsToMany(Community::class);
+        return $this->belongsToMany(Community::class)->withPivot(['notify','is_manager']);
     }
 
 }

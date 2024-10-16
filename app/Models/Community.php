@@ -42,7 +42,7 @@ class Community extends Model implements HasMedia
 
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class)->take(3);
+        return $this->belongsToMany(User::class)->take(3)->withPivot(['notify','is_manager']);
     }
 
     public function allUsers(): BelongsToMany

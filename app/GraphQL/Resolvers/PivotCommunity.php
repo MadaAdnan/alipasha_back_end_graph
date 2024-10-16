@@ -13,7 +13,7 @@ class PivotCommunity
      */
     public static function getPivot($root): null | array
     {
-        $community= auth()->user()->communities()->find($root->id);
+        $community= auth()->user()?->communities()->find($root->id);
             if($community){
                 return [
                     'is_manager'=>$community->pivot->is_manager,
