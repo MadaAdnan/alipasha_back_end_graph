@@ -4,7 +4,7 @@ type Community{
     manager:User
     type:String
     url:String
-    users:[User] @belongsToMAny(relation:"users")
+    users:[User] @field(resolver: "App\\GraphQL\\Resolvers\\CommunityUserResolve@users")
     users_count:Int
     image:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImage")
     last_update:HumanDate
