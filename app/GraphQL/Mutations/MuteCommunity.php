@@ -2,6 +2,8 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Exceptions\GraphQLExceptionHandler;
+use App\Models\Community;
 use App\Models\User;
 
 final class MuteCommunity
@@ -16,10 +18,17 @@ final class MuteCommunity
         /**
          * @var $user User
          */
-        $user=auth()->user();
-        $community=$user->communities()->find($communityId);
-        if($community && $community->pivot->notify) {
-            if ($community->pivot->notify) {
+
+        $community=Community::find($communityId);
+        if(!$community){
+            throw new GraphQLExceptionHandler('المجموعة غير موجودة');
+        }
+        if($community ) {
+            $user=$community->users()->where('users.id',auth()->id())->first();
+            if(!$user){
+                throw new GraphQLExceptionHandler('المجموعة غير موجودة');
+            }
+            if ($user->pivot->notify) {
                 $community->users()->syncWithPivotValues([$user->id], ['notify' => false], false);
             } else {
                 $community->users()->syncWithPivotValues([$user->id], ['notify' => true], false);
