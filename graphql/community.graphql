@@ -11,10 +11,10 @@ type Community{
     created_at:HumanDate
 #    PivotCommunity:PivotCommunity  @field(resolver: "App\\GraphQL\\Resolvers\\PivotCommunity@getPivot")
 }
-type PivotCommunity{
-    is_manager:Boolean
-    notify:Boolean
-}
+#type PivotCommunity{
+#    is_manager:Boolean
+#    notify:Boolean
+#}
 extend type Query{
     getMyCommunity(search:String,first:Int,page:Int):[Community]  @paginate(builder:"App\\GraphQL\\Queries\\GetMyCommunity") @guard
     getMessages(communityId:Int!,first:Int,page:Int):[Message]  @paginate(builder:"App\\GraphQL\\Queries\\GetMessages") @guard
