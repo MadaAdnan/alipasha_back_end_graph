@@ -9,7 +9,7 @@ use App\Filament\Resources\TenderResource\RelationManagers;
 
 use App\Models\Category;
 use App\Models\City;
-use App\Models\Product;
+use App\Models\Product as Tender;
 
 use App\Models\User;
 use BezhanSalleh\FilamentShield\Contracts\HasShieldPermissions;
@@ -24,7 +24,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class TenderResource extends Resource implements HasShieldPermissions
 {
-    protected static ?string $model = Product::class;
+    protected static ?string $model = Tender::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $label = 'مناقصة';
