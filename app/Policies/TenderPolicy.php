@@ -88,7 +88,7 @@ class TenderPolicy
      */
     public function restore(User $user, Product $product): bool
     {
-        return $user->can('restore_tenders');
+        return $user->can('{{ Restore }}');
     }
 
     /**
@@ -96,7 +96,7 @@ class TenderPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore_tenders');
+        return $user->can('{{ RestoreAny }}');
     }
 
     /**
