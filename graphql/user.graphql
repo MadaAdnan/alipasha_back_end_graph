@@ -44,7 +44,7 @@ type User{
     total_point:Float @field(resolver: "App\\GraphQL\\Resolvers\\HelperBalanceResolve@getTotalPoint")
     followers: [Follower] @hasMany
     total_views:Int
-
+trust:Boolean
 }
 type Follower{
     user:User @belongsTo

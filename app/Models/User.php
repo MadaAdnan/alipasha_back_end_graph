@@ -21,7 +21,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements HasMedia, MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable, MediaTrait,HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, MediaTrait, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -55,9 +55,9 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
 
     ];
 
-protected $appends=[
-    'total_views'
-];
+    protected $appends = [
+        'total_views'
+    ];
     protected $withCount = [
         'products',
         'following'
@@ -138,11 +138,18 @@ protected $appends=[
 
     public function getTotalViewsAttribute(): int
     {
-       return ProductView::whereHas('product', fn($query) => $query->where('products.user_id', $this->id))->selectRaw('SUM(count) as count')->first()?->count ?? 0;
+        return ProductView::whereHas('product', fn($query) => $query->where('products.user_id', $this->id))->selectRaw('SUM(count) as count')->first()?->count ?? 0;
     }
 
-    public function communities():BelongsToMany{
-        return $this->belongsToMany(Community::class)->withPivot(['notify','is_manager']);
+    public function communities(): BelongsToMany
+    {
+        return $this->belongsToMany(Community::class)->withPivot(['notify', 'is_manager']);
+    }
+
+    public function getTrustAttribute(): bool
+    {
+        $setting = Setting::first();
+        return $setting?->support_id === $this->id || $setting?->delivery_id === $this->id;
     }
 
 }
