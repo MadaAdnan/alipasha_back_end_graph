@@ -28,13 +28,13 @@ class PartnerResource extends Resource implements HasShieldPermissions
     public static function getPermissionPrefixes(): array
     {
         return [
-           'view_any_partner',
-            'create_partner',
-            'update_partner',
-            'delete_partner',
+           'view_any',
+            'create',
+            'update',
+            'delete',
 
-            'restore_partner',
-            'force_delete_partner'
+            'restore',
+            'force_delete'
         ];
     }
         public static function canAccess(): bool

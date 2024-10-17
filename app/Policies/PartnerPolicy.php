@@ -15,7 +15,7 @@ class PartnerPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('{{ ViewAny }}');
+        return $user->can('view_any_seller');
     }
 
     /**
@@ -31,7 +31,7 @@ class PartnerPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('{{ Create }}');
+        return $user->can('create_seller');
     }
 
     /**
@@ -39,7 +39,7 @@ class PartnerPolicy
      */
     public function update(User $user, Partner $partner): bool
     {
-        return $user->can('{{ Update }}');
+        return $user->can('update_seller');
     }
 
     /**
@@ -47,7 +47,7 @@ class PartnerPolicy
      */
     public function delete(User $user, Partner $partner): bool
     {
-        return $user->can('{{ Delete }}');
+        return $user->can('delete_seller');
     }
 
     /**
@@ -63,7 +63,7 @@ class PartnerPolicy
      */
     public function forceDelete(User $user, Partner $partner): bool
     {
-        return $user->can('{{ ForceDelete }}');
+        return $user->can('force_delete_seller');
     }
 
     /**
@@ -79,7 +79,7 @@ class PartnerPolicy
      */
     public function restore(User $user, Partner $partner): bool
     {
-        return $user->can('{{ Restore }}');
+        return $user->can('restore_seller');
     }
 
     /**

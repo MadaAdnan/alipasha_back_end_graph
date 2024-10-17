@@ -33,13 +33,13 @@ class MaterialResource extends Resource implements HasShieldPermissions
     public static function getPermissionPrefixes(): array
     {
         return [
-          'view_any_material',
-            'create_material',
-            'update_material',
-            'delete_material',
+          'view_any',
+            'create',
+            'update',
+            'delete',
 
-            'restore_material',
-            'force_delete_material'
+            'restore',
+            'force_delete'
         ];
     }
     public static function canAccess(): bool

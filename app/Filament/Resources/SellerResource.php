@@ -4,10 +4,10 @@ namespace App\Filament\Resources;
 
 use App\Enums\PartnerTypeEnum;
 use App\Filament\Resources\SellerResource\Pages;
-use App\Filament\Resources\SellerResource\RelationManagers;
+
 use App\Models\City;
 use App\Models\Partner;
-use App\Models\Seller;
+
 use BezhanSalleh\FilamentShield\Contracts\HasShieldPermissions;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -30,13 +30,13 @@ class SellerResource extends Resource implements HasShieldPermissions
     public static function getPermissionPrefixes(): array
     {
         return [
-            'view_any_seller',
-            'create_seller',
-            'update_seller',
-            'delete_seller',
+            'view_any',
+            'create',
+            'update',
+            'delete',
 
-            'restore_seller',
-            'force_delete_seller'
+            'restore',
+            'force_delete'
         ];
     }
 

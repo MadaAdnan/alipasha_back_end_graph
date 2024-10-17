@@ -36,13 +36,13 @@ class NewsResource extends Resource implements HasShieldPermissions
     public static function getPermissionPrefixes(): array
     {
         return [
-           'view_any_news',
-            'create_news',
-            'update_news',
-            'delete_news',
+           'view_any',
+            'create',
+            'update',
+            'delete',
 
-            'restore_news',
-            'force_delete_news'
+            'restore',
+            'force_delete'
         ];
     }
         public static function canAccess(): bool

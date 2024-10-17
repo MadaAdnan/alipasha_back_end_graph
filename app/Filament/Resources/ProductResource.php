@@ -39,13 +39,13 @@ class ProductResource extends Resource
     public static function getPermissionPrefixes(): array
     {
         return [
-            'view_any_product',
-            'create_product',
-            'update_product',
-            'delete_product',
+            'view_any',
+            'create',
+            'update',
+            'delete',
 
-            'restore_product',
-            'force_delete_product'
+            'restore',
+            'force_delete'
         ];
     }
     public static function canAccess(): bool

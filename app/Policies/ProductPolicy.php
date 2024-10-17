@@ -15,7 +15,7 @@ class ProductPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('{{ ViewAny }}');
+        return $user->can('view_any_tender');
     }
 
     /**
@@ -31,7 +31,7 @@ class ProductPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('{{ Create }}');
+        return $user->can('create_tender');
     }
 
     /**
@@ -39,7 +39,7 @@ class ProductPolicy
      */
     public function update(User $user, Product $product): bool
     {
-        return $user->can('{{ Update }}');
+        return $user->can('update_tender');
     }
 
     /**
@@ -47,7 +47,7 @@ class ProductPolicy
      */
     public function delete(User $user, Product $product): bool
     {
-        return $user->can('{{ Delete }}');
+        return $user->can('delete_tender');
     }
 
     /**
@@ -63,7 +63,7 @@ class ProductPolicy
      */
     public function forceDelete(User $user, Product $product): bool
     {
-        return $user->can('{{ ForceDelete }}');
+        return $user->can('force_delete_tender');
     }
 
     /**
@@ -79,7 +79,7 @@ class ProductPolicy
      */
     public function restore(User $user, Product $product): bool
     {
-        return $user->can('{{ Restore }}');
+        return $user->can('restore_tender');
     }
 
     /**
