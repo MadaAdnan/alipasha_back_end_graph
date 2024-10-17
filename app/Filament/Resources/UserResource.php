@@ -85,6 +85,14 @@ class UserResource extends Resource
                                 Forms\Components\Grid::make(3)->schema([
                                     Forms\Components\Toggle::make('is_default_active')->label('تفعيل المنتجات تلقائيا'),
                                     Forms\Components\Toggle::make('is_delivery')->label('خدمة التوصيل'),
+                                    Forms\Components\Grid::make()->schema([
+                                        Forms\Components\Toggle::make('can_create_channel')->label('إنشاء قناة'),
+                                        Forms\Components\TextInput::make('count_channel')->label('عدد القنوات'),
+                                    ]),
+                                    Forms\Components\Grid::make()->schema([
+                                        Forms\Components\Toggle::make('can_create_group')->label('إنشاء مجموعات'),
+                                        Forms\Components\TextInput::make('count_group')->label('عدد المجموعات'),
+                                    ])
                                 ]),
                                 Forms\Components\TimePicker::make('open_time')->label('يفتح من الساعة'),
                                 Forms\Components\TimePicker::make('close_time')->label('يغلق في الساعة'),
@@ -96,7 +104,7 @@ class UserResource extends Resource
                                 Forms\Components\ColorPicker::make('id_color')->label('هوية المتجر')->default("#FF0000"),
                             ]),
 
-                        ])->visible(fn($get)=>$get('is_seller')),
+                        ])->visible(fn($get) => $get('is_seller')),
                         Forms\Components\Wizard\Step::make('معلومات مواقع التواصل')->schema([
                             Forms\Components\TextInput::make('social.instagram')->label('رابط إنستغرام')->nullable()->url()->placeholder('https://'),
                             Forms\Components\TextInput::make('social.face')->label('رابط فيسبوك')->nullable()->url()->placeholder('https://'),
@@ -104,7 +112,7 @@ class UserResource extends Resource
                             Forms\Components\TextInput::make('social.tiktok')->label('رابط تيك توك')->nullable()->url()->placeholder('https://'),
                             Forms\Components\TextInput::make('social.twitter')->label('رابط تويتر')->nullable()->url()->placeholder('https://'),
                             //Forms\Components\TextInput::make('social.telegram')->label('رابط تلغرام')->nullable()->url()->placeholder('https://'),
-                        ])->visible(fn($get)=>$get('is_seller')),
+                        ])->visible(fn($get) => $get('is_seller')),
                     ])->skippable()->columnSpan(2)
                 ])
             ]);
@@ -126,7 +134,7 @@ class UserResource extends Resource
                     ->icon(fn($state) => HelpersEnum::getEmailVerified($state, 'icon'))
                     ->color(fn($state) => HelpersEnum::getEmailVerified($state, 'color'))
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('is_special')->label('متجر مميز') ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('is_special')->label('متجر مميز')->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('level_seller')->label('نوع الإشتراك')
                     ->formatStateUsing(fn($state) => LevelSellerEnum::tryFrom($state)->getLabel())
                     ->color(fn($state) => LevelSellerEnum::tryFrom($state)->getColor())
@@ -144,28 +152,28 @@ class UserResource extends Resource
                     Tables\Actions\Action::make('add_balance')->form([
                         Forms\Components\TextInput::make('value')->label('القيمة')->required()->gt(0),
                         Forms\Components\TextInput::make('info')->label('ملاحظات')
-                    ])->action(function($record,$data){
+                    ])->action(function ($record, $data) {
                         Balance::create([
-                            'credit'=>$data['value'],
-                            'debit'=>0,
-                            'info'=>$data['info'],
-                            'user_id'=>$record->id
+                            'credit' => $data['value'],
+                            'debit' => 0,
+                            'info' => $data['info'],
+                            'user_id' => $record->id
                         ]);
                         Notification::make('success')->success()->title('نجاح')->body('تم إضافة الرصيد بنجاح')->send();
                     })->label('إضافة رصيد')->icon('fas-hand-holding-dollar'),
                     Tables\Actions\Action::make('sub_balance')->form([
                         Forms\Components\TextInput::make('value')->label('القيمة')->required()->gt(0),
                         Forms\Components\TextInput::make('info')->label('ملاحظات')
-                    ])->action(function($record,$data){
+                    ])->action(function ($record, $data) {
                         Balance::create([
-                            'credit'=>0,
-                            'debit'=>$data['value'],
-                            'info'=>$data['info'],
-                            'user_id'=>$record->id
+                            'credit' => 0,
+                            'debit' => $data['value'],
+                            'info' => $data['info'],
+                            'user_id' => $record->id
                         ]);
                         Notification::make('success')->success()->title('نجاح')->body('تم السحب من الرصيد بنجاح')->send();
                     })->label('سحب من الرصيد')->icon('fas-cash-register'),
-                    Tables\Actions\Action::make('email_verified_at')->action(fn($record)=>$record->update(['email_verified_at'=>now()]))->label('تأكيد البريد'),
+                    Tables\Actions\Action::make('email_verified_at')->action(fn($record) => $record->update(['email_verified_at' => now()]))->label('تأكيد البريد'),
                 ]),
             ])
             ->bulkActions([

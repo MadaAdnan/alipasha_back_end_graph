@@ -22,6 +22,8 @@ type Setting{
     gold:ExchangeGold
     dollar:ExchangeCur
     created_at:HumanDate
+    support:User
+    delivery:User
 }
 
 type ExchangeGold{

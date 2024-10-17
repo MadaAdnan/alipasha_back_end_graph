@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\SettingResource\Pages;
 use App\Filament\Resources\SettingResource\RelationManagers;
 use App\Models\Setting;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -80,8 +81,10 @@ class SettingResource extends Resource
                         Forms\Components\Wizard\Step::make('خدمة التوصيل')->schema([
                             Forms\Components\Toggle::make('delivery_service')->label('خدمة التوصيل في الدردشة'),
                             Forms\Components\TextInput::make('msg_delivery')->label('رسالة متحركة'),
-                            Forms\Components\TextInput::make('email_delivery')->label('بريد مسؤول التوصيل'),
-                            Forms\Components\TextInput::make('email_support')->label('بريد مسؤول الدعم'),
+                            Forms\Components\Select::make('delivery_id')
+                                ->options(User::pluck('name','id'))->searchable()->label('مسؤول التوصيل'),
+                            Forms\Components\Select::make('support_id')
+                                ->options(User::pluck('name','id'))->searchable()->label('بريد مسؤول الدعم'),
                             Forms\Components\Textarea::make('msg_chat')->label('رسالة دخول مسؤول الدعم'),
                         ]),
                         Forms\Components\Wizard\Step::make('خيارات تسجيل الدخول / أسعار الصرف')->schema([

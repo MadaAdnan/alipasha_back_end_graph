@@ -33,6 +33,8 @@ type User{
     is_seller:Boolean
     affiliate:String
     info:String
+    can_create_group:Boolean
+    can_create_channel:Boolean
     following_count:Int
     products:[Product]  @hasMany
     plans:[Plan] @belongsToMany(relation:"plans")
