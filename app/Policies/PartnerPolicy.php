@@ -15,7 +15,7 @@ class PartnerPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_seller');
+        return $user->can('{{ ViewAny }}');
     }
 
     /**
@@ -23,7 +23,7 @@ class PartnerPolicy
      */
     public function view(User $user, Partner $partner): bool
     {
-        return $user->can('view_seller');
+        return $user->can('{{ View }}');
     }
 
     /**
@@ -31,7 +31,7 @@ class PartnerPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_seller');
+        return $user->can('{{ Create }}');
     }
 
     /**
@@ -39,7 +39,7 @@ class PartnerPolicy
      */
     public function update(User $user, Partner $partner): bool
     {
-        return $user->can('update_seller');
+        return $user->can('{{ Update }}');
     }
 
     /**
@@ -47,7 +47,7 @@ class PartnerPolicy
      */
     public function delete(User $user, Partner $partner): bool
     {
-        return $user->can('delete_seller');
+        return $user->can('{{ Delete }}');
     }
 
     /**
@@ -55,7 +55,7 @@ class PartnerPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_seller');
+        return $user->can('{{ DeleteAny }}');
     }
 
     /**
@@ -63,7 +63,7 @@ class PartnerPolicy
      */
     public function forceDelete(User $user, Partner $partner): bool
     {
-        return $user->can('force_delete_seller');
+        return $user->can('{{ ForceDelete }}');
     }
 
     /**
@@ -71,7 +71,7 @@ class PartnerPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('force_delete_any_seller');
+        return $user->can('{{ ForceDeleteAny }}');
     }
 
     /**
@@ -79,7 +79,7 @@ class PartnerPolicy
      */
     public function restore(User $user, Partner $partner): bool
     {
-        return $user->can('restore_seller');
+        return $user->can('{{ Restore }}');
     }
 
     /**
@@ -87,7 +87,7 @@ class PartnerPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore_any_seller');
+        return $user->can('{{ RestoreAny }}');
     }
 
     /**
@@ -95,7 +95,7 @@ class PartnerPolicy
      */
     public function replicate(User $user, Partner $partner): bool
     {
-        return $user->can('replicate_seller');
+        return $user->can('{{ Replicate }}');
     }
 
     /**
@@ -103,6 +103,6 @@ class PartnerPolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_seller');
+        return $user->can('{{ Reorder }}');
     }
 }

@@ -6,11 +6,11 @@ use App\Enums\CategoryTypeEnum;
 use App\Enums\ProductActiveEnum;
 use App\Filament\Resources\JobResource\Pages;
 use App\Filament\Resources\JobResource\RelationManagers;
-use App\Helpers\HelperMedia;
+
 use App\Models\Attribute;
 use App\Models\Category;
 use App\Models\City;
-use App\Models\Job;
+
 use App\Models\Product;
 use App\Models\User;
 use BezhanSalleh\FilamentShield\Contracts\HasShieldPermissions;
@@ -19,9 +19,9 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
+
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+
 
 class JobResource extends Resource implements HasShieldPermissions
 {

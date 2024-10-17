@@ -2,15 +2,15 @@
 
 namespace App\Filament\Resources;
 
-use App\Enums\CategoryTypeEnum;
+
 use App\Enums\ProductActiveEnum;
 use App\Filament\Resources\TenderResource\Pages;
 use App\Filament\Resources\TenderResource\RelationManagers;
-use App\Models\Attribute;
+
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Product;
-use App\Models\Tender;
+
 use App\Models\User;
 use BezhanSalleh\FilamentShield\Contracts\HasShieldPermissions;
 use Filament\Forms;
@@ -18,8 +18,9 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+
+use Illuminate\Database\Eloquent\Model;
+
 
 class TenderResource extends Resource implements HasShieldPermissions
 {
