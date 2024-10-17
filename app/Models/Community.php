@@ -3,6 +3,7 @@
 namespace App\Models;
 
 
+use App\Enums\CommunityTypeEnum;
 use App\Observers\CommunityObServe;
 use App\Traits\MediaTrait;
 use Illuminate\Database\Eloquent\Builder;
@@ -14,7 +15,7 @@ use Spatie\MediaLibrary\HasMedia;
 
 class Community extends Model implements HasMedia
 {
-    use HasFactory,MediaTrait;
+    use HasFactory, MediaTrait;
 
     protected $guarded = [];
     protected $withCount = [
@@ -37,18 +38,28 @@ class Community extends Model implements HasMedia
 
     public function scopeChannel(Builder $query): Builder
     {
-        return $query->where('type', 'channel');
+        return $query->where('type',  CommunityTypeEnum::CHANNEL->value);
+    }
+
+    public function scopeGroup($query)
+    {
+        return $query->where('type', CommunityTypeEnum::GROUP->value);
+    }
+    public function scopeChat($query)
+    {
+        return $query->where('type', CommunityTypeEnum::CHAT->value);
     }
 
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class)->take(3)->withPivot(['notify','is_manager']);
+        return $this->belongsToMany(User::class)->take(3)->withPivot(['notify', 'is_manager']);
     }
 
     public function allUsers(): BelongsToMany
     {
         return $this->belongsToMany(User::class);
     }
+
 
 
 }

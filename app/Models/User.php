@@ -17,10 +17,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\MediaLibrary\HasMedia;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements HasMedia, MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable, MediaTrait;
+    use HasApiTokens, HasFactory, Notifiable, MediaTrait,HasRoles;
 
     /**
      * The attributes that are mass assignable.
