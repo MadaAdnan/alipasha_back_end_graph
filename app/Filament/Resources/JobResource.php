@@ -13,6 +13,7 @@ use App\Models\City;
 use App\Models\Job;
 use App\Models\Product;
 use App\Models\User;
+use BezhanSalleh\FilamentShield\Contracts\HasShieldPermissions;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -21,7 +22,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class JobResource extends Resource
+class JobResource extends Resource implements HasShieldPermissions
 {
     protected static ?string $model = Product::class;
     protected static ?string $slug = 'jobs';
@@ -33,7 +34,18 @@ class JobResource extends Resource
     protected static ?string $pluralLabel = 'الوظائف';
     protected static ?int $navigationSort = 3;
     protected static ?string $navigationGroup = 'العروض';
-
+// permissions
+    public static function getPermissionPrefixes(): array
+    {
+        return [
+            'view',
+            'view_any',
+            'create',
+            'update',
+            'delete',
+            'delete_any',
+        ];
+    }
     public static function form(Form $form): Form
     {
         return $form

@@ -8,6 +8,7 @@ use App\Filament\Resources\SellerResource\RelationManagers;
 use App\Models\City;
 use App\Models\Partner;
 use App\Models\Seller;
+use BezhanSalleh\FilamentShield\Contracts\HasShieldPermissions;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -16,13 +17,25 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class SellerResource extends Resource
+class SellerResource extends Resource implements HasShieldPermissions
 {
     protected static ?string $model = Partner::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $slug = 'sellers';
     protected static ?string $navigationLabel = 'التجار';
+    // permissions
+    public static function getPermissionPrefixes(): array
+    {
+        return [
+            'view',
+            'view_any',
+            'create',
+            'update',
+            'delete',
+            'delete_any',
+        ];
+    }
 
     public static function form(Form $form): Form
     {

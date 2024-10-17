@@ -12,6 +12,7 @@ use App\Models\City;
 use App\Models\Product;
 use App\Models\Tender;
 use App\Models\User;
+use BezhanSalleh\FilamentShield\Contracts\HasShieldPermissions;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -20,7 +21,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class TenderResource extends Resource
+class TenderResource extends Resource implements HasShieldPermissions
 {
     protected static ?string $model = Product::class;
 
@@ -32,6 +33,19 @@ class TenderResource extends Resource
     protected static ?int $navigationSort = 2;
     protected static ?string $navigationGroup = 'العروض';
     protected static ?string $slug = 'tenders';
+
+    // permissions
+    public static function getPermissionPrefixes(): array
+    {
+        return [
+            'view',
+            'view_any',
+            'create',
+            'update',
+            'delete',
+            'delete_any',
+        ];
+    }
 
     public static function form(Form $form): Form
     {
