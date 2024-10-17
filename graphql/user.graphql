@@ -65,6 +65,7 @@ extend type Mutation{
     updateSellerLogo(input:ImageUpdate) :User @guard
 
     followAccount(id:ID!):User @guard
+    unFollowing(id:ID): User @guard
     #    deleteUser(id:ID!) : User @delete
 }
 
