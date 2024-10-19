@@ -8,4 +8,5 @@ type ShippingPrice{
 
 extend type Query {
     pricing:[ShippingPrice] @all @orderBy(column:"weight") @orderBy(column:"size")
+    myOrderShipping:[Order]  @paginate(builder:"App\\GraphQL\\Queries\\MyOrderShipping") @guard
 }
