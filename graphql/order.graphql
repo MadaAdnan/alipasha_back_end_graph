@@ -12,7 +12,7 @@ type Order{
     sender_phone:String
     status:String
     price:String
-    created_at:String
+    created_at:CustomDate
     from:City @belongsTo
     to:City @belongsTo
 
