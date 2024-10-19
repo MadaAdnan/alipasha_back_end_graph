@@ -26,7 +26,7 @@ class ProductImport
 
             foreach ($chunk as $key => $row) {
 
-                Product::create([
+                /*Product::create([
                     'id' => $row['Column1'],
                     'name' => $row['Column2'],
                     'info' => $row['Column3'],
@@ -51,8 +51,8 @@ class ProductImport
                     'city_id' => !empty($row['Column24']) ? $row['Column24'] : null,
                     'tags'=>!empty($row['Column27']) ? $row['Column27'] : null,
                     // أضف المزيد من الأعمدة كما هو مطلوب
-                ]);
-               /* $data[] = [
+                ]);*/
+                $data[] = [
                     'id' => $row['Column1'],
                     'name' => $row['Column2'],
                     'info' => $row['Column3'],
@@ -77,12 +77,12 @@ class ProductImport
                     'city_id' => !empty($row['Column24']) ? $row['Column24'] : null,
                     'tags'=>!empty($row['Column27']) ? $row['Column27'] : null,
                     // أضف المزيد من الأعمدة كما هو مطلوب
-                ];*/
+                ];
                 // افترض أن لديك جدول يسمى `your_table` وأن العمود الأول هو `column1` والعمود الثاني هو `column2`
 
             }
 
-            //DB::table('products')->insert($data);
+            DB::table('products')->insert($data);
         }
 
     }
