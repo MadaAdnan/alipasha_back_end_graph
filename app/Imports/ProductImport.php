@@ -43,11 +43,12 @@ class ProductImport
                     'url' => $row['Column15'],
                     'start_date' => !empty($row['Column16']) ? $row['Column16'] : null,
                     'end_date' => !empty($row['Column17']) ? $row['Column17'] : null,
-                    'video' => $row['Column18'],
+                   // 'video' => $row['Column18'],
                     'code' => !empty($row['Column21']) ? $row['Column21'] : null,
                     'created_at' => $row['Column22'],
                     'deleted_at' => !empty($row['Column23']) ? $row['Column23'] : null,
                     'city_id' => !empty($row['Column24']) ? $row['Column24'] : null,
+                    'tags'=>!empty($row['Column27']) ? $row['Column27'] : null,
                     // أضف المزيد من الأعمدة كما هو مطلوب
                 ];
                 // افترض أن لديك جدول يسمى `your_table` وأن العمود الأول هو `column1` والعمود الثاني هو `column2`
