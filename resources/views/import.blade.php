@@ -16,6 +16,8 @@
         <option value="users">Users</option>
         <option value="cities">cities</option>
         <option value="products">products</option>
+        <option value="colors">COLORS</option>
+        <option value="media">Media</option>
     </select>
     <button type="submit">استيراد</button>
 </form>
