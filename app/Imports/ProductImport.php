@@ -13,7 +13,7 @@ class ProductImport
     public function import($filePath)
     {
 
-        $chunkSize = 30; // حجم الدفعة
+        $chunkSize = 1000; // حجم الدفعة
         $collection = (new FastExcel)->import($filePath)->except(0);
 
         $users = array_chunk($collection->toArray(), $chunkSize);
