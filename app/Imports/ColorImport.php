@@ -20,6 +20,8 @@ class ColorImport
                 'id' => $row['Column1'],
                 'name' => $row['Column2'],
                 'code' => $row['Column3'],
+                'created_at'=>now(),
+                'updated_at'=>now(),
                 // أضف المزيد من الأعمدة كما هو مطلوب
             ]);
         }
