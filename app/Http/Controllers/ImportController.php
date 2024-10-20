@@ -7,6 +7,7 @@ use App\Imports\ColorImport;
 use App\Imports\MediaImport;
 use App\Imports\ProductImport;
 use App\Imports\UserImport;
+use App\Imports\ViewsImport;
 use Illuminate\Http\Request;
 
 class ImportController extends Controller
@@ -35,6 +36,9 @@ class ImportController extends Controller
                 break;
             case 'media':
                 $excelImport = new MediaImport();
+                break;
+            case 'seens':
+                $excelImport = new ViewsImport();
                 break;
             default:
                 $excelImport = new UserImport();
