@@ -119,32 +119,7 @@ class SettingResource extends Resource implements HasShieldPermissions
                             Forms\Components\Select::make('plan_id')->relationship('plan', 'name')->searchable()->preload()->label('الخطة الإفتراضية للمستخدمين الجدد'),
 
                         ]),
-                        Forms\Components\Wizard\Step::make('معلومات التطبيق')->schema([
-                            Forms\Components\SpatieMediaLibraryFileUpload::make('apk')->collection('apk')->label('رفع التطبيق')->preserveFilenames(),
-                            Forms\Components\Toggle::make('send_notification_hobbies')->label('حالة إشعارات الاهتمامات'),
 
-                            Forms\Components\TextInput::make('current_version')->required()->label('الإصدار الحالي من التطبيق'),
-                            Forms\Components\Toggle::make('force_upgrade')->label('حالة المطالبة بالتحديث'),
-                            Forms\Components\TextInput::make('whats_msg')->nullable()->label('رسالة واتس آب'),
-                            Forms\Components\TextInput::make('url_for_download.play')->url()->label('رابط تحميل من GooglePlay'),
-                            Forms\Components\TextInput::make('url_for_download.up_down')->url()->label('رابط تحميل من UpToDown'),
-                            Forms\Components\Section::make('إعلان بداية التطبيق')->schema([
-                                Forms\Components\Grid::make()->schema([
-                                    Forms\Components\SpatieMediaLibraryFileUpload::make('advice')->collection('advice')->image()->imageEditor()->imageEditorAspectRatios(['1:1', "2:1"])->label('صورة إعلان بداية التطبيق'),
-                                    Forms\Components\TextInput::make('advice_url')->label('رابط الإعلان')->url()->prefix('https://'),
-                                    Forms\Components\Toggle::make('active_advice')->label('حالة الإعلان')
-                                ])->columns(2)
-                            ])
-                        ]),
-
-                        Forms\Components\Wizard\Step::make('معلومات مواقع التواصل')->schema([
-                            Forms\Components\TextInput::make('social.twitter')->label('رابط تويتر')->nullable()->url()->placeholder('https://'),
-                            Forms\Components\TextInput::make('social.face')->label('رابط فيسبوك')->nullable()->url()->placeholder('https://'),
-                            Forms\Components\TextInput::make('social.instagram')->label('رابط إنستغرام')->nullable()->url()->placeholder('https://'),
-                            Forms\Components\TextInput::make('social.youtube')->label('رابط يوتيوب')->nullable()->url()->placeholder('https://'),
-                            Forms\Components\TextInput::make('social.linkedin')->label('رابط لينكدن')->nullable()->url()->placeholder('https://'),
-                            Forms\Components\TextInput::make('social.telegram')->label('رابط تلغرام')->nullable()->url()->placeholder('https://'),
-                        ]),
 
                         Forms\Components\Wizard\Step::make('خدمة التوصيل')->schema([
                             Forms\Components\Toggle::make('delivery_service')->label('خدمة التوصيل في الدردشة'),
@@ -156,7 +131,29 @@ class SettingResource extends Resource implements HasShieldPermissions
                             Forms\Components\Textarea::make('msg_chat')->label('رسالة دخول مسؤول الدعم'),
                         ]),
 
+                        Forms\Components\Wizard\Step::make('خيارات تسجيل الدخول / أسعار الصرف')->schema([
+                            Forms\Components\Toggle::make('available_country')->label('تفعيل التسجيل من جميع البلدان'),
+                            Forms\Components\Toggle::make('available_any_email')->label('تفعيل التسجيل من أي إيميل'),
+                            Forms\Components\Toggle::make('auto_update_exchange')->label('تحديث سعر الصرف تلقائيا'),
+                            Forms\Components\Toggle::make('active_points')->label('تفعيل نقاط التسويق بالعمولة'),
+                            Forms\Components\TextInput::make('dollar_value')->label('سعر الدولار بالتركي')->nullable()->numeric(),
+                            Forms\Components\TextInput::make('point_value')->label('سعر النقطة بالدولار')->nullable()->numeric(),
+                            Forms\Components\TextInput::make('num_point_for_register')->label('عدد النقاط لكل تسجيل')->nullable()->numeric(),
+                            Forms\Components\TextInput::make('less_amount_point_pull')->label('أقل قيمة لسحب النقاط')->nullable()->numeric(),
+                        ]),
 
+                        Forms\Components\Wizard\Step::make('من نحن')->schema([
+                            Forms\Components\RichEditor::make('about')->nullable()->label('عن التطبيق'),
+                        ]),
+
+                        Forms\Components\Wizard\Step::make('سياسة الخصوصية')->schema([
+                            Forms\Components\RichEditor::make('privacy')->nullable()->label('سياسة الخصوصية'),
+                        ]),
+
+                        Forms\Components\Wizard\Step::make('البث الحي')->schema([
+                            Forms\Components\Toggle::make('active_live')->label('تفعيل وضع البث')->reactive(),
+                            Forms\Components\TextInput::make('live_id')->label('ID البث ')->required(fn($get) => $get('is_live'))
+                        ]),
 
                     ])->skippable(),
 
