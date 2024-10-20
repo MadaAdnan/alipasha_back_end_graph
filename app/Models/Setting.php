@@ -52,11 +52,11 @@ class Setting extends Model implements HasMedia
 
     public function support(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'support_id')->where('level',LevelUserEnum::ADMIN->value);
+        return $this->belongsTo(User::class, 'support_id')->where('level',LevelUserEnum::STAFF->value);
     }
 
     public function delivery(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'delivery_id');
+        return $this->belongsTo(User::class, 'delivery_id')->where('level',LevelUserEnum::STAFF->value);
     }
 }
