@@ -22,6 +22,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class ProductResource extends Resource
 {
@@ -190,7 +191,7 @@ class ProductResource extends Resource
    return $query->product()->orderBy('user_id');
 })
             ->columns([
-                HelperMedia::getImageColumn(collection: 'image'),
+
                 Tables\Columns\TextColumn::make('id')->label('رقم المنتج')->searchable(),
                 Tables\Columns\TextColumn::make('category.name')->label('اسم القسم'),
                 Tables\Columns\TextColumn::make('name')->label('اسم المنتج')->description(fn($record) => $record->expert)->searchable(),
