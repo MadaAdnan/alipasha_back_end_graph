@@ -1,5 +1,5 @@
 type Setting{
-   social:Social
+    social:Social
     address:String,
     longitude:Float
     latitude:Float
@@ -24,11 +24,15 @@ type Setting{
     created_at:HumanDate
     support:User
     delivery:User
+    url_for_download:UrlDownload
 }
-
+type UrlDownload{
+    up_down:String
+    play:String
+}
 type ExchangeGold{
-izaz:Gold
-idlib:Gold
+    izaz:Gold
+    idlib:Gold
 }
 
 type ExchangeCur{
