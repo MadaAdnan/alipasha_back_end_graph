@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Imports\CityImport;
 use App\Imports\ColorImport;
+use App\Imports\MediaImport;
 use App\Imports\ProductImport;
 use App\Imports\UserImport;
 use Illuminate\Http\Request;
@@ -31,6 +32,9 @@ class ImportController extends Controller
                 break;
             case 'colors':
                 $excelImport = new ColorImport();
+                break;
+            case 'media':
+                $excelImport = new MediaImport();
                 break;
             default:
                 $excelImport = new UserImport();
