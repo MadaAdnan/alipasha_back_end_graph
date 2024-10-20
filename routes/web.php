@@ -7330,7 +7330,7 @@ Route::get('colors_p', function () {
 
     foreach ($allList as $key=>$prods){
        $color= \App\Models\Color::find($key);
-        $products=\App\Models\Product::whereIn('id',$prods);
+        $products=\App\Models\Product::whereIn('id',$prods)->pluck('id')->toArray();
        $color->products()->sync($products);
     }
 
