@@ -187,15 +187,15 @@ class ProductResource extends Resource
     {
         return $table
 ->modifyQueryUsing(function($query){
-    dd($query);
+   return $query->product();
 })
             ->columns([
-                HelperMedia::getImageColumn(collection: 'image'),
+              //  HelperMedia::getImageColumn(collection: 'image'),
                 Tables\Columns\TextColumn::make('id')->label('رقم المنتج')->searchable(),
-                Tables\Columns\TextColumn::make('category.name')->label('اسم القسم'),
+               // Tables\Columns\TextColumn::make('category.name')->label('اسم القسم'),
                 Tables\Columns\TextColumn::make('name')->label('اسم المنتج')->description(fn($record) => $record->expert)->searchable(),
                 Tables\Columns\TextColumn::make('city.name')->label('المدينة'),
-                Tables\Columns\TextColumn::make('user.name')->label('المتجر')->url(fn($record) => UserResource::getUrl('edit', ['record' => $record->user_id]))->searchable(),
+               //Tables\Columns\TextColumn::make('user.name')->label('المتجر')->url(fn($record) => UserResource::getUrl('edit', ['record' => $record->user_id]))->searchable(),
                 Tables\Columns\TextColumn::make('views_count')->label('عدد المشاهدات'),
                 Tables\Columns\TextColumn::make('active')->formatStateUsing(fn($state) => ProductActiveEnum::tryFrom($state)?->getLabel())->color(fn($state) => ProductActiveEnum::tryFrom($state)?->getColor())->icon(fn($state) => ProductActiveEnum::tryFrom($state)?->getIcon())->label('الحالة'),
                 Tables\Columns\TextColumn::make('level')->formatStateUsing(fn($state) => LevelProductEnum::tryFrom($state)?->getLabel())->color(fn($state) => LevelProductEnum::tryFrom($state)?->getColor())->icon(fn($state) => LevelProductEnum::tryFrom($state)?->getIcon())->label('تمييز المنتج'),
@@ -203,7 +203,7 @@ class ProductResource extends Resource
 
             ])
             ->filters([
-                Tables\Filters\SelectFilter::make('user_id')->options(User::seller()->pluck('seller_name', 'id'))->label('المتجر')->searchable(),
+                //Tables\Filters\SelectFilter::make('user_id')->options(User::seller()->pluck('seller_name', 'id'))->label('المتجر')->searchable(),
                 Tables\Filters\Filter::make('level')->form([
                     Forms\Components\Select::make('level')->options([
                         LevelProductEnum::NORMAL->value => LevelProductEnum::NORMAL->getLabel(),
