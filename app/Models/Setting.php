@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\LevelUserEnum;
 use App\Observers\SettingObserve;
 use App\Traits\MediaTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -51,7 +52,7 @@ class Setting extends Model implements HasMedia
 
     public function support(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'support_id');
+        return $this->belongsTo(User::class, 'support_id')->where('level',LevelUserEnum::ADMIN->value);
     }
 
     public function delivery(): BelongsTo
