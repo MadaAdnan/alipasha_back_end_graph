@@ -72,7 +72,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
 
     public function scopeSeller(Builder $query)
     {
-        return $query->whereNotNull('seller_name');
+        return $query->where('is_seller',true);
     }
 
     public function products(): HasMany
