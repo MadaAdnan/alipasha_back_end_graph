@@ -218,7 +218,7 @@ class SettingResource extends Resource implements HasShieldPermissions
         return [
             'index' => Pages\ListSettings::route('/'),
             'create' => Pages\CreateSetting::route('/create'),
-            'edit' => Pages\EditSetting::route('/{record}/edit'),
+           // 'edit' => Pages\EditSetting::route('/{record}/edit'),
         ];
     }
 }
