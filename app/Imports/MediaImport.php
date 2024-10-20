@@ -30,7 +30,7 @@ class MediaImport
                     'collection_name' => $row['Column3'],
                     'order_column' => $row['Column4'],
                     'conversions_disk' => $row['Column5'],
-                    'uuid' => 'user',
+                    'uuid' => $row['Column6'],
                     'mime_type' => empty($row['Column7']) ? null : $row['Column7'],
                     'file_name' => $row['Column8'],
                     'model_type' => $model,
