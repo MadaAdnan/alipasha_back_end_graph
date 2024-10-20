@@ -51,7 +51,7 @@ class MediaImport
 
             }
 
-            DB::table('users')->insert($data);
+            DB::table('media')->insert($data);
         }
 
     }
