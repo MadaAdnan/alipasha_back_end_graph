@@ -137,6 +137,15 @@ class SettingResource extends Resource implements HasShieldPermissions
                             ])
                         ]),
 
+                        Forms\Components\Wizard\Step::make('معلومات مواقع التواصل')->schema([
+                            Forms\Components\TextInput::make('social.twitter')->label('رابط تويتر')->nullable()->url()->placeholder('https://'),
+                            Forms\Components\TextInput::make('social.face')->label('رابط فيسبوك')->nullable()->url()->placeholder('https://'),
+                            Forms\Components\TextInput::make('social.instagram')->label('رابط إنستغرام')->nullable()->url()->placeholder('https://'),
+                            Forms\Components\TextInput::make('social.youtube')->label('رابط يوتيوب')->nullable()->url()->placeholder('https://'),
+                            Forms\Components\TextInput::make('social.linkedin')->label('رابط لينكدن')->nullable()->url()->placeholder('https://'),
+                            Forms\Components\TextInput::make('social.telegram')->label('رابط تلغرام')->nullable()->url()->placeholder('https://'),
+                        ]),
+
 
 
                     ])->skippable(),
