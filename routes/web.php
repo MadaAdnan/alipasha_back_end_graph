@@ -7324,12 +7324,14 @@ Route::get('colors_p', function () {
     ];
     $allList = [];
     foreach ($list as $item) {
+
         $allList[$item[0]][] = $item[1];
     }
 
     foreach ($allList as $key=>$prods){
        $color= \App\Models\Color::find($key);
-       $color->products()->sync($prods);
+        $products=\App\Models\Product::whereIn('id',$prods);
+       $color->products()->sync($products);
     }
 
 
