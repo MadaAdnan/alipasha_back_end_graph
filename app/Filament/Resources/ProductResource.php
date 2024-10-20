@@ -186,7 +186,7 @@ class ProductResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-->paginated(true)
+
             ->columns([
                 HelperMedia::getImageColumn(collection: 'image'),
                 Tables\Columns\TextColumn::make('id')->label('رقم المنتج')->searchable(),
