@@ -186,7 +186,9 @@ class ProductResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-
+->modifyQueryUsing(function($query){
+    dd($query);
+})
             ->columns([
                 HelperMedia::getImageColumn(collection: 'image'),
                 Tables\Columns\TextColumn::make('id')->label('رقم المنتج')->searchable(),
