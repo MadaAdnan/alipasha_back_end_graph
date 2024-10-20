@@ -187,7 +187,7 @@ class ProductResource extends Resource
     {
         return $table
 ->modifyQueryUsing(function($query){
-   return $query->product();
+   return $query->product()->orderBy('user_id');
 })
             ->columns([
                 HelperMedia::getImageColumn(collection: 'image'),
