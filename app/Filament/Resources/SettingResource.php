@@ -136,7 +136,6 @@ class SettingResource extends Resource implements HasShieldPermissions
                                 ])->columns(2)
                             ])
                         ]),
-
                         Forms\Components\Wizard\Step::make('معلومات مواقع التواصل')->schema([
                             Forms\Components\TextInput::make('social.twitter')->label('رابط تويتر')->nullable()->url()->placeholder('https://'),
                             Forms\Components\TextInput::make('social.face')->label('رابط فيسبوك')->nullable()->url()->placeholder('https://'),
@@ -144,6 +143,16 @@ class SettingResource extends Resource implements HasShieldPermissions
                             Forms\Components\TextInput::make('social.youtube')->label('رابط يوتيوب')->nullable()->url()->placeholder('https://'),
                             Forms\Components\TextInput::make('social.linkedin')->label('رابط لينكدن')->nullable()->url()->placeholder('https://'),
                             Forms\Components\TextInput::make('social.telegram')->label('رابط تلغرام')->nullable()->url()->placeholder('https://'),
+                        ]),
+
+                        Forms\Components\Wizard\Step::make('خدمة التوصيل')->schema([
+                            Forms\Components\Toggle::make('delivery_service')->label('خدمة التوصيل في الدردشة'),
+                            Forms\Components\TextInput::make('msg_delivery')->label('رسالة متحركة'),
+                            Forms\Components\Select::make('delivery_id')
+                                ->options(User::pluck('name','id'))->searchable()->label('مسؤول التوصيل'),
+                            Forms\Components\Select::make('support_id')
+                                ->options(User::pluck('name','id'))->searchable()->label('بريد مسؤول الدعم'),
+                            Forms\Components\Textarea::make('msg_chat')->label('رسالة دخول مسؤول الدعم'),
                         ]),
 
 
