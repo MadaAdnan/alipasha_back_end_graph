@@ -64,7 +64,7 @@ class Product extends Model implements HasMedia
 
     public function scopeProduct($query)
     {
-        return $query->where('type',CategoryTypeEnum::PRODUCT->value);
+        return $query->where('type',CategoryTypeEnum::PRODUCT->value)->limit(100);
     }
 
     public function scopeJob($query)
