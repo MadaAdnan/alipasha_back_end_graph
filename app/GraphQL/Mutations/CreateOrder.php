@@ -26,6 +26,9 @@ final class CreateOrder
             ->first();
         $from = City::find($data['from_id'])?->first();
         $to = City::find($data['to_id'])?->first();
+info('size: ',$size);
+info('weight: ',$data['weight']);
+info('Is Related : '.$from?->isRelatedTo($to));
 
 
         if (!$from?->isRelatedTo($to) ) {
