@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations;
 
 use App\Enums\OrderStatusEnum;
+use App\Exceptions\GraphQLExceptionHandler;
 use App\Models\Balance;
 use App\Models\City;
 use App\Models\Order;
@@ -28,9 +29,9 @@ final class CreateOrder
             ->first();
         $from = City::find($data['from_id'])?->first();
         $to = City::find($data['to_id'])?->first();
-        Log::info('size: ', $size);
+        Log::info('size: '.$size);
 
-        Log::info('weight: ', $data['weight']);
+        Log::info('weight: '. $data['weight']);
         Log::info('Is Related : ' . $from?->isRelatedTo($to));
 
 
@@ -42,7 +43,7 @@ final class CreateOrder
         }
         $total_balance = \DB::table('balances')->where('user_id', auth()->id())->selectRaw('SUM(credit) - SUM(debit) as total')->first()?->total ?? 0;
         if ($total_balance <= 0 || $total_balance < $price) {
-            throw new \Exception('لا تملك رصيد كاف لطلب الشحن');
+            throw new GraphQLExceptionHandler('لا تملك رصيد كاف لطلب الشحن');
         }
         \DB::beginTransaction();
         try {
@@ -80,7 +81,7 @@ final class CreateOrder
 
         } catch (\Exception | \Error $exception) {
             \DB::rollBack();
-            throw new \Exception('حصل خطأ في الطلب يرجى المحاولة لاحقا' . $exception->getMessage());
+            throw new GraphQLExceptionHandler('حصل خطأ في الطلب يرجى المحاولة لاحقا' . $exception->getMessage());
         }
 
 
