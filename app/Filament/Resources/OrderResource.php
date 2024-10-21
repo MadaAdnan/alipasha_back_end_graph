@@ -49,6 +49,7 @@ class OrderResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(fn($query)=>$query->latest())
             ->columns([
                 Tables\Columns\TextColumn::make('size')->label('حجم الحمولة'),
                 Tables\Columns\TextColumn::make('weight')->label('وزن الحمولة'),
