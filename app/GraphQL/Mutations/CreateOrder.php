@@ -19,22 +19,16 @@ final class CreateOrder
         $data = $args['input'];
         $size = ($data['length'] * $data['height'] * $data['width']) / 1000;
         $maxWeight = ShippingPrice::where('weight', '>=', $data['weight'])
-            ->orderBy('size')
-            ->union(
-                ShippingPrice::orderBy('weight', 'desc')->limit(1)
-            )
+            ->orderBy('weight')
             ->first();
         $maxSize = ShippingPrice::where('size', '>=', $size)
             ->orderBy('size')
-            ->union(
-                ShippingPrice::orderBy('size', 'desc')->limit(1)
-            )
             ->first();
-        $from = City::find($data['from_id'])->first();
-        $to = City::find($data['to_id'])->first();
+        $from = City::find($data['from_id'])?->first();
+        $to = City::find($data['to_id'])?->first();
 
 
-        if ($from?->city_id != $to?->city_id) {
+        if (!$from?->isRelatedTo($to) ) {
             $price = $maxSize?->external_price > $maxWeight?->external_price ? $maxSize?->external_price : $maxWeight?->external_price;
         } else {
             $price = $maxSize?->internal_price > $maxWeight?->internal_price ? $maxSize?->internal_price : $maxWeight?->internal_price;

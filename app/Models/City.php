@@ -45,4 +45,10 @@ class City extends Model implements HasMedia
     {
         return $this->hasMany(Partner::class,'city_id')->where('partners.type',PartnerTypeEnum::PARTNER->value);
     }
+
+    public function isRelatedTo(City $otherCity):bool{
+        return $this->city_id === $otherCity->city_id ||
+            $this->id === $otherCity->city_id ||
+            $otherCity->id === $this->city_id;
+    }
 }
