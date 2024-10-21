@@ -17,7 +17,7 @@ final class CreateOrder
     public function __invoke($_, array $args)
     {
         $data = $args['input'];
-        $size = ($data['length'] * $data['height'] * $data['width']) / 1000;
+        $size = ($data['length'] ) * ($data['height'] ) * ($data['width']) /100000;
         $maxWeight = ShippingPrice::where('weight', '>=', $data['weight'])
             ->orderBy('weight')
             ->first();
