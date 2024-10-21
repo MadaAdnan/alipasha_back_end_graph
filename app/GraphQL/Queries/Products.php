@@ -20,7 +20,7 @@ final class Products
     public function __invoke($_, array $args)
 
     {
-        $orderBy=$args['orderBy']??['end_date','desc'];
+       // $orderBy=$args['orderBy']??['end_date','desc'];
         $colors = $args['colors'] ?? [];
         $type = $args['type'] ?? null;
         if (auth()->check()) {
@@ -30,7 +30,7 @@ final class Products
             $products = $this->getProducts($type, $args, $colors);
         }
 
-        $ids = $products->orderBy($orderBy[0],$orderBy[1])->paginate($args['first'] ?? 15, ['*'], 'page', $args['page'] ?? 1)->pluck('id')->toArray();
+        $ids = $products ->when(isset($args['orderBy']),fn($query)=>$query->orderBy($args['orderBy']),fn($query)=>$query->orderBy('created_at','desc') ->orderBy('level'))->paginate($args['first'] ?? 15, ['*'], 'page', $args['page'] ?? 1)->pluck('id')->toArray();
         $today = today();
         \DB::transaction(function () use ($ids, $today) {
 
@@ -108,8 +108,8 @@ final class Products
                 }
 
             }))
-            ->inRandomOrder()
-            ->orderBy('level')->orderBy('created_at');
+         //   ->inRandomOrder()
+            ->when(isset($args['orderBy']),fn($query)=>$query->orderBy($args['orderBy']),fn($query)=>$query->orderBy('created_at','desc') ->orderBy('level'));
         return $products;
     }
 
@@ -183,9 +183,9 @@ final class Products
             })
             ->groupBy('products.id') // نضمن أن المنتجات يتم جمعها وتجنب التكرار
 
-            ->orderByRaw('RAND()') // ترتيب عشوائي للمنتجات مع نفس مستوى التفاعل
+           // ->orderByRaw('RAND()') // ترتيب عشوائي للمنتجات مع نفس مستوى التفاعل
 //            ->orderBy('level')
-            ->orderBy('created_at');
+            ->when(isset($args['orderBy']),fn($query)=>$query->orderBy($args['orderBy']),fn($query)=>$query->orderBy('created_at','desc') ->orderBy('level'));
 
         return $products;
     }

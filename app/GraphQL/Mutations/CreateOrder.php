@@ -39,7 +39,7 @@ final class CreateOrder
             Log::info("Is ext : { $maxSize?->external_price > $maxWeight?->external_price}");
         } else {
             $price = $maxSize?->internal_price > $maxWeight?->internal_price ? $maxSize?->internal_price : $maxWeight?->internal_price;
-            Log::info("Is internal : { $maxSize?->internal_price > $maxWeight?->internal_price }");
+            Log::info("Is int : { $maxSize?->internal_price > $maxWeight?->internal_price }");
         }
         $total_balance = \DB::table('balances')->where('user_id', auth()->id())->selectRaw('SUM(credit) - SUM(debit) as total')->first()?->total ?? 0;
         if ($total_balance <= 0 || $total_balance < $price) {
