@@ -60,7 +60,7 @@ class UserResource extends Resource
                                     LevelUserEnum::ADMIN->value => LevelUserEnum::ADMIN->getLabel(),
                                     LevelUserEnum::SELLER->value => LevelUserEnum::SELLER->getLabel(),
                                     LevelUserEnum::USER->value => LevelUserEnum::USER->getLabel(),
-                                    LevelUserEnum::RESTAURANT->value => LevelUserEnum::RESTAURANT->getLabel(),
+                                    LevelUserEnum::STAFF->value => LevelUserEnum::STAFF->getLabel(),
                                 ]),
                                 Forms\Components\Toggle::make('is_active')->label('حالة المستخدم'),
                                 Forms\Components\Toggle::make('is_seller')->label('تفعيل المتجر')->live(),

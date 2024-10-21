@@ -28,4 +28,4 @@ class ViewsImport
         }
     }
 }
-
+//https://ali-pasha.com/export-user2?type=seens&min=200006
