@@ -7,6 +7,8 @@ use App\Models\Balance;
 use App\Models\City;
 use App\Models\Order;
 use App\Models\ShippingPrice;
+use Illuminate\Support\Facades\Log;
+use Symfony\Component\HttpKernel\Log\Logger;
 
 final class CreateOrder
 {
@@ -17,7 +19,7 @@ final class CreateOrder
     public function __invoke($_, array $args)
     {
         $data = $args['input'];
-        $size = ($data['length'] ) * ($data['height'] ) * ($data['width']) /100000;
+        $size = ($data['length']) * ($data['height']) * ($data['width']) / 100000;
         $maxWeight = ShippingPrice::where('weight', '>=', $data['weight'])
             ->orderBy('weight')
             ->first();
@@ -26,12 +28,13 @@ final class CreateOrder
             ->first();
         $from = City::find($data['from_id'])?->first();
         $to = City::find($data['to_id'])?->first();
-info('size: ',$size);
-info('weight: ',$data['weight']);
-info('Is Related : '.$from?->isRelatedTo($to));
+        Log::info('size: ', $size);
+
+        Log::info('weight: ', $data['weight']);
+        Log::info('Is Related : ' . $from?->isRelatedTo($to));
 
 
-        if (!$from?->isRelatedTo($to) ) {
+        if (!$from?->isRelatedTo($to)) {
             $price = $maxSize?->external_price > $maxWeight?->external_price ? $maxSize?->external_price : $maxWeight?->external_price;
         } else {
             $price = $maxSize?->internal_price > $maxWeight?->internal_price ? $maxSize?->internal_price : $maxWeight?->internal_price;
@@ -51,8 +54,8 @@ info('Is Related : '.$from?->isRelatedTo($to));
                 'size' => $size,
                 'to_id' => $data['to_id'],
                 'status' => OrderStatusEnum::PENDING->value,
-                'sender_name' => $data['sender_name']??auth()->user()->seller_name,
-                'sender_phone' => $data['sender_phone']??auth()->user()->phone,
+                'sender_name' => $data['sender_name'] ?? auth()->user()->seller_name,
+                'sender_phone' => $data['sender_phone'] ?? auth()->user()->phone,
                 'receive_address' => $data['receive_address'],
                 'receive_phone' => $data['receive_phone'],
                 'receive_name' => $data['receive_name'],
