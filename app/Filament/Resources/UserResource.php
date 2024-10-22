@@ -113,6 +113,9 @@ class UserResource extends Resource
                             Forms\Components\TextInput::make('social.twitter')->label('رابط تويتر')->nullable()->url()->placeholder('https://'),
                             //Forms\Components\TextInput::make('social.telegram')->label('رابط تلغرام')->nullable()->url()->placeholder('https://'),
                         ])->visible(fn($get) => $get('is_seller')),
+                   Forms\Components\Wizard\Step::make('معرض الصور')->schema([
+                       Forms\Components\SpatieMediaLibraryFileUpload::make('gallery')->collection('gallery')->image()->imageCropAspectRatio('1:1')->imageEditor()->multiple()->label('صور المعرض')
+                   ])->visible(fn($get) => $get('is_seller')),
                     ])->skippable()->columnSpan(2)
                 ])
             ]);
