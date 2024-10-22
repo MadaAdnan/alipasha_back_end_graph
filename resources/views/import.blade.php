@@ -19,6 +19,7 @@
         <option value="colors">COLORS</option>
         <option value="media">Media</option>
         <option value="seens">Seens</option>
+        <option value="service">service</option>
     </select>
     <button type="submit">استيراد</button>
 </form>

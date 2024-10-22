@@ -6,6 +6,7 @@ use App\Imports\CityImport;
 use App\Imports\ColorImport;
 use App\Imports\MediaImport;
 use App\Imports\ProductImport;
+use App\Imports\ServicesImport;
 use App\Imports\UserImport;
 use App\Imports\ViewsImport;
 use Illuminate\Http\Request;
@@ -39,6 +40,9 @@ class ImportController extends Controller
                 break;
             case 'seens':
                 $excelImport = new ViewsImport();
+                break;
+            case 'service':
+                $excelImport = new ServicesImport();
                 break;
             default:
                 $excelImport = new UserImport();
