@@ -19,7 +19,7 @@ final class AddToGallery
         $user = auth()->user();
         $image = $args['image'];
         if (!isset($data['image']) || $data['image'] === null) {
-            throw new GraphQLExceptionHandler('يرجى تحديد صورة صحيحة' . implode('-',$args));
+            throw new GraphQLExceptionHandler('يرجى تحديد صورة صحيحة' . $image);
         }
         $type = $image->getClientOriginalExtension();
         if(!in_array($type,['png','webp','jpeg','jpg'])){
