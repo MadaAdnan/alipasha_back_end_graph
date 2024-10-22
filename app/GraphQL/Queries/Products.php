@@ -70,6 +70,9 @@ final class Products
 
     private function getProducts($type, $args, $colors)
     {
+
+
+
         $products = Product::query()->where('active', ProductActiveEnum::ACTIVE->value)
             ->when(isset($args['type']), function ($query) use ($type, $args) {
                 if ($type === 'job' || $type === 'search_job') {
@@ -182,10 +185,17 @@ final class Products
                 );
             })
             ->groupBy('products.id') // نضمن أن المنتجات يتم جمعها وتجنب التكرار
-
+            ->orderByRaw(
+                "CASE
+    WHEN products.level = ? THEN 1
+    WHEN products.sub1_id = ? THEN 2
+    WHEN products.user_id IN (?) THEN 3
+    ELSE 4
+    END ASC", [LevelProductEnum::SPECIAL->value, $popularCategory, implode(',', $followedStores)]
+            );
            // ->orderByRaw('RAND()') // ترتيب عشوائي للمنتجات مع نفس مستوى التفاعل
 //            ->orderBy('level')
-            ->when(isset($args['orderBy']),fn($query)=>$query->orderBy($args['orderBy']),fn($query)=>$query->orderBy('created_at','desc') ->orderBy('level'));
+           /* ->when(isset($args['orderBy']),fn($query)=>$query->orderBy($args['orderBy']),fn($query)=>$query->orderBy('created_at','desc') ->orderBy('level'));*/
 
         return $products;
     }
