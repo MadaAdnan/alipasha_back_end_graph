@@ -106,6 +106,15 @@ final class Image
 
         return $list;
     }
+    public static function getImageGallery($root): array
+    {
+        $list = [];
+        foreach ($root->getMedia('gallery') as $media) {
+            $list[] = ["id" => $media->id, 'url' => $media->getUrl()];
+        }
+
+        return $list;
+    }
 
     /**
      * @param $root

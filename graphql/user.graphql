@@ -46,6 +46,7 @@ type User{
     followers: [Follower] @hasMany
     total_views:Int
     trust:Boolean
+    gallery:[DataImage] @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImageGallery")
 }
 type Follower{
     user:User @belongsTo
