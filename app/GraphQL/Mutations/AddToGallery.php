@@ -23,7 +23,7 @@ final class AddToGallery
         }
         $type = $image->getClientOriginalExtension();
         if(!in_array($type,['png','webp','jpeg','jpg'])){
-            throw new GraphQLExceptionHandler('صيغة الملف غير صالحة');
+            throw new GraphQLExceptionHandler('صيغة الملف غير صالحة '.$type);
         }
         try {
             $media = $user->addMedia($image)->toMediaCollection('gallery');
