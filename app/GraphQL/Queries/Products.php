@@ -196,8 +196,8 @@ final class Products
 
             ->selectRaw(
                 'products.*,
-     (CASE WHEN products.level = ? THEN 1 ELSE 0 END) * 0.4 +
-     (CASE WHEN products.sub1_id = ? THEN 1 ELSE 0 END) * 0.3 +
+     (CASE WHEN products.level = ? THEN 1 ELSE 0 END) * 0.2 +
+     (CASE WHEN products.category_id = ? THEN 1 ELSE 0 END) * 0.6 +
      (CASE WHEN products.user_id IN (?) THEN 1 ELSE 0 END) * 0.3 AS score',
                 [LevelProductEnum::SPECIAL->value, $popularCategory, implode(',', $followedStores)]
             )
