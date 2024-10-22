@@ -45,7 +45,7 @@ type User{
     total_point:Float @field(resolver: "App\\GraphQL\\Resolvers\\HelperBalanceResolve@getTotalPoint")
     followers: [Follower] @hasMany
     total_views:Int
-trust:Boolean
+    trust:Boolean
 }
 type Follower{
     user:User @belongsTo
@@ -66,6 +66,7 @@ extend type Mutation{
 
     followAccount(id:ID!):User @guard
     unFollowing(id:ID): User @guard
+    addToGallery(image:Upload!):DataImage @guard
     #    deleteUser(id:ID!) : User @delete
 }
 
