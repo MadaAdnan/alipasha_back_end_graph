@@ -201,7 +201,8 @@ final class Products
      (CASE WHEN products.user_id IN (?) THEN 1 ELSE 0 END) * 0.2 AS score',
                 [LevelProductEnum::SPECIAL->value, $popularCategory, implode(',', $followedStores)]
             )
-            ->orderBy('score', 'desc');
+            ->orderBy('score', 'desc')
+        ->orderBy('created_at','desc')->inRandomOrder();
            // ->orderByRaw('RAND()') // ترتيب عشوائي للمنتجات مع نفس مستوى التفاعل
 //            ->orderBy('level')
            /* ->when(isset($args['orderBy']),fn($query)=>$query->orderBy($args['orderBy']),fn($query)=>$query->orderBy('created_at','desc') ->orderBy('level'));*/
