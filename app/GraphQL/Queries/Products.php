@@ -172,7 +172,7 @@ final class Products
                     });
                 }
             }))
-            ->when($popularCategory || !empty($followedStores), function ($query) use ($popularCategory, $followedStores) {
+            /*->when($popularCategory || !empty($followedStores), function ($query) use ($popularCategory, $followedStores) {
                 // إعطاء الأولوية للأقسام التي تم زيارتها أو التعليق عليها والمتاجر التي تم متابعتها
                 $query->orderByRaw(
                     "CASE
@@ -183,16 +183,25 @@ final class Products
                     ELSE 4
                 END ASC", [LevelProductEnum::SPECIAL->value,$popularCategory,implode(',', $followedStores)]
                 );
-            })
+            })*/
             ->groupBy('products.id') // نضمن أن المنتجات يتم جمعها وتجنب التكرار
-            ->orderByRaw(
+           /* ->orderByRaw(
                 "CASE
     WHEN products.level = ? THEN 1
     WHEN products.sub1_id = ? THEN 2
     WHEN products.user_id IN (?) THEN 3
     ELSE 4
     END ASC", [LevelProductEnum::SPECIAL->value, $popularCategory, implode(',', $followedStores)]
-            );
+            );*/
+
+            ->selectRaw(
+                'products.*,
+     (CASE WHEN products.level = ? THEN 1 ELSE 0 END) * 0.4 +
+     (CASE WHEN products.sub1_id = ? THEN 1 ELSE 0 END) * 0.3 +
+     (CASE WHEN products.user_id IN (?) THEN 1 ELSE 0 END) * 0.3 AS score',
+                [LevelProductEnum::SPECIAL->value, $popularCategory, implode(',', $followedStores)]
+            )
+            ->orderBy('score', 'desc');
            // ->orderByRaw('RAND()') // ترتيب عشوائي للمنتجات مع نفس مستوى التفاعل
 //            ->orderBy('level')
            /* ->when(isset($args['orderBy']),fn($query)=>$query->orderBy($args['orderBy']),fn($query)=>$query->orderBy('created_at','desc') ->orderBy('level'));*/
