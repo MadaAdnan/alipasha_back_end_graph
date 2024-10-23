@@ -23,7 +23,7 @@ final class MainCategories
         })
             ->where(['is_active' => true, 'is_main' => true/*,'type' => 'product'*/])
             ->orderByRaw("FIELD(type, 'product', 'job', 'search_job','tender','service','news')")
-            ->orderBy('sortable')
+            ->orderBy('sortable')->orderBy('id')
             ->get();
     }
 }

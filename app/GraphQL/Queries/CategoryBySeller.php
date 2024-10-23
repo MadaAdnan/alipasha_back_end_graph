@@ -14,6 +14,6 @@ final class CategoryBySeller
     {
         $userId = $args['sellerId'];
         $categorisId = \DB::table('products')->where('user_id', $userId)->pluck('sub1_id')->toArray();
-        return Category::whereIn('id', $categorisId)->get();
+        return Category::whereIn('id', $categorisId) ->orderBy('sortable')->orderBy('id')->get();
     }
 }
