@@ -4,6 +4,7 @@ namespace App\GraphQL\Resolvers;
 
 use App\Enums\CategoryTypeEnum;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
 final class Image
@@ -40,7 +41,10 @@ final class Image
             return $root->getFirstMediaUrl('image', 'webp');
         }elseif ($root->hasMedia('images')){
             return $root->getFirstMediaUrl('images', 'webp');
-        }elseif($root->user!=null && $root->user->hasMedia('image')){
+        }elseif($root instanceof  User){
+            return url('/') . asset('images/user-profile.png');
+        }
+        elseif($root->user!=null && $root->user->hasMedia('image')){
             return $root->user->getFirstMediaUrl('image', 'webp');
         }
         return url('/') . asset('images/noImage.jpeg');
