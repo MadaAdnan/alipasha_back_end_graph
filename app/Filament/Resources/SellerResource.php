@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Enums\PartnerTypeEnum;
 use App\Filament\Resources\SellerResource\Pages;
 
+use App\Models\Category;
 use App\Models\City;
 use App\Models\Partner;
 
@@ -103,7 +104,9 @@ class SellerResource extends Resource implements HasShieldPermissions
                     Forms\Components\SpatieMediaLibraryFileUpload::make('image')->collection('image')->conversion('webp')->imageCropAspectRatio('1:1')
                         ->image()->label('لوغو المتجر'),
                     Forms\Components\Select::make('city_id')->options(City::orderBy('name')->pluck('name', 'id'))->searchable()->label('المدينة'),
+                    Forms\Components\Select::make('category_id')->options(Category::where('categories.is_main',true)->orderBy('name')->pluck('name', 'id'))->searchable()->label('القسم'),
                     Forms\Components\TextInput::make('name')->label('اسم التاجر'),
+                    Forms\Components\Textarea::make('info')->label('وصف التاجر'),
                     Forms\Components\TextInput::make('address')->label('عنوان التاجر'),
                     Forms\Components\TextInput::make('phone')->label('رقم التاجر'),
                 ])

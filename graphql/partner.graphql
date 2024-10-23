@@ -1,5 +1,5 @@
 extend type Query{
-    partners(city_id:ID):[Partner] @paginate(builder:"App\\GraphQL\\Queries\\Partners")
+    partners(category_id:ID):[Partner] @paginate(builder:"App\\GraphQL\\Queries\\Partners")
 }
 
 type Partner{
@@ -8,6 +8,7 @@ type Partner{
     city:City @belongsTo
     address:String
     phone:String
+    info:String
     image:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImage")
 
 
