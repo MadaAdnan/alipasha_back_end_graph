@@ -78,7 +78,9 @@ final class Products
                 $query->whereNull('end_date')->orWhere('end_date','>=',now());
             })
             ->when(isset($args['type']), function ($query) use ($type, $args) {
-                if ($type === 'job' || $type === 'search_job') {
+                if(isset($args['sub_type']) && !empty($args['sub_type'])){
+                    $query->where('type', $args['sub_type']);
+                }elseif ($type === 'job' || $type === 'search_job') {
                     $query->where('type', 'job')->orWhere('type', 'search_job');
                 } elseif ($type === 'seller') {
                     $query->whereHas('user', fn($query) => $query->where('seller_name', 'like', "%" . $args['search'] . "%"));
@@ -153,7 +155,9 @@ final class Products
             })
             ->where('active', ProductActiveEnum::ACTIVE->value)
             ->when(isset($args['type']), function ($query) use ($type, $args) {
-                if ($type === 'job' || $type === 'search_job') {
+                if(isset($args['sub_type']) && !empty($args['sub_type'])){
+                    $query->where('type', $args['sub_type']);
+                }elseif ($type === 'job' || $type === 'search_job') {
                     $query->where('products.type', 'job')->orWhere('products.type', 'search_job');
                 } elseif ($type === 'seller') {
                     $query->whereHas('user', fn($query) => $query->where('seller_name', 'like', "%" . $args['search'] . "%"));
