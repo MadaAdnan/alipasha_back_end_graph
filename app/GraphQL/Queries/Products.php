@@ -74,6 +74,9 @@ final class Products
 
 
         $products = Product::query()->where('active', ProductActiveEnum::ACTIVE->value)
+            ->where(function($query){
+                $query->whereNull('end_date')->orWhere('end_date','>=',now());
+            })
             ->when(isset($args['type']), function ($query) use ($type, $args) {
                 if ($type === 'job' || $type === 'search_job') {
                     $query->where('type', 'job')->orWhere('type', 'search_job');
@@ -145,6 +148,9 @@ final class Products
 
 
         $products = Product::query()
+            ->where(function($query){
+                $query->whereNull('end_date')->orWhere('end_date','>=',now());
+            })
             ->where('active', ProductActiveEnum::ACTIVE->value)
             ->when(isset($args['type']), function ($query) use ($type, $args) {
                 if ($type === 'job' || $type === 'search_job') {
@@ -155,6 +161,7 @@ final class Products
                     $query->where('products.type', $type);
                 }
             })
+
             ->when($type === 'product' && isset($args['max_price']) && $args['max_price'] > 0, fn($query) => $query->where('price', '>=', [$args['min_price'] ?? 0])->where('price', "<=", $args['max_price'] ?? 10000))
             ->when(collect($colors??[])->count() > 0, fn($query) => $query->whereHas('colors', fn($q) => $q->whereIn('colors.id', $colors)))
             ->when(isset($args['category_id']), fn($query) => $query->where('products.category_id', $args['category_id']))
