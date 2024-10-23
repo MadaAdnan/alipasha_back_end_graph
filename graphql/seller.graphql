@@ -1,5 +1,5 @@
 extend type Query{
-    sellers(city_id:ID):[Partner] @paginate(builder:"App\\GraphQL\\Queries\\Sellers")
+    sellers(category_id:ID):[Partner] @paginate(builder:"App\\GraphQL\\Queries\\Sellers")
 }
 
 
