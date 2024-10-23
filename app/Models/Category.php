@@ -65,7 +65,7 @@ class Category extends Model implements HasMedia
 
     public function parents()
     {
-        return $this->belongsToMany(__CLASS__, 'category_parent', 'category_id', 'parent_id');
+        return $this->belongsToMany(__CLASS__, 'category_parent', 'category_id', 'parent_id')->latest();
     }
 
     public function children()
