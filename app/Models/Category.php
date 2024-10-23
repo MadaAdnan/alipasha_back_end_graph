@@ -70,7 +70,7 @@ class Category extends Model implements HasMedia
 
     public function children()
     {
-        return $this->belongsToMany(__CLASS__, 'category_parent', 'parent_id', 'category_id')->orderBy('id') ->orderBy('sortable');
+        return $this->belongsToMany(__CLASS__, 'category_parent', 'parent_id', 'category_id')->orderBy('id','desc') ->orderBy('sortable');
     }
 
     public function products(): HasMany
