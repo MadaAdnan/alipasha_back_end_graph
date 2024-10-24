@@ -17,6 +17,8 @@ type User{
     email_verified_at:String
     email:String
     is_verified:Boolean
+    can_create_group:Boolean
+    can_create_channel:Boolean
     id_color:String
     level:String
     phone:String
