@@ -176,22 +176,26 @@ final class Products
                 $searchTerms = explode(' ', $args['search']); // تحويل البحث إلى مصفوفة كلمات
                 $mainTerm = $args['search']; // الكلمة الرئيسية للبحث
 
+// حساب الأهمية بناءً على التطابق التام أولا ثم الجزئي
                 $query->select('*')
                     ->selectRaw("
           (CASE
-              WHEN name LIKE ? THEN 100  -- تطابق تام في الاسم
-              WHEN info LIKE ? THEN 90   -- تطابق تام في المعلومات
+              WHEN name LIKE ? THEN 150  -- تطابق تام في الاسم
+              WHEN info LIKE ? THEN 130   -- تطابق تام في المعلومات
               ELSE 0 -- إذا لم يكن هناك تطابق تام، نضع الدرجة صفر
+          END) +
+          (CASE
+              WHEN name LIKE ? THEN 100  -- تطابق جزئي في الاسم
+              WHEN info LIKE ? THEN 90   -- تطابق جزئي في المعلومات
+              ELSE 0
           END) AS relevance_score", [
                         '%' . $mainTerm . '%', // تطابق تام مع الكلمة الرئيسية في الاسم
                         '%' . $mainTerm . '%', // تطابق تام مع الكلمة الرئيسية في المعلومات
-                    ])
-                    ->where(function($query) use ($mainTerm) {
-                        $query->where('name', 'like', '%' . $mainTerm . '%')
-                            ->orWhere('info', 'like', '%' . $mainTerm . '%');
-                    });
+                        '%' . $mainTerm . '%', // تطابق جزئي في الاسم
+                        '%' . $mainTerm . '%', // تطابق جزئي في المعلومات
+                    ]);
 
-// الآن نضيف التطابقات الجزئية من خلال الكلمات الفردية في البحث
+// الآن نضيف التطابقات الجزئية لكل كلمة
                 foreach ($searchTerms as $term) {
                     $query->orWhere(function ($query) use ($term) {
                         $query->where('name', 'LIKE', "%$term%")
@@ -199,43 +203,13 @@ final class Products
                     });
                 }
 
-// إضافة درجة أهمية إضافية للتطابقات الجزئية
-                $query->selectRaw("
-    (CASE
-        WHEN name LIKE ? THEN 50  -- تطابق جزئي في الاسم
-        WHEN info LIKE ? THEN 40  -- تطابق جزئي في المعلومات
-        ELSE 0
-    END) - relevance_score AS relevance_score", [
-                    '%' . $mainTerm . '%',
-                    '%' . $mainTerm . '%',
-                ]);
-
 // ترتيب النتائج حسب درجة الأهمية (relevance_score)
                 $query->orderBy('relevance_score', 'desc');
 
 
             }))
-            /*->when($popularCategory || !empty($followedStores), function ($query) use ($popularCategory, $followedStores) {
-                // إعطاء الأولوية للأقسام التي تم زيارتها أو التعليق عليها والمتاجر التي تم متابعتها
-                $query->orderByRaw(
-                    "CASE
-                    WHEN products.level = ? THEN 1
-                    WHEN products.sub1_id = ? THEN 2
 
-                    WHEN products.user_id IN (?) THEN 3
-                    ELSE 4
-                END ASC", [LevelProductEnum::SPECIAL->value,$popularCategory,implode(',', $followedStores)]
-                );
-            })*/
             ->groupBy('products.id') // نضمن أن المنتجات يتم جمعها وتجنب التكرار
-           /* ->orderByRaw(
-                "CASE
-    WHEN products.level = ? THEN 1
-    WHEN products.sub1_id = ? THEN 2
-    WHEN products.user_id IN (?) THEN 3
-    ELSE 4
-    END ASC", [LevelProductEnum::SPECIAL->value, $popularCategory, implode(',', $followedStores)]
-            );*/
 
             ->selectRaw(
                 'products.*,
@@ -245,9 +219,6 @@ final class Products
                 [LevelProductEnum::SPECIAL->value, $popularCategory, implode(',', $followedStores)]
             )->when(empty($args['search']),fn($query)=>$query->orderBy('score', 'desc')
                 ->orderBy('created_at','desc')->inRandomOrder());
-           // ->orderByRaw('RAND()') // ترتيب عشوائي للمنتجات مع نفس مستوى التفاعل
-//            ->orderBy('level')
-           /* ->when(isset($args['orderBy']),fn($query)=>$query->orderBy($args['orderBy']),fn($query)=>$query->orderBy('created_at','desc') ->orderBy('level'));*/
 
         return $products;
     }
