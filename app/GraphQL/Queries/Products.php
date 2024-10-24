@@ -197,8 +197,14 @@ final class Products
         WHEN name LIKE ? THEN 1
         WHEN info LIKE ? THEN 1
         ELSE 2
+    END,
+    CASE
+        WHEN name LIKE ? THEN 3
+        WHEN info LIKE ? THEN 3
+        ELSE 4
     END",
-                    ["%$args[search]%", "%$args[search]%"]);
+                    ["%$searchTerms%", "%$searchTerms%", "%$searchTerms%", "%$searchTerms%"]
+                );
             }))
             /*->when($popularCategory || !empty($followedStores), function ($query) use ($popularCategory, $followedStores) {
                 // إعطاء الأولوية للأقسام التي تم زيارتها أو التعليق عليها والمتاجر التي تم متابعتها
