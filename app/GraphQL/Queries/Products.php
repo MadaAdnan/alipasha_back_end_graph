@@ -178,7 +178,7 @@ final class Products
                 $query->where('name','like','%' .$args['search'].'%')
                     ->orWhere('info','like','%'.$args['search'].'%');
                 foreach ($searchTerms as $term) {
-                    $query->orWhere(function ($query) use ($term) {
+                    $query->where(function ($query) use ($term) {
                         $query->where('name', 'LIKE', "%$term%")
                             ->OrWhere('info', 'LIKE', "%$term%");
                     });
