@@ -179,18 +179,19 @@ final class Products
                 $query->select('*')
                     ->selectRaw("
           (CASE
-              WHEN name LIKE ? THEN 100
-              WHEN info LIKE ? THEN 90
-              ELSE 50
+              WHEN name LIKE ? THEN 100  -- تطابق تام في الاسم
+              WHEN info LIKE ? THEN 90   -- تطابق تام في المعلومات
+              ELSE 0 -- إذا لم يكن هناك تطابق تام، نضع الدرجة صفر
           END) AS relevance_score", [
-                        '%' . $mainTerm . '%',
-                        '%' . $mainTerm . '%'
+                        '%' . $mainTerm . '%', // تطابق تام مع الكلمة الرئيسية في الاسم
+                        '%' . $mainTerm . '%', // تطابق تام مع الكلمة الرئيسية في المعلومات
                     ])
                     ->where(function($query) use ($mainTerm) {
                         $query->where('name', 'like', '%' . $mainTerm . '%')
                             ->orWhere('info', 'like', '%' . $mainTerm . '%');
                     });
 
+// الآن نضيف التطابقات الجزئية من خلال الكلمات الفردية في البحث
                 foreach ($searchTerms as $term) {
                     $query->orWhere(function ($query) use ($term) {
                         $query->where('name', 'LIKE', "%$term%")
@@ -198,8 +199,20 @@ final class Products
                     });
                 }
 
-// ترتيب النتائج حسب درجة الأهمية
+// إضافة درجة أهمية إضافية للتطابقات الجزئية
+                $query->selectRaw("
+    (CASE
+        WHEN name LIKE ? THEN 50  -- تطابق جزئي في الاسم
+        WHEN info LIKE ? THEN 40  -- تطابق جزئي في المعلومات
+        ELSE 0
+    END) + relevance_score AS relevance_score", [
+                    '%' . $mainTerm . '%',
+                    '%' . $mainTerm . '%',
+                ]);
+
+// ترتيب النتائج حسب درجة الأهمية (relevance_score)
                 $query->orderBy('relevance_score', 'desc');
+
 
             }))
             /*->when($popularCategory || !empty($followedStores), function ($query) use ($popularCategory, $followedStores) {
