@@ -174,7 +174,7 @@ final class Products
             ->when(isset($args['user_id']), fn($query) => $query->where('products.user_id', $args['user_id']))
             ->when(isset($args['search']) && !empty($args['search']) && $type !== 'seller', fn($query) => Product::search($args['search']))
 
-            ->groupBy('products.id') // نضمن أن المنتجات يتم جمعها وتجنب التكرار
+
 
             ->selectRaw(
                 'products.*,
