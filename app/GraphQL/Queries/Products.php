@@ -172,10 +172,6 @@ final class Products
             ->when(isset($args['sub1_id']), fn($query) => $query->where('sub1_id', $args['sub1_id']))
             ->when(isset($args['city_id']), fn($query) => $query->where('city_id', $args['city_id']))
             ->when(isset($args['user_id']), fn($query) => $query->where('products.user_id', $args['user_id']))
-            ->when(isset($args['search']) && !empty($args['search']) && $type !== 'seller', fn($query) => Product::search($args['search']))
-
-
-
             ->selectRaw(
                 'products.*,
      (CASE WHEN products.level = ? THEN 1 ELSE 0 END) * 0.3 +
@@ -183,7 +179,12 @@ final class Products
      (CASE WHEN products.user_id IN (?) THEN 1 ELSE 0 END) * 0.2 AS score',
                 [LevelProductEnum::SPECIAL->value, $popularCategory, implode(',', $followedStores)]
             )->when(empty($args['search']),fn($query)=>$query->orderBy('score', 'desc')
-                ->orderBy('created_at','desc')->inRandomOrder());
+                ->orderBy('created_at','desc')->inRandomOrder())
+            ->when(isset($args['search']) && !empty($args['search']) && $type !== 'seller', fn($query) => Product::search($args['search']))
+
+
+
+          ;
 
         return $products;
     }
