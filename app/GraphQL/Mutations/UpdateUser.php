@@ -41,9 +41,9 @@ final class UpdateUser
             'id_color' => $data['colorId'] ?? $user->id_color,
             'social' => $data['social'] ?? $user->social,
         ];
-        if (isset($data['password']) && $data['password'] !== null && !empty(trim($data['password']))) {
+       /* if (isset($data['password']) && $data['password'] !== null && !empty(trim($data['password']))) {
             $input['password'] = bcrypt($data['password']);
-        }
+        }*/
         $user->update($input);
 
         if (isset($data['image']) && $data['image'] != null) {
