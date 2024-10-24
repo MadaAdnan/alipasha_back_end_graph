@@ -174,15 +174,31 @@ final class Products
             ->when(isset($args['user_id']), fn($query) => $query->where('products.user_id', $args['user_id']))
             ->when(isset($args['search']) && !empty($args['search']) && $type !== 'seller', fn($query) => $query->where(function ($query) use ($args) {
                 $searchTerms = explode(' ', $args['search']); // تحويل البحث إلى مصفوفة كلمات
-                $term=null;
-                $query->where('name','like','%' .$args['search'].'%')
-                    ->orWhere('info','like','%'.$args['search'].'%');
+                $term = $args['search']; // الكلمة الرئيسية للبحث
+
+// الاستعلام الأساسي
+                $query->where(function($query) use ($term) {
+                    // المنتجات التي تطابق الكلمة تمامًا
+                    $query->where('name', 'like', '%' . $term . '%')
+                        ->orWhere('info', 'like', '%' . $term . '%');
+                });
+
+// الآن نبحث عن المنتجات التي تطابق الكلمات الجزئية
                 foreach ($searchTerms as $term) {
-                    $query->where(function ($query) use ($term) {
+                    $query->orWhere(function ($query) use ($term) {
                         $query->where('name', 'LIKE', "%$term%")
-                            ->OrWhere('info', 'LIKE', "%$term%");
+                            ->orWhere('info', 'LIKE', "%$term%");
                     });
                 }
+
+// ترتيب النتائج بحيث تكون المنتجات التي تطابق الكلمة تمامًا أولًا
+                $query->orderByRaw("
+    CASE
+        WHEN name LIKE ? THEN 1
+        WHEN info LIKE ? THEN 1
+        ELSE 2
+    END",
+                    ["%$args[search]%", "%$args[search]%"]);
             }))
             /*->when($popularCategory || !empty($followedStores), function ($query) use ($popularCategory, $followedStores) {
                 // إعطاء الأولوية للأقسام التي تم زيارتها أو التعليق عليها والمتاجر التي تم متابعتها
