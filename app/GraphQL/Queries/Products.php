@@ -174,29 +174,23 @@ final class Products
             ->when(isset($args['user_id']), fn($query) => $query->where('products.user_id', $args['user_id']))
             ->when(isset($args['search']) && !empty($args['search']) && $type !== 'seller', fn($query) => $query->where(function ($query) use ($args) {
                 $searchTerms = explode(' ', $args['search']); // تحويل البحث إلى مصفوفة كلمات
-                $term = $args['search']; // الكلمة الرئيسية للبحث
+                $mainTerm = $args['search']; // الكلمة الرئيسية للبحث
 
-// الاستعلام الأساسي
                 $query->select('*')
                     ->selectRaw("
           (CASE
               WHEN name LIKE ? THEN 100
               WHEN info LIKE ? THEN 90
-              WHEN name LIKE ? THEN 75
-              WHEN info LIKE ? THEN 65
               ELSE 50
           END) AS relevance_score", [
-                        '%' . $term . '%', // تطابق تام في الاسم
-                        '%' . $term . '%', // تطابق تام في المعلومات
-                        '%' . $term . '%', // تطابق جزئي في الاسم
-                        '%' . $term . '%'  // تطابق جزئي في المعلومات
+                        '%' . $mainTerm . '%',
+                        '%' . $mainTerm . '%'
                     ])
-                    ->where(function($query) use ($term) {
-                        $query->where('name', 'like', '%' . $term . '%')
-                            ->orWhere('info', 'like', '%' . $term . '%');
+                    ->where(function($query) use ($mainTerm) {
+                        $query->where('name', 'like', '%' . $mainTerm . '%')
+                            ->orWhere('info', 'like', '%' . $mainTerm . '%');
                     });
 
-// إضافة بحث جزئي لكل كلمة في مصفوفة الكلمات
                 foreach ($searchTerms as $term) {
                     $query->orWhere(function ($query) use ($term) {
                         $query->where('name', 'LIKE', "%$term%")
@@ -204,11 +198,8 @@ final class Products
                     });
                 }
 
-// ترتيب النتائج بناءً على "درجة الأهمية" relevance_score
+// ترتيب النتائج حسب درجة الأهمية
                 $query->orderBy('relevance_score', 'desc');
-
-
-
 
             }))
             /*->when($popularCategory || !empty($followedStores), function ($query) use ($popularCategory, $followedStores) {
