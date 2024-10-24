@@ -178,8 +178,8 @@ final class Products
                 foreach ($searchTerms as $term) {
                     $query->orWhere(function ($query) use ($term) {
                         $query->where('name', 'LIKE', "%$term%")
-                            ->orWhere('expert', 'LIKE', "%$term%")
-                            ->orWhere('info', 'LIKE', "%$term%");
+                            ->Where('expert', 'LIKE', "%$term%")
+                            ->Where('info', 'LIKE', "%$term%");
                     });
                 }
             }))
