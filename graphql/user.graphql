@@ -71,6 +71,7 @@ extend type Mutation{
     unFollowing(id:ID): User @guard
     addToGallery(image:Upload!): DataImage @guard
     #    deleteUser(id:ID!) : User @delete
+    changePassword(password:String!,confirm:String!):Boolean @guard
 }
 
 input ImageUpdate{
