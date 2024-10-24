@@ -177,12 +177,12 @@ final class Products
                 $term=null;
                 $query->where('name','like','%' .$args['search'].'%')
                     ->orWhere('info','like','%'.$args['search'].'%');
-                /*foreach ($searchTerms as $term) {
+                foreach ($searchTerms as $term) {
                     $query->orWhere(function ($query) use ($term) {
                         $query->where('name', 'LIKE', "%$term%")
                             ->OrWhere('info', 'LIKE', "%$term%");
                     });
-                }*/
+                }
             }))
             /*->when($popularCategory || !empty($followedStores), function ($query) use ($popularCategory, $followedStores) {
                 // إعطاء الأولوية للأقسام التي تم زيارتها أو التعليق عليها والمتاجر التي تم متابعتها
