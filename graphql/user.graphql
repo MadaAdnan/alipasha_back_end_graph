@@ -49,6 +49,7 @@ type User{
     total_views:Int
     trust:Boolean
     gallery:[DataImage] @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImageGallery")
+    unread_notifications_count:Int
 }
 type Follower{
     user:User @belongsTo
