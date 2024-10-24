@@ -150,6 +150,7 @@ final class Products
 
 
         $products = Product::query()
+            ->search($args['search'])
             ->where(function($query){
                 $query->whereNull('end_date')->orWhere('end_date','>=',now());
             })
@@ -172,7 +173,7 @@ final class Products
             ->when(isset($args['sub1_id']), fn($query) => $query->where('sub1_id', $args['sub1_id']))
             ->when(isset($args['city_id']), fn($query) => $query->where('city_id', $args['city_id']))
             ->when(isset($args['user_id']), fn($query) => $query->where('products.user_id', $args['user_id']))
-            ->search($args['search'])
+
 
             ->groupBy('products.id') // نضمن أن المنتجات يتم جمعها وتجنب التكرار
 
