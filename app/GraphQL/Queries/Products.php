@@ -149,8 +149,7 @@ final class Products
         $followedStores =  $this->getFollowedStoreProducts(auth()->id())->toArray();
 
 
-        $products = Product::query()
-            ->search($args['search'])
+        $products = Product::search($args['search'])
             ->where(function($query){
                 $query->whereNull('end_date')->orWhere('end_date','>=',now());
             })
