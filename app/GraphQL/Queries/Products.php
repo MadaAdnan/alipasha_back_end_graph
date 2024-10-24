@@ -205,7 +205,7 @@ final class Products
         WHEN name LIKE ? THEN 50  -- تطابق جزئي في الاسم
         WHEN info LIKE ? THEN 40  -- تطابق جزئي في المعلومات
         ELSE 0
-    END) + relevance_score AS relevance_score", [
+    END) - relevance_score AS relevance_score", [
                     '%' . $mainTerm . '%',
                     '%' . $mainTerm . '%',
                 ]);
