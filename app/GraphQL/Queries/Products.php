@@ -175,11 +175,12 @@ final class Products
             ->when(isset($args['search']) && !empty($args['search']) && $type !== 'seller', fn($query) => $query->where(function ($query) use ($args) {
                 $searchTerms = explode(' ', $args['search']); // تحويل البحث إلى مصفوفة كلمات
                 $term=null;
+                $query->where('name','like','%' .$args['search'].'%')
+                    ->orWhere('info','like','%'.$args['search'].'%');
                 foreach ($searchTerms as $term) {
                     $query->orWhere(function ($query) use ($term) {
                         $query->where('name', 'LIKE', "%$term%")
-                            ->where('expert', 'LIKE', "%$term%")
-                            ->where('info', 'LIKE', "%$term%");
+                            ->OrWhere('info', 'LIKE', "%$term%");
                     });
                 }
             }))
