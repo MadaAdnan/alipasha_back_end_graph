@@ -149,7 +149,7 @@ final class Products
         $followedStores =  $this->getFollowedStoreProducts(auth()->id())->toArray();
 
 
-        $products = Product::search($args['search'])
+        $products = Product::query()
             ->where(function($query){
                 $query->whereNull('end_date')->orWhere('end_date','>=',now());
             })
@@ -172,9 +172,38 @@ final class Products
             ->when(isset($args['sub1_id']), fn($query) => $query->where('sub1_id', $args['sub1_id']))
             ->when(isset($args['city_id']), fn($query) => $query->where('city_id', $args['city_id']))
             ->when(isset($args['user_id']), fn($query) => $query->where('products.user_id', $args['user_id']))
+            ->when(isset($args['search']) && !empty($args['search']) && $type !== 'seller', fn($query) => $query->where(function ($query) use ($args) {
+                $searchTerms = explode(' ', $args['search']); // تحويل البحث إلى مصفوفة كلمات
+                $term=null;
+                foreach ($searchTerms as $term) {
+                    $query->orWhere(function ($query) use ($term) {
+                        $query->where('name', 'LIKE', "%$term%")
+                            ->Where('expert', 'LIKE', "%$term%")
+                            ->orWhere('info', 'LIKE', "%$term%");
+                    });
+                }
+            }))
+            /*->when($popularCategory || !empty($followedStores), function ($query) use ($popularCategory, $followedStores) {
+                // إعطاء الأولوية للأقسام التي تم زيارتها أو التعليق عليها والمتاجر التي تم متابعتها
+                $query->orderByRaw(
+                    "CASE
+                    WHEN products.level = ? THEN 1
+                    WHEN products.sub1_id = ? THEN 2
 
-
+                    WHEN products.user_id IN (?) THEN 3
+                    ELSE 4
+                END ASC", [LevelProductEnum::SPECIAL->value,$popularCategory,implode(',', $followedStores)]
+                );
+            })*/
             ->groupBy('products.id') // نضمن أن المنتجات يتم جمعها وتجنب التكرار
+           /* ->orderByRaw(
+                "CASE
+    WHEN products.level = ? THEN 1
+    WHEN products.sub1_id = ? THEN 2
+    WHEN products.user_id IN (?) THEN 3
+    ELSE 4
+    END ASC", [LevelProductEnum::SPECIAL->value, $popularCategory, implode(',', $followedStores)]
+            );*/
 
             ->selectRaw(
                 'products.*,
@@ -182,8 +211,12 @@ final class Products
      (CASE WHEN products.category_id = ? THEN 1 ELSE 0 END) * 0.6 +
      (CASE WHEN products.user_id IN (?) THEN 1 ELSE 0 END) * 0.2 AS score',
                 [LevelProductEnum::SPECIAL->value, $popularCategory, implode(',', $followedStores)]
-            )->when(empty($args['search']),fn($query)=>$query->orderBy('score', 'desc')
-                ->orderBy('created_at','desc')->inRandomOrder());
+            )
+            ->orderBy('score', 'desc')
+        ->orderBy('created_at','desc')->inRandomOrder();
+           // ->orderByRaw('RAND()') // ترتيب عشوائي للمنتجات مع نفس مستوى التفاعل
+//            ->orderBy('level')
+           /* ->when(isset($args['orderBy']),fn($query)=>$query->orderBy($args['orderBy']),fn($query)=>$query->orderBy('created_at','desc') ->orderBy('level'));*/
 
         return $products;
     }

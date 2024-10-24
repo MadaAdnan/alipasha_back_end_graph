@@ -5,7 +5,7 @@ extend type Query{
     mySpecialProducts(search:String):[Product]  @guard
     tags(type:String!):[String]
     recomendedProduct(first:Int,page:Int):[Product]  @paginate(builder:"App\\GraphQL\\Queries\\RecommendedProduct")
-
+    searchProduct(type:String,search:String):[Product] @paginate(builder:"App\\GraphQL\\Queries\\SearchProduct")
 
 }
 type ProductDetails{
@@ -78,7 +78,7 @@ type DataImage{
 
 extend type Mutation {
     changeAvilable(id:ID!):Product @guard
-addVote(productId:Int,vote:Int): Product @guard
+    addVote(productId:Int,vote:Int): Product @guard
     deleteProduct(id:ID!):Product
     createProduct(input:CreateProductInput) : Product @guard
 
@@ -122,7 +122,7 @@ input CreateProductInput{
     #    ])
 
     images: [Upload]
-   # @rulesForArray(apply: ["mimes:png,webp,jpg,jpeg,bmp"], messages: [{ rule: "mimetypes", message: "يرجى إدخال صورة صالحة" }])
+    # @rulesForArray(apply: ["mimes:png,webp,jpg,jpeg,bmp"], messages: [{ rule: "mimetypes", message: "يرجى إدخال صورة صالحة" }])
     video:String @rules(apply: ["nullable","string"],messages:[
         {
             rule:"string",
@@ -265,22 +265,22 @@ input UpdateProductInput{
         }
     ])
     images:[Upload]
-#    @rules(apply:["nullable","image"],messages:[
-#        {
-#            rule:"required",
-#            message:"يرجى إدخال الصورة"
-#        }
-#        {
-#            rule:"image",
-#            message:"يرجى إدخال صورة صالحة"
-#        }
-#    ])
-#    images:[Upload] @rules(apply:["nullable"]) @rulesForArray(apply:["image"],messages:[
-#        {
-#            rule:"image",
-#            message:"يرجى إدخال صورة صالحة"
-#        }
-#    ])
+    #    @rules(apply:["nullable","image"],messages:[
+    #        {
+    #            rule:"required",
+    #            message:"يرجى إدخال الصورة"
+    #        }
+    #        {
+    #            rule:"image",
+    #            message:"يرجى إدخال صورة صالحة"
+    #        }
+    #    ])
+    #    images:[Upload] @rules(apply:["nullable"]) @rulesForArray(apply:["image"],messages:[
+    #        {
+    #            rule:"image",
+    #            message:"يرجى إدخال صورة صالحة"
+    #        }
+    #    ])
 
     video:String @rules(apply: ["nullable","string"],messages:[
         {
@@ -324,12 +324,12 @@ input UpdateProductInput{
             message:"يرجى إدخال السعر"
         }
     ])
-#    is_discount:Boolean  @rules(apply: ["boolean"],messages:[
-#        {
-#            rule:"boolean",
-#            message:"يرجى إدخال قيمة صالحة"
-#        }
-#    ])
+    #    is_discount:Boolean  @rules(apply: ["boolean"],messages:[
+    #        {
+    #            rule:"boolean",
+    #            message:"يرجى إدخال قيمة صالحة"
+    #        }
+    #    ])
     discount:Float  @rules(apply: ["required_if:is_discount,true","numeric"],messages:[
 
         {
