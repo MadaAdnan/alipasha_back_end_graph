@@ -174,16 +174,16 @@ final class Products
             ->when(isset($args['user_id']), fn($query) => $query->where('products.user_id', $args['user_id']))
             ->when(isset($args['search']) && !empty($args['search']) && $type !== 'seller', fn($query) => $query->where(function ($query) use ($args) {
                 $searchTerms = explode(' ', $args['search']); // تحويل البحث إلى مصفوفة كلمات
-                $term = $args['search']; // الكلمة الرئيسية للبحث
+                $term = $args['search'];
 
-// الاستعلام الأساسي
+
                 $query->where(function($query) use ($term) {
                     // المنتجات التي تطابق الكلمة تمامًا
                     $query->where('name', 'like', '%' . $term . '%')
                         ->orWhere('info', 'like', '%' . $term . '%');
                 });
 
-// الآن نبحث عن المنتجات التي تطابق الكلمات الجزئية
+
                 foreach ($searchTerms as $term) {
                     $query->orWhere(function ($query) use ($term) {
                         $query->where('name', 'LIKE', "%$term%")
@@ -191,20 +191,8 @@ final class Products
                     });
                 }
 
-// ترتيب النتائج بحيث تكون المنتجات التي تطابق الكلمة تمامًا أولًا
-                $query->orderByRaw("
-    CASE
-        WHEN name LIKE ? THEN 1
-        WHEN info LIKE ? THEN 1
-        ELSE 2
-    END,
-    CASE
-        WHEN name LIKE ? THEN 3
-        WHEN info LIKE ? THEN 3
-        ELSE 4
-    END",
-                    ["%$searchTerms%", "%$searchTerms%", "%$searchTerms%", "%$searchTerms%"]
-                );
+
+
             }))
             /*->when($popularCategory || !empty($followedStores), function ($query) use ($popularCategory, $followedStores) {
                 // إعطاء الأولوية للأقسام التي تم زيارتها أو التعليق عليها والمتاجر التي تم متابعتها
