@@ -13,6 +13,14 @@ final class SearchProduct
      */
     public function __invoke($_, array $args)
     {
-      return \App\Models\Product::where('active',ProductActiveEnum::ACTIVE->value)->where('type',$args['type'])->search($args['search']);
+        if (isset($args['search']) && !empty($args['search'])) {
+            $products = \App\Models\Product::search($args['search']);
+        } else {
+            $products = \App\Models\Product::query();
+        }
+
+        $products = $products->where('active', ProductActiveEnum::ACTIVE->value)
+            ->where('type', $args['type']);
+        return $products;
     }
 }
