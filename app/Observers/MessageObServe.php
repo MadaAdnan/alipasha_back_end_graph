@@ -18,38 +18,41 @@ class MessageObServe
     public function created(Message $message): void
     {
 
-       try{
-           $community = $message->community;
-           $created_at = $community?->messages()->where('messages.id','<',$message->id)->latest()->first()?->created_at;
-           $lastMessage = now()->subMinutes()->greaterThanOrEqualTo($created_at);
+        try {
+            $community = $message->community;
+            $created_at = $community?->messages()->where('messages.id', '<', $message->id)->latest()->first()?->created_at;
+            $lastMessage = now()->subMinutes()->greaterThanOrEqualTo($created_at);
 
 
-           if ($lastMessage) {
-            try{
-
-                $ids = $community->users()->whereNot('users.id', $message->user_id)->whereNotNull('users.device_token')->pluck('users.device_token')->toArray();
-                $data = ['title' => 'يوجد رسائل جديدة في المحادثة'];
-                if ($community->type == CommunityTypeEnum::CHAT->value) {
-                    $name = $community->users()->whereNot('users.id', $message->user_id)->first()?->name??'';
-                } else {
-                    $name = $community->name;
-                }
-
-                $data['body'] = $name;
+            if ($lastMessage) {
                 try {
-                    info('test not'.$name);
-                    SendFirebaseNotificationJob::dispatch($ids??[], $data);
-                    //dispatch($job);
+
+                    $ids = $community->users()->whereNot('users.id', $message->user_id)->whereNotNull('users.device_token')->pluck('users.device_token')->toArray();
+
+                    if ($community->type == CommunityTypeEnum::CHAT->value) {
+                        $name = $community->users()->whereNot('users.id', $message->user_id)->first()?->name ?? '';
+                    } else {
+                        $name = $community->name;
+                    }
+                    $data = [
+                        'title' => 'يوجد رسائل جديدة في المحادثة',
+                        'body' => $name
+                    ];
+
+                    try {
+                        info('test not' . $name);
+                        SendFirebaseNotificationJob::dispatch($ids ?? [], $data);
+                        //dispatch($job);
+                    } catch (\Exception | \Error $e) {
+                        info('Exception ' . $e->getLine());
+                    }
                 } catch (\Exception | \Error $e) {
-                    info('Exception '.$e->getLine());
+                    throw new \Exception($e->getLine());
                 }
-            }catch (\Exception | \Error $e){
-                throw new \Exception($e->getLine());
             }
-           }
-       }catch (\Exception |\Error $e){
-           info($e->getMessage());
-       }
+        } catch (\Exception | \Error $e) {
+            info($e->getMessage());
+        }
 
     }
 
