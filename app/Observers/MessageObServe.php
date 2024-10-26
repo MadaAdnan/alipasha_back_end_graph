@@ -34,9 +34,10 @@ class MessageObServe
                 } else {
                     $name = $community->name;
                 }
+
                 $data['body'] = $name;
                 try {
-
+                    info('test not'.$name);
                     SendFirebaseNotificationJob::dispatch($ids??[], $data);
                     //dispatch($job);
                 } catch (\Exception | \Error $e) {
