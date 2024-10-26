@@ -4,17 +4,22 @@ namespace App\GraphQL\Queries\HomeQuery;
 
 use App\Enums\LevelProductEnum;
 use App\Enums\ProductActiveEnum;
+use App\Models\Interaction;
 use App\Models\Product;
 
 final class CombinedProducts
 {
     public function __invoke($_, array $args)
     {
+        $hobbiesProducts=[];
         // اجلب المنتجات من الاستعلامات الثلاثة
-        $hobbiesProducts = Product::where('active', ProductActiveEnum::ACTIVE->value)
-            ->whereIn('category_id', $this->getPopularCategoryProducts())
-            ->inRandomOrder()
-            ->get();
+        if(auth()->check()){
+            $hobbiesProducts = Product::where('active', ProductActiveEnum::ACTIVE->value)
+                ->whereIn('category_id', $this->getPopularCategoryProducts())
+                ->inRandomOrder()
+                ->get();
+        }
+
 
         $latestProducts = Product::where('active', ProductActiveEnum::ACTIVE->value)
             ->whereNot('level', LevelProductEnum::SPECIAL->value)
