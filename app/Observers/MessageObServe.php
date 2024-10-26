@@ -37,7 +37,7 @@ class MessageObServe
                     $data = [
                         'title' => 'يوجد رسائل جديدة في المحادثة',
                         'body' => $name,
-                        'table'=>'jobs'
+
                     ];
 
                     try {
