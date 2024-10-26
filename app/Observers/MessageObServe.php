@@ -40,7 +40,8 @@ class MessageObServe
                     ];
 
                     try {
-                        info('test not' . $name);
+                        info('IDs: ' . json_encode($ids));
+                        info('Data: ' . json_encode($data));
                         $job=new SendFirebaseNotificationJob($ids ?? [], $data);
                         dispatch($job);
                     } catch (\Exception | \Error $e) {
