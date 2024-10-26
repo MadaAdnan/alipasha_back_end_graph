@@ -25,7 +25,7 @@ final class Product
         if(auth()->check()){
             Interaction::updateOrCreate([
                 'user_id'=>auth()->id(),
-                'category_id'=>$product->sub1_id,
+                'category_id'=>$product->category_id,
 
             ],[
                 'visited'=> \DB::raw('visited + 1'),
