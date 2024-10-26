@@ -29,17 +29,15 @@ final class Products
         } else {
             $products = $this->getProducts($type, $args, $colors);
         }
+        if ( !empty($args['category_id'])
+            || !empty($args['user_id'])
+            || !empty($args['sub1_id'])
+        ){
+            $ids = $products->when(isset($args['orderBy']), fn($query) => $query->orderBy($args['orderBy']), fn($query) => $query->orderBy('created_at', 'desc')->orderBy('level'))->paginate($args['first'] ?? 15, ['*'], 'page', $args['page'] ?? 1)->pluck('id')->toArray();
+            $today = today();
 
-        $ids = $products->when(isset($args['orderBy']), fn($query) => $query->orderBy($args['orderBy']), fn($query) => $query->orderBy('created_at', 'desc')->orderBy('level'))->paginate($args['first'] ?? 15, ['*'], 'page', $args['page'] ?? 1)->pluck('id')->toArray();
-        $today = today();
+            \DB::transaction(function () use ($ids, $today) {
 
-        \DB::transaction(function () use ($ids, $today) {
-            if (
-                !empty($args['category_id'])
-                || !empty($args['user_id'])
-                || !empty($args['sub1_id'])
-            ) {
-            } else {
                 // تحديث السجلات الموجودة
                 \DB::table('product_views')
                     ->whereIn('product_id', $ids)
@@ -65,11 +63,13 @@ final class Products
 
                     \DB::table('product_views')->insert($inserts);
                 }
-            }
-            // إدخال السجلات الجديدة
+
+                // إدخال السجلات الجديدة
 
 
-        });
+            });
+
+        }
 
 
         return $products;
