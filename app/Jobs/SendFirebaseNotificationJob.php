@@ -18,7 +18,7 @@ class SendFirebaseNotificationJob implements ShouldQueue
     /**
      * Create a new job instance.
      */
-    public function __construct($ids,$data)
+    public function __construct(array $ids,array $data)
     {
         //
         $this->ids = $ids;

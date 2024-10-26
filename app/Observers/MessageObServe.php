@@ -44,10 +44,10 @@ class MessageObServe
                         SendFirebaseNotificationJob::dispatch($ids ?? [], $data);
                         //dispatch($job);
                     } catch (\Exception | \Error $e) {
-                        info('Exception ' . $e->getLine());
+                        info('Exception ' . $e->getMessage());
                     }
                 } catch (\Exception | \Error $e) {
-                    throw new \Exception($e->getLine());
+                    throw new \Exception('Exception2 '.$e->getLine());
                 }
             }
         } catch (\Exception | \Error $e) {
