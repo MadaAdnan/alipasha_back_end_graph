@@ -25,13 +25,20 @@ final class Product
         info('CREATED AT:'.auth()->check());
         if(auth()->check()){
             info('CREATED AT');
-            Interaction::updateOrCreate([
-                'user_id'=>auth()->id(),
-                'category_id'=>$product->category_id,
+            try{
+                $inter=  Interaction::updateOrCreate([
+                    'user_id'=>auth()->id(),
+                    'category_id'=>$product->category_id,
 
-            ],[
-                'visited'=> \DB::raw('visited + 1'),
-            ]);
+                ],[
+                    'visited'=> \DB::raw('visited + 1'),
+                ]);
+                info(implode('-',$inter->toArray()));
+            }catch(\Exception | \Error $e){
+                info('ERROR:'.$e->getMessage());
+            }
+
+
         }
 
 
