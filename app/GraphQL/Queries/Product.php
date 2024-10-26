@@ -22,6 +22,7 @@ final class Product
         $products= \App\Models\Product::query()->where('active', ProductActiveEnum::ACTIVE->value)
             ->where('category_id',$product->category_id)
             ->where('sub1_id',$product->sub1_id)->inRandomOrder()->latest()->take(6)->get();
+        info('CREATED AT:'.auth()->check());
         if(auth()->check()){
             info('CREATED AT');
             Interaction::updateOrCreate([
