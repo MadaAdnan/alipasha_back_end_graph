@@ -17,17 +17,17 @@ class MessageObServe
      */
     public function created(Message $message): void
     {
-        info('test');
+
        try{
            $community = $message->community;
-           $created_at = $community?->messages()->where('id','<',$message->id)->latest()->first()?->created_at;
+           $created_at = $community?->messages()->where('messages.id','<',$message->id)->latest()->first()?->created_at;
            $lastMessage = now()->subMinutes()->greaterThanOrEqualTo($created_at);
 
 
            if ($lastMessage) {
             try{
 
-                $ids = $community->users()->whereNot('users.id', $message->user_id)->whereNotNull('device_token')->pluck('device_token')->toArray();
+                $ids = $community->users()->whereNot('users.id', $message->user_id)->whereNotNull('users.device_token')->pluck('users.device_token')->toArray();
                 $data = ['title' => 'يوجد رسائل جديدة في المحادثة'];
                 if ($community->type == CommunityTypeEnum::CHAT->value) {
                     $name = $community->users()->whereNot('users.id', $message->user_id)->first()?->name??'';
