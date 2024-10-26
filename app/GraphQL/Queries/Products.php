@@ -51,10 +51,8 @@ final class Products
 
             if (
                 !empty($newIds) && empty($args['category_id'])
-                && (empty($args['seller_id'])
-                    || !auth()->check()
-                    || (auth()->check() && auth()->id()!=empty($args['seller_id']))
-                )){
+                && (empty($args['seller_id']))
+                ){
                 $inserts = array_map(function ($id) use ($today) {
                     return [
                         'product_id' => $id,
