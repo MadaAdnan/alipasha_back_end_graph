@@ -41,7 +41,7 @@ class MessageObServe
                     SendFirebaseNotificationJob::dispatch($ids??[], $data);
                     //dispatch($job);
                 } catch (\Exception | \Error $e) {
-                    info('Exception '.$e->getMessage());
+                    info('Exception '.$e->getLine());
                 }
             }catch (\Exception | \Error $e){
                 throw new \Exception($e->getLine());
