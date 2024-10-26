@@ -43,7 +43,7 @@ class MessageObServe
                     info('Exception '.$e->getMessage());
                 }
             }catch (\Exception | \Error $e){
-                throw new \Exception($e->getMessage());
+                throw new \Exception($e->getLine());
             }
            }
        }catch (\Exception |\Error $e){
