@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Jobs\SendNotificationJob;
 use App\Models\Interaction;
 use App\Models\User;
 use App\Models\UserFollow;

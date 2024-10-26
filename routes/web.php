@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ImportController;
+use App\Models\Interaction;
 use App\Models\ShippingPrice;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -63,4 +64,18 @@ Route::get('/import', function () {
     return view('import');
 });
 
+
+Route::get('testnot',function(){
+   return Interaction::where('user_id',13)->whereNotNull('category_id')
+        ->groupBy('category_id')
+        ->orderByRaw('SUM(visited) DESC')
+        ->pluck('category_id')->toArray();
+//    2294
+    \App\Models\Message::create([
+        'body'=>'test',
+        'community_id'=>8,
+        'user_id'=>2294,
+        'type'=>'text',
+    ]);
+});
 
