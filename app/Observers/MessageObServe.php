@@ -41,8 +41,8 @@ class MessageObServe
 
                     try {
                         info('test not' . $name);
-                        SendFirebaseNotificationJob::dispatch($ids ?? [], $data);
-                        //dispatch($job);
+                        $job=new SendFirebaseNotificationJob($ids ?? [], $data);
+                        dispatch($job);
                     } catch (\Exception | \Error $e) {
                         info('Exception ' . $e->getMessage());
                     }
