@@ -9,17 +9,49 @@ use App\Models\Product;
 final class HobbiesProduct
 {
     /**
-     * @param  null  $_
-     * @param  array{}  $args
+     * @param null $_
+     * @param array{} $args
      */
     public function __invoke($_, array $args)
     {
-        return Product::where('active',ProductActiveEnum::ACTIVE->value)->whereIn('category_id',$this->getPopularCategoryProducts())->inRandomOrder();
+        $products = Product::where('active', ProductActiveEnum::ACTIVE->value)->whereIn('category_id', $this->getPopularCategoryProducts())->inRandomOrder();
+        $ids = $products->pluck('id')->toArray();
+        $today = today();
+
+        \DB::transaction(function () use ($ids, $today) {
+
+            // تحديث السجلات الموجودة
+            \DB::table('product_views')
+                ->whereIn('product_id', $ids)
+                ->whereDate('view_at', $today)
+                ->update(['count' => \DB::raw('count + 1')]);
+            $existingIds = \DB::table('product_views')
+                ->whereIn('product_id', $ids)
+                ->whereDate('view_at', $today)
+                ->pluck('product_id')
+                ->toArray();
+            $newIds = array_diff($ids, $existingIds);
+            if (
+                !empty($newIds)) {
+                $inserts = array_map(function ($id) use ($today) {
+                    return [
+                        'product_id' => $id,
+                        'view_at' => $today,
+                        'count' => 1,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ];
+                }, $newIds);
+
+                \DB::table('product_views')->insert($inserts);
+            }
+        });
+        return $products;
     }
 
     private function getPopularCategoryProducts()
     {
-        return Interaction::where('user_id',auth()->id())->whereNotNull('category_id')
+        return Interaction::where('user_id', auth()->id())->whereNotNull('category_id')
             ->groupBy('category_id')
             ->orderByRaw('SUM(visited) DESC')
             ->pluck('category_id')->toArray();
