@@ -6,7 +6,7 @@ extend type Query{
     tags(type:String!):[String]
     recomendedProduct(first:Int,page:Int):[Product]  @paginate(builder:"App\\GraphQL\\Queries\\RecommendedProduct")
     searchProduct(type:String,search:String):[Product] @paginate(builder:"App\\GraphQL\\Queries\\SearchProduct")
-    combinedProducts:[Product] @paginate(builder:"App\\GraphQL\\Queries\\CombinedProducts")
+    combinedProducts:[Product] @paginate(builder:"App\\GraphQL\\Queries\\HomeQuery\\CombinedProducts")
 
 }
 type ProductDetails{
