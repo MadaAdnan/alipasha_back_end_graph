@@ -32,14 +32,18 @@ final class Products
 
         $ids = $products ->when(isset($args['orderBy']),fn($query)=>$query->orderBy($args['orderBy']),fn($query)=>$query->orderBy('created_at','desc') ->orderBy('level'))->paginate($args['first'] ?? 15, ['*'], 'page', $args['page'] ?? 1)->pluck('id')->toArray();
         $today = today();
+
         \DB::transaction(function () use ($ids, $today) {
-
-            // تحديث السجلات الموجودة
-            \DB::table('product_views')
-                ->whereIn('product_id', $ids)
-                ->whereDate('view_at', $today)
-                ->update(['count' => \DB::raw('count + 1')]);
-
+            if (
+               empty($args['category_id'])
+                && (empty($args['user_id']))
+            ) {
+                // تحديث السجلات الموجودة
+                \DB::table('product_views')
+                    ->whereIn('product_id', $ids)
+                    ->whereDate('view_at', $today)
+                    ->update(['count' => \DB::raw('count + 1')]);
+            }
             // إدخال السجلات الجديدة
             $existingIds = \DB::table('product_views')
                 ->whereIn('product_id', $ids)
