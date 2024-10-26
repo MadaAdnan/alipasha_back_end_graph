@@ -33,7 +33,7 @@ final class Product
                 ],[
                     'visited'=> \DB::raw('visited + 1'),
                 ]);
-                info(implode('-',$inter->toArray()));
+                //info(implode('-',$inter->toArray()));
             }catch(\Exception | \Error $e){
                 info('ERROR:'.$e->getMessage());
             }
