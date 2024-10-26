@@ -66,8 +66,8 @@ Route::get('/import', function () {
 
 
 Route::get('testnot',function(){
-    $args=[];
-  return  empty($args['category_id']);
+    $args=['category_id'=>1];
+  return  !isset($args['category_id'], $args['user_id'], $args['sub1_id']);
 //    2294
     \App\Models\Message::create([
         'body'=>'test',

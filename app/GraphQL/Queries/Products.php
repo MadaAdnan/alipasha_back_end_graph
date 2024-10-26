@@ -29,7 +29,9 @@ final class Products
         } else {
             $products = $this->getProducts($type, $args, $colors);
         }
-
+info('BOOL'.!isset($args['category_id'], $args['user_id'], $args['sub1_id']));
+info('BOOL2'.(empty(trim($args['category_id'])) && empty(trim($args['user_id'])) && empty(trim($args['sub1_id']))));
+info($args['category_id'].'-'. $args['user_id'].'-'. $args['sub1_id']);
 
         if (!isset($args['category_id'], $args['user_id'], $args['sub1_id']) || (empty(trim($args['category_id'])) && empty(trim($args['user_id'])) && empty(trim($args['sub1_id'])))){
             $ids = $products->when(isset($args['orderBy']), fn($query) => $query->orderBy($args['orderBy']), fn($query) => $query->orderBy('created_at', 'desc')->orderBy('level'))->paginate($args['first'] ?? 15, ['*'], 'page', $args['page'] ?? 1)->pluck('id')->toArray();
