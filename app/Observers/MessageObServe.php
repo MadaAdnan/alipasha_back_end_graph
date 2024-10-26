@@ -22,30 +22,33 @@ class MessageObServe
            $community = $message->community;
            $created_at = $community?->messages()->where('id','<',$message->id)->latest()->first()?->created_at;
            $lastMessage = now()->subMinutes()->greaterThanOrEqualTo($created_at);
-           info('++++++++++++');
-           info($created_at);
-           info($lastMessage);
-           info('++++++++++++');
+
 
            if ($lastMessage) {
-               info('LATEST');
-               $ids = $community->users()->whereNot('users.id', $message->user_id)->whereNotNull('device_token')->pluck('device_token')->toArray();
-               $data = ['title' => 'يوجد رسائل جديدة في المحادثة'];
-               if ($community->type == CommunityTypeEnum::CHAT->value) {
-                   $name = $community->users()->whereNot('users.id', $message->user_id)->first()?->name??'';
-               } else {
-                   $name = $community->name;
-               }
-               $data['body'] = $name;
-               try {
-                   info('job');
-                SendFirebaseNotificationJob::dispatch($ids??[], $data);
-                   //dispatch($job);
-               } catch (\Exception | \Error $e) {
-                   info('Exception '.$e->getMessage());
-               }
+            try{
+
+                $ids = $community->users()->whereNot('users.id', $message->user_id)->whereNotNull('device_token')->pluck('device_token')->toArray();
+                $data = ['title' => 'يوجد رسائل جديدة في المحادثة'];
+                if ($community->type == CommunityTypeEnum::CHAT->value) {
+                    $name = $community->users()->whereNot('users.id', $message->user_id)->first()?->name??'';
+                } else {
+                    $name = $community->name;
+                }
+                $data['body'] = $name;
+                try {
+
+                    SendFirebaseNotificationJob::dispatch($ids??[], $data);
+                    //dispatch($job);
+                } catch (\Exception | \Error $e) {
+                    info('Exception '.$e->getMessage());
+                }
+            }catch (\Exception | \Error $e){
+                throw new \Exception($e->getMessage());
+            }
            }
-       }catch (\Exception |\Error $e){}
+       }catch (\Exception |\Error $e){
+           info($e->getMessage());
+       }
 
     }
 
