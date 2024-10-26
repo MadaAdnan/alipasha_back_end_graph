@@ -23,6 +23,7 @@ final class Product
             ->where('category_id',$product->category_id)
             ->where('sub1_id',$product->sub1_id)->inRandomOrder()->latest()->take(6)->get();
         if(auth()->check()){
+            info('CREATED AT');
             Interaction::updateOrCreate([
                 'user_id'=>auth()->id(),
                 'category_id'=>$product->category_id,
