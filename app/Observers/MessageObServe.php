@@ -28,6 +28,7 @@ class MessageObServe
            info('++++++++++++');
 
            if ($lastMessage) {
+               info('LATEST');
                $ids = $community->users()->whereNot('id', $message->user_id)->whereNotNull('device_token')->pluck('device_token')->toArray();
                $data = ['title' => 'يوجد رسائل جديدة في المحادثة'];
                if ($community->type == CommunityTypeEnum::CHAT->value) {
