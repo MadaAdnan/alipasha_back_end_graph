@@ -51,7 +51,7 @@ final class Products
 
             if (
                 !empty($newIds) && empty($args['category_id'])
-                && (empty($args['seller_id']))
+                && (empty($args['user_id']))
                 ){
                 $inserts = array_map(function ($id) use ($today) {
                     return [
