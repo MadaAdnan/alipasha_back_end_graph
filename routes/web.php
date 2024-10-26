@@ -66,10 +66,7 @@ Route::get('/import', function () {
 
 
 Route::get('testnot',function(){
-   return Interaction::where('user_id',13)->whereNotNull('category_id')
-        ->groupBy('category_id')
-        ->orderByRaw('SUM(visited) DESC')
-        ->pluck('category_id')->toArray();
+
 //    2294
     \App\Models\Message::create([
         'body'=>'test',
