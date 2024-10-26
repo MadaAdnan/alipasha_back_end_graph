@@ -31,11 +31,9 @@ final class Products
         }
 
 
-        if ( !empty($args['category_id'])
-            || !empty($args['user_id'])
-            || !empty($args['sub1_id'])
-        ){
-           /* $ids = $products->when(isset($args['orderBy']), fn($query) => $query->orderBy($args['orderBy']), fn($query) => $query->orderBy('created_at', 'desc')->orderBy('level'))->paginate($args['first'] ?? 15, ['*'], 'page', $args['page'] ?? 1)->pluck('id')->toArray();
+        if (!isset($args['category_id'], $args['user_id'], $args['sub1_id']) || !empty(trim($args['category_id'])) || !empty(trim($args['user_id'])) || !empty(trim($args['sub1_id']))
+        ) {
+            $ids = $products->when(isset($args['orderBy']), fn($query) => $query->orderBy($args['orderBy']), fn($query) => $query->orderBy('created_at', 'desc')->orderBy('level'))->paginate($args['first'] ?? 15, ['*'], 'page', $args['page'] ?? 1)->pluck('id')->toArray();
             $today = today();
 
             \DB::transaction(function () use ($ids, $today) {
@@ -69,7 +67,7 @@ final class Products
                 // إدخال السجلات الجديدة
 
 
-            });*/
+            });
 
         }
 
