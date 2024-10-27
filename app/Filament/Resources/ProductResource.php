@@ -192,7 +192,7 @@ class ProductResource extends Resource
                 return $query->product()->orderBy('user_id');
             })
             ->columns([
-Tables\Columns\SpatieMediaLibraryImageColumn::make('image')->collection('image')->conversion('webp')->label('الصورة')->size(150),
+Tables\Columns\SpatieMediaLibraryImageColumn::make('image')->collection('image')->conversion('webp')->label('الصورة')->size(50),
                 Tables\Columns\TextColumn::make('id')->label('رقم المنتج')->searchable(),
                 Tables\Columns\TextColumn::make('category.name')->label('اسم القسم'),
                 Tables\Columns\TextColumn::make('name')->label('اسم المنتج')->description(fn($record) => $record->expert)->searchable(),
