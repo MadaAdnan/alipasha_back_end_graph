@@ -66,6 +66,17 @@ Route::get('/import', function () {
 
 
 Route::get('testnot',function(){
+
+    $token=['c5PaIPCcSsW2FwihLLReqb:APA91bFR9wuHc0NptprGnP7athcnTVJljLZJOgayxxT_NtcvWl9u3eIGms52KTYl7Hs_6SzfLuiZtHBhdzkbuv9bDwqSehUFiORHmo4Rkm6fCF41FLzUBwct-j_PsvwvrJPYsp8mi9sI'];
+    $firebaseService=new \App\Service\FirebaseService();
+    try{
+        $responses = $firebaseService->sendNotificationToMultipleTokens($token, 'hello', 'test');
+
+        return response()->json($responses);
+    }catch (Exception | Error $e){
+        return $e->getMessage();
+    }
+
     \App\Models\Message::create([
         'body'=>'test',
         'community_id'=>8,
