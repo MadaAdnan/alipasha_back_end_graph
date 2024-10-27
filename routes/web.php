@@ -67,7 +67,7 @@ Route::get('/import', function () {
 
 Route::get('testnot',function(){
 
-    $token=['c5PaIPCcSsW2FwihLLReqb:APA91bFR9wuHc0NptprGnP7athcnTVJljLZJOgayxxT_NtcvWl9u3eIGms52KTYl7Hs_6SzfLuiZtHBhdzkbuv9bDwqSehUFiORHmo4Rkm6fCF41FLzUBwct-j_PsvwvrJPYsp8mi9sI'];
+    $token=['f-v7HMyMTB2YarRec1Gazh:APA91bFdV0HnYoRPNLew12WNcYR3zH9n-X7rTVFQgZUlEzZmaXEz_v3D-TGVLju4h8-BP6x45m6voCC6NecDZmY9k9GG_gtb7M8EuPq91zs3Weda4aUZmbQwQ51SUNAcbATmCVSFm9s5'];
     $firebaseService=new \App\Service\FirebaseService();
     try{
         $responses = $firebaseService->sendNotificationToMultipleTokens($token, 'hello', 'test');
