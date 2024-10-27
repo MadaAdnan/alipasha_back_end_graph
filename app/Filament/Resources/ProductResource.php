@@ -213,9 +213,9 @@ class ProductResource extends Resource
                     ])->label('نوع المنتج')
                 ])->query(fn($query, $data) => $query->when($data['level'] != null, fn($q) => $q->where('level', $data['level']))),
                 Tables\Filters\Filter::make('category')->modifyQueryUsing(fn($query) => $query->whereNull('category_id')),
-                Tables\Filters\Filter::make('category')->form([
+                Tables\Filters\Filter::make('category_filter')->form([
                     Forms\Components\Select::make('category_id')->relationship('category', 'name')->label('القسم الرئيسي')->live(),
-                    Forms\Components\Select::make('sub1_id')->relationship('sub1', 'name', fn($query, $get) => $query->where('category_id', $get('category_id')))->label('القسم الرئيسي')->live(),
+                    Forms\Components\Select::make('sub1_id')->relationship('sub1', 'name', fn($query, $get) => $query->whereHas('parent',fn($query)=>$query->where('categories.id', $get('category_id'))))->label('القسم الرئيسي')->live(),
 
                 ])->query(function($query,$data){
                     $query->when(
