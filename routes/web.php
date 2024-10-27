@@ -65,19 +65,14 @@ Route::get('/import', function () {
 });
 
 
-Route::get('testnot',function(){
+Route::get('testnot',function($id){
 
-    $token=['eaVrWcJOTJWl6uFvmvO97k:APA91bFnQe0YnYa48DLifO754I9lskyoRpF__o5LNTOzyJ-FomGSuRszNZCIEOZYYwjUoBIyDRgkZj2X4i9ujfULUJN_yHc-rzgpL7W7Jlges4AhNGBxNAD4GW_ikbRlrhuXAMpbcxDJ'];
-    $firebaseService=new \App\Service\FirebaseService();
-    $data['title']='abo yaser';
-$data['body']='Hello ali pasha';
-    try{
-        $responses = $firebaseService->sendNotificationToMultipleTokens($token, $data);
-
-        return response()->json($responses);
-    }catch (Exception | Error $e){
-        return $e->getMessage();
-    }
-
+  $t=\App\Models\Message::create([
+      'body'=>'test',
+      'type'=>'text',
+      'community_id'=>$id,
+      'user_id'=>56,
+  ]);
+return $t->toArray();
 });
 
