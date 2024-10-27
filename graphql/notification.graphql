@@ -7,7 +7,7 @@ extend type Query{
 
 type Notification{
   data:NotificationData
-    created_at:String
+    created_at:HumanDate
 
 }
 
