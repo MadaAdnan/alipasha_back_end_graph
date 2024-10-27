@@ -50,6 +50,7 @@ type User{
     trust:Boolean
     gallery:[DataImage] @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImageGallery")
     unread_notifications_count:Int
+    communities:[Community] @belongsToMany(relation:"communities")
 }
 type Follower{
     user:User @belongsTo
