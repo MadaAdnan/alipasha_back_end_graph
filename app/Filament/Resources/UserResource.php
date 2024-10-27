@@ -101,6 +101,7 @@ class UserResource extends Resource
                                     HelperMedia::getFileUpload('صورة مميزة', 'custom', 'custom', false, ['2:1'])->required(fn($get) => $get('is_special'))
                                 ]),
                                 Forms\Components\Toggle::make('is_verified')->label('توثيق المتجر'),
+                                Forms\Components\DatePicker::make('verified_account_date')->label('تاريخ إنتهاء التوثيق'),
                                 Forms\Components\ColorPicker::make('id_color')->label('هوية المتجر')->default("#FF0000"),
                             ]),
 

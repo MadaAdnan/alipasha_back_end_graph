@@ -79,11 +79,5 @@ $data['body']='Hello ali pasha';
         return $e->getMessage();
     }
 
-    \App\Models\Message::create([
-        'body'=>'test',
-        'community_id'=>8,
-        'user_id'=>2294,
-        'type'=>'text',
-    ]);
 });
 

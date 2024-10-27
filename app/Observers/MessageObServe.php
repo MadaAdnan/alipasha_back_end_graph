@@ -37,12 +37,9 @@ class MessageObServe
                     $data = [
                         'title' => 'يوجد رسائل جديدة في المحادثة',
                         'body' => $name,
-
                     ];
 
                     try {
-                        info('IDs: ' . json_encode($ids));
-                        info('Data: ' . json_encode($data));
                         $job=new SendFirebaseNotificationJob($ids ?? [], $data);
                         dispatch($job);
                     } catch (\Exception | \Error $e) {

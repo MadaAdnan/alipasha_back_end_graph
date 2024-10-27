@@ -14,13 +14,13 @@ class SendNotificationJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    private User $user;
+    private $user;
     private $data;
 
     /**
      * Create a new job instance.
      */
-    public function __construct(User $user,$data)
+    public function __construct($user, $data)
     {
         //
         $this->user = $user;
@@ -32,6 +32,16 @@ class SendNotificationJob implements ShouldQueue
      */
     public function handle(): void
     {
-        $this->user->notify(new UserNotification($this->data));
+        try {
+            if ($this->user instanceof User) {
+                $this->user->notify(new UserNotification($this->data));
+            } else {
+                \Notification::send($this->user, new UserNotification($this->data));
+            }
+        } catch (\Exception | \Error $e) {
+
+        }
+
+
     }
 }

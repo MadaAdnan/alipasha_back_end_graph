@@ -2,9 +2,11 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\SendFirebaseNotificationJob;
 use App\Jobs\SendNotificationJob;
 use App\Models\User;
 use App\Models\UserFollow;
+use App\Service\SendNotifyHelper;
 use DB;
 use Illuminate\Console\Command;
 
@@ -47,10 +49,12 @@ class sendNotificationFollowCommand extends Command
                 $data = [
                     'title' => 'متابعات جديدة',
                     'body' => 'يتابعك ' . $notify_user->name . ' و ' . ($follower_count - 1) . ' آخرون اليوم.',
-                    'url'=>'https://ali-pasha.com/followers?seller_id='.$seller->id,
+                    'url' => 'https://ali-pasha.com/followers?seller_id=' . $seller->id,
                 ];
                 // إرسال الإشعار
-                SendNotificationJob::dispatch($seller, $data);
+                SendNotifyHelper::sendNotify($seller, $data);
+
+
             }
         }
 
