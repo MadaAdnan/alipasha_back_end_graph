@@ -1,20 +1,17 @@
 extend type Query{
-    notifications:[Notification] @guard
+
+    notifications(first:Int,page:Int):[Notification] @guard @paginate(builder:"App\\GraphQL\\Queries\\NotificationsQuery")
 
 }
 
 
 type Notification{
-    data:NotificationData
-    id:ID
-    read_at:String
-    image:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImage")
+   title:String
+    body:String
+    created_at:String
+    url:String
 }
-type NotificationData{
-    msg:String
-    path:String
 
-}
 
 
 
