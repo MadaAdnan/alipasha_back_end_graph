@@ -67,10 +67,12 @@ Route::get('/import', function () {
 
 Route::get('testnot',function(){
 
-    $token=['f-v7HMyMTB2YarRec1Gazh:APA91bFdV0HnYoRPNLew12WNcYR3zH9n-X7rTVFQgZUlEzZmaXEz_v3D-TGVLju4h8-BP6x45m6voCC6NecDZmY9k9GG_gtb7M8EuPq91zs3Weda4aUZmbQwQ51SUNAcbATmCVSFm9s5'];
+    $token=['eaVrWcJOTJWl6uFvmvO97k:APA91bFnQe0YnYa48DLifO754I9lskyoRpF__o5LNTOzyJ-FomGSuRszNZCIEOZYYwjUoBIyDRgkZj2X4i9ujfULUJN_yHc-rzgpL7W7Jlges4AhNGBxNAD4GW_ikbRlrhuXAMpbcxDJ'];
     $firebaseService=new \App\Service\FirebaseService();
+    $data['title']='abo yaser';
+$data['body']='Hello ali pasha';
     try{
-        $responses = $firebaseService->sendNotificationToMultipleTokens($token, 'hello', 'test');
+        $responses = $firebaseService->sendNotificationToMultipleTokens($token, $data);
 
         return response()->json($responses);
     }catch (Exception | Error $e){
