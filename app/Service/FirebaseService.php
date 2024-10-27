@@ -22,13 +22,7 @@ class FirebaseService
 
     public function sendNotificationToMultipleTokens($deviceTokens, $title, $body)
     {
-      /*  $message = CloudMessage::withTarget('token', $deviceTokens)
-            ->withNotification(['title' => 'My title', 'body' => 'My Body']);
 
-        $this->messaging->send($message);
-
-return;*/
-//        ////////
         $message = CloudMessage::new()
             ->withNotification(Notification::create($title, $body));
 

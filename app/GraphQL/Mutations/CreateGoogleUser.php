@@ -32,6 +32,8 @@ final class CreateGoogleUser
                 'is_active' => true,
                 'code_verified' => \Str::random(6)
             ]);
+        }else{
+            $user->update(['device_token' => $data['device_token'] ?? null,]);
         }
 
         if(!Hash::check($data['password'],$user->password)){
