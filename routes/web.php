@@ -65,7 +65,7 @@ Route::get('/import', function () {
 });
 
 
-Route::get('testnot',function($id){
+Route::get('testnot/{id}',function($id){
 
   $t=\App\Models\Message::create([
       'body'=>'test',
