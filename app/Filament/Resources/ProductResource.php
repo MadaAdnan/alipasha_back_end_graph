@@ -215,7 +215,11 @@ class ProductResource extends Resource
                 Tables\Filters\Filter::make('category')->modifyQueryUsing(fn($query) => $query->whereNull('category_id')),
                 Tables\Filters\Filter::make('category_filter')->form([
                     Forms\Components\Select::make('category_id')->relationship('category', 'name')->label('القسم الرئيسي')->live(),
-                    Forms\Components\Select::make('sub1_id')->relationship('sub1', 'name', fn($query, $get) => $query->whereHas('parents',fn($query)=>$query->where('categories.id', $get('category_id'))))->label('القسم الرئيسي')->live(),
+                    Forms\Components\Select::make('sub1_id')->options(function($get){
+                        if($get('category_id') !=null){
+                            return Category::find($get('category_id'))->children->pluck('name','id');
+                        }
+                    })->label('القسم الرئيسي')->live(),
 
                 ])->query(function($query,$data){
                     $query->when(
