@@ -6,9 +6,14 @@ extend type Query{
 
 
 type Notification{
-   title:String
-    body:String
+  data:NotificationData
     created_at:String
+
+}
+
+type NotificationData{
+    title:String
+    body:String
     url:String
 }
 
