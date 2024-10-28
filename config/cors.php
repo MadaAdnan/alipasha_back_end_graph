@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['https://ali-pasha.com', 'https://v3.ali-pasha.com'],
+    'allowed_origins' => ['http://ali-pasha.com', 'http://v3.ali-pasha.com'],
 
     'allowed_origins_patterns' => [],
 
