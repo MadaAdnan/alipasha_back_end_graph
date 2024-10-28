@@ -112,7 +112,7 @@ class ProductResource extends Resource
                 Forms\Components\Section::make('المنتجات')->schema([
                     Forms\Components\Select::make('user_id')->options(User::seller()->pluck('users.name', 'users.id'))->label('المتجر')->live()->afterStateUpdated(fn($set, $state) => $set('city_id', User::find($state)?->city_id)),
                     Forms\Components\Select::make('city_id')->options(City::pluck('name', 'id'))->searchable()->label('المدينة'),
-                    HelperMedia::getFileUpload(label: 'الصورة الرئيسية', collection: 'image', is_multible: false, ratio: ['1:1']),
+                    HelperMedia::getFileUpload(label: 'الصورة الرئيسية', collection: 'image', is_multible: true, ratio: ['1:1'],),
                     HelperMedia::getFileUpload(label: 'صور إضافية', name: 'images', collection: 'images', is_multible: true),
 //                    Forms\Components\SpatieMediaLibraryFileUpload::make('film')->collection('video')->label('فيديو قصير')->acceptedFileTypes(['video/quicktime', 'video/x-ms-wmv', 'video/x-msvideo', 'video/mp4']),
                     Forms\Components\TextInput::make('video')->label('رابط الفيديو إن وجد'),
