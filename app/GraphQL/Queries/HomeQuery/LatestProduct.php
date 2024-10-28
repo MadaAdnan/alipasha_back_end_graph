@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Queries\HomeQuery;
 
+use App\Enums\CategoryTypeEnum;
 use App\Enums\LevelProductEnum;
 use App\Enums\ProductActiveEnum;
 use App\Models\Product;
@@ -16,6 +17,13 @@ final class LatestProduct
     {
         $products= Product::where('active',ProductActiveEnum::ACTIVE->value)
             ->whereNot('level',LevelProductEnum::SPECIAL->value)
+            ->where(fn($query)=> $query
+                ->where('type',CategoryTypeEnum::PRODUCT->value)
+                ->orWhere('type',CategoryTypeEnum::TENDER->value)
+                ->orWhere('type',CategoryTypeEnum::JOB->value)
+                ->orWhere('type',CategoryTypeEnum::SEARCH_JOB->value)
+                ->orWhere('type',CategoryTypeEnum::NEWS->value)
+            )
             ->latest()->inRandomOrder();
         $ids = $products->pluck('id')->toArray();
         $today = today();

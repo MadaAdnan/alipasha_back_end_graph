@@ -16,9 +16,10 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Auth::routes([
+/*Auth::routes([
     'verify' => true,
-]);
+    'login' => false,
+]);*/
 Route::get('/test', function () {
 
     /* for ($i = 0; $i < 60; $i++) {

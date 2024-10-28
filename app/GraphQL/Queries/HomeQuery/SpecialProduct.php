@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Queries\HomeQuery;
 
+use App\Enums\CategoryTypeEnum;
 use App\Enums\LevelProductEnum;
 use App\Enums\ProductActiveEnum;
 use App\Models\Interaction;
@@ -15,7 +16,15 @@ final class SpecialProduct
      */
     public function __invoke($_, array $args)
     {
-        $products= Product::where('active',ProductActiveEnum::ACTIVE->value)->where('level',LevelProductEnum::SPECIAL->value);
+        $products= Product::where('active',ProductActiveEnum::ACTIVE->value)
+            ->where('level',LevelProductEnum::SPECIAL->value)
+            ->where(fn($query)=> $query
+                ->where('type',CategoryTypeEnum::PRODUCT->value)
+                ->orWhere('type',CategoryTypeEnum::TENDER->value)
+                ->orWhere('type',CategoryTypeEnum::JOB->value)
+                ->orWhere('type',CategoryTypeEnum::SEARCH_JOB->value)
+                ->orWhere('type',CategoryTypeEnum::NEWS->value)
+            );
 
         $ids = $products->pluck('id')->toArray();
         $today = today();

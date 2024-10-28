@@ -35,14 +35,22 @@ class MessageSentEvent implements ShouldBroadcastNow
      */
     public function broadcastOn(): array
     {
-        // $id = $this->message->user_id != $this->message->community->user_id ? $this->message->community->user_id : $this->message->community->seller_id;
-        $chaneels = [];
-        $users = $this->message->community->users()->whereNot('users.id', $this->message->user_id)->pluck('id');
-        foreach ($users as $item) {
-           $chaneels[]= new PrivateChannel('message.' . $this->message->community_id . '.' . $item);
+        // جمع القنوات في مصفوفة
+        $channels = [];
+
+        // جلب المستخدمين الذين ليسوا مرسلين للرسالة
+        $users = $this->message->community->users()
+            ->where('users.id', '!=', $this->message->user_id)
+            ->pluck('id');
+
+        // إنشاء قناة خاصة لكل مستخدم
+        foreach ($users as $userId) {
+            $channels[] = new PrivateChannel('message.' . $this->message->community_id . '.' . $userId);
         }
-        return $chaneels;
+
+        return $channels;
     }
+
 
     public function broadcastAs(): string
     {

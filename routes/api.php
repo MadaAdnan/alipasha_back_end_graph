@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Broadcast::routes(['middleware' => ['auth:sanctum']]);
+
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Log::info($request->header());
     return $request->user();

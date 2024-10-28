@@ -45,6 +45,11 @@ class MessageObServe
                     } catch (\Exception | \Error $e) {
                         info('Exception ' . $e->getMessage());
                     }
+                    try{
+                        event(new MessageSentEvent($message));
+                    }catch (Exception| \Error $e){
+
+                    }
                 } catch (\Exception | \Error $e) {
                     throw new \Exception('Exception2 '.$e->getLine());
                 }

@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Queries\HomeQuery;
 
+use App\Enums\CategoryTypeEnum;
 use App\Enums\ProductActiveEnum;
 use App\Models\Interaction;
 use App\Models\Product;
@@ -14,7 +15,15 @@ final class HobbiesProduct
      */
     public function __invoke($_, array $args)
     {
-        $products = Product::where('active', ProductActiveEnum::ACTIVE->value)->whereIn('category_id', $this->getPopularCategoryProducts())->inRandomOrder();
+        $products = Product::where('active', ProductActiveEnum::ACTIVE->value)
+            ->where(fn($query)=> $query
+                ->where('type',CategoryTypeEnum::PRODUCT->value)
+                ->orWhere('type',CategoryTypeEnum::TENDER->value)
+                ->orWhere('type',CategoryTypeEnum::JOB->value)
+                ->orWhere('type',CategoryTypeEnum::SEARCH_JOB->value)
+                ->orWhere('type',CategoryTypeEnum::NEWS->value)
+            )
+            ->whereIn('category_id', $this->getPopularCategoryProducts())->inRandomOrder();
         $ids = $products->pluck('id')->toArray();
         $today = today();
 
