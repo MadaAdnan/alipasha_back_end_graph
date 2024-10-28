@@ -2,6 +2,8 @@
 
 namespace App\GraphQL\Queries;
 
+use Illuminate\Notifications\DatabaseNotification;
+
 final class NotificationsQuery
 {
     /**
@@ -10,6 +12,12 @@ final class NotificationsQuery
      */
     public function __invoke($_, array $args)
     {
-        return auth()->user()?->notifications()->latest();
+        /**
+         * @var $notifications
+         */
+
+        $notifications= auth()->user()?->notifications()->latest();
+        auth()->user()->unreadNotifications->markAsRead();
+        return $notifications;
     }
 }
