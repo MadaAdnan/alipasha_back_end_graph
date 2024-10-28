@@ -74,7 +74,7 @@ final class Image
         if ($root->hasMedia('logo')) {
             return $root->getFirstMediaUrl('logo', 'webp');
         }
-        return url('/') . asset('images/noImage.jpeg');
+        return url('/') . asset('images/bg.jpg');
     }
 
 
