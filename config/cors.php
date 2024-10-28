@@ -15,11 +15,11 @@ return [
     |
     */
 
-    'paths' => ['api/*', 'sanctum/csrf-cookie'],
+    'paths' => ['api/*', 'sanctum/csrf-cookie','broadcasting/auth', 'broadcasting/*'],
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => ['https://ali-pasha.com', 'https://v3.ali-pasha.com'],
 
     'allowed_origins_patterns' => [],
 
