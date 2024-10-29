@@ -16,10 +16,10 @@ use Illuminate\Support\Facades\Broadcast;
 Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int)$user->id === (int)$id;
 });
-Broadcast::channel('message.{communityId}.{id}', function ($user, $communityId, $id) {
-    $community = \App\Models\Community::find($communityId);
-    $isUser=  $community->users()->where('users.id',$id)->exists();
-    return (int)$user->id === (int)$id && $isUser;
+Broadcast::channel('message.{id}', function ($user, $id) {
+    $community = \App\Models\Community::find($id);
+    $isUser=  $community->users()->where('users.id',$user->id)->exists();
+    return $isUser;
 });
 
 Broadcast::channel('community.{id}', function ($user, $id) {

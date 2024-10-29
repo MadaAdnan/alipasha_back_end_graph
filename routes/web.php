@@ -69,7 +69,7 @@ Route::get('/import', function () {
 Route::get('testnot/{id}',function($id){
 
   $t=\App\Models\Message::create([
-      'body'=>'test',
+      'body'=>'test web66',
       'type'=>'text',
       'community_id'=>$id,
       'user_id'=>56,

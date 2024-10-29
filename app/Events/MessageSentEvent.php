@@ -42,13 +42,9 @@ class MessageSentEvent implements ShouldBroadcastNow
         $users = $this->message->community->users()
             ->where('users.id', '!=', $this->message->user_id)
             ->pluck('id');
-
-        // إنشاء قناة خاصة لكل مستخدم
-        foreach ($users as $userId) {
-            $channels[] = new PrivateChannel('message.' . $this->message->community_id . '.' . $userId);
-        }
-
-        return $channels;
+        return [
+            new PrivateChannel('message.' . $this->message->community_id),
+        ];
     }
 
 
@@ -59,7 +55,7 @@ class MessageSentEvent implements ShouldBroadcastNow
 
     public function broadcastWith(): array
     {
-        $this->message->load(['user', 'community', 'media']);
+       // $this->message->load(['user', 'community', 'media']);
 
         return ['message' => new MessageResource($this->message)];
     }

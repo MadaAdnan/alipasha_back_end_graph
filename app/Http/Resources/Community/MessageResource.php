@@ -19,11 +19,12 @@ class MessageResource extends JsonResource
         info("RESOURCE :".$attachUrl);
         return [
             "id" => $this->id,
-            'message' => $this->message,
+            'body' => $this->body,
             'user' => new UserResource($this->user),
             'community' => new CommunityResource($this->community),
             'created_at' => $this->created_at->diffForHumans(),
             'attach'=>$attachUrl,
+            'type'=>$this->type,
         ];
     }
 }

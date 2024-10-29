@@ -17,11 +17,14 @@ class CommunityResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'user' => new UserResource($this->user),
-            'seller' => new UserResource($this->seller),
+            'name'=>$this->name,
+           'users'=>UserResource::collection($this->users()->limit(3)->get()),
             'last_update' => $this->last_update->diffForHumans(),
-           // 'not_seen_count' => $this->getUnread(auth()->id() == $this->user_id ? $this->user_id : $this->seller_id),
-
+            'type'=>$this->type,
+            'url'=>$this->url,
+            'users_count'=>$this->users->count(),
+            'image'=>$this->getImage(),
+            'created_at'=>$this->created_at->diffForHumans(),
         ];
     }
 
