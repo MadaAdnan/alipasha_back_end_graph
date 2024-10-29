@@ -12,6 +12,6 @@ final class SpecialSeller
      */
     public function __invoke($_, array $args)
     {
-        return User::where( 'is_special', true)->where('is_active_seller' , true)->inRandomOrder()->limit(20)->get();
+        return User::where( 'is_special', true)/*->where('is_active_seller' , true)*/->inRandomOrder()->limit(20)->get();
     }
 }
