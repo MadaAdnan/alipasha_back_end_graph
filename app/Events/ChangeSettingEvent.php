@@ -44,8 +44,6 @@ private $setting;
 
     public function broadcastWith(): array
     {
-
-
         return ['setting' => new SettingResource($this->setting)];
     }
 }
