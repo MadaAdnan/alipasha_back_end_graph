@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Events\ChangeSettingEvent;
 use App\Models\Setting;
+use Mockery\Exception;
 use Pusher\PusherException;
 
 class SettingObserve
@@ -23,10 +24,10 @@ class SettingObserve
     {
         try {
             event(new ChangeSettingEvent());
-        } catch (PusherException $e) {
+        } catch (Exception $e) {
 
         } catch (\Exception | \Error $e) {
-
+            info('BROADCAST SETTING ' . $e->getMessage());
         }
     }
 
