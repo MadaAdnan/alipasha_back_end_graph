@@ -16,13 +16,13 @@ use Illuminate\Queue\SerializesModels;
 class ChangeSettingEvent implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-
+private $setting;
     /**
      * Create a new event instance.
      */
     public function __construct()
     {
-        //
+        $this->setting = Setting::first();
     }
 
     /**
@@ -44,8 +44,8 @@ class ChangeSettingEvent implements ShouldBroadcastNow
 
     public function broadcastWith(): array
     {
-        $setting = Setting::first();
 
-        return ['setting' => new SettingResource($setting)];
+
+        return ['setting' => new SettingResource($this->setting)];
     }
 }
