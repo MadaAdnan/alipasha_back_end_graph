@@ -234,6 +234,11 @@ Tables\Columns\SpatieMediaLibraryImageColumn::make('image')->collection('image')
                         ->when(
                             $data['sub1_id'],
                             fn (Builder $query, $date): Builder => $query->where('sub1_id', $date),
+                        )
+
+                        ->when(
+                            $data['sub2_id'],
+                            fn (Builder $query, $date): Builder => $query->where('sub2_id', $date),
                         );
                 })
             ])
