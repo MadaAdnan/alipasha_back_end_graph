@@ -220,6 +220,11 @@ Tables\Columns\SpatieMediaLibraryImageColumn::make('image')->collection('image')
                             return Category::find($get('category_id'))->children->pluck('name','id');
                         }
                     })->label('القسم الرئيسي')->live(),
+                    Forms\Components\Select::make('sub2_id')->options(function($get){
+                        if($get('sub1_id') !=null){
+                            return Category::find($get('sub1_id'))->children->pluck('name','id');
+                        }
+                    })->label('القسم الرئيسي')->live(),
 
                 ])->query(function($query,$data){
                     $query->when(
