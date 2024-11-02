@@ -40,6 +40,7 @@ class CategoryResource extends Resource
                     Forms\Components\Select::make('parents')->relationship('parents', 'name')->preload()->multiple()->label('ضمن الأقسام')->visible(fn($get) => !$get('is_main')),
                     Forms\Components\Select::make('type')->options([
                         CategoryTypeEnum::PRODUCT->value => CategoryTypeEnum::PRODUCT->getLabel(),
+                        CategoryTypeEnum::RESTAURANT->value => CategoryTypeEnum::RESTAURANT->getLabel(),
                         CategoryTypeEnum::JOB->value => CategoryTypeEnum::JOB->getLabel(),
                         CategoryTypeEnum::SEARCH_JOB->value => CategoryTypeEnum::SEARCH_JOB->getLabel(),
                         CategoryTypeEnum::NEWS->value => CategoryTypeEnum::NEWS->getLabel(),

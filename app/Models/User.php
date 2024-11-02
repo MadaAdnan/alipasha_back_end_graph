@@ -153,4 +153,9 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         return $setting?->support_id === $this->id || $setting?->delivery_id === $this->id;
     }
 
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
+    }
+
 }
