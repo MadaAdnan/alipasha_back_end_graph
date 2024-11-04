@@ -23,6 +23,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable, MediaTrait, HasRoles;
 
+
     /**
      * The attributes that are mass assignable.
      *
