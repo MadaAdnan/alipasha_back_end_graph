@@ -192,9 +192,9 @@ class ProductResource extends Resource
                 return $query->product()->orderBy('user_id');
             })
             ->columns([
-Tables\Columns\SpatieMediaLibraryImageColumn::make('image')->collection('image')->conversion('webp')->label('الصورة')->size(50),
+                Tables\Columns\SpatieMediaLibraryImageColumn::make('image')->collection('image')->label('الصورة')->size(50),
                 Tables\Columns\TextColumn::make('id')->label('رقم المنتج')->searchable(),
-                Tables\Columns\TextColumn::make('category.name')->label('اسم القسم')->description(fn($record)=>$record->sub1?->name),
+                Tables\Columns\TextColumn::make('category.name')->label('اسم القسم')->description(fn($record) => $record->sub1?->name),
                 Tables\Columns\TextColumn::make('name')->label('اسم المنتج')->description(fn($record) => $record->expert)->searchable(),
                 Tables\Columns\TextColumn::make('city.name')->label('المدينة'),
                 Tables\Columns\TextColumn::make('user.name')->label('المتجر')->url(fn($record) => UserResource::getUrl('edit', ['record' => $record->user_id]))->searchable(),
@@ -214,31 +214,30 @@ Tables\Columns\SpatieMediaLibraryImageColumn::make('image')->collection('image')
                 ])->query(fn($query, $data) => $query->when($data['level'] != null, fn($q) => $q->where('level', $data['level']))),
                 Tables\Filters\Filter::make('category')->modifyQueryUsing(fn($query) => $query->whereNull('category_id')),
                 Tables\Filters\Filter::make('category_filter')->form([
-                    Forms\Components\Select::make('category_id')->options(Category::where('categories.is_main',true)->pluck('name','id'))->label('القسم الرئيسي')->live(),
-                    Forms\Components\Select::make('sub1_id')->options(function($get){
-                        if($get('category_id') !=null){
-                            return Category::find($get('category_id'))->children->pluck('name','id');
+                    Forms\Components\Select::make('category_id')->options(Category::where('categories.is_main', true)->pluck('name', 'id'))->label('القسم الرئيسي')->live(),
+                    Forms\Components\Select::make('sub1_id')->options(function ($get) {
+                        if ($get('category_id') != null) {
+                            return Category::find($get('category_id'))->children->pluck('name', 'id');
                         }
                     })->label('القسم الرئيسي')->live(),
-                    Forms\Components\Select::make('sub2_id')->options(function($get){
-                        if($get('sub1_id') !=null){
-                            return Category::find($get('sub1_id'))->children->pluck('name','id');
+                    Forms\Components\Select::make('sub2_id')->options(function ($get) {
+                        if ($get('sub1_id') != null) {
+                            return Category::find($get('sub1_id'))->children->pluck('name', 'id');
                         }
                     })->label('القسم الرئيسي')->live(),
 
-                ])->query(function($query,$data){
+                ])->query(function ($query, $data) {
                     $query->when(
                         $data['category_id'],
-                        fn (Builder $query, $date): Builder => $query->where('category_id',  $date),
+                        fn(Builder $query, $date): Builder => $query->where('category_id', $date),
                     )
                         ->when(
                             $data['sub1_id'],
-                            fn (Builder $query, $date): Builder => $query->where('sub1_id', $date),
+                            fn(Builder $query, $date): Builder => $query->where('sub1_id', $date),
                         )
-
                         ->when(
                             $data['sub2_id'],
-                            fn (Builder $query, $date): Builder => $query->where('sub2_id', $date),
+                            fn(Builder $query, $date): Builder => $query->where('sub2_id', $date),
                         );
                 })
             ])
