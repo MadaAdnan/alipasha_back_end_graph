@@ -51,7 +51,7 @@ type User{
     gallery:[DataImage] @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImageGallery")
     unread_notifications_count:Int
     communities:[Community] @belongsToMany(relation:"communities")
-    category:Category @belongsTo
+
 }
 type Follower{
     user:User @belongsTo
