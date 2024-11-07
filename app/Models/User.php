@@ -41,6 +41,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         'remember_token',
     ];
 
+
     /**
      * The attributes that should be cast.
      *
