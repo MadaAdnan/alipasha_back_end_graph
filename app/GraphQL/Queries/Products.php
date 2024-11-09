@@ -69,7 +69,7 @@ final class Products
                 }
 
             }))
-            ->orderBy($orderBy['column'],$orderBy['OrderBy']);
+            ->orderBy($orderBy['column'],$orderBy['orderBy']);
 
 
 
