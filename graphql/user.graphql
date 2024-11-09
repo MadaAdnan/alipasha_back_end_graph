@@ -6,7 +6,7 @@ extend type Query{
 
     getMyFollowers:[Follower] @guard @paginate(builder:"App\\GraphQL\\Queries\\GetMyFollowers")
     getMyFollowing:[Follower] @guard @paginate(builder:"App\\GraphQL\\Queries\\GetMyFollowing")
-    usersByCategory(category_id:int,first:int,page:int):[User] @paginate(builder:"App\\GraphQL\\Queries\\UserByCategory")
+    usersByCategory(category_id:int!,first:int,page:int):[User] @paginate(builder:"App\\GraphQL\\Queries\\UserByCategory")
 
 }
 
