@@ -157,7 +157,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
 
     public function category(): BelongsTo
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class)->where('is_main',true);
     }
 
 }
