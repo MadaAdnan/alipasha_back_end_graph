@@ -108,7 +108,23 @@ class NewsResource extends Resource implements HasShieldPermissions
                     Forms\Components\Select::make('user_id')->options(User::seller()->pluck('users.seller_name', 'users.id'))->label('الناشر')->live()->afterStateUpdated(fn($set, $state) => $set('city_id', User::find($state)?->city_id)),
 //                    Forms\Components\Select::make('city_id')->options(City::pluck('name', 'id'))->searchable()->label('المدينة'),
                     Forms\Components\TextInput::make('name')->label('عنوان الخبر'),
-                    Forms\Components\RichEditor::make('info')->label('الخبر'),
+                    Forms\Components\RichEditor::make('info')->label('الخبر')->toolbarButtons([
+                        'attachFiles',
+                        'blockquote',
+                        'bold',
+                        'bulletList',
+                        'codeBlock',
+                        'h2',
+                        'h3',
+                        'italic',
+                        'link',
+                        'orderedList',
+                        'redo',
+                        'strike',
+                        'underline',
+                        'undo',
+                        'youtube'
+                    ]),
                     Forms\Components\TagsInput::make('tags')->suggestions(fn() => Product::news()->pluck('tags')->flatten()->unique())->label('تاغات'),
 
                     Forms\Components\Fieldset::make('التصنيف')->schema([
