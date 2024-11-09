@@ -20,7 +20,11 @@ final class Products
     public function __invoke($_, array $args)
 
     {
-        // $orderBy=$args['orderBy']??['end_date','desc'];
+        $orderBy=$args['order_by'];
+        if(!isset($orderBy['column'])||! isset($orderBy['orderBy'])){
+            $orderBy['column']='created_at';
+            $orderBy['orderBy']='desc';
+        }
         $colors = $args['colors'] ?? [];
         $type = $args['type'] ?? null;
 
@@ -65,7 +69,7 @@ final class Products
                 }
 
             }))
-            ->when(isset($args['orderBy']), fn($query) => $query->orderBy($args['orderBy']), fn($query) => $query->orderBy('created_at', 'desc')->orderBy('level'));
+            ->orderBy($orderBy['column'],$orderBy['OrderBy']);
 
 
 
