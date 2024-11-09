@@ -6,7 +6,7 @@ extend type Query{
 
     getMyFollowers:[Follower] @guard @paginate(builder:"App\\GraphQL\\Queries\\GetMyFollowers")
     getMyFollowing:[Follower] @guard @paginate(builder:"App\\GraphQL\\Queries\\GetMyFollowing")
-    usersByCategory(category_id:int!,first:int,page:int):[User] @paginate(builder:"App\\GraphQL\\Queries\\UserByCategory")
+    usersByCategory(category_id:Int!,first:Int,page:Int):[User] @paginate(builder:"App\\GraphQL\\Queries\\UserByCategory")
 
 }
 
@@ -52,6 +52,7 @@ type User{
     gallery:[DataImage] @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImageGallery")
     unread_notifications_count:Int
     communities:[Community] @belongsToMany(relation:"communities")
+    category:Category
 
 }
 type Follower{
