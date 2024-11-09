@@ -110,7 +110,7 @@ class ServiceResource extends Resource implements HasShieldPermissions
                     Forms\Components\Select::make('user_id')->options(User::seller()->pluck('users.seller_name', 'users.id'))->label('المتجر')->live()->afterStateUpdated(fn($set, $state) => $set('city_id', User::find($state)?->city_id)),
                     Forms\Components\Select::make('city_id')->options(City::pluck('name', 'id'))->searchable()->label('المدينة'),
                     Forms\Components\TextInput::make('name')->label('اسم الخدمة'),
-                    Forms\Components\Textarea::make('info')->label('وصف الخدمة'),
+                    Forms\Components\RichEditor::make('info')->label('وصف الخدمة'),
                     Forms\Components\TagsInput::make('tags')->suggestions(fn() => Product::service()->pluck('tags')->flatten()->unique())->label('تاغات'),
                     Forms\Components\Select::make('category_id')->options(Category::service()->pluck('name', 'id'))->label('يتبع القسم')->searchable()->live()->required(),
                     Forms\Components\Select::make('sub1_id')->options(fn($get) => Category::find($get('category_id'))?->children?->pluck('name', 'id'))->label('يتبع القسم')->searchable()->live(),
