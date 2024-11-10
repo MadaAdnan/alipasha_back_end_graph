@@ -156,6 +156,13 @@ class ServiceResource extends Resource implements HasShieldPermissions
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                     Tables\Actions\ForceDeleteBulkAction::make(),
+                    Tables\Actions\BulkAction::make('set_category')
+                        ->form([
+                            Forms\Components\Select::make('category_id')->options(Category::service()->pluck('name', 'id'))->label(' القسم')
+                        ])
+                        ->action(function($record,$data){
+                            Product::whereIn('id',$record->pluck('id')->toArray())->update(['category_id',$data['category_id']]);
+                        })->label('تحديد القسم')
                 ]),
             ]);
     }
