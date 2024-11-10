@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Queries;
 
+use App\Enums\CategoryTypeEnum;
 use App\Enums\ProductActiveEnum;
 use App\Models\Interaction;
 use App\Models\ProductView;
@@ -22,9 +23,8 @@ final class Product
         $products= \App\Models\Product::query()->where('active', ProductActiveEnum::ACTIVE->value)
             ->where('category_id',$product->category_id)
             ->where('sub1_id',$product->sub1_id)->inRandomOrder()->latest()->take(6)->get();
-        info('CREATED AT:'.auth()->check());
-        if(auth()->check()){
-            info('CREATED AT');
+
+        if(auth()->check() && $product->type!=CategoryTypeEnum::SERVICE->value){
             try{
                 $inter=  Interaction::updateOrCreate([
                     'user_id'=>auth()->id(),
@@ -33,7 +33,6 @@ final class Product
                 ],[
                     'visited'=> \DB::raw('visited + 1'),
                 ]);
-                //info(implode('-',$inter->toArray()));
             }catch(\Exception | \Error $e){
                 info('ERROR:'.$e->getMessage());
             }
