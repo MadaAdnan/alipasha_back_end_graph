@@ -23,27 +23,33 @@ class ProductObserve
      */
     public function updated(Product $product): void
     {
-        if ($product->active !== $product->getOriginal('active') && $product->active == ProductActiveEnum::ACTIVE->value) {
-            $user = $product->user;
-            $data['title'] = 'قبول المنتج';
-            $data['body'] = 'تم قبول المنتج  ' . $product->name ?? $product->expert;
-            $data['url'] = 'https://ali-pasha.com/product?id=' . $product->id;
+        if($product->user!=null){
+            if ($product->active !== $product->getOriginal('active') && $product->active == ProductActiveEnum::ACTIVE->value) {
+                $user = $product->user;
+                $data['title'] = 'قبول المنتج';
+                $data['body'] = 'تم قبول المنتج  ' . $product->name ?? $product->expert;
+                $data['url'] = 'https://ali-pasha.com/product?id=' . $product->id;
 
-            SendNotifyHelper::sendNotify($user, $data);
-        } elseif ($product->active !== $product->getOriginal('active') && $product->active == ProductActiveEnum::BLOCK->value) {
-            $user = $product->user;
-            $data['title'] = 'حظر المنتج';
-            $data['body'] = 'تم حظر المنتج  ' . $product->name ?? $product->expert;
-            $data['url'] = 'https://ali-pasha.com/products?id=' . $product->user->id;
+                SendNotifyHelper::sendNotify($user, $data);
+            }
+            //
+            elseif ($product->active !== $product->getOriginal('active') && $product->active == ProductActiveEnum::BLOCK->value) {
+                $user = $product->user;
+                $data['title'] = 'حظر المنتج';
+                $data['body'] = 'تم حظر المنتج  ' . $product->name ?? $product->expert;
+                $data['url'] = 'https://ali-pasha.com/products?id=' . $product->user->id;
 
-            SendNotifyHelper::sendNotify($user, $data);
-        }elseif($product->active === $product->getOriginal('active')){
-            $user = $product->user;
-            $data['title'] = 'إصلاح المنتج';
-            $data['body'] = 'تم إصلاح المنتج  ' . $product->name ?? $product->expert;
-            $data['url'] = 'https://ali-pasha.com/product?id=' . $product->id;
+                SendNotifyHelper::sendNotify($user, $data);
+            }
+            //
+            elseif($product->active === $product->getOriginal('active')){
+                $user = $product->user;
+                $data['title'] = 'إصلاح المنتج';
+                $data['body'] = 'تم إصلاح المنتج  ' . $product->name ?? $product->expert;
+                $data['url'] = 'https://ali-pasha.com/product?id=' . $product->id;
 
-            SendNotifyHelper::sendNotify($user, $data);
+                SendNotifyHelper::sendNotify($user, $data);
+            }
         }
 
     }
