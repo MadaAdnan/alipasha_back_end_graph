@@ -34,3 +34,9 @@ class SettingResource extends JsonResource
         ];
     }
 }
+/*
+ *
+ DB_DATABASE=v3_app_pazar
+DB_USERNAME=v3_app_pazar
+DB_PASSWORD=SdKD30BT7mTj
+ */
