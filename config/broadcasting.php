@@ -56,7 +56,7 @@ return [
             'options' => [
                 'cluster' => env('PUSHER_APP_CLUSTER'),
                 'encrypted' => false,
-                'host' => env('PUSHER_HOST','pazarpasha.com'),
+                'host' => env('PUSHER_HOST','127.0.0.1'),
                 'port' => env('PUSHER_PORT',8080),
                 'scheme' => 'http',
             ],
