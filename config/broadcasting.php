@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => env('BROADCAST_DRIVER', 'null'),
+    'default' => env('BROADCAST_DRIVER', 'pusher'),
 
     /*
     |--------------------------------------------------------------------------
@@ -55,10 +55,10 @@ return [
             'app_id' => env('PUSHER_APP_ID'),
             'options' => [
                 'cluster' => env('PUSHER_APP_CLUSTER'),
-                'encrypted' => true,
-                'host' => env('PUSHER_HOST','127.0.0.1'),
-                'port' => env('PUSHER_PORT',6001),
-                'scheme' => 'http'
+                'encrypted' => false,
+                'host' => env('PUSHER_HOST','pazarpasha.com'),
+                'port' => env('PUSHER_PORT',8080),
+                'scheme' => 'http',
             ],
         ],
 
