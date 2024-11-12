@@ -12,9 +12,9 @@ use Illuminate\Support\Facades\Broadcast;
 | used to check if an authenticated user can listen to the channel.
 |
 */
-Broadcast::channel('change-setting', function ($user) {
+/*Broadcast::channel('change-setting', function ($user) {
     return true;
-});
+});*/
 
 
 Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
