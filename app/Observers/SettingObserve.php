@@ -22,13 +22,10 @@ class SettingObserve
      */
     public function updated(Setting $setting): void
     {
-       try {
-            event(new ChangeSettingEvent());
-            info('SUCCESS EVENT');
-        } catch (Exception $e) {
-
-        } catch (\Exception | \Error $e) {
-            info('BROADCAST SETTING ' . $e->getMessage());
+        try{
+            broadcast(new ChangeSettingEvent());
+        }catch (\Exception | \Error $e){
+            info('Error Event Setting'.$e->getMessage());
         }
     }
 
