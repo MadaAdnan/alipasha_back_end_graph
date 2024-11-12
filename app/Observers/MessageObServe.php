@@ -50,11 +50,7 @@ class MessageObServe
                     throw new \Exception('Exception2 '.$e->getLine());
                 }
             }
-            try{
-                event(new MessageSentEvent($message));
-            }catch (Exception| \Error $e){
 
-            }
         } catch (\Exception | \Error $e) {
             info($e->getMessage());
         }
