@@ -79,7 +79,7 @@ final class Image
 
 
     /**
-     * @param $root
+     * @param $root Product
      * @return string
      * Get Array Of Images from image collection
      */
@@ -87,6 +87,11 @@ final class Image
     {
         if ($root->hasMedia('images')) {
             $mediaItems = $root->getMedia('images');
+            return $mediaItems->map(function ($media) {
+                return $media->getUrl('webp');
+            })->toArray();
+        }elseif($root->hasMedia('image') && $root->getMedia('image')->count()>1 ){
+            $mediaItems = $root->getMedia('image');
             return $mediaItems->map(function ($media) {
                 return $media->getUrl('webp');
             })->toArray();
@@ -142,11 +147,17 @@ final class Image
      * Get Array Of docs with Media ID  from docs of [job,tender] collection
      */
     public static function getImagesWithId($root): array
-    {
-        $list = [];
-        foreach ($root->getMedia('images') as $media) {
-            $list[] = ["id" => $media->id, 'url' => $media->getUrl()];
-        }
+    { $list = [];
+       if($root->hasMedia('images')){
+
+           foreach ($root->getMedia('images') as $media) {
+               $list[] = ["id" => $media->id, 'url' => $media->getUrl()];
+           }
+       }elseif($root->hasMedia('image') && $root->getMedia('image')->count()>1 ){
+           foreach ($root->getMedia('image') as $media) {
+               $list[] = ["id" => $media->id, 'url' => $media->getUrl()];
+           }
+       }
 
         return $list;
     }
