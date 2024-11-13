@@ -51,6 +51,7 @@ class OrderResource extends Resource
         return $table
             ->modifyQueryUsing(fn($query)=>$query->latest())
             ->columns([
+                Tables\Columns\TextColumn::make('id')->label('#'),
                 Tables\Columns\TextColumn::make('size')->label('حجم الحمولة'),
                 Tables\Columns\TextColumn::make('weight')->label('وزن الحمولة'),
                 Tables\Columns\TextColumn::make('from.name')->label('من مدينة'),
