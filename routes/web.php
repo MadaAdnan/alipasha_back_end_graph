@@ -66,13 +66,13 @@ Route::get('/import', function () {
 });
 
 
-Route::get('testnot/{id}',function($id){
+Route::get('testnot/{id?}',function($id=null){
 
   $t=\App\Models\Message::create([
-      'body'=>'test web66',
+      'body'=>fake()->paragraph,
       'type'=>'text',
-      'community_id'=>$id,
-      'user_id'=>56,
+      'community_id'=>$id??32,
+      'user_id'=>6680,
   ]);
 return $t->toArray();
 });
