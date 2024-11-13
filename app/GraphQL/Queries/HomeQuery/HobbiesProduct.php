@@ -26,7 +26,9 @@ final class HobbiesProduct
                 $query->whereNull('end_date')
                     ->orWhere('end_date', '>', now());
             })
-            ->whereIn('category_id', $this->getPopularCategoryProducts())->inRandomOrder();
+            ->whereIn('category_id', $this->getPopularCategoryProducts())
+            ->orWhere('user_id',$this->getPopularSelelrProducts())
+            ->inRandomOrder();
         $ids = $products->pluck('id')->toArray();
         $today = today();
 
@@ -67,5 +69,12 @@ final class HobbiesProduct
             ->groupBy('category_id')
             ->orderByRaw('SUM(visited) DESC')
             ->pluck('category_id')->toArray();
+    }
+    private function getPopularSelelrProducts()
+    {
+        return Interaction::where('user_id', auth()->id())->whereNotNull('seller_id')
+            ->groupBy('seller_id')
+
+            ->pluck('seller_id')->toArray();
     }
 }
