@@ -51,22 +51,27 @@ class AutoReplayChatCommand extends Command
             ->setBindings([$start, $end, 'chat'])  // تمرير المعاملات جميعها في الترتيب الصحيح
             ->pluck('id')->toArray();
         $communities = Community::whereIn('id', $communities)->get();
-        \Log::info("COUNT:".$communities->count());
+
         /**
          * @var $item Community
          */
         foreach ($communities as $item) {
           $message= $item->messages()->latest()->first();
           if(now()->subHours(3)->greaterThan($message->created_at)){
-              $user=$item->users()->where('users.id','!=',$message->user_id)->selectRaw('users.id,users.phone')->first();
-              $msg = "مرجبا بك هذا رد تلقائي , يمكنك تنبيه التاجر بوجود محادثة جديدة معه في علي باشا عبر واتسآب من الرابط 👇\n
+              try{
+                  $user=$item->users()->where('users.id','!=',$message->user_id)->selectRaw('users.id,users.phone')->first();
+                  $msg = "مرجبا بك هذا رد تلقائي , يمكنك تنبيه التاجر بوجود محادثة جديدة معه في علي باشا عبر واتسآب من الرابط 👇\n
                         https://wa.me/" . trim('+',$user->phone) . "?text=مرحباً-هل-يمكنك-الرد-على-محادثتي-بتطبيق-علي-باشا";
-              Message::create([
-                  'community_id'=>$item->id,
-                  'user_id'=>$user->id,
-                  'type'=>'text',
-                  'body'=>$msg
-              ]);
+                  Message::create([
+                      'community_id'=>$item->id,
+                      'user_id'=>$user->id,
+                      'type'=>'text',
+                      'body'=>$msg
+                  ]);
+              }catch (\Exception | \Error $e){
+                  \Log::info("COUNT:".$e->getMessage());
+              }
+
 
           }
 
