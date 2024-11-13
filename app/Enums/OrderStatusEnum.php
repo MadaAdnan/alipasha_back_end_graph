@@ -5,6 +5,7 @@ namespace App\Enums;
 enum OrderStatusEnum: string
 {
     case PENDING = 'pending';
+    case AGREE = 'agree';
     case AWAY = 'away';
     case COMPLETE = 'complete';
     case CANCELED = 'canceled';
@@ -14,7 +15,8 @@ enum OrderStatusEnum: string
     public function getLabel()
     {
         return match ($this) {
-            self::PENDING => 'بإنتظار',
+            self::PENDING => 'بإنتظار الموافقة',
+            self::AGREE => 'تمت الموافقة',
             self::AWAY => 'في الطريق',
             self::COMPLETE => 'تم التسليم',
             self::CANCELED => 'ملغي',
