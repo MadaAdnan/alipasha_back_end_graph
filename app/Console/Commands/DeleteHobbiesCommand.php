@@ -26,6 +26,7 @@ class DeleteHobbiesCommand extends Command
      */
     public function handle()
     {
-        Interaction::whereNull('seller_id')->whereBetween('created_at',[now()->subDays(10),now()])->delete();
+        Interaction::whereNull('seller_id')->whereBetween('created_at',[now()->subDays(5),now()->subDays(20)])->delete();
+        Interaction::whereBetween('updated_at',[now()->subDays(10),now()->subDays(20)])->delete();
     }
 }
