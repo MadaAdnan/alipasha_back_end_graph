@@ -32,7 +32,7 @@ class AutoReplayChatCommand extends Command
         $start = Carbon::now()->subHours(72);
         $end = Carbon::now();  // الوقت الحالي
 
-        $communities = DB::table('communities as c')
+        $ids = DB::table('communities as c')
             ->join(DB::raw('(
         SELECT m1.community_id
         FROM messages m1
@@ -50,7 +50,7 @@ class AutoReplayChatCommand extends Command
             ->select('c.id')
             ->setBindings([$start, $end, 'chat'])  // تمرير المعاملات جميعها في الترتيب الصحيح
             ->pluck('id')->toArray();
-        $communities = Community::whereIn('id', $communities)->get();
+        $communities = Community::whereIn('id', $ids)->get();
 
         /**
          * @var $item Community
