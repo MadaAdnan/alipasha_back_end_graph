@@ -109,6 +109,7 @@ class ProductResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\FileUpload::make('test'),
                 Forms\Components\Section::make('المنتجات')->schema([
                     Forms\Components\Select::make('user_id')->options(User::seller()->pluck('users.name', 'users.id'))->label('المتجر')->live()->afterStateUpdated(fn($set, $state) => $set('city_id', User::find($state)?->city_id)),
                     Forms\Components\Select::make('city_id')->options(City::pluck('name', 'id'))->searchable()->label('المدينة'),
@@ -192,6 +193,7 @@ class ProductResource extends Resource
                 return $query->product()->orderBy('user_id');
             })
             ->columns([
+
                 Tables\Columns\SpatieMediaLibraryImageColumn::make('image')->collection('image')->label('الصورة')->size(50),
                 Tables\Columns\TextColumn::make('id')->label('رقم المنتج')->searchable(),
                 Tables\Columns\TextColumn::make('category.name')->label('اسم القسم')->description(fn($record) => $record->sub1?->name),

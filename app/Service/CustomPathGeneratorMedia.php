@@ -10,7 +10,7 @@ class CustomPathGeneratorMedia implements PathGenerator
 
     public function getPath(Media $media): string
     {
-       return md5(date('Y-m').$media->id).'/image/';
+       return md5(date('Y-m')).'/image/';
     }
 
     public function getPathForConversions(Media $media): string
@@ -20,6 +20,6 @@ class CustomPathGeneratorMedia implements PathGenerator
 
     public function getPathForResponsiveImages(Media $media): string
     {
-        return md5(date('Y-m').$media->id).'/responsive';
+        return md5(date('Y-m')).'/responsive';
     }
 }
