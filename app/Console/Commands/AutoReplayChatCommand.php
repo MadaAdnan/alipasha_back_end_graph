@@ -57,7 +57,7 @@ class AutoReplayChatCommand extends Command
          */
         foreach ($communities as $item) {
           $message= $item->messages()->latest()->first();
-          if(now()->subHours(3)->greaterThan($message->created_at)){
+          if(now()->subHours(1)->greaterThan($message->created_at)){
               try{
                   $user=$item->users()->where('users.id','!=',$message->user_id)->selectRaw('users.id,users.phone')->first();
                   $msg = "مرجبا بك هذا رد تلقائي , يمكنك تنبيه التاجر بوجود محادثة جديدة معه في علي باشا عبر واتسآب من الرابط 👇\n
