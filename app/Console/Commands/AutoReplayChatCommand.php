@@ -51,6 +51,7 @@ class AutoReplayChatCommand extends Command
             ->setBindings([$start, $end, 'chat'])  // تمرير المعاملات جميعها في الترتيب الصحيح
             ->pluck('id')->toArray();
         $communities = Community::whereIn('id', $communities)->get();
+        \Log::info("COUNT:".$communities->count());
         /**
          * @var $item Community
          */
