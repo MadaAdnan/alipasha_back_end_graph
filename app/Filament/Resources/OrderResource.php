@@ -55,7 +55,7 @@ class OrderResource extends Resource
                 Tables\Columns\TextColumn::make('size')->label('حجم الحمولة'),
                 Tables\Columns\TextColumn::make('weight')->label('وزن الحمولة'),
                 Tables\Columns\TextColumn::make('from.name')->label('من مدينة'),
-                Tables\Columns\TextColumn::make('user.name')->label('مقدم الطلب')->url(fn($record)=>UserResource::getUrl('edit',['record'=>$record->user?->id])),
+                Tables\Columns\TextColumn::make('user.name')->label('مقدم الطلب')->url(fn($record)=>UserResource::getUrl('edit',$record->user?->id)),
                 Tables\Columns\TextColumn::make('to.name')->label('إلى مدينة'),
                 Tables\Columns\TextColumn::make('receive_name')->label('المستلم')->searchable(),
                 Tables\Columns\TextColumn::make('receive_phone')->label('هاتف المستلم'),
