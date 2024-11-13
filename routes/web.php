@@ -1,10 +1,12 @@
 <?php
 
+use App\Events\MessageSentEvent;
 use App\Http\Controllers\ImportController;
 use App\Models\Interaction;
 use App\Models\ShippingPrice;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
+use Mockery\Exception;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,12 +70,17 @@ Route::get('/import', function () {
 
 Route::get('testnot/{id?}',function($id=null){
 
-  $t=\App\Models\Message::create([
+    $message=\App\Models\Message::create([
       'body'=>fake()->paragraph,
       'type'=>'text',
       'community_id'=>$id??32,
       'user_id'=>6680,
   ]);
-return $t->toArray();
+    try {
+        event(new MessageSentEvent($message));
+    } catch (Exception $e) {
+        info('Error Websockets');
+    }
+return "success";
 });
 
