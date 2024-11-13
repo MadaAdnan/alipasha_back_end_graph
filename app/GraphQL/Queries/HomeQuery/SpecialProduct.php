@@ -24,7 +24,10 @@ final class SpecialProduct
                 ->orWhere('type',CategoryTypeEnum::JOB->value)
                 ->orWhere('type',CategoryTypeEnum::SEARCH_JOB->value)
                 ->orWhere('type',CategoryTypeEnum::NEWS->value)
-            );
+            )  ->where(function ($query) {
+                $query->whereNull('end_date')
+                    ->orWhere('end_date', '>', now());
+            });
 
         $ids = $products->pluck('id')->toArray();
         $today = today();

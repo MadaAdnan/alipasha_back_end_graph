@@ -16,19 +16,33 @@ final class CombinedProducts
         if(auth()->check()){
             $hobbiesProducts = Product::where('active', ProductActiveEnum::ACTIVE->value)
                 ->whereIn('category_id', $this->getPopularCategoryProducts())
+                ->where(function ($query) {
+                    $query->whereNull('end_date')
+                        ->orWhere('end_date', '>', now());
+                })
                 ->inRandomOrder()
+
                 ->get();
         }
 
 
         $latestProducts = Product::where('active', ProductActiveEnum::ACTIVE->value)
             ->whereNot('level', LevelProductEnum::SPECIAL->value)
+            ->where(function ($query) {
+                $query->whereNull('end_date')
+                    ->orWhere('end_date', '>', now());
+            })
             ->latest()
             ->inRandomOrder()
             ->get();
 
         $specialProducts = Product::where('active', ProductActiveEnum::ACTIVE->value)
             ->where('level', LevelProductEnum::SPECIAL->value)
+
+            ->where(function ($query) {
+                $query->whereNull('end_date')
+                    ->orWhere('end_date', '>', now());
+            })
             ->get();
 
         // دمج النتائج الثلاثة
