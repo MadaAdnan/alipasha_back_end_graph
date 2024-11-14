@@ -19,8 +19,11 @@ class CommunityResource extends Resource
 {
     protected static ?string $model = Community::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
+    protected static ?string $navigationIcon = 'fas-users-rectangle';
+    protected static ?string $navigationGroup='المجتمعات';
+    protected static ?string $label='المجتمعات';
+    protected static ?string $navigationLabel='المجتمعات';
+    protected static ?string $pluralLabel='المجتمعات';
     public static function form(Form $form): Form
     {
         return $form
