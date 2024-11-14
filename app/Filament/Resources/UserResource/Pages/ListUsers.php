@@ -21,8 +21,8 @@ class ListUsers extends ListRecords
     {
         return [
             'الكل'=>Tab::make('all')->query(fn($query)=>$query),
-            'محظور'=>Tab::make('all')->query(fn($query)=>$query->where('is_active',0)),
-            'غير مؤكد'=>Tab::make('all')->query(fn($query)=>$query->whereNull('email_verified_at')),
+            'محظور'=>Tab::make('block')->query(fn($query)=>$query->where('is_active',0)),
+            'غير مؤكد'=>Tab::make('not_verified')->query(fn($query)=>$query->whereNull('email_verified_at')),
         ];
     }
 }
