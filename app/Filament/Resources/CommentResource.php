@@ -40,7 +40,7 @@ class CommentResource extends Resource
                         switch ($record->product){
                             case CategoryTypeEnum::NEWS->value:
                               return   NewsResource::getUrl('edit',['record'=>$record->product->id]);
-                               
+
                             case CategoryTypeEnum::PRODUCT->value:
                                 return   ProductResource::getUrl('edit',['record'=>$record->product->id]);
 
