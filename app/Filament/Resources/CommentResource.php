@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\CategoryTypeEnum;
 use App\Filament\Resources\CommentResource\Pages;
 use App\Filament\Resources\CommentResource\RelationManagers;
 use App\Models\Comment;
@@ -32,8 +33,19 @@ class CommentResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('user.name')->label('المستخدم')->searchable(),
-                Tables\Columns\TextColumn::make('products.id')->label('معرف المنشور')->searchable(),
+                Tables\Columns\TextColumn::make('user.name')->label('المستخدم')->searchable()
+                ->url(fn($record)=>$record->user!=null?UserResource::getUrl('edit',['record'=>$record->user->id]):null,true),
+                Tables\Columns\TextColumn::make('product.id')->label('معرف المنشور')->searchable()
+                    ->url(function($record){
+                        switch ($record->product){
+                            case CategoryTypeEnum::NEWS->value:
+                              return   NewsResource::getUrl('edit',['record'=>$record->product->id]);
+                               
+                            case CategoryTypeEnum::PRODUCT->value:
+                                return   ProductResource::getUrl('edit',['record'=>$record->product->id]);
+
+                        }
+                    },true),
                 Tables\Columns\TextColumn::make('comment')->label('التعليق'),
                 Tables\Columns\TextColumn::make('created_at')->date('Y-m-d')->label('التاريخ'),
 
