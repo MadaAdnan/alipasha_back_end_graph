@@ -33,6 +33,6 @@ final  class AddLike
            }
        }
 
-        return $product;
+        return $product->refresh();
     }
 }
