@@ -23,6 +23,7 @@ class ListUsers extends ListRecords
             'الكل'=>Tab::make('all')->query(fn($query)=>$query)->label('الكل'),
             'محظور'=>Tab::make('block')->query(fn($query)=>$query->where('is_active',0))->label('محظور'),
             'غير مؤكد'=>Tab::make('not_verified')->query(fn($query)=>$query->whereNull('email_verified_at'))->label('غير مؤكد'),
+            'متاجر'=>Tab::make('is_seller')->query(fn($query)=>$query->where('is_seller',1))->label('متاجر'),
         ];
     }
 }
