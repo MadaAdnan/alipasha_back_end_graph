@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Resolvers;
 
+use App\Models\Like;
 use App\Models\Product;
 use App\Models\Rate;
 
@@ -25,6 +26,14 @@ class VoteAvg
     {
         if (auth()->check()) {
             return Rate::where(['product_id' => $root->id, 'user_id' => auth()->id()])->exists();
+        }
+        return false;
+    }
+
+    public static function isLike($root): bool
+    {
+        if (auth()->check()) {
+            return Like::where(['product_id' => $root->id, 'user_id' => auth()->id()])->exists();
         }
         return false;
     }

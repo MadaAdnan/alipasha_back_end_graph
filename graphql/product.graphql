@@ -32,6 +32,7 @@ type Product{
     sub4:Category @belongsTo
     colors:[Color] @belongsToMany
     comments:[Comment] @hasMany(defaultCount:10,type:PAGINATOR)
+    likes_count:Int
     # Fields
     name:String,
     active:String
@@ -68,6 +69,7 @@ type Product{
     attributes:[AttributeProducts] @belongsToMany
     vote_avg:Float @field(resolver: "App\\GraphQL\\Resolvers\\VoteAvg@getAvg")
     is_rate:Boolean @field(resolver: "App\\GraphQL\\Resolvers\\VoteAvg@isRate")
+    is_like:Boolean @field(resolver: "App\\GraphQL\\Resolvers\\VoteAvg@isLike")
 
 
 }
@@ -89,7 +91,7 @@ extend type Mutation {
     addVote(productId:Int,vote:Int): Product @guard
     deleteProduct(id:ID!):Product
     createProduct(input:CreateProductInput) : Product @guard
-
+    addlike(product_id:ID!):Product @guard
     updateProduct(id:ID! ,input:UpdateProductInput) : Product @guard
     addSpecialProduct(id:ID!,level:String! @rules(apply:["required","in:normal,special"],messages:[
         {
