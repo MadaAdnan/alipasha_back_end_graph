@@ -45,7 +45,7 @@ class CommentResource extends Resource
                                 return   ProductResource::getUrl('edit',['record'=>$record->product->id]);
 
                         }
-                    },true)->description(fn($record)=>\Str::words("{$record->product->expert}",7)),
+                    },true)->description(fn($record)=>\Str::words("{$record->product?->expert}",7)),
                 Tables\Columns\TextColumn::make('comment')->label('التعليق'),
                 Tables\Columns\TextColumn::make('created_at')->date('Y-m-d')->label('التاريخ'),
 
