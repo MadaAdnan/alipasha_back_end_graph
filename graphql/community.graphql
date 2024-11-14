@@ -36,6 +36,7 @@ type UserCommunity{
 }
 
 type Message{
+    id:Int
     community:Community @belongsTo
     user:User @belongsTo
     body:String
