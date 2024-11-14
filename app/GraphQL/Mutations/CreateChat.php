@@ -36,6 +36,9 @@ final class CreateChat
 
            $community->users()->sync([$userId,$memberId]);
        }
-       return $community;
+       return [
+           'community'=>$community,
+           'user'=>auth()->user()
+       ];
     }
 }

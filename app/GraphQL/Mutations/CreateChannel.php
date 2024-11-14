@@ -36,6 +36,9 @@ final class CreateChannel
             $community->addMedia($args['image'])->toMediaCollection('image');
         }
         $community->users()->sync([$userId]);
-        return $community;
+          return [
+        'community'=>$community,
+        'user'=>auth()->user()
+    ];;
     }
 }

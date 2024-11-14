@@ -24,13 +24,16 @@ extend type Query{
 }
 
 extend type Mutation{
-    createChat(memberId:Int!):Community @guard
-    createGroup(name:String!,image:Upload!):Community @guard
-    createChannel(name:String!,,image:Upload!):Community @guard
+    createChat(memberId:Int!):UserCommunity @guard
+    createGroup(name:String!,image:Upload!):UserCommunity @guard
+    createChannel(name:String!,,image:Upload!):UserCommunity @guard
     muteCommunity(communityId:ID!):Community @guard
 
 }
-
+type UserCommunity{
+    community:Community
+    user:User
+}
 
 type Message{
     community:Community @belongsTo
