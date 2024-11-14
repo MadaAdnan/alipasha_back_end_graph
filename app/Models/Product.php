@@ -26,7 +26,8 @@ class Product extends Model implements HasMedia
         'end_date' => 'datetime'
     ];
     protected $withCount = [
-        'likes'
+        'likes',
+        'comments'
     ];
 
     protected static function boot()
