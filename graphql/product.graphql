@@ -91,7 +91,7 @@ extend type Mutation {
     addVote(productId:Int,vote:Int): Product @guard
     deleteProduct(id:ID!):Product
     createProduct(input:CreateProductInput) : Product @guard
-    addlike(product_id:ID!):Product @guard
+    addLike(product_id:ID!):Product @guard
     updateProduct(id:ID! ,input:UpdateProductInput) : Product @guard
     addSpecialProduct(id:ID!,level:String! @rules(apply:["required","in:normal,special"],messages:[
         {
