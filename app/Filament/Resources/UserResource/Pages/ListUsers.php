@@ -20,9 +20,9 @@ class ListUsers extends ListRecords
     public function getTabs(): array
     {
         return [
-            'الكل'=>Tab::make('all')->query(fn($query)=>$query),
-            'محظور'=>Tab::make('block')->query(fn($query)=>$query->where('is_active',0)),
-            'غير مؤكد'=>Tab::make('not_verified')->query(fn($query)=>$query->whereNull('email_verified_at')),
+            'الكل'=>Tab::make('all')->query(fn($query)=>$query)->label('الكل'),
+            'محظور'=>Tab::make('block')->query(fn($query)=>$query->where('is_active',0))->label('محظور'),
+            'غير مؤكد'=>Tab::make('not_verified')->query(fn($query)=>$query->whereNull('email_verified_at'))->label('غير مؤكد'),
         ];
     }
 }
