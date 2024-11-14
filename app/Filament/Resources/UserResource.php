@@ -75,12 +75,6 @@ class UserResource extends Resource
 
                                 Forms\Components\SpatieMediaLibraryFileUpload::make('logo')->collection('logo')->conversion('webp')->label('لوغو المتجر')->columnSpan(2),
 
-                                /* Forms\Components\Select::make('level_seller')->options([
-                                     LevelSellerEnum::GOLD->value => LevelSellerEnum::GOLD->getLabel(),
-                                     LevelSellerEnum::PLATINUM->value => LevelSellerEnum::PLATINUM->getLabel(),
-                                     LevelSellerEnum::SILVER->value => LevelSellerEnum::SILVER->getLabel(),
-                                     LevelSellerEnum::BRONZE->value => LevelSellerEnum::BRONZE->getLabel(),
-                                 ])->label('نوع الإشتراك'),*/
 
                                 Forms\Components\Grid::make(3)->schema([
                                     Forms\Components\Toggle::make('is_default_active')->label('تفعيل المنتجات تلقائيا'),
