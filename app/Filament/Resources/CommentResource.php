@@ -11,14 +11,17 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+
 
 class CommentResource extends Resource
 {
     protected static ?string $model = Comment::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'fas-comments';
+    protected static ?string $navigationGroup='التعليقات';
+    protected static ?string $label='التعليقات';
+    protected static ?string $navigationLabel='التعليقات';
+    protected static ?string $pluralLabel='التعليقات';
 
     public static function form(Form $form): Form
     {
