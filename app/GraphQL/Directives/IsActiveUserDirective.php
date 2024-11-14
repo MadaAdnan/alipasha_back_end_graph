@@ -15,11 +15,11 @@ class IsActiveUserDirective extends BaseDirective implements FieldMiddleware
     {
         return /** @lang GraphQL */ <<<GRAPHQL
 """
-Limit field access to users of a certain role.
+Limit field access to active users.
 """
 directive @isActive(
   """
-  The name of the role authorized users need to have.
+  Specify if only active users are allowed to access this field.
   """
   active: Boolean!
 ) on FIELD_DEFINITION

@@ -1,5 +1,5 @@
 extend type Mutation{
-    createComment(product_id:Int!,comment:String!):Comment! @guard @isActive(active:true)
+    createComment(product_id:Int!,comment:String!):Comment!  @isActive(active:true)
     deleteComment(id:ID!):Boolean @guard
 }
 #
