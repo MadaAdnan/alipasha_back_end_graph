@@ -13,15 +13,16 @@ class IsActiveUserDirective extends BaseDirective implements FieldMiddleware
 {
     public static function definition(): string
     {
-        return /** @lang GraphQL */ <<<GRAPHQL
+        return /** @lang GraphQL */ <<<'GRAPHQL'
 """
-Limit field access to active users.
+Return the currently authenticated user as the result of a query.
 """
 directive @isActive(
   """
-  Specify if only active users are allowed to access this field.
+  Specify which guards to use, e.g. ["api"].
+  When not defined, the default from `lighthouse.php` is used.
   """
-  active: Boolean!
+  active: Boolean
 ) on FIELD_DEFINITION
 GRAPHQL;
     }
