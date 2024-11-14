@@ -17,8 +17,11 @@ class ShippingPriceResource extends Resource
 {
     protected static ?string $model = ShippingPrice::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
+    protected static ?string $navigationIcon = 'fas-hand-holding-dollar';
+    protected static ?string $navigationGroup='الشحن';
+    protected static ?string $label='أسعار الشحن';
+    protected static ?string $navigationLabel='أسعار الشحن';
+    protected static ?string $pluralLabel='أسعار الشحن';
     public static function form(Form $form): Form
     {
         return $form
