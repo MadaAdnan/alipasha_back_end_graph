@@ -19,7 +19,7 @@ Return the currently authenticated user as the result of a query.
 """
 directive @isActive(
   """
-  Specify which guards to use, e.g. ["api"].
+  Specify which active to use, e.g.
   When not defined, the default from `lighthouse.php` is used.
   """
   active: Boolean
