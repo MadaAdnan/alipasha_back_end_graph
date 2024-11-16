@@ -111,8 +111,8 @@ class ProductResource extends Resource
             ->schema([
                 Forms\Components\FileUpload::make('test'),
                 Forms\Components\Section::make('المنتجات')->schema([
-                    Forms\Components\Select::make('user_id')->options(User::seller()->pluck('users.name', 'users.id'))->label('المتجر')->live()->afterStateUpdated(fn($set, $state) => $set('city_id', User::find($state)?->city_id)),
-                    Forms\Components\Select::make('city_id')->options(City::pluck('name', 'id'))->searchable()->label('المدينة'),
+                    Forms\Components\Select::make('user_id')->options(User::seller()->selectRaw('id,name')->pluck('name', 'id'))->label('المتجر')->live()->afterStateUpdated(fn($set, $state) => $set('city_id', User::find($state)?->city_id)),
+                    Forms\Components\Select::make('city_id')->options(City::selectRaw('id,name')->pluck('name', 'id'))->searchable()->label('المدينة'),
                     HelperMedia::getFileUpload(label: 'الصورة الرئيسية', collection: 'image', is_multible: true, ratio: ['1:1'],),
                     HelperMedia::getFileUpload(label: 'صور إضافية', name: 'images', collection: 'images', is_multible: true),
 //                    Forms\Components\SpatieMediaLibraryFileUpload::make('film')->collection('video')->label('فيديو قصير')->acceptedFileTypes(['video/quicktime', 'video/x-ms-wmv', 'video/x-msvideo', 'video/mp4']),
@@ -189,9 +189,6 @@ class ProductResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->modifyQueryUsing(function ($query) {
-                return $query->product()->orderBy('user_id');
-            })
             ->columns([
 
                 Tables\Columns\SpatieMediaLibraryImageColumn::make('image')->collection('image')->label('الصورة')->size(50),
