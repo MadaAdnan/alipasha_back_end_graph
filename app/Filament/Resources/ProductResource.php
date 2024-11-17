@@ -244,6 +244,16 @@ class ProductResource extends Resource
                         );
                 })
             ])
+            ->headerActions([
+                Tables\Actions\Action::make('delivery')->form([
+                    Forms\Components\Select::make('categories')->options(Category::where('is_main',true)
+                        ->where(fn($query)=>$query->where('type','product')->orWhere('type','restaurant'))->pluck('name','id'))
+                        ->multiple()->label('الأقسام')->required(),
+                    Forms\Components\Toggle::make('is_delivery')->label('حالة التوصيل'),
+                ])->action(fn($data)=>Product::whereIn('category_id',$data['categories'])->update([
+                    'is_delivery'=>$data['is_delivery']
+                ]))->label('حالة التوصيل للأقسام')
+            ])
             ->actions([
                 Tables\Actions\EditAction::make()->mutateFormDataUsing(function ($data) {
                     $data['expert'] = \Str::words(strip_tags(html_entity_decode($data['info'])), 15);
