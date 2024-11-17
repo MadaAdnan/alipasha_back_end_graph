@@ -196,6 +196,7 @@ class ProductResource extends Resource
                 Tables\Columns\SpatieMediaLibraryImageColumn::make('image')->collection('image')->label('الصورة')->size(50),
                 Tables\Columns\TextColumn::make('id')->label('رقم المنتج')->searchable(),
                 Tables\Columns\TextInputColumn::make('weight')->label('وزن المنتج')->searchable(),
+                Tables\Columns\ToggleColumn::make('is_delivery')->label('قابل للتوصيل')->searchable(),
                 Tables\Columns\TextColumn::make('category.name')->label('اسم القسم')->description(fn($record) => $record->sub1?->name),
                 Tables\Columns\TextColumn::make('name')->label('اسم المنتج')->description(fn($record) => $record->expert)->searchable(),
                 Tables\Columns\TextColumn::make('city.name')->label('المدينة'),
