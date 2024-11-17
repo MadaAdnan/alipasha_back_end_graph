@@ -41,7 +41,7 @@ type Item{
 
 
 extend type Mutation{
-    createInvoice(input:InvoiceInput):[Invoice]
+    createInvoice(input:InvoiceInput):Invoice
 }
 
 
