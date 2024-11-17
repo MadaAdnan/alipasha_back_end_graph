@@ -279,7 +279,7 @@ class ProductResource extends Resource
                                 'input_text'=>$record->name . "  عدد 1 \n"
                             ]);
                             if($res->successful() && (double) $res->json('total_weight')>0){
-                               Product::where('id',$record->id)->updated([
+                               Product::where('id',$record->id)->update([
                                    'weight'=>$res->json('total_weight')
                                ]);
                             }
