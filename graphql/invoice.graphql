@@ -3,7 +3,7 @@
 
 extend type Query{
 
-   myInvoice:[Invoice] @guard @paginate(builder:"")
+   myInvoice(first:Int,page:Int):[Invoice] @guard @paginate(builder:"App\\GraphQL\\Queries\\MyInvoice")
 
 }
 
@@ -12,6 +12,7 @@ extend type Query{
 input InvoiceInput{
 seller_id:Int!
     items:[ItemInvoice]!
+    weight:Float
 
 }
 input ItemInvoice{
