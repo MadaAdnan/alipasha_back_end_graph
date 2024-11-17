@@ -14,7 +14,7 @@ final  class CreateInvoice
     public function __invoke($_, array $args)
     {
         $data = $args['input'];
-        throw new GraphQLExceptionHandler(implode('-',$data));
+        throw new GraphQLExceptionHandler(implode('-',array_keys($data)));
         \DB::beginTransaction();
         try {
             $invoice = new Invoice();
