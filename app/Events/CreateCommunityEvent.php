@@ -35,9 +35,11 @@ class CreateCommunityEvent implements ShouldBroadcastNow
      */
     public function broadcastOn(): array
     {
-        return [
-            new PrivateChannel('community.' . $this->community->seller_id),
-        ];
+        $list=[];
+        foreach ($this->community->users as $user){
+            $list[]=   new PrivateChannel('community.' . $user->id);
+        }
+        return $list;
     }
 
     public function broadcastAs(): string
@@ -47,7 +49,6 @@ class CreateCommunityEvent implements ShouldBroadcastNow
 
     public function broadcastWith(): array
     {
-        $this->community->load('user', 'seller');
 
         return ['community' => new CommunityResource($this->community)];
     }

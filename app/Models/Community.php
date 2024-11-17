@@ -39,13 +39,14 @@ class Community extends Model implements HasMedia
 
     public function scopeChannel(Builder $query): Builder
     {
-        return $query->where('type',  CommunityTypeEnum::CHANNEL->value);
+        return $query->where('type', CommunityTypeEnum::CHANNEL->value);
     }
 
     public function scopeGroup($query)
     {
         return $query->where('type', CommunityTypeEnum::GROUP->value);
     }
+
     public function scopeChat($query)
     {
         return $query->where('type', CommunityTypeEnum::CHAT->value);
@@ -61,9 +62,9 @@ class Community extends Model implements HasMedia
         return $this->belongsToMany(User::class);
     }
 
-public function messages(): HasMany
-{
-    return $this->hasMany(Message::class);
-}
+    public function messages(): HasMany
+    {
+        return $this->hasMany(Message::class);
+    }
 
 }

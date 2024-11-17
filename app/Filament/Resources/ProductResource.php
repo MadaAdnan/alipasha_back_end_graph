@@ -111,7 +111,9 @@ class ProductResource extends Resource
             ->schema([
                 Forms\Components\FileUpload::make('test'),
                 Forms\Components\Section::make('المنتجات')->schema([
-                    Forms\Components\Select::make('user_id')->options(User::seller()->selectRaw('id,name')->pluck('name', 'id'))->label('المتجر')->live()->afterStateUpdated(fn($set, $state) => $set('city_id', User::find($state)?->city_id)),
+                    Forms\Components\Select::make('user_id')->options(User::seller()->selectRaw('id,name')->pluck('name', 'id'))->label('المتجر')
+                        ->searchable()->live()
+                        ->afterStateUpdated(fn($set, $state) => $set('city_id', User::find($state)?->city_id)),
                     Forms\Components\Select::make('city_id')->options(City::selectRaw('id,name')->pluck('name', 'id'))->searchable()->label('المدينة'),
                     HelperMedia::getFileUpload(label: 'الصورة الرئيسية', collection: 'image', is_multible: true, ratio: ['1:1'],),
                     HelperMedia::getFileUpload(label: 'صور إضافية', name: 'images', collection: 'images', is_multible: true),

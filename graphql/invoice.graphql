@@ -1,0 +1,46 @@
+
+
+
+extend type Query{
+
+   myInvoice:[Invoice] @guard @paginate(builder:"")
+
+}
+
+
+
+input InvoiceInput{
+seller_id:Int!
+    items:[ItemInvoice]!
+
+}
+input ItemInvoice{
+    product_id:ID!
+    qty:Float!
+}
+
+type Invoice{
+    id:ID!,
+    status:String!
+    user:User @belongsTo
+    seller:User @belongsTo
+    created_at:HumanDate
+    total:Float
+    shipping:Float
+    items:Ite
+}
+
+type Item{
+    product:Product @belongsTo
+    qty:Float
+    price:Float
+    total:Float
+}
+
+
+
+extend type Mutation{
+    createInvoice(input:InvoiceInput):[Invoice]
+}
+
+
