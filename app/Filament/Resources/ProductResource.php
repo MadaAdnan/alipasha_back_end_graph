@@ -271,6 +271,18 @@ class ProductResource extends Resource
                             'sub3_id' => $data['sub3_id'],
                         ]);
                         Notification::make('success')->title('نجاح العملية')->body('تم تخصيص الأقسام بنجاح')->success()->send();
+                    }),
+                    Tables\Actions\BulkAction::make('weight')->label('احسب الوزن')->action(function ($records){
+                        foreach ($records as $record){
+                         $res=   \Http::post('http://85.215.154.88:5000/calculate-weight',[
+                                'input_text'=>$record->name . "  عدد 1 \n"
+                            ]);
+                            if($res->successful() && (double) $res->json('total_weight')>0){
+                               Product::where('id',$record->id)->updated([
+                                   'weight'=>$res->json('total_weight')
+                               ]);
+                            }
+                        }
                     })
                 ]),
             ]);
