@@ -42,6 +42,8 @@ class InvoiceResource extends Resource
                 Tables\Columns\TextColumn::make('user.name')->label('الزبون')->url(fn($record)=>UserResource::getUrl('edit',[$record->user->id]),true),
                 Tables\Columns\TextColumn::make('seller.seller_name')->label('المتجر')->url(fn($record)=>UserResource::getUrl('edit',[$record->seller->id]),true),
                 Tables\Columns\TextColumn::make('status')->formatStateUsing(fn($state)=>OrderStatusEnum::tryFrom($state)?->getLabel())->icon(fn($state)=>OrderStatusEnum::tryFrom($state)?->getIcon())->color(fn($state)=>OrderStatusEnum::tryFrom($state)?->getColor())->label('حالة الطلب'),
+                Tables\Columns\TextColumn::make('total')->label('إجمالي السعر'),
+                Tables\Columns\TextColumn::make('shipping')->label('اجور الشحن'),
                 Tables\Columns\TextColumn::make('created_at')->since()->label('تاريخ الطلب'),
             ])
             ->filters([
