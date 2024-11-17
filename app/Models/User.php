@@ -159,5 +159,11 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
     {
         return $this->belongsTo(Category::class)->where('is_main',true);
     }
+    function getIsSameMainCity( User $user)
+    {
+        $user1MainCityId = $this->city?->city ? $user->city->city->id : $user->city->id;
+        $user2MainCityId = $this->city?->city ? $this->city->city->id : $this->city->id;
+        return $user1MainCityId === $user2MainCityId;
+    }
 
 }

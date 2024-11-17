@@ -7,6 +7,8 @@ use App\Exceptions\GraphQLExceptionHandler;
 use App\Models\Invoice;
 use App\Models\Item;
 use App\Models\Product;
+use App\Models\ShippingPrice;
+use App\Models\User;
 
 final  class CreateInvoice
 {
@@ -17,7 +19,21 @@ final  class CreateInvoice
 
         \DB::beginTransaction();
         try {
-            // إنشاء الفاتورة
+            $ship_price = ShippingPrice::where('weight', '>=', $data['weight'])->orderBy('weight')->first();
+            if ($ship_price == null) {
+                $ship_price = ShippingPrice::orderBy('weight', 'desc')->first();
+
+            }
+            if ($ship_price == null) {
+                throw new \Exception('لا يتوفر توصيل حالياً');
+            }
+            $far = 0;
+            $seller = User::findOrFail($data['seller_id']);
+            if (auth()->user()->getIsSameMainCity($seller)) {
+                $far = $ship_price->internal_price;
+            } else {
+                $far = $ship_price->external_price;
+            }
             $invoice = new Invoice();
             $invoice->seller_id = $data['seller_id'];
             $invoice->user_id = auth()->id();
@@ -25,6 +41,7 @@ final  class CreateInvoice
             $invoice->address = auth()->user()->address;
             $invoice->status = OrderStatusEnum::PENDING->value;
             $invoice->weight = $data['weight'];
+            $invoice->shipping = $far;
             $invoice->save();
             $total = 0;
             foreach ($data['items'] as $item) {
