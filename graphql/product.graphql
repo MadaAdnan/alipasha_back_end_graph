@@ -34,6 +34,7 @@ type Product{
     comments:[Comment] @hasMany(defaultCount:10,type:PAGINATOR)
     likes_count:Int
     comments_count:Int
+    weight:Float
     # Fields
     name:String,
     active:String
