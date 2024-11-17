@@ -25,11 +25,7 @@ final  class CreateInvoice
             $invoice->address = auth()->user()->address;
             $invoice->status = OrderStatusEnum::PENDING->value;
             $invoice->weight = $data['weight'];
-
-            // احفظ الفاتورة أولاً للحصول على $invoice->id
             $invoice->save();
-
-            // حساب الإجمالي وإنشاء العناصر
             $total = 0;
             foreach ($data['items'] as $item) {
                 $product = Product::find($item['product_id']);
