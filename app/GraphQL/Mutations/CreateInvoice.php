@@ -14,23 +14,32 @@ final  class CreateInvoice
     public function __invoke($_, array $args)
     {
         $data = $args['input'];
+
         \DB::beginTransaction();
         try {
+            // إنشاء الفاتورة
             $invoice = new Invoice();
-            throw new \Exception($invoice->id);
             $invoice->seller_id = $data['seller_id'];
             $invoice->user_id = auth()->id();
             $invoice->phone = auth()->user()->phone;
             $invoice->address = auth()->user()->address;
             $invoice->status = OrderStatusEnum::PENDING->value;
-            $total = 0;
             $invoice->weight = $data['weight'];
+
+            // احفظ الفاتورة أولاً للحصول على $invoice->id
+            $invoice->save();
+
+            // حساب الإجمالي وإنشاء العناصر
+            $total = 0;
             foreach ($data['items'] as $item) {
                 $product = Product::find($item['product_id']);
+                if (!$product) {
+                    throw new \Exception("Product with ID {$item['product_id']} not found.");
+                }
                 $price = $product->is_discount ? $product->discount : $product->price;
                 $total_price = $price * $item['qty'];
                 Item::create([
-                    'invoice_id' => $invoice->id,
+                    'invoice_id' => $invoice->id, // $invoice->id متاح الآن
                     'product_id' => $item['product_id'],
                     'price' => $price,
                     'qty' => $item['qty'],
@@ -40,6 +49,7 @@ final  class CreateInvoice
             }
             $invoice->total = $total;
             $invoice->save();
+
             \DB::commit();
             return $invoice;
         } catch (\Exception | \Error $e) {
