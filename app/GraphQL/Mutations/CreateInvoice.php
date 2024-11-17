@@ -14,10 +14,10 @@ final  class CreateInvoice
     public function __invoke($_, array $args)
     {
         $data = $args['input'];
-        throw new GraphQLExceptionHandler(implode('-',array_keys($data)));
         \DB::beginTransaction();
         try {
             $invoice = new Invoice();
+            throw new \Exception($invoice->id);
             $invoice->seller_id = $data['seller_id'];
             $invoice->user_id = auth()->id();
             $invoice->phone = auth()->user()->phone;
