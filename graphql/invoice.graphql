@@ -3,7 +3,7 @@
 
 extend type Query{
 
-   myInvoice(first:Int,page:Int):[Invoice] @guard @paginate(builder:"App\\GraphQL\\Queries\\MyInvoice")
+   myInvoice(first:Int!,page:Int!):[Invoice] @guard @paginate(builder:"App\\GraphQL\\Queries\\MyInvoice")
 
 }
 
