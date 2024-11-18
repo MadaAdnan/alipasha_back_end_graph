@@ -42,7 +42,7 @@ type Product{
     expert:String,
     tags:[String]
     is_discount:Boolean
-    is_delivary:Boolean
+    is_delivery:Boolean
     is_available:Boolean
     level:String
     phone:String
