@@ -109,7 +109,7 @@ class ProductResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\FileUpload::make('test'),
+
                 Forms\Components\Section::make('المنتجات')->schema([
                     Forms\Components\Select::make('user_id')->options(User::seller()->selectRaw('id,name')->pluck('name', 'id'))->label('المتجر')
                         ->searchable()->live()
