@@ -91,13 +91,13 @@ class UserResource extends Resource
                                 Forms\Components\TimePicker::make('open_time')->label('يفتح من الساعة'),
                                 Forms\Components\TimePicker::make('close_time')->label('يغلق في الساعة'),
                                 Forms\Components\Fieldset::make('متجر مميز')->schema([
-                                   Forms\Components\Grid::make(3)->schema([
-                                       Forms\Components\Toggle::make('is_special')->label('تمييز المتجر')->inline(false)->live()->hint('عند تفعيل هذا الخيار سيظهر المتجر في الصفحة الرئيسية'),
-                                       HelperMedia::getFileUpload('صورة مميزة', 'custom', 'custom', false, ['2:1'])->required(fn($get) => $get('is_special')),
-                                       Forms\Components\Select::make('category_id')->relationship('category','name')->label('القسم')->searchable(),
+                                    Forms\Components\Grid::make(3)->schema([
+                                        Forms\Components\Toggle::make('is_special')->label('تمييز المتجر')->inline(false)->live()->hint('عند تفعيل هذا الخيار سيظهر المتجر في الصفحة الرئيسية'),
+                                        HelperMedia::getFileUpload('صورة مميزة', 'custom', 'custom', false, ['2:1'])->required(fn($get) => $get('is_special')),
+                                        Forms\Components\Select::make('category_id')->relationship('category', 'name')->label('القسم')->searchable(),
 
-                                   ])
-                                    ]),
+                                    ])
+                                ]),
                                 Forms\Components\Toggle::make('is_verified')->label('توثيق المتجر'),
                                 Forms\Components\DatePicker::make('verified_account_date')->label('تاريخ إنتهاء التوثيق'),
                                 Forms\Components\ColorPicker::make('id_color')->label('هوية المتجر')->default("#FF0000"),
@@ -112,9 +112,9 @@ class UserResource extends Resource
                             Forms\Components\TextInput::make('social.twitter')->label('رابط تويتر')->nullable()->url()->placeholder('https://'),
                             //Forms\Components\TextInput::make('social.telegram')->label('رابط تلغرام')->nullable()->url()->placeholder('https://'),
                         ])->visible(fn($get) => $get('is_seller')),
-                   Forms\Components\Wizard\Step::make('معرض الصور')->schema([
-                       Forms\Components\SpatieMediaLibraryFileUpload::make('gallery')->collection('gallery')->image()->imageCropAspectRatio('1:1')->imageEditor()->multiple()->label('صور المعرض')
-                   ])->visible(fn($get) => $get('is_seller')),
+                        Forms\Components\Wizard\Step::make('معرض الصور')->schema([
+                            Forms\Components\SpatieMediaLibraryFileUpload::make('gallery')->collection('gallery')->image()->imageCropAspectRatio('1:1')->imageEditor()->multiple()->label('صور المعرض')
+                        ])->visible(fn($get) => $get('is_seller')),
                     ])->skippable()->columnSpan(2)
                 ])
             ]);
@@ -146,7 +146,11 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('created_at')->date('Y-m-d')->label('تاريخ التسجيل')->toggleable(isToggledHiddenByDefault: false)->sortable(),
             ])
             ->filters([
-                //
+                Tables\Filters\TernaryFilter::make('is_seller')->falseLabel('مستخدم')->trueLabel('متجر')->queries(
+                    true: fn($query) => $query->where('is_seller', 1),
+                    false: fn($query) => $query->where('is_seller', 0),
+                    blank: fn($query) => $query,
+                )->label('نوع المستخدم')
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
