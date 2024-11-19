@@ -28,7 +28,7 @@ final  class ChangeStatusInvoice
         }
         $invoice->update([
             'status'=>$args['status'],
-            'seller_note'=>$args['msg'],
+            'seller_note'=>$args['msg']??'',
         ]);
         return $invoice->refresh();
     }
