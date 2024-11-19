@@ -28,6 +28,7 @@ enum OrderStatusEnum: string
     {
         return match ($this) {
             self::PENDING => 'fas-hourglass-half',
+            self::AGREE => 'fas-hourglass-half',
             self::AWAY =>'fas-thumbs-up',
             self::COMPLETE =>'fas-check',
             self::CANCELED =>'fas-ban',
@@ -39,6 +40,7 @@ enum OrderStatusEnum: string
     {
         return match ($this) {
             self::PENDING => 'info',
+            self::AGREE => 'warning',
             self::AWAY => 'gold',
             self::COMPLETE => 'success',
             self::CANCELED => 'danger',
