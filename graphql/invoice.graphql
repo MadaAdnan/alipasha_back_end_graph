@@ -1,16 +1,13 @@
-
-
-
 extend type Query{
 
-   myInvoice(first:Int!,page:Int!):[Invoice] @guard @paginate(builder:"App\\GraphQL\\Queries\\MyInvoice")
-sellerInvoice(first:Int!,page:Int!):[Invoice] @guard @paginate(builder:"App\\GraphQL\\Queries\\SellerInvoice")
+    myInvoice(first:Int!,page:Int!):[Invoice] @guard @paginate(builder:"App\\GraphQL\\Queries\\MyInvoice")
+    sellerInvoice(first:Int!,page:Int!):[Invoice] @guard @paginate(builder:"App\\GraphQL\\Queries\\SellerInvoice")
 }
 
 
 
 input InvoiceInput{
-seller_id:Int!
+    seller_id:Int!
     items:[ItemInvoice]!
     weight:Float
 
@@ -44,6 +41,7 @@ type Item{
 
 extend type Mutation{
     createInvoice(input:InvoiceInput):Invoice
+    changeStatusInvoice(invoiceId:ID!,status:String!,msg:String):Invoice @guard
 }
 
 
