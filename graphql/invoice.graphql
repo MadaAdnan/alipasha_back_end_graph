@@ -28,11 +28,11 @@ type Invoice{
     created_at:HumanDate
     total:Float
     shipping:Float
-
+    items:Item @hasMany
 }
 
 type Item{
-    product:Product @belongsTo
+
     qty:Float
     price:Float
     total:Float
