@@ -28,7 +28,7 @@ type Invoice{
     created_at:HumanDate
     total:Float
     shipping:Float
-    items:Item @hasMany
+    items:[Items] @hasMany
 }
 
 type Item{
