@@ -32,10 +32,10 @@ type Invoice{
 }
 
 type Item{
-
-    qty:Float
-    price:Float
-    total:Float
+    product:Product @belongsTo
+    qty:String
+    price:String
+    total:String
 }
 
 
