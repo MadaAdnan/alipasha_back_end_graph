@@ -28,6 +28,8 @@ type Invoice{
     created_at:HumanDate
     total:Float
     shipping:Float
+    phone:String
+    address:String
     items:[Item] @hasMany
 }
 
