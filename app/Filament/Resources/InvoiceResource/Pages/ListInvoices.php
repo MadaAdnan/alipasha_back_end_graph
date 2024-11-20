@@ -5,6 +5,7 @@ namespace App\Filament\Resources\InvoiceResource\Pages;
 use App\Enums\OrderStatusEnum;
 use App\Filament\Resources\InvoiceResource;
 use Filament\Actions;
+use Filament\Resources\Components\Tab;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -22,12 +23,14 @@ class ListInvoices extends ListRecords
     public function getTabs(): array
     {
         return [
-            'الكل'=>fn($query)=>$query,
-            OrderStatusEnum::PENDING->value=>fn($query)=>$query->where('status','pending'),
-            OrderStatusEnum::AGREE->value=>fn($query)=>$query->where('status','agree'),
-            OrderStatusEnum::AWAY->value=>fn($query)=>$query->where('status','away'),
-            OrderStatusEnum::COMPLETE->value=>fn($query)=>$query->where('status','complete'),
-            OrderStatusEnum::CANCELED->value=>fn($query)=>$query->where('status','canceled'),
+            Tab::make('all')->modifyQueryUsing(fn($query)=>$query)->label('الكل'),
+            Tab::make( OrderStatusEnum::PENDING->value)->modifyQueryUsing(fn($query)=>$query->where('status','pending'))->label(OrderStatusEnum::PENDING->getLabel()),
+            Tab::make( OrderStatusEnum::AGREE->value)->modifyQueryUsing(fn($query)=>$query->where('status','agree'))->label(OrderStatusEnum::AGREE->getLabel()),
+            Tab::make( OrderStatusEnum::AWAY->value)->modifyQueryUsing(fn($query)=>$query->where('status','away'))->label(OrderStatusEnum::AWAY->getLabel()),
+            Tab::make( OrderStatusEnum::COMPLETE->value)->modifyQueryUsing(fn($query)=>fn($query)=>$query->where('status','complete'))->label(OrderStatusEnum::COMPLETE->getLabel()),
+            Tab::make( OrderStatusEnum::CANCELED->value)->modifyQueryUsing(fn($query)=>fn($query)=>$query->where('status','canceled'))->label(OrderStatusEnum::CANCELED->getLabel()),
+
+
         ];
     }
 
