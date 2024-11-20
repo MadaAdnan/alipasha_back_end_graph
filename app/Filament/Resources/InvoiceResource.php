@@ -42,7 +42,7 @@ class InvoiceResource extends Resource
                   Forms\Components\Grid::make()->schema([
                       Forms\Components\Select::make('product_id')->options(fn($context,$record)=>Product::where('type','product')
                           ->when($context=='edit',fn($query)=>$query->where('user_id',$record->seller_id))
-                          ->selectRaw('id,name')->pluck('name','id')->toArray())->searchable()->label('المنتج')->required(),
+                          ->selectRaw('products.id,products.name')->pluck('name','id')->toArray())->searchable()->label('المنتج')->required(),
                       Forms\Components\TextInput::make('qty')->label('الكمية')->required()
                   ])
               ])->label('المنتجات')->minItems(1)->required()
