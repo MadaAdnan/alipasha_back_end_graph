@@ -49,8 +49,8 @@ class InvoiceResource extends Resource
                 Tables\Columns\TextColumn::make('created_at')->since()->label('تاريخ الطلب'),
             ])
             ->filters([
-               Tables\Filters\SelectFilter::make('user_id')->searchable()->getSearchResultsUsing(fn($search)=>User::where('name','like',"%$search%")->take(7)->pluck('name','id')),
-               Tables\Filters\SelectFilter::make('seller_id')->searchable()->getSearchResultsUsing(fn($search)=>User::where('is_seller',1)->where('name','like',"%$search%")->take(7)->pluck('name','id'))
+               Tables\Filters\SelectFilter::make('user_id')->searchable()->getSearchResultsUsing(fn($search)=>User::where('name','like',"%$search%")->take(7)->pluck('name','id'))->label('الزبون'),
+               Tables\Filters\SelectFilter::make('seller_id')->searchable()->getSearchResultsUsing(fn($search)=>User::where('is_seller',1)->where('name','like',"%$search%")->take(7)->pluck('name','id'))->label('التاجر')
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
