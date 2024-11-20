@@ -24,8 +24,8 @@ final  class CreateInvoice
             $invoice = new Invoice();
             $invoice->seller_id = $data['seller_id'];
             $invoice->user_id = auth()->id();
-            $invoice->phone =$args['phone'] ??auth()->user()->phone;
-            $invoice->address =$args['address'] ?? auth()->user()->address;
+            $invoice->phone =$data['phone'] ??auth()->user()->phone;
+            $invoice->address =$data['address'] ?? auth()->user()->address;
             $invoice->status = OrderStatusEnum::PENDING->value;
             $invoice->save();
 
