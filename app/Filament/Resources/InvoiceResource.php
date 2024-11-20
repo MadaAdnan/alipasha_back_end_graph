@@ -6,6 +6,7 @@ use App\Enums\OrderStatusEnum;
 use App\Filament\Resources\InvoiceResource\Pages;
 use App\Filament\Resources\InvoiceResource\RelationManagers;
 use App\Models\Invoice;
+use App\Models\Product;
 use App\Models\User;
 use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
@@ -25,6 +26,7 @@ class InvoiceResource extends Resource
 
     public static function form(Form $form): Form
     {
+        $product=Product::where('type','product')->selectRaw('id,name')->pluck('name','id')->toArray();
         return $form
             ->schema([
                 Forms\Components\Section::make('الطلبات')->schema([
@@ -36,6 +38,10 @@ class InvoiceResource extends Resource
                Forms\Components\TextInput::make('address')->readOnly(fn($context)=>$context=='edit')->label('العنوان'),
                     Forms\Components\TextInput::make('total')->numeric()->readOnly(fn($context)=>$context=='edit')->label('إجمالي قيمة البضاعة'),
                Forms\Components\TextInput::make('shipping')->numeric()->label('إجمالي أجور الشحن'),
+              Forms\Components\Repeater::make('items')->relationship('items')->schema([
+                  Forms\Components\Select::make('product_id')->options($product)->searchable()->label('المنتج'),
+                  Forms\Components\TextInput::make('qty')->label('الكمية')
+              ])
                 ]),
 
             ]);
@@ -80,7 +86,7 @@ class InvoiceResource extends Resource
     public static function getRelations(): array
     {
         return [
-            RelationManagers\ItemsRelationManager::class
+           // RelationManagers\ItemsRelationManager::class
         ];
     }
 
