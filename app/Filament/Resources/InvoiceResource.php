@@ -29,12 +29,13 @@ class InvoiceResource extends Resource
             ->schema([
                 Forms\Components\Section::make('الطلبات')->schema([
                     Forms\Components\TextInput::make('id')->label('رقم الفاتورة')->readOnly(),
-                    Forms\Components\Select::make('user_id')->label('المستخدم')->searchable()->getSearchResultsUsing(fn($search) => User::whereNotNull('email_verified_at')->where('name','like',"%$search%")->selectRaw('name,id')->take(7)->pluck('name', 'id')),
-                    Forms\Components\Select::make('seller_id')->label('المتجر')->searchable()->getSearchResultsUsing(fn($search) => User::whereNotNull('email_verified_at')->where('seller_name','like',"%$search%")->selectRaw('seller_name,id')->take(100)->pluck('seller_name', 'id')),
-               Forms\Components\TextInput::make('total')->readOnly()->label('إجمالي قيمة البضاعة'),
+                    Forms\Components\Select::make('user_id')->relationship('user','name')->label('المستخدم')->searchable(),
+                    Forms\Components\Select::make('seller_id')->relationship('seller','seller_name')->label('المتجر')->searchable(),
+
                Forms\Components\TextInput::make('phone')->readOnly()->label('الهاتف'),
                Forms\Components\TextInput::make('address')->readOnly()->label('العنوان'),
-               Forms\Components\TextInput::make('shipping')->label('إجمالي أجور الشحن'),
+                    Forms\Components\TextInput::make('total')->numeric()->readOnly()->label('إجمالي قيمة البضاعة'),
+               Forms\Components\TextInput::make('shipping')->numeric()->label('إجمالي أجور الشحن'),
                 ]),
 
             ]);
