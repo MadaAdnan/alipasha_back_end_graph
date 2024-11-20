@@ -26,7 +26,7 @@ class InvoiceResource extends Resource
 
     public static function form(Form $form): Form
     {
-        $product=Product::where('type','product')->selectRaw('id,name')->pluck('name','id')->toArray();
+
         return $form
             ->schema([
                 Forms\Components\Section::make('الطلبات')->schema([
@@ -40,7 +40,9 @@ class InvoiceResource extends Resource
                Forms\Components\TextInput::make('shipping')->numeric()->label('إجمالي أجور الشحن'),
               Forms\Components\Repeater::make('items')->relationship('items')->schema([
                   Forms\Components\Grid::make()->schema([
-                      Forms\Components\Select::make('product_id')->options($product)->searchable()->label('المنتج')->required(),
+                      Forms\Components\Select::make('product_id')->options(fn($context,$record)=>Product::where('type','product')
+                          ->when($context=='edit',fn($query)=>$query->where('user_id',$record->seller_id))
+                          ->selectRaw('id,name')->pluck('name','id')->toArray())->searchable()->label('المنتج')->required(),
                       Forms\Components\TextInput::make('qty')->label('الكمية')->required()
                   ])
               ])->label('المنتجات')->minItems(1)->required()
