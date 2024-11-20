@@ -15,7 +15,7 @@ final  class CreateInvoice
     /** @param array{} $args */
     public function __invoke($_, array $args)
     {
-        $data = $args;
+        $data = $args['input'];
 
         \DB::beginTransaction();
         try {
