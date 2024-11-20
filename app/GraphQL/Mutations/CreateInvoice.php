@@ -19,33 +19,23 @@ final  class CreateInvoice
 
         \DB::beginTransaction();
         try {
-            $ship_price = ShippingPrice::where('weight', '>=', $data['weight'])->orderBy('weight')->first();
-            if ($ship_price == null) {
-                $ship_price = ShippingPrice::orderBy('weight', 'desc')->first();
 
-            }
-            if ($ship_price == null) {
-                throw new \Exception('لا يتوفر توصيل حالياً');
-            }
-            $far = 0;
-            $seller = User::findOrFail($data['seller_id']);
-            if (auth()->user()->getIsSameMainCity($seller)) {
-                $far = $ship_price->internal_price;
-            } else {
-                $far = $ship_price->external_price;
-            }
+            $weight=0;
             $invoice = new Invoice();
             $invoice->seller_id = $data['seller_id'];
             $invoice->user_id = auth()->id();
             $invoice->phone = auth()->user()->phone;
             $invoice->address = auth()->user()->address;
             $invoice->status = OrderStatusEnum::PENDING->value;
-            $invoice->weight = $data['weight'];
-            $invoice->shipping = $far;
             $invoice->save();
+
+            $seller = User::findOrFail($data['seller_id']);
             $total = 0;
             foreach ($data['items'] as $item) {
                 $product = Product::find($item['product_id']);
+                if($product->is_delivery){
+                    $weight+=$product->weight;
+                }
                 if (!$product) {
                     throw new \Exception("Product with ID {$item['product_id']} not found.");
                 }
@@ -60,9 +50,20 @@ final  class CreateInvoice
                 ]);
                 $total += $total_price;
             }
+            $ship_price = ShippingPrice::where('weight', '>=', $weight)->orderBy('weight')->first();
+            if ($ship_price == null) {
+                throw new \Exception('لا يتوفر توصيل حالياً');
+            }
+            // set Far
+            if (auth()->user()->getIsSameMainCity($seller)) {
+                $far = $ship_price->internal_price;
+            } else {
+                $far = $ship_price->external_price;
+            }
+            $invoice->weight = $weight;
+            $invoice->shipping = $far;
             $invoice->total = $total;
             $invoice->save();
-
             \DB::commit();
             return $invoice;
         } catch (\Exception | \Error $e) {
