@@ -49,7 +49,7 @@ class InvoiceResource extends Resource
                 Tables\Columns\TextColumn::make('created_at')->since()->label('تاريخ الطلب'),
             ])
             ->filters([
-                //
+                Forms\Components\Select::make('user_id')->searchable()->getSearchResultsUsing(fn($search)=>User::where('name','like',"%$search%")->take(7)->pluck('name','id'))
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
