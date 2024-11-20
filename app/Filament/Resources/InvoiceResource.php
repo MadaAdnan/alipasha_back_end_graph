@@ -28,13 +28,13 @@ class InvoiceResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Section::make('الطلبات')->schema([
-                    Forms\Components\TextInput::make('id')->label('رقم الفاتورة')->readOnly(),
-                    Forms\Components\Select::make('user_id')->relationship('user','name')->label('المستخدم')->searchable(),
-                    Forms\Components\Select::make('seller_id')->relationship('seller','seller_name')->label('المتجر')->searchable(),
+                    Forms\Components\TextInput::make('id')->label('رقم الفاتورة')->readOnly(fn($context)=>$context=='edit'),
+                    Forms\Components\Select::make('user_id')->relationship('user','name')->label('المستخدم')->searchable()->dehydrated(fn($context)=>$context=='edit'),
+                    Forms\Components\Select::make('seller_id')->relationship('seller','seller_name')->label('المتجر')->searchable()->dehydrated(fn($context)=>$context=='edit'),
 
-               Forms\Components\TextInput::make('phone')->readOnly()->label('الهاتف'),
-               Forms\Components\TextInput::make('address')->readOnly()->label('العنوان'),
-                    Forms\Components\TextInput::make('total')->numeric()->readOnly()->label('إجمالي قيمة البضاعة'),
+               Forms\Components\TextInput::make('phone')->readOnly(fn($context)=>$context=='edit')->label('الهاتف'),
+               Forms\Components\TextInput::make('address')->readOnly(fn($context)=>$context=='edit')->label('العنوان'),
+                    Forms\Components\TextInput::make('total')->numeric()->readOnly(fn($context)=>$context=='edit')->label('إجمالي قيمة البضاعة'),
                Forms\Components\TextInput::make('shipping')->numeric()->label('إجمالي أجور الشحن'),
                 ]),
 
