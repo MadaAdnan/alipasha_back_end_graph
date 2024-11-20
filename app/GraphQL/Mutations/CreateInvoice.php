@@ -55,7 +55,9 @@ final  class CreateInvoice
                 throw new \Exception('لا يتوفر توصيل حالياً');
             }
             // set Far
-            if (auth()->user()->getIsSameMainCity($seller)) {
+            if($weight==0){
+                $far=0;
+            }elseif (auth()->user()->getIsSameMainCity($seller)) {
                 $far = $ship_price->internal_price;
             } else {
                 $far = $ship_price->external_price;
