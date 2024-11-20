@@ -46,6 +46,8 @@ class InvoiceResource extends Resource
                 Tables\Columns\TextColumn::make('seller_note')->label('ملاحظات التاجر'),
                 Tables\Columns\TextColumn::make('total')->label('إجمالي السعر'),
                 Tables\Columns\TextColumn::make('shipping')->label('اجور الشحن'),
+                Tables\Columns\TextColumn::make('address')->label('عنوان الشحن'),
+                Tables\Columns\TextColumn::make('phone')->label('رقم الهاتف'),
                 Tables\Columns\TextColumn::make('created_at')->since()->label('تاريخ الطلب'),
             ])
             ->filters([
