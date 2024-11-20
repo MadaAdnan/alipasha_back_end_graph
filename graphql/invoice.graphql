@@ -7,7 +7,11 @@ extend type Query{
 
 
 input InvoiceInput{
-
+    seller_id:Int!
+    items:[ItemInvoice]!
+    address:String
+    phone:String
+    weight:Float
 
 }
 input ItemInvoice{
@@ -38,7 +42,7 @@ type Item{
 
 
 extend type Mutation{
-    createInvoice(seller_id:Int!,items:[ItemInvoice]!,address:String,phone:String,weight:Float):Invoice
+    createInvoice(input:InvoiceInput!):Invoice
     changeStatusInvoice(invoiceId:ID!,status:String!,msg:String):Invoice @guard
 }
 
