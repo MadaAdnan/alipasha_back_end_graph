@@ -55,7 +55,8 @@ class InvoiceResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->paginated(false)
+            ->paginated(true)
+            ->paginatedWhileReordering(false)
             ->columns([
                 Tables\Columns\TextColumn::make('id')->label('#'),
                 Tables\Columns\TextColumn::make('user.name')->label('الزبون')->url(fn($record) => UserResource::getUrl('edit', [$record->user->id]), true),
