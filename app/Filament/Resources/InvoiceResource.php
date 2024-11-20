@@ -40,10 +40,10 @@ class InvoiceResource extends Resource
                Forms\Components\TextInput::make('shipping')->numeric()->label('إجمالي أجور الشحن'),
               Forms\Components\Repeater::make('items')->relationship('items')->schema([
                   Forms\Components\Grid::make()->schema([
-                      Forms\Components\Select::make('product_id')->options($product)->searchable()->label('المنتج'),
-                      Forms\Components\TextInput::make('qty')->label('الكمية')
+                      Forms\Components\Select::make('product_id')->options($product)->searchable()->label('المنتج')->required(),
+                      Forms\Components\TextInput::make('qty')->label('الكمية')->required()
                   ])
-              ])
+              ])->label('المنتجات')->minItems(1)->required()
                 ]),
 
             ]);
