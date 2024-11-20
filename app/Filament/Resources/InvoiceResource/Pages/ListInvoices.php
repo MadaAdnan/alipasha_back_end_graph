@@ -27,8 +27,8 @@ class ListInvoices extends ListRecords
             Tab::make( OrderStatusEnum::PENDING->value)->modifyQueryUsing(fn($query)=>$query->where('status','pending'))->label(OrderStatusEnum::PENDING->getLabel()),
             Tab::make( OrderStatusEnum::AGREE->value)->modifyQueryUsing(fn($query)=>$query->where('status','agree'))->label(OrderStatusEnum::AGREE->getLabel()),
             Tab::make( OrderStatusEnum::AWAY->value)->modifyQueryUsing(fn($query)=>$query->where('status','away'))->label(OrderStatusEnum::AWAY->getLabel()),
-            Tab::make( OrderStatusEnum::COMPLETE->value)->modifyQueryUsing(fn($query)=>fn($query)=>$query->where('status','complete'))->label(OrderStatusEnum::COMPLETE->getLabel()),
-            Tab::make( OrderStatusEnum::CANCELED->value)->modifyQueryUsing(fn($query)=>fn($query)=>$query->where('status','canceled'))->label(OrderStatusEnum::CANCELED->getLabel()),
+            Tab::make( OrderStatusEnum::COMPLETE->value)->modifyQueryUsing(fn($query)=>$query->where('status','complete'))->label(OrderStatusEnum::COMPLETE->getLabel()),
+            Tab::make( OrderStatusEnum::CANCELED->value)->modifyQueryUsing(fn($query)=>$query->where('status','canceled'))->label(OrderStatusEnum::CANCELED->getLabel()),
 
 
         ];
