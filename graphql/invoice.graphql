@@ -9,8 +9,8 @@ extend type Query{
 input InvoiceInput{
     seller_id:Int!
     items:[ItemInvoice]!
-    address:String!
-    phone:String!
+    address:String
+    phone:String
     weight:Float
 
 }
