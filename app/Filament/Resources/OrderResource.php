@@ -35,6 +35,7 @@ class OrderResource extends Resource
                     Forms\Components\TextInput::make('length')->label('طول الحمولة'),
                     Forms\Components\TextInput::make('width')->label('عرض الحمولة'),
                     Forms\Components\TextInput::make('price')->label('تكلفة الشحن'),
+                    Forms\Components\Textarea::make('note')->label('ملاحظات الزبون'),
                     Forms\Components\Fieldset::make('معلومات المستلم')->schema([
                         Forms\Components\TextInput::make('receive_name')->label('الاسم'),
                         Forms\Components\TextInput::make('receive_phone')->label('رقم الهاتف'),
