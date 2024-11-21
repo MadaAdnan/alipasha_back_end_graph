@@ -117,6 +117,7 @@ input CreateProductInput{
             message:"يرجى إدخال 3 أحرف على الأقل"
         }
     ])
+    is_delivery:Boolean
     city_id:Int
     #    city_id:Int @rules(apply: ["required","integer","exists:cities,id"],messages:[
     #        {
