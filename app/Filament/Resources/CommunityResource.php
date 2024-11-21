@@ -36,6 +36,7 @@ class CommunityResource extends Resource
                     ])->default(CommunityTypeEnum::CHAT->value)->live()->required()->label('النوع')->live(),
                     Forms\Components\SpatieMediaLibraryFileUpload::make('image')->collection('image')->conversion('webp')->label('الصورة')->image()->imageCropAspectRatio('1:1')->visible(fn($get)=>$get('type')!=='chat'),
                     Forms\Components\TextInput::make('name')->label('الاسم')->required(),
+                    Forms\Components\TextInput::make('url')->label('كود الدخول')->required(),
                     Forms\Components\Select::make('manager_id')->getSearchResultsUsing(fn(string $search)=>User::selectRaw('id,CONCAT(name, \' \' ,seller_name) as name')->where('name','like',"%$search%")->take(10)->pluck('name','id')->toArray())->required()->searchable()->label('المدير الرئيسي'),
                     Forms\Components\Toggle::make('is_global')->visible(fn($get)=>$get('type')!==CommunityTypeEnum::CHAT->value)->hint('سيتم إضافة جميع المستخدمين عند تفعيل الخيار')->label('عامة')
                 ])
