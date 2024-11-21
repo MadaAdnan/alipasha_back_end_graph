@@ -91,6 +91,7 @@ input InputCreateOrder{
             message:"يرجى إدخال عنوان المرسل إليه"
         }
     ])
+    note:String
     sender_name:String
     sender_phone:String
 
