@@ -29,7 +29,7 @@ extend type Mutation{
     createChannel(name:String!,,image:Upload!):UserCommunity @guard
     muteCommunity(communityId:ID!):Community @guard
     accessToCommunity(code:String!):Community @guard
-    accessToCommunity(communityId:ID!):Community @guard
+    exitFromCommunity(communityId:ID!):Community @guard
 
 }
 type UserCommunity{

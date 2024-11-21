@@ -33,17 +33,17 @@ class InvoiceObserve
            switch ($invoice->status){
                case OrderStatusEnum::CANCELED->value:
                    $data['title'] = "طلب رقم {$invoice->id}";
-                   $data['body'] = "للأسف تم رفض شحن الطلب";
+                   $data['body'] = "للأسف البضاعة غير متوفرة حالياً";
                    $data['url'] = 'https://ali-pasha.com/exports';
                    break;
                case OrderStatusEnum::AGREE->value:
                    $data['title'] = "طلب رقم {$invoice->id}";
-                   $data['body'] = "تم قبول الطلب من التاجر يتم الآن متابعة الطلب للشحن";
+                   $data['body'] = "تهانينا تم قبول الطلب من التاجر يتم الآن متابعة الطلب للشحن";
                    $data['url'] = 'https://ali-pasha.com/exports';
                    break;
                case OrderStatusEnum::AWAY->value:
                    $data['title'] = "طلب رقم {$invoice->id}";
-                   $data['body'] = "جاري الشحن الطلب بالطريق إليكم";
+                   $data['body'] = "جاري الشحن , الطلب بالطريق إليكم";
                    $data['url'] = 'https://ali-pasha.com/exports';
                    break;
                case OrderStatusEnum::COMPLETE->value:
@@ -60,7 +60,7 @@ class InvoiceObserve
            if($invoice->status==OrderStatusEnum::COMPLETE->value){
                try {
                    $data['title'] = "طلب رقم {$invoice->id}";
-                   $data['body'] = "تم شحن الطلب وتسليمه بنجاح";
+                   $data['body'] = "تهانينا أتممت عملية بيع ناجحة";
                    $data['url'] = 'https://ali-pasha.com/exports';
 
                    $job=new SendNotificationJob($invoice->seller,$data);
