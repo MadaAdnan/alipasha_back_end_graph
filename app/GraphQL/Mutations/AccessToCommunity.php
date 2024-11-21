@@ -18,7 +18,7 @@ final  class AccessToCommunity
         if ($community == null) {
             throw new GraphQLExceptionHandler('لم يتم العثور على المجتمع يرجى التأكد من كود الدخول');
         }
-        if ($community->users()->where('user_id', auth()->id())->exists()) {
+        if ($community->users()->where('users.id', auth()->id())->exists()) {
             throw new GraphQLExceptionHandler('انت موجود في المجتمع بالفعل');
         }
         $community->users()->attach(auth()->id());
