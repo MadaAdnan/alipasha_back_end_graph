@@ -65,8 +65,8 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         'products',
         'following',
         'unreadNotifications',
-        'invoicesSeller',
-        'invoices',
+       // 'invoicesSeller',
+      //  'invoices',
 
     ];
 
@@ -169,7 +169,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         return $user1MainCityId === $user2MainCityId;
     }
 
-    public function invoices(): BelongsTo
+   /* public function invoices(): BelongsTo
     {
         return $this->belongsTo(Invoice::class,'user_id')->where('status',OrderStatusEnum::COMPLETE->value);
     }
@@ -177,6 +177,6 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
     public function invoicesSeller(): BelongsTo
     {
         return $this->belongsTo(Invoice::class,'seller_id','id')->where('status',OrderStatusEnum::PENDING->value);
-    }
+    }*/
 
 }
