@@ -23,7 +23,7 @@ class ProductObserve
      */
     public function updated(Product $product): void
     {
-        if($product->user!=null){
+        if ($product->user != null) {
             if ($product->active !== $product->getOriginal('active') && $product->active == ProductActiveEnum::ACTIVE->value) {
                 $user = $product->user;
                 $data['title'] = 'قبول المنتج';
@@ -31,8 +31,7 @@ class ProductObserve
                 $data['url'] = 'https://ali-pasha.com/product?id=' . $product->id;
 
                 SendNotifyHelper::sendNotify($user, $data);
-            }
-            //
+            } //
             elseif ($product->active !== $product->getOriginal('active') && $product->active == ProductActiveEnum::BLOCK->value) {
                 $user = $product->user;
                 $data['title'] = 'حظر المنتج';
@@ -40,9 +39,8 @@ class ProductObserve
                 $data['url'] = 'https://ali-pasha.com/products?id=' . $product->user->id;
 
                 SendNotifyHelper::sendNotify($user, $data);
-            }
-            //
-            elseif($product->active === $product->getOriginal('active')){
+            } //
+            elseif ($product->active === $product->getOriginal('active')) {
                 $user = $product->user;
                 $data['title'] = 'إصلاح المنتج';
                 $data['body'] = 'تم إصلاح المنتج  ' . $product->name ?? $product->expert;
@@ -50,6 +48,9 @@ class ProductObserve
 
                 SendNotifyHelper::sendNotify($user, $data);
             }
+        }
+        if ($product->isDirty() && !$product->isDirty('is_delivery') && !$product->isDirty('active')) {
+            $product->update(['active' => 'pending']);
         }
 
     }
