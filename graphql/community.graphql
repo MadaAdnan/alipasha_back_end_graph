@@ -28,6 +28,8 @@ extend type Mutation{
     createGroup(name:String!,image:Upload!):UserCommunity @guard
     createChannel(name:String!,,image:Upload!):UserCommunity @guard
     muteCommunity(communityId:ID!):Community @guard
+    accessToCommunity(code:String!):Community @guard
+    accessToCommunity(communityId:ID!):Community @guard
 
 }
 type UserCommunity{
