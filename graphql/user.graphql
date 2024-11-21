@@ -36,8 +36,7 @@ type User{
     is_active:Boolean
     is_seller:Boolean
     affiliate:String
-    invoices_count:Int
-    invoicesSeller_count:Int
+
     info:String
     can_create_group:Boolean
     can_create_channel:Boolean
