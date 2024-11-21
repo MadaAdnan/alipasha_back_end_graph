@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Enums\CategoryTypeEnum;
 use App\Enums\LevelUserEnum;
+use App\Enums\OrderStatusEnum;
 use App\Observers\UserObserve;
 use App\Traits\MediaTrait;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -64,6 +65,8 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         'products',
         'following',
         'unreadNotifications',
+        'invoicesSeller',
+        'invoices',
 
     ];
 
@@ -164,6 +167,16 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         $user1MainCityId = $this->city?->city ? $user->city->city->id : $user->city->id;
         $user2MainCityId = $this->city?->city ? $this->city->city->id : $this->city->id;
         return $user1MainCityId === $user2MainCityId;
+    }
+
+    public function invoices(): BelongsTo
+    {
+        return $this->belongsTo(Invoice::class,'user_id')->where('status',OrderStatusEnum::COMPLETE->value);
+    }
+
+    public function invoicesSeller(): BelongsTo
+    {
+        return $this->belongsTo(Invoice::class,'seller_id')->where('status',OrderStatusEnum::PENDING->value);
     }
 
 }
