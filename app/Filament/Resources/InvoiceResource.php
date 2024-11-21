@@ -32,7 +32,7 @@ class InvoiceResource extends Resource
             ->schema([
                 Forms\Components\Section::make('الطلبات')->schema([
                     Forms\Components\TextInput::make('id')->label('رقم الفاتورة')->readOnly(fn($context)=>$context=='edit'),
-                    Forms\Components\Select::make('user_id')->options(fn ($query) => $query->limit(100)->pluck('name', 'id'))->label('المستخدم')->searchable()->dehydrated(fn($context)=>$context=='edit'),
+                    Forms\Components\Select::make('user_id')->relationship('user','name')->label('المستخدم')->searchable()->dehydrated(fn($context)=>$context=='edit'),
                     Forms\Components\Select::make('seller_id')->relationship('seller','seller_name')->label('المتجر')->searchable()->dehydrated(fn($context)=>$context=='edit'),
 
                Forms\Components\TextInput::make('phone')->readOnly(fn($context)=>$context=='edit')->label('الهاتف'),
