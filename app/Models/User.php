@@ -176,7 +176,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
 
     public function invoicesSeller(): BelongsTo
     {
-        return $this->belongsTo(Invoice::class,'seller_id')->where('status',OrderStatusEnum::PENDING->value);
+        return $this->belongsTo(Invoice::class,'seller_id','id')->where('status',OrderStatusEnum::PENDING->value);
     }
 
 }
