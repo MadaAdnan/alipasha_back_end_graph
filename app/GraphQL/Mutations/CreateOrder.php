@@ -29,9 +29,7 @@ final class CreateOrder
             ->first();
         $from = City::find($data['from_id'])?->first();
         $to = City::find($data['to_id'])?->first();
-        Log::info('size: '.$size);
-        Log::info('weight: '. $data['weight']);
-        Log::info('Is Related : ' . $from?->isRelatedTo($to));
+
 
 
         if (!$from?->isRelatedTo($to)) {
@@ -65,6 +63,7 @@ final class CreateOrder
                 'height' => $data['height'],
                 'width' => $data['width'],
                 'price' => $price,
+                'note'=>$data['note']??'',
             ]);
 
             Balance::create([
