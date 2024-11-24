@@ -41,8 +41,8 @@ class ShippingPriceResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('weight')->label('الوزن الأعظمي '),
                 Tables\Columns\TextColumn::make('size')->label('الحجم الاعظمي '),
-                Tables\Columns\TextColumn::make('internal_price')->label('أجور الشحن الداخلي'),
-                Tables\Columns\TextColumn::make('external_price')->label('أجور الشحن الخارجي'),
+                Tables\Columns\TextInputColumn::make('internal_price')->label('أجور الشحن الداخلي'),
+                Tables\Columns\TextInputColumn::make('external_price')->label('أجور الشحن الخارجي'),
             ])
             ->filters([
                 //
