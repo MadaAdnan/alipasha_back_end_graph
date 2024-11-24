@@ -3,7 +3,7 @@ extend type Query{
     user (id: ID @eq): User @find
     specialSeller: [User]
     resendEmailVerify:User @guard
-    searchSeller(search:String!):[User]
+    searchSeller(search:String,city_id:Int):[User]
     getMyFollowers:[Follower] @guard @paginate(builder:"App\\GraphQL\\Queries\\GetMyFollowers")
     getMyFollowing:[Follower] @guard @paginate(builder:"App\\GraphQL\\Queries\\GetMyFollowing")
     usersByCategory(category_id:Int!,first:Int,page:Int):[User] @paginate(builder:"App\\GraphQL\\Queries\\UserByCategory")

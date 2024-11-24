@@ -9,7 +9,10 @@ final  class SearchSeller
     /** @param  array{}  $args */
     public function __invoke( $_, array $args)
     {
-        $sellers=User::whereHas('products')->where('seller_name','like',"%{$args['search']}%")->orWhere('id',$args['search'])->take(35)->inRandomOrder()->get();
+        $sellers=User::whereHas('products')->where('seller_name','like',"%{$args['search']}%")
+            ->orWhere('id',$args['search'])
+            ->when(isset($args['city_id']) && $args['city_id']!=null,fn($query)=>$query->where('city_id',$args['city_id']))
+            ->take(35)->inRandomOrder()->get();
         return $sellers;
     }
 }
