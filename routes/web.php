@@ -23,7 +23,14 @@ use Mockery\Exception;
     'login' => false,
 ]);*/
 Route::get('/test', function () {
+for($i=200;$i<=700 ;$i+=10){
+    ShippingPrice::create([
+        'weight'=>$i,
+        'size'=>'',
+    ]);
 
+}
+return "Success";
     /* for ($i = 0; $i < 60; $i++) {
         \App\Models\Message::create([
             'body' => fake()->name,
