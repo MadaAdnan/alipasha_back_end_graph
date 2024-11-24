@@ -55,7 +55,7 @@ class ProductObserve
             !$product->isDirty('active') &&
             $product->active !== 'pending'
         ) {
-            $product->update(['active' => 'pending']);
+           // $product->update(['active' => 'pending']);
         }
 
     }
