@@ -171,7 +171,8 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
 
     public function invoices(): HasMany
     {
-        return $this->hasMany(Invoice::class,'user_id')->where('status',OrderStatusEnum::COMPLETE->value);
+        return $this->hasMany(Invoice::class,'user_id')->where('status',OrderStatusEnum::AGREE->value)
+            ->orWhere('status',OrderStatusEnum::PENDING->value) ->orWhere('status',OrderStatusEnum::AWAY->value);
     }
 
     public function invoicesSeller(): HasMany
