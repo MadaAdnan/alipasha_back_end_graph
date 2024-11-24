@@ -10,5 +10,6 @@ final  class SearchSeller
     public function __invoke( $_, array $args)
     {
         $sellers=User::whereHas('products')->where('seller_name','like',"%{$args['search']}%")->orWhere('id',$args['search'])->get();
+        return $sellers;
     }
 }
