@@ -28,7 +28,7 @@ class InvoiceObserve
     /**
      * Handle the Invoice "updated" event.
      */
-    /*public function updated(Invoice $invoice): void
+    public function updated(Invoice $invoice): void
     {
         if (self::$processing) {
             return; // منع تشغيل الكود إذا كان المراقب قيد المعالجة بالفعل
@@ -62,8 +62,8 @@ class InvoiceObserve
 
                 }
                 try {
-                    $job=new SendNotificationJob($invoice->user,$data);
-                    dispatch($job);
+//                    $job=new SendNotificationJob($invoice->user,$data);
+//                    dispatch($job);
                 }catch (\Exception | \Error $e){}
                 if($newStatus==OrderStatusEnum::COMPLETE->value){
                     try {
@@ -71,8 +71,8 @@ class InvoiceObserve
                         $data['body'] = "تهانينا أتممت عملية بيع ناجحة";
                         $data['url'] = 'https://ali-pasha.com/exports';
 
-                        $job=new SendNotificationJob($invoice->seller,$data);
-                        dispatch($job);
+//                        $job=new SendNotificationJob($invoice->seller,$data);
+//                        dispatch($job);
                     }catch (\Exception | \Error $e){}
                 }
 
@@ -81,7 +81,7 @@ class InvoiceObserve
             self::$processing = false; // فك القفل
         }
 
-    }*/
+    }
 
     /**
      * Handle the Invoice "deleted" event.
