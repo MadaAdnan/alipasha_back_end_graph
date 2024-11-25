@@ -36,7 +36,7 @@ class SendNotificationJob implements ShouldQueue
         try {
             if ($this->user instanceof User) {
                 $this->user->notify(new UserNotification($this->data));
-              // SendNotifyHelper::sendNotify($this->user ,$this->data);
+               SendNotifyHelper::sendNotify($this->user ,$this->data);
             } else {
                 \Notification::send($this->user, new UserNotification($this->data));
             }
