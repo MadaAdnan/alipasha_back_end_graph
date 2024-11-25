@@ -55,8 +55,8 @@ class InvoiceObserve
 
            }
            try {
-               $job=new SendNotificationJob($invoice->user,$data);
-               dispatch($job);
+//               $job=new SendNotificationJob($invoice->user,$data);
+//               dispatch($job);
            }catch (\Exception | \Error $e){}
            if($invoice->status==OrderStatusEnum::COMPLETE->value){
                try {
