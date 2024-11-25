@@ -57,8 +57,8 @@ class InvoiceObserve
 
            }
            try {
-               $job=new SendNotificationJob($invoice->user,$data);
-               dispatch($job);
+//               $job=new SendNotificationJob($invoice->user,$data);
+//               dispatch($job);
            }catch (\Exception | \Error $e){}
            if($newStatus==OrderStatusEnum::COMPLETE->value){
                try {
@@ -66,8 +66,8 @@ class InvoiceObserve
                    $data['body'] = "تهانينا أتممت عملية بيع ناجحة";
                    $data['url'] = 'https://ali-pasha.com/exports';
 
-                   $job=new SendNotificationJob($invoice->seller,$data);
-                   dispatch($job);
+//                   $job=new SendNotificationJob($invoice->seller,$data);
+//                   dispatch($job);
                }catch (\Exception | \Error $e){}
            }
 
