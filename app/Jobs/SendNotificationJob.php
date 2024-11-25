@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Models\User;
 use App\Notifications\UserNotification;
+use App\Service\SendNotifyHelper;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -35,6 +36,7 @@ class SendNotificationJob implements ShouldQueue
         try {
             if ($this->user instanceof User) {
                 $this->user->notify(new UserNotification($this->data));
+                SendNotifyHelper::sendNotify($this->user ,$this->data);
             } else {
                 \Notification::send($this->user, new UserNotification($this->data));
             }
