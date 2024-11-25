@@ -8,6 +8,8 @@ use App\Exceptions\GraphQLExceptionHandler;
 use App\Jobs\SendFirebaseNotificationJob;
 use App\Models\Community;
 use App\Models\Message;
+use App\Models\User;
+use App\Service\SendNotifyHelper;
 use Mockery\Exception;
 
 final class CreateMessage
@@ -63,7 +65,24 @@ final class CreateMessage
         } catch (Exception $e) {
             info('Error Websockets');
         }
+        if($message->community->type==CommunityTypeEnum::CHAT->value && $message->community->messages_count==1){
 
+            $user=$message->community->users()->whereNot('users.id',$userId)->first();
+            if($user){
+                $data=[
+                    'title'=>'تواصل جديد عن طريق علي باشا',
+                    'body'=>" يريد ".auth()->user()->name." التواصل معك عن طريق الدردشة",
+                    'url'=>'https://ali-pasha.com/communities/'.$message->community->id,
+                ];
+                try{
+                    SendNotifyHelper::sendNotify($user,$data);
+                }catch (\Exception|\Error $e){
+
+                }
+
+            }
+
+        }
         return $message;
     }
 }
