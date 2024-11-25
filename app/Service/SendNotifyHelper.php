@@ -13,7 +13,8 @@ class SendNotifyHelper
 
         // إرسال الإشعار
         try {
-            SendNotificationJob::dispatch($user, $data);
+         $job=new SendNotificationJob($user, $data);
+         dispatch($job);
         } catch (\Exception | \Error $e) {
 
         }
