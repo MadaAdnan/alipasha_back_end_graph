@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Broadcast;
 Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int)$user->id === (int)$id;
 });
-Broadcast::channel('message.{id}', function (\App\Models\User $user, $communityId,$userId) {
+Broadcast::channel('message.{communityId}.{userId}', function (\App\Models\User $user, $communityId,$userId) {
 
     return in_array($communityId,$user->communities->pluck('id')->toArray()) && $user->id==$userId;
 
