@@ -29,9 +29,11 @@ class InvoiceObserve
      */
     public function updated(Invoice $invoice): void
     {
-       if($invoice->isDirty('status') && $invoice->status !== $invoice->getOriginal('status')  ){
+        $newStatus=$invoice->status;
+        $oldStatus= $invoice->getOriginal('status');
+       if($invoice->isDirty('status') && $newStatus !== $oldStatus ){
 
-           switch ($invoice->status){
+           switch ($newStatus){
                case OrderStatusEnum::CANCELED->value:
                    $data['title'] = "طلب رقم {$invoice->id}";
                    $data['body'] = "للأسف البضاعة غير متوفرة حالياً";
@@ -58,7 +60,7 @@ class InvoiceObserve
                $job=new SendNotificationJob($invoice->user,$data);
                dispatch($job);
            }catch (\Exception | \Error $e){}
-           if($invoice->status==OrderStatusEnum::COMPLETE->value){
+           if($newStatus==OrderStatusEnum::COMPLETE->value){
                try {
                    $data['title'] = "طلب رقم {$invoice->id}";
                    $data['body'] = "تهانينا أتممت عملية بيع ناجحة";
