@@ -23,7 +23,7 @@ class SendNotifyHelper
                 $job = new SendFirebaseNotificationJob([$user->device_token], $data);
                 dispatch($job);
             } catch (\Exception | \Error $e) {
-
+\Log::info($e->getMessage().' ---ERROR NOTIFICATION--');
             }
         }
 
