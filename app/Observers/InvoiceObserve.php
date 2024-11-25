@@ -28,7 +28,7 @@ class InvoiceObserve
     /**
      * Handle the Invoice "updated" event.
      */
-    public function updated(Invoice $invoice): void
+    /*public function updated(Invoice $invoice): void
     {
         if (self::$processing) {
             return; // منع تشغيل الكود إذا كان المراقب قيد المعالجة بالفعل
@@ -81,7 +81,7 @@ class InvoiceObserve
             self::$processing = false; // فك القفل
         }
 
-    }
+    }*/
 
     /**
      * Handle the Invoice "deleted" event.

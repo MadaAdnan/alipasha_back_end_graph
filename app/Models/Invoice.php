@@ -18,7 +18,7 @@ class Invoice extends Model
     protected static function boot()
     {
         parent::boot();
-
+        self::observe(InvoiceObserve::class);
     }
 
     public function user(): BelongsTo
