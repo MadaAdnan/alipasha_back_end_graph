@@ -60,7 +60,7 @@ class InvoiceObserve
 
             }
             try {
-                SendNotifyHelper::sendNotify($invoice->user ,$data);
+              //  SendNotifyHelper::sendNotify($invoice->user ,$data);
 //                    $job=new SendNotificationJob($invoice->user,$data);
 //                    dispatch($job);
             }catch (\Exception | \Error $e){}
@@ -69,7 +69,7 @@ class InvoiceObserve
                     $data['title'] = "طلب رقم {$invoice->id}";
                     $data['body'] = "تهانينا أتممت عملية بيع ناجحة";
                     $data['url'] = 'https://ali-pasha.com/exports';
-                    SendNotifyHelper::sendNotify($invoice->seller ,$data);
+                  //  SendNotifyHelper::sendNotify($invoice->seller ,$data);
 //                      $job=new SendNotificationJob($invoice->seller,$data);
 //                       dispatch($job);
                 }catch (\Exception | \Error $e){}
