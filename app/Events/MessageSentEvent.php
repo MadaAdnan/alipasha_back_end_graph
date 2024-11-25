@@ -4,6 +4,7 @@ namespace App\Events;
 
 use App\Http\Resources\Community\MessageResource;
 use App\Models\Message;
+use App\Models\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -39,12 +40,11 @@ class MessageSentEvent implements ShouldBroadcastNow
         $channels = [];
 
         // جلب المستخدمين الذين ليسوا مرسلين للرسالة
-        $users = $this->message->community->users()
-            ->where('users.id', '!=', $this->message->user_id)
-            ->pluck('id');
-        return [
-            new PrivateChannel('message.' . $this->message->community_id),
-        ];
+     $users=User::whereHas('communities',fn($query)=>$query->where('communities.id',$this->message->community_id))->pluck('id')->toArray();
+     foreach ($users as $user){
+         $channels[]=new PrivateChannel('message.' . $this->message->community_id.'.'.$user);
+     }
+        return $channels;
     }
 
 
