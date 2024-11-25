@@ -2,9 +2,12 @@
 
 namespace App\Observers;
 
+use App\Enums\CommunityTypeEnum;
 use App\Events\CreateCommunityEvent;
+use App\Jobs\SendFirebaseNotificationJob;
 use App\Models\Community;
 use App\Models\User;
+use App\Service\SendNotifyHelper;
 use Mockery\Exception;
 
 class CommunityObServe
@@ -35,6 +38,24 @@ class CommunityObServe
         }elseif (auth()->check()){
             $community->users()->syncWithPivotValues([auth()->id()],['is_manager'=>true,]);
         }
+        if($community->type==CommunityTypeEnum::CHAT->value){
+            $user=User::whereNot('users.id',$community->manager_id)->whereHas('communities',fn($query)=>$query->where('communities.id',$community->id))->first();
+            if($user){
+                $data=[
+                    'title'=>'تواصل جديد عن طريق علي باشا',
+                    'body'=>" يريد ".auth()->user()->name." التواصل معك عن طريق الدردشة",
+                    'url'=>'https://ali-pasha.com/communities/'.$community->id,
+                ];
+                try{
+                    SendNotifyHelper::sendNotify($user,$data);
+                }catch (\Exception|\Error $e){
+
+                }
+
+            }
+
+        }
+
 
     }
 
