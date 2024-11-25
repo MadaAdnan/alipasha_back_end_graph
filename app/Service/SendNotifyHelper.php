@@ -10,7 +10,7 @@ class SendNotifyHelper
 {
     public static function sendNotify(User $user, $data)
     {
-
+        \Log::info(' ---JOB NOTIFICATION--');
         // إرسال الإشعار
         try {
          $job=new SendNotificationJob($user, $data);
@@ -19,6 +19,7 @@ class SendNotifyHelper
 
         }
         if ($user->device_token != null) {
+            \Log::info(' ---JOB TEST NOTIFICATION--');
             try {
                 $job = new SendFirebaseNotificationJob([$user->device_token], $data);
                 dispatch($job);
