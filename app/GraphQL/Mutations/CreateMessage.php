@@ -77,7 +77,7 @@ final class CreateMessage
                 try{
                     SendNotifyHelper::sendNotify($user,$data);
                 }catch (\Exception|\Error $e){
-
+\Log::error('CREATE ERROR '.$e->getMessage());
                 }
 
             }
