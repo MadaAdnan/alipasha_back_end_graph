@@ -29,7 +29,7 @@ class InvoiceObserve
      */
     public function updated(Invoice $invoice): void
     {
-       if($invoice->status != $invoice->getOriginal('status') && $invoice->isDirty('status')){
+       if($invoice->isDirty('status') && $invoice->status !== $invoice->getOriginal('status')  ){
 
            switch ($invoice->status){
                case OrderStatusEnum::CANCELED->value:
