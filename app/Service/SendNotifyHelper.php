@@ -13,16 +13,16 @@ class SendNotifyHelper
         \Log::info(' ---JOB NOTIFICATION--');
         // إرسال الإشعار
         try {
-//         $job=new SendNotificationJob($user, $data);
-//         dispatch($job);
+         $job=new SendNotificationJob($user, $data);
+         dispatch($job);
         } catch (\Exception | \Error $e) {
 
         }
         if ($user->device_token != null) {
             \Log::info(' ---JOB TEST NOTIFICATION--');
             try {
-//                $job = new SendFirebaseNotificationJob([$user->device_token], $data);
-//                dispatch($job);
+                $job = new SendFirebaseNotificationJob([$user->device_token], $data);
+                dispatch($job);
             } catch (\Exception | \Error $e) {
 \Log::info($e->getMessage().' ---ERROR NOTIFICATION--');
             }

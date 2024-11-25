@@ -29,7 +29,7 @@ class InvoiceObserve
      */
     public function updated(Invoice $invoice): void
     {
-       if($invoice->status != $invoice->getOriginal('status')){
+       if($invoice->status != $invoice->getOriginal('status') && $invoice->isDirty('status')){
 
            switch ($invoice->status){
                case OrderStatusEnum::CANCELED->value:
@@ -55,8 +55,8 @@ class InvoiceObserve
 
            }
            try {
-//               $job=new SendNotificationJob($invoice->user,$data);
-//               dispatch($job);
+               $job=new SendNotificationJob($invoice->user,$data);
+               dispatch($job);
            }catch (\Exception | \Error $e){}
            if($invoice->status==OrderStatusEnum::COMPLETE->value){
                try {
