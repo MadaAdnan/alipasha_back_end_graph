@@ -19,8 +19,7 @@ class InvoiceObserve
             $data['title'] = 'طلب جديد ';
             $data['body'] = "الزبون {$invoice->user->name}  يطلب منتجات من متجرك";
             $data['url'] = 'https://ali-pasha.com/incomming';
-            $job=new SendNotificationJob($invoice->seller,$data);
-            dispatch($job);
+            SendNotifyHelper::sendNotify($invoice->seller ,$data);
         }catch (\Exception |\Error $e){
 
         }
