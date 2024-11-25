@@ -65,7 +65,7 @@ final class CreateMessage
         } catch (Exception $e) {
             info('Error Websockets');
         }
-        if($message->community->type==CommunityTypeEnum::CHAT->value && $message->community->messages_count==1){
+        if($message->community->type==CommunityTypeEnum::CHAT->value && $message->community->messages_count >= 1){
 
             $user=$message->community->users()->whereNot('users.id',$userId)->first();
             if($user){
