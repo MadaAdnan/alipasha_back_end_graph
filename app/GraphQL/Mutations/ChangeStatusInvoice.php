@@ -19,11 +19,14 @@ final  class ChangeStatusInvoice
             throw new GraphQLExceptionHandler('ليس لديك الإذن بالعملية');
         }
         $status_arry=[
-            OrderStatusEnum::AGREE->value,
+
             OrderStatusEnum::CANCELED->value,
             OrderStatusEnum::CONFIRM_COMPLETE->value,
 
         ];
+        if($invoice->seller_id ==auth()->id()){
+            $status_arry[]= OrderStatusEnum::AGREE->value;
+        }
         if(!in_array($args['status'],$status_arry)){
             throw new GraphQLExceptionHandler('الحالة غير صحيحة');
         }
