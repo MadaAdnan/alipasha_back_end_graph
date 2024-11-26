@@ -30,7 +30,7 @@ final  class ChangeStatusInvoice
             $status_array[]=  OrderStatusEnum::CONFIRM_COMPLETE->value;
         }
         if(!in_array($args['status'],$status_array)){
-            throw new GraphQLExceptionHandler('الحالة غير صحيحة');
+            throw new GraphQLExceptionHandler('الحالة غير صحيحة'.implode('-',$status_array));
         }
         $invoice->update([
             'status'=>$args['status'],
