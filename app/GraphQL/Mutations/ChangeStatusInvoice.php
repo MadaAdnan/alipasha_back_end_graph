@@ -15,7 +15,7 @@ final  class ChangeStatusInvoice
         if(!$invoice){
             throw new GraphQLExceptionHandler('الطلب غير موجود');
         }
-        if($invoice->seller_id !=auth()->id()){
+        if($invoice->seller_id !=auth()->id() && $invoice->user_id!=auth()->id()){
             throw new GraphQLExceptionHandler('ليس لديك الإذن بالعملية');
         }
         $status_arry=[
