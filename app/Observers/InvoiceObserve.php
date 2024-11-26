@@ -43,7 +43,7 @@ class InvoiceObserve
                     break;
                 case OrderStatusEnum::AGREE->value:
                     $data['title'] = "طلب رقم {$invoice->id}";
-                    $data['body'] = "تهانينا تم قبول الطلب من التاجر يتم الآن متابعة الطلب للشحن";
+                    $data['body'] = "تهانينا تم قبول الطلب من التاجر ";
                     $data['url'] = 'https://ali-pasha.com/exports';
                     break;
                 case OrderStatusEnum::AWAY->value:
