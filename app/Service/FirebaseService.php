@@ -33,7 +33,7 @@ class FirebaseService
                 'icon' => 'stock_ticker_update',
                 'color' => '#f45342',
                 'sound' => 'default',
-                'tag' => 'grouped_notification',
+                'tag' => 'grouped_notification_'.rand(0,100),
             ],
 
         ]);
