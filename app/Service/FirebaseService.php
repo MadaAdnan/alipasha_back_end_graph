@@ -38,7 +38,7 @@ class FirebaseService
 
         ]);
         $message = CloudMessage::new()
-            ->withNotification(Notification::create($data['title'], $data['body']));
+            ->withNotification(Notification::create($data['title'], $data['body']))->withAndroidConfig(AndroidConfig::fromArray([ 'groupKey'=>'Ali-pasha']));
 
         $responses = [];
 
