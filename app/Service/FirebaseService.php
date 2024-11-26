@@ -26,6 +26,7 @@ class FirebaseService
         $config = AndroidConfig::fromArray([
             'ttl' => '3600s',
             'priority' => 'normal',
+            'groupKey'=>'Ali-pasha',
             'notification' => [
                 'title' => $data['title'],
                 'body' => $data['body'],
@@ -33,6 +34,7 @@ class FirebaseService
                 'color' => '#f45342',
                 'sound' => 'default',
             ],
+
         ]);
         $message = CloudMessage::new()
             ->withNotification(Notification::create($data['title'], $data['body']));
