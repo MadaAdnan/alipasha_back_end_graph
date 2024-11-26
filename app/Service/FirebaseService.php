@@ -26,7 +26,6 @@ class FirebaseService
         $config = AndroidConfig::fromArray([
             'ttl' => '3600s',
             'priority' => 'normal',
-
             'notification' => [
                 'title' => $data['title'],
                 'body' => $data['body'],

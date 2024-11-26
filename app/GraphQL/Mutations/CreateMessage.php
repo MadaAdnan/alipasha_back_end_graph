@@ -72,7 +72,7 @@ final class CreateMessage
                 $data=[
                     'title'=>'تواصل جديد عن طريق علي باشا',
                     'body'=>" يريد ".auth()->user()->name." التواصل معك عن طريق الدردشة",
-                    'url'=>'https://ali-pasha.com/communities/'.$message->community->id,
+                    'url'=>'https://ali-pasha.com/communities/'.$message->community->id.'/'.$message->community->type,
                 ];
                 try{
                     SendNotifyHelper::sendNotify($user,$data);
