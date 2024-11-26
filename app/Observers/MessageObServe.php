@@ -37,6 +37,7 @@ class MessageObServe
                     $data = [
                         'title' => 'يوجد رسائل جديدة في المحادثة',
                         'body' => $name,
+                        'url'=>'https://ali-pasha.com/communities/'.$message->community->id.'/'.$message->community->type,
                     ];
 
                     try {
