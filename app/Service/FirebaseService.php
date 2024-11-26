@@ -26,13 +26,14 @@ class FirebaseService
         $config = AndroidConfig::fromArray([
             'ttl' => '3600s',
             'priority' => 'normal',
-            'groupKey'=>'Ali-pasha',
+
             'notification' => [
                 'title' => $data['title'],
                 'body' => $data['body'],
                 'icon' => 'stock_ticker_update',
                 'color' => '#f45342',
                 'sound' => 'default',
+                'groupKey'=>'Ali-pasha',
             ],
 
         ]);
