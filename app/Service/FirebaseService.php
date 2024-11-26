@@ -38,7 +38,7 @@ class FirebaseService
 
         ]);
         $message = CloudMessage::new()
-           // ->withAndroidConfig($config)
+            ->withAndroidConfig($config)
             ->withNotification(Notification::create($data['title'], $data['body']));
 
         $responses = [];
