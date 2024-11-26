@@ -16,6 +16,7 @@ type PivotCommunity{
     notify:Boolean
 }
 extend type Query{
+    community(id:ID!):Community @find
     getMyCommunity(search:String,first:Int,page:Int):[Community]  @paginate(builder:"App\\GraphQL\\Queries\\GetMyCommunity") @guard
     getMessages(communityId:Int!,first:Int,page:Int):[Message]  @paginate(builder:"App\\GraphQL\\Queries\\GetMessages") @guard
     getLiveMessages(first:Int,page:Int):[Message]  @paginate(builder:"App\\GraphQL\\Queries\\GetLiveMessages")
