@@ -24,7 +24,7 @@ type Invoice{
     status:String!
     user:User @belongsTo
     seller:User @belongsTo
-    created_at:HumanDate
+    created_at:CustomDate
     total:Float
     shipping:Float
     phone:String
