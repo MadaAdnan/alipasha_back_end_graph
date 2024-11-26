@@ -49,14 +49,7 @@ class ProductObserve
                 SendNotifyHelper::sendNotify($user, $data);
             }
         }
-        if (
-            $product->isDirty() &&
-            !$product->isDirty('is_delivery') &&
-            !$product->isDirty('active') &&
-            $product->active !== 'pending'
-        ) {
-           // $product->update(['active' => 'pending']);
-        }
+
 
     }
 

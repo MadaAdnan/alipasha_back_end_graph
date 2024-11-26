@@ -7,6 +7,7 @@ enum ProductActiveEnum: string
     case PENDING = 'pending';
     case ACTIVE = 'active';
     case BLOCK = 'block';
+    case HIDDEN = 'hidden';
 
 
 
@@ -16,6 +17,7 @@ enum ProductActiveEnum: string
             self::PENDING => 'بإنتظار التفعيل',
             self::ACTIVE => 'مفعل',
             self::BLOCK => 'محظور',
+            self::HIDDEN => 'مخفي',
 
         };
     }
@@ -26,6 +28,7 @@ enum ProductActiveEnum: string
             self::PENDING => 'fas-hourglass-half',
             self::ACTIVE =>'fas-thumbs-up',
             self::BLOCK =>'fas-ban',
+            self::HIDDEN =>'fas-ban',
 
         };
     }
@@ -36,6 +39,7 @@ enum ProductActiveEnum: string
             self::PENDING => 'info',
             self::ACTIVE => 'success',
             self::BLOCK => 'danger',
+            self::HIDDEN => 'warning',
 
         };
     }

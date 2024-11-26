@@ -127,6 +127,8 @@ class ProductResource extends Resource
                         Forms\Components\TextInput::make('price')->label('السعر')->numeric()->required(),
                         Forms\Components\Toggle::make('is_discount')->label('تفعيل العرض')->live(),
                         Forms\Components\TextInput::make('discount')->label('سعر العرض')->numeric()->required(fn($get) => $get('is_discount')),
+                        Forms\Components\Toggle::make('is_delivery')->label('التوصيل'),
+                        Forms\Components\TextInput::make('weight')->numeric()->label('الوزن')->required(),
 
                     ])->columns(1),
                     Forms\Components\Radio::make('active')->options([
