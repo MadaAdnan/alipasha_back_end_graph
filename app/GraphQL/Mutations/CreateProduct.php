@@ -26,7 +26,7 @@ final class CreateProduct
                 'is_available' => $data['is_available'] ?? false,
                 'price' => $data['price'] ?? 0,
                 'discount' => $data['discount'] ?? null,
-                'is_discount' => (double)$data['discount'] > 0,
+                'is_discount' => isset($data['discount']) && (double)$data['discount'] > 0,
                 'category_id' => $data['category_id'] ?? null,
                 'sub1_id' => $data['sub1_id'] ?? null,
                 'sub2_id' => $data['sub2_id'] ?? null,
