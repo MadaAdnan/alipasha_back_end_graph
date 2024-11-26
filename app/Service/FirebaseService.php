@@ -33,12 +33,13 @@ class FirebaseService
                 'icon' => 'stock_ticker_update',
                 'color' => '#f45342',
                 'sound' => 'default',
-                'groupKey'=>'Ali-pasha',
+                'tag' => 'grouped_notification',
             ],
 
         ]);
         $message = CloudMessage::new()
-            ->withNotification(Notification::create($data['title'], $data['body']))->withAndroidConfig(AndroidConfig::fromArray([ 'groupKey'=>'Ali-pasha']));
+            ->withAndroidConfig($config)
+            ->withNotification(Notification::create($data['title'], $data['body']));
 
         $responses = [];
 
