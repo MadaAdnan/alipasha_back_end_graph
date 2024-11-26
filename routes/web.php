@@ -23,7 +23,7 @@ use Mockery\Exception;
     'login' => false,
 ]);*/
 Route::get('/test', function () {
-\App\Models\Message::where('id','>',0)->delete();
+\Spatie\MediaLibrary\MediaCollections\Models\Media::where('model_type',\App\Models\Message::class)->delete();
 return "Success";
     /* for ($i = 0; $i < 60; $i++) {
         \App\Models\Message::create([
