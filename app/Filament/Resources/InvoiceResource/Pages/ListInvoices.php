@@ -28,6 +28,7 @@ class ListInvoices extends ListRecords
             Tab::make( OrderStatusEnum::AGREE->value)->modifyQueryUsing(fn($query)=>$query->where('status','agree'))->label(OrderStatusEnum::AGREE->getLabel()),
             Tab::make( OrderStatusEnum::AWAY->value)->modifyQueryUsing(fn($query)=>$query->where('status','away'))->label(OrderStatusEnum::AWAY->getLabel()),
             Tab::make( OrderStatusEnum::COMPLETE->value)->modifyQueryUsing(fn($query)=>$query->where('status','complete'))->label(OrderStatusEnum::COMPLETE->getLabel()),
+            Tab::make( OrderStatusEnum::CONFIRM_COMPLETE->value)->modifyQueryUsing(fn($query)=>$query->where('status','confirm_complete'))->label(OrderStatusEnum::CONFIRM_COMPLETE->getLabel()),
             Tab::make( OrderStatusEnum::CANCELED->value)->modifyQueryUsing(fn($query)=>$query->where('status','canceled'))->label(OrderStatusEnum::CANCELED->getLabel()),
 
 
