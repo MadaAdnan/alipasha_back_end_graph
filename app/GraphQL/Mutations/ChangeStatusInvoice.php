@@ -21,6 +21,7 @@ final  class ChangeStatusInvoice
         $status_arry=[
             OrderStatusEnum::AGREE->value,
             OrderStatusEnum::CANCELED->value,
+            OrderStatusEnum::CONFIRM_COMPLETE->value,
 
         ];
         if(!in_array($args['status'],$status_arry)){
