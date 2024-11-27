@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Queries;
 
+use App\Enums\CategoryTypeEnum;
 use App\Enums\InteractionTypeEnum;
 use App\Enums\LevelProductEnum;
 use App\Enums\ProductActiveEnum;
@@ -25,7 +26,9 @@ final class Products
         $colors = $args['colors'] ?? [];
         $type = $args['type'] ?? null;
 
-       return  Product::query()->where('active', ProductActiveEnum::ACTIVE->value)
+       return  Product::query()
+           ->whereDoesntHave('category',fn($query)=>$query->where('type',CategoryTypeEnum::SERVICE->value)->where('type',CategoryTypeEnum::NEWS->value))
+           ->where('active', ProductActiveEnum::ACTIVE->value)
             ->where(function ($query) {
                 $query->whereNull('end_date')->orWhere('end_date', '>=', now());
             })
