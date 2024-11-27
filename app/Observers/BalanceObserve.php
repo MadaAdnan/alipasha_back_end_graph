@@ -13,22 +13,24 @@ class BalanceObserve
     public function creating(Balance $balance): void
     {
         $total = \DB::table('balances')->where('user_id', $balance->user_id)->selectRaw('SUM(credit)-SUM(debit) as total')->first()->total;
-        $balance->total = ($total ?? 0) + ($balance->credit??0) - ($balance->debit ?? 0);
+        $balance->total = ($total ?? 0) + ($balance->credit ?? 0) - ($balance->debit ?? 0);
     }
+
     public function created(Balance $balance): void
     {
-        if($balance->credit>0){
+        if ($balance->credit > 0) {
             $data['title'] = 'تنبيه';
-            $data['body'] = 'تم شحن رصيدك بـ '.$balance->credit .'$';
-
+            $data['body'] = 'تم شحن رصيدك بـ ' . $balance->credit . '$';
+            $data['url'] = 'https://ali-pasha.com/balances';
             SendNotifyHelper::sendNotify($balance->user, $data);
-        }elseif($balance->debit>0){
+        } elseif ($balance->debit > 0) {
             $data['title'] = 'تنبيه';
             $data['body'] = "تم خصم {$balance->debit}  $ من رصيدك";
-
+            $data['url'] = 'https://ali-pasha.com/balances';
             SendNotifyHelper::sendNotify($balance->user, $data);
         }
     }
+
     /**
      * Handle the Balance "updated" event.
      */

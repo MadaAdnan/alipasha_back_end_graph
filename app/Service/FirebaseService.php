@@ -33,6 +33,7 @@ class FirebaseService
                 'color' => '#f45342',
                 'sound' => 'default',
                 'tag' => 'grouped_notification',
+                'click_action'=>'FLUTTER_NOTIFICATION_CLICK'
             ],
 
         ]);
