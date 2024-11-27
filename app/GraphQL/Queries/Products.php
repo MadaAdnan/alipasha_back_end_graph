@@ -27,8 +27,8 @@ final class Products
         $type = $args['type'] ?? null;
 
        return  Product::query()
-           ->where('type',CategoryTypeEnum::NEWS->value)
-           ->where('type',CategoryTypeEnum::SERVICE->value)
+           ->whereNot('type',CategoryTypeEnum::NEWS->value)
+           ->whereNot('type',CategoryTypeEnum::SERVICE->value)
            ->where('active', ProductActiveEnum::ACTIVE->value)
             ->where(function ($query) {
                 $query->whereNull('end_date')->orWhere('end_date', '>=', now());
