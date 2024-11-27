@@ -39,22 +39,22 @@ class InvoiceObserve
                 case OrderStatusEnum::CANCELED->value:
                     $data['title'] = "طلب رقم {$invoice->id}";
                     $data['body'] = "للأسف البضاعة غير متوفرة حالياً";
-                    $data['url'] = 'https://ali-pasha.com/exports';
+                    $data['url'] = 'https://ali-pasha.com/import';
                     break;
                 case OrderStatusEnum::AGREE->value:
                     $data['title'] = "طلب رقم {$invoice->id}";
                     $data['body'] = "تهانينا تم قبول الطلب من التاجر ";
-                    $data['url'] = 'https://ali-pasha.com/exports';
+                    $data['url'] = 'https://ali-pasha.com/import';
                     break;
                 case OrderStatusEnum::AWAY->value:
                     $data['title'] = "طلب رقم {$invoice->id}";
                     $data['body'] = "جاري الشحن , الطلب بالطريق إليكم";
-                    $data['url'] = 'https://ali-pasha.com/exports';
+                    $data['url'] = 'https://ali-pasha.com/import';
                     break;
                 case OrderStatusEnum::COMPLETE->value:
                     $data['title'] = "طلب رقم {$invoice->id}";
                     $data['body'] = "تم تسليمكم الطلب شكراً لثقتكم";
-                    $data['url'] = 'https://ali-pasha.com/exports';
+                    $data['url'] = 'https://ali-pasha.com/import';
                     break;
 
             }
@@ -67,7 +67,7 @@ class InvoiceObserve
                 try {
                     $data['title'] = "طلب رقم {$invoice->id}";
                     $data['body'] = "تهانينا أتممت عملية بيع ناجحة";
-                    $data['url'] = 'https://ali-pasha.com/exports';
+                    $data['url'] = 'https://ali-pasha.com/export';
                       SendNotifyHelper::sendNotify($invoice->seller ,$data);
 //                      $job=new SendNotificationJob($invoice->seller,$data);
 //                       dispatch($job);
