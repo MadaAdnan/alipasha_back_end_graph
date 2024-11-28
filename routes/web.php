@@ -26,7 +26,7 @@ Route::get('/test', function () {
 //    User::where('id','>',39289)->delete();
 //    \App\Models\Product::withTrashed()->where('id','>',19937)->forceDelete();
 //    \Spatie\MediaLibrary\MediaCollections\Models\Media::where('id','>',38907)->forceDelete();
-    $color_product = collect([
+    $colors = [
         array('color_id' => '4','product_id' => '50'),
         array('color_id' => '19','product_id' => '51'),
         array('color_id' => '3','product_id' => '52'),
@@ -7475,17 +7475,25 @@ Route::get('/test', function () {
         array('color_id' => '9','product_id' => '20528'),
         array('color_id' => '22','product_id' => '20528'),
         array('color_id' => '3','product_id' => '20544')
-    ]);
+    ];
+    $existingProducts = DB::table('products')->pluck('id')->toArray();
+$colorExist= DB::table('colors')->pluck('id')->toArray();
+// 2. تصفية الألوان بناءً على المنتجات الموجودة فقط
+    $filteredColors = array_filter($colors, function ($color) use ($existingProducts,$colorExist) {
+        return in_array($color['product_id'], $existingProducts) && in_array($color['color_id'], $colorExist) ;
+    });
 
 
-$colors=\App\Models\Color::pluck('id')->toArray();
-   $products= \App\Models\Product::product()->whereHas('category',fn($query)=>$query->where('has_color',true))->get();
-    $color_product=$color_product->whereIn('color_id',$colors);
 
-   foreach ($products as $product){
-       $color_product->where('product_id','=',$product->id)->pluck('color_id')->toArray();
-       $product->colors()->sync($color_product);
-   }
+// 3. إدخال البيانات باستخدام دفعات
+    $chunkSize = 500; // حجم الدفعة
+    $chunks = array_chunk($filteredColors, $chunkSize);
+
+    foreach ($chunks as $chunk) {
+
+        DB::table('color_product')->insert($chunk); // قم بتغيير اسم الجدول لاسم جدولك
+    }
+
 return "Success";
     /* for ($i = 0; $i < 60; $i++) {
         \App\Models\Message::create([
