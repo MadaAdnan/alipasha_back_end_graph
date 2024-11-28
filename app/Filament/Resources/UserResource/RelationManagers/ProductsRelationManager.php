@@ -139,7 +139,7 @@ class ProductsRelationManager extends RelationManager
 
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()->openUrlInNewTab(true),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
