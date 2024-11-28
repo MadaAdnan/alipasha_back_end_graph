@@ -7478,8 +7478,9 @@ Route::get('/test', function () {
     ]);
 
 
-
+$colors=\App\Models\Color::pluck('id')->toArray();
    $products= \App\Models\Product::product()->whereHas('category',fn($query)=>$query->where('has_color',true))->get();
+    $color_product=$color_product->whereIn('color_id',$colors)->pluck('color_id')->toArray();
    foreach ($products as $product){
        $color_product->where('product_id','=',$product->id)->pluck('color_id')->toArray();
        $product->colors()->sync($color_product);
