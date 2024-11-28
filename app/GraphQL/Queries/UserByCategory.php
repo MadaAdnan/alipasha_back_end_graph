@@ -9,7 +9,7 @@ final  class UserByCategory
     /** @param  array{}  $args */
     public function __invoke( $_, array $args)
     {
-       $users=User::whereHas('products',fn($query)=>$query->where('category_id',$args['category_id']))->inRandomOrder()->take(1);
+       $users=User::whereHas('products',fn($query)=>$query->where('category_id',$args['category_id']))->inRandomOrder();
        return $users;
     }
 }
