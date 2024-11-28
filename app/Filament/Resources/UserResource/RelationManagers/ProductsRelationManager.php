@@ -4,6 +4,7 @@ namespace App\Filament\Resources\UserResource\RelationManagers;
 
 use App\Enums\LevelProductEnum;
 use App\Enums\ProductActiveEnum;
+use App\Filament\Resources\ProductResource;
 use App\Filament\Resources\UserResource;
 use App\Helpers\HelperMedia;
 use App\Models\Attribute;
@@ -114,7 +115,7 @@ class ProductsRelationManager extends RelationManager
             ->columns([
 
                 Tables\Columns\SpatieMediaLibraryImageColumn::make('image')->collection('image')->label('الصورة')->size(50),
-                Tables\Columns\TextColumn::make('id')->label('رقم المنتج')->searchable(),
+                Tables\Columns\TextColumn::make('id')->label('رقم المنتج')->searchable()->url(fn($record)=>ProductResource::getUrl('edit',['record'=>$record->id]))->openUrlInNewTab(true),
                 Tables\Columns\TextInputColumn::make('weight')->label('وزن المنتج')->searchable(),
                 Tables\Columns\ToggleColumn::make('is_delivery')->label('قابل للتوصيل')->searchable(),
                 Tables\Columns\TextColumn::make('category.name')->label('اسم القسم')->description(fn($record) => $record->sub1?->name),
@@ -139,7 +140,8 @@ class ProductsRelationManager extends RelationManager
 
             ])
             ->actions([
-                Tables\Actions\EditAction::make()->openUrlInNewTab(true),
+//                Tables\Actions\EditAction::make()->openUrlInNewTab(true),
+
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
