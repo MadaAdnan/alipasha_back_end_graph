@@ -23,7 +23,8 @@ use Mockery\Exception;
     'login' => false,
 ]);*/
 Route::get('/test', function () {
-    User::where('id','>',39289)->delete();
+//    User::where('id','>',39289)->delete();
+    \App\Models\Product::where('id','>',19937)->delete();
 //\Spatie\MediaLibrary\MediaCollections\Models\Media::where('model_type',\App\Models\Message::class)->delete();
 return "Success";
     /* for ($i = 0; $i < 60; $i++) {
