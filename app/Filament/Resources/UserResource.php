@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Enums\IsVerifiedEmailEnum;
 use App\Enums\LevelSellerEnum;
 use App\Enums\LevelUserEnum;
+use App\Filament\Resources\ProductResource\RelationManagers\CommentsRelationManager;
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Helpers\HelperMedia;
@@ -194,6 +195,7 @@ class UserResource extends Resource
     public static function getRelations(): array
     {
         return [
+            RelationManagers\ProductsRelationManager::class,
             RelationManagers\BalancesRelationManager::class,
             RelationManagers\PlansRelationManager::class,
         ];
