@@ -13,6 +13,7 @@ use App\Models\Product;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -131,10 +132,10 @@ class ProductsRelationManager extends RelationManager
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make(),
-                 Tables\Actions\EditAction::make()->mutateFormDataUsing(function ($data) {
+                /* Tables\Actions\EditAction::make()->mutateFormDataUsing(function ($data) {
                     $data['expert'] = \Str::words(strip_tags(html_entity_decode($data['info'])), 15);
                     return $data;
-                }),
+                }),*/
 
             ])
             ->actions([
@@ -145,7 +146,7 @@ class ProductsRelationManager extends RelationManager
 
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
-                    Tables\Actions\BulkAction::make('category')->form([
+                   /* Tables\Actions\BulkAction::make('category')->form([
                         Forms\Components\Fieldset::make('التصنيف')->schema([
                             Forms\Components\Select::make('category_id')->options(Category::product()->pluck('name', 'id'))->label('يتبع القسم')->searchable()->live()->required(),
                             Forms\Components\Select::make('sub1_id')->options(fn($get) => Category::find($get('category_id'))?->children?->pluck('name', 'id'))->label('يتبع القسم')->searchable()->live(),
@@ -163,7 +164,7 @@ class ProductsRelationManager extends RelationManager
                             'sub3_id' => $data['sub3_id'],
                         ]);
                         Notification::make('success')->title('نجاح العملية')->body('تم تخصيص الأقسام بنجاح')->success()->send();
-                    }),
+                    }),*/
                 ]),
             ]);
     }
