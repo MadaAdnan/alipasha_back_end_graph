@@ -146,13 +146,13 @@ class ProductsRelationManager extends RelationManager
 
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
-                   /* Tables\Actions\BulkAction::make('category')->form([
+                    Tables\Actions\BulkAction::make('category')->form([
                         Forms\Components\Fieldset::make('التصنيف')->schema([
-                            Forms\Components\Select::make('category_id')->options(Category::product()->pluck('name', 'id'))->label('يتبع القسم')->searchable()->live()->required(),
-                            Forms\Components\Select::make('sub1_id')->options(fn($get) => Category::find($get('category_id'))?->children?->pluck('name', 'id'))->label('يتبع القسم')->searchable()->live(),
-                            Forms\Components\Select::make('sub2_id')->options(fn($get) => Category::find($get('sub1_id'))?->children?->pluck('name', 'id'))->label('يتبع القسم')->searchable()->reactive(),
-                            Forms\Components\Select::make('sub3_id')->options(fn($get) => Category::find($get('sub2_id'))?->children?->pluck('name', 'id'))->label('يتبع القسم')->searchable()->live(),
-                            Forms\Components\Select::make('sub4_id')->options(fn($get) => Category::find($get('sub3_id'))?->children?->pluck('name', 'id'))->label('يتبع القسم')->searchable()->live(),
+                            Forms\Components\Select::make('category_id')->options(Category::product()->pluck('name', 'id')->toArray())->label('يتبع القسم')->searchable()->live()->required(),
+                            Forms\Components\Select::make('sub1_id')->options(fn($get) => Category::find($get('category_id'))?->children?->pluck('name', 'id')->toArray())->label('يتبع القسم')->searchable()->live(),
+                            Forms\Components\Select::make('sub2_id')->options(fn($get) => Category::find($get('sub1_id'))?->children?->pluck('name', 'id')->toArray())->label('يتبع القسم')->searchable()->reactive(),
+                            Forms\Components\Select::make('sub3_id')->options(fn($get) => Category::find($get('sub2_id'))?->children?->pluck('name', 'id')->toArray())->label('يتبع القسم')->searchable()->live(),
+                            Forms\Components\Select::make('sub4_id')->options(fn($get) => Category::find($get('sub3_id'))?->children?->pluck('name', 'id')->toArray())->label('يتبع القسم')->searchable()->live(),
                         ]),
                     ])
                         ->action(function ($data, $records) {
@@ -164,7 +164,7 @@ class ProductsRelationManager extends RelationManager
                             'sub3_id' => $data['sub3_id'],
                         ]);
                         Notification::make('success')->title('نجاح العملية')->body('تم تخصيص الأقسام بنجاح')->success()->send();
-                    }),*/
+                    }),
                 ]),
             ]);
     }
