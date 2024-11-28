@@ -25,7 +25,7 @@ class ProductImport
 
 
             foreach ($chunk as $key => $row) {
-                $data= [
+                $data[] = [
                     'id' => $row['Column1']??'',
                     'name' => $row['Column2']??'',
                     'info' => $row['Column3']??'',
@@ -52,10 +52,10 @@ class ProductImport
                     // أضف المزيد من الأعمدة كما هو مطلوب
                 ];
                 // افترض أن لديك جدول يسمى `your_table` وأن العمود الأول هو `column1` والعمود الثاني هو `column2`
-                DB::table('products')->updateOrInsert(['id'=>$data['id']],$data);
+
             }
 
-
+            DB::table('products')->insert($data);
         }
 
     }
