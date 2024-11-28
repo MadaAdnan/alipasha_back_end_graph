@@ -39,7 +39,7 @@ class Category extends Model implements HasMedia
 
     public function scopeProduct($query)
     {
-        return $query->where('categories.type', CategoryTypeEnum::PRODUCT->value);
+        return $query->where('categories.type', CategoryTypeEnum::PRODUCT->value)->orWhere('type',CategoryTypeEnum::RESTAURANT->value);
     }
 
     public function scopeJob($query)
