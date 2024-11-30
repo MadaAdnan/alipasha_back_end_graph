@@ -17,7 +17,7 @@ class CreateJob extends CreateRecord
     protected function mutateFormDataBeforeCreate(array $data): array
     {
         $data['expert'] = Str::words(strip_tags(html_entity_decode($data['info'])), 15);
-        $data['user_id'] = auth()->id();
+        $data['user_id'] = $data['user_id'] ==null?auth()->id():$data['user_id'];
         $data['city_id'] = auth()->user()->city_id;
        // $data['active'] = ProductActiveEnum::PENDING->value;
 
