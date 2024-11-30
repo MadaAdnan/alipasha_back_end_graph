@@ -27,7 +27,7 @@ final class Products
         $type = $args['type'] ?? null;
 
        return  Product::query()
-           ->whereNotNull('category_id')
+
            ->whereNot('type',CategoryTypeEnum::NEWS->value)
            ->whereNot('type',CategoryTypeEnum::SERVICE->value)
            ->where('active', ProductActiveEnum::ACTIVE->value)
@@ -71,6 +71,7 @@ final class Products
                 }
 
             }))
+           ->whereNotNull('category_id')
             ->orderBy($orderBy['column'],$orderBy['orderBy']);
 
 
