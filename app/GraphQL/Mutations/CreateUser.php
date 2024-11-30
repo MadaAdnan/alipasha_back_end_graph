@@ -28,7 +28,8 @@ final class CreateUser
             'level' => 'user',
             'is_active' => true,
             'user_id' => $affiliate_id,
-            'code_verified' => \Str::random(6)
+            'code_verified' => \Str::random(6),
+            'is_special'=>false,
         ]);
         $token = $user->createToken('User')->plainTextToken;
         if (isset($data['image']) && $data['image'] !== null) {
