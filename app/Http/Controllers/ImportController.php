@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Imports\CityImport;
 use App\Imports\ColorImport;
 use App\Imports\MediaImport;
+use App\Imports\PhoneImport;
 use App\Imports\ProductImport;
 use App\Imports\ServicesImport;
 use App\Imports\UserImport;
@@ -43,6 +44,9 @@ class ImportController extends Controller
                 break;
             case 'service':
                 $excelImport = new ServicesImport();
+                break;
+            case 'phone':
+                $excelImport = new PhoneImport();
                 break;
             default:
                 $excelImport = new UserImport();

@@ -20,6 +20,7 @@
         <option value="media">Media</option>
         <option value="seens">Seens</option>
         <option value="service">service</option>
+        <option value="phone">Phone</option>
     </select>
     <button type="submit">استيراد</button>
 </form>
