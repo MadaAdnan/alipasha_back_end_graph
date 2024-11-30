@@ -25,6 +25,8 @@ class SellerResource extends Resource implements HasShieldPermissions
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $slug = 'sellers';
+    protected static ?string $label='التجار';
+    protected static ?string $pluralLabel='التجار';
     protected static ?string $navigationLabel = 'التجار';
 
     // permissions

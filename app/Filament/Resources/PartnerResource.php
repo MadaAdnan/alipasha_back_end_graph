@@ -23,6 +23,8 @@ class PartnerResource extends Resource implements HasShieldPermissions
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $navigationLabel = 'الوكلاء';
+    protected static ?string $label='الوكلاء';
+    protected static ?string $pluralLabel='الوكلاء';
     protected static ?string $slug='partners';
 // permissions
     public static function getPermissionPrefixes(): array
