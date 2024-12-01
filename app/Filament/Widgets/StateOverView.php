@@ -19,17 +19,17 @@ class StateOverView extends BaseWidget
         $users=User::select(['id','is_seller'])/*->whereBetween('created_at',[$start,$end])*/->get();
         $products=Product::select(['id','type'])->where('active',ProductActiveEnum::ACTIVE->value)/*->whereBetween('created_at',[$start,$end])*/->get();
         return [
-            Stat::make('المستخدمين الجدد خلال آخر 7أيام', $users->where('is_seller','=',0)->count()),
-            Stat::make('عدد المتاجر المنضمة خلال آخر 7 أيام', $users->where('is_seller','=',1)->count()),
-            Stat::make('عدد المنتجات المضافة خلال آخر 7 أيام', $products->whereIn('type',[
+            Stat::make('عدد المستخدمين', $users->where('is_seller','=',0)->count()),
+            Stat::make('عدد المتاجر ', $users->where('is_seller','=',1)->count()),
+            Stat::make('عدد المنتجات ', $products->whereIn('type',[
                 CategoryTypeEnum::RESTAURANT->value,
                 CategoryTypeEnum::PRODUCT->value,
             ])->count()),
-            Stat::make('عدد المناقصات المضافة خلال آخر 7 أيام', $products->where('type','=', CategoryTypeEnum::TENDER->value)->count()),
-            Stat::make('عدد الوظائف المضافة خلال آخر 7 أيام', $products->where('type','=', CategoryTypeEnum::JOB->value)->count()),
-            Stat::make('عدد طلبات التوظيف المضافة خلال آخر 7 أيام', $products->where('type','=', CategoryTypeEnum::SEARCH_JOB->value)->count()),
-            Stat::make('عدد الأخبار المضافة خلال آخر 7 أيام', $products->where('type','=', CategoryTypeEnum::NEWS->value)->count()),
-            Stat::make('عدد الخدمات المضافة خلال آخر 7 أيام', $products->where('type','=', CategoryTypeEnum::SERVICE->value)->count()),
+            Stat::make('عدد المناقصات', $products->where('type','=', CategoryTypeEnum::TENDER->value)->count()),
+            Stat::make('عدد الوظائف', $products->where('type','=', CategoryTypeEnum::JOB->value)->count()),
+            Stat::make('عدد طلبات التوظيف', $products->where('type','=', CategoryTypeEnum::SEARCH_JOB->value)->count()),
+            Stat::make('عدد الأخبار', $products->where('type','=', CategoryTypeEnum::NEWS->value)->count()),
+            Stat::make('عدد الخدمات', $products->where('type','=', CategoryTypeEnum::SERVICE->value)->count()),
         ];
     }
 }
