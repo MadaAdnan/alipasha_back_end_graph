@@ -2,6 +2,7 @@
 
 namespace App\Filament\Widgets;
 
+use App\Enums\CategoryTypeEnum;
 use App\Models\Product;
 use Filament\Widgets\ChartWidget;
 use Flowframe\Trend\Trend;
@@ -39,7 +40,11 @@ class CreatedProductChart extends ChartWidget
            $start=now()->startOfDay();
 
        }
-        $data = Trend::model(Product::class)
+        $products = Trend::query(Product::whereIn('type',[
+            CategoryTypeEnum::PRODUCT->value,
+            CategoryTypeEnum::RESTAURANT->value,
+            ]))
+
             ->between(
                 start:$start ,
                 end: $end,
@@ -49,7 +54,11 @@ class CreatedProductChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Blog posts created',
+                    'label' => 'المنتجات',
+                    'data' => $products->map(fn (TrendValue $value) => $value->aggregate),
+                ],
+                [
+                    'label' => 'المنتجات',
                     'data' => $data->map(fn (TrendValue $value) => $value->aggregate),
                 ],
             ],
