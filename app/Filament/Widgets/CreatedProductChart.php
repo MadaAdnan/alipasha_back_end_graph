@@ -24,11 +24,16 @@ class CreatedProductChart extends ChartWidget
     protected function getData(): array
     {
         $activeFilter = $this->filter;
-        dd($activeFilter);
+       $start=now()->startOfYear();
+       $end=now();
+       if($activeFilter=='week'){
+           $start=now()->subDays(7);
+           dd($activeFilter);
+       }
         $data = Trend::model(Product::class)
             ->between(
-                start: now()->startOfYear(),
-                end: now()->endOfYear(),
+                start:$start ,
+                end: $end,
             )
             ->perMonth()
             ->count();
