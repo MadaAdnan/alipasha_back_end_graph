@@ -64,10 +64,14 @@ class CreatedProductChart extends ChartWidget
                 [
                     'label' => 'المنتجات',
                     'data' => $products->map(fn (TrendValue $value) => $value->aggregate),
+                    'backgroundColor' => '#36A2EB',
+                    'borderColor' => '#9BD0F5',
                 ],
                 [
                     'label' => 'المناقصات',
                     'data' => $tender->map(fn (TrendValue $value) => $value->aggregate),
+                    'backgroundColor' => '#63A4EB',
+                    'borderColor' => '#B9D2F5',
                 ],
             ],
             'labels' =>  $products->map(fn (TrendValue $value) => $value->date),
