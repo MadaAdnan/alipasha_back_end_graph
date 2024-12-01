@@ -45,7 +45,7 @@ class CityResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\SpatieMediaLibraryImageColumn::make('image')->collection('image')->conversion('webp')->circular()->label('صورة'),
+                Tables\Columns\SpatieMediaLibraryImageColumn::make('image')->collection('image')->circular()->label('صورة'),
                 Tables\Columns\TextColumn::make('name')->label('المدينة')->searchable(),
                 Tables\Columns\TextColumn::make('city.name')->label('المدينة الرئيسية')->sortable(),
                 Tables\Columns\TextColumn::make('is_active')->formatStateUsing(fn($state)=>IsActiveEnum::tryFrom($state)?->getLabel())->icon(fn($state)=>IsActiveEnum::tryFrom($state)?->getIcon())->color(fn($state)=>IsActiveEnum::tryFrom($state)?->getColor())->label('الحالة'),
