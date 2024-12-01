@@ -27,10 +27,10 @@ final class Products
         $colors = $args['colors'] ?? [];
         $type = $args['type'] ?? null;
 $userId=$args['user_id']??null;
-
+$sub1Id=$args['sub1_id']??null;
 
         return Product::query()
-            ->when($type==null && $userId==null, fn($query) => $query->whereNot('type', CategoryTypeEnum::NEWS->value)->whereNot('type', CategoryTypeEnum::SERVICE->value))
+            ->when($type==null && $userId==null && $sub1Id==null, fn($query) => $query->whereNot('type', CategoryTypeEnum::NEWS->value)->whereNot('type', CategoryTypeEnum::SERVICE->value))
             ->where('active', ProductActiveEnum::ACTIVE->value)
             ->where(function ($query) {
                 $query->whereNull('end_date')->orWhere('end_date', '>=', now());
