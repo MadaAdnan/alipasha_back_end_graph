@@ -33,7 +33,7 @@ if($sub1Id!=null){
     $subCategory=Category::whereIn('type',[
         CategoryTypeEnum::NEWS->value,
         CategoryTypeEnum::SERVICE->value
-    ])->whereHas('children',fn($query)=>$query->where('id',$sub1Id))->first();
+    ])->whereHas('children',fn($query)=>$query->where('categories.id',$sub1Id))->first();
 }
 if($subCategory!=null){
     $isService=true;
