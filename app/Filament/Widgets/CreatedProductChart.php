@@ -15,17 +15,18 @@ class CreatedProductChart extends ChartWidget
     protected function getFilters(): ?array
     {
         return [
+            'year' => 'هذه السنة',
             'today' => 'اليوم',
             'week' => 'آخر 7 أيام',
             'month' => 'هذا الشهر',
-            'year' => 'هذه السنة',
+
         ];
     }
 
     protected function getData(): array
     {
         $activeFilter = $this->filter;
-       $start=now()->startOfDay();
+       $start=now()->startOfYear();
        $end=now();
        if($activeFilter=='week'){
            $start=now()->subDays(7);
