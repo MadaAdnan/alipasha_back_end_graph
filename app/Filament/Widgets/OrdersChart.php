@@ -69,8 +69,8 @@ class OrdersChart extends ChartWidget
                 [
                     'label' => 'طلبات الشحن للمنتجات',
                     'data' => $invoice->map(fn (TrendValue $value) => $value->aggregate),
-                    'backgroundColor' => '#1e40af',
-                    'borderColor' => '#0000cc',
+                    'backgroundColor' => '#00bb00',
+                    'borderColor' => '#4ade80',
                 ],
 
             ],
