@@ -122,8 +122,8 @@ class JobResource extends Resource implements HasShieldPermissions
                     ])->label('نوع المنشور')->required()->live(),
                     Forms\Components\Fieldset::make('بيانات الوظيفة')->schema([
                         Forms\Components\Grid::make()->schema([
-                            Forms\Components\DatePicker::make('start_date')->label('تاريخ بداية التقديم'),
-                            Forms\Components\DatePicker::make('end_date')->label('تاريخ نهاية التقديم'),
+                            Forms\Components\DatePicker::make('start_date')->label('تاريخ بداية التقديم')->required(),
+                            Forms\Components\DatePicker::make('end_date')->label('تاريخ نهاية التقديم')->required(),
                             Forms\Components\TextInput::make('code')->label('كود الوظيفة'),
                             Forms\Components\TextInput::make('url')->label('رابط التقديم')->url(),
                         ])->visible(fn($get) => $get('type') === CategoryTypeEnum::JOB->value),
