@@ -16,8 +16,8 @@ class StateOverView extends BaseWidget
     {
         $start=now()->subDays(7);
         $end=now();
-        $users=User::select(['id','is_seller'])->whereBetween('created_at',[$start,$end])->get();
-        $products=Product::select(['id','type'])->where('active',ProductActiveEnum::ACTIVE->value)->whereBetween('created_at',[$start,$end])->get();
+        $users=User::select(['id','is_seller'])/*->whereBetween('created_at',[$start,$end])*/->get();
+        $products=Product::select(['id','type'])->where('active',ProductActiveEnum::ACTIVE->value)/*->whereBetween('created_at',[$start,$end])*/->get();
         return [
             Stat::make('المستخدمين الجدد خلال آخر 7أيام', $users->where('is_seller','=',0)->count()),
             Stat::make('عدد المتاجر المنضمة خلال آخر 7 أيام', $users->where('is_seller','=',1)->count()),
