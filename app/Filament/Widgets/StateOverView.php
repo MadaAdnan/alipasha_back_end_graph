@@ -10,6 +10,10 @@ use Filament\Widgets\StatsOverviewWidget\Stat;
 
 class StateOverView extends BaseWidget
 {
+    protected function getHeading(): ?string
+    {
+        return 'Analytics';
+    }
     protected function getStats(): array
     {
         $start=now()->subDays(7);
