@@ -10,7 +10,7 @@ use Flowframe\Trend\TrendValue;
 
 class CreatedProductChart extends ChartWidget
 {
-    protected static ?string $heading = 'Chart';
+    protected static ?string $heading = 'إحصائيات المنشورات';
 
     protected function getFilters(): ?array
     {
