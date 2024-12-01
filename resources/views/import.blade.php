@@ -7,10 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-       /* *{
-            color: #00bb00;
-            color: #4ade80;
-        }*/
+        .asd{
+            color: #9d174d;
+            color: #9f1239;
+        }
     </style>
 </head>
 <body>

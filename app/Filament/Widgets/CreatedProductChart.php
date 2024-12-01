@@ -59,6 +59,17 @@ class CreatedProductChart extends ChartWidget
             )
             ->perMonth()
             ->count();
+        $job = Trend::query(Product::whereIn('type',[
+            CategoryTypeEnum::JOB->value,
+            CategoryTypeEnum::SEARCH_JOB->value,
+        ]))
+
+            ->between(
+                start:$start ,
+                end: $end,
+            )
+            ->perMonth()
+            ->count();
         return [
             'datasets' => [
                 [
@@ -72,6 +83,12 @@ class CreatedProductChart extends ChartWidget
                     'data' => $tender->map(fn (TrendValue $value) => $value->aggregate),
                     'backgroundColor' => '#00bb00',
                     'borderColor' => '#4ade80',
+                ],
+                [
+                    'label' => 'الشواغر وطلبات التوظيف',
+                    'data' => $job->map(fn (TrendValue $value) => $value->aggregate),
+                    'backgroundColor' => '#9d174d',
+                    'borderColor' => '#9f1239',
                 ],
             ],
             'labels' =>  $products->map(fn (TrendValue $value) => $value->date),
