@@ -25,7 +25,7 @@ class MediaImport
             foreach ($chunk as $key => $row) {
                 $model = $row['Column9'] == 'App\\Models\\Tender' || $row['Column9'] == 'App\\Models\\Job' || $row['Column9'] == 'App\\Models\\Product' || $row['Column9'] == 'App\\Models\\Item' ? Product::class : $row['Column9'];
                 $data[] = [
-                    'id' => $row['Column1'],
+                  //  'id' => $row['Column1'],
                     'model_id' => $row['Column2'],
                     'collection_name' => $row['Column3'],
                     'order_column' => $row['Column4'],
