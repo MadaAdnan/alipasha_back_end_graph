@@ -51,6 +51,14 @@ class CreatedProductChart extends ChartWidget
             )
             ->perMonth()
             ->count();
+        $tender = Trend::query(Product::where('type',CategoryTypeEnum::TENDER->value))
+
+            ->between(
+                start:$start ,
+                end: $end,
+            )
+            ->perMonth()
+            ->count();
         return [
             'datasets' => [
                 [
@@ -59,10 +67,10 @@ class CreatedProductChart extends ChartWidget
                 ],
                 [
                     'label' => 'المنتجات',
-                    'data' => $data->map(fn (TrendValue $value) => $value->aggregate),
+                    'data' => $tender->map(fn (TrendValue $value) => $value->aggregate),
                 ],
             ],
-            'labels' =>  $data->map(fn (TrendValue $value) => $value->date),
+            'labels' =>  $products->map(fn (TrendValue $value) => $value->date),
         ];
     }
 
