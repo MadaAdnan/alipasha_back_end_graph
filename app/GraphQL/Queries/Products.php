@@ -6,6 +6,7 @@ use App\Enums\CategoryTypeEnum;
 use App\Enums\InteractionTypeEnum;
 use App\Enums\LevelProductEnum;
 use App\Enums\ProductActiveEnum;
+use App\Models\Category;
 use App\Models\Interaction;
 use App\Models\Product;
 use App\Models\ProductView;
@@ -25,11 +26,24 @@ final class Products
 
         $colors = $args['colors'] ?? [];
         $type = $args['type'] ?? null;
+$sub1Id=$args['sub1_id']??null;
+$isService=false;
+        $subCategory=null;
+if($sub1Id!=null){
+    $subCategory=Category::whereIn('type',[
+        CategoryTypeEnum::NEWS->value,
+        CategoryTypeEnum::SERVICE->value
+    ])->whereHas('children',fn($query)=>$query->where('id',$sub1Id))->first();
+}
+if($subCategory!=null){
+    $isService=true;
+}
 
-       return  Product::query()
 
-           ->whereNot('type',CategoryTypeEnum::NEWS->value)
-           ->whereNot('type',CategoryTypeEnum::SERVICE->value)
+       return  Product::query()->when(!$isService,fn($query)=>$query  ->whereNot('type',CategoryTypeEnum::NEWS->value)
+           ->whereNot('type',CategoryTypeEnum::SERVICE->value))
+
+
            ->where('active', ProductActiveEnum::ACTIVE->value)
             ->where(function ($query) {
                 $query->whereNull('end_date')->orWhere('end_date', '>=', now());
