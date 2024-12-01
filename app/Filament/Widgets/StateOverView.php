@@ -16,10 +16,11 @@ class StateOverView extends BaseWidget
     {
         $start=now()->subDays(7);
         $end=now();
-        $users=User::select(['id','is_seller'])/*->whereBetween('created_at',[$start,$end])*/->get();
+        $users=User::select(['id','is_seller','email_verified_at'])/*->whereBetween('created_at',[$start,$end])*/->get();
         $products=Product::select(['id','type'])->where('active',ProductActiveEnum::ACTIVE->value)/*->whereBetween('created_at',[$start,$end])*/->get();
         return [
-            Stat::make('عدد المستخدمين', $users->where('is_seller','=',0)->count()),
+            Stat::make('عدد المستخدمين الموثقين', $users->where('is_seller','=',0)->whereNotNull('email_verified_at')->count()),
+            Stat::make('عدد المستخدمين غير الموثقين', $users->where('is_seller','=',0)->whereNull('email_verified_at')->count()),
             Stat::make('عدد المتاجر ', $users->where('is_seller','=',1)->count()),
             Stat::make('عدد المنتجات ', $products->whereIn('type',[
                 CategoryTypeEnum::RESTAURANT->value,
