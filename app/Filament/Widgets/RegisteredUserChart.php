@@ -51,7 +51,7 @@ class RegisteredUserChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'المنتجات',
+                    'label' => 'المسجلين الجدد',
                     'data' => $users->map(fn (TrendValue $value) => $value->aggregate),
                     'backgroundColor' => '#1e40af',
                     'borderColor' => '#0000cc',
