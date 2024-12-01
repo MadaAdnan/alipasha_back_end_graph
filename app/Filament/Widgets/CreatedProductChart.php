@@ -15,9 +15,9 @@ class CreatedProductChart extends ChartWidget
     {
         return [
             'today' => 'اليوم',
-            'week' => 'آخر أسبوع',
-            'month' => 'آخر شهر',
-            'year' => 'آخر سنة',
+            'week' => 'آخر 7 أيام',
+            'month' => 'هذا الشهر',
+            'year' => 'هذه السنة',
         ];
     }
 
@@ -30,10 +30,13 @@ class CreatedProductChart extends ChartWidget
            $start=now()->subDays(7);
 
        }else if($activeFilter=='month'){
-            $start=now()->subMonth();
+            $start=now()->startOfMonth();
 
         }else if($activeFilter=='year'){
-           $start=now()->subYear();
+           $start=now()->startOfYear();
+
+       }else if($activeFilter=='today'){
+           $start=now()->startOfDay();
 
        }
         $data = Trend::model(Product::class)
