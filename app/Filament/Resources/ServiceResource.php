@@ -145,7 +145,7 @@ class ServiceResource extends Resource implements HasShieldPermissions
 
             ])
             ->filters([
-                //
+                Tables\Filters\Filter::make('category')->modifyQueryUsing(fn($query) => $query->whereNull('category_id')),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
