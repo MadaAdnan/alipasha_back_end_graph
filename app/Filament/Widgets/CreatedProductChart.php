@@ -66,7 +66,7 @@ class CreatedProductChart extends ChartWidget
                     'data' => $products->map(fn (TrendValue $value) => $value->aggregate),
                 ],
                 [
-                    'label' => 'المنتجات',
+                    'label' => 'المناقصات',
                     'data' => $tender->map(fn (TrendValue $value) => $value->aggregate),
                 ],
             ],
