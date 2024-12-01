@@ -12,7 +12,7 @@
         "bezhansalleh/filament-shield": "^3.2",
         "filament/filament": "^3.2",
         "filament/spatie-laravel-media-library-plugin": "^3.2",
-        "flowframe/laravel-trend": "*",
+        "flowframe/laravel-trend": "^0.3.0",
         "guzzlehttp/guzzle": "^7.2",
         "kreait/firebase-php": "^5.26",
         "laravel/framework": "^10.0",
