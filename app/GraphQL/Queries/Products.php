@@ -22,29 +22,16 @@ final class Products
     public function __invoke($_, array $args)
 
     {
-        $orderBy= $args['order_by'] ?? ['column' => 'created_at', 'orderBy' => 'desc'];
+        $orderBy = $args['order_by'] ?? ['column' => 'created_at', 'orderBy' => 'desc'];
 
         $colors = $args['colors'] ?? [];
         $type = $args['type'] ?? null;
-$sub1Id=$args['sub1_id']??null;
-$isService=false;
-        $subCategory=null;
-if($sub1Id!=null){
-    $subCategory=Category::whereIn('type',[
-        CategoryTypeEnum::NEWS->value,
-        CategoryTypeEnum::SERVICE->value
-    ])->whereHas('children',fn($query)=>$query->where('categories.id',$sub1Id))->first();
-}
-if($subCategory!=null){
-    $isService=true;
-}
+$userId=$args['user_id']??null;
 
 
-       return  Product::query()->when(!$isService,fn($query)=>$query  ->whereNot('type',CategoryTypeEnum::NEWS->value)
-           ->whereNot('type',CategoryTypeEnum::SERVICE->value))
-
-
-           ->where('active', ProductActiveEnum::ACTIVE->value)
+        return Product::query()
+            ->when($type==null && $userId==null, fn($query) => $query->whereNot('type', CategoryTypeEnum::NEWS->value)->whereNot('type', CategoryTypeEnum::SERVICE->value))
+            ->where('active', ProductActiveEnum::ACTIVE->value)
             ->where(function ($query) {
                 $query->whereNull('end_date')->orWhere('end_date', '>=', now());
             })
@@ -85,22 +72,12 @@ if($subCategory!=null){
                 }
 
             }))
-          // ->whereNotNull('sub1_id')
-            ->orderBy($orderBy['column'],$orderBy['orderBy']);
-
-
-
-
-
+            // ->whereNotNull('sub1_id')
+            ->orderBy($orderBy['column'], $orderBy['orderBy']);
 
 
         return $products;
     }
-
-
-
-
-
 
 
 }
