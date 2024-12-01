@@ -66,10 +66,10 @@ Route::get('/.well-known/assetlinks.json', function () {
 
 ####################################################################
 ###################### IMPORT DATA #################################
-//Route::post('/import', [ImportController::class, 'import'])->name('import');
-//Route::get('/import', function () {
-//    return view('import');
-//});
+Route::post('/import', [ImportController::class, 'import'])->name('import');
+Route::get('/import', function () {
+    return view('import');
+});
 
 
 Route::get('testnot/{id?}',function($id=null){
