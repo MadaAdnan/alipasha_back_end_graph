@@ -38,7 +38,7 @@ type Product{
     # Fields
     name:String,
     active:String
-    info:String,
+    info:String @field(resolver: "App\\GraphQL\\Resolvers\\ProductInfo@getAddressWithInfo")
     expert:String,
     tags:[String]
     is_discount:Boolean
