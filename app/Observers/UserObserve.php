@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Enums\PlansDurationEnum;
+use App\Helpers\StrHelper;
 use App\Jobs\SendEmailJob;
 use App\Mail\RegisteredEmail;
 use App\Models\Community;
@@ -13,6 +14,10 @@ use Illuminate\Support\Facades\Mail;
 
 class UserObserve
 {
+    public function creating(User $user): void
+    {
+        $user->affiliate=StrHelper::getAfflieate();
+    }
     /**
      * Handle the User "created" event.
      */
@@ -29,6 +34,14 @@ class UserObserve
         $user->communities()->syncWithoutDetaching($groups);
     }
 
+
+    public function updating(User $user): void
+    {
+        if($user->affiliate==null){
+            $user->affiliate=StrHelper::getAfflieate();
+        }
+
+    }
     /**
      * Handle the User "updated" event.
      */

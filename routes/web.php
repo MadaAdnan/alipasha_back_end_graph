@@ -66,8 +66,9 @@ Route::get('/.well-known/assetlinks.json', function () {
 
 ####################################################################
 ###################### IMPORT DATA #################################
-Route::post('/import', [ImportController::class, 'import'])->name('import');
+//Route::post('/import', [ImportController::class, 'import'])->name('import');
 Route::get('/import', function () {
+  return  \App\Helpers\StrHelper::getAfflieate();
     return view('import');
 });
 
