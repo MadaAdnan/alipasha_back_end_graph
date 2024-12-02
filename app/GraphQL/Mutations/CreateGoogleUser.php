@@ -21,29 +21,26 @@ final class CreateGoogleUser
             $affiliate_id = User::where('affiliate', $data['affiliate'])->first()?->id;
 
         }
-        $user=User::where('email',$data['email'])->first();
+        $user = User::where('email', $data['email'])->first();
 
-        if(!$user){
+        if (!$user) {
             $user = User::create([
                 'name' => $data['name'],
                 'email' => $data['email'],
                 'password' => bcrypt($data['password']),
                 'device_token' => $data['device_token'] ?? null,
                 'level' => 'user',
-                'user_id'=>$affiliate_id,
-                'email_verified_at'=>isset($data['hash']) && StrHelper::generateMd5()==$data['hash']?now():null,
+                'user_id' => $affiliate_id,
+                'email_verified_at' => isset($data['hash']) && StrHelper::generateMd5() == $data['hash'] ? now() : null,
                 'is_active' => true,
                 'code_verified' => \Str::random(6)
             ]);
-        }else{
-            if(!Hash::check($data['password'],$user->password)){
-            throw new GraphQLExceptionHandler('لم تقم بالتسجيل بهذا البريد من خلال google');
-             }
+        } else {
+            if (!Hash::check($data['password'], $user->password)) {
+                throw new GraphQLExceptionHandler('لم تقم بالتسجيل بهذا البريد من خلال google');
+            }
             $user->update(['device_token' => $data['device_token'] ?? null,]);
         }
-
-
-
         $token = $user->createToken('User')->plainTextToken;
         if (isset($data['image']) && $data['image'] !== null) {
             $user->addMedia($data['imag'])->toMediaCollection('image');
