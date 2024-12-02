@@ -35,11 +35,6 @@ final class CreateGoogleUser
                 'is_active' => true,
                 'code_verified' => \Str::random(6)
             ]);
-        } else {
-            if (!Hash::check($data['password'], $user->password)) {
-                throw new GraphQLExceptionHandler('لم تقم بالتسجيل بهذا البريد من خلال google');
-            }
-            $user->update(['device_token' => $data['device_token'] ?? null,]);
         }
         $token = $user->createToken('User')->plainTextToken;
         if (isset($data['image']) && $data['image'] !== null) {
