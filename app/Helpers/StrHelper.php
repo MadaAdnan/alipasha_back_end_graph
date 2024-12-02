@@ -32,4 +32,8 @@ class StrHelper
 
         return $code;
     }
+
+    public static function generateMd5(){
+        return md5('ali-pasha5'.now()->day);
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations;
 
 use App\Exceptions\GraphQLExceptionHandler;
+use App\Helpers\StrHelper;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
@@ -15,11 +16,11 @@ final class CreateGoogleUser
     public function __invoke($_, array $args)
     {
         $data = $args['input'];
-      /*  $affiliate_id = null;
+        $affiliate_id = null;
         if (isset($data['affiliate']) && $data['affiliate'] != null) {
             $affiliate_id = User::where('affiliate', $data['affiliate'])->first()?->id;
 
-        }*/
+        }
         $user=User::where('email',$data['email'])->first();
 
         if(!$user){
@@ -29,6 +30,8 @@ final class CreateGoogleUser
                 'password' => bcrypt($data['password']),
                 'device_token' => $data['device_token'] ?? null,
                 'level' => 'user',
+                'user_id'=>$affiliate_id,
+                'email_verified_at'=>isset($data['hash']) && StrHelper::generateMd5()==$data['hash']?now():null,
                 'is_active' => true,
                 'code_verified' => \Str::random(6)
             ]);
