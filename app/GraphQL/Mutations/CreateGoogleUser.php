@@ -36,11 +36,10 @@ final class CreateGoogleUser
                 'code_verified' => \Str::random(6)
             ]);
         }else{
-            $user->update(['device_token' => $data['device_token'] ?? null,]);
-        }
-
-        if(!Hash::check($data['password'],$user->password)){
+            if(!Hash::check($data['password'],$user->password)){
             throw new GraphQLExceptionHandler('لم تقم بالتسجيل بهذا البريد من خلال google');
+             }
+            $user->update(['device_token' => $data['device_token'] ?? null,]);
         }
 
 
