@@ -16,6 +16,7 @@ extend type Query{
 
 input CreateGoogleUserInput{
     hash:String
+    affiliate:String
     name:String @rules(apply:["nullable","min:3"],messages:[
         {
             rule:"required"
