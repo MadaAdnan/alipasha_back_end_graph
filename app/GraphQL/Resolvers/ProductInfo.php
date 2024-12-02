@@ -17,10 +17,19 @@ class ProductInfo
     {
 
            if($root->type==CategoryTypeEnum::SERVICE->value){
-             return   "<b>العنوان :</b> {$root->address}<br/> {$root->info}";
+             return   "{$root->info} <br/> <b>العنوان :</b> {$root->address}<br/>";
            }
            return $root->name .' '.$root->info;
        }
+
+    public static function getNameWithExpert($root): string
+    {
+
+        if($root->type!=CategoryTypeEnum::PRODUCT->value && $root->type!=CategoryTypeEnum::RESTAURANT->value){
+            return   "{$root->name} {$root->expert}";
+        }
+        return $root->expert;
+    }
 
 
 
