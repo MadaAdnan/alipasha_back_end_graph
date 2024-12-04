@@ -8,6 +8,7 @@ use App\Exceptions\GraphQLExceptionHandler;
 use App\Jobs\SendFirebaseNotificationJob;
 use App\Models\Community;
 use App\Models\Message;
+use App\Models\Setting;
 use App\Models\User;
 use App\Service\SendNotifyHelper;
 use Mockery\Exception;
@@ -68,6 +69,14 @@ final class CreateMessage
         if($message->community->type==CommunityTypeEnum::CHAT->value && $message->community->messages_count <= 1){
 
             $user=$message->community->users()->whereNot('users.id',$userId)->first();
+
+            $msg="في حال تأخر التاجر عن الرد يمكنك التواصل معه عن طريق واتسآب إضغط على الرابط للتواصل https://wa.me/{$user?->phone}";
+            Message::create([
+                'body' => $msg,
+                'community_id' => $communityId,
+                'user_id' => $user?->id,
+                'type' => 'text',
+            ]);
             if($user){
                 $data=[
                     'title'=>'تواصل جديد عن طريق علي باشا',
