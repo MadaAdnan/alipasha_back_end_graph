@@ -76,6 +76,7 @@ final class CreateMessage
                 'community_id' => $communityId,
                 'user_id' => $user?->id,
                 'type' => 'text',
+                'created_at'=>now()->addSeconds(3)
             ]);
             if($user){
                 $data=[
