@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\CategoryTypeEnum;
 use App\Enums\ProductActiveEnum;
 use App\Filament\Resources\ServiceResource\Pages;
 use App\Filament\Resources\ServiceResource\RelationManagers;
@@ -146,6 +147,7 @@ class ServiceResource extends Resource implements HasShieldPermissions
             ])
             ->filters([
                 Tables\Filters\Filter::make('category')->modifyQueryUsing(fn($query) => $query->whereNull('category_id')),
+                Tables\Filters\SelectFilter::make('category_id')->options(Category::where('is_main',true)->where('type',CategoryTypeEnum::SERVICE->value)->pluck('name','id'))
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
