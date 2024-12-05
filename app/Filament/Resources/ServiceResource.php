@@ -147,8 +147,13 @@ class ServiceResource extends Resource implements HasShieldPermissions
 
             ])
             ->filters([
-                Tables\Filters\Filter::make('category')->modifyQueryUsing(fn($query) => $query->whereNull('category_id')),
-                Tables\Filters\SelectFilter::make('category_id')->options(Category::where('is_main',true)->where('type',CategoryTypeEnum::SERVICE->value)->pluck('name','id'))
+               Tables\Filters\Filter::make('filter')->form([
+                   Forms\Components\Select::make('category_id')->options(Category::where('is_main',true)->where('type',CategoryTypeEnum::SERVICE->value)->pluck('name','id'))->live(),
+                   Forms\Components\Select::make('sub1_id')->options(fn($get)=>Category::find($get('category_id'))?->children->pluck('name','id')),
+               ])->query(fn($query,$data)=>$query
+               ->when($data['category_id'],fn($query)=>$query->where('category_id',$data['category_id']))
+               ->when($data['sub1_id'],fn($query)=>$query->where('sub1_id',$data['sub1_id']))
+               )
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
