@@ -119,6 +119,7 @@ class SettingResource extends Resource implements HasShieldPermissions
                             Forms\Components\Select::make('plan_id')->relationship('plan', 'name')->searchable()->preload()->label('الخطة الإفتراضية للمستخدمين الجدد'),
 
                         ]),
+
                         Forms\Components\Wizard\Step::make('معلومات التطبيق')->schema([
                             Forms\Components\SpatieMediaLibraryFileUpload::make('apk')->collection('apk')->label('رفع التطبيق')->preserveFilenames(),
                             Forms\Components\Toggle::make('send_notification_hobbies')->label('حالة إشعارات الاهتمامات'),
@@ -136,6 +137,7 @@ class SettingResource extends Resource implements HasShieldPermissions
                                 ])->columns(2)
                             ])
                         ]),
+
                         Forms\Components\Wizard\Step::make('معلومات مواقع التواصل')->schema([
                             Forms\Components\TextInput::make('social.twitter')->label('رابط تويتر')->nullable()->url()->placeholder('https://'),
                             Forms\Components\TextInput::make('social.face')->label('رابط فيسبوك')->nullable()->url()->placeholder('https://'),
