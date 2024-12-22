@@ -27,7 +27,7 @@ class CommentResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('product_id')->relationship('product','name',fn($query)=>$query->whereIn('type',['product','news'])->select('id','expert'))->label('المنتج')->required(),
+                Forms\Components\Select::make('product_id')->relationship('product','name',fn($query)=>$query->whereIn('type',['product','news'])->select('id','expert','name'))->label('المنتج')->required(),
                 Forms\Components\Textarea::make('comment')->label('التعليق')->required(),
             ]);
     }
