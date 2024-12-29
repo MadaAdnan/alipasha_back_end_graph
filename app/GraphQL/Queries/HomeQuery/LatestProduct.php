@@ -16,6 +16,7 @@ final class LatestProduct
     public function __invoke($_, array $args)
     {
         $products= Product::where('active',ProductActiveEnum::ACTIVE->value)
+            ->where(fn($query)=>$query->whereNot('type',CategoryTypeEnum::RESTAURANT->value))
             ->whereNot('level',LevelProductEnum::SPECIAL->value)
             ->where(fn($query)=> $query
                 ->where('type',CategoryTypeEnum::PRODUCT->value)

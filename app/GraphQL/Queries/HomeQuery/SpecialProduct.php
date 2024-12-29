@@ -18,6 +18,8 @@ final class SpecialProduct
     {
         $products= Product::where('active',ProductActiveEnum::ACTIVE->value)
             ->where('level',LevelProductEnum::SPECIAL->value)
+            ->where(fn($query)=>$query->whereNot('type',CategoryTypeEnum::RESTAURANT->value))
+
             ->where(fn($query)=> $query
                 ->where('type',CategoryTypeEnum::PRODUCT->value)
                 ->orWhere('type',CategoryTypeEnum::TENDER->value)
