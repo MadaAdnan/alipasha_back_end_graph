@@ -2,6 +2,7 @@ extend type Mutation{
     login(email:String!,password:String!,device_token:String): UserWithToken!
     createUser(input:CreateUserInput) : UserWithToken
     createGoogleUser(input:CreateGoogleUserInput) : UserWithToken
+    forgetPassword(email:String!):Boolean
 }
 type UserWithToken{
     user:User
