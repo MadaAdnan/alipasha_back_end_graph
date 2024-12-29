@@ -33,8 +33,8 @@ class CityResource extends Resource
                 Forms\Components\Section::make('المدن')->schema([
                     Forms\Components\SpatieMediaLibraryFileUpload::make('image')->collection('image')->conversion('webp')->image()->imageCropAspectRatio('1:1')->label('صورة')->imageEditor(),
                     Forms\Components\TextInput::make('name')->label('اسم المدينة'),
-                    Forms\Components\Toggle::make('is_main')->label('مدينة رئيسية')->reactive(),
-                    Forms\Components\Select::make('city_id')->options(City::where('is_main', true)->pluck('name', 'id'))->required()->label('تتبع لمدينة')->visible(fn($get) => !$get('is_main')),
+
+                    Forms\Components\Select::make('city_id')->options(City::where('is_main', true)->pluck('name', 'id'))->required()->label('تتبع لمدينة'),
                     Forms\Components\Toggle::make('is_delivery')->label('تفعيل التوصيل'),
                     Forms\Components\Toggle::make('is_active')->label('حالة المدينة'),
                 ])
