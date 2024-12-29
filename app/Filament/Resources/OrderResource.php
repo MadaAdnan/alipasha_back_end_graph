@@ -2,8 +2,10 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\OrderStatusEnum;
 use App\Filament\Resources\OrderResource\Pages;
 use App\Filament\Resources\OrderResource\RelationManagers;
+use App\Models\Invoice;
 use App\Models\Order;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -23,6 +25,11 @@ class OrderResource extends Resource
     protected static ?string $navigationLabel='طلبات الشحن';
     protected static ?string $pluralLabel='طلبات الشحن';
 
+
+    public static function getNavigationBadge(): ?string
+    {
+        return (string)Order::where('status',OrderStatusEnum::PENDING->value)->count();
+    }
     public static function form(Form $form): Form
     {
         return $form
