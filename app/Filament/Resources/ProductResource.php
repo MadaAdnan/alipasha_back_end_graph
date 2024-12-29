@@ -115,8 +115,11 @@ class ProductResource extends Resource
                         ->searchable()->live()
                         ->afterStateUpdated(fn($set, $state) => $set('city_id', User::find($state)?->city_id)),
                     Forms\Components\Select::make('city_id')->options(City::selectRaw('id,name')->pluck('name', 'id'))->searchable()->label('المدينة'),
-                    HelperMedia::getFileUpload(label: 'الصورة الرئيسية', collection: 'image', is_multible: true, ratio: ['1:1'],isWebp: false),
-                    HelperMedia::getFileUpload(label: 'صور إضافية', name: 'images', collection: 'images', is_multible: true,isWebp: false),
+//                    HelperMedia::getFileUpload(label: 'الصورة الرئيسية', collection: 'image', is_multible: true, ratio: ['1:1'],isWebp: false),
+//                    HelperMedia::getFileUpload(label: 'صور إضافية', name: 'images', collection: 'images', is_multible: true,isWebp: false),
+                Forms\Components\SpatieMediaLibraryFileUpload::make('image')
+                    ->collection('images')
+                    ->label('الصورة الرئيسية'),
 //                    Forms\Components\SpatieMediaLibraryFileUpload::make('film')->collection('video')->label('فيديو قصير')->acceptedFileTypes(['video/quicktime', 'video/x-ms-wmv', 'video/x-msvideo', 'video/mp4']),
                     Forms\Components\TextInput::make('video')->label('رابط الفيديو إن وجد'),
                     Forms\Components\TextInput::make('name')->label('اسم المنتج'),

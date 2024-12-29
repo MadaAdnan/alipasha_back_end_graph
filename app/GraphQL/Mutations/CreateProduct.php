@@ -33,7 +33,7 @@ final class CreateProduct
                 'sub3_id' => $data['sub3_id'] ?? null,
                 'sub4_id' => $data['sub4_id'] ?? null,
 
-                'active' => auth()->user()->is_default_active?ProductActiveEnum::ACTIVE->value:ProductActiveEnum::PENDING->value,
+                'active' => auth()->user()->is_default_active===true?ProductActiveEnum::ACTIVE->value:ProductActiveEnum::PENDING->value,
                 'user_id' => $user->id,
 
                 'type' => CategoryTypeEnum::PRODUCT->value,

@@ -55,6 +55,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         'social' => 'array',
         'notify_date' => 'date',
         'send_at' => 'datetime',
+        'is_default_active'=>'boolean'
 
     ];
 
