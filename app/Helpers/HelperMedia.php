@@ -9,7 +9,7 @@ class HelperMedia
 {
     public static function getFileUpload($label = 'صورة', $name = 'image', $collection = 'image', $is_multible = false, $ratio = ['1:1', '2:1', '1:2'],$isWebp=true)
     {
-        if($isWebp){
+        if($isWebp==true){
             return SpatieMediaLibraryFileUpload::make($name)->collection($collection)->conversion('webp')->label($label)->multiple($is_multible)->image()->imageEditor()->imageEditorAspectRatios($ratio)->openable()->downloadable();
 
         }
