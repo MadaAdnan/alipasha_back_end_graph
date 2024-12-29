@@ -23,11 +23,12 @@ class MainCityResource extends Resource implements HasShieldPermissions
     protected static ?string $model = City::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    protected static ?int $navigationSort = 8;
+    protected static ?int $navigationSort =8;
     protected static ?string $label = 'مدينة رئيسية';
     protected static ?string $modelLabel = 'مدينة رئيسية';
     protected static ?string $navigationLabel = 'المدن الرئيسية';
     protected static ?string $pluralLabel = 'المدن الرئيسية';
+    protected static ?string $slug='mainCity';
 
     protected static ?string $navigationGroup='المناطق و المواد';
     public static function getPermissionPrefixes(): array

@@ -19,7 +19,7 @@ class CityResource extends Resource
     protected static ?string $model = City::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    protected static ?int $navigationSort = 8;
+    protected static ?int $navigationSort = 9;
     protected static ?string $label = 'مدينة';
     protected static ?string $modelLabel = 'مدينة';
     protected static ?string $navigationLabel = 'المدن';
