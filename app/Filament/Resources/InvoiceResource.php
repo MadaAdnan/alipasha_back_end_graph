@@ -44,8 +44,7 @@ protected static ?string $navigationLabel='طلبات شحن علي باشا';
                Forms\Components\TextInput::make('shipping')->numeric()->label('إجمالي أجور الشحن'),
               Forms\Components\Repeater::make('items')->relationship('items')->schema([
                   Forms\Components\Grid::make()->schema([
-                      Forms\Components\Select::make('product_id')->options(fn($context,Model $record)=>Product::where('type','product')
-                          ->when($context=='edit',fn($query)=>$query->where('user_id',$record->user_id))
+                      Forms\Components\Select::make('product_id')->options(fn($context,Model $record)=>Product::product()
                           ->selectRaw('products.id,CONCAT(name,\' - \',expert) as name')->pluck('name','id')->toArray())->searchable()->label('المنتج')->required(),
                       Forms\Components\TextInput::make('qty')->label('الكمية')->required()
                   ])
