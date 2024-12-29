@@ -118,7 +118,7 @@ class ProductResource extends Resource
 //                    HelperMedia::getFileUpload(label: 'الصورة الرئيسية', collection: 'image', is_multible: true, ratio: ['1:1'],isWebp: false),
 //                    HelperMedia::getFileUpload(label: 'صور إضافية', name: 'images', collection: 'images', is_multible: true,isWebp: false),
                 Forms\Components\SpatieMediaLibraryFileUpload::make('image')
-                    ->collection('images')->openable()->downloadable()
+                    ->collection('images')->collection('webp')->openable()->downloadable()->multiple()
                     ->label('الصورة الرئيسية'),
 //                    Forms\Components\SpatieMediaLibraryFileUpload::make('film')->collection('video')->label('فيديو قصير')->acceptedFileTypes(['video/quicktime', 'video/x-ms-wmv', 'video/x-msvideo', 'video/mp4']),
                     Forms\Components\TextInput::make('video')->label('رابط الفيديو إن وجد'),
