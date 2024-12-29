@@ -54,6 +54,10 @@ protected static ?string $navigationLabel='طلبات شحن علي باشا';
 
             ]);
     }
+    public static function getNavigationBadge(): ?string
+    {
+        return (string)Invoice::where('status',OrderStatusEnum::PENDING->value)->count();
+    }
 
     public static function table(Table $table): Table
     {
