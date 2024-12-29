@@ -14,6 +14,8 @@ class CommentsRelationManager extends RelationManager
 {
     protected static string $relationship = 'comments';
 protected static ?string $title='التعليقات';
+protected static ?string $label='التعليقات';
+protected static ?string $pluralLabel='التعليقات';
     public function form(Form $form): Form
     {
         return $form
