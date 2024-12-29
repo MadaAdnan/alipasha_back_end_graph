@@ -198,7 +198,7 @@ class ProductResource extends Resource
         return $table
             ->columns([
 
-                Tables\Columns\SpatieMediaLibraryImageColumn::make('image')->collection('images')->conversion('webp')->label('الصورة')->size(50),
+                Tables\Columns\SpatieMediaLibraryImageColumn::make('image')->collection('images')->conversion('webp')->label('الصورة')->size(100),
                 Tables\Columns\TextColumn::make('id')->label('رقم المنتج')->searchable(),
                 Tables\Columns\TextInputColumn::make('weight')->label('وزن المنتج')->searchable(),
                 Tables\Columns\ToggleColumn::make('is_delivery')->label('قابل للتوصيل')->searchable(),
