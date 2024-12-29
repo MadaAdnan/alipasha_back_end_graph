@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Enums\CategoryTypeEnum;
+use App\Enums\OrderStatusEnum;
 use App\Enums\ProductActiveEnum;
 use App\Filament\Resources\JobResource\Pages;
 use App\Filament\Resources\JobResource\RelationManagers;
@@ -36,6 +37,10 @@ class JobResource extends Resource implements HasShieldPermissions
     protected static ?string $pluralLabel = 'الوظائف';
     protected static ?int $navigationSort = 3;
     protected static ?string $navigationGroup = 'العروض';
+    public static function getNavigationBadge(): ?string
+    {
+        return (string)Product::job()->where('active',OrderStatusEnum::PENDING->value)->count();
+    }
 // permissions
     public static function getPermissionPrefixes(): array
     {

@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 
+use App\Enums\OrderStatusEnum;
 use App\Enums\ProductActiveEnum;
 use App\Filament\Resources\TenderResource\Pages;
 use App\Filament\Resources\TenderResource\RelationManagers;
@@ -34,7 +35,10 @@ class TenderResource extends Resource implements HasShieldPermissions
     protected static ?int $navigationSort = 2;
     protected static ?string $navigationGroup = 'العروض';
     protected static ?string $slug = 'tenders';
-
+    public static function getNavigationBadge(): ?string
+    {
+        return (string)Product::tender()->where('active',OrderStatusEnum::PENDING->value)->count();
+    }
 
     // permissions
     public static function getPermissionPrefixes(): array
