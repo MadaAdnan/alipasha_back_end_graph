@@ -45,7 +45,7 @@ protected static ?string $navigationLabel='طلبات شحن علي باشا';
               Forms\Components\Repeater::make('items')->relationship('items')->schema([
                   Forms\Components\Grid::make()->schema([
                       Forms\Components\Select::make('product_id')->options(fn($context,Model $record)=>Product::product()
-                          ->selectRaw('products.id,CONCAT(name,\' - \',expert) as name')->pluck('name','id')->toArray())->searchable()->label('المنتج')->required(),
+                          ->selectRaw('id, name')->pluck('name','id')->toArray())->searchable()->label('المنتج')->required(),
                       Forms\Components\TextInput::make('qty')->label('الكمية')->required()
                   ])
               ])->label('المنتجات')->minItems(1)->required()
