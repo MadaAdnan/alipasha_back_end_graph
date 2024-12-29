@@ -115,8 +115,8 @@ class ProductResource extends Resource
                         ->searchable()->live()
                         ->afterStateUpdated(fn($set, $state) => $set('city_id', User::find($state)?->city_id)),
                     Forms\Components\Select::make('city_id')->options(City::selectRaw('id,name')->pluck('name', 'id'))->searchable()->label('المدينة'),
-                    HelperMedia::getFileUpload(label: 'الصورة الرئيسية', collection: 'image', is_multible: true, ratio: ['1:1'],isWebp: false),
-                    HelperMedia::getFileUpload(label: 'صور إضافية', name: 'images', collection: 'images', is_multible: true,isWebp: false),
+                    HelperMedia::getFileUpload(label: 'الصورة الرئيسية', collection: 'image', is_multible: true, ratio: ['1:1'],isWebp: true),
+                    HelperMedia::getFileUpload(label: 'صور إضافية', name: 'images', collection: 'images', is_multible: true,isWebp: true),
 //                Forms\Components\SpatieMediaLibraryFileUpload::make('image')
 //                    ->collection('images')->openable()->downloadable()->multiple()
 //                    ->label('الصورة الرئيسية'),
