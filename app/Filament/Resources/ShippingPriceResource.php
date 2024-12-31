@@ -22,7 +22,7 @@ class ShippingPriceResource extends Resource
     protected static ?string $label='أسعار الشحن';
     protected static ?string $navigationLabel='أسعار الشحن';
     protected static ?string $pluralLabel='أسعار الشحن';
-    protected static ?int $navigationSort=-10;
+    protected static ?int $navigationSort=-14;
     public static function form(Form $form): Form
     {
         return $form
