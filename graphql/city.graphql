@@ -1,5 +1,6 @@
 extend type Query{
-    cities:[City] @all  @where(key: "is_main", operator: "=", value: 1)
+    cities:[City] @all
+    mainCity:[City] @all @where(key: "is_main", operator: "=", value: 1)
     citiesByCategory(categoryId:Int):[City]
     citiesHasVendor(type:String):[City]
 }
