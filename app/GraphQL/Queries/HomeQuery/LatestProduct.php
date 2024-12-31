@@ -16,7 +16,7 @@ final class LatestProduct
     public function __invoke($_, array $args)
     {
         $products= Product::where('active',ProductActiveEnum::ACTIVE->value)
-            ->where(fn($query)=>$query->whereNot('type',CategoryTypeEnum::RESTAURANT->value))
+            ->where(fn( $query)=>$query->whereDoesntHave('category',fn($query)=>$query->where('type',CategoryTypeEnum::RESTAURANT->value)))
             ->whereNot('level',LevelProductEnum::SPECIAL->value)
             ->where(fn($query)=> $query
                 ->where('type',CategoryTypeEnum::PRODUCT->value)
@@ -28,7 +28,7 @@ final class LatestProduct
                 $query->whereNull('end_date')
                     ->orWhere('end_date', '>', now());
             })
-            ->latest()->inRandomOrder();
+            ->latest();
         $ids = $products->pluck('id')->toArray();
         $today = today();
 

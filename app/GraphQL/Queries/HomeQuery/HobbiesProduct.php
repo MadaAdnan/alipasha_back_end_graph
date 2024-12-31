@@ -6,6 +6,7 @@ use App\Enums\CategoryTypeEnum;
 use App\Enums\ProductActiveEnum;
 use App\Models\Interaction;
 use App\Models\Product;
+use Illuminate\Database\Eloquent\Builder;
 
 final class HobbiesProduct
 {
@@ -16,7 +17,7 @@ final class HobbiesProduct
     public function __invoke($_, array $args)
     {
         $products = Product::where('active', ProductActiveEnum::ACTIVE->value)
-            ->where(fn($query)=>$query->whereNot('type',CategoryTypeEnum::RESTAURANT->value))
+            ->where(fn( $query)=>$query->whereDoesntHave('category',fn($query)=>$query->where('type',CategoryTypeEnum::RESTAURANT->value)))
 
             ->where(fn($query)=> $query
                 ->where('type',CategoryTypeEnum::PRODUCT->value)
