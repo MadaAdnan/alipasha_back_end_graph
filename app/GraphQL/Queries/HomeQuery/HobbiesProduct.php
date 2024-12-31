@@ -31,7 +31,7 @@ final class HobbiesProduct
             })
             ->whereIn('category_id', $this->getPopularCategoryProducts())
             ->orWhere('user_id',$this->getPopularSelelrProducts())
-            ->inRandomOrder();
+            ->latest();
         $ids = $products->pluck('id')->toArray();
         $today = today();
 
