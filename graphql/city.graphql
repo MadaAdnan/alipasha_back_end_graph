@@ -12,4 +12,6 @@ type City{
     city_id:Int
     city:City @belongsTo
     is_delivery:Boolean
+    is_main:Boolean
+    children:[City] @hasMany
 }
