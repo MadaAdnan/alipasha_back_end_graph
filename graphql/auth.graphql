@@ -3,6 +3,7 @@ extend type Mutation{
     createUser(input:CreateUserInput) : UserWithToken
     createGoogleUser(input:CreateGoogleUserInput) : UserWithToken
     forgetPassword(email:String!):Boolean
+    changePasswordForget(email:String!,code:String!):Boolean
 }
 type UserWithToken{
     user:User

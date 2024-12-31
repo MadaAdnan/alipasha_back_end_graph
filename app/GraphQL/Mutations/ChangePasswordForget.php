@@ -8,7 +8,7 @@ use App\Mail\ResetPasswordForgetEmail;
 use App\Models\User;
 use Filament\Notifications\Auth\ResetPassword;
 
-final  class ChangePasswwordForget
+final  class ChangePasswordForget
 {
     /** @param  array{}  $args */
     public function __invoke( $_, array $args)
