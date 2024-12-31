@@ -15,7 +15,7 @@ class StrHelper
         $list = array_merge($alfa, $nums);
 
         $listGenerate = [];
-        $code='';
+        $code = '';
         while (true) {
             $listGenerate[] = $list[rand(0, 35)];
             $listGenerate[] = $list[rand(0, 35)];
@@ -23,7 +23,7 @@ class StrHelper
             $listGenerate[] = $list[rand(0, 35)];
             $listGenerate[] = $list[rand(0, 35)];
             shuffle($listGenerate);
-            $code=implode('', $listGenerate);
+            $code = implode('', $listGenerate);
             $isExist = User::where('affiliate', $code)->exists();
             if (!$isExist) {
                 break;
@@ -33,8 +33,9 @@ class StrHelper
         return $code;
     }
 
-    public static function generateMd5(){
-        return md5('ali-pasha5'.now()->day);
+    public static function generateMd5()
+    {
+        return md5('ali-pasha5' . now()->day);
     }
 
     public static function getResetPassword()
@@ -43,22 +44,11 @@ class StrHelper
         $alfa = range('a', 'z');
         $nums = range(0, 9);
         $list = array_merge($alfa, $nums);
-
         $listGenerate = [];
-        $code='';
-        while (true) {
-            $listGenerate[] = $list[rand(0, 35)];
-            $listGenerate[] = $list[rand(0, 35)];
-            $listGenerate[] = $list[rand(0, 35)];
-            $listGenerate[] = $list[rand(0, 35)];
-            $listGenerate[] = $list[rand(0, 35)];
-            shuffle($listGenerate);
-            $code=implode('', $listGenerate);
-            $isExist = User::where('reset_password', $code)->exists();
-            if (!$isExist) {
-                break;
-            }
-        }
+        array_unshift($listGenerate,$list[rand(0, 35)],$list[rand(0, 35)],$list[rand(0, 35)],$list[rand(0, 35)],$list[rand(0, 35)],$list[rand(0, 35)],$list[rand(0, 35)],$list[rand(0, 35)]);
+        shuffle($listGenerate);
+        $code = implode('', $listGenerate);
+
 
         return $code;
     }
