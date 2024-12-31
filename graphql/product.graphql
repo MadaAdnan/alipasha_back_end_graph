@@ -59,6 +59,7 @@ type Product{
     type:String,
     views_count:Int
     turkey_price:TurkeyPrice  @field(resolver: "App\\GraphQL\\Resolvers\\TurkeyPrice@getTurkeyPrice")
+    syr_price:TurkeyPrice  @field(resolver: "App\\GraphQL\\Resolvers\\TurkeyPrice@getSyrPrice")
     # Files From Media
     image:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImage")
     video:String
