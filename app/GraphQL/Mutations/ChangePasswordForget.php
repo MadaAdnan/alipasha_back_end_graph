@@ -25,6 +25,6 @@ final  class ChangePasswordForget
             return true;
 
         }
-        throw new GraphQLExceptionHandler('يرجى التأكد من الكود');
+        throw new GraphQLExceptionHandler('يرجى التأكد من الرمز المدخل');
     }
 }
