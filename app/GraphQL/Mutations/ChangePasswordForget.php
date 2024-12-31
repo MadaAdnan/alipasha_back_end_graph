@@ -18,9 +18,10 @@ final  class ChangePasswordForget
         $user=User::where(['email'=>$data['email'],'reset_password' =>$data['code'] ])->first();
         if($user){
             $password=StrHelper::getResetPassword();
-            $user->update(['password'=>bcrypt($password)]);
+            $user->update(['password'=>bcrypt($password),'reset_password'=>null]);
             $job=new SendEmailJob($user,new ResetPasswordForgetEmail($password));
             dispatch($job);
+
             return true;
 
         }
