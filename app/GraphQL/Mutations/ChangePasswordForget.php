@@ -15,7 +15,7 @@ final  class ChangePasswordForget
     public function __invoke( $_, array $args)
     {
         $data=$args;
-        $user=User::where(['email'=>$data['email'],'reset_password' =>$data['code'] ])->first();
+        $user=User::whereNotNull('reset_password')->where(['email'=>$data['email'],'reset_password' =>$data['code'] ])->first();
         if($user){
             $password=StrHelper::getResetPassword();
             $user->update(['password'=>bcrypt($password),'reset_password'=>null]);
