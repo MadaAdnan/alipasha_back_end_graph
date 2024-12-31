@@ -42,7 +42,7 @@ type Product{
     expert:String @field(resolver: "App\\GraphQL\\Resolvers\\ProductInfo@getNameWithExpert")
     tags:[String]
     is_discount:Boolean
-    is_delivery:Boolean
+    is_delivery:Boolean @field(resolver: "App\\GraphQL\\Resolvers\\ProductInfo@isDelivery")
     is_available:Boolean
     level:String
     phone:String

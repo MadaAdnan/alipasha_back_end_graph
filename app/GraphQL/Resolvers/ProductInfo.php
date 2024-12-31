@@ -31,6 +31,23 @@ class ProductInfo
         return $root->expert;
     }
 
+    /**
+     * @param $root Product
+     * @return boolean
+     */
+    public static function isDelivery($root): bool
+    {
+        if(auth()->check() ){
+            $userIsDelivery= auth()->user()->city?->is_delivery==true;
+        }else{
+            $userIsDelivery= true;
+        }
+
+        $cityIsDelivery=$root->city->is_delivery==true;
+        $productIsDelivery=$root->is_delivery==true;
+        return $userIsDelivery && $cityIsDelivery && $productIsDelivery;
+    }
+
 
 
 
