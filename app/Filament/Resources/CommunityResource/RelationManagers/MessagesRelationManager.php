@@ -28,9 +28,11 @@ class MessagesRelationManager extends RelationManager
     {
         return $table
             ->recordTitleAttribute('body')
+            ->modifyQueryUsing(fn($query)=>$query->latest())
             ->columns([
                 Tables\Columns\TextColumn::make('body'),
                 Tables\Columns\TextColumn::make('user.name'),
+                Tables\Columns\TextColumn::make('created_at')->since(),
             ])
             ->filters([
                 //
