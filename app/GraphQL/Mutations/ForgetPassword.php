@@ -5,6 +5,7 @@ namespace App\GraphQL\Mutations;
 use App\Exceptions\GraphQLExceptionHandler;
 use App\Helpers\HelpersEnum;
 use App\Helpers\StrHelper;
+use App\Jobs\ForgetPasswordJob;
 use App\Mail\ForgetPasswordEmail;
 use App\Models\User;
 
@@ -20,7 +21,9 @@ final  class ForgetPassword
         }
         $code=StrHelper::getResetPassword();
         $user->update(['reset_password'=>$code]);
-        \Mail::to($user)->send(new ForgetPasswordEmail());
+       $job=new ForgetPasswordJob($user,new ForgetPasswordEmail($code));
+       dispatch($job);
+
         return true;
     }
 }
