@@ -18,7 +18,7 @@ class CountryResource extends Resource
     protected static ?string $model = Country::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    protected static ?int $navigationSort = -14;
+    protected static ?int $navigationSort = -13;
     protected static ?string $label = 'دولة';
     protected static ?string $modelLabel = 'دولة';
     protected static ?string $navigationLabel = 'الدول';
