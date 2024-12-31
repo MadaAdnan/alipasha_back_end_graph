@@ -17,7 +17,7 @@ final class TurkeyPrice
     }
     public static function getSyrPrice($root)
     {
-        $usd=Setting::first()->dollar_value??14750;
+        $usd=Setting::first()->dollar_syr??14750;
         return [
             "price"=>$root->price*$usd,
             "discount"=>$root->discount*$usd,
