@@ -165,6 +165,7 @@ class SettingResource extends Resource implements HasShieldPermissions
                             Forms\Components\Toggle::make('auto_update_exchange')->label('تحديث سعر الصرف تلقائيا'),
                             Forms\Components\Toggle::make('active_points')->label('تفعيل نقاط التسويق بالعمولة'),
                             Forms\Components\TextInput::make('dollar_value')->label('سعر الدولار بالتركي')->nullable()->numeric(),
+                            Forms\Components\TextInput::make('dollar_syr')->label('سعر الدولار بالسوري')->nullable()->numeric(),
                             Forms\Components\TextInput::make('point_value')->label('سعر النقطة بالدولار')->nullable()->numeric(),
                             Forms\Components\TextInput::make('num_point_for_register')->label('عدد النقاط لكل تسجيل')->nullable()->numeric(),
                             Forms\Components\TextInput::make('less_amount_point_pull')->label('أقل قيمة لسحب النقاط')->nullable()->numeric(),
