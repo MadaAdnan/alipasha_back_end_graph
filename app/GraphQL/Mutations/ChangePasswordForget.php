@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Exceptions\GraphQLExceptionHandler;
 use App\Helpers\StrHelper;
 use App\Jobs\SendEmailJob;
 use App\Mail\ResetPasswordForgetEmail;
@@ -23,6 +24,6 @@ final  class ChangePasswordForget
             return true;
 
         }
-        return false;
+        throw new GraphQLExceptionHandler('يرجى التأكد من الكود');
     }
 }
