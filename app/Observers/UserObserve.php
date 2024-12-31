@@ -16,32 +16,37 @@ class UserObserve
 {
     public function creating(User $user): void
     {
-        $user->affiliate=StrHelper::getAfflieate();
+        $user->affiliate = StrHelper::getAfflieate();
     }
+
     /**
      * Handle the User "created" event.
      */
     public function created(User $user): void
     {
+        try {
 
-      $job=new SendEmailJob([$user],new RegisteredEmail($user));
-      dispatch($job);
-        $plan=Plan::where('duration',PlansDurationEnum::FREE->value)->first();
-        if($plan){
+            $job = new SendEmailJob([$user], new RegisteredEmail($user));
+            dispatch($job);
+        } catch (\Exception | \Error $e) {
+        }
+        $plan = Plan::where('duration', PlansDurationEnum::FREE->value)->first();
+        if ($plan) {
             $user->plans()->sync([$plan->id]);
         }
-        $groups=Community::where('is_global',true)->pluck('id')->toArray();
+        $groups = Community::where('is_global', true)->pluck('id')->toArray();
         $user->communities()->syncWithoutDetaching($groups);
     }
 
 
     public function updating(User $user): void
     {
-        if($user->affiliate==null){
-            $user->affiliate=StrHelper::getAfflieate();
+        if ($user->affiliate == null) {
+            $user->affiliate = StrHelper::getAfflieate();
         }
 
     }
+
     /**
      * Handle the User "updated" event.
      */
