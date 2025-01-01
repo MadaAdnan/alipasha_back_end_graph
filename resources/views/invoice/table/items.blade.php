@@ -9,6 +9,7 @@
         <td>المنتج</td>
         <td>الكمية </td>
         <td>التوصيل</td>
+        <td>أحداث</td>
     </tr>
        @foreach($getRecord()->items as $item)
            <tr>
@@ -16,6 +17,9 @@
                <td>{{$item->product->name}}</td>
                <td>{{$item->qty}}</td>
                <td>{{\App\Enums\IsActiveEnum::tryFrom($item->product?->is_delivery)->getLabel()}}</td>
+               <td>
+                   <a href="{{\App\Filament\Resources\ProductResource::getUrl('edit',['record'=>$item->product->id])}}">ذهاب للمنتج</a>
+               </td>
            </tr>
 
        @endforeach
