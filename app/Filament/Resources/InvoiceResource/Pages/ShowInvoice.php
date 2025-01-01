@@ -8,6 +8,7 @@ use App\Models\Product;
 use Filament\Actions;
 
 use Filament\Resources\Pages\ListRecords;
+use Filament\Tables\Columns\Layout\Grid;
 use Filament\Tables\Columns\Layout\Panel;
 use Filament\Tables\Columns\Layout\Split;
 use Filament\Tables\Columns\Layout\Stack;
@@ -39,14 +40,16 @@ class ShowInvoice extends ListRecords
               ]),
             Panel::make([
 
-                    TextColumn::make('user.name')->url(fn($record)=>UserResource::getUrl('edit',['record'=>$record->user?->id])),
-                    TextColumn::make('phone')->url(fn($state)=>'https://wa.me/'.$state),
-                    TextColumn::make('address'),
-                    TextColumn::make('user.city.name')
+                 Grid::make(4)->schema([
+                     TextColumn::make('user.name')->url(fn($record)=>UserResource::getUrl('edit',['record'=>$record->user?->id])),
+                     TextColumn::make('phone')->url(fn($state)=>'https://wa.me/'.$state),
+                     TextColumn::make('address'),
+                     TextColumn::make('user.city.name')
+                 ])
 
             ])->columnSpanFull(),
              Panel::make([
-                 Split::make([
+                 Grid::make(4)->schema([
                      TextColumn::make('seller.name')->url(fn($record)=>UserResource::getUrl('edit',['record'=>$record->seller?->id])),
                      TextColumn::make('seller.phone')->url(fn($state)=>'https://wa.me/'.$state),
                      TextColumn::make('seller.address'),
