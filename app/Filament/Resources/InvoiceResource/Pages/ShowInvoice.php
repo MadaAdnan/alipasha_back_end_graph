@@ -36,14 +36,14 @@ class ShowInvoice extends ListRecords
 
               ]),
               Split::make(fn($record)=>[
-                  TextColumn::make('user.name')->label('الزبون')->url(fn($record)=>UserResource::getUrl('edit',['record'=>$record->user?->id])),
-                  TextColumn::make('phone')->label('رقم الهاتف')->url(fn($state)=>'https://wa.me/'.$state),
+                  TextColumn::make('user.name')->url(fn($record)=>UserResource::getUrl('edit',['record'=>$record->user?->id])),
+                  TextColumn::make('phone')->url(fn($state)=>'https://wa.me/'.$state),
                   TextColumn::make('address'),
                   TextColumn::make('user.city.name')
               ]),
               Split::make(fn($record)=>[
-                  TextColumn::make('seller.name')->label('المتجر')->url(fn($record)=>UserResource::getUrl('edit',['record'=>$record->seller?->id])),
-                  TextColumn::make('seller.phone')->label('رقم الهاتف')->url(fn($state)=>'https://wa.me/'.$state),
+                  TextColumn::make('seller.name')->url(fn($record)=>UserResource::getUrl('edit',['record'=>$record->seller?->id])),
+                  TextColumn::make('seller.phone')->url(fn($state)=>'https://wa.me/'.$state),
                   TextColumn::make('seller.address'),
                   TextColumn::make('seller.city.name')
               ]),
