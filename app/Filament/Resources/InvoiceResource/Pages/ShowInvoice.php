@@ -38,12 +38,12 @@ class ShowInvoice extends ListRecords
 
               ]),
             Panel::make([
-                Split::make([
+
                     TextColumn::make('user.name')->url(fn($record)=>UserResource::getUrl('edit',['record'=>$record->user?->id])),
                     TextColumn::make('phone')->url(fn($state)=>'https://wa.me/'.$state),
                     TextColumn::make('address'),
                     TextColumn::make('user.city.name')
-                ]),
+
             ])->columnSpanFull(),
              Panel::make([
                  Split::make([
