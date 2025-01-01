@@ -43,7 +43,7 @@ class ShowInvoice extends ListRecords
                   TextColumn::make('seller.address'),
                   TextColumn::make('seller.city.name')
               ]),
-              Stack::make([
+              Split::make([
                   TextColumn::make('items.product.name')
               ])
           ])
