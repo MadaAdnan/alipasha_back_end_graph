@@ -45,7 +45,8 @@ class ShowInvoice extends ListRecords
               ]),
               Stack::make([
                   Split::make([
-                      TextColumn::make('items.product.name')
+                      TextColumn::make('items.product.name'),
+                      TextColumn::make('items.qty'),
                   ])
               ])
           ])
