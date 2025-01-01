@@ -16,8 +16,9 @@ final class SpecialProduct
      */
     public function __invoke($_, array $args)
     {
-        $products= Product::where('active',ProductActiveEnum::ACTIVE->value)
-            ->where('level',LevelProductEnum::SPECIAL->value)
+        $products= Product::where(['active'=>ProductActiveEnum::ACTIVE->value,
+            'level'=>LevelProductEnum::SPECIAL->value])
+
             ->where(fn( $query)=>$query->whereDoesntHave('category',fn($query)=>$query->where('type',CategoryTypeEnum::RESTAURANT->value)))
 
             ->where(fn($query)=> $query
