@@ -5,12 +5,14 @@
 
     <table class="table table-auto" style="width: 100%">
     <tr>
+        <td>صورة</td>
         <td>المنتج</td>
         <td>الكمية </td>
         <td>التوصيل</td>
     </tr>
        @foreach($getRecord()->items as $item)
            <tr>
+               <td><img style="width: 75px;border-radius: 50%" src="{{$item->product->getMediaFirstUrl('images')}}" alt=""></td>
                <td>{{$item->product->name}}</td>
                <td>{{$item->qty}}</td>
                <td>{{\App\Enums\IsActiveEnum::tryFrom($item->product?->is_delivery)->getLabel()}}</td>
