@@ -8,7 +8,7 @@
            <tr>
                <td>{{$item->product->name}}</td>
                <td>{{$item->qty}}</td>
-               <td>{{$item->product?->is_delivery}}</td>
+               <td>حالة التوصيل :{{\App\Enums\IsActiveEnum::tryFrom($item->product?->is_delivery)->getLabel()}}</td>
            </tr>
 
        @endforeach
