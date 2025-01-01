@@ -50,7 +50,7 @@ class ShowInvoice extends ListRecords
             ])->columnSpanFull(),
              Panel::make([
                  Grid::make(4)->schema([
-                     TextColumn::make('seller.name')->url(fn($record)=>UserResource::getUrl('edit',['record'=>$record->seller?->id])),
+                     TextColumn::make('seller.name')->url(fn($record)=>UserResource::getUrl('edit',['record'=>$record->seller?->id]))->width('sm'),
                      TextColumn::make('seller.phone')->url(fn($state)=>'https://wa.me/'.$state),
                      TextColumn::make('seller.address'),
                      TextColumn::make('seller.city.name')
