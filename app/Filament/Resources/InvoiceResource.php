@@ -84,6 +84,8 @@ protected static ?string $navigationLabel='طلبات شحن علي باشا';
                 Tables\Filters\SelectFilter::make('seller_id')->searchable()->getSearchResultsUsing(fn($search) => User::where('is_seller', 1)->where('name', 'like', "%$search%")->take(7)->pluck('name', 'id'))->label('التاجر')
             ])
             ->actions([
+
+                Tables\Actions\Action::make('show_invoice')->url(InvoiceResource::getUrl('list')),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\Action::make('take')->requiresConfirmation()->action(fn($record) => $record->update(['status' => OrderStatusEnum::AWAY->value]))->label('تأكيد إستلام البضاعة من التاجر')->visible(fn($record) => $record->status == OrderStatusEnum::AGREE->value),
