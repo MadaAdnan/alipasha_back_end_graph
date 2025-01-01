@@ -13,6 +13,7 @@ use Filament\Actions\ActionGroup;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Support\Enums\FontWeight;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -65,6 +66,7 @@ protected static ?string $navigationLabel='طلبات شحن علي باشا';
             ->paginated(true)
 
             ->columns([
+
                 Tables\Columns\TextColumn::make('id')->label('#'),
                 Tables\Columns\TextColumn::make('user.name')->label('الزبون')->url(fn($record) => UserResource::getUrl('edit', [$record->user->id]), true),
                 Tables\Columns\TextColumn::make('seller.seller_name')->label('المتجر')->url(fn($record) => UserResource::getUrl('edit', [$record->seller->id]), true),
@@ -108,6 +110,7 @@ protected static ?string $navigationLabel='طلبات شحن علي باشا';
     {
         return [
             'index' => Pages\ListInvoices::route('/'),
+            'list' => Pages\ShowInvoice::route('/list'),
             'create' => Pages\CreateInvoice::route('/create'),
             'edit' => Pages\EditInvoice::route('/{record}/edit'),
         ];
