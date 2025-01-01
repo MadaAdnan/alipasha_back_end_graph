@@ -3,7 +3,7 @@
        المنتجات
     </span>
 
-    <table class="table table-auto">
+    <table class="table table-auto" style="width: 100%">
        @foreach($getRecord()->items as $item)
            <tr>
                <td>{{$item->product->name}}</td>
