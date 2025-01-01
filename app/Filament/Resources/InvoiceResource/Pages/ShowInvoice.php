@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\InvoiceResource\Pages;
 
 use App\Filament\Resources\InvoiceResource;
+use App\Filament\Resources\UserResource;
 use App\Models\Product;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
@@ -35,14 +36,14 @@ class ShowInvoice extends ListRecords
 
               ]),
               Split::make(fn($record)=>[
-                  TextColumn::make('user.name'),
-                  TextColumn::make('phone'),
+                  TextColumn::make('user.name')->label('الزبون')->url(fn($record)=>UserResource::getUrl('edit',['record'=>$record->user?->id])),
+                  TextColumn::make('phone')->label('رقم الهاتف')->url(fn($state)=>'https://wa.me/'.$state),
                   TextColumn::make('address'),
                   TextColumn::make('user.city.name')
               ]),
               Split::make(fn($record)=>[
-                  TextColumn::make('seller.name'),
-                  TextColumn::make('seller.phone'),
+                  TextColumn::make('seller.name')->label('المتجر')->url(fn($record)=>UserResource::getUrl('edit',['record'=>$record->seller?->id])),
+                  TextColumn::make('seller.phone')->label('رقم الهاتف')->url(fn($state)=>'https://wa.me/'.$state),
                   TextColumn::make('seller.address'),
                   TextColumn::make('seller.city.name')
               ]),
