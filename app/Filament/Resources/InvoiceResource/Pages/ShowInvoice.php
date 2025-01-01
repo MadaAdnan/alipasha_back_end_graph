@@ -44,7 +44,7 @@ class ShowInvoice extends ListRecords
                     TextColumn::make('address'),
                     TextColumn::make('user.city.name')
                 ]),
-            ]),
+            ])->columnSpanFull(),
              Panel::make([
                  Split::make([
                      TextColumn::make('seller.name')->url(fn($record)=>UserResource::getUrl('edit',['record'=>$record->seller?->id])),
@@ -52,7 +52,7 @@ class ShowInvoice extends ListRecords
                      TextColumn::make('seller.address'),
                      TextColumn::make('seller.city.name')
                  ]),
-             ]),
+             ])->columnSpanFull(),
               Split::make([
                   View::make('invoice.table.items'),
               ])
