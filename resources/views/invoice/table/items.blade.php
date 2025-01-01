@@ -4,11 +4,16 @@
     </span>
 
     <table class="table table-auto" style="width: 100%">
+    <tr>
+        <td>المنتج</td>
+        <td>الكمية </td>
+        <td>التوصيل</td>
+    </tr>
        @foreach($getRecord()->items as $item)
            <tr>
                <td>{{$item->product->name}}</td>
                <td>{{$item->qty}}</td>
-               <td>حالة التوصيل :{{\App\Enums\IsActiveEnum::tryFrom($item->product?->is_delivery)->getLabel()}}</td>
+               <td>{{\App\Enums\IsActiveEnum::tryFrom($item->product?->is_delivery)->getLabel()}}</td>
            </tr>
 
        @endforeach
