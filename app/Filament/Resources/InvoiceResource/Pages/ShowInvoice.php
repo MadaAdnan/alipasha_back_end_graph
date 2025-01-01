@@ -37,7 +37,7 @@ class ShowInvoice extends ListRecords
                 Split::make([
                     TextColumn::make('id'),
                     TextColumn::make('status')->formatStateUsing(fn($state)=>OrderStatusEnum::tryFrom($state)?->getLabel())->color(fn($state)=>OrderStatusEnum::tryFrom($state)?->getColor()),
-                    TextColumn::make('created_at'),
+                    TextColumn::make('created_at')->date('y-m-d'),
                 ]),
                 View::make('invoice.table.seller'),
                 View::make('invoice.table.user'),
