@@ -10,6 +10,7 @@ use Filament\Tables\Columns\Layout\Stack;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 class ShowInvoice extends ListRecords
 {
@@ -42,7 +43,7 @@ class ShowInvoice extends ListRecords
                   TextColumn::make('seller.address'),
                   TextColumn::make('seller.city.name')
               ]),
-              Stack::make(function($record){
+              Stack::make(function(Model $record){
                   $list=[];
                   foreach ($record->items as $item){
                      $list[]= Split::make([
