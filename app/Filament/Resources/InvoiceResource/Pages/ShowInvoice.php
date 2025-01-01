@@ -6,6 +6,7 @@ use App\Filament\Resources\InvoiceResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Tables\Columns\Layout\Split;
+use Filament\Tables\Columns\Layout\Stack;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -26,7 +27,7 @@ class ShowInvoice extends ListRecords
               TextColumn::make('id'),
               TextColumn::make('status'),
               TextColumn::make('created_at'),
-              Split::make(fn($record)=>[
+              Stack::make(fn($record)=>[
                   TextColumn::make('sender.name')
               ])
           ])
