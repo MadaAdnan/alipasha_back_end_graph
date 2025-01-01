@@ -32,12 +32,14 @@ class ShowInvoice extends ListRecords
     {
         return $table->columns([
           Stack::make([
-              Split::make(fn($record)=>[
-                  TextColumn::make('id'),
-                  TextColumn::make('status'),
-                  TextColumn::make('created_at'),
+            Panel::make([
+                Grid::make(4)->schema([
+                    TextColumn::make('id'),
+                    TextColumn::make('status'),
+                    TextColumn::make('created_at'),
 
-              ]),
+                ]),
+            ]),
             Panel::make([
 
                  Grid::make(4)->schema([
