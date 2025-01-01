@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\InvoiceResource\Pages;
 
+use App\Enums\OrderStatusEnum;
 use App\Filament\Resources\InvoiceResource;
 use App\Filament\Resources\UserResource;
 use App\Models\Product;
@@ -35,7 +36,7 @@ class ShowInvoice extends ListRecords
             Panel::make([
                 Split::make([
                     TextColumn::make('id'),
-                    TextColumn::make('status'),
+                    TextColumn::make('status')->formatStateUsing(fn($state)=>OrderStatusEnum::tryFrom($state)?->getLabel())->colors(fn($state)=>OrderStatusEnum::tryFrom($state)?->getColor()),
                     TextColumn::make('created_at'),
                 ]),
                 View::make('invoice.table.seller'),
