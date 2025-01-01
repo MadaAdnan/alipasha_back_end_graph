@@ -36,7 +36,7 @@ class ShowInvoice extends ListRecords
             Panel::make([
                 Split::make([
                     TextColumn::make('id'),
-                    TextColumn::make('status')->formatStateUsing(fn($state)=>OrderStatusEnum::tryFrom($state)?->getLabel())->colors(fn($state)=>OrderStatusEnum::tryFrom($state)?->getColor()),
+                    TextColumn::make('status')->formatStateUsing(fn($state)=>OrderStatusEnum::tryFrom($state)?->getLabel())->color(fn($state)=>OrderStatusEnum::tryFrom($state)?->getColor()),
                     TextColumn::make('created_at'),
                 ]),
                 View::make('invoice.table.seller'),
