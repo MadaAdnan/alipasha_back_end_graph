@@ -1,14 +1,16 @@
 <p class="px-4 py-3 bg-gray-100 rounded-lg">
     <span class="font-medium">
-       المنتجات
+        <span class="fi-ta-header-cell-label text-sm font-semibold text-gray-950 dark:text-white">المنتجات</span>
+
+
     </span>
 
     <table class="table table-auto" style="width: 100%">
     <tr>
-        <td>صورة</td>
-        <td>المنتج</td>
-        <td>الكمية </td>
-        <td>التوصيل</td>
+        <td class="fi-ta-header-cell-label text-sm font-semibold text-gray-950 dark:text-white">صورة</td>
+        <td class="fi-ta-header-cell-label text-sm font-semibold text-gray-950 dark:text-white">المنتج</td>
+        <td class="fi-ta-header-cell-label text-sm font-semibold text-gray-950 dark:text-white">الكمية </td>
+        <td class="fi-ta-header-cell-label text-sm font-semibold text-gray-950 dark:text-white">التوصيل</td>
 
     </tr>
        @foreach($getRecord()->items as $item)

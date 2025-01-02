@@ -1,4 +1,4 @@
-<p class="px-4 py-3 bg-gray-100 rounded-lg">
+<p class="divide-y divide-gray-200 dark:divide-white/5">
     <span class="font-medium">
        الزبون
     </span>
