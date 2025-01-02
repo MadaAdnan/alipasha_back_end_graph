@@ -40,7 +40,7 @@ class ShowInvoice extends ListRecords
                     TextColumn::make('created_at')->date('y-m-d'),
                 ]),
                 View::make('invoice.table.seller'),
-                View::make('invoice.table.user'),
+//                View::make('invoice.table.user'),
                 View::make('invoice.table.items'),
             ])/*->collapsible()->collapsed(fn($record)=>$record->status!='pending')*/
 
