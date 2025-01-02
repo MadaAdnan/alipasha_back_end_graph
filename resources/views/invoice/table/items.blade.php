@@ -33,5 +33,13 @@
             {{$getRecord()->total}}
         </td>
     </tr>
+    <tr class="divide-y divide-gray-200 dark:divide-white/5 border border-2">
+        <td colspan="1" class="fi-ta-header-cell-label text-sm font-semibold text-gray-950 dark:text-white">
+            أجور الشحن :
+        </td>
+        <td colspan="3" class="fi-ta-header-cell-label text-sm font-semibold text-gray-950 dark:text-white">
+            {{$getRecord()->shipping}}
+        </td>
+    </tr>
     </table>
 
