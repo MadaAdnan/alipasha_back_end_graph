@@ -29,16 +29,22 @@
         <td colspan="1" class="fi-ta-header-cell-label text-sm font-semibold text-gray-950 dark:text-white">
             المجموع :
         </td>
-        <td colspan="3" class="fi-ta-header-cell-label text-sm font-semibold text-gray-950 dark:text-white">
+        <td  class="fi-ta-header-cell-label text-sm font-semibold text-gray-950 dark:text-white">
             {{$getRecord()->total}}
+        </td>
+        <td colspan="1" class="fi-ta-header-cell-label text-sm font-semibold text-gray-950 dark:text-white">
+            أجور الشحن :
+        </td>
+        <td  class="fi-ta-header-cell-label text-sm font-semibold text-gray-950 dark:text-white">
+            {{$getRecord()->shipping}}
         </td>
     </tr>
     <tr class="divide-y divide-gray-200 dark:divide-white/5 border border-2">
         <td colspan="1" class="fi-ta-header-cell-label text-sm font-semibold text-gray-950 dark:text-white">
-            أجور الشحن :
+            المجموع العام
         </td>
-        <td colspan="3" class="fi-ta-header-cell-label text-sm font-semibold text-gray-950 dark:text-white">
-            {{$getRecord()->shipping}}
+        <td colspan="3" class="fi-ta-header-cell-label text-sm font-semibold text-gray-950 dark:text-white" style="padding: 3px; color: darkorange; color: white">
+            {{$getRecord()->shipping + $getRecord()->total}}
         </td>
     </tr>
     </table>
