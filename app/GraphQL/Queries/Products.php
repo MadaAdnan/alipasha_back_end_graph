@@ -62,14 +62,15 @@ $sub1Id=$args['sub1_id']??null;
                 /**
                  * @var $term string
                  */
-                $term = '';
+                $query->where('name', 'LIKE', "%".$args['search']."%")
+                    ->orWhere('expert', 'LIKE',  "%".$args['search']."%")
+                    ->orWhere('info', 'LIKE',  "%".$args['search']."%");
+               /* $term = '';
                 foreach ($searchTerms as $term) {
                     $query->orWhere(function ($query) use ($term) {
-                        $query->where('name', 'LIKE', "%$term%")
-                            ->orWhere('expert', 'LIKE', "%$term%")
-                            ->orWhere('info', 'LIKE', "%$term%");
+
                     });
-                }
+                }*/
 
             }))
             // ->whereNotNull('sub1_id')
