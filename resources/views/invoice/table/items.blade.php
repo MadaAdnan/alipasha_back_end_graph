@@ -14,9 +14,9 @@
        @foreach($getRecord()->items as $item)
            <tr>
                <td><img style="width: 50px;border-radius: 50%;aspect-ratio: 1/1" src="{{$item->product->getFirstMediaUrl('images')}}" alt=""></td>
-               <td><a href="{{\App\Filament\Resources\ProductResource::getUrl('edit',['record'=>$item->product->id])}}">{{$item->product->name}}</a></td>
-               <td>{{$item->qty}}</td>
-               <td>{{\App\Enums\IsActiveEnum::tryFrom($item->product?->is_delivery)->getLabel()}}</td>
+               <td><a class="fi-ta-header-cell-label text-sm font-semibold text-gray-950 dark:text-white" href="{{\App\Filament\Resources\ProductResource::getUrl('edit',['record'=>$item->product->id])}}">{{$item->product->name}}</a></td>
+               <td class="fi-ta-header-cell-label text-sm font-semibold text-gray-950 dark:text-white">{{$item->qty}}</td>
+               <td class="fi-ta-header-cell-label text-sm font-semibold text-gray-950 dark:text-white">{{\App\Enums\IsActiveEnum::tryFrom($item->product?->is_delivery)->getLabel()}}</td>
 
            </tr>
 
