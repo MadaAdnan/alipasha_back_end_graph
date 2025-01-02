@@ -136,7 +136,7 @@ class UserResource extends Resource
                 Tables\Columns\SpatieMediaLibraryImageColumn::make('image')->collection('image')->conversion('webp')->label('صورة المستخدم')->circular()->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('level')->formatStateUsing(fn($state) => LevelUserEnum::tryFrom($state)->getLabel())->icon(fn($state) => LevelUserEnum::tryFrom($state)->getIcon())->color(fn($state) => LevelUserEnum::tryFrom($state)->getColor())->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('name')->label('الاسم')->toggleable(isToggledHiddenByDefault: false)->searchable(),
-                Tables\Columns\TextColumn::make('phone')->label('رقم الهاتف')->toggleable(isToggledHiddenByDefault: false)->searchable()->sortable(),
+                Tables\Columns\TextColumn::make('phone')->url(fn($state)=>'https://wa.me/'.ltrim(ltrim('00',$state??''),'+'))->label('رقم الهاتف')->toggleable(isToggledHiddenByDefault: false)->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('city.name')->label('المدينة')->toggleable(isToggledHiddenByDefault: false)->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('email')->label('البريد الإلكتروني')->toggleable(isToggledHiddenByDefault: false)->searchable(),
                 Tables\Columns\TextColumn::make('seller_name')->label('اسم المتجر')->toggleable(isToggledHiddenByDefault: false)->searchable(),
