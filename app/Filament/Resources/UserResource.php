@@ -224,7 +224,7 @@ class UserResource extends Resource
                             Notification::make('error')->title('فشل العملية')->body($e->getMessage())->danger()->send();
 
                         }
-                        })->label('إرسال رسالة'),
+                        })->label('إرسال رسالة')->icon('fas-envelope'),
                     /* email verified */
                     Tables\Actions\Action::make('email_verified_at')->action(fn($record) => $record->update(['email_verified_at' => now()]))->label('تأكيد البريد'),
                 ]),
