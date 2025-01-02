@@ -226,7 +226,10 @@ class UserResource extends Resource
                         }
                         })->label('إرسال رسالة')->icon('fas-envelope'),
                     /* email verified */
-                    Tables\Actions\Action::make('email_verified_at')->action(fn($record) => $record->update(['email_verified_at' => now()]))->label('تأكيد البريد'),
+                    Tables\Actions\Action::make('email_verified_at')
+                        ->action(fn($record) => $record->update(['email_verified_at' => now()]))
+                        ->icon('fas-circle-check')
+                        ->label('تأكيد البريد'),
                 ]),
             ])
             ->bulkActions([
