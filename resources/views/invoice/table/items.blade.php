@@ -14,7 +14,7 @@
     </tr>
        @foreach($getRecord()->items as $item)
            <tr class="divide-y divide-gray-200 dark:divide-white/5 border border-2">
-               <td><img style="width: 50px;border-radius: 50%;aspect-ratio: 1/1" src="@if($item->product?->hasMedia('images')) {{$item->product?->getFirstMediaUrl('images')}} @else {{$item->product?->getFirstMediaUrl('image')}}" alt=""></td>
+               <td><img style="width: 50px;border-radius: 50%;aspect-ratio: 1/1" src="@if($item->product?->hasMedia('images')) {{$item->product?->getFirstMediaUrl('images')}} @else {{$item->product?->getFirstMediaUrl('image')}} @endif" alt=""></td>
                <td><a class="fi-ta-header-cell-label text-sm font-semibold text-gray-950 dark:text-white" href="{{$item->product?->id !=null?\App\Filament\Resources\ProductResource::getUrl('edit',['record'=>$item->product?->id]):''}}">{{$item->product?->name}}</a></td>
                <td class="fi-ta-header-cell-label text-sm font-semibold text-gray-950 dark:text-white">{{$item->qty}}</td>
                @php
