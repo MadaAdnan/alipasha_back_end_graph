@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\CommunityTypeEnum;
 use App\Enums\IsVerifiedEmailEnum;
 use App\Enums\LevelSellerEnum;
 use App\Enums\LevelUserEnum;
@@ -12,6 +13,8 @@ use App\Helpers\HelperMedia;
 use App\Helpers\HelpersEnum;
 use App\Models\Balance;
 use App\Models\City;
+use App\Models\Community;
+use App\Models\Message;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -161,10 +164,12 @@ class UserResource extends Resource
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
                 Tables\Actions\ActionGroup::make([
+                    /* add balance */
                     Tables\Actions\Action::make('add_balance')->form([
                         Forms\Components\TextInput::make('value')->label('القيمة')->required()->gt(0),
                         Forms\Components\TextInput::make('info')->label('ملاحظات')
-                    ])->action(function ($record, $data) {
+                    ])
+                        ->action(function ($record, $data) {
                         Balance::create([
                             'credit' => $data['value'],
                             'debit' => 0,
@@ -173,10 +178,12 @@ class UserResource extends Resource
                         ]);
                         Notification::make('success')->success()->title('نجاح')->body('تم إضافة الرصيد بنجاح')->send();
                     })->label('إضافة رصيد')->icon('fas-hand-holding-dollar'),
+                    /* sub balance */
                     Tables\Actions\Action::make('sub_balance')->form([
                         Forms\Components\TextInput::make('value')->label('القيمة')->required()->gt(0),
                         Forms\Components\TextInput::make('info')->label('ملاحظات')
-                    ])->action(function ($record, $data) {
+                    ])
+                        ->action(function ($record, $data) {
                         Balance::create([
                             'credit' => 0,
                             'debit' => $data['value'],
@@ -185,6 +192,40 @@ class UserResource extends Resource
                         ]);
                         Notification::make('success')->success()->title('نجاح')->body('تم السحب من الرصيد بنجاح')->send();
                     })->label('سحب من الرصيد')->icon('fas-cash-register'),
+                   /* send msg chat */
+                    Tables\Actions\Action::make('send_msg_chat')->form([
+                        Forms\Components\Textarea::make('msg')->label('الرسالة')->required(),
+                    ])
+                        ->action(function($record,$data){
+                       \DB::beginTransaction();
+                        try {
+                            $community=Community::where('type',CommunityTypeEnum::CHAT->value)->whereHas('users',fn($query)=>$query->whereIn('id',[auth()->id(),$record->id]))->first();
+                            if($community==null){
+                                $community= Community::create([
+                                    'name'=>auth()->user()->name.' - '.$record->name,
+                                    'manager_id'=>auth()->id(),
+                                    'type'=>CommunityTypeEnum::CHAT->value,
+                                    'last_update'=>now(),
+                                    'is_global'=>false,
+                                ]);
+                                $community->users()->sync([auth()->id(),$record->id]);
+                            }
+                            Message::create([
+                                'community_id'=>$community->id,
+                                'user_id'=>auth()->id(),
+                                'body'=>$data['msg'],
+                                'type'=>'text',
+                            ]);
+                            \DB::commit();
+                            Notification::make('success')->title('نجاح العملية')->body('تم إرسال الرسالة بنجاح')->success()->send();
+
+                        }catch (\Exception|\Error $e){
+                            \DB::rollBack();
+                            Notification::make('error')->title('فشل العملية')->body($e->getMessage())->danger()->send();
+
+                        }
+                        })->label('إرسال رسالة'),
+                    /* email verified */
                     Tables\Actions\Action::make('email_verified_at')->action(fn($record) => $record->update(['email_verified_at' => now()]))->label('تأكيد البريد'),
                 ]),
             ])
