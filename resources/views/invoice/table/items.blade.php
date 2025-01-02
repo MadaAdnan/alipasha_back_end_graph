@@ -43,7 +43,7 @@
         <td colspan="1" class="fi-ta-header-cell-label text-sm font-semibold text-gray-950 dark:text-white">
             المجموع العام
         </td>
-        <td colspan="3" class="fi-ta-header-cell-label text-sm font-semibold text-gray-950 dark:text-white" style="padding: 3px; color: darkorange; color: white">
+        <td colspan="3" class="fi-ta-header-cell-label text-sm font-semibold text-gray-950 dark:text-white" style="padding: 3px; background-color: darkorange; color: white">
             {{$getRecord()->shipping??0 + $getRecord()->total??0}}
         </td>
     </tr>
