@@ -199,7 +199,7 @@ class UserResource extends Resource
                         ->action(function($record,$data){
                        \DB::beginTransaction();
                         try {
-                            $community=Community::where('type',CommunityTypeEnum::CHAT->value)->whereHas('users',fn($query)=>$query->whereIn('id',[auth()->id(),$record->id]))->first();
+                            $community=Community::where('type',CommunityTypeEnum::CHAT->value)->whereHas('users',fn($query)=>$query->whereIn('users.id',[auth()->id(),$record->id]))->first();
                             if($community==null){
                                 $community= Community::create([
                                     'name'=>auth()->user()->name.' - '.$record->name,
