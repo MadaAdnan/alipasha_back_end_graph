@@ -44,7 +44,7 @@
             المجموع العام
         </td>
         <td colspan="3" class="fi-ta-header-cell-label text-sm font-semibold text-gray-950 dark:text-white" style="padding: 3px; color: darkorange; color: white">
-            {{$getRecord()->shipping + $getRecord()->total}}
+            {{$getRecord()->shipping??0 + $getRecord()->total??0}}
         </td>
     </tr>
     </table>
