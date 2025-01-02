@@ -112,7 +112,7 @@ protected static ?string $navigationLabel='طلبات شحن علي باشا';
     {
         return [
             'index' => Pages\ShowInvoice::route('/'),
-            'list' => Pages\ShowInvoice::route('/list'),
+            'list' => Pages\ListInvoices::route('/list'),
             'create' => Pages\CreateInvoice::route('/create'),
             'edit' => Pages\EditInvoice::route('/{record}/edit'),
         ];
