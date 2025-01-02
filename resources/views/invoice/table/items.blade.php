@@ -20,7 +20,7 @@
                @php
                    $status=$item->product?->is_delivery && $item->product?->city?->is_delivery &&$getRecord()->user?->city?->is_delivery;
                @endphp
-               <td class="fi-ta-header-cell-label text-sm font-semibold text-gray-950 dark:text-white"  style=" background-color: @if($status) #4ade80 @else #92400e @endif">{{\App\Enums\IsActiveEnum::tryFrom($status)->getLabel()}}</td>
+               <td class="fi-ta-header-cell-label text-sm font-semibold  text-white text-center"  style=" background-color: @if($status) #4ade80 @else #92400e @endif">{{\App\Enums\IsActiveEnum::tryFrom($status)->getLabel()}}</td>
 
            </tr>
 
