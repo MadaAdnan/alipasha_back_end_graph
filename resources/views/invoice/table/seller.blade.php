@@ -2,7 +2,7 @@
 
     <table class="table table-auto divide-y divide-gray-200 dark:divide-white/5" style="width: 100%">
     <tr class="divide-y divide-gray-200 dark:divide-white/5">
-        <td class="fi-ta-header-cell-label text-sm font-semibold text-gray-950 dark:text-white" colspan="4">
+        <td class="fi-ta-header-cell-label text-sm font-semibold text-gray-950 dark:text-white text-center" colspan="4">
             <span class="fi-ta-header-cell-label text-sm font-semibold text-gray-950 dark:text-white">التاجر</span>
         </td>
     </tr>
