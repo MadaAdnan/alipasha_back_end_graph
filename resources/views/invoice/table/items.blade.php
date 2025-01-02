@@ -17,7 +17,10 @@
                <td><img style="width: 50px;border-radius: 50%;aspect-ratio: 1/1" src="{{$item->product?->getFirstMediaUrl('images')}}" alt=""></td>
                <td><a class="fi-ta-header-cell-label text-sm font-semibold text-gray-950 dark:text-white" href="{{$item->product?->id !=null?\App\Filament\Resources\ProductResource::getUrl('edit',['record'=>$item->product?->id]):''}}">{{$item->product?->name}}</a></td>
                <td class="fi-ta-header-cell-label text-sm font-semibold text-gray-950 dark:text-white">{{$item->qty}}</td>
-               <td class="fi-ta-header-cell-label text-sm font-semibold text-gray-950 dark:text-white">{{\App\Enums\IsActiveEnum::tryFrom($item->product?->is_delivery)->getLabel()}}</td>
+               @php
+                   $status=$item->product?->is_delivery && $item->product?->city?->is_delivery &&$getRecord()->user?->city?->is_delivery;
+               @endphp
+               <td class="fi-ta-header-cell-label text-sm font-semibold text-gray-950 dark:text-white">{{\App\Enums\IsActiveEnum::tryFrom($status)->getLabel()}}</td>
 
            </tr>
 
