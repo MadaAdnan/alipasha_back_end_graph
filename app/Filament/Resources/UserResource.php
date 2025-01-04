@@ -60,7 +60,7 @@ class UserResource extends Resource
                                     ->label('تأكيد كلمة المرور'),
 
                                 PhoneInput::make('phone')
-                                    ->countryStatePath('country_code')->displayNumberFormat(PhoneInputNumberType::E164)->label('رقم الهاتف'),
+                                    ->countryStatePath('country_code')/*->displayNumberFormat(PhoneInputNumberType::E164)*/->label('رقم الهاتف'),
                                 Forms\Components\TextInput::make('affiliate')->label('كود الإحالة')->readOnly()->visible(fn($context)=>$context!='create'),
 
 //                        Forms\Components\DatePicker::make('upgrade_date')/*->required(fn($get) => $get('plan') != null)*/ ->label('تاريخ آخر ترقية'),
