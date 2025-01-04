@@ -141,7 +141,7 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('level')->formatStateUsing(fn($state) => LevelUserEnum::tryFrom($state)->getLabel())->icon(fn($state) => LevelUserEnum::tryFrom($state)->getIcon())->color(fn($state) => LevelUserEnum::tryFrom($state)->getColor())->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('name')->label('الاسم')->toggleable(isToggledHiddenByDefault: false)->searchable(),
                 PhoneColumn::make('phone')
-                    ->countryColumn('country_code')->displayFormat(PhoneInputNumberType::INTERNATIONAL),
+                    ->countryColumn('country_code')->displayFormat(PhoneInputNumberType::RFC3966),
                /* Tables\Columns\TextColumn::make('phone')->url(fn($record)=>'https://wa.me/'.$record->country_code.$record->phone,true)
                     ->formatStateUsing(fn($record)=>$record->country_code.$record->phone)
                     ->label('رقم الهاتف')->toggleable(isToggledHiddenByDefault: false)->searchable()->sortable(),*/
