@@ -10,7 +10,7 @@ use Flowframe\Trend\TrendValue;
 
 class CreatedProductChart extends ChartWidget
 {
-    protected static ?string $heading = 'إحصائيات المنشورات';
+   // protected static ?string $heading = 'إحصائيات المنشورات';
 
     public static function canView(): bool
     {
