@@ -24,6 +24,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
 
 class UserResource extends Resource
 {
@@ -56,7 +57,9 @@ class UserResource extends Resource
                                 Forms\Components\TextInput::make('passwordConfirmation')->required(fn($context) => $context === 'create')
                                     ->dehydrated(false)->password()
                                     ->label('تأكيد كلمة المرور'),
-                                Forms\Components\TextInput::make('phone')->label('رقم الهاتف'),
+
+                               PhoneInput::make('phone')
+                                   ->countryStatePath('country_code')->label('رقم الهاتف'),
                                 Forms\Components\TextInput::make('affiliate')->label('كود الإحالة')->readOnly()->visible(fn($context)=>$context!='create'),
 
 //                        Forms\Components\DatePicker::make('upgrade_date')/*->required(fn($get) => $get('plan') != null)*/ ->label('تاريخ آخر ترقية'),
