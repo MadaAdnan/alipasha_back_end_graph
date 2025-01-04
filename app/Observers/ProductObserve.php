@@ -2,8 +2,10 @@
 
 namespace App\Observers;
 
+use App\Enums\LevelUserEnum;
 use App\Enums\ProductActiveEnum;
 use App\Models\Product;
+use App\Models\User;
 use App\Service\SendNotifyHelper;
 
 class ProductObserve
@@ -13,8 +15,8 @@ class ProductObserve
      */
     public function created(Product $product): void
     {
-        if ($product->user != null && $product->user->is_seller != true) {
-            $product->user->update(['is_seller' => true, 'seller_name' => $product->user?->name]);
+        if ($product->user != null && ($product->user->is_seller != true || $product->user->level==LevelUserEnum::USER->value)) {
+            $product->user->update(['is_seller' => true, 'seller_name' => $product->user?->name,'level'=>LevelUserEnum::SELLER->value]);
         }
     }
 
