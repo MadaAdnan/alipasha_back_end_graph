@@ -26,7 +26,7 @@ Route::get('/test', function () {
 //    User::where('id','>',39289)->delete();
 //    \App\Models\Product::withTrashed()->where('id','>',19937)->forceDelete();
 //    \Spatie\MediaLibrary\MediaCollections\Models\Media::where('id','>',38907)->forceDelete();
-
+User::whereHas('products')->update(['is_seller'=>1,'level'=>\App\Enums\LevelUserEnum::SELLER->value]);
 return "Success";
     /* for ($i = 0; $i < 60; $i++) {
         \App\Models\Message::create([

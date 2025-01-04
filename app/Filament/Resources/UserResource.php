@@ -23,6 +23,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use libphonenumber\PhoneNumberType;
 use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
 use Ysfkaya\FilamentPhoneInput\PhoneInputNumberType;
 use Ysfkaya\FilamentPhoneInput\Tables\PhoneColumn;
@@ -60,7 +61,12 @@ class UserResource extends Resource
                                     ->label('تأكيد كلمة المرور'),
 
                                 PhoneInput::make('phone')
-                                    ->countryStatePath('country_code')/*->displayNumberFormat(PhoneInputNumberType::E164)*/->label('رقم الهاتف'),
+                                    ->countryStatePath('country_code')
+                                    ->validateFor(
+
+                                        type: PhoneNumberType::MOBILE , // default: null
+                                        lenient: true, // default: false
+                                    )->displayNumberFormat(PhoneInputNumberType::E164)->formatOnDisplay(false)->formatAsYouType(true)->label('رقم الهاتف'),
                                 Forms\Components\TextInput::make('affiliate')->label('كود الإحالة')->readOnly()->visible(fn($context)=>$context!='create'),
 
 //                        Forms\Components\DatePicker::make('upgrade_date')/*->required(fn($get) => $get('plan') != null)*/ ->label('تاريخ آخر ترقية'),
