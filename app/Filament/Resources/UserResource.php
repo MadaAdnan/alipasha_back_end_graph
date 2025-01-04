@@ -3,10 +3,9 @@
 namespace App\Filament\Resources;
 
 use App\Enums\CommunityTypeEnum;
-use App\Enums\IsVerifiedEmailEnum;
+
 use App\Enums\LevelSellerEnum;
 use App\Enums\LevelUserEnum;
-use App\Filament\Resources\ProductResource\RelationManagers\CommentsRelationManager;
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Helpers\HelperMedia;
@@ -58,8 +57,8 @@ class UserResource extends Resource
                                     ->dehydrated(false)->password()
                                     ->label('تأكيد كلمة المرور'),
 
-                               PhoneInput::make('phone')
-                                   ->countryStatePath('country_code')->label('رقم الهاتف'),
+                                PhoneInput::make('phone')
+                                    ->countryStatePath('country_code')->label('رقم الهاتف'),
                                 Forms\Components\TextInput::make('affiliate')->label('كود الإحالة')->readOnly()->visible(fn($context)=>$context!='create'),
 
 //                        Forms\Components\DatePicker::make('upgrade_date')/*->required(fn($get) => $get('plan') != null)*/ ->label('تاريخ آخر ترقية'),
