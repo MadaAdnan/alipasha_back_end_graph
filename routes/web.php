@@ -47,13 +47,13 @@ Route::get('/.well-known/assetlinks.json', function () {
 ####################################################################
 ###################### IMPORT DATA #################################
 //Route::post('/import', [ImportController::class, 'import'])->name('import');
-Route::get('/import', function () {
+/*Route::get('/import', function () {
   return  \App\Helpers\StrHelper::generateMd5();
     return view('import');
-});
+});*/
 
 
-Route::get('testnot/{id?}',function($id=null){
+/*Route::get('testnot/{id?}',function($id=null){
 
     $message=\App\Models\Message::create([
       'body'=>fake()->paragraph,
@@ -67,5 +67,5 @@ Route::get('testnot/{id?}',function($id=null){
         info('Error Websockets');
     }
 return "success";
-});
+});*/
 
