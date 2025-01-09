@@ -23,6 +23,13 @@ use Mockery\Exception;
     'login' => false,
 ]);*/
 Route::get('/test', function () {
+    $phone= '00352681125699';
+    if(\Str::startsWith($phone,'+')){
+        $phone=\Str::substr($phone,1,Str::length($phone)-1);
+    }elseif(\Str::startsWith($phone,'00')){
+        $phone=\Str::substr($phone,2,Str::length($phone)-1);
+    }
+    return $phone;
 //    User::where('id','>',39289)->delete();
 //    \App\Models\Product::withTrashed()->where('id','>',19937)->forceDelete();
 //    \Spatie\MediaLibrary\MediaCollections\Models\Media::where('id','>',38907)->forceDelete();

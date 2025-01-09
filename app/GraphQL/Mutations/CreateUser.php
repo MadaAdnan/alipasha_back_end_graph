@@ -18,11 +18,17 @@ final class CreateUser
             $affiliate_id = User::where('affiliate', $data['affiliate'])->first()?->id;
 
         }
+        $phone= $data['phone'];
+        if(\Str::startsWith($phone,'+')){
+            $phone=\Str::substr($phone,1,Str::length($phone)-1);
+        }elseif(\Str::startsWith($phone,'00')){
+            $phone=\Str::substr($phone,2,Str::length($phone)-1);
+        }
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'phone' => $data['phone'],
+            'phone' => $phone,
             'city_id' => $data['city_id'] ?? null,
             'device_token' => $data['device_token'] ?? null,
             'level' => 'user',
