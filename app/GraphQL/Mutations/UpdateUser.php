@@ -23,11 +23,17 @@ final class UpdateUser
         if ($is_exists_email > 0) {
             throw new GraphQLExceptionHandler('البريد مستخدم من قبل');
         }
+        $phone= $data['phone'];
+        if($phone!=null && \Str::startsWith($phone,'+')){
+             $phone=\Str::substr($phone,1,Str::length($phone)-1);
+        }elseif($phone!=null && \Str::startsWith($phone,'00')){
+            $phone=\Str::substr($phone,2,Str::length($phone)-1);
+        }
         $input = [
             'name' => $data['name'] ?? $user->name,
             'email' => $data['email'] ?? $user->email,
 
-            'phone' => $data['phone'] ?? $user->phone,
+            'phone' => $phone ?? $user->phone,
             'city_id' => $data['city_id'] ?? $user->city_id,
             'seller_name' => $data['seller_name'] ?? $user->seller_name,
             'address' => $data['address'] ?? $user->address,
