@@ -25,9 +25,9 @@ final class UpdateUser
         }
         $phone= $data['phone'];
         if($phone!=null && \Str::startsWith($phone,'+')){
-             $phone=\Str::substr($phone,1,Str::length($phone)-1);
+             $phone=\Str::substr($phone,1,\Str::length($phone)-1);
         }elseif($phone!=null && \Str::startsWith($phone,'00')){
-            $phone=\Str::substr($phone,2,Str::length($phone)-1);
+            $phone=\Str::substr($phone,2,\Str::length($phone)-1);
         }
         $input = [
             'name' => $data['name'] ?? $user->name,
