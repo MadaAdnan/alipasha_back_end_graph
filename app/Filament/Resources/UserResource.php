@@ -60,13 +60,15 @@ class UserResource extends Resource
                                     ->dehydrated(false)->password()
                                     ->label('تأكيد كلمة المرور'),
 
-                                PhoneInput::make('phone')
+                              /*  PhoneInput::make('phone')
                                     ->countryStatePath('country_code')
                                     ->validateFor(
 
                                         type: PhoneNumberType::MOBILE , // default: null
                                         lenient: true, // default: false
                                     )->displayNumberFormat(PhoneInputNumberType::E164)->formatOnDisplay(false)->formatAsYouType(true)->label('رقم الهاتف'),
+                               */
+                                Forms\Components\TextInput::make('phone')->label('رقم الهاتف')->required(),
                                 Forms\Components\TextInput::make('affiliate')->label('كود الإحالة')->readOnly()->visible(fn($context)=>$context!='create'),
 
 //                        Forms\Components\DatePicker::make('upgrade_date')/*->required(fn($get) => $get('plan') != null)*/ ->label('تاريخ آخر ترقية'),
