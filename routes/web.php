@@ -22,7 +22,7 @@ use Mockery\Exception;
     'verify' => true,
     'login' => false,
 ]);*/
-Route::get('/test', function () {
+Route::get('/', function () {
 
 
 
