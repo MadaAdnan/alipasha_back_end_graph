@@ -150,11 +150,29 @@ class UserResource extends Resource
                 Tables\Columns\SpatieMediaLibraryImageColumn::make('image')->collection('image')->conversion('webp')->label('صورة المستخدم')->circular()->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('level')->formatStateUsing(fn($state) => LevelUserEnum::tryFrom($state)->getLabel())->icon(fn($state) => LevelUserEnum::tryFrom($state)->getIcon())->color(fn($state) => LevelUserEnum::tryFrom($state)->getColor())->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('name')->label('الاسم')->toggleable(isToggledHiddenByDefault: false)->searchable(),
-                PhoneColumn::make('phone')
+               /* PhoneColumn::make('phone')
                     ->countryColumn('country_code')->displayFormat(PhoneInputNumberType::E164)->url(fn($state)=>'https://wa.me/'.\Str::replace(' ','',ltrim($state),'+'),true),
-               /* Tables\Columns\TextColumn::make('phone')->url(fn($record)=>'https://wa.me/'.$record->country_code.$record->phone,true)
+               */ Tables\Columns\TextColumn::make('phone')
+                    ->formatStateUsing(function($state){
+                        $phone=$state;
+                        if(\Str::startsWith($phone,'+')){
+                            $phone=\Str::substr($phone,1,\Str::length($phone)-1);
+                        }elseif(\Str::startsWith($phone,'00')){
+                            $phone=\Str::substr($phone,2,\Str::length($phone)-1);
+                        }
+                        return $phone;
+                    })
+                    ->url(function($record){
+                   $phone=$record->phone;
+                   if(\Str::startsWith($phone,'+')){
+                       $phone=\Str::substr($phone,1,\Str::length($phone)-1);
+                   }elseif(\Str::startsWith($phone,'00')){
+                       $phone=\Str::substr($phone,2,\Str::length($phone)-1);
+                   }
+                   return  'https://wa.me/'.$phone;
+                },true)
                     ->formatStateUsing(fn($record)=>$record->country_code.$record->phone)
-                    ->label('رقم الهاتف')->toggleable(isToggledHiddenByDefault: false)->searchable()->sortable(),*/
+                    ->label('رقم الهاتف')->toggleable(isToggledHiddenByDefault: false)->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('city.name')->label('المدينة')->toggleable(isToggledHiddenByDefault: false)->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('email')->label('البريد الإلكتروني')->toggleable(isToggledHiddenByDefault: false)->searchable(),
                 Tables\Columns\TextColumn::make('seller_name')->label('اسم المتجر')->toggleable(isToggledHiddenByDefault: false)->searchable(),
