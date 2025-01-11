@@ -218,7 +218,7 @@ class ProductResource extends Resource
 
             ])
             ->filters([
-                Tables\Filters\SelectFilter::make('user_id')->options(User::seller()->pluck('seller_name', 'id'))->label('المتجر')->searchable(),
+//                Tables\Filters\SelectFilter::make('user_id')->options(User::seller()->pluck('seller_name', 'id'))->label('المتجر')->searchable(),
                 Tables\Filters\Filter::make('level')->form([
                     Forms\Components\Select::make('level')->options([
                         LevelProductEnum::NORMAL->value => LevelProductEnum::NORMAL->getLabel(),
