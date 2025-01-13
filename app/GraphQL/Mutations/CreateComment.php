@@ -17,7 +17,7 @@ final class CreateComment
     {
         $product = \App\Models\Product::find($args['product_id']);
 
-        if (auth()->check() && $product != null) {
+        if (auth()->check() && $product != null && $args['comment_id']==null) {
             Interaction::updateOrCreate([
                 'user_id' => auth()->id(),
                 'category_id' => $product->sub1_id,
@@ -39,6 +39,7 @@ final class CreateComment
             'comment' => $args['comment'],
             'product_id' => $args['product_id'],
             'user_id' => auth()->id(),
+            'comment_id'=>$args['comment_id']
         ]);
 
     }
