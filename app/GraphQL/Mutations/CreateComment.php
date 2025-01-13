@@ -39,7 +39,7 @@ final class CreateComment
             'comment' => $args['comment'],
             'product_id' => $args['product_id'],
             'user_id' => auth()->id(),
-            'comment_id'=>$args['comment_id']
+            'comment_id'=>$args['comment_id']??null
         ]);
 
     }
