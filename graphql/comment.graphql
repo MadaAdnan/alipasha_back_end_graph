@@ -11,6 +11,7 @@ type Comment{
     created_at:HumanDate
     user: User @belongsTo
     comments:[Comment] @hasMany
+    product_id:Int
 }
 
 
