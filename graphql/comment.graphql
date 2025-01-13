@@ -10,6 +10,7 @@ type Comment{
     comment:String
     created_at:HumanDate
     user: User @belongsTo
+    comments:[Comment] @hasMany
 }
 
 
