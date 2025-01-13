@@ -27,7 +27,7 @@ final class GetMyCommunity
                 $query->where('name', 'like', "%$search%");
             })
             ->latest('last_update');*/
-        $communities = Community::whereHas('allUsers', function ($query) {
+        $communities = Community::whereHas('messages')->whereHas('allUsers', function ($query) {
             $query->where('users.id', Auth::id());  // جلب المجتمعات التي يشارك فيها المستخدم الحالي
         })->when(!empty($search), function ($query) use ($search) {
                 $query->where('name', 'like', "%$search%");  // البحث عن المجتمعات بناءً على الاسم
