@@ -15,9 +15,16 @@ class ProductObserve
      */
     public function created(Product $product): void
     {
-        if ($product->user != null && ($product->user->is_seller != true || $product->user->level==LevelUserEnum::USER->value)) {
-            $product->user->update(['is_seller' => true, 'seller_name' => $product->user?->name,'level'=>LevelUserEnum::SELLER->value]);
+        $data = [];
+        if ($product->user != null && $product->user->is_seller != true) {
+            $data['is_seller'] = true;
+            $data['seller_name'] = $product->user?->name;
+            $product->user->update($data);
+        } elseif ($product->user != null && $product->user->level == LevelUserEnum::USER->value) {
+            $data['level'] = LevelUserEnum::SELLER->value;
+            $product->user->update($data);
         }
+
     }
 
     /**
