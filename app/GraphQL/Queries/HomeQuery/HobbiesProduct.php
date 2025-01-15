@@ -16,8 +16,8 @@ final class HobbiesProduct
      */
     public function __invoke($_, array $args)
     {
-        $products = Product::where('id','<',0)
-            ->where(fn( $query)=>$query->where('active', ProductActiveEnum::ACTIVE->value)
+        $products = Product::/*where('id','<',0)->*/
+            where(fn( $query)=>$query->where('active', ProductActiveEnum::ACTIVE->value)
             ->whereDoesntHave('category',fn($query)=>$query->where('type',CategoryTypeEnum::RESTAURANT->value)))
 
             ->where(fn($query)=> $query
@@ -33,7 +33,7 @@ final class HobbiesProduct
             })
           /*  ->whereIn('category_id', $this->getPopularCategoryProducts())
             ->orWhere('user_id',$this->getPopularSelelrProducts())*/
-            ->latest();
+            ->orderByDesc('created_at');
         $ids = $products->pluck('id')->toArray();
         $today = today();
 
@@ -71,6 +71,7 @@ final class HobbiesProduct
     private function getPopularCategoryProducts()
     {
         return Interaction::where('user_id', auth()->id())->whereNotNull('category_id')
+            ->latest()
             ->groupBy('category_id')
             ->orderByRaw('SUM(visited) DESC')
             ->pluck('category_id')->toArray();
