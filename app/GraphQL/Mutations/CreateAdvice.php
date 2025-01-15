@@ -27,6 +27,7 @@ final class CreateAdvice
             'sub1_id' => $data['sub1_id'] ?? null,
             'user_id' => $userId,
             'status' =>  ProductActiveEnum::PENDING->value,
+            'expired_date'=>now()->addWeek(),
 
 
         ]);
