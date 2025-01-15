@@ -23,7 +23,7 @@ final class CreateAdvice
             'category_id' => $data['category_id'] ?? null,
             'sub1_id' => $data['sub1_id'] ?? null,
             'user_id' => $userId,
-            'status' =>  auth()->user()->is_default_active===true?ProductActiveEnum::ACTIVE->value:ProductActiveEnum::PENDING->value,
+            'status' =>  ProductActiveEnum::PENDING->value,
 
 
         ]);
