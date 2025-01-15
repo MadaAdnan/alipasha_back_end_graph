@@ -50,7 +50,9 @@ class UserResource extends Resource
                     Forms\Components\Wizard::make([
                         Forms\Components\Wizard\Step::make('بيانات المستخدم')->schema([
                             Forms\Components\Fieldset::make('بيانات المستخدم')->schema([
-                                Forms\Components\SpatieMediaLibraryFileUpload::make('logo')->collection('logo')->conversion('webp')->label('صورة')->imageEditor()->imageCropAspectRatio('1:1'),
+                                Forms\Components\SpatieMediaLibraryFileUpload::make('logo')->collection('logo')->conversion('webp')
+                                    ->openable()
+                                    ->label('صورة')->imageEditor()->imageCropAspectRatio('1:1'),
 
                                 Forms\Components\TextInput::make('name')->required()->label('الاسم'),
                                 Forms\Components\TextInput::make('email')->required()->email()->unique(ignoreRecord: true)->label('البريد الإلكتروني'),
@@ -93,10 +95,8 @@ class UserResource extends Resource
                                 Forms\Components\TextInput::make('seller_name')->label('اسم المتجر'),
                                 Forms\Components\TextInput::make('address')->label('عنوان المتجر'),
                                 Forms\Components\Textarea::make('info')->label('وصف مختصر')->columnSpan(2),
-
-                                Forms\Components\SpatieMediaLibraryFileUpload::make('logo')->collection('image')->conversion('webp')->label('صورة Cover')->imageEditor()->imageCropAspectRatio('1:2')->columnSpan(2),
-
-
+                                Forms\Components\SpatieMediaLibraryFileUpload::make('logo')->collection('image')->conversion('webp')->label('صورة Cover')->imageEditor()->imageCropAspectRatio('1:2')
+                                    ->openable()->columnSpan(2),
                                 Forms\Components\Grid::make(3)->schema([
                                     Forms\Components\Toggle::make('is_default_active')->label('تفعيل المنتجات تلقائيا'),
                                     Forms\Components\Toggle::make('is_delivery')->label('خدمة التوصيل'),
