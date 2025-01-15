@@ -126,7 +126,7 @@ class ProductResource extends Resource
                     Forms\Components\Textarea::make('info')->label('وصف المنتج'),
                     Forms\Components\TagsInput::make('tags')->suggestions(fn() => Product::product()->pluck('tags')->flatten()->unique())->label('تاغات'),
                     Forms\Components\Fieldset::make('الأسعار والتوفر')->schema([
-                        Forms\Components\Toggle::make('is_available')->label('التوفر في المخزون'),
+                        Forms\Components\Toggle::make('is_available')->label('التوفر في المخزون')->default(true),
                         Forms\Components\TextInput::make('price')->label('السعر')->numeric()->required(),
                         Forms\Components\Toggle::make('is_discount')->label('تفعيل العرض')->live(),
                         Forms\Components\TextInput::make('discount')->label('سعر العرض')->numeric()->required(fn($get) => $get('is_discount')),
@@ -197,6 +197,7 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('name')->label('اسم المنتج')->description(fn($record) => $record->expert)->searchable(),
                 Tables\Columns\TextColumn::make('city.name')->label('المدينة'),
                 Tables\Columns\TextColumn::make('views_count')->label('عدد المشاهدات'),
+                Tables\Columns\TextInputColumn::make('price')->label('السعر'),
                 Tables\Columns\TextColumn::make('active')->formatStateUsing(fn($state) => ProductActiveEnum::tryFrom($state)?->getLabel())->color(fn($state) => ProductActiveEnum::tryFrom($state)?->getColor())->icon(fn($state) => ProductActiveEnum::tryFrom($state)?->getIcon())->label('الحالة'),
                 Tables\Columns\TextColumn::make('level')->formatStateUsing(fn($state) => LevelProductEnum::tryFrom($state)?->getLabel())->color(fn($state) => LevelProductEnum::tryFrom($state)?->getColor())->icon(fn($state) => LevelProductEnum::tryFrom($state)?->getIcon())->label('تمييز المنتج'),
                 Tables\Columns\TextColumn::make('created_at')->since()->label('أضيف منذ'),
