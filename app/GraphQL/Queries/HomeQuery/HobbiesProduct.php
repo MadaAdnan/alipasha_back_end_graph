@@ -16,8 +16,8 @@ final class HobbiesProduct
      */
     public function __invoke($_, array $args)
     {
-        $products = Product::
-            where(fn( $query)=>$query->where('active', ProductActiveEnum::ACTIVE->value)
+        $products = Product::where('id','<',0)
+            ->where(fn( $query)=>$query->where('active', ProductActiveEnum::ACTIVE->value)
             ->whereDoesntHave('category',fn($query)=>$query->where('type',CategoryTypeEnum::RESTAURANT->value)))
 
             ->where(fn($query)=> $query
