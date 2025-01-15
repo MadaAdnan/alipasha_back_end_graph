@@ -2,16 +2,20 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\CommunityTypeEnum;
 use App\Enums\OrderStatusEnum;
 use App\Filament\Resources\InvoiceResource\Pages;
 use App\Filament\Resources\InvoiceResource\RelationManagers;
+use App\Models\Community;
 use App\Models\Invoice;
+use App\Models\Message;
 use App\Models\Product;
 use App\Models\User;
 use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Support\Enums\FontWeight;
 use Filament\Tables;
@@ -92,6 +96,53 @@ protected static ?string $navigationLabel='طلبات شحن علي باشا';
                     Tables\Actions\Action::make('agree')->requiresConfirmation()->action(fn($record) => $record->update(['status' => OrderStatusEnum::AGREE->value]))->label('تأكيد موافقة التاجر')->visible(fn($record) => $record->status == OrderStatusEnum::PENDING->value),
                      Tables\Actions\Action::make('complete')->requiresConfirmation()->action(fn($record) => $record->update(['status' => OrderStatusEnum::COMPLETE->value]))->label('تأكيد تسليم الطلب للزبون')->visible(fn($record) => $record->status == OrderStatusEnum::AWAY->value),
                      Tables\Actions\Action::make('cancel')->requiresConfirmation()->action(fn($record) => $record->update(['status' => OrderStatusEnum::CANCELED->value]))->label('تأكيد إلغاء الطلب')->visible(fn($record) => $record->status != OrderStatusEnum::COMPLETE->value && $record->status != OrderStatusEnum::CANCELED->value),
+                    Tables\Actions\Action::make('send_msg_chat')->form([
+                        Forms\Components\Radio::make('user_id')->options([
+                            'seller'=>'البائع',
+                            'user'=>'المشتري',
+                        ])->label('اختر من تراسل')->required()->default('seller'),
+                        Forms\Components\Textarea::make('msg')->label('الرسالة')->required(),
+                    ])
+                        ->action(function($record,$data){
+                            \DB::beginTransaction();
+                            try {
+                                $userId=$record->seller_id;
+                                if($data['user_id']=='user'){
+                                    $userId=$record->user_id;
+                                }
+                                $user=User::find($userId);
+                                $community=Community::where('type',CommunityTypeEnum::CHAT->value)->whereHas('users',fn($query)=>$query->whereIn('users.id',[auth()->id(),$userId]))->first();
+                                if($community==null){
+                                    $community= Community::create([
+                                        'name'=>auth()->user()->name.' - '.$user->name,
+                                        'manager_id'=>auth()->id(),
+                                        'type'=>CommunityTypeEnum::CHAT->value,
+                                        'last_update'=>now(),
+                                        'is_global'=>false,
+                                    ]);
+                                    $community->users()->sync([auth()->id(),$userId]);
+                                }
+                                Message::create([
+                                    'community_id'=>$community->id,
+                                    'user_id'=>auth()->id(),
+                                    'body'=>$data['msg'],
+                                    'type'=>'text',
+                                ]);
+                                \DB::commit();
+                                Notification::make('success')->title('نجاح العملية')->body('تم إرسال الرسالة بنجاح')->success()->send();
+
+                            }catch (\Exception|\Error $e){
+                                \DB::rollBack();
+                                Notification::make('error')->title('فشل العملية')->body($e->getMessage())->danger()->send();
+
+                            }
+                        })->label('إرسال رسالة')->icon('fas-envelope'),
+                    Action::make('join')->url(function($record){
+                        $community=Community::where('type',CommunityTypeEnum::CHAT->value)->whereHas('users',fn($query)=>$query->where('id',$record->seller_id)->where('users.id',$record->user_id))->first();
+                        if($community){
+                            return CommunityResource::getUrl('edit',['record'=>$community->id]);
+                        }
+                    })->label('دخول للمحادثة')
                 ])
             ])
             ->bulkActions([
