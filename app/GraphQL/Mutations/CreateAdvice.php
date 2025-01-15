@@ -17,7 +17,7 @@ final class CreateAdvice
     {
 
         $data = $args['input'];
-        throw new GraphQLExceptionHandler($data['image']);
+       // throw new GraphQLExceptionHandler($data['image']);
         $userId = auth()->id();
         $advice = Advice::create([
             'name' => $data['name'] ?? null,
