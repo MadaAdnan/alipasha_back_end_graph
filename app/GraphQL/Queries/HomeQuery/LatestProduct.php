@@ -27,7 +27,7 @@ final class LatestProduct
             )  ->where(function ($query) {
                 $query->whereNull('end_date')
                     ->orWhere('end_date', '>', now());
-            })
+            })->orderByDesc('created_at')
             ;
         $ids = $products->pluck('id')->toArray();
         $today = today();
