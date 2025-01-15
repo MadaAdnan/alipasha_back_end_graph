@@ -28,7 +28,7 @@ type Advice{
 
 extend type Mutation{
     createAdvice(input:CreateAdviceInput!):Advice @guard
-    updateAdvice(id:ID!,input:CreateAdviceInput):Advice @guard
+    updateAdvice(id:ID!,input:CreateAdviceInput!):Advice @guard
     deleteAdvice(id:ID!):Advice @guard
 }
 input CreateAdviceInput{
