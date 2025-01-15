@@ -13,6 +13,8 @@ use App\Models\Product;
 use App\Models\User;
 use Filament\Actions;
 
+use Filament\Forms\Components\Radio;
+use Filament\Forms\Components\Textarea;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Tables\Actions\Action;
@@ -60,11 +62,11 @@ class ShowInvoice extends ListRecords
                     Action::make('complete')->requiresConfirmation()->action(fn($record) => $record->update(['status' => OrderStatusEnum::COMPLETE->value]))->label('تأكيد تسليم الطلب للزبون')->visible(fn($record) => $record->status == OrderStatusEnum::AWAY->value),
                     Action::make('cancel')->requiresConfirmation()->action(fn($record) => $record->update(['status' => OrderStatusEnum::CANCELED->value]))->label('تأكيد إلغاء الطلب')->visible(fn($record) => $record->status != OrderStatusEnum::COMPLETE->value && $record->status != OrderStatusEnum::CANCELED->value),
                    Action::make('send_msg_chat')->form([
-                        Forms\Components\Radio::make('user_id')->options([
+                        Radio::make('user_id')->options([
                             'seller'=>'البائع',
                             'user'=>'المشتري',
                         ])->label('اختر من تراسل')->required()->default('seller'),
-                        Forms\Components\Textarea::make('msg')->label('الرسالة')->required(),
+                        Textarea::make('msg')->label('الرسالة')->required(),
                     ])
                         ->action(function($record,$data){
                             \DB::beginTransaction();
