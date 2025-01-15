@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations;
 
 use App\Enums\ProductActiveEnum;
+use App\Exceptions\GraphQLExceptionHandler;
 use App\Models\Advice;
 use App\Models\Product;
 
@@ -14,7 +15,9 @@ final class CreateAdvice
      */
     public function __invoke($_, array $args)
     {
+
         $data = $args['input'];
+        throw new GraphQLExceptionHandler($data['image']);
         $userId = auth()->id();
         $advice = Advice::create([
             'name' => $data['name'] ?? null,
