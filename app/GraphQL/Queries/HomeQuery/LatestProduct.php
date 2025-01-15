@@ -28,7 +28,7 @@ final class LatestProduct
                 $query->whereNull('end_date')
                     ->orWhere('end_date', '>', now());
             })
-            ->latest();
+            ;
         $ids = $products->pluck('id')->toArray();
         $today = today();
 
@@ -60,6 +60,6 @@ final class LatestProduct
                 \DB::table('product_views')->insert($inserts);
             }
         });
-        return [];
+        return $products;
     }
 }
