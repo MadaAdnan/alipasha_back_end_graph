@@ -50,7 +50,7 @@ class UserResource extends Resource
                     Forms\Components\Wizard::make([
                         Forms\Components\Wizard\Step::make('بيانات المستخدم')->schema([
                             Forms\Components\Fieldset::make('بيانات المستخدم')->schema([
-//                                HelperMedia::getFileUpload(label:'صورة',isWebp: false,collection: 'image',is_multible: false,ratio: ['1:1'],name: 'image'),
+                                HelperMedia::getFileUpload(label:'صورة',isWebp: false,collection: 'image',is_multible: false,ratio: ['1:1'],name: 'image'),
 //                                Forms\Components\SpatieMediaLibraryFileUpload::make('image')->collection('image')->conversion('webp')->imageCropAspectRatio('1:1')->imageEditor()->columnSpan(2),
                                 Forms\Components\TextInput::make('name')->required()->label('الاسم'),
                                 Forms\Components\TextInput::make('email')->required()->email()->unique(ignoreRecord: true)->label('البريد الإلكتروني'),
@@ -94,7 +94,7 @@ class UserResource extends Resource
                                 Forms\Components\TextInput::make('address')->label('عنوان المتجر'),
                                 Forms\Components\Textarea::make('info')->label('وصف مختصر')->columnSpan(2),
 
-                                Forms\Components\SpatieMediaLibraryFileUpload::make('logo')->collection('logo')->conversion('webp')->label('لوغو المتجر')->columnSpan(2),
+                                Forms\Components\SpatieMediaLibraryFileUpload::make('logo')->collection('logo')->conversion('webp')->label('صورة Cover')->columnSpan(2),
 
 
                                 Forms\Components\Grid::make(3)->schema([
