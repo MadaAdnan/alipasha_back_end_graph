@@ -39,48 +39,10 @@ input CreateAdviceInput{
         }
     ])
     url:String
-    city_id:Int @rules(apply: ["required","integer","exists:cities,id"],messages:[
-        {
-            rule:"required",
-            message:"يرجى إدخال المدينة"
-        }
-        {
-            rule:"integer",
-            message:"يرجى إدخال مدينة صالحة"
-        }
-        {
-            rule:"exists",
-            message:"يرجى إدخال مدينة صالحة"
-        }
-    ])
-    category_id:Int!  @rules(apply: ["required","integer","exists:categories,id"],messages:[
-        {
-            rule:"required",
-            message:"يرجى إدخال التصنيف الرئيسي"
-        }
-        {
-            rule:"integer",
-            message:"يرجى إدخال تصنيف صالح"
-        }
-        {
-            rule:"exists",
-            message:"يرجى إدخال تصنيف صالح"
-        }
-    ])
-    sub1_id:Int! @rules(apply: ["required","integer","exists:categories,id"],messages:[
-        {
-            rule:"required",
-            message:"يرجى إدخال التصنيف الفرعي"
-        }
-        {
-            rule:"integer",
-            message:"يرجى إدخال تصنيف صالح"
-        }
-        {
-            rule:"exists",
-            message:"يرجى إدخال تصنيف صالح"
-        }
-    ])
+    city_id:Int
+    category_id:Int
+    sub1_id:Int
+
     image:Upload @rules(apply:["nullable","image"],messages:[
         {
             rule:"required",

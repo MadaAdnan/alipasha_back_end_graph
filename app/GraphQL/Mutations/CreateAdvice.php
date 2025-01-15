@@ -19,7 +19,7 @@ final class CreateAdvice
         $advice = Advice::create([
             'name' => $data['name'] ?? null,
             'url' => $data['url'] ?? null,
-            'city_id' => $data['city_id'] ?? null,
+            'city_id' => $data['city_id'] ?? auth()->user()->city_id,
             'category_id' => $data['category_id'] ?? null,
             'sub1_id' => $data['sub1_id'] ?? null,
             'user_id' => $userId,
