@@ -50,10 +50,8 @@ class UserResource extends Resource
                     Forms\Components\Wizard::make([
                         Forms\Components\Wizard\Step::make('بيانات المستخدم')->schema([
                             Forms\Components\Fieldset::make('بيانات المستخدم')->schema([
+                                Forms\Components\SpatieMediaLibraryFileUpload::make('logotest')->collection('cover')->conversion('webp')->label('صورة')->imageEditor()->imageCropAspectRatio('1:1'),
 
-                                Forms\Components\SpatieMediaLibraryFileUpload::make('logo1')->collection('logo')->conversion('webp')->label('صورة')->imageEditor()->imageCropAspectRatio(1/1),
-
-//                                Forms\Components\SpatieMediaLibraryFileUpload::make('image')->collection('image')->conversion('webp')->imageCropAspectRatio('1:1')->imageEditor()->columnSpan(2),
                                 Forms\Components\TextInput::make('name')->required()->label('الاسم'),
                                 Forms\Components\TextInput::make('email')->required()->email()->unique(ignoreRecord: true)->label('البريد الإلكتروني'),
                                 Forms\Components\TextInput::make('password')->required(fn($context) => $context === 'create')
