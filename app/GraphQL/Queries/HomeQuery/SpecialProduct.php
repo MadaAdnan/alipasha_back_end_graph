@@ -63,7 +63,7 @@ final class SpecialProduct
                 \DB::table('product_views')->insert($inserts);
             }
         });
-        return [];
+        return $products;
     }
 
 
