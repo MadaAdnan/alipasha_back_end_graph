@@ -94,7 +94,7 @@ class UserResource extends Resource
                                 Forms\Components\TextInput::make('address')->label('عنوان المتجر'),
                                 Forms\Components\Textarea::make('info')->label('وصف مختصر')->columnSpan(2),
 
-                                Forms\Components\SpatieMediaLibraryFileUpload::make('image')->collection('logo')->conversion('webp')->label('صورة Cover')->columnSpan(2),
+                                Forms\Components\SpatieMediaLibraryFileUpload::make('logo')->collection('image')->conversion('webp')->label('صورة Cover')->columnSpan(2),
 
 
                                 Forms\Components\Grid::make(3)->schema([
