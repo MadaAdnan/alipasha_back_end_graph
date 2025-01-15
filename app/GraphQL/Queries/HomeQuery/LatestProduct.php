@@ -60,6 +60,6 @@ final class LatestProduct
                 \DB::table('product_views')->insert($inserts);
             }
         });
-        return $products;
+        return [];
     }
 }

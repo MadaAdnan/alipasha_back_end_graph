@@ -17,7 +17,8 @@ final class HobbiesProduct
     public function __invoke($_, array $args)
     {
         $products = Product::
-            where(fn( $query)=>$query->where('active', ProductActiveEnum::ACTIVE->value)->whereDoesntHave('category',fn($query)=>$query->where('type',CategoryTypeEnum::RESTAURANT->value)))
+            where(fn( $query)=>$query->where('active', ProductActiveEnum::ACTIVE->value)
+            ->whereDoesntHave('category',fn($query)=>$query->where('type',CategoryTypeEnum::RESTAURANT->value)))
 
             ->where(fn($query)=> $query
                 ->where('type',CategoryTypeEnum::PRODUCT->value)
@@ -25,12 +26,13 @@ final class HobbiesProduct
                 ->orWhere('type',CategoryTypeEnum::JOB->value)
                 ->orWhere('type',CategoryTypeEnum::SEARCH_JOB->value)
                 ->orWhere('type',CategoryTypeEnum::NEWS->value)
-            )  ->where(function ($query) {
+            )
+            ->where(function ($query) {
                 $query->whereNull('end_date')
                     ->orWhere('end_date', '>', now());
             })
-            ->whereIn('category_id', $this->getPopularCategoryProducts())
-            ->orWhere('user_id',$this->getPopularSelelrProducts())
+          /*  ->whereIn('category_id', $this->getPopularCategoryProducts())
+            ->orWhere('user_id',$this->getPopularSelelrProducts())*/
             ->latest();
         $ids = $products->pluck('id')->toArray();
         $today = today();

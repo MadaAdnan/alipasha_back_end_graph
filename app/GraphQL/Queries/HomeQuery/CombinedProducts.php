@@ -58,7 +58,7 @@ final class CombinedProducts
         $perPage = $args['perPage'] ?? 15; // عدد العناصر في الصفحة الواحدة
         $paginatedProducts = $this->paginate($uniqueProducts, $perPage, $page);
 
-        return $paginatedProducts;
+        return [];
     }
 
     private function getPopularCategoryProducts()
