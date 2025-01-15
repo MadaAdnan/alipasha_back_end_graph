@@ -103,7 +103,7 @@ class ShowInvoice extends ListRecords
                             }
                         })->label('إرسال رسالة')->icon('fas-envelope'),
                     Action::make('join')->url(function($record){
-                        $community=Community::where('type',CommunityTypeEnum::CHAT->value)->whereHas('users',fn($query)=>$query->where('id',$record->seller_id)->where('users.id',$record->user_id))->first();
+                        $community=Community::where('type',CommunityTypeEnum::CHAT->value)->whereHas('users',fn($query)=>$query->where('users.id',$record->seller_id)->where('users.id',$record->user_id))->first();
                         if($community){
                             return CommunityResource::getUrl('edit',['record'=>$community->id]);
                         }
