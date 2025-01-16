@@ -48,7 +48,7 @@ class SellerPanelProvider extends PanelProvider
                             /*->with(['...'])*/,
                     ])
                     ->createUserUsing(function (string $provider, SocialiteUserContract $oauthUser, FilamentSocialitePlugin $plugin) {
-                        // Logic to create a new user.
+                       dd($oauthUser);
                     })
                     ->resolveUserUsing(function (string $provider, SocialiteUserContract $oauthUser, FilamentSocialitePlugin $plugin) {
                         // Logic to retrieve an existing user.
