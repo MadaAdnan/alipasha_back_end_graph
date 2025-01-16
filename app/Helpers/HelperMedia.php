@@ -10,10 +10,10 @@ class HelperMedia
     public static function getFileUpload($label = 'صورة', $name = 'image', $collection = 'image', $is_multible = false, $ratio = ['1:1', '2:1', '1:2'],$isWebp=true)
     {
         if($isWebp==true){
-            return SpatieMediaLibraryFileUpload::make($name)->collection($collection)->conversion('webp')->label($label)->multiple($is_multible)->image()->imageEditor()->imageEditorAspectRatios($ratio)->openable()->downloadable();
+            return SpatieMediaLibraryFileUpload::make($name)->collection($collection)->conversion('webp')->label($label)->multiple($is_multible)->image()->imageEditor()->imageEditorAspectRatios($ratio)->openable()->downloadable()->deletable();
 
         }
-        return SpatieMediaLibraryFileUpload::make($name)->collection($collection)->label($label)->multiple($is_multible)->image()->imageEditor()->imageEditorAspectRatios($ratio)->openable()->downloadable();
+        return SpatieMediaLibraryFileUpload::make($name)->collection($collection)->label($label)->multiple($is_multible)->image()->imageEditor()->imageEditorAspectRatios($ratio)->openable()->downloadable()->deletable();
 
 
     }
