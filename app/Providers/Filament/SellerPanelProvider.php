@@ -53,7 +53,7 @@ class SellerPanelProvider extends PanelProvider
                     ->resolveUserUsing(function (string $provider, SocialiteUserContract $oauthUser, FilamentSocialitePlugin $plugin) {
                         // Logic to retrieve an existing user.
                     })
-                    ->domainAllowList(['ali-pasha2.test'])
+                    ->domainAllowList(['pazarpasha.com'])
                     // (optional) Override the panel slug to be used in the oauth routes. Defaults to the panel ID.
                     ->slug('seller')
                     // (optional) Enable/disable registration of new (socialite-) users.
