@@ -34,7 +34,7 @@ return [
         'key' => env('GOOGLE_APP_ID'),
         'client_secret' => env('GOOGLE_SECRET_KEY','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'),
         'client_id'=>env('GOOGLE_CLIENT_ID','890729410482-v6ns5ghs09md1o06al2qq31233tksm4f.apps.googleusercontent.com'),
-        'redirect'=>env('GOOGLE_REDIRECT','https://pazarpasha.com/seller/oauth/google'),
+        'redirect'=>env('GOOGLE_REDIRECT','https://pazarpasha.com/seller/oauth/callback/google'),
     ],
 
 ];
