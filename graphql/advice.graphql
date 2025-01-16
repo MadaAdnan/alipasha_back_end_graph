@@ -28,7 +28,8 @@ type Advice{
 
 extend type Mutation{
     createAdvice(input:CreateAdviceInput!):Advice @guard
-    updateAdvice(id:ID!,input:CreateAdviceInput!):Advice @guard
+    updateAdvice(id:ID!,input:UpdateAdviceInput!):Advice @guard
+
     deleteAdvice(id:ID!):Advice @guard
 }
 input CreateAdviceInput{
@@ -38,6 +39,25 @@ input CreateAdviceInput{
             message:"حقل اسم الإعلان مطلوب"
         }
     ])
+    url:String
+    city_id:Int
+    category_id:Int
+    sub1_id:Int
+
+    image:Upload @rules(apply:["nullable","image"],messages:[
+        {
+            rule:"required",
+            message:"يرجى إدخال الصورة"
+        }
+        {
+            rule:"image",
+            message:"يرجى إدخال صورة صالحة"
+        }
+    ])
+}
+
+input UpdateAdviceInput{
+    name:String
     url:String
     city_id:Int
     category_id:Int
