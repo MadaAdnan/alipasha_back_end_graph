@@ -123,8 +123,8 @@ class ProductResource extends Resource
                         ->searchable()->live()
                         ->afterStateUpdated(fn($set, $state) => $set('city_id', User::find($state)?->city_id)),
                     Forms\Components\Select::make('city_id')->options(City::selectRaw('id,name')->pluck('name', 'id'))->searchable()->label('المدينة'),
-                    SpatieMediaLibraryFileUpload::make('image')->collection('image')->conversion('webp')->label('الصورة الرئيسية')->image()->imageEditor()->imageEditorAspectRatios("1:1")->openable()->downloadable()->deletable(),
-                    SpatieMediaLibraryFileUpload::make('images')->collection('images')->conversion('webp')->label('صور إضافية')->multiple()->image()->imageEditor()->imageEditorAspectRatios("1:1")->openable()->downloadable()->deletable(),
+                    SpatieMediaLibraryFileUpload::make('image')->collection('image')->conversion('webp')->label('الصورة الرئيسية')->image()->imageEditor()->imageCropAspectRatio("1:1")->openable()->downloadable()->deletable(),
+                    SpatieMediaLibraryFileUpload::make('images')->collection('images')->conversion('webp')->label('صور إضافية')->multiple()->image()->imageEditor()->imageCropAspectRatio("1:1")->openable()->downloadable()->deletable(),
 
 
 //                Forms\Components\SpatieMediaLibraryFileUpload::make('image')
