@@ -3,6 +3,7 @@
 namespace App\Providers\Filament;
 
 use App\Http\Middleware\IsSellerMiddelware;
+use App\Models\User;
 use DutchCodingCompany\FilamentSocialite\FilamentSocialitePlugin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -48,7 +49,13 @@ class SellerPanelProvider extends PanelProvider
                             /*->with(['...'])*/,
                     ])
                     ->createUserUsing(function (string $provider, SocialiteUserContract $oauthUser, FilamentSocialitePlugin $plugin) {
-                       dd($oauthUser);
+                       $user =User::create([
+                           'name'=>$oauthUser->getName(),
+                           'email'=>$oauthUser->getEmail(),
+                           'password'=>bcrypt('fpEV.JY.R2zw7Uv'),
+
+                       ]);
+                        auth()->login($user);
                     })
                     ->resolveUserUsing(function (string $provider, SocialiteUserContract $oauthUser, FilamentSocialitePlugin $plugin) {
                         // Logic to retrieve an existing user.
