@@ -48,7 +48,7 @@ class SellerPanelProvider extends PanelProvider
                            /* ->scopes(['openid','email','userinfo'])*/
                             /*->with(['...'])*/,
                     ])
-                   /* ->createUserUsing(function (string $provider, SocialiteUserContract $oauthUser, FilamentSocialitePlugin $plugin) {
+                    ->createUserUsing(function (string $provider, SocialiteUserContract $oauthUser, FilamentSocialitePlugin $plugin) {
                        $user =User::create([
                            'name'=>$oauthUser->getName(),
                            'email'=>$oauthUser->getEmail(),
@@ -59,7 +59,7 @@ class SellerPanelProvider extends PanelProvider
                     })
                     ->resolveUserUsing(function (string $provider, SocialiteUserContract $oauthUser, FilamentSocialitePlugin $plugin) {
                         // Logic to retrieve an existing user.
-                    })*/
+                    })
                     /*->domainAllowList(['pazarpasha.com'])*/
                     // (optional) Override the panel slug to be used in the oauth routes. Defaults to the panel ID.
                     ->slug('seller')
