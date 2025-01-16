@@ -18,11 +18,11 @@ final class CreateUser
             $affiliate_id = User::where('affiliate', $data['affiliate'])->first()?->id;
 
         }
-        $phone= $data['phone'];
-        if(\Str::startsWith($phone,'+')){
-            $phone=\Str::substr($phone,1,Str::length($phone)-1);
-        }elseif(\Str::startsWith($phone,'00')){
-            $phone=\Str::substr($phone,2,Str::length($phone)-1);
+        $phone = $data['phone'];
+        if (\Str::startsWith($phone, '+')) {
+            $phone = \Str::substr($phone, 1, Str::length($phone) - 1);
+        } elseif (\Str::startsWith($phone, '00')) {
+            $phone = \Str::substr($phone, 2, Str::length($phone) - 1);
         }
         $user = User::create([
             'name' => $data['name'],
@@ -32,10 +32,11 @@ final class CreateUser
             'city_id' => $data['city_id'] ?? null,
             'device_token' => $data['device_token'] ?? null,
             'level' => 'user',
+            'address' => $data['address'] ?? null,
             'is_active' => true,
             'user_id' => $affiliate_id,
             'code_verified' => \Str::random(6),
-            'is_special'=>false,
+            'is_special' => false,
         ]);
         $token = $user->createToken('User')->plainTextToken;
         if (isset($data['image']) && $data['image'] !== null) {

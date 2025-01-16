@@ -90,6 +90,7 @@ input CreateUserInput{
         }
     ])
     phone:String
+    address:String
     city_id:Int
     device_token:String
     affiliate:String
