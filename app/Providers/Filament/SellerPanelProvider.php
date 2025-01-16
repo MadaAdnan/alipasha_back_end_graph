@@ -44,7 +44,7 @@ class SellerPanelProvider extends PanelProvider
                             ->color(Color::hex('#2f2a6b'))
                             ->outlined(false)
                             ->stateless(false)
-                            ->scopes(['userinfo,email'])
+                            ->scopes(['openid','email','userinfo'])
                             /*->with(['...'])*/,
                     ])
                     ->createUserUsing(function (string $provider, SocialiteUserContract $oauthUser, FilamentSocialitePlugin $plugin) {
