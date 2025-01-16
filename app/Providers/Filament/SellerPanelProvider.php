@@ -48,7 +48,7 @@ class SellerPanelProvider extends PanelProvider
                            /* ->scopes(['openid','email','userinfo'])*/
                             /*->with(['...'])*/,
                     ])
-                    ->createUserUsing(function (string $provider, SocialiteUserContract $oauthUser, FilamentSocialitePlugin $plugin) {
+                   /* ->createUserUsing(function (string $provider, SocialiteUserContract $oauthUser, FilamentSocialitePlugin $plugin) {
                        $user =User::create([
                            'name'=>$oauthUser->getName(),
                            'email'=>$oauthUser->getEmail(),
@@ -56,7 +56,7 @@ class SellerPanelProvider extends PanelProvider
 
                        ]);
                         auth()->login($user);
-                    })
+                    })*/
                     ->resolveUserUsing(function (string $provider, SocialiteUserContract $oauthUser, FilamentSocialitePlugin $plugin) {
                         // Logic to retrieve an existing user.
                     })
