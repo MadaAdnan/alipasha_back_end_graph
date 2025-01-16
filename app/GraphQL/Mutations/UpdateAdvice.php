@@ -30,7 +30,7 @@ final class UpdateAdvice
 
         ]);
 
-        if (isset($data['image'])) {
+        if (isset($data['image']) && $data['image']!=null) {
             $advice->clearMediaCollection('image');
             $advice->addMedia($data['image'])->toMediaCollection('image');
         }
