@@ -26,7 +26,7 @@ final class UpdateAdvice
             'city_id' => $data['city_id'] ?? $advice->city_id,
             'category_id' => $data['category_id'] ?? $advice->category_id,
             'sub1_id' => $data['sub1_id'] ?? $advice->sub1_id,
-            'status' => ProductActiveEnum::PENDING->value,
+            'status' =>isset($data['image']) && $data['image']!=null? ProductActiveEnum::PENDING->value:$advice->status,
 
         ]);
 
