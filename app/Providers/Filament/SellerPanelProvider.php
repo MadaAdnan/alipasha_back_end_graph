@@ -50,7 +50,10 @@ class SellerPanelProvider extends PanelProvider
 
                     ])
                     ->createUserUsing(function (string $provider, SocialiteUserContract $oauthUser, FilamentSocialitePlugin $plugin) {
-
+                        info('StartCreate');
+                        info($oauthUser->getEmail());
+                        info($oauthUser->getName());
+                        info('END GET');
                         if (!$oauthUser->getEmail() || !$oauthUser->getName()) {
                             throw new \Exception("Missing required user information from provider.");
                         }
@@ -59,7 +62,7 @@ class SellerPanelProvider extends PanelProvider
 
                         if (!$user) {
                             try {
-                                info('StartCreate');
+
                                 $user = User::create([
                                     'name' => $oauthUser->getName(),
                                     'email' => $oauthUser->getEmail(),
