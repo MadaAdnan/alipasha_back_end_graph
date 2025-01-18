@@ -57,6 +57,8 @@ class SellerPanelProvider extends PanelProvider
                            'level'=>LevelUserEnum::SELLER->value,
 
                        ]);
+                    //    auth()->login($user);
+                        return $user;
 
                     })
                   /*  ->resolveUserUsing(function (string $provider, SocialiteUserContract $oauthUser, FilamentSocialitePlugin $plugin) {
