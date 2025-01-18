@@ -50,7 +50,7 @@ class SellerPanelProvider extends PanelProvider
 
                     ])
 
-                    ->createUserUsing(function (string $provider, SocialiteUserContract $oauthUser, FilamentSocialitePlugin $plugin) {
+                   /* ->createUserUsing(function (string $provider, SocialiteUserContract $oauthUser, FilamentSocialitePlugin $plugin) {
                         info('StartCreate');
                         info($oauthUser->getEmail());
                         info($oauthUser->getName());
@@ -82,7 +82,7 @@ class SellerPanelProvider extends PanelProvider
                         return $user;
 
 
-                    })
+                    })*/
                   /*  ->resolveUserUsing(function (string $provider, SocialiteUserContract $oauthUser, FilamentSocialitePlugin $plugin) {
                         // Logic to retrieve an existing user.
                     })*/
