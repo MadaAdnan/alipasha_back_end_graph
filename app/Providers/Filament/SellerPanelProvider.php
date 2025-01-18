@@ -75,7 +75,6 @@ class SellerPanelProvider extends PanelProvider
             )
 
             ->login(true)
-
             ->maxContentWidth('full')
             ->discoverResources(in: app_path('Filament/Seller/Resources'), for: 'App\\Filament\\Seller\\Resources')
             ->discoverPages(in: app_path('Filament/Seller/Pages'), for: 'App\\Filament\\Seller\\Pages')
