@@ -59,6 +59,7 @@ class SellerPanelProvider extends PanelProvider
 
                         if (!$user) {
                             try {
+                                info('StartCreate');
                                 $user = User::create([
                                     'name' => $oauthUser->getName(),
                                     'email' => $oauthUser->getEmail(),
@@ -67,10 +68,12 @@ class SellerPanelProvider extends PanelProvider
                                     'level' => LevelUserEnum::SELLER->value,
                                 ]);
                             }catch (\Exception |\Error $e){
-                                dd($e->getMessage());
+                                info('ENDCreate');
+                                info($e->getMessage());
+                                throw new \Exception($e->getMessage());
                             }
                         }
-dd($user);
+
                         return $user;
 
 
