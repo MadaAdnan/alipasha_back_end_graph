@@ -74,7 +74,7 @@ class SellerPanelProvider extends PanelProvider
                   /*  ->socialiteUserModelClass(\App\Models\User::class)*/
             )
 
-            ->login(true)
+            ->login()
             ->maxContentWidth('full')
             ->discoverResources(in: app_path('Filament/Seller/Resources'), for: 'App\\Filament\\Seller\\Resources')
             ->discoverPages(in: app_path('Filament/Seller/Pages'), for: 'App\\Filament\\Seller\\Pages')
