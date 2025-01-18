@@ -45,8 +45,7 @@ class SellerPanelProvider extends PanelProvider
                             ->color(Color::hex('#2f2a6b'))
                             ->outlined(false)
                             ->stateless(false)
-                           /* ->scopes(['openid','email','userinfo'])*/
-                            /*->with(['...'])*/,
+
                     ])
                    /* ->createUserUsing(function (string $provider, SocialiteUserContract $oauthUser, FilamentSocialitePlugin $plugin) {
                        $user =User::create([
@@ -57,9 +56,9 @@ class SellerPanelProvider extends PanelProvider
                        ]);
                         auth()->login($user);
                     })*/
-                    ->resolveUserUsing(function (string $provider, SocialiteUserContract $oauthUser, FilamentSocialitePlugin $plugin) {
+                  /*  ->resolveUserUsing(function (string $provider, SocialiteUserContract $oauthUser, FilamentSocialitePlugin $plugin) {
                         // Logic to retrieve an existing user.
-                    })
+                    })*/
                     /*->domainAllowList(['pazarpasha.com'])*/
                     // (optional) Override the panel slug to be used in the oauth routes. Defaults to the panel ID.
                     ->slug('seller')
@@ -67,7 +66,8 @@ class SellerPanelProvider extends PanelProvider
                     ->registration(true)
                     // (optional) Enable/disable registration of new (socialite-) users using a callback.
                     // In this example, a login flow can only continue if there exists a user (Authenticatable) already.
-                    ->registration(fn (string $provider, SocialiteUserContract $oauthUser, ?Authenticatable $user) => (bool) $user)
+                    ->registration(fn (string $provider, SocialiteUserContract $oauthUser, ?Authenticatable $user) => true)
+
                     // (optional) Change the associated model class.
                     ->userModelClass(\App\Models\User::class)
                     // (optional) Change the associated socialite class (see below).
