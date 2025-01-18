@@ -51,16 +51,24 @@ class SellerPanelProvider extends PanelProvider
                     ])
                     ->createUserUsing(function (string $provider, SocialiteUserContract $oauthUser, FilamentSocialitePlugin $plugin) {
 
-                       $user =User::create([
-                           'name'=>$oauthUser->getName(),
-                           'email'=>$oauthUser->getEmail(),
-                           'password'=>bcrypt('fpEV.JY.R2zw7Uv'),
-                           'is_seller'=>true,
-                           'level'=>LevelUserEnum::SELLER->value,
+                        if (!$oauthUser->getEmail() || !$oauthUser->getName()) {
+                            throw new \Exception("Missing required user information from provider.");
+                        }
 
-                       ]);
-                    //    auth()->login($user);
-                        return $oauthUser;
+                        $user = User::where('email', $oauthUser->getEmail())->first();
+
+                        if (!$user) {
+                            $user = User::create([
+                                'name' => $oauthUser->getName(),
+                                'email' => $oauthUser->getEmail(),
+                                'password' => bcrypt('fpEV.JY.R2zw7Uv'),
+                                'is_seller' => true,
+                                'level' => LevelUserEnum::SELLER->value,
+                            ]);
+                        }
+
+                        return $user;
+
 
                     })
                   /*  ->resolveUserUsing(function (string $provider, SocialiteUserContract $oauthUser, FilamentSocialitePlugin $plugin) {
