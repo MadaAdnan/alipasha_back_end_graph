@@ -22,7 +22,7 @@ use Laravel\Socialite\Contracts\User as SocialiteUserContract;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements HasMedia, MustVerifyEmail,FilamentSocialiteUser
+class User extends Authenticatable implements HasMedia, MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable, MediaTrait, HasRoles;
 
@@ -190,18 +190,4 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail,Filament
         ]);
     }
 
-    public function getUser(): \Illuminate\Contracts\Auth\Authenticatable
-    {
-       return auth()->user();
-    }
-
-    public static function findForProvider(string $provider, SocialiteUserContract $oauthUser): ?self
-    {
-        // TODO: Implement findForProvider() method.
-    }
-
-    public static function createForProvider(string $provider, SocialiteUserContract $oauthUser, \Illuminate\Contracts\Auth\Authenticatable $user): FilamentSocialiteUser
-    {
-        // TODO: Implement createForProvider() method.
-    }
 }
