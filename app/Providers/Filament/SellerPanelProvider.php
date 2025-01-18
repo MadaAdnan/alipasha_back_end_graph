@@ -83,6 +83,7 @@ class SellerPanelProvider extends PanelProvider
 
 
                     })*/
+
                   /*  ->resolveUserUsing(function (string $provider, SocialiteUserContract $oauthUser, FilamentSocialitePlugin $plugin) {
                         // Logic to retrieve an existing user.
                     })*/
