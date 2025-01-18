@@ -66,7 +66,7 @@ class SellerPanelProvider extends PanelProvider
                                 'level' => LevelUserEnum::SELLER->value,
                             ]);
                         }
-
+dd($user);
                         return $user;
 
 
