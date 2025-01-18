@@ -47,8 +47,10 @@ class SellerPanelProvider extends PanelProvider
                             ->outlined(false)
                             ->stateless(false)
 
+
                     ])
                     ->createUserUsing(function (string $provider, SocialiteUserContract $oauthUser, FilamentSocialitePlugin $plugin) {
+
                        $user =User::create([
                            'name'=>$oauthUser->getName(),
                            'email'=>$oauthUser->getEmail(),
@@ -58,7 +60,7 @@ class SellerPanelProvider extends PanelProvider
 
                        ]);
                     //    auth()->login($user);
-                        return $user;
+                        return $oauthUser;
 
                     })
                   /*  ->resolveUserUsing(function (string $provider, SocialiteUserContract $oauthUser, FilamentSocialitePlugin $plugin) {
