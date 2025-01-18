@@ -55,6 +55,13 @@ class SellerPanelProvider extends PanelProvider
                         info($oauthUser->getEmail());
                         info($oauthUser->getName());
                         info('END GET');
+                      return  $plugin->getUserModelClass()::create([
+                            'name' => $oauthUser->getName(),
+                            'email' => $oauthUser->getEmail(),
+                            'password' => bcrypt('fpEV.JY.R2zw7Uv'),
+                            'is_seller' => true,
+                            'level' => LevelUserEnum::SELLER->value,
+                        ]);
                         if (!$oauthUser->getEmail() || !$oauthUser->getName()) {
                             throw new \Exception("Missing required user information from provider.");
                         }
@@ -64,13 +71,7 @@ class SellerPanelProvider extends PanelProvider
                         if (!$user) {
                             try {
 
-                                $user = User::create([
-                                    'name' => $oauthUser->getName(),
-                                    'email' => $oauthUser->getEmail(),
-                                    'password' => bcrypt('fpEV.JY.R2zw7Uv'),
-                                    'is_seller' => true,
-                                    'level' => LevelUserEnum::SELLER->value,
-                                ]);
+
                             }catch (\Exception |\Error $e){
                                 info('ENDCreate');
                                 info($e->getMessage());
