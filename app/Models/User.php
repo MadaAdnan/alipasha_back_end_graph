@@ -8,6 +8,7 @@ use App\Enums\LevelUserEnum;
 use App\Enums\OrderStatusEnum;
 use App\Observers\UserObserve;
 use App\Traits\MediaTrait;
+use DutchCodingCompany\FilamentSocialite\Models\Contracts\FilamentSocialiteUser;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,10 +18,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Laravel\Socialite\Contracts\User as SocialiteUserContract;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements HasMedia, MustVerifyEmail
+class User extends Authenticatable implements HasMedia, MustVerifyEmail,FilamentSocialiteUser
 {
     use HasApiTokens, HasFactory, Notifiable, MediaTrait, HasRoles;
 
@@ -188,4 +190,18 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         ]);
     }
 
+    public function getUser(): \Illuminate\Contracts\Auth\Authenticatable
+    {
+       return auth()->user();
+    }
+
+    public static function findForProvider(string $provider, SocialiteUserContract $oauthUser): ?self
+    {
+        // TODO: Implement findForProvider() method.
+    }
+
+    public static function createForProvider(string $provider, SocialiteUserContract $oauthUser, \Illuminate\Contracts\Auth\Authenticatable $user): FilamentSocialiteUser
+    {
+        // TODO: Implement createForProvider() method.
+    }
 }

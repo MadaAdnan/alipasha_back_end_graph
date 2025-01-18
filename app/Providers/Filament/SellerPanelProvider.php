@@ -49,6 +49,7 @@ class SellerPanelProvider extends PanelProvider
 
 
                     ])
+
                     ->createUserUsing(function (string $provider, SocialiteUserContract $oauthUser, FilamentSocialitePlugin $plugin) {
                         info('StartCreate');
                         info($oauthUser->getEmail());
