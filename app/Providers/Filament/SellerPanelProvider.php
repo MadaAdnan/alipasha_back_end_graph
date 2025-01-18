@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Enums\LevelUserEnum;
 use App\Http\Middleware\IsSellerMiddelware;
 use App\Models\User;
 use DutchCodingCompany\FilamentSocialite\FilamentSocialitePlugin;
@@ -47,15 +48,17 @@ class SellerPanelProvider extends PanelProvider
                             ->stateless(false)
 
                     ])
-                   /* ->createUserUsing(function (string $provider, SocialiteUserContract $oauthUser, FilamentSocialitePlugin $plugin) {
+                    ->createUserUsing(function (string $provider, SocialiteUserContract $oauthUser, FilamentSocialitePlugin $plugin) {
                        $user =User::create([
                            'name'=>$oauthUser->getName(),
                            'email'=>$oauthUser->getEmail(),
                            'password'=>bcrypt('fpEV.JY.R2zw7Uv'),
+                           'is_seller'=>true,
+                           'level'=>LevelUserEnum::SELLER->value,
 
                        ]);
-                        auth()->login($user);
-                    })*/
+
+                    })
                   /*  ->resolveUserUsing(function (string $provider, SocialiteUserContract $oauthUser, FilamentSocialitePlugin $plugin) {
                         // Logic to retrieve an existing user.
                     })*/
