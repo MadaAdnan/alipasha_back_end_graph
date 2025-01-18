@@ -58,13 +58,17 @@ class SellerPanelProvider extends PanelProvider
                         $user = User::where('email', $oauthUser->getEmail())->first();
 
                         if (!$user) {
-                            $user = User::create([
-                                'name' => $oauthUser->getName(),
-                                'email' => $oauthUser->getEmail(),
-                                'password' => bcrypt('fpEV.JY.R2zw7Uv'),
-                                'is_seller' => true,
-                                'level' => LevelUserEnum::SELLER->value,
-                            ]);
+                            try {
+                                $user = User::create([
+                                    'name' => $oauthUser->getName(),
+                                    'email' => $oauthUser->getEmail(),
+                                    'password' => bcrypt('fpEV.JY.R2zw7Uv'),
+                                    'is_seller' => true,
+                                    'level' => LevelUserEnum::SELLER->value,
+                                ]);
+                            }catch (\Exception |\Error $e){
+                                dd($e->getMessage());
+                            }
                         }
 dd($user);
                         return $user;
