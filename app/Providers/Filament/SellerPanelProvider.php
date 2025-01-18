@@ -73,7 +73,9 @@ class SellerPanelProvider extends PanelProvider
                     // (optional) Change the associated socialite class (see below).
                   /*  ->socialiteUserModelClass(\App\Models\User::class)*/
             )
+            ->register()
             ->login()
+
             ->maxContentWidth('full')
             ->discoverResources(in: app_path('Filament/Seller/Resources'), for: 'App\\Filament\\Seller\\Resources')
             ->discoverPages(in: app_path('Filament/Seller/Pages'), for: 'App\\Filament\\Seller\\Pages')
