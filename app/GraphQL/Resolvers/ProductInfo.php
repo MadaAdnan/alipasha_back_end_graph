@@ -43,7 +43,7 @@ class ProductInfo
             $userIsDelivery= true;
         }
 
-        $cityIsDelivery=$root->city->is_delivery==true;
+        $cityIsDelivery=$root->city?->is_delivery==true;
         $productIsDelivery=$root->is_delivery==true;
         return $userIsDelivery && $cityIsDelivery && $productIsDelivery;
     }
