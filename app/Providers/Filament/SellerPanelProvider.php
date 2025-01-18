@@ -49,52 +49,13 @@ class SellerPanelProvider extends PanelProvider
 
 
                     ])
-
-                   /* ->createUserUsing(function (string $provider, SocialiteUserContract $oauthUser, FilamentSocialitePlugin $plugin) {
-                        info('StartCreate');
-                        info($oauthUser->getEmail());
-                        info($oauthUser->getName());
-                        info('END GET');
-                      return  $plugin->getUserModelClass()::create([
-                            'name' => $oauthUser->getName(),
-                            'email' => $oauthUser->getEmail(),
-                            'password' => bcrypt('fpEV.JY.R2zw7Uv'),
-                            'is_seller' => true,
-                            'level' => LevelUserEnum::SELLER->value,
-                        ]);
-                        if (!$oauthUser->getEmail() || !$oauthUser->getName()) {
-                            throw new \Exception("Missing required user information from provider.");
-                        }
-
-                        $user = User::where('email', $oauthUser->getEmail())->first();
-
-                        if (!$user) {
-                            try {
-
-
-                            }catch (\Exception |\Error $e){
-                                info('ENDCreate');
-                                info($e->getMessage());
-                                throw new \Exception($e->getMessage());
-                            }
-                        }
-
-                        return $user;
-
-
-                    })*/
-
-                  /*  ->resolveUserUsing(function (string $provider, SocialiteUserContract $oauthUser, FilamentSocialitePlugin $plugin) {
-                        // Logic to retrieve an existing user.
-                    })*/
-                    /*->domainAllowList(['pazarpasha.com'])*/
                     // (optional) Override the panel slug to be used in the oauth routes. Defaults to the panel ID.
                     ->slug('seller')
                     // (optional) Enable/disable registration of new (socialite-) users.
-                    ->registration(true)
+                    ->registration(false)
                     // (optional) Enable/disable registration of new (socialite-) users using a callback.
                     // In this example, a login flow can only continue if there exists a user (Authenticatable) already.
-                    ->registration(fn (string $provider, SocialiteUserContract $oauthUser, ?Authenticatable $user) => true)
+                    ->registration(fn (string $provider, SocialiteUserContract $oauthUser, ?Authenticatable $user) => false)
 
                     // (optional) Change the associated model class.
                     ->userModelClass(\App\Models\User::class)
@@ -103,7 +64,7 @@ class SellerPanelProvider extends PanelProvider
             )
 
             ->login()
-            ->registration()
+            //->registration()
             ->maxContentWidth('full')
             ->discoverResources(in: app_path('Filament/Seller/Resources'), for: 'App\\Filament\\Seller\\Resources')
             ->discoverPages(in: app_path('Filament/Seller/Pages'), for: 'App\\Filament\\Seller\\Pages')
