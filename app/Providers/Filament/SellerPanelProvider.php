@@ -3,6 +3,7 @@
 namespace App\Providers\Filament;
 
 use App\Enums\LevelUserEnum;
+use App\Filament\Seller\Pages\RegisterPage;
 use App\Http\Middleware\IsSellerMiddelware;
 use App\Models\User;
 use DutchCodingCompany\FilamentSocialite\FilamentSocialitePlugin;
@@ -58,7 +59,7 @@ class SellerPanelProvider extends PanelProvider
             )
 
             ->login()
-            ->registration()
+            ->registration(RegisterPage::class)
             ->maxContentWidth('full')
             ->discoverResources(in: app_path('Filament/Seller/Resources'), for: 'App\\Filament\\Seller\\Resources')
             ->discoverPages(in: app_path('Filament/Seller/Pages'), for: 'App\\Filament\\Seller\\Pages')
