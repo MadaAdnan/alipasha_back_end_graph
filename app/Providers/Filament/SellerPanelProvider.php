@@ -37,9 +37,8 @@ class SellerPanelProvider extends PanelProvider
             ])
             ->plugin(
                 FilamentSocialitePlugin::make()
-                    // (required) Add providers corresponding with providers in `config/services.php`.
+
                     ->providers([
-                        // Create a provider 'gitlab' corresponding to the Socialite driver with the same name.
                         Provider::make('google')
                             ->label('google')
                             ->icon('fab-google')
@@ -49,18 +48,13 @@ class SellerPanelProvider extends PanelProvider
 
 
                     ])
-                    // (optional) Override the panel slug to be used in the oauth routes. Defaults to the panel ID.
-                    ->slug('seller')
-                    // (optional) Enable/disable registration of new (socialite-) users.
-                    ->registration(true)
-                    // (optional) Enable/disable registration of new (socialite-) users using a callback.
-                    // In this example, a login flow can only continue if there exists a user (Authenticatable) already.
+
                     ->registration(fn (string $provider, SocialiteUserContract $oauthUser, ?Authenticatable $user) => true)
 
-                    // (optional) Change the associated model class.
+
                     ->userModelClass(\App\Models\User::class)
-                    // (optional) Change the associated socialite class (see below).
-                  /*  ->socialiteUserModelClass(\App\Models\User::class)*/
+
+                  ->socialiteUserModelClass(\App\Models\SocialiteUser::class)
             )
 
             ->login()
