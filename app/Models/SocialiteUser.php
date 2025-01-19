@@ -13,7 +13,7 @@ class SocialiteUser extends  Model implements FilamentSocialiteUserContract
     protected $guarded=[];
     public function getUser(): Authenticatable
     {
-        $user = $this->user; // Assuming $this->user is your relationship to the user model
+        $user = auth()->user(); // Assuming $this->user is your relationship to the user model
 
         if (!$user) {
             // Handle the case where the user is not found
