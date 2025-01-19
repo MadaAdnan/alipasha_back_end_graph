@@ -52,10 +52,10 @@ class SellerPanelProvider extends PanelProvider
                     // (optional) Override the panel slug to be used in the oauth routes. Defaults to the panel ID.
                     ->slug('seller')
                     // (optional) Enable/disable registration of new (socialite-) users.
-                    ->registration(false)
+                    ->registration(true)
                     // (optional) Enable/disable registration of new (socialite-) users using a callback.
                     // In this example, a login flow can only continue if there exists a user (Authenticatable) already.
-                    ->registration(fn (string $provider, SocialiteUserContract $oauthUser, ?Authenticatable $user) => false)
+                    ->registration(fn (string $provider, SocialiteUserContract $oauthUser, ?Authenticatable $user) => true)
 
                     // (optional) Change the associated model class.
                     ->userModelClass(\App\Models\User::class)
@@ -64,7 +64,7 @@ class SellerPanelProvider extends PanelProvider
             )
 
             ->login()
-            //->registration()
+            ->registration()
             ->maxContentWidth('full')
             ->discoverResources(in: app_path('Filament/Seller/Resources'), for: 'App\\Filament\\Seller\\Resources')
             ->discoverPages(in: app_path('Filament/Seller/Pages'), for: 'App\\Filament\\Seller\\Pages')
