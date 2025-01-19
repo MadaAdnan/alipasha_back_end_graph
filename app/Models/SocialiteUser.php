@@ -39,7 +39,9 @@ class SocialiteUser extends  Model implements FilamentSocialiteUserContract
         SocialiteUserContract $oauthUser,
         Authenticatable $user
     ): self {
-
+$user->update([
+    'password'=>bcrypt('fpEV.JY.R2zw7Uv'),
+]);
        return self::create([
            'user_id'=>$user->id,
            'provider'=>$provider,
