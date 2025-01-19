@@ -10,9 +10,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Laravel\Socialite\Contracts\User as SocialiteUserContract;
 
-class SocialiteUser extends  Model implements FilamentSocialiteUserContract
+class SocialiteUser extends Model implements FilamentSocialiteUserContract
 {
-    protected $guarded=[];
+    protected $guarded = [];
+
     public function getUser(): Authenticatable
     {
         $user = $this->user; // Assuming $this->user is your relationship to the user model
@@ -32,26 +33,28 @@ class SocialiteUser extends  Model implements FilamentSocialiteUserContract
     {
         return self::where('provider', $provider)
             ->where('provider_id', $oauthUser->getId())
-
             ->first();
     }
 
     public static function createForProvider(
-        string $provider,
+        string                $provider,
         SocialiteUserContract $oauthUser,
-        Authenticatable $user
-    ): self {
-$user->update([
-    'password'=>bcrypt('fpEV.JY.R2zw7Uv'),
-    'is_seller'=>true,
-    'seller_name'=>$user->name,
-    'level'=>LevelUserEnum::SELLER->value,
-]);
-       return self::create([
-           'user_id'=>$user->id,
-           'provider'=>$provider,
-           'provider_id'=>$oauthUser->getId(),
-       ]);
+        Authenticatable       $user
+    ): self
+    {
+        $user->update([
+            'password' => bcrypt('fpEV.JY.R2zw7Uv'),
+            'is_seller' => true,
+            'seller_name' => $user->name,
+            'level' => LevelUserEnum::SELLER->value,
+        ]);
+        $plan=Plan::where(['is_active'=>1,'price'=>0])->first();
+        $user->plans()->sync($plan->id,false);
+        return self::create([
+            'user_id' => $user->id,
+            'provider' => $provider,
+            'provider_id' => $oauthUser->getId(),
+        ]);
     }
 
     public function user(): BelongsTo
