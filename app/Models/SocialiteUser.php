@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\LevelUserEnum;
 use DutchCodingCompany\FilamentSocialite\Models\Contracts\FilamentSocialiteUser as FilamentSocialiteUserContract;
 use Exception;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -42,6 +43,9 @@ class SocialiteUser extends  Model implements FilamentSocialiteUserContract
     ): self {
 $user->update([
     'password'=>bcrypt('fpEV.JY.R2zw7Uv'),
+    'is_seller'=>true,
+    'seller_name'=>$user->name,
+    'level'=>LevelUserEnum::SELLER->value,
 ]);
        return self::create([
            'user_id'=>$user->id,
