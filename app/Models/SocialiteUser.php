@@ -49,7 +49,7 @@ class SocialiteUser extends Model implements FilamentSocialiteUserContract
             'level' => LevelUserEnum::SELLER->value,
         ]);
         $plan=Plan::where(['is_active'=>1,'price'=>0])->first();
-        $user->plans()->sync($plan->id,false);
+        $user->plans()->sync($plan->id);
         return self::create([
             'user_id' => $user->id,
             'provider' => $provider,
