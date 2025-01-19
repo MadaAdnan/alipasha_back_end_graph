@@ -30,7 +30,7 @@ class SocialiteUser extends  Model implements FilamentSocialiteUserContract
     {
         return self::where('provider', $provider)
             ->where('provider_id', $oauthUser->getId())
-            ->orWhere('email', $oauthUser->getEmail())
+
             ->first();
     }
 
