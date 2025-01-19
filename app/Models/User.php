@@ -22,11 +22,15 @@ use Laravel\Socialite\Contracts\User as SocialiteUserContract;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\Permission\Traits\HasRoles;
 
+
 class User extends Authenticatable implements HasMedia, MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable, MediaTrait, HasRoles;
 
-
+    public function getUser(): \Illuminate\Contracts\Auth\Authenticatable
+    {
+        return auth()->user();
+    }
     /**
      * The attributes that are mass assignable.
      *
