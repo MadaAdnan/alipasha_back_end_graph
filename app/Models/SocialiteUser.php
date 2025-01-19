@@ -6,6 +6,7 @@ use DutchCodingCompany\FilamentSocialite\Models\Contracts\FilamentSocialiteUser 
 use Exception;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Laravel\Socialite\Contracts\User as SocialiteUserContract;
 
 class SocialiteUser extends  Model implements FilamentSocialiteUserContract
@@ -13,7 +14,7 @@ class SocialiteUser extends  Model implements FilamentSocialiteUserContract
     protected $guarded=[];
     public function getUser(): Authenticatable
     {
-        $user = auth()->user(); // Assuming $this->user is your relationship to the user model
+        $user = $this->user; // Assuming $this->user is your relationship to the user model
 
         if (!$user) {
             // Handle the case where the user is not found
@@ -47,5 +48,10 @@ $user->update([
            'provider'=>$provider,
            'provider_id'=>$oauthUser->getId(),
        ]);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }
