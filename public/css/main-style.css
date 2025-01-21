@@ -24,3 +24,11 @@ input[type='text']:focus,input[type='email']:focus,input[type='date']:focus,inpu
     left: 12px;
     top:12px;
 }
+.products-count{
+    width: 30px;
+
+    height: 30px;
+    overflow: hidden;
+    text-align: center;
+    text-overflow: ellipsis;
+}

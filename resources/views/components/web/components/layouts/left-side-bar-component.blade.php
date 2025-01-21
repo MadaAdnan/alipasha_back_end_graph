@@ -8,19 +8,24 @@
         <ul class="nav flex-column px-3">
             @isset($list)
                 @foreach($list as $key=>$value)
-                    <li class="nav-item my-1 card ">
-                        <div class="d-flex justify-content-start py-1 px-1 align-items-center">
+                    <li class="nav-item my-1 py-2 card ">
+                        @if(is_array($value))
+                            <a class="nav-link active" aria-current="page" href="{{$value['url']}}">
+                        @else
+                                    <a class="nav-link active" aria-current="page" href="{{$value}}">
+                            @endif
+                        <div class="d-flex justify-content-start py-1 px-5 align-items-center">
                             @if(is_array($value))
-                                <span class="badge text-bg-danger rounded-circle  ">{{$value['count']}}</span>
-                                <a class="nav-link active" aria-current="page" href="{{$value['url']}}">{{$key}}</a>
+                                <span class="badge text-bg-danger rounded-circle mx-5 products-count d-flex justify-content-center align-items-center  ">{{$value['count']}}</span>
+                              <span>{{$key}}</span>
 
                             @else
-                                <a class="nav-link active" aria-current="page" href="{{$value}}">{{$key}}</a>
+                                <span>{{$key}}</span>
                                 @endif
 
 
                         </div>
-
+                                    </a>
                     </li>
                 @endforeach
             @endisset
