@@ -76,7 +76,10 @@ class ShowInvoice extends ListRecords
                                     $userId=$record->user_id;
                                 }
                                 $user=User::find($userId);
-                                $community=Community::where('type',CommunityTypeEnum::CHAT->value)->whereHas('users',fn($query)=>$query->whereIn('users.id',[auth()->id(),$userId]))->first();
+                                $community=Community::where('type',CommunityTypeEnum::CHAT->value)
+                                    ->whereHas('users',fn($query)=>$query->where('users.id',auth()->id()))
+                                    ->whereHas('users',fn($query)=>$query->where('users.id',$userId))
+                                    ->first();
                                 if($community==null){
                                     $community= Community::create([
                                         'name'=>auth()->user()->name.' - '.$user->name,

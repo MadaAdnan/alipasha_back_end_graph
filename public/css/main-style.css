@@ -1,0 +1,19 @@
+:root{
+    --primary-color:#E30613;
+    --primary-color-transparent: rgba(227, 6, 19, 0.5)
+}
+input[type='text']:focus,input[type='email']:focus,input[type='date']:focus,input[type='url']:focus,input[type='search']:focus{
+    border: var(--primary-color) !important; ;
+    box-shadow: 0 0 0 .25rem var(--primary-color-transparent) !important;
+}
+.search-input{
+    border-radius: 20px;
+}
+.search-input::placeholder{
+    color: #D4D4D4;
+}
+
+.btn-search{
+    left: 12px;
+    top:12px;
+}
