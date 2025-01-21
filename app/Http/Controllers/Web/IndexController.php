@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
@@ -12,7 +13,13 @@ class IndexController extends Controller
      */
     public function index()
     {
-        return view('web.index');
+        $categories = Category::where('is_main', true)->productOnly()->orderBy('sortable')->get()->mapWithKeys(fn($category) => [
+            $category->name => [
+                'url' => url('categories/' . $category->id),
+                'count' => $category->products_count
+            ]
+        ]);
+        return view('web.index', compact('categories'));
     }
 
     /**
