@@ -21,7 +21,7 @@ class MessageObServe
         try {
             $community = $message->community;
             $created_at = $community?->messages()->where('messages.id', '<', $message->id)->latest()->first()?->created_at;
-            $lastMessage = now()->subMinutes()->greaterThanOrEqualTo($created_at);
+            $lastMessage = now()->subMinutes()->equalTo($created_at);
 
 
             if ($lastMessage) {

@@ -22,13 +22,7 @@ use Mockery\Exception;
     'verify' => true,
     'login' => false,
 ]);*/
-Route::get('/', function () {
-
-
-
-
-    return view('welcome');
-});
+Route::resource('/',\App\Http\Controllers\Web\IndexController::class)->only('index');
 
 
 Route::get('/.well-known/assetlinks.json', function () {
