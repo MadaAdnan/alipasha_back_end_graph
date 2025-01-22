@@ -14,10 +14,7 @@ class CityObServe
         if($city->is_main==true){
 
             $city->update(['city_id'=>$city->id]);
-            $old=$city->getOriginal('is_delivery');
-            if($old!=$city->is_delivery){
-                $city->children()->update(['is_delivery'=>$city->is_delivery]);
-            }
+
         }
 
     }
@@ -27,7 +24,10 @@ class CityObServe
      */
     public function updated(City $city): void
     {
-        //
+        $old=$city->getOriginal('is_delivery');
+        if($old!=$city->is_delivery){
+            $city->children()->update(['is_delivery'=>$city->is_delivery]);
+        }
     }
 
     /**
