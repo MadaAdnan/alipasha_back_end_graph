@@ -51,7 +51,7 @@ class CityResource extends Resource
                 Tables\Columns\TextColumn::make('is_active')->formatStateUsing(fn($state)=>IsActiveEnum::tryFrom($state)?->getLabel())->icon(fn($state)=>IsActiveEnum::tryFrom($state)?->getIcon())->color(fn($state)=>IsActiveEnum::tryFrom($state)?->getColor())->label('الحالة'),
             ])->reorderable('sortable')
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('city_id')->options(City::where('is_main',true)->pluck('name','id'))->label('المدينة')
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
