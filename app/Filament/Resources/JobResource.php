@@ -116,7 +116,7 @@ class JobResource extends Resource implements HasShieldPermissions
         return $form
             ->schema([
                 Forms\Components\Section::make('الوظائف والشواغر')->schema([
-                    Forms\Components\Select::make('user_id')->options(User::seller()->pluck('users.seller_name', 'users.id'))->label('المتجر')->live()->afterStateUpdated(fn($set, $state) => $set('city_id', User::find($state)?->city_id)),
+                    Forms\Components\Select::make('user_id')->options(User::seller()->pluck('users.name', 'users.id'))->label('المتجر')->live()->afterStateUpdated(fn($set, $state) => $set('city_id', User::find($state)?->city_id)),
                     Forms\Components\Select::make('city_id')->options(City::pluck('name', 'id'))->searchable()->label('المدينة'),
                     Forms\Components\TextInput::make('name')->label('اسم الوظيفة'),
                     Forms\Components\Textarea::make('info')->label('وصف الوظيفة'),
