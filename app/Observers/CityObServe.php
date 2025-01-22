@@ -26,7 +26,7 @@ class CityObServe
     {
         if($city->is_main){
             $old=$city->getOriginal('is_delivery');
-            dd($old);
+
             if($old!=$city->is_delivery){
                 $city->children()->update(['is_delivery'=>$city->is_delivery]);
             }
