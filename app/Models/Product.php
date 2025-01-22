@@ -165,4 +165,6 @@ class Product extends Model implements HasMedia
     {
         return $this->hasMany(Like::class);
     }
+
+
 }

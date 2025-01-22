@@ -32,3 +32,13 @@ input[type='text']:focus,input[type='email']:focus,input[type='date']:focus,inpu
     text-align: center;
     text-overflow: ellipsis;
 }
+.image-rounded,.image-rounded>img{
+    max-width: 75px;
+    max-height: 75px;
+    border-radius: 50%;
+}
+
+.post-img-home,.post-img-home>img{
+    width: 100%;
+    aspect-ratio: 1/1;
+}

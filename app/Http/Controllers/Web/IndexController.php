@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
@@ -19,7 +20,8 @@ class IndexController extends Controller
                 'count' => $category->products_count
             ]
         ]);
-        return view('web.index', compact('categories'));
+        $products=Product::product()->paginate();
+        return view('web.index', compact('categories','products'));
     }
 
     /**

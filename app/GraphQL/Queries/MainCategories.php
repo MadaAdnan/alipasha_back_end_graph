@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Queries;
 
+use App\Enums\CategoryTypeEnum;
 use App\Models\Category;
 
 final class MainCategories
@@ -20,7 +21,7 @@ final class MainCategories
             } else {
                 $query->where('type', $type);
             }
-        })->when($type === 'product',fn($query)=>$query->where('type','product')->orWhere('type','restaurant'))
+        })->when($type === 'product',fn($query)=>$query->where('type','product')->orWhere('type',CategoryTypeEnum::RESTAURANT->value))
             ->where(['is_active' => true, 'is_main' => true/*,'type' => 'product'*/])
             ->orderByRaw("FIELD(type, 'product', 'job', 'search_job','tender','service','news')")
             ->orderBy('sortable')->orderBy('id')

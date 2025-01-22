@@ -66,4 +66,16 @@ trait MediaTrait
         }
         return collect($files);
     }
+
+    public function getImageForce()
+    {
+        if ($this->hasMedia('image')) {
+            return $this->getFirstMediaUrl('image', 'webp');
+        } elseif ($this->hasMedia('images')) {
+            return $this->getFirstMediaUrl('images', 'webp');
+        } else {
+            return asset('images/noImage.jpeg');
+        }
+
+    }
 }
