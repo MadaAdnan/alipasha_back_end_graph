@@ -252,7 +252,7 @@
                                     <div class="price"
                                          style="width: 60px; height: 24px; padding: 5px; border-radius: 4px; color: #fff; background-color: #e60613; display: flex; align-items: center; justify-content: center; border: 5px;">
                                         @if($product->is_discount)
-                                            <del class="text-muted">{{$product->price}}</del>
+                                            <del class="text-secondary">{{$product->price}}</del>
                                             {{$product->discount}}
 
                                             @else
