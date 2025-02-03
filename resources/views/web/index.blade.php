@@ -320,15 +320,15 @@
                         </div>
                     </div>
                 @endforeach
-
+                <div class="col-12 col-xl-6">
+                    <div class="d-flex justify-content-between">
+                        <a class="btn btn-sm btn-secondary" href="{{$products->nextPageUrl()}}">التالي</a>
+                        <a class="btn btn-sm btn-secondary" href="{{$products->previousPageUrl()}}">السابق</a>
+                    </div>
+                </div>
 
             </div>
-            <div class="col-12 col-xl-6">
-               <div class="d-flex justify-content-between">
-                   <a class="btn btn-sm btn-secondary" href="{{$products->nextPageUrl()}}">التالي</a>
-                   <a class="btn btn-sm btn-secondary" href="{{$products->previousPageUrl()}}">السابق</a>
-               </div>
-            </div>
+
 
             <div
                 class="floating-left-sidebar-icon d-xl-none"
