@@ -250,9 +250,9 @@
                                 <div style="display: flex; gap: 8px;">
 
                                     <div class="price"
-                                         style="width: 60px; height: 24px; padding: 5px; border-radius: 4px; color: #fff; background-color: #e60613; display: flex; align-items: center; justify-content: center; border: 5px;">
+                                         style=" height: 24px; padding: 5px; border-radius: 4px; color: #fff; background-color: #e60613; display: flex; align-items: center; justify-content: center; border: 5px;">
                                         @if($product->is_discount)
-                                            <del class="text-secondary small">{{$product->price}}</del>
+                                            <del class="text-danger">{{$product->price}}</del>
                                             {{$product->discount}}
 
                                             @else
