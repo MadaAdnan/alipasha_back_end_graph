@@ -345,26 +345,14 @@
                     <div class="categories">
                         <p class="category-text">التصنيفات</p>
                         <div class="divider"></div>
-                        <div class="category-item">
-                            <p>مركبات</p>
-                            <div class="count">5</div>
-                        </div>
-                        <div class="category-item">
-                            <p>معدات صناعية</p>
-                            <div class="count">12</div>
-                        </div>
-                        <div class="category-item">
-                            <p>أدوات المطبخ</p>
-                            <div class="count">5</div>
-                        </div>
-                        <div class="category-item">
-                            <p>أدوات كهربائية</p>
-                            <div class="count">1</div>
-                        </div>
-                        <div class="category-item">
-                            <p>معدات تصوير</p>
-                            <div class="count">7</div>
-                        </div>
+                        @foreach($categories as $category)
+                            <div class="category-item">
+                                <p>{{$category->name}}</p>
+                                <div class="count">{{$category->products_count}}</div>
+                            </div>
+                        @endforeach
+
+
                     </div>
                 </div>
             </div>

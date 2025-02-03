@@ -33,8 +33,9 @@ class IndexController extends Controller
                 ->orWhere('type',CategoryTypeEnum::TENDER->value)
             );
         })->latest()->paginate(35);
-
-        return view('web.index', compact('specialSeller','products'));
+$categories=Category::where('is_active',true)
+    ->where(fn($query)=>$query->where('type',CategoryTypeEnum::PRODUCT->value)->orWhere('type',CategoryTypeEnum::RESTAURANT->value))->orderBy('sortable')->get();
+        return view('web.index', compact('specialSeller','products','categories'));
     }
 
     /**
