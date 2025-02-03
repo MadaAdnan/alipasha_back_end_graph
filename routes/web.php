@@ -23,6 +23,7 @@ use Mockery\Exception;
     'login' => false,
 ]);*/
 Route::resource('/',\App\Http\Controllers\Web\IndexController::class)->only('index');
+Route::resource('/search',\App\Http\Controllers\Web\SearchController::class)->only('index');
 
 
 Route::get('/.well-known/assetlinks.json', function () {

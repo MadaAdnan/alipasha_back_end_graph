@@ -22,3 +22,17 @@ function addCart(product,productImg,userImg){
 
     console.log(productData)
 }
+function deleteFromCart(productId){
+    let items = JSON.parse(localStorage.getItem("carts")) || [];
+    let itemIndex = items.findIndex(item => item.productId === productId);
+    if (itemIndex !== -1) {
+        items.splice(itemIndex, 1); // حذف العنصر من المصفوفة
+        localStorage.setItem("carts", JSON.stringify(items)); // تحديث localStorage
+    }
+
+}
+
+function getCountItemsInCart(){
+    let items = JSON.parse(localStorage.getItem("carts")) || [];
+    return items.length
+}

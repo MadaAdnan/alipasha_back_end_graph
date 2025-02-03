@@ -36,8 +36,8 @@
         </a>
 
         <!-- Search Bar for Large Screens -->
-        <a href="./pages/search.html">
-            <form
+        <a href="{{route('search.index')}}">
+            <form method="get"
                 class="d-none d-md-flex align-items-center"
                 style="
               background-color: #f0f2f5;
@@ -45,14 +45,17 @@
               border-radius: 40px;
               padding: 5px 10px;
             "
+                  action="{{route('search.index')}}"
             >
                 <i class="bi bi-search" style="margin-right: 8px; color: #aaa"></i>
                 <input
                     class="search-nav form-control border-0 shadow-none"
                     type="search"
+                    readonly="readonly"
                     placeholder="ابحث في هذا المتجر"
                     aria-label="Search"
                     style="background-color: transparent; box-shadow: none"
+                    name="q"
                 />
                 <img src="{{asset('assets/search-nav.svg')}}" alt="" />
             </form>
