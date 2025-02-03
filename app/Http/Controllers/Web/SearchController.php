@@ -42,7 +42,7 @@ class SearchController extends Controller
             ->latest()
         ->paginate();
         $cities=City::where('is_active',true)->orderBy('city_id')->get();
-        $categories=Category::where('active')->get();
+        $categories=Category::where('is_active')->get();
         return view('web.search',compact('products','cities','categories'));
     }
 
