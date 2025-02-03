@@ -1,6 +1,6 @@
 
 function addCart(product,productImg,userImg){
-    console.log(user.typeof)
+
     var productData=JSON.parse(product);
     let items = JSON.parse(localStorage.getItem("carts")) || [];
     let itemIndex = items.findIndex(item => item.productId === newProductId);
