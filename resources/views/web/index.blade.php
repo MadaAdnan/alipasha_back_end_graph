@@ -323,6 +323,9 @@
 
 
             </div>
+            <div class="col-12 col-xl-6">
+                {{$products->links()}}
+            </div>
 
             <div
                 class="floating-left-sidebar-icon d-xl-none"
