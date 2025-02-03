@@ -229,7 +229,7 @@
                       object-fit: cover;
                       margin: 5px 0px 0px 0px;
                     "
-                                            src="{{$product->getImage()}}"
+                                            src="{{$product->getImage('images')}}"
                                             alt="post-img"
                                         />
                                     </a>
