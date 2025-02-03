@@ -40,7 +40,7 @@ trait MediaTrait
      * */
     public function getImage($collection = 'image', $conversation = 'webp'): string
     {
-        if($this instanceof  Product && ($this->type!=CategoryTypeEnum::PRODUCT->value && $this->type!=CategoryTypeEnum::RESTAURANT->value)){
+        if($this instanceof  Product && ($this->type!=CategoryTypeEnum::PRODUCT->value && $this->type!=CategoryTypeEnum::RESTAURANT->value && $this->type!=CategoryTypeEnum::NEWS->value)){
             return $this->user?->getFirstMediaUrl('image', $conversation);
         }
         return $this->getFirstMediaUrl($collection, $conversation);
