@@ -324,7 +324,10 @@
 
             </div>
             <div class="col-12 col-xl-6">
-                {{$products->links()}}
+               <div class="d-flex justify-content-between">
+                   <a class="btn btn-sm btn-secondary" href="{{$products->nextPageUrl()}}">التالي</a>
+                   <a class="btn btn-sm btn-secondary" href="{{$products->previousPageUrl()}}">السابق</a>
+               </div>
             </div>
 
             <div
