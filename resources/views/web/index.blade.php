@@ -203,7 +203,7 @@
                                         @endif
                                     </div>
                                     <a href="./pages/profile.html">
-                                        <img width="46" height="46" src="{{$product->user?->getImage()}}" alt=""/>
+                                        <img width="46" height="46" class="rounded-circle" src="{{$product->user?->getImage()}}" alt=""/>
                                     </a>
                                 </div>
                             </div>
