@@ -196,7 +196,7 @@
 
                                             {{$product->user?->seller_name}}</p>
                                         @if($product->type!=\App\Enums\CategoryTypeEnum::NEWS->value)
-                                            <p class="sub-title" style="text-align: right">
+                                            <p class="d-block sub-title" style="text-align: right">
                                                 {{$product->city?->name}} - {{$product->category?->name}}
                                                 - {{$product->sub1?->name}}
                                             </p>
@@ -209,7 +209,7 @@
                             </div>
 
                             <div class="post-content " style="margin: 20px 0px 0px 0px">
-                                <a class="d-block" href="./pages/post-info.html">
+                                <a  href="./pages/post-info.html">
                                     <p class="title" style="text-align: right">
                                         {{$product->expert}}
                                     </p>
@@ -222,7 +222,7 @@
                     overflow: hidden;
                   "
                                 >
-                                    <a class="d-block" href="./pages/post-info.html">
+                                    <a href="./pages/post-info.html">
                                         <img
                                             style="
                       width: 100%;
