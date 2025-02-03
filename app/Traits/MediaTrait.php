@@ -43,7 +43,12 @@ trait MediaTrait
         if($this instanceof  Product && ($this->type!=CategoryTypeEnum::PRODUCT->value && $this->type!=CategoryTypeEnum::RESTAURANT->value && $this->type!=CategoryTypeEnum::NEWS->value)){
             return $this->user?->getFirstMediaUrl('image', $conversation);
         }
-        return $this->getFirstMediaUrl($collection, $conversation);
+        if($this->hasMedia($collection)){
+            return $this->getFirstMediaUrl($collection, $conversation);
+        }else{
+            return asset('images/noImage.jpeg');
+        }
+
     }
 
     /**
