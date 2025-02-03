@@ -208,7 +208,7 @@
                                 </div>
                             </div>
 
-                            <div class="post-content" style="margin: 20px 0px 0px 0px">
+                            <div class="post-content d-block" style="margin: 20px 0px 0px 0px">
                                 <a href="./pages/post-info.html">
                                     <p class="title" style="text-align: right">
                                         {{$product->expert}}
