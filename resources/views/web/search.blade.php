@@ -148,24 +148,19 @@
                     </form>
 
                     <div style="background-color: #fff; padding: 16px; border-radius: 16px; margin: 20px 0px; display: flex; flex-wrap: wrap;gap: 16px;">
-                        <div class="card" style="width: 18rem; text-align: right;">
-                            <img src="../assets/stor-avatar.svg" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">الاسم هنا</h5>
-                                <p class="card-text">الوصف هنا</p>
-                                <p class="card-text">الموقع هنا</p>
-                                <a href="./store.html" class="btn btn-primary"> زيارة </a>
+                        @foreach($products as $product)
+                            <div class="card" style="width: 18rem; text-align: right;">
+                                <img src="{{$product->getImage('images')}}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{$product->name}}</h5>
+                                    <p class="card-text">{{$product->expert}}</p>
+                                    <p class="card-text">{{$product->city?->name}} - {{$product->category?->name}} - {{$product->sub1?->name}}</p>
+                                    <a href="./store.html" class="btn btn-primary"> زيارة </a>
+                                </div>
                             </div>
-                        </div>
-                        <div class="card" style="width: 18rem; text-align: right;">
-                            <img src="../assets/stor-avatar.svg" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">الاسم هنا</h5>
-                                <p class="card-text">الوصف هنا</p>
-                                <p class="card-text">الموقع هنا</p>
-                                <a href="./store.html" class="btn btn-primary"> زيارة </a>
-                            </div>
-                        </div>
+                        @endforeach
+
+
                     </div>
 
                 </div>
