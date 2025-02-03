@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Enums\CategoryTypeEnum;
+use App\Enums\LevelUserEnum;
+use App\Enums\ProductActiveEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
@@ -14,14 +18,23 @@ class IndexController extends Controller
      */
     public function index()
     {
-        $categories = Category::where('is_main', true)->productOnly()->orderBy('sortable')->get()->mapWithKeys(fn($category) => [
-            $category->name => [
-                'url' => url('categories/' . $category->id),
-                'count' => $category->products_count
-            ]
-        ]);
-        $products=Product::product()->paginate();
-        return view('web.index', compact('categories','products'));
+        $specialSeller=User::where([
+            'level'=>LevelUserEnum::SELLER->value,
+            'is_special' => true,
+            'is_active' => true,
+            ])->get();
+       $products= Product::where(function($query){
+            $query->where('active',ProductActiveEnum::ACTIVE->value);
+            $query->where(fn($query)=>
+            $query->where('type',CategoryTypeEnum::PRODUCT->value)
+                ->orWhere('type',CategoryTypeEnum::JOB->value)
+                ->orWhere('type',CategoryTypeEnum::SEARCH_JOB->value)
+                ->orWhere('type',CategoryTypeEnum::NEWS->value)
+                ->orWhere('type',CategoryTypeEnum::TENDER->value)
+            );
+        })->latest()->paginate(35);
+
+        return view('web.index', compact('specialSeller','products'));
     }
 
     /**
