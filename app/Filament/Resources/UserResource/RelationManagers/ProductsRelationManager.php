@@ -197,6 +197,7 @@ Tables\Actions\Action::make('import')->form([
 
     public static function import( $file)
     {
-        Excel::import(new UsersImporter, $file->getRealPath());
+        $filePath=realpath($file);
+        Excel::import(new UsersImporter, $filePath);
     }
 }

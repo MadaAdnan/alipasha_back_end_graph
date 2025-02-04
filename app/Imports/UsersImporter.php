@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Models\Product;
 use App\Models\User;
 use Maatwebsite\Excel\Concerns\ToModel;
 
@@ -14,8 +15,9 @@ class UsersImporter implements ToModel
     */
     public function model(array $row)
     {
-        return new User([
-            //
-        ]);
+      $product=Product::find($row[0]);
+      if($product){
+          dd($product);
+      }
     }
 }
