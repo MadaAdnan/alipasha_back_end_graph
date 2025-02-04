@@ -18,6 +18,8 @@ use Filament\Notifications\Notification;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportAction;
+use pxlrbt\FilamentExcel\Exports\ExcelExport;
 
 
 class ProductsRelationManager extends RelationManager
@@ -139,6 +141,10 @@ class ProductsRelationManager extends RelationManager
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make(),
+                ExportAction::make()->exports([
+                    ExcelExport::make()->fromTable()->withChunkSize(200)->askForFilename()
+                        ->withFilename(fn ($filename) => 'ali-pasha-products' . $filename),
+                ])
                 /* Tables\Actions\EditAction::make()->mutateFormDataUsing(function ($data) {
                     $data['expert'] = \Str::words(strip_tags(html_entity_decode($data['info'])), 15);
                     return $data;
