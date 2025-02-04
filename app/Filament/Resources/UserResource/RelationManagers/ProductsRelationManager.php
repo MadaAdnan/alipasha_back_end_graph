@@ -155,7 +155,7 @@ class ProductsRelationManager extends RelationManager
 Tables\Actions\Action::make('import')->form([
     Forms\Components\FileUpload::make('file')->label('رفع ملف')
 ])->action(function($data){
-    dd($data['file']->getRealPath());
+    dd($data['file']);
     static::import($data['file']);
 })
                 /* Tables\Actions\EditAction::make()->mutateFormDataUsing(function ($data) {
@@ -198,7 +198,7 @@ Tables\Actions\Action::make('import')->form([
 
     public static function import( $file)
     {
-        $filePath=realpath($file);
+        $filePath=base_path($file);
         Excel::import(new ProductsImporter, $filePath);
     }
 }
