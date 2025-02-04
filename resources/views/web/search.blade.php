@@ -159,9 +159,9 @@
                                     <a href="./store.html" class="btn btn-primary"> زيارة </a>
                                 </div>
                             </div>
-                            @else
+                            @empty
                                 <p class="text-muted">لا يوجد عناصر لعرضها</p>
-                        @endforeach
+                                @endforelse
 
 
                     </div>
