@@ -56,6 +56,7 @@
                                 <div class="mb-3">
                                     <input
                                         name="q"
+                                        value="{{request()->get('q')}}"
                                         style="text-align: right; font-size: 12px;"
                                         class="form-control"
                                         id="descriptionInput"
