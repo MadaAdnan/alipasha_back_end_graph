@@ -36,7 +36,7 @@
         </a>
 
         <!-- Search Bar for Large Screens -->
-        <a href="{{route('search.index')}}">
+
             <form method="get"
                 class="d-none d-md-flex align-items-center"
                 style="
@@ -51,7 +51,7 @@
                 <input
                     class="search-nav form-control border-0 shadow-none"
                     type="search"
-                    readonly="readonly"
+
                     placeholder="ابحث في هذا المتجر"
                     aria-label="Search"
                     style="background-color: transparent; box-shadow: none"
@@ -59,7 +59,7 @@
                 />
                 <img src="{{asset('assets/search-nav.svg')}}" alt="" />
             </form>
-        </a>
+
 
         <!-- Center Section: Links and Search -->
         <div class="collapse navbar-collapse" id="navbarNav">
