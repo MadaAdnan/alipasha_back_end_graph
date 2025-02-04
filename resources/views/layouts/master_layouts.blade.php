@@ -47,7 +47,7 @@
             "
                   action="{{route('search.index')}}"
             >
-                <i class="bi bi-search" style="margin-right: 8px; color: #aaa"></i>
+                <button type="submit" class="bg-transparent border-none outline-none"> <i class="bi bi-search" style="margin-right: 8px; color: #aaa"></i></button>
                 <input
                     class="search-nav form-control border-0 shadow-none"
                     type="search"
@@ -57,7 +57,7 @@
                     style="background-color: transparent; box-shadow: none"
                     name="q"
                 />
-                <img src="{{asset('assets/search-nav.svg')}}" alt="" />
+
             </form>
 
 
