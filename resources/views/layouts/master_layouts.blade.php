@@ -1056,7 +1056,7 @@ required=""
                     </li>
                 </ul>
                 <a
-                    href="https://wa.me/{{$settings->support_phone}}"
+                    href="https://wa.me/{{$settings->support_phone}}?text=طلب توثيق الحساب"
                     target="_blank"
                     class="btn btn-success d-inline-flex align-items-center"
                 >
