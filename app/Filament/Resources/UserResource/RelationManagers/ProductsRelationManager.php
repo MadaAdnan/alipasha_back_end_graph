@@ -196,9 +196,10 @@ Tables\Actions\Action::make('import')->form([
             ]);
     }
 
-    public static function import( $file)
+    public static function import(TemporaryUploadedFile  $file)
     {
-        $filePath=base_path($file);
+        dd($file);
+        $filePath= ($file);
         Excel::import(new ProductsImporter, $filePath);
     }
 }
