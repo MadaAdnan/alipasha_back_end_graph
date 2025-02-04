@@ -22,6 +22,7 @@ use Filament\Notifications\Notification;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportAction;
 use pxlrbt\FilamentExcel\Exports\ExcelExport;
 
@@ -154,7 +155,7 @@ class ProductsRelationManager extends RelationManager
 Tables\Actions\Action::make('import')->form([
     Forms\Components\FileUpload::make('file')->label('رفع ملف')
 ])->action(function($data){
-    Excel::import(new UsersImporter, $data['file']);
+    static::import($data['file']);
 })
                 /* Tables\Actions\EditAction::make()->mutateFormDataUsing(function ($data) {
                     $data['expert'] = \Str::words(strip_tags(html_entity_decode($data['info'])), 15);
@@ -192,5 +193,10 @@ Tables\Actions\Action::make('import')->form([
                     }),
                 ]),
             ]);
+    }
+
+    public static function import(TemporaryUploadedFile $file)
+    {
+        Excel::import(new UsersImporter, $file->getRealPath());
     }
 }
