@@ -278,7 +278,7 @@
                     gap: 4px;
                   "
                             >
-                                <p class="sub-title">0.0</p>
+                                <p class="sub-title">{{auth()->user()->getTotalPoint()}}</p>
                                 <p class="title">رصيد الننقاط</p>
                             </div>
                             <div
@@ -294,10 +294,10 @@
                     gap: 4px;
                   "
                             >
-                                <p class="sub-title">0.0</p>
+                                <p class="sub-title">{{auth()->user()->advices->count()}}</p>
                                 <p class="title">عدد الإعلانات</p>
                             </div>
-                            <div
+                            {{--<div
                                 class="col-6 col-lg-4"
                                 style="
                     border: 1px solid #ccc;
@@ -312,7 +312,7 @@
                             >
                                 <p class="sub-title">0.0</p>
                                 <p class="title">الشريط الإعلاني</p>
-                            </div>
+                            </div>--}}
                             <div
                                 class="col-6 col-lg-4"
                                 style="
@@ -326,7 +326,7 @@
                     gap: 4px;
                   "
                             >
-                                <p class="sub-title">0.0</p>
+                                <p class="sub-title">{{auth()->user()->total_views()}}</p>
                                 <p class="title">المشاهدات</p>
                             </div>
                             <div
@@ -342,10 +342,10 @@
                     gap: 4px;
                   "
                             >
-                                <p class="sub-title">0.0</p>
+                                <p class="sub-title">{{auth()->user()->getTotalBalance()}}</p>
                                 <p class="title">الرصيد الحالي</p>
                             </div>
-                            <div
+                           {{-- <div
                                 class="col-6 col-lg-4"
                                 style="
                     border: 1px solid #ccc;
@@ -360,7 +360,7 @@
                             >
                                 <p class="sub-title">0.0</p>
                                 <p class="title">مسحوبات الارباح</p>
-                            </div>
+                            </div>--}}
                         </div>
                     </ul>
                 </div>

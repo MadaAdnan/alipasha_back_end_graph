@@ -194,4 +194,9 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         ]);
     }
 
+    public function advices(): HasMany
+    {
+        return $this->hasMany(Advice::class);
+    }
+
 }
