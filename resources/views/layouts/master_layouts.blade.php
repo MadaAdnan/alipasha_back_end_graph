@@ -51,7 +51,7 @@
                 <input
                     class="search-nav form-control border-0 shadow-none"
                     type="search"
-
+required=""
                     placeholder="ابحث في هذا المتجر"
                     aria-label="Search"
                     style="background-color: transparent; box-shadow: none"
