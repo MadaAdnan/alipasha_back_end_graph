@@ -128,6 +128,7 @@ class ProductsRelationManager extends RelationManager
                 Tables\Columns\ToggleColumn::make('is_delivery')->label('قابل للتوصيل')->searchable(),
                 Tables\Columns\TextColumn::make('category.name')->label('اسم القسم')->description(fn($record) => $record->sub1?->name),
                 Tables\Columns\TextColumn::make('name')->label('اسم المنتج')->description(fn($record) => $record->expert)->searchable(),
+                Tables\Columns\TextColumn::make('price')->label('سعر المنتج'),
                 Tables\Columns\TextColumn::make('city.name')->label('المدينة'),
                 Tables\Columns\TextColumn::make('user.name')->label('المتجر')->url(fn($record) => UserResource::getUrl('edit', ['record' => $record->user_id]))->searchable(),
                 Tables\Columns\TextColumn::make('views_count')->label('عدد المشاهدات'),

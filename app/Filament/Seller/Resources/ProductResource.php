@@ -24,6 +24,8 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportAction;
+use pxlrbt\FilamentExcel\Exports\ExcelExport;
 
 class ProductResource extends Resource
 {
@@ -235,7 +237,10 @@ class ProductResource extends Resource
                 })
             ])
             ->headerActions([
-
+                ExportAction::make()->exports([
+                    ExcelExport::make()->fromTable()->withChunkSize(200)->askForFilename()
+                        ->withFilename(fn ($filename) => 'ali-pasha-products' . $filename),
+                ])
             ])
             ->actions([
                 Tables\Actions\EditAction::make()->mutateFormDataUsing(function ($data) {
