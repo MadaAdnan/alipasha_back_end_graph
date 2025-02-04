@@ -105,7 +105,7 @@
                                     <img src="{{$seller->getFirstMediaUrl('custom','webp')}}" alt="Story 2"/>
                                 </a>
                                 <div class="info">
-                                    <p>name here</p>
+                                    <p>{{$seller->seller_name}}</p>
                                     <a href="./pages/profile.html">
                                         <img src="{{$seller->getFirstMediaUrl('image','webp')}}" alt="avatar"/>
                                     </a>
