@@ -153,10 +153,14 @@ class ProductsRelationManager extends RelationManager
                         ->withFilename(fn ($filename) => 'ali-pasha-products' . $filename),
                 ]),
 Tables\Actions\Action::make('import')->form([
-    Forms\Components\FileUpload::make('file')->label('رفع ملف')
+    Forms\Components\FileUpload::make('file')->label('رفع ملف')->storeFiles()
 ])->action(function($data){
 
-    static::import($data['file']);
+    if ($data['file'] instanceof TemporaryUploadedFile) {
+        static::import($data['file']);
+    } else {
+        throw new \Exception("الملف غير صحيح، تأكد من رفعه بشكل صحيح.");
+    }
 })
                 /* Tables\Actions\EditAction::make()->mutateFormDataUsing(function ($data) {
                     $data['expert'] = \Str::words(strip_tags(html_entity_decode($data['info'])), 15);
