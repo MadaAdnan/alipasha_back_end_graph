@@ -149,7 +149,7 @@
                     </form>
 
                     <div style="background-color: #fff; padding: 16px; border-radius: 16px; margin: 20px 0px; display: flex; flex-wrap: wrap;gap: 16px;">
-                        @foreach($products as $product)
+                        @forelse($products as $product)
                             <div class="card" style="width: 18rem; text-align: right;">
                                 <img src="{{$product->getImage('images')}}" class="card-img-top" alt="...">
                                 <div class="card-body">
@@ -159,6 +159,8 @@
                                     <a href="./store.html" class="btn btn-primary"> زيارة </a>
                                 </div>
                             </div>
+                            @else
+                                <p class="text-muted">لا يوجد عناصر لعرضها</p>
                         @endforeach
 
 
