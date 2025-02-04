@@ -26,6 +26,10 @@ Route::resource('/',\App\Http\Controllers\Web\IndexController::class)->only('ind
 Route::resource('/search',\App\Http\Controllers\Web\SearchController::class)->only('index');
 
 
+Route::middleware('auth:web')->group(function (){
+    Route::resource('/profile',\App\Http\Controllers\Web\ProfileController::class);
+});
+
 Route::get('/.well-known/assetlinks.json', function () {
     return json_decode('[{
   "relation": ["delegate_permission/common.handle_all_urls"],

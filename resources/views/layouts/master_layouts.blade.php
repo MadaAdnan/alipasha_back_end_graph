@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ALI BASHA</title>
+    <title>{{$settings->name}}</title>
     <link rel="icon" type="image/png" href="./assets/logo.svg">
     <!-- Bootstrap CSS -->
     <link
@@ -169,7 +169,7 @@ required=""
             >
             </span>
           </span>
-            <a href="./pages/profile.html">
+            <a href="{{route('profile.index')}}">
                 <img src="{{asset('assets/avatar.svg')}}" alt="" />
             </a>
             <!-- Toggler for Mobile View -->
@@ -1056,7 +1056,7 @@ required=""
                     </li>
                 </ul>
                 <a
-                    href="https://wa.me/1234567890"
+                    href="https://wa.me/{{$settings->support_phone}}"
                     target="_blank"
                     class="btn btn-success d-inline-flex align-items-center"
                 >
