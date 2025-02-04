@@ -8,7 +8,7 @@ use App\Filament\Imports\ProductImporter;
 use App\Filament\Resources\ProductResource;
 use App\Filament\Resources\UserResource;
 use App\Helpers\HelperMedia;
-use App\Imports\UsersImporter;
+use App\Imports\ProductsImporter;
 use App\Models\Attribute;
 use App\Models\Category;
 use App\Models\City;
@@ -155,6 +155,7 @@ class ProductsRelationManager extends RelationManager
 Tables\Actions\Action::make('import')->form([
     Forms\Components\FileUpload::make('file')->label('رفع ملف')
 ])->action(function($data){
+    dd($data['file']);
     static::import($data['file']);
 })
                 /* Tables\Actions\EditAction::make()->mutateFormDataUsing(function ($data) {
@@ -198,6 +199,6 @@ Tables\Actions\Action::make('import')->form([
     public static function import( $file)
     {
         $filePath=realpath($file);
-        Excel::import(new UsersImporter, $filePath);
+        Excel::import(new ProductsImporter, $filePath);
     }
 }

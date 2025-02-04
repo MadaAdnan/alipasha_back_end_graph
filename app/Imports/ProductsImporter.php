@@ -6,7 +6,7 @@ use App\Models\Product;
 use App\Models\User;
 use Maatwebsite\Excel\Concerns\ToModel;
 
-class UsersImporter implements ToModel
+class ProductsImporter implements ToModel
 {
     /**
     * @param array $row
