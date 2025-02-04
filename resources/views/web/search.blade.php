@@ -160,7 +160,7 @@
                                 </div>
                             </div>
                             @empty
-                                <p class="text-muted text-right">لا يوجد عناصر لعرضها</p>
+                                <p class="text-muted text-start">لا يوجد عناصر لعرضها</p>
                                 @endforelse
 
 
