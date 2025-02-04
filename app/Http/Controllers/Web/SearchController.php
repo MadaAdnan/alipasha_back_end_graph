@@ -23,6 +23,7 @@ class SearchController extends Controller
         $category=\request()->get('category');
         $department=\request()->get('department');
         $price=\request()->get('price');
+
         $products=Product::where('active',ProductActiveEnum::ACTIVE->value)
             ->when(!empty($type),function($query)use($type){
                 if($type==CategoryTypeEnum::SEARCH_JOB->value || $type==CategoryTypeEnum::JOB->value ){
@@ -42,7 +43,8 @@ class SearchController extends Controller
             ->latest()
         ->paginate();
         $cities=City::where('is_active',true)->orderBy('city_id')->get();
-        $categories=Category::where('is_active')->get();
+        $categories=Category::where('is_active',true)
+            ->where(fn($query)=>$query->where('type',CategoryTypeEnum::PRODUCT->value)->orWhere('type',CategoryTypeEnum::RESTAURANT->value))->orderBy('sortable')->get();
         return view('web.search',compact('products','cities','categories'));
     }
 
