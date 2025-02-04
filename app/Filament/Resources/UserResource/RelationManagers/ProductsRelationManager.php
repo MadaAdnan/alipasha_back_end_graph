@@ -155,7 +155,7 @@ class ProductsRelationManager extends RelationManager
 Tables\Actions\Action::make('import')->form([
     Forms\Components\FileUpload::make('file')->label('رفع ملف')->storeFiles()
 ])->action(function($data){
-
+dd(get_class($data['file']));
     if ($data['file'] instanceof TemporaryUploadedFile) {
         static::import($data['file']);
     } else {
