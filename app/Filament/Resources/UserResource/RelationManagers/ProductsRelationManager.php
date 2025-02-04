@@ -4,14 +4,18 @@ namespace App\Filament\Resources\UserResource\RelationManagers;
 
 use App\Enums\LevelProductEnum;
 use App\Enums\ProductActiveEnum;
+use App\Filament\Imports\ProductImporter;
 use App\Filament\Resources\ProductResource;
 use App\Filament\Resources\UserResource;
 use App\Helpers\HelperMedia;
+use App\Imports\UsersImporter;
 use App\Models\Attribute;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Product;
 use App\Models\User;
+use Excel;
+use Filament\Actions\ImportAction;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
@@ -122,6 +126,7 @@ class ProductsRelationManager extends RelationManager
             ->recordTitleAttribute('name')
             ->columns([
 
+                Tables\Columns\TextColumn::make('id')->label('#'),
                 Tables\Columns\SpatieMediaLibraryImageColumn::make('image')->collection('image')->label('الصورة')->size(50),
                 Tables\Columns\TextColumn::make('id')->label('رقم المنتج')->searchable()->url(fn($record)=>ProductResource::getUrl('edit',['record'=>$record->id]))->openUrlInNewTab(true),
                 Tables\Columns\TextInputColumn::make('weight')->label('وزن المنتج')->searchable(),
@@ -145,7 +150,12 @@ class ProductsRelationManager extends RelationManager
                 ExportAction::make()->exports([
                     ExcelExport::make()->fromTable()->withChunkSize(200)->askForFilename()
                         ->withFilename(fn ($filename) => 'ali-pasha-products' . $filename),
-                ])
+                ]),
+Tables\Actions\Action::make('import')->form([
+    Forms\Components\FileUpload::make('file')->label('رفع ملف')
+])->action(function($data){
+    Excel::import(new UsersImporter, $data['file']);
+})
                 /* Tables\Actions\EditAction::make()->mutateFormDataUsing(function ($data) {
                     $data['expert'] = \Str::words(strip_tags(html_entity_decode($data['info'])), 15);
                     return $data;
