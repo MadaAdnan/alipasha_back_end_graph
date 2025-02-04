@@ -195,7 +195,7 @@ Tables\Actions\Action::make('import')->form([
             ]);
     }
 
-    public static function import(TemporaryUploadedFile $file)
+    public static function import( $file)
     {
         Excel::import(new UsersImporter, $file->getRealPath());
     }
