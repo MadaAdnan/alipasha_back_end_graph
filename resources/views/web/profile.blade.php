@@ -326,7 +326,7 @@
                     gap: 4px;
                   "
                             >
-                                <p class="sub-title">{{auth()->user()->total_views()}}</p>
+                                <p class="sub-title">{{auth()->user()->total_views}}</p>
                                 <p class="title">المشاهدات</p>
                             </div>
                             <div
