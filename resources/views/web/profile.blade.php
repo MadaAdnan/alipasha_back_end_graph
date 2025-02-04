@@ -120,18 +120,8 @@
                         >
                             الإحصائيات
                         </button>
-                        <form action="">
-                            <input type="hidden" name="follow" value="123">
-                            <button type="submit" class="btn" style="
-                color:#000000;
-                background-color: #e4e6eb;
-                font-size: 12px;
-                padding: 8px;
-                border-radius: 4px;
-              "> متابعة
-                            </button>
-                        </form>
-                        <!-- <button
+
+                         <button
                           style="
                             color: #000000;
                             background-color: #e4e6eb;
@@ -152,7 +142,7 @@
                           "
                         >
                           المنتجات
-                        </button> -->
+                        </button>
                     </div>
                 </div>
             </div>
@@ -297,7 +287,7 @@
                                 <p class="sub-title">{{auth()->user()->advices->count()}}</p>
                                 <p class="title">عدد الإعلانات</p>
                             </div>
-                            {{--<div
+                            <div
                                 class="col-6 col-lg-4"
                                 style="
                     border: 1px solid #ccc;
@@ -310,9 +300,9 @@
                     gap: 4px;
                   "
                             >
-                                <p class="sub-title">0.0</p>
-                                <p class="title">الشريط الإعلاني</p>
-                            </div>--}}
+                                <p class="sub-title">{{auth()->user()->followers_count}}</p>
+                                <p class="title">عدد المتابعين</p>
+                            </div>
                             <div
                                 class="col-6 col-lg-4"
                                 style="

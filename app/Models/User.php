@@ -74,6 +74,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         'unreadNotifications',
         'invoicesSeller',
         'invoices',
+        'followers'
 
     ];
 
