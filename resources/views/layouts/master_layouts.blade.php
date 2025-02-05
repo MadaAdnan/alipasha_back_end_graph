@@ -27,7 +27,7 @@
 <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-white d-px-3">
     <div class="container-fluid">
         <!-- Left Section: Icon/Brand -->
-        <a class="navbar-brand" href="./index.html">
+        <a class="navbar-brand" href="{{route('index')}}">
             <img
                 src="{{asset('assets/logo.svg')}}"
                 alt="Logo"
@@ -68,7 +68,7 @@ required=""
                     <a
                         class="nav-link active"
                         aria-current="page"
-                        href="./index.html"
+                        href="{{route('index')}}"
                     >
                         <div style="display: flex; gap: 8px; align-items: center;">
                             <img src="{{asset('assets/home.svg')}}" alt="" />
