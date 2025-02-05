@@ -33,7 +33,7 @@ $category=\request()->get('category');
 
             ->when(!empty($city),fn($query)=>$query->whereHas('city',fn($query)=>$query->where('cities.city_id',$city)))
             ->when(!empty($town),fn($query)=>$query->where('city_id',$town))
-            ->when(!empty($category),fn($query)=>$query->where('category_id',$category))
+            ->when(!empty($category),fn($query)=>$query->where('sub1_id',$category))
 
             ->latest()->paginate(35);
 

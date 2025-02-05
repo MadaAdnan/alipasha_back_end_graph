@@ -271,7 +271,7 @@
                         @foreach($categories as $category)
                             <div class="category-item">
                                 <p><a href="{{route('services.index',['category'=>$category->id])}}">{{$category->name}}</a></p>
-                                <div class="count">5</div>
+                                <div class="count">{{$category->products2_count}}</div>
                             </div>
                         @endforeach
 
