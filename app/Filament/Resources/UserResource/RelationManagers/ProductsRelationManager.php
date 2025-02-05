@@ -153,9 +153,9 @@ class ProductsRelationManager extends RelationManager
                         ->withFilename(fn ($filename) => 'ali-pasha-products' . $filename),
                 ]),
 Tables\Actions\Action::make('import')->form([
-    Forms\Components\FileUpload::make('file')->label('رفع ملف')->storeFiles()
+    Forms\Components\FileUpload::make('file')->label('رفع ملف')->storeFiles()->disk('public')->storeFileName('file','file')
 ])->action(function($data){
-dd(get_class($data),$data);
+
     if ($data['file'] instanceof TemporaryUploadedFile) {
         static::import($data['file']);
     } else {
