@@ -94,7 +94,7 @@
                         </div>
                         <div>
                             <p class="sub-title">المزودين بالمعلومات</p>
-                            <p class="title">5,423</p>
+                            <p class="title">{{$sellers}}</p>
                         </div>
                     </div>
                     <div class="statistic-item">
@@ -103,7 +103,7 @@
                         </div>
                         <div>
                             <p class="sub-title">عدد المشاهدات</p>
-                            <p class="title">1,893</p>
+                            <p class="title">{{$views}}</p>
                         </div>
                     </div>
                     <div class="statistic-item">
@@ -112,7 +112,7 @@
                         </div>
                         <div>
                             <p class="sub-title">الخدمات المنشورة</p>
-                            <p class="title">189</p>
+                            <p class="title">{{$services_count}}</p>
                         </div>
                     </div>
                 </div>
