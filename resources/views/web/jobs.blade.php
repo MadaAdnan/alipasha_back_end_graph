@@ -155,7 +155,7 @@
                             @foreach($jobs as $job)
                                 <tr>
                                     <td>
-                                        <a href="./job-item.html">
+                                        <a href="{{route('jobs.show',$job->id)}}">
                                             <button
                                                 class="btn"
                                                 style="background: #00b087; color: #fff"
@@ -263,5 +263,171 @@
 
         </div>
     </div>
+    <!-- job modal -->
+    <div
+        class="modal fade"
+        id="addPostModal"
+        tabindex="-1"
+        aria-labelledby="formModalLabel"
+        aria-hidden="true"
+        dir="ltr"
+    >
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="formModalLabel">إضافة وظيفة</h5>
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                    ></button>
+                </div>
+                <div class="modal-body">
+                    <form id="modalForm">
 
+
+                        <div style="width: 100% ;display: flex; justify-content: center; align-items: center; gap: 8px;" class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    شاغر وظيفي
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                    أبحث عن وظيفة
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <p
+                                for="descriptionInput"
+                                class="form-label"
+                                style="text-align: right; font-size: 12px;"
+                            >
+                                الوصف
+                            </p>
+                            <textarea
+                                name="description"
+                                style="text-align: right; font-size: 12px;"
+                                class="form-control"
+                                id="descriptionInput"
+                                rows="3"
+                                placeholder="الوصف"
+                                required
+                            ></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <p
+                                for="descriptionInput"
+                                class="form-label"
+                                style="text-align: right; font-size: 12px;"
+                            >
+                                البريد الإلكتروني
+                            </p>
+                            <input
+                                name="email"
+                                style="text-align: right; font-size: 12px;"
+                                class="form-control"
+                                id="descriptionInput"
+                                placeholder="البريد الإلكتروني"
+                                required
+                            ></input>
+                        </div>
+
+                        <div class="mb-3">
+                            <p
+                                for="descriptionInput"
+                                class="form-label"
+                                style="text-align: right; font-size: 12px;"
+
+                            >
+                                رقم الهاتف
+                            </p>
+                            <input
+                                name="number"
+                                style="text-align: right; font-size: 12px;"
+                                class="form-control"
+                                id="descriptionInput"
+                                placeholder="رقم الهاتف"
+                                type="number"
+                                required
+                            ></input>
+                        </div>
+
+                        <div class="mb-3">
+                            <p
+                                for="descriptionInput"
+                                class="form-label"
+                                style="text-align: right; font-size: 12px;"
+                            >
+                                القسم الرئيسي
+                            </p>
+                            <select
+                                name="main-section"
+                                class="form-select"
+                                aria-label="Default select example"
+                                style="text-align: right; font-size: 12px;"
+                            >
+                                <option value="1" selected>القسم الرئيسي</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <p
+                                for="descriptionInput"
+                                class="form-label"
+                                style="text-align: right; font-size: 12px;"
+                            >
+                                القسم الفرعي
+                            </p>
+                            <select
+                                name="sub-section"
+                                class="form-select"
+                                aria-label="Default select example"
+                                style="text-align: right; font-size: 12px;"
+                            >
+                                <option value="1" selected>وظائف عمل الانتاج</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <p
+                                for="fileInput"
+                                class="form-label"
+                                style="text-align: right; font-size: 12px;"
+                            >
+                                إضافة مرفقات
+                            </p>
+                            <input
+                                type="file"
+                                class="form-control"
+                                id="fileInput"
+                                accept="image/*"
+                                multiple
+                                required
+                            />
+                        </div>
+
+                        <div class="modal-footer">
+                            <button
+                                type="button"
+                                class="btn btn-secondary"
+                                data-bs-dismiss="modal"
+                            >
+                                اغلاق
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                إضافة
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

@@ -51,7 +51,8 @@ class JobController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $job=Product::job()->findOrFail($id);
+        return view('web.job-item',compact('job'));
     }
 
     /**

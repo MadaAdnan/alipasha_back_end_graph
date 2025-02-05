@@ -155,7 +155,7 @@
                             @foreach($tenders as $tender)
                                 <tr>
                                     <td>
-                                        <a href="./job-item.html">
+                                        <a href="{{route('tenders.show',$tender->id)}}">
                                             <button
                                                 class="btn"
                                                 style="background: #00b087; color: #fff"
@@ -261,6 +261,233 @@
 
 
 
+        </div>
+    </div>
+
+    <div
+        class="modal fade"
+        id="addPorsaModal"
+        tabindex="-1"
+        aria-labelledby="formModalLabel"
+        aria-hidden="true"
+        dir="ltr"
+    >
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="formModalLabel">إضافة مناقصة</h5>
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                    ></button>
+                </div>
+                <div class="modal-body">
+                    <form id="modalForm">
+
+                        <div class="mb-3">
+                            <p
+                                for="descriptionInput"
+                                class="form-label"
+                                style="text-align: right; font-size: 12px;"
+                            >
+                                الوصف
+                            </p>
+                            <textarea
+                                name="description"
+                                style="text-align: right; font-size: 12px;"
+                                class="form-control"
+                                id="descriptionInput"
+                                rows="3"
+                                placeholder="الوصف"
+                                required
+                            ></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <p
+                                for="descriptionInput"
+                                class="form-label"
+                                style="text-align: right; font-size: 12px;"
+                            >
+                                بداية التقديم
+                            </p>
+                            <input
+                                name="deatile"
+                                style="text-align: right; font-size: 12px;"
+                                class="form-control"
+                                id="descriptionInput"
+                                placeholder="بداية التقديم"
+                                type="date"
+                                required
+                            ></input>
+                        </div>
+
+                        <div class="mb-3">
+                            <p
+                                for="descriptionInput"
+                                class="form-label"
+                                style="text-align: right; font-size: 12px;"
+                            >
+                                نهاية التقديم
+                            </p>
+                            <input
+                                name="deatile"
+                                style="text-align: right; font-size: 12px;"
+                                class="form-control"
+                                id="descriptionInput"
+                                placeholder="نهاية التقديم"
+                                type="date"
+                                required
+                            ></input>
+                        </div>
+
+                        <div class="mb-3">
+                            <p
+                                for="fileInput"
+                                class="form-label"
+                                style="text-align: right; font-size: 12px;"
+                            >
+                                إضافة مرفقات
+                            </p>
+                            <input
+                                type="file"
+                                class="form-control"
+                                id="fileInput"
+                                accept="image/*"
+                                multiple
+                                required
+                            />
+                        </div>
+
+                        <div class="mb-3">
+                            <p
+                                for="descriptionInput"
+                                class="form-label"
+                                style="text-align: right; font-size: 12px;"
+                            >
+                                البريد الإلكتروني
+                            </p>
+                            <input
+                                name="email"
+                                style="text-align: right; font-size: 12px;"
+                                class="form-control"
+                                id="descriptionInput"
+                                placeholder="البريد الإلكتروني"
+                                required
+                            ></input>
+                        </div>
+
+                        <div class="mb-3">
+                            <p
+                                for="descriptionInput"
+                                class="form-label"
+                                style="text-align: right; font-size: 12px;"
+
+                            >
+                                رقم الهاتف
+                            </p>
+                            <input
+                                name="nmber"
+                                style="text-align: right; font-size: 12px;"
+                                class="form-control"
+                                id="descriptionInput"
+                                placeholder="رقم الهاتف"
+                                type="number"
+                                required
+                            ></input>
+                        </div>
+
+                        <div class="mb-3">
+                            <p
+                                for="descriptionInput"
+                                class="form-label"
+                                style="text-align: right; font-size: 12px;"
+                            >
+                                رابط التقديم
+                            </p>
+                            <input
+                                name="service_url"
+                                style="text-align: right; font-size: 12px;"
+                                class="form-control"
+                                id="descriptionInput"
+                                placeholder="رابط التقديم"
+                                required
+                            ></input>
+                        </div>
+
+                        <div class="mb-3">
+                            <p
+                                for="descriptionInput"
+                                class="form-label"
+                                style="text-align: right; font-size: 12px;"
+                            >
+                                كود المناقصة
+                            </p>
+                            <input
+                                name="service_url"
+                                style="text-align: right; font-size: 12px;"
+                                class="form-control"
+                                id="descriptionInput"
+                                placeholder="كود المناقصة"
+                                required
+                            ></input>
+                        </div>
+
+                        <div class="mb-3">
+                            <p
+                                for="descriptionInput"
+                                class="form-label"
+                                style="text-align: right; font-size: 12px;"
+                            >
+                                القسم الرئيسي
+                            </p>
+                            <select
+                                name="main-section"
+                                class="form-select"
+                                aria-label="Default select example"
+                                style="text-align: right; font-size: 12px;"
+                            >
+                                <option value="1" selected>القسم الرئيسي</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <p
+                                for="descriptionInput"
+                                class="form-label"
+                                style="text-align: right; font-size: 12px;"
+                            >
+                                القسم الفرعي
+                            </p>
+                            <select
+                                name="sub-section"
+                                class="form-select"
+                                aria-label="Default select example"
+                                style="text-align: right; font-size: 12px;"
+                            >
+                                <option value="1" selected>وظائف عمل الانتاج</option>
+                            </select>
+                        </div>
+
+
+
+                        <div class="modal-footer">
+                            <button
+                                type="button"
+                                class="btn btn-secondary"
+                                data-bs-dismiss="modal"
+                            >
+                                اغلاق
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                إضافة
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 

@@ -51,7 +51,8 @@ class TenderController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $tender=Product::tender()->findOrFail($id);
+        return view('web.tender-item',compact('tender'));
     }
 
     /**
