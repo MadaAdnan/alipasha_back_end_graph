@@ -24,6 +24,8 @@ use Mockery\Exception;
 ]);*/
 Route::resource('/',\App\Http\Controllers\Web\IndexController::class)->only('index');
 Route::resource('/search',\App\Http\Controllers\Web\SearchController::class)->only('index');
+Route::resource('/jobs',\App\Http\Controllers\Web\JobController::class)->only('index');
+Route::resource('/tenders',\App\Http\Controllers\Web\TenderController::class)->only('index');
 
 
 Route::middleware('auth:web')->group(function (){

@@ -88,7 +88,7 @@ required=""
 
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./pages/jobs.html">
+                    <a class="nav-link" href="{{route('jobs.index')}}">
                         <div style="display: flex; gap: 8px; align-items: center;">
                             <img src="{{asset('assets/jobs.svg')}}" alt=""
                             />
@@ -97,7 +97,7 @@ required=""
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./pages/porsa.html">
+                    <a class="nav-link" href="{{route('tenders.index')}}">
                         <div style="display: flex; gap: 8px; align-items: center;">
                             <img src="{{asset('assets/porsa.svg')}}" alt=""
                             />
