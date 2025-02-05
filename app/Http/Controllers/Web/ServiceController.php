@@ -30,11 +30,9 @@ $category=\request()->get('category');
         $categories=Category::whereHas('parents',fn($query)=>$query->where('type',CategoryTypeEnum::SERVICE->value))->whereHas('products2')->get();
         $services=Product::service() ->where('active',ProductActiveEnum::ACTIVE->value)
             ->when(!empty($q),fn($query)=>$query->where('info','like',"%{$q}%"))
-
             ->when(!empty($city),fn($query)=>$query->whereHas('city',fn($query)=>$query->where('cities.city_id',$city)))
             ->when(!empty($town),fn($query)=>$query->where('city_id',$town))
             ->when(!empty($category),fn($query)=>$query->where('sub1_id',$category))
-
             ->latest()->paginate(35);
 
         return view('web.services',compact('cities','services','services_count','views','sellers','categories'));
