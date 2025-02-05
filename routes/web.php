@@ -26,6 +26,7 @@ Route::resource('/',\App\Http\Controllers\Web\IndexController::class)->only('ind
 Route::resource('/search',\App\Http\Controllers\Web\SearchController::class)->only('index');
 Route::resource('/jobs',\App\Http\Controllers\Web\JobController::class)->only('index','show');
 Route::resource('/tenders',\App\Http\Controllers\Web\TenderController::class)->only('index','show');
+Route::resource('/services',\App\Http\Controllers\Web\ServiceController::class)->only('index','show');
 
 
 Route::middleware('auth:web')->group(function (){

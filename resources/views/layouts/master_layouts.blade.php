@@ -77,7 +77,7 @@ required=""
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./pages/services.html">
+                    <a class="nav-link" href="{{route('services.index')}}">
                         <div style="display: flex; gap: 8px; align-items: center;">
                             <img src="{{asset('assets/services.svg')}}" alt=""
                             />
