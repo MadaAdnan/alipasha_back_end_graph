@@ -87,18 +87,18 @@
 
             <div class="col-12 col-xl-9" style="margin-top: 10px">
                 <div class="containter" style="background-color: #fff; padding: 16px; border-radius: 16px;">
-                    <h1  class="title mb-4" style="text-align: right;"> خدمة : خدمة توصيل </h1>
+                    <h1  class="title mb-4" style="text-align: right;"> خدمة : {{$service->category?->name}} </h1>
                     <div class="card mb-3" style="width: 100%;">
                         <div class="row g-0">
                             <div class="col-md-8">
                                 <div class="card-body" dir="rtl">
-                                    <h5 class="card-title">اسم الخدمة</h5>
-                                    <p class="card-text">وصف عن الخدمة هنا</p>
-                                    <p class="card-text">تصنيف الخدمة هنا</p>
-                                    <p class="card-text" > <i class="bi bi-telephone" style="font-size: 14px; color: red;"></i>  +963 997741497</p>
-                                    <p class="card-text"> <i class="bi bi-geo-alt" style="font-size: 14px; color: red;"></i>  مدينة ادلب - سرمدا    </p>
-                                    <p class="card-text"> <i class="bi bi-geo-alt" style="font-size: 14px; color: red;"></i> شارع عبادة جانب ماكولات الحمداني مقابل جاعم النور </p>
-                                    <p class="card-text"><small class="text-muted">منذ 3 ساعات</small></p>
+                                    <h5 class="card-title">{{$service->name}}</h5>
+                                    <p class="card-text">{!! $service->info !!}</p>
+                                    <p class="card-text">{{$service->category?->name}}</p>
+                                    <p class="card-text" > <i class="bi bi-telephone" style="font-size: 14px; color: red;"></i> {{$service->phone}}</p>
+                                    <p class="card-text"> <i class="bi bi-geo-alt" style="font-size: 14px; color: red;"></i>  {{$service->city?->name}}    </p>
+                                    <p class="card-text"> <i class="bi bi-geo-alt" style="font-size: 14px; color: red;"></i> {{$service->address}} </p>
+                                    <p class="card-text"><small class="text-muted">{{$service->created_at?->diffForHumans()}}</small></p>
                                     <form action="">
                                         <input type="hidden" name="free" value="123">
                                         <button type="submit" class="btn" style="width: 100%; background-color: #e30613; color: #fff; margin: 20px 0px;">إبلاغ عن الخدمة</button>
@@ -106,7 +106,7 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <img src="../assets/post-img.svg" class="img-fluid rounded-start" alt="...">
+                                <img src="{{$service->getImage()}}" class="img-fluid rounded-start" alt="...">
                             </div>
                         </div>
                     </div>
@@ -129,26 +129,13 @@
                     <div class="categories">
                         <p class="category-text">التصنيفات</p>
                         <div class="divider"></div>
+                        @foreach($categories as $category)
                         <div class="category-item">
-                            <p>مركز تدريب</p>
-                            <div class="count">5</div>
+                            <p><a href="{{route('services.index',['category'=>$category->id])}}">{{$category->name}}</a></p>
+                            <div class="count">{{$category->products2_count}}</div>
                         </div>
-                        <div class="category-item">
-                            <p>مشافي</p>
-                            <div class="count">12</div>
-                        </div>
-                        <div class="category-item">
-                            <p>أفران</p>
-                            <div class="count">5</div>
-                        </div>
-                        <div class="category-item">
-                            <p>دور رعاية المسنين</p>
-                            <div class="count">1</div>
-                        </div>
-                        <div class="category-item">
-                            <p>مدارس</p>
-                            <div class="count">7</div>
-                        </div>
+                        @endforeach
+
                     </div>
                 </div>
             </div>

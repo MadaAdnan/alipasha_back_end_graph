@@ -60,8 +60,8 @@ class ServiceController extends Controller
     public function show(string $id)
     {
         $service=Product::service()->findOrFail($id);
-
-        return view('web.service-item',compact('service'));
+        $categories = Category::whereHas('parents', fn($query) => $query->where('type', CategoryTypeEnum::SERVICE->value))->whereHas('products2')->get();
+        return view('web.service-item',compact('service','categories'));
     }
 
     /**
