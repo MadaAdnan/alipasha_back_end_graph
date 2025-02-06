@@ -165,7 +165,7 @@
                                         </a>
                                     </td>
                                     <td>{{$tender->city?->name}}</td>
-                                    <td>{{$tender->start_date->format('Y-m-d')}}</td>
+                                    <td>{{$tender->start_date?->format('Y-m-d')}}</td>
                                     <td>الوظائف الإدارية</td>
                                     <td>
                                         <button
