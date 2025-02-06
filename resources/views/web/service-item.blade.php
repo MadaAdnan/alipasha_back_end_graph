@@ -93,16 +93,20 @@
                             <div class="col-md-8">
                                 <div class="card-body" dir="rtl">
                                     <h5 class="card-title">{{$service->name}}</h5>
+                                    
                                     <p class="card-text">{!! $service->info !!}</p>
+                                    @if($service->url)
+                                        <a href="{{$service->url}}" class="btn btn-sm"></a>
+                                        @endif
                                     <p class="card-text">{{$service->category?->name}}</p>
                                     <p class="card-text" > <i class="bi bi-telephone" style="font-size: 14px; color: red;"></i> {{$service->phone}}</p>
                                     <p class="card-text"> <i class="bi bi-geo-alt" style="font-size: 14px; color: red;"></i>  {{$service->city?->name}}    </p>
                                     <p class="card-text"> <i class="bi bi-geo-alt" style="font-size: 14px; color: red;"></i> {{$service->address}} </p>
                                     <p class="card-text"><small class="text-muted">{{$service->created_at?->diffForHumans()}}</small></p>
-                                    <form action="">
+                                   {{-- <form action="">
                                         <input type="hidden" name="free" value="123">
                                         <button type="submit" class="btn" style="width: 100%; background-color: #e30613; color: #fff; margin: 20px 0px;">إبلاغ عن الخدمة</button>
-                                    </form>
+                                    </form>--}}
                                 </div>
                             </div>
                             <div class="col-md-4">
