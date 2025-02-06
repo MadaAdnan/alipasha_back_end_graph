@@ -59,7 +59,9 @@ class ServiceController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $service=Product::service()->findOrFail($id);
+
+        return view('web.service-item',compact('service'));
     }
 
     /**
