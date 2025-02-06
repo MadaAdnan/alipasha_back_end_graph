@@ -106,7 +106,7 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <img src="{{$service->getImage()}}" class="img-fluid rounded-start" alt="...">
+                                <img src="{{$service->getImage()}}" class="w-100 img-fluid rounded-start" alt="...">
                             </div>
                         </div>
                     </div>
