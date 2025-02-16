@@ -195,7 +195,7 @@ class UserResource extends Resource
                     false: fn($query) => $query->where('is_seller', 0),
                     blank: fn($query) => $query,
                 )->label('نوع المستخدم'),*/
-                Tables\Filters\Filter::make()->form([
+                Tables\Filters\Filter::make('filter')->form([
                     Forms\Components\Select::make('is_seller')->options([
                         1=>'متجر',
                         0=>'مستخدم',
