@@ -107,24 +107,24 @@ class MaterialResource extends Resource implements HasShieldPermissions
                   Forms\Components\Wizard::make([
                       Forms\Components\Wizard\Step::make('الأسعار في إدلب')->schema([
                           Forms\Components\Fieldset::make('اسعار الذهب')->schema([
-                              Forms\Components\TextInput::make('gold.idlib.gold24.sale')->label('سعر مبيع الذهب عيار 24'),
-                              Forms\Components\TextInput::make('gold.idlib.gold24.bay')->label('سعر شراء الذهب عيار 24'),
-                              Forms\Components\TextInput::make('gold.idlib.gold21.sale')->label('سعر مبيع الذهب عيار  21 '),
-                              Forms\Components\TextInput::make('gold.idlib.gold21.bay')->label('سعر شراء الذهب عيار 21  '),
-                              Forms\Components\TextInput::make('gold.idlib.gold18.sale')->label('سعر مبيع الذهب عيار 18  '),
-                              Forms\Components\TextInput::make('gold.idlib.gold18.bay')->label('سعر شراء الذهب عيار 18  '),
-                              Forms\Components\TextInput::make('gold.idlib.sliver.bay')->label('سعر شراء الفضة  '),
-                              Forms\Components\TextInput::make('gold.idlib.sliver.sale')->label('سعر مبيع الفضة  '),
+                              Forms\Components\TextInput::make('gold.idlib.gold24.sale')->label('سعر شراء الذهب عيار 24'),
+                              Forms\Components\TextInput::make('gold.idlib.gold24.bay')->label('سعر مبيع الذهب عيار 24'),
+                              Forms\Components\TextInput::make('gold.idlib.gold21.sale')->label('سعر شراء الذهب عيار  21 '),
+                              Forms\Components\TextInput::make('gold.idlib.gold21.bay')->label('سعر مبيع الذهب عيار 21  '),
+                              Forms\Components\TextInput::make('gold.idlib.gold18.sale')->label('سعر شراء الذهب عيار 18  '),
+                              Forms\Components\TextInput::make('gold.idlib.gold18.bay')->label('سعر مبيع الذهب عيار 18  '),
+                              Forms\Components\TextInput::make('gold.idlib.sliver.bay')->label('سعر مبيع الفضة  '),
+                              Forms\Components\TextInput::make('gold.idlib.sliver.sale')->label('سعر شراء الفضة  '),
                           ]),
                           Forms\Components\Fieldset::make('سعر العملات')->schema([
-                              Forms\Components\TextInput::make('dollar.idlib.usd.sale')->label('سعر الدولار بالتركي مبيع'),
-                              Forms\Components\TextInput::make('dollar.idlib.usd.bay')->label('سعر الدولار بالتركي شراء'),
+                              Forms\Components\TextInput::make('dollar.idlib.usd.sale')->label('سعر الدولار بالتركي شراء'),
+                              Forms\Components\TextInput::make('dollar.idlib.usd.bay')->label('سعر الدولار بالتركي مبيع'),
 
-                              Forms\Components\TextInput::make('dollar.idlib.eur.sale')->label(' سعر اليورو بالدولار مبيع'),
-                              Forms\Components\TextInput::make('dollar.idlib.eur.bay')->label('سعر اليورو بالدولار شراء'),
+                              Forms\Components\TextInput::make('dollar.idlib.eur.sale')->label(' سعر اليورو بالدولار شراء'),
+                              Forms\Components\TextInput::make('dollar.idlib.eur.bay')->label('سعر اليورو بالدولار مبيع'),
 
-                              Forms\Components\TextInput::make('dollar.idlib.syr.sale')->label('سعر الدولار بالسوري مبيع'),
-                              Forms\Components\TextInput::make('dollar.idlib.syr.bay')->label('سعر الدولار بالسوري شراء'),
+                              Forms\Components\TextInput::make('dollar.idlib.syr.sale')->label('سعر الدولار بالسوري شراء'),
+                              Forms\Components\TextInput::make('dollar.idlib.syr.bay')->label('سعر الدولار بالسوري مبيع'),
                           ]),
                           /*
                            *
@@ -133,8 +133,8 @@ class MaterialResource extends Resource implements HasShieldPermissions
                           Forms\Components\Fieldset::make('أسعار المواد')->schema([
                               Forms\Components\Repeater::make('material_idlib')->schema([
                                   Forms\Components\TextInput::make('name')->label('اسم المادة'),
-                                  Forms\Components\TextInput::make('bay')->label('سعر الشراء'),
-                                  Forms\Components\TextInput::make('sale')->label('سعر المبيع'),
+                                  Forms\Components\TextInput::make('bay')->label('سعر مبيع'),
+                                  Forms\Components\TextInput::make('sale')->label('سعر شراء'),
 
                               ])->columnSpan(2),
                           ])->columnSpan(2),
@@ -142,24 +142,24 @@ class MaterialResource extends Resource implements HasShieldPermissions
                       ]),
                       Forms\Components\Wizard\Step::make('الأسعار في إعزاز')->schema([
                           Forms\Components\Fieldset::make('اسعار الذهب')->schema([
-                              Forms\Components\TextInput::make('gold.izaz.gold24.sale')->label('سعر مبيع الذهب عيار 24'),
-                              Forms\Components\TextInput::make('gold.izaz.gold24.bay')->label('سعر شراء الذهب عيار 24'),
-                              Forms\Components\TextInput::make('gold.izaz.gold21.sale')->label('سعر مبيع الذهب عيار  21 '),
-                              Forms\Components\TextInput::make('gold.izaz.gold21.bay')->label('سعر شراء الذهب عيار 21  '),
-                              Forms\Components\TextInput::make('gold.izaz.gold18.sale')->label('سعر مبيع الذهب عيار 18  '),
-                              Forms\Components\TextInput::make('gold.izaz.gold18.bay')->label('سعر شراء الذهب عيار 18  '),
-                              Forms\Components\TextInput::make('gold.izaz.sliver.bay')->label('سعر شراء الفضة  '),
-                              Forms\Components\TextInput::make('gold.izaz.sliver.sale')->label('سعر مبيع الفضة  '),
+                              Forms\Components\TextInput::make('gold.izaz.gold24.sale')->label('سعر شراء الذهب عيار 24'),
+                              Forms\Components\TextInput::make('gold.izaz.gold24.bay')->label('سعر مبيع الذهب عيار 24'),
+                              Forms\Components\TextInput::make('gold.izaz.gold21.sale')->label('سعر شراء الذهب عيار  21 '),
+                              Forms\Components\TextInput::make('gold.izaz.gold21.bay')->label('سعر مبيع الذهب عيار 21  '),
+                              Forms\Components\TextInput::make('gold.izaz.gold18.sale')->label('سعر شراء الذهب عيار 18  '),
+                              Forms\Components\TextInput::make('gold.izaz.gold18.bay')->label('سعر مبيع الذهب عيار 18  '),
+                              Forms\Components\TextInput::make('gold.izaz.sliver.bay')->label('سعر مبيع الفضة  '),
+                              Forms\Components\TextInput::make('gold.izaz.sliver.sale')->label('سعر شراء الفضة  '),
                           ]),
                           Forms\Components\Fieldset::make('سعر العملات')->schema([
-                              Forms\Components\TextInput::make('dollar.izaz.usd.sale')->label('سعر الدولار بالتركي مبيع'),
-                              Forms\Components\TextInput::make('dollar.izaz.usd.bay')->label('سعر الدولار بالتركي شراء'),
+                              Forms\Components\TextInput::make('dollar.izaz.usd.sale')->label('سعر الدولار بالتركي شراء'),
+                              Forms\Components\TextInput::make('dollar.izaz.usd.bay')->label('سعر الدولار بالتركي مبيع'),
 
-                              Forms\Components\TextInput::make('dollar.izaz.eur.sale')->label(' سعر اليورو بالدولار مبيع'),
-                              Forms\Components\TextInput::make('dollar.izaz.eur.bay')->label('سعر اليورو بالدولار شراء'),
+                              Forms\Components\TextInput::make('dollar.izaz.eur.sale')->label(' سعر اليورو بالدولار شراء'),
+                              Forms\Components\TextInput::make('dollar.izaz.eur.bay')->label('سعر اليورو بالدولار مبيع'),
 
-                              Forms\Components\TextInput::make('dollar.izaz.syr.sale')->label('سعر الدولار بالسوري مبيع'),
-                              Forms\Components\TextInput::make('dollar.izaz.syr.bay')->label('سعر الدولار بالسوري شراء'),
+                              Forms\Components\TextInput::make('dollar.izaz.syr.sale')->label('سعر الدولار بالسوري شراء'),
+                              Forms\Components\TextInput::make('dollar.izaz.syr.bay')->label('سعر الدولار بالسوري مبيع'),
                           ]),
                           /*
                            *
@@ -168,8 +168,8 @@ class MaterialResource extends Resource implements HasShieldPermissions
                           Forms\Components\Fieldset::make('أسعار المواد')->schema([
                               Forms\Components\Repeater::make('material_izaz')->schema([
                                   Forms\Components\TextInput::make('name')->label('اسم المادة'),
-                                  Forms\Components\TextInput::make('bay')->label('سعر الشراء'),
-                                  Forms\Components\TextInput::make('sale')->label('سعر المبيع'),
+                                  Forms\Components\TextInput::make('bay')->label('سعر مبيع'),
+                                  Forms\Components\TextInput::make('sale')->label('سعر شراء'),
 
                               ])->columnSpan(2),
                           ]),
