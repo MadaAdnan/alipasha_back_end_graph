@@ -196,9 +196,11 @@ class UserResource extends Resource
                     blank: fn($query) => $query,
                 )->label('نوع المستخدم'),*/
                 Tables\Filters\Filter::make('filter')->form([
-                    Forms\Components\Select::make('is_seller')->options([
-                        1=>'متجر',
-                        0=>'مستخدم',
+                    Forms\Components\Select::make('level')->options([
+                       LevelUserEnum::SELLER->value=> LevelUserEnum::SELLER->getLabel(),
+                       LevelUserEnum::USER->value=> LevelUserEnum::USER->getLabel(),
+                       LevelUserEnum::ADMIN->value=> LevelUserEnum::ADMIN->getLabel(),
+
                     ])->label('نوع المستخدم'),
                     Forms\Components\Select::make('city')->options(City::where('is_main',true)->pluck('name','id'))->label('المحافظة')->live(),
                     Forms\Components\Select::make('city_id')->options(fn($get)=>City::where('city_id',$get('city'))->pluck('name','id'))->label('المدينة')
@@ -206,8 +208,8 @@ class UserResource extends Resource
                 ])    ->query(function (Builder $query, array $data): Builder {
                     return $query
                         ->when(
-                            $data['is_seller'],
-                            fn (Builder $query, $value): Builder => $query->where('is_seller', $value),
+                            $data['level'],
+                            fn (Builder $query, $value): Builder => $query->where('level', $value),
                         )
                         ->when(
                             $data['city_id'],
