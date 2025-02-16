@@ -29,7 +29,7 @@ final class Products
 $userId=$args['user_id']??null;
 $sub1Id=$args['sub1_id']??null;
 
-        return Product::query()
+        return Product::query()->where('active',ProductActiveEnum::ACTIVE->value)
             ->when($type==null && $userId==null && $sub1Id==null, fn($query) => $query->whereNot('type', CategoryTypeEnum::NEWS->value)->whereNot('type', CategoryTypeEnum::SERVICE->value))
             ->where('active', ProductActiveEnum::ACTIVE->value)
             ->where(function ($query) {
