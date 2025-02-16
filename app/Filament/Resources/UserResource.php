@@ -190,11 +190,33 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('created_at')->date('Y-m-d')->label('تاريخ التسجيل')->toggleable(isToggledHiddenByDefault: false)->sortable(),
             ])
             ->filters([
-                Tables\Filters\TernaryFilter::make('is_seller')->falseLabel('مستخدم')->trueLabel('متجر')->queries(
+                /*Tables\Filters\TernaryFilter::make('is_seller')->falseLabel('مستخدم')->trueLabel('متجر')->queries(
                     true: fn($query) => $query->where('is_seller', 1),
                     false: fn($query) => $query->where('is_seller', 0),
                     blank: fn($query) => $query,
-                )->label('نوع المستخدم')
+                )->label('نوع المستخدم'),*/
+                Tables\Filters\Filter::make()->form([
+                    Forms\Components\Select::make('is_seller')->options([
+                        1=>'متجر',
+                        0=>'مستخدم',
+                    ])->label('نوع المستخدم'),
+                    Forms\Components\Select::make('city')->options(City::where('is_main',true)->pluck('name','id'))->label('المحافظة')->live(),
+                    Forms\Components\Select::make('city_id')->options(fn($get)=>City::where('city_id',$get('city'))->pluck('name','id'))->label('المدينة')
+
+                ])    ->query(function (Builder $query, array $data): Builder {
+                    return $query
+                        ->when(
+                            $data['is_seller'],
+                            fn (Builder $query, $value): Builder => $query->where('is_seller', $value),
+                        )
+                        ->when(
+                            $data['city_id'],
+                            fn (Builder $query, $value): Builder => $query->where('city_id', $value),
+                        ) ->when(
+                            $data['city'],
+                            fn (Builder $query, $value): Builder => $query->whereHas('city', fn($query)=>$query->where('cities.city_id',$value)),
+                        );
+                })
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
