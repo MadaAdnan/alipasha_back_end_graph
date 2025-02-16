@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Enums\CategoryTypeEnum;
+use App\Enums\CommunityTypeEnum;
 use App\Enums\LevelProductEnum;
 use App\Enums\OrderStatusEnum;
 use App\Enums\ProductActiveEnum;
@@ -12,7 +13,9 @@ use App\Helpers\HelperMedia;
 use App\Models\Attribute;
 use App\Models\Category;
 use App\Models\City;
+use App\Models\Community;
 use App\Models\Invoice;
+use App\Models\Message;
 use App\Models\Product;
 use App\Models\User;
 use Filament\Forms;
@@ -277,6 +280,41 @@ class ProductResource extends Resource
                 }),
                 Tables\Actions\DeleteAction::make(),
                 Tables\Actions\RestoreAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    /* send msg chat */
+                    Tables\Actions\Action::make('send_msg_chat')->form([
+                        Forms\Components\Textarea::make('msg')->label('الرسالة')->required(),
+                    ])
+                        ->action(function($record,$data){
+                            \DB::beginTransaction();
+                            try {
+                                $community=Community::where('type',CommunityTypeEnum::CHAT->value)->whereHas('users',fn($query)=>$query->whereIn('users.id',[auth()->id(),$record->user_id]))->first();
+                                if($community==null){
+                                    $community= Community::create([
+                                        'name'=>auth()->user()->name.' - '.$record->user?->name,
+                                        'manager_id'=>auth()->id(),
+                                        'type'=>CommunityTypeEnum::CHAT->value,
+                                        'last_update'=>now(),
+                                        'is_global'=>false,
+                                    ]);
+                                    $community->users()->sync([auth()->id(),$record->user_id]);
+                                }
+                                Message::create([
+                                    'community_id'=>$community->id,
+                                    'user_id'=>auth()->id(),
+                                    'body'=>$data['msg'],
+                                    'type'=>'text',
+                                ]);
+                                \DB::commit();
+                                Notification::make('success')->title('نجاح العملية')->body('تم إرسال الرسالة بنجاح')->success()->send();
+
+                            }catch (\Exception|\Error $e){
+                                \DB::rollBack();
+                                Notification::make('error')->title('فشل العملية')->body($e->getMessage())->danger()->send();
+
+                            }
+                        })->label('مراسلة التاجر')->icon('fas-envelope'),
+                ])
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
