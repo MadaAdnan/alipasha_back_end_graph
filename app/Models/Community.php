@@ -21,6 +21,7 @@ class Community extends Model implements HasMedia
     protected $guarded = [];
     protected $withCount = [
         'users',
+        'messages'
     ];
     protected $casts = [
         'last_update' => 'datetime',

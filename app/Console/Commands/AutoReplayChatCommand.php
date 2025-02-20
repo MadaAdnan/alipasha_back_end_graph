@@ -57,7 +57,7 @@ class AutoReplayChatCommand extends Command
          */
         foreach ($communities as $item) {
             $message = $item->messages()->latest()->first();
-            if (now()->subHours(1)->greaterThan($message->created_at)) {
+            if (now()->subHours(1)->greaterThan($message->created_at) && $item->messages_count==1) {
                 try {
                     $user = $item->users()->where('users.id', '!=', $message->user_id)->selectRaw('users.id,users.phone')->first();
                     \Log::info("SUCCESS " . $user->phone);

@@ -15,6 +15,7 @@ use Filament\Actions;
 
 use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Textarea;
+use Filament\Infolists\Components\Section;
 use Filament\Notifications\Notification;
 use Filament\Resources\Components\Tab;
 use Filament\Resources\Pages\ListRecords;
@@ -60,6 +61,7 @@ class ShowInvoice extends ListRecords
         return $table->columns([
 
             Panel::make([
+                
                 Split::make([
                     TextColumn::make('id'),
                     TextColumn::make('status')->formatStateUsing(fn($state)=>OrderStatusEnum::tryFrom($state)?->getLabel())->color(fn($state)=>OrderStatusEnum::tryFrom($state)?->getColor()),
