@@ -35,17 +35,19 @@ class SeeProductChart extends ChartWidget
         $activeFilter = $this->filter;
        $start=now()->startOfYear();
        $end=now();
+       $per="perMonth";
        if($activeFilter=='week'){
            $start=now()->subDays(7);
 
        }else if($activeFilter=='month'){
             $start=now()->startOfMonth();
-
+           $per="perDay";
         }else if($activeFilter=='year'){
            $start=now()->startOfYear();
 
        }else if($activeFilter=='today'){
            $start=now()->startOfDay();
+           $per="perHour";
 
        }
         $products =  Trend::query(ProductView::whereHas('product',fn($query)=>$query->whereIn('type', [
@@ -58,7 +60,7 @@ class SeeProductChart extends ChartWidget
                 start: $start,
                 end: $end,
             )
-            ->perMonth()
+            ->$per()
             ->sum('count');
         $tender = Trend::query(ProductView::whereHas('product',fn($query)=>$query->whereIn('type', [
             CategoryTypeEnum::TENDER->value,
@@ -70,7 +72,7 @@ class SeeProductChart extends ChartWidget
                 start: $start,
                 end: $end,
             )
-            ->perMonth()
+            ->$per()
             ->sum('count');;
         $job =Trend::query(ProductView::whereHas('product',fn($query)=>$query->whereIn('type', [
             CategoryTypeEnum::JOB->value,
@@ -82,7 +84,7 @@ class SeeProductChart extends ChartWidget
                 start: $start,
                 end: $end,
             )
-            ->perMonth()
+            ->$per()
             ->sum('count');;
         return [
             'datasets' => [
