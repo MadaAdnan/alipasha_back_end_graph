@@ -44,7 +44,7 @@ protected static ?string $label='المستخدمين';
             ->headerActions([
                 //Tables\Actions\CreateAction::make(),
                 Tables\Actions\Action::make('attach')->form([
-                    Forms\Components\Select::make('users')->options(User::select('id','name')->pluck('name','id'))->searchable()->multiple(),
+                    Forms\Components\Select::make('users')->options(User::whereNotNull('name')->select('id','name')->pluck('name','id'))->searchable()->multiple(),
                 ])->action(function($data){
                     /**
                      * @var $record Community
