@@ -53,7 +53,7 @@ class SeeProductChart extends ChartWidget
             CategoryTypeEnum::RESTAURANT->value,
         ])
             ->whereHas('views', function ($query) use ($start, $end) {
-                $query->whereBetween('product_view.created_at', [$start, $end]);
+                $query->whereBetween('product_view.view_at', [$start, $end]);
             }))
 
             ->between(
@@ -67,7 +67,7 @@ class SeeProductChart extends ChartWidget
             CategoryTypeEnum::RESTAURANT->value,
         ])
             ->whereHas('views', function ($query) use ($start, $end) {
-                $query->whereBetween('product_view.created_at', [$start, $end]);
+                $query->whereBetween('product_view.view_at', [$start, $end]);
             }))
 
             ->between(
@@ -81,7 +81,7 @@ class SeeProductChart extends ChartWidget
             CategoryTypeEnum::RESTAURANT->value,
         ])
             ->whereHas('views', function ($query) use ($start, $end) {
-                $query->whereBetween('product_view.created_at', [$start, $end]);
+                $query->whereBetween('product_view.view_at', [$start, $end]);
             }))
 
             ->between(
