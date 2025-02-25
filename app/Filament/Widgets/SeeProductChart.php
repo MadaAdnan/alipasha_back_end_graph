@@ -48,13 +48,11 @@ class SeeProductChart extends ChartWidget
            $start=now()->startOfDay();
 
        }
-        $products =  Trend::query(Product::query() ->whereIn('type', [
+        $products =  Trend::query(ProductView::whereHas('product',fn($query)=>$query->whereIn('type', [
             CategoryTypeEnum::PRODUCT->value,
             CategoryTypeEnum::RESTAURANT->value,
-        ])
-            ->whereHas('views', function ($query) use ($start, $end) {
-                $query->whereBetween('product_views.view_at', [$start, $end]);
-            }))
+        ] )
+           )->whereBetween('view_at',[$start,$end]))
 
             ->between(
                 start: $start,
@@ -62,13 +60,11 @@ class SeeProductChart extends ChartWidget
             )
             ->perMonth()
             ->sum('count');
-        $tender = Trend::query(Product::query() ->whereIn('type', [
+        $tender = Trend::query(ProductView::whereHas('product',fn($query)=>$query->whereIn('type', [
             CategoryTypeEnum::TENDER->value,
 
-        ])
-            ->whereHas('views', function ($query) use ($start, $end) {
-                $query->whereBetween('product_views.view_at', [$start, $end]);
-            }))
+        ] )
+        )->whereBetween('view_at',[$start,$end]))
 
             ->between(
                 start: $start,
@@ -76,13 +72,11 @@ class SeeProductChart extends ChartWidget
             )
             ->perMonth()
             ->sum('count');;
-        $job =Trend::query(Product::query() ->whereIn('type', [
+        $job =Trend::query(ProductView::whereHas('product',fn($query)=>$query->whereIn('type', [
             CategoryTypeEnum::JOB->value,
             CategoryTypeEnum::SEARCH_JOB->value,
-        ])
-            ->whereHas('views', function ($query) use ($start, $end) {
-                $query->whereBetween('product_views.view_at', [$start, $end]);
-            }))
+        ] )
+        )->whereBetween('view_at',[$start,$end]))
 
             ->between(
                 start: $start,
