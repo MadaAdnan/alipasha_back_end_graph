@@ -1,5 +1,5 @@
 extend type Query{
-    plans:[Plan] @orderBy(column:"type") @all
+    plans:[Plan] @orderBy(column:"sortable") @all
     plan(id:ID  @eq):Plan @find
 
 }
