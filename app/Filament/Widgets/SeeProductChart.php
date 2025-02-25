@@ -38,10 +38,10 @@ class SeeProductChart extends ChartWidget
        $per="perMonth";
        if($activeFilter=='week'){
            $start=now()->subDays(7);
-
+           $per="perDay";
        }else if($activeFilter=='month'){
             $start=now()->startOfMonth();
-           $per="perDay";
+           $per="perWeek";
         }else if($activeFilter=='year'){
            $start=now()->startOfYear();
 
