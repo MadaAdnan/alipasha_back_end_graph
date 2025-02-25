@@ -56,7 +56,10 @@ Route::get('/.well-known/assetlinks.json', function () {
 
 
 Route::get('testnot/{id?}',function($id=null){
-return User::orWhere(['is_seller'=>0,'level'=>\App\Enums\LevelUserEnum::USER->value])->whereHas('products')->get();
+$users= User::orWhere(['is_seller'=>0,'level'=>\App\Enums\LevelUserEnum::USER->value])->whereHas('products')->get();
+foreach ($users as $user){
+    echo $user->name.' '. $user->products_count;
+}
     return "success";
     $message=\App\Models\Message::create([
       'body'=>fake()->paragraph,
