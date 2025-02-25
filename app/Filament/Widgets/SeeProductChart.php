@@ -48,33 +48,45 @@ class SeeProductChart extends ChartWidget
            $start=now()->startOfDay();
 
        }
-        $products = Trend::query(ProductView::query()->join('products', 'product_view.product_id', '=', 'products.id') ->whereIn('products.type', [
+        $products =  Trend::query(Product::query() ->whereIn('type', [
             CategoryTypeEnum::PRODUCT->value,
             CategoryTypeEnum::RESTAURANT->value,
-        ]))
-            ->between(
-                start: $start,
-                end: $end
-            )
-            ->perMonth()
-            ->count();
-        $tender =  Trend::query(ProductView::query()->join('products', 'product_view.product_id', '=', 'products.id') ->whereIn('products.type', [
-            CategoryTypeEnum::TENDER->value,
+        ])
+            ->whereHas('views', function ($query) use ($start, $end) {
+                $query->whereBetween('product_view.created_at', [$start, $end]);
+            }))
 
-        ]))
             ->between(
                 start: $start,
-                end: $end
+                end: $end,
             )
             ->perMonth()
             ->count();
-        $job = Trend::query(ProductView::query()->join('products', 'product_view.product_id', '=', 'products.id') ->whereIn('products.type', [
-            CategoryTypeEnum::JOB->value,
-            CategoryTypeEnum::SEARCH_JOB->value,
-        ]))
+        $tender = Trend::query(Product::query() ->whereIn('type', [
+            CategoryTypeEnum::PRODUCT->value,
+            CategoryTypeEnum::RESTAURANT->value,
+        ])
+            ->whereHas('views', function ($query) use ($start, $end) {
+                $query->whereBetween('product_view.created_at', [$start, $end]);
+            }))
+
             ->between(
                 start: $start,
-                end: $end
+                end: $end,
+            )
+            ->perMonth()
+            ->count();
+        $job =Trend::query(Product::query() ->whereIn('type', [
+            CategoryTypeEnum::PRODUCT->value,
+            CategoryTypeEnum::RESTAURANT->value,
+        ])
+            ->whereHas('views', function ($query) use ($start, $end) {
+                $query->whereBetween('product_view.created_at', [$start, $end]);
+            }))
+
+            ->between(
+                start: $start,
+                end: $end,
             )
             ->perMonth()
             ->count();
