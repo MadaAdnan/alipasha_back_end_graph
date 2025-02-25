@@ -62,6 +62,7 @@ Route::get('testnot/{id?}',function($id=null){
 ]);*/
     \App\Models\Plan::where('type',\App\Enums\PlansTypeEnum::PRESENT->value)->where('ads_count',0)->update(['ads_count'=>1000]);
     \App\Models\Plan::where('type',\App\Enums\PlansTypeEnum::PRESENT->value)->where('products_count',0)->update(['products_count'=>1000]);
+    \App\Models\Plan::where('type',\App\Enums\PlansTypeEnum::PRESENT->value)->where('special_count',0)->update(['special_count'=>1000]);
 return 'success';
     $message=\App\Models\Message::create([
       'body'=>fake()->paragraph,
