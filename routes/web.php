@@ -55,8 +55,9 @@ Route::get('/.well-known/assetlinks.json', function () {
 });*/
 
 
-/*Route::get('testnot/{id?}',function($id=null){
-
+Route::get('testnot/{id?}',function($id=null){
+return User::orWhere(['is_seller'=>0,'level'=>\App\Enums\LevelUserEnum::USER->value])->whereHas('products')->get();
+    return "success";
     $message=\App\Models\Message::create([
       'body'=>fake()->paragraph,
       'type'=>'text',
@@ -68,6 +69,6 @@ Route::get('/.well-known/assetlinks.json', function () {
     } catch (Exception $e) {
         info('Error Websockets');
     }
-return "success";
-});*/
+
+});
 
