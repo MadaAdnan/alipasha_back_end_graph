@@ -4,13 +4,15 @@ namespace App\Filament\Widgets;
 
 use App\Enums\CategoryTypeEnum;
 use App\Models\Product;
+use App\Models\ProductView;
+use DB;
 use Filament\Widgets\ChartWidget;
 use Flowframe\Trend\Trend;
 use Flowframe\Trend\TrendValue;
 
-class CreatedProductChart extends ChartWidget
+class SeeProductChart extends ChartWidget
 {
-    protected static ?string $heading = 'إحصائيات المنشورات';
+   // protected static ?string $heading = 'إحصائيات المنشورات';
 
     public static function canView(): bool
     {
@@ -46,33 +48,33 @@ class CreatedProductChart extends ChartWidget
            $start=now()->startOfDay();
 
        }
-        $products = Trend::query(Product::whereIn('type',[
+        $products = Trend::query(ProductView::query()->join('products', 'product_view.product_id', '=', 'products.id') ->whereIn('products.type', [
             CategoryTypeEnum::PRODUCT->value,
             CategoryTypeEnum::RESTAURANT->value,
-            ]))
-
+        ]))
             ->between(
-                start:$start ,
-                end: $end,
+                start: $start,
+                end: $end
             )
             ->perMonth()
             ->count();
-        $tender = Trend::query(Product::where('type',CategoryTypeEnum::TENDER->value))
+        $tender =  Trend::query(ProductView::query()->join('products', 'product_view.product_id', '=', 'products.id') ->whereIn('products.type', [
+            CategoryTypeEnum::TENDER->value,
 
+        ]))
             ->between(
-                start:$start ,
-                end: $end,
+                start: $start,
+                end: $end
             )
             ->perMonth()
             ->count();
-        $job = Trend::query(Product::whereIn('type',[
+        $job = Trend::query(ProductView::query()->join('products', 'product_view.product_id', '=', 'products.id') ->whereIn('products.type', [
             CategoryTypeEnum::JOB->value,
             CategoryTypeEnum::SEARCH_JOB->value,
         ]))
-
             ->between(
-                start:$start ,
-                end: $end,
+                start: $start,
+                end: $end
             )
             ->perMonth()
             ->count();
