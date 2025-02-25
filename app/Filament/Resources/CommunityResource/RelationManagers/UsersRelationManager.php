@@ -44,7 +44,7 @@ protected static ?string $label='المستخدمين';
             ->headerActions([
                 //Tables\Actions\CreateAction::make(),
                 Tables\Actions\Action::make('attach')->form([
-                    Forms\Components\Select::make('users')->relationship('users','name')->searchable()->multiple(),
+                    Forms\Components\Select::make('users')->getSearchResultsUsing(fn(string $search)=>User::where('name','like',"%{$search}%")->limit(25)->pluck('name','id'))->searchable()->multiple(),
                 ])->action(function($data){
                     /**
                      * @var $record Community
