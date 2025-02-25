@@ -18,6 +18,8 @@ class UsersRelationManager extends RelationManager
 {
     protected static string $relationship = 'users';
 protected static ?string $label='المستخدمين';
+protected static ?string $title='المستخدمين';
+
    /* public function form(Form $form): Form
     {
         return $form
