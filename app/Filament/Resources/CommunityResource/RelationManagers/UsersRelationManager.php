@@ -63,7 +63,7 @@ protected static ?string $title='المستخدمين';
 
                     }
 
-                })
+                })->label('إضافة مستخدمين')
             ])
             ->actions([
 //                Tables\Actions\EditAction::make(),
