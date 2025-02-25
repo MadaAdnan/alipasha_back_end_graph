@@ -87,19 +87,19 @@ class SeeProductChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'المنتجات',
+                    'label' => 'مشاهدات المنتجات',
                     'data' => $products->map(fn (TrendValue $value) => $value->aggregate),
                     'backgroundColor' => '#1e40af',
                     'borderColor' => '#0000cc',
                 ],
                 [
-                    'label' => 'المناقصات',
+                    'label' => 'مشاهدات المناقصات',
                     'data' => $tender->map(fn (TrendValue $value) => $value->aggregate),
                     'backgroundColor' => '#00bb00',
                     'borderColor' => '#4ade80',
                 ],
                 [
-                    'label' => 'الشواغر وطلبات التوظيف',
+                    'label' => 'مشاهدات الشواغر وطلبات التوظيف',
                     'data' => $job->map(fn (TrendValue $value) => $value->aggregate),
                     'backgroundColor' => '#9d174d',
                     'borderColor' => '#9f1239',
