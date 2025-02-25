@@ -46,7 +46,7 @@ protected static ?string $label='المستخدمين';
                 Tables\Actions\Action::make('attach')->form([
                     Forms\Components\Select::make('users')
                         ->getSearchResultsUsing(fn(string $search)=>User::where('name','like',"%{$search}%")->limit(25)->pluck('name','id'))
-                        ->getOptionLabelUsing(fn ($value): ?string => User::find($value)?->name)
+                        ->getOptionLabelsUsing(fn (array $values): array => User::whereIn('id', $values)->pluck('name', 'id')->toArray())
                         ->searchable()->multiple(),
                 ])->action(function($data){
                     /**
