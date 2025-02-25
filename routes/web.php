@@ -60,6 +60,8 @@ Route::get('testnot/{id?}',function($id=null){
     'is_seller'=>1,
     'level'=>\App\Enums\LevelUserEnum::SELLER->value,
 ]);*/
+    \App\Models\Plan::where('type',\App\Enums\PlansTypeEnum::PRESENT->value)->where('ads_count',0)->update(['ads_count'=>1000]);
+    \App\Models\Plan::where('type',\App\Enums\PlansTypeEnum::PRESENT->value)->where('products_count',0)->update(['products_count'=>1000]);
 return 'success';
     $message=\App\Models\Message::create([
       'body'=>fake()->paragraph,
