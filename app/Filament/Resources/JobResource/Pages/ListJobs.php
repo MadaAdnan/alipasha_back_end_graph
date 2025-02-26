@@ -27,8 +27,11 @@ class ListJobs extends ListRecords
             'الكل' => Tab::make()->modifyQueryUsing(fn(Builder $query) => $query->notPending()),
             'باحثين عن وظائف' => Tab::make()
                 ->modifyQueryUsing(fn(Builder $query) => $query->where('type', CategoryTypeEnum::SEARCH_JOB->value)->notPending()),
+
             'شواغر وظيفية' => Tab::make()
                 ->modifyQueryUsing(fn(Builder $query) => $query->where('type', CategoryTypeEnum::JOB->value)->notPending()),
+            'الوظائف النشطة' => Tab::make()
+                ->modifyQueryUsing(fn(Builder $query) => $query->where('type', CategoryTypeEnum::JOB->value)->notPending()->where('end_date','>',now())),
 
             'بإنتظار التفعيل' => Tab::make()
                 ->modifyQueryUsing(fn(Builder $query) => $query->pending())->badge(fn() => Product::job()->pending()->count()),
