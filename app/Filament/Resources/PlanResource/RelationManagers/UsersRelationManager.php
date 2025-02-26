@@ -34,7 +34,7 @@ class UsersRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('email')->label('البريد')->searchable()->url(fn($record) => UserResource::getUrl('edit', ['record' => $record->id]), true),
                 Tables\Columns\TextColumn::make('phone')->label('الهاتف')->searchable()->url(fn($record) => 'https://wa.me/' . $record->phone, true),
                 Tables\Columns\TextColumn::make('seller_name')->label('المتجر')->searchable()->url(fn($record) => UserResource::getUrl('edit', ['record' => $record->id]), true),
-                Tables\Columns\TextColumn::make('pivot.expired_at')
+                Tables\Columns\TextColumn::make('expired_at')
             ])
             ->filters([
                 //
