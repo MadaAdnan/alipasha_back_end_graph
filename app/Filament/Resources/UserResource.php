@@ -64,16 +64,16 @@ class UserResource extends Resource
                                     ->dehydrated(false)->password()
                                     ->label('تأكيد كلمة المرور'),
 
-                              /*  PhoneInput::make('phone')
-                                    ->countryStatePath('country_code')
-                                    ->validateFor(
+                                /*  PhoneInput::make('phone')
+                                      ->countryStatePath('country_code')
+                                      ->validateFor(
 
-                                        type: PhoneNumberType::MOBILE , // default: null
-                                        lenient: true, // default: false
-                                    )->displayNumberFormat(PhoneInputNumberType::E164)->formatOnDisplay(false)->formatAsYouType(true)->label('رقم الهاتف'),
-                               */
+                                          type: PhoneNumberType::MOBILE , // default: null
+                                          lenient: true, // default: false
+                                      )->displayNumberFormat(PhoneInputNumberType::E164)->formatOnDisplay(false)->formatAsYouType(true)->label('رقم الهاتف'),
+                                 */
                                 Forms\Components\TextInput::make('phone')->label('رقم الهاتف')->required(),
-                                Forms\Components\TextInput::make('affiliate')->label('كود الإحالة')->readOnly()->visible(fn($context)=>$context!='create'),
+                                Forms\Components\TextInput::make('affiliate')->label('كود الإحالة')->readOnly()->visible(fn($context) => $context != 'create'),
 
 //                        Forms\Components\DatePicker::make('upgrade_date')/*->required(fn($get) => $get('plan') != null)*/ ->label('تاريخ آخر ترقية'),
                                 Forms\Components\DatePicker::make('email_verified_at')->label('حدد تاريخ لتأكيد الحساب'),
@@ -84,7 +84,7 @@ class UserResource extends Resource
                                     LevelUserEnum::USER->value => LevelUserEnum::USER->getLabel(),
                                     LevelUserEnum::STAFF->value => LevelUserEnum::STAFF->getLabel(),
                                 ]),
-                                Forms\Components\Select::make('roles')->relationship('roles','name')->multiple()->label('الأدوار'),
+                                Forms\Components\Select::make('roles')->relationship('roles', 'name')->multiple()->label('الأدوار'),
                                 Forms\Components\Toggle::make('is_active')->label('حالة المستخدم'),
                                 Forms\Components\Toggle::make('is_seller')->label('تفعيل المتجر')->live(),
                             ]),
@@ -150,28 +150,28 @@ class UserResource extends Resource
                 Tables\Columns\SpatieMediaLibraryImageColumn::make('image')->collection('image')->conversion('webp')->label('صورة المستخدم')->circular()->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('level')->formatStateUsing(fn($state) => LevelUserEnum::tryFrom($state)->getLabel())->icon(fn($state) => LevelUserEnum::tryFrom($state)->getIcon())->color(fn($state) => LevelUserEnum::tryFrom($state)->getColor())->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('name')->label('الاسم')->toggleable(isToggledHiddenByDefault: false)->searchable(),
-               /* PhoneColumn::make('phone')
-                    ->countryColumn('country_code')->displayFormat(PhoneInputNumberType::E164)->url(fn($state)=>'https://wa.me/'.\Str::replace(' ','',ltrim($state),'+'),true),
-               */ Tables\Columns\TextColumn::make('phone')
-                    ->formatStateUsing(function($state){
-                        $phone=$state;
-                        if(\Str::startsWith($phone,'+')){
-                            $phone=\Str::substr($phone,1,\Str::length($phone)-1);
-                        }elseif(\Str::startsWith($phone,'00')){
-                            $phone=\Str::substr($phone,2,\Str::length($phone)-1);
+                /* PhoneColumn::make('phone')
+                     ->countryColumn('country_code')->displayFormat(PhoneInputNumberType::E164)->url(fn($state)=>'https://wa.me/'.\Str::replace(' ','',ltrim($state),'+'),true),
+                */ Tables\Columns\TextColumn::make('phone')
+                    ->formatStateUsing(function ($state) {
+                        $phone = $state;
+                        if (\Str::startsWith($phone, '+')) {
+                            $phone = \Str::substr($phone, 1, \Str::length($phone) - 1);
+                        } elseif (\Str::startsWith($phone, '00')) {
+                            $phone = \Str::substr($phone, 2, \Str::length($phone) - 1);
                         }
                         return $phone;
                     })
-                    ->url(function($record){
-                   $phone=$record->phone;
-                   if(\Str::startsWith($phone,'+')){
-                       $phone=\Str::substr($phone,1,\Str::length($phone)-1);
-                   }elseif(\Str::startsWith($phone,'00')){
-                       $phone=\Str::substr($phone,2,\Str::length($phone)-1);
-                   }
-                   return  'https://wa.me/'.$phone;
-                },true)
-                    ->formatStateUsing(fn($record)=>$record->country_code.$record->phone)
+                    ->url(function ($record) {
+                        $phone = $record->phone;
+                        if (\Str::startsWith($phone, '+')) {
+                            $phone = \Str::substr($phone, 1, \Str::length($phone) - 1);
+                        } elseif (\Str::startsWith($phone, '00')) {
+                            $phone = \Str::substr($phone, 2, \Str::length($phone) - 1);
+                        }
+                        return 'https://wa.me/' . $phone;
+                    }, true)
+                    ->formatStateUsing(fn($record) => $record->country_code . $record->phone)
                     ->label('رقم الهاتف')->toggleable(isToggledHiddenByDefault: false)->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('city.name')->label('المدينة')->toggleable(isToggledHiddenByDefault: false)->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('email')->label('البريد الإلكتروني')->toggleable(isToggledHiddenByDefault: false)->searchable(),
@@ -197,26 +197,26 @@ class UserResource extends Resource
                 )->label('نوع المستخدم'),*/
                 Tables\Filters\Filter::make('filter')->form([
                     Forms\Components\Select::make('level')->options([
-                       LevelUserEnum::SELLER->value=> LevelUserEnum::SELLER->getLabel(),
-                       LevelUserEnum::USER->value=> LevelUserEnum::USER->getLabel(),
-                       LevelUserEnum::ADMIN->value=> LevelUserEnum::ADMIN->getLabel(),
+                        LevelUserEnum::SELLER->value => LevelUserEnum::SELLER->getLabel(),
+                        LevelUserEnum::USER->value => LevelUserEnum::USER->getLabel(),
+                        LevelUserEnum::ADMIN->value => LevelUserEnum::ADMIN->getLabel(),
 
                     ])->label('نوع المستخدم'),
-                    Forms\Components\Select::make('city')->options(City::where('is_main',true)->pluck('name','id'))->label('المحافظة')->live(),
-                    Forms\Components\Select::make('city_id')->options(fn($get)=>City::where('city_id',$get('city'))->pluck('name','id'))->label('المدينة')
+                    Forms\Components\Select::make('city')->options(City::where('is_main', true)->pluck('name', 'id'))->label('المحافظة')->live(),
+                    Forms\Components\Select::make('city_id')->options(fn($get) => City::where('city_id', $get('city'))->pluck('name', 'id'))->label('المدينة')
 
-                ])    ->query(function (Builder $query, array $data): Builder {
+                ])->query(function (Builder $query, array $data): Builder {
                     return $query
                         ->when(
                             $data['level'],
-                            fn (Builder $query, $value): Builder => $query->where('level', $value),
+                            fn(Builder $query, $value): Builder => $query->where('level', $value),
                         )
                         ->when(
                             $data['city_id'],
-                            fn (Builder $query, $value): Builder => $query->where('city_id', $value),
-                        ) ->when(
+                            fn(Builder $query, $value): Builder => $query->where('city_id', $value),
+                        )->when(
                             $data['city'],
-                            fn (Builder $query, $value): Builder => $query->whereHas('city', fn($query)=>$query->where('cities.city_id',$value)),
+                            fn(Builder $query, $value): Builder => $query->whereHas('city', fn($query) => $query->where('cities.city_id', $value)),
                         );
                 })
             ])
@@ -230,77 +230,103 @@ class UserResource extends Resource
                         Forms\Components\TextInput::make('info')->label('ملاحظات')
                     ])
                         ->action(function ($record, $data) {
-                        Balance::create([
-                            'credit' => $data['value'],
-                            'debit' => 0,
-                            'info' => $data['info'],
-                            'user_id' => $record->id
-                        ]);
-                        Notification::make('success')->success()->title('نجاح')->body('تم إضافة الرصيد بنجاح')->send();
-                    })->label('إضافة رصيد')->icon('fas-hand-holding-dollar'),
+                            Balance::create([
+                                'credit' => $data['value'],
+                                'debit' => 0,
+                                'info' => $data['info'],
+                                'user_id' => $record->id
+                            ]);
+                            Notification::make('success')->success()->title('نجاح')->body('تم إضافة الرصيد بنجاح')->send();
+                        })->label('إضافة رصيد')->icon('fas-hand-holding-dollar'),
                     /* sub balance */
                     Tables\Actions\Action::make('sub_balance')->form([
                         Forms\Components\TextInput::make('value')->label('القيمة')->required()->gt(0),
                         Forms\Components\TextInput::make('info')->label('ملاحظات')
                     ])
                         ->action(function ($record, $data) {
-                        Balance::create([
-                            'credit' => 0,
-                            'debit' => $data['value'],
-                            'info' => $data['info'],
-                            'user_id' => $record->id
-                        ]);
-                        Notification::make('success')->success()->title('نجاح')->body('تم السحب من الرصيد بنجاح')->send();
-                    })->label('سحب من الرصيد')->icon('fas-cash-register'),
-                   /* send msg chat */
+                            Balance::create([
+                                'credit' => 0,
+                                'debit' => $data['value'],
+                                'info' => $data['info'],
+                                'user_id' => $record->id
+                            ]);
+                            Notification::make('success')->success()->title('نجاح')->body('تم السحب من الرصيد بنجاح')->send();
+                        })->label('سحب من الرصيد')->icon('fas-cash-register'),
+                    /* send msg chat */
                     Tables\Actions\Action::make('send_msg_chat')->form([
                         Forms\Components\Textarea::make('msg')->label('الرسالة')->required(),
                     ])
-                        ->action(function($record,$data){
-                       \DB::beginTransaction();
-                        try {
-                            $community=Community::where('type',CommunityTypeEnum::CHAT->value)->whereHas('users',fn($query)=>$query->whereIn('users.id',[auth()->id(),$record->id]))->first();
-                            if($community==null){
-                                $community= Community::create([
-                                    'name'=>auth()->user()->name.' - '.$record->name,
-                                    'manager_id'=>auth()->id(),
-                                    'type'=>CommunityTypeEnum::CHAT->value,
-                                    'last_update'=>now(),
-                                    'is_global'=>false,
+                        ->action(function ($record, $data) {
+                            \DB::beginTransaction();
+                            try {
+                                $community = Community::where('type', CommunityTypeEnum::CHAT->value)->whereHas('users', fn($query) => $query->whereIn('users.id', [auth()->id(), $record->id]))->first();
+                                if ($community == null) {
+                                    $community = Community::create([
+                                        'name' => auth()->user()->name . ' - ' . $record->name,
+                                        'manager_id' => auth()->id(),
+                                        'type' => CommunityTypeEnum::CHAT->value,
+                                        'last_update' => now(),
+                                        'is_global' => false,
+                                    ]);
+                                    $community->users()->sync([auth()->id(), $record->id]);
+                                }
+                                Message::create([
+                                    'community_id' => $community->id,
+                                    'user_id' => auth()->id(),
+                                    'body' => $data['msg'],
+                                    'type' => 'text',
                                 ]);
-                                $community->users()->sync([auth()->id(),$record->id]);
+                                \DB::commit();
+                                Notification::make('success')->title('نجاح العملية')->body('تم إرسال الرسالة بنجاح')->success()->send();
+
+                            } catch (\Exception | \Error $e) {
+                                \DB::rollBack();
+                                Notification::make('error')->title('فشل العملية')->body($e->getMessage())->danger()->send();
+
                             }
-                            Message::create([
-                                'community_id'=>$community->id,
-                                'user_id'=>auth()->id(),
-                                'body'=>$data['msg'],
-                                'type'=>'text',
-                            ]);
-                            \DB::commit();
-                            Notification::make('success')->title('نجاح العملية')->body('تم إرسال الرسالة بنجاح')->success()->send();
-
-                        }catch (\Exception|\Error $e){
-                            \DB::rollBack();
-                            Notification::make('error')->title('فشل العملية')->body($e->getMessage())->danger()->send();
-
-                        }
                         })->label('إرسال رسالة')->icon('fas-envelope'),
                     /* email verified */
                     Tables\Actions\Action::make('email_verified_at')
                         ->action(fn($record) => $record->update(['email_verified_at' => now()]))
                         ->icon('fas-circle-check')
                         ->label('تأكيد البريد'),
+                    /* Add to Community */
+                    Tables\Actions\Action::make('add_to_community')->form([
+                        Forms\Components\Select::make('communities')->options(Community::whereNot('type', CommunityTypeEnum::CHAT->value)->pluck('name', 'id'))->multiple()->searchable()
+                            ->label('المجتمع')
+                    ])
+                        ->action(function ($record, $data) {
+                            /**
+                             * @var $record User
+                             */
+                            $record->communities()->sync($data['communities']);
+                            Notification::make('success')->success()->title('نجاح العملية')->body('تم إضافة المستخدم إلى المجتمعات')->send();
+                        })->label('إضافة إلى مجتمع')
                 ]),
             ])
             ->headerActions([
                 ExportAction::make()->exports([
                     ExcelExport::make()->fromTable()->withChunkSize(200)->askForFilename()
-                        ->withFilename(fn ($filename) => 'ali-pasha-' . $filename),
+                        ->withFilename(fn($filename) => 'ali-pasha-' . $filename),
                 ])
-                    ])
+            ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\BulkAction::make('add_to_community')->form([
+                        Forms\Components\Select::make('communities')->options(Community::whereNot('type', CommunityTypeEnum::CHAT->value)->pluck('name', 'id'))->multiple()->searchable()
+                            ->label('المجتمع')
+                    ])
+                        ->action(function ($records, $data) {
+                            /**
+                             * @var $record User
+                             */
+                            foreach ($records as $record) {
+                                $record->communities()->sync($data['communities']);
+                            }
+
+                            Notification::make('success')->success()->title('نجاح العملية')->body('تم إضافة المستخدم إلى المجتمعات')->send();
+                        })->label('إضافة إلى مجتمع')
                 ]),
             ]);
     }
