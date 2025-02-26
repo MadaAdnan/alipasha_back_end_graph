@@ -318,10 +318,11 @@ class UserResource extends Resource
                             ->label('المجتمع')
                     ])
                         ->action(function ($records, $data) {
-                            /**
-                             * @var $record User
-                             */
+
                             foreach ($records as $record) {
+                                /**
+                                 * @var $record User
+                                 */
                                 $record->communities()->sync($data['communities']);
                             }
 
