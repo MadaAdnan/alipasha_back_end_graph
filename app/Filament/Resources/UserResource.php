@@ -314,7 +314,7 @@ class UserResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                     Tables\Actions\BulkAction::make('add_to_community')->form([
-                        Forms\Components\Select::make('communities')->options(Community::whereNot('type', CommunityTypeEnum::CHAT->value)->whereNot('type', CommunityTypeEnum::LIVE->value)->pluck('name', 'id'))->multiple()->searchable()
+                        Forms\Components\Select::make('communities')->options(Community::where('type','!=', CommunityTypeEnum::CHAT->value)->where('type', '!=',CommunityTypeEnum::LIVE->value)->pluck('name', 'id'))->multiple()->searchable()
                             ->label('المجتمع')
                     ])
                         ->action(function ($records, $data) {
