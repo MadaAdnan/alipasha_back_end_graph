@@ -31,48 +31,45 @@ class CreatedProductChart extends ChartWidget
     protected function getData(): array
     {
         $activeFilter = $this->filter;
-       $start=now()->startOfYear();
-       $end=now();
-        $per="perMonth";
-       if($activeFilter=='week'){
-           $start=now()->subDays(7);
-  $per="perDay";
-       }else if($activeFilter=='month'){
-            $start=now()->startOfMonth();
- $per="perWeek";
-        }else if($activeFilter=='year'){
-           $start=now()->startOfYear();
+        $start = now()->startOfYear();
+        $end = now();
+        $per = "perMonth";
+        if ($activeFilter == 'week') {
+            $start = now()->subDays(7);
+            $per = "perDay";
+        } else if ($activeFilter == 'month') {
+            $start = now()->startOfMonth();
+            $per = "perWeek";
+        } else if ($activeFilter == 'year') {
+            $start = now()->startOfYear();
 
-       }else if($activeFilter=='today'){
-           $start=now()->startOfDay();
- $per="perHour";
-       }
-        $products = Trend::query(Product::whereIn('type',[
+        } else if ($activeFilter == 'today') {
+            $start = now()->startOfDay();
+            $per = "perHour";
+        }
+        $products = Trend::query(Product::whereIn('type', [
             CategoryTypeEnum::PRODUCT->value,
             CategoryTypeEnum::RESTAURANT->value,
-            ]))
-
+        ]))
             ->between(
-                start:$start ,
+                start: $start,
                 end: $end,
             )
             ->$per()
             ->count();
-        $tender = Trend::query(Product::where('type',CategoryTypeEnum::TENDER->value))
-
+        $tender = Trend::query(Product::where('type', CategoryTypeEnum::TENDER->value))
             ->between(
-                start:$start ,
+                start: $start,
                 end: $end,
             )
             ->$per()
             ->count();
-        $job = Trend::query(Product::whereIn('type',[
+        $job = Trend::query(Product::whereIn('type', [
             CategoryTypeEnum::JOB->value,
             CategoryTypeEnum::SEARCH_JOB->value,
         ]))
-
             ->between(
-                start:$start ,
+                start: $start,
                 end: $end,
             )
             ->$per()
@@ -81,24 +78,24 @@ class CreatedProductChart extends ChartWidget
             'datasets' => [
                 [
                     'label' => 'المنتجات',
-                    'data' => $products->map(fn (TrendValue $value) => $value->aggregate),
+                    'data' => $products->map(fn(TrendValue $value) => $value->aggregate),
                     'backgroundColor' => '#1e40af',
                     'borderColor' => '#0000cc',
                 ],
                 [
                     'label' => 'المناقصات',
-                    'data' => $tender->map(fn (TrendValue $value) => $value->aggregate),
+                    'data' => $tender->map(fn(TrendValue $value) => $value->aggregate),
                     'backgroundColor' => '#00bb00',
                     'borderColor' => '#4ade80',
                 ],
                 [
                     'label' => 'الشواغر وطلبات التوظيف',
-                    'data' => $job->map(fn (TrendValue $value) => $value->aggregate),
+                    'data' => $job->map(fn(TrendValue $value) => $value->aggregate),
                     'backgroundColor' => '#9d174d',
                     'borderColor' => '#9f1239',
                 ],
             ],
-            'labels' =>  $products->map(fn (TrendValue $value) => $value->date),
+            'labels' => $products->map(fn(TrendValue $value) => $value->date),
         ];
     }
 
