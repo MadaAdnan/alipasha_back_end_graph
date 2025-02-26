@@ -29,8 +29,10 @@ class ListTenders extends ListRecords
     {
         return [
             'المناقصات' => Tab::make()->modifyQueryUsing(fn(Builder $query) => $query->notPending()),
+
             'بإنتظار التفعيل' => Tab::make()
                 ->modifyQueryUsing(fn(Builder $query) => $query->pending())->badge(fn() => Product::tender()->pending()->count()),
+            'المناقصات  النشطة' => Tab::make()->modifyQueryUsing(fn(Builder $query) => $query->notPending()->where('end_date','>',now())),
             'سلة المحذوفات' => Tab::make()
                 ->modifyQueryUsing(fn(Builder $query) => $query->onlyTrashed())->badge(fn() => Product::tender()->onlyTrashed()->count())
         ];
