@@ -94,6 +94,7 @@ class PlanResource extends Resource
                 Tables\Columns\TextColumn::make('price')->label('سعر الإشتراك'),
                 Tables\Columns\TextColumn::make('is_discount')->formatStateUsing(fn($state) => IsActiveEnum::tryFrom($state)?->getLabel())->color(fn($state) => IsActiveEnum::tryFrom($state)?->getColor())->icon(fn($state) => IsActiveEnum::tryFrom($state)?->getIcon())->label('حالة العرض'),
 
+                Tables\Columns\TextColumn::make('users_count')->label('عدد المشتركين'),
                 Tables\Columns\TextColumn::make('discount')->label('سعر العرض'),
 
             ])

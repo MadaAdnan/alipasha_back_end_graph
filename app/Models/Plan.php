@@ -16,6 +16,10 @@ class Plan extends Model
         'items' => 'array',
         'options' => 'array'
     ];
+
+    protected $withCount=[
+        'users'
+    ];
     protected static function booted()
     {
         self::addGlobalScope('sort',fn($query)=>$query->orderBy('sortable'));
