@@ -328,8 +328,6 @@
 
 
             </div>
-
-
             <div
                 class="floating-left-sidebar-icon d-xl-none"
                 onclick="toggleLeftSidebar()"
