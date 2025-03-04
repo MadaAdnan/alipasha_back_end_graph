@@ -57,8 +57,8 @@ Route::get('/.well-known/assetlinks.json', function () {
 
 
 Route::get('testnot/{id?}',function($id=null){
-   $communities=\App\Models\Community::withCount('users')->having('users_count','<=',1)->get();
-   dd($communities[rand(0,$communities->count()-1)]->users);
+   $communities=\App\Models\Community::withCount('users')->having('users_count','<=',1)->delete();
+
 /*$users= User::orWhere(['is_seller'=>0,'level'=>\App\Enums\LevelUserEnum::USER->value])->whereHas('products')->update([
     'is_seller'=>1,
     'level'=>\App\Enums\LevelUserEnum::SELLER->value,
