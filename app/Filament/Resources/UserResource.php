@@ -299,7 +299,7 @@ class UserResource extends Resource
                             /**
                              * @var $record User
                              */
-                            $record->communities()->sync($data['communities']);
+                            $record->communities()->sync($data['communities'],false);
                             Notification::make('success')->success()->title('نجاح العملية')->body('تم إضافة المستخدم إلى المجتمعات')->send();
                         })->label('إضافة إلى مجتمع')
                 ]),
@@ -323,7 +323,7 @@ class UserResource extends Resource
                                 /**
                                  * @var $record User
                                  */
-                                $record->communities()->sync($data['communities']);
+                                $record->communities()->sync($data['communities'],false);
                             }
 
                             Notification::make('success')->success()->title('نجاح العملية')->body('تم إضافة المستخدم إلى المجتمعات')->send();
