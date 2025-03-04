@@ -209,7 +209,7 @@
                             </div>
 
                             <div class="post-content " style="margin: 20px 0px 0px 0px">
-                                <a  href="./pages/post-info.html">
+                                <a  href="{{route('posts.show',$product->id)}}">
                                     <p class="title" style="text-align: right">
                                         {{$product->expert}}
                                     </p>
@@ -222,7 +222,7 @@
                     overflow: hidden;
                   "
                                 >
-                                    <a href="./pages/post-info.html">
+                                    <a href="{{route('posts.show',$product->id)}}">
                                         <img
                                             style="
                       width: 100%;
@@ -289,7 +289,7 @@
                                  style="margin: 20px 0px 0px 0px; padding: 0px 10px; display: flex; align-items: center; justify-content: space-between;">
                                 <button
                                     class="copy-link"
-                                    data-post-link="https://example.com/post/124"
+                                    data-post-link="{{route('posts.show',$product->id)}}"
                                     style="display: flex; align-items: center; gap: 8px; background-color: transparent;"
                                 >
                                     <i style="font-size: 12px;" class="bi bi-share"></i>
@@ -309,7 +309,7 @@
                                         <p class="sub-title">اعجاب</p>
                                     </button>
                                 </form>
-                                <a href="./pages/post-info.html">
+                                <a href="{{route('posts.show',$product->id)}}">
                                     <button
                                         style="display: flex; align-items: center; gap: 8px; background-color: transparent;">
                                         <i style="font-size: 12px;" class="bi bi-chat-dots"></i>
