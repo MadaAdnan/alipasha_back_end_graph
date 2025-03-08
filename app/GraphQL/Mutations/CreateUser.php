@@ -2,6 +2,8 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Exceptions\GraphQLExceptionHandler;
+use App\Models\Setting;
 use App\Models\User;
 
 final class CreateUser
@@ -14,10 +16,19 @@ final class CreateUser
     {
         $data = $args['input'];
         $affiliate_id = null;
+        $setting = Setting::first();
+        if (!$setting->available_any_email) {
+            $explod = explode('@', $data['email']);
+            if (!\Str::contains($explod[1], 'gmail',false) && !\Str::contains($explod[1], 'hotmail',false) && !\Str::contains($explod[1], 'live',false) && !\Str::contains($explod[1], 'outlook',false)) {
+                throw new GraphQLExceptionHandler(['message' => ' يمكن التسجيل  من خلال بريد GMAIL - HOTMAIL  فقط',]);
+            }
+
+        }
         if (isset($data['affiliate']) && $data['affiliate'] != null) {
             $affiliate_id = User::where('affiliate', $data['affiliate'])->first()?->id;
 
         }
+
         $phone = $data['phone'];
         if (\Str::startsWith($phone, '+')) {
             $phone = \Str::substr($phone, 1, Str::length($phone) - 1);
