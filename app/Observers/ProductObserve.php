@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Enums\LevelUserEnum;
 use App\Enums\ProductActiveEnum;
+use App\Jobs\SendFirebaseNotificationJob;
 use App\Models\Product;
 use App\Models\User;
 use App\Service\SendNotifyHelper;
@@ -38,6 +39,16 @@ class ProductObserve
                 $data['url'] = 'https://ali-pasha.com/product?id=' . $product->id;
 
                 SendNotifyHelper::sendNotify($user, $data);
+                /**
+                 * send notification for users followers seller
+                 */
+                $users=User::whereHas('followers',fn($query)=>$query->where('user_id',$product->user_id))->pluck('device_token')->toArray();
+                $dataInfo['title']='منشور جديد';
+                $dataInfo['body']="قام متجر {$product->user?->seller_name} بإضافة منتج جديد";
+                $dataInfo['url'] = 'https://ali-pasha.com/product?id=' . $product->id;
+                $job=new SendFirebaseNotificationJob($users,$dataInfo);
+                dispatch($job);
+
             } //
             elseif ($product->active !== $product->getOriginal('active') && $product->active == ProductActiveEnum::BLOCK->value) {
                 $user = $product->user;
