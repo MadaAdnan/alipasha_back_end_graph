@@ -136,7 +136,7 @@ class JobResource extends Resource implements HasShieldPermissions
                             Forms\Components\TextInput::make('code')->label('كود الوظيفة')->visible(fn($get) => $get('type') === CategoryTypeEnum::JOB->value),
                             Forms\Components\TextInput::make('url')->label('رابط التقديم')->url()->visible(fn($get) => $get('type') === CategoryTypeEnum::JOB->value),
                         ])->visible(/*fn($get) => $get('type') === CategoryTypeEnum::JOB->value*/),
-                        Forms\Components\SpatieMediaLibraryFileUpload::make('docs')->collection('docs')->acceptedFileTypes(['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document','image/png','image/jpg'])->label(fn($get) => $get('type') === CategoryTypeEnum::SEARCH_JOB->value?'رفع CV':'مرفق')
+                        Forms\Components\SpatieMediaLibraryFileUpload::make('docs')->collection('docs')->acceptedFileTypes(['application/pdf', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document','image/jpeg','image/jpg','image/png','image/web'])->label(fn($get) => $get('type') === CategoryTypeEnum::SEARCH_JOB->value?'رفع CV':'مرفق')
                             ->openable()->deletable()
                             ->columnSpan(2),
 
