@@ -60,7 +60,7 @@ class OrdersChart extends ChartWidget
             $per = "perHour";
         } else if ($activeFilter == '360') {
             $start = now()->subYear();
-            $per = "perHour";
+            $per = "perMonth";
         } else if ($activeFilter == 'back') {
             $start = now()->startOfYear()->subYear();
             $end = now()->startOfYear()->subYear()->endOfYear();
