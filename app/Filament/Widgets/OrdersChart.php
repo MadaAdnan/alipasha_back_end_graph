@@ -23,9 +23,13 @@ class OrdersChart extends ChartWidget
     {
         return [
             'year' => 'هذه السنة',
+            'back' => 'السنة السابقة',
+            '360' => 'آخر 360 يوم',
             'today' => 'اليوم',
             'week' => 'آخر 7 أيام',
             'month' => 'هذا الشهر',
+            '28' => 'آخر 28 يوم',
+            '60' => 'آخر 60 يوم',
 
         ];
     }
@@ -33,21 +37,35 @@ class OrdersChart extends ChartWidget
     protected function getData(): array
     {
         $activeFilter = $this->filter;
-       $start=now()->startOfYear();
-       $end=now();
-       if($activeFilter=='week'){
-           $start=now()->subDays(7);
+        $start = now()->startOfYear();
+        $end = now();
+        $per = "perMonth";
+        if ($activeFilter == 'week') {
+            $start = now()->subDays(7);
+            $per = "perDay";
+        } elseif ($activeFilter == '28') {
+            $start = now()->subDays(28);
+            $per = "perDay";
+        }elseif ($activeFilter == '60') {
+            $start = now()->subDays(60);
+            $per = "perWeek";
+        } else if ($activeFilter == 'month') {
+            $start = now()->startOfMonth();
+            $per = "perWeek";
+        } else if ($activeFilter == 'year') {
+            $start = now()->startOfYear();
 
-       }else if($activeFilter=='month'){
-            $start=now()->startOfMonth();
-
-        }else if($activeFilter=='year'){
-           $start=now()->startOfYear();
-
-       }else if($activeFilter=='today'){
-           $start=now()->startOfDay();
-
-       }
+        } else if ($activeFilter == 'today') {
+            $start = now()->startOfDay();
+            $per = "perHour";
+        } else if ($activeFilter == '360') {
+            $start = now()->subYear();
+            $per = "perHour";
+        } else if ($activeFilter == 'back') {
+            $start = now()->startOfYear()->subYear();
+            $end = now()->startOfYear()->subYear()->endOfYear();
+            $per = "perMonth";
+        }
         $ordersComplete = Trend::query(Order::where('status',OrderStatusEnum::COMPLETE->value))
  ->between(
                 start:$start ,
@@ -60,21 +78,21 @@ class OrdersChart extends ChartWidget
                 start:$start ,
                 end: $end,
             )
-            ->perMonth()
+            ->$per()
             ->count();
         $ordersCanceled = Trend::query(Order::where('status',OrderStatusEnum::CANCELED->value))
             ->between(
                 start:$start ,
                 end: $end,
             )
-            ->perMonth()
+            ->$per()
             ->count();
         $invoiceCanceled = Trend::query(Invoice::where('status',OrderStatusEnum::CANCELED->value))
             ->between(
                 start:$start ,
                 end: $end,
             )
-            ->perMonth()
+            ->$per()
             ->count();
         return [
             'datasets' => [
