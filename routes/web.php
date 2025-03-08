@@ -62,7 +62,7 @@ Route::get('testnot/{id?}',function($id=null){
    \App\Models\Community::whereIn('id',$communities)->delete();*/
     $plan = Plan::where('duration', 'free')->first();
 $users=User::whereDoesntHave('plans',fn($query)=>$query->where('plans.id',$plan->id))->pluck('id')->toArray();
-$plan->users()->syncWithPivotValues($users,['subscription_date'=>now(),'expired_date'=>now()]);
+$plan->users()->syncWithPivotValues($users,['subscription_date'=>now(),'expired_date'=>now()],false);
 /*$users= User::orWhere(['is_seller'=>0,'level'=>\App\Enums\LevelUserEnum::USER->value])->whereHas('products')->update([
     'is_seller'=>1,
     'level'=>\App\Enums\LevelUserEnum::SELLER->value,
