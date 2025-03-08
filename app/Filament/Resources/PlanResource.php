@@ -47,7 +47,7 @@ class PlanResource extends Resource
                             PlansDurationEnum::YEAR->value => PlansDurationEnum::YEAR->getLabel(),
                         ];
                         $plan = Plan::where('duration', 'free')->first();
-                        if ($plan == null) {
+                        if ($plan != null) {
                             $list[PlansDurationEnum::FREE->value] = PlansDurationEnum::FREE->getLabel();
                         }
                         return $list;
