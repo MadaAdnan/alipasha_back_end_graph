@@ -23,6 +23,17 @@ class ProductObserve
             $data['seller_name'] = $product->user?->name;
             $product->user->update($data);
         }
+        if($product->active==ProductActiveEnum::ACTIVE->value){
+            /**
+             * send notification for users followers seller
+             */
+            $users=User::whereHas('followers',fn($query)=>$query->where('user_id',$product->user_id))->pluck('device_token')->toArray();
+            $dataInfo['title']='منشور جديد';
+            $dataInfo['body']="قام متجر {$product->user?->seller_name} بإضافة منتج جديد";
+            $dataInfo['url'] = 'https://ali-pasha.com/product?id=' . $product->id;
+            $job=new SendFirebaseNotificationJob($users,$dataInfo);
+            dispatch($job);
+        }
 
     }
 
