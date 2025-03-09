@@ -27,7 +27,7 @@ class ProductObserve
             /**
              * send notification for users followers seller
              */
-            $users=User::whereHas('followers',fn($query)=>$query->where('user_id',$product->user_id))->pluck('device_token')->toArray();
+            $users=User::whereHas('following',fn($query)=>$query->where('user_id',$product->user_id))->pluck('device_token')->toArray();
             $dataInfo['title']='منشور جديد';
             $dataInfo['body']="قام متجر {$product->user?->seller_name} بإضافة منتج جديد";
             $dataInfo['url'] = 'https://ali-pasha.com/product?id=' . $product->id;
@@ -53,7 +53,7 @@ class ProductObserve
                 /**
                  * send notification for users followers seller
                  */
-                $users=User::whereHas('followers',fn($query)=>$query->where('user_id',$product->user_id))->pluck('device_token')->toArray();
+                $users=User::whereHas('following',fn($query)=>$query->where('user_id',$product->user_id))->pluck('device_token')->toArray();
                 $dataInfo['title']='منشور جديد';
                 $dataInfo['body']="قام متجر {$product->user?->seller_name} بإضافة منتج جديد";
                 $dataInfo['url'] = 'https://ali-pasha.com/product?id=' . $product->id;
