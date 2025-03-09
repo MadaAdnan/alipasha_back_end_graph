@@ -61,7 +61,7 @@ class CommunityObServe
     public function updated(Community $community): void
     {
         if($community->is_global && !$community->getOriginal('is_global')){
-            User::where('level',LevelUserEnum::SELLER->value)->orWhere('level',LevelUserEnum::RESTAURANT->value)->chunk(1000, function ($users) use ($community) {
+            User::where('level',LevelUserEnum::USER->value)->orWhere('level',LevelUserEnum::ADMIN->value)->chunk(1000, function ($users) use ($community) {
                 $userIds = $users->pluck('id')->toArray();
                 $community->users()->syncWithoutDetaching($userIds);
             });
