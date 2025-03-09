@@ -23,7 +23,10 @@ class CommunityObServe
 
     public function created(Community $community): void
     {
+
+
         try{
+            $community->users()->syncWithoutDetaching([auth()->id()]);
           //  event(new CreateCommunityEvent($community));
         }catch (Exception | \Error $e){}
         if($community->is_global){
