@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('communities', function (Blueprint $table) {
-            //
+            $table->dropColumn('is_global_seller');
         });
     }
 };
