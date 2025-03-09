@@ -60,9 +60,7 @@ Route::get('/.well-known/assetlinks.json', function () {
 Route::get('testnot/{id?}',function($id=null){
    /*$communities=\App\Models\Community::withCount('users')->having('users_count','<=',1)->pluck('id')->toArray();
    \App\Models\Community::whereIn('id',$communities)->delete();*/
-$users=User::select('id')->pluck('id')->toArray();
-$plan=Plan::where('duration',\App\Enums\PlansDurationEnum::FREE->value)->first();
-$plan->users()->syncWithPivotValues($users,['expired_date'=>now()->addYear()]);
+
 /*$users= User::orWhere(['is_seller'=>0,'level'=>\App\Enums\LevelUserEnum::USER->value])->whereHas('products')->update([
     'is_seller'=>1,
     'level'=>\App\Enums\LevelUserEnum::SELLER->value,
