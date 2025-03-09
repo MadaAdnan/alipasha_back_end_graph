@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Enums\CommunityTypeEnum;
+use App\Enums\LevelUserEnum;
 use App\Events\CreateCommunityEvent;
 use App\Jobs\SendFirebaseNotificationJob;
 use App\Models\Community;
@@ -26,12 +27,20 @@ class CommunityObServe
           //  event(new CreateCommunityEvent($community));
         }catch (Exception | \Error $e){}
         if($community->is_global){
-            User::chunk(1000, function ($users) use ($community) {
+            User::where('level',LevelUserEnum::USER->value)->orWhere('level',LevelUserEnum::ADMIN->value)->chunk(1000, function ($users) use ($community) {
                 $userIds = $users->pluck('id')->toArray();
                 $community->users()->syncWithoutDetaching($userIds);
             });
-
         }
+
+
+        if($community->is_global){
+            User::where('level',LevelUserEnum::USER->value)->orWhere('level',LevelUserEnum::ADMIN->value)->chunk(1000, function ($users) use ($community) {
+                $userIds = $users->pluck('id')->toArray();
+                $community->users()->syncWithoutDetaching($userIds);
+            });
+        }
+
         if($community->manager_id!=null){
            $user= $community->manager;
            $community->users()->syncWithPivotValues([$user->id],['is_manager'=>true,]);

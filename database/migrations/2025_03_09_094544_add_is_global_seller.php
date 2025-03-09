@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('communities', function (Blueprint $table) {
-            //
+            $table->boolean('is_global_seller')->nullable()->default(false);
         });
     }
 
