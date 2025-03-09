@@ -39,7 +39,8 @@ class CommunityResource extends Resource
                     Forms\Components\TextInput::make('name')->label('الاسم')->required(),
                     Forms\Components\TextInput::make('url')->label('كود الدخول')->required(),
                     Forms\Components\Select::make('manager_id')->getSearchResultsUsing(fn(string $search) => User::selectRaw('id,CONCAT(name, \' \' ,seller_name) as name')->where('name', 'like', "%$search%")->take(10)->pluck('name', 'id')->toArray())->required()->searchable()->label('المدير الرئيسي'),
-                    Forms\Components\Toggle::make('is_global')->visible(fn($get) => $get('type') !== CommunityTypeEnum::CHAT->value)->hint('سيتم إضافة جميع المستخدمين عند تفعيل الخيار')->label('عامة')
+                    Forms\Components\Toggle::make('is_global')->visible(fn($get) => $get('type') !== CommunityTypeEnum::CHAT->value)->hint('سيتم إضافة جميع المستخدمين عند تفعيل الخيار')->label('عامة مستخدمين'),
+                    Forms\Components\Toggle::make('is_global_seller')->visible(fn($get) => $get('type') !== CommunityTypeEnum::CHAT->value)->hint('سيتم إضافة جميع المتاجر عند تفعيل الخيار')->label('  متاجر عامة')
                 ])
             ]);
     }
