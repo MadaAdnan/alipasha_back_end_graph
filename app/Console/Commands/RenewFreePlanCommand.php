@@ -32,7 +32,7 @@ class RenewFreePlanCommand extends Command
             $users = User::whereHas('plans', function ($query)use($plan) {
                 $query->where('plans.id',$plan->id)->whereDate('plan_user.expired_date', '<', now()->addDays(5));
             })->pluck('id');
-            $plan->users()->syncWithPivotValues($users,['expired_date'=>now()->addYear()]);
+            $plan->users()->syncWithPivotValues($users,['expired_date'=>now()->addYear()],false);
         }
 
     }
