@@ -31,6 +31,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
     {
         return auth()->user();
     }
+
     /**
      * The attributes that are mass assignable.
      *
@@ -61,7 +62,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         'social' => 'array',
         'notify_date' => 'date',
         'send_at' => 'datetime',
-        'is_default_active'=>'boolean'
+        'is_default_active' => 'boolean'
 
     ];
 
@@ -86,7 +87,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
 
     public function scopeSeller(Builder $query)
     {
-        return $query->where(['is_seller'=>true,'level'=>LevelUserEnum::SELLER->value]);
+        return $query->where(['is_seller' => true, 'level' => LevelUserEnum::SELLER->value]);
     }
 
     public function products(): HasMany
@@ -168,9 +169,10 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
 
     public function category(): BelongsTo
     {
-        return $this->belongsTo(Category::class)->where('is_main',true);
+        return $this->belongsTo(Category::class)->where('is_main', true);
     }
-    function getIsSameMainCity( User $user)
+
+    function getIsSameMainCity(User $user)
     {
         $user1MainCityId = $this->city?->city ? $user->city->city->id : $user->city->id;
         $user2MainCityId = $this->city?->city ? $this->city->city->id : $this->city->id;
@@ -179,7 +181,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
 
     public function invoices(): HasMany
     {
-        return $this->hasMany(Invoice::class,'user_id')->whereIn('status',[
+        return $this->hasMany(Invoice::class, 'user_id')->whereIn('status', [
             OrderStatusEnum::AGREE->value,
             OrderStatusEnum::PENDING->value,
             OrderStatusEnum::AWAY->value
@@ -188,7 +190,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
 
     public function invoicesSeller(): HasMany
     {
-        return $this->hasMany(Invoice::class,'seller_id','id')->whereIn('status',[
+        return $this->hasMany(Invoice::class, 'seller_id', 'id')->whereIn('status', [
             OrderStatusEnum::AGREE->value,
             OrderStatusEnum::PENDING->value,
             OrderStatusEnum::AWAY->value
@@ -198,6 +200,11 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
     public function advices(): HasMany
     {
         return $this->hasMany(Advice::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 
 }
