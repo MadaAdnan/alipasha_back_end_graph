@@ -30,18 +30,22 @@ class CommunityObServe
           //  event(new CreateCommunityEvent($community));
         }catch (Exception | \Error $e){}
         if($community->is_global){
-            User::where('level',LevelUserEnum::USER->value)->orWhere('level',LevelUserEnum::ADMIN->value)->chunk(1000, function ($users) use ($community) {
-                $userIds = $users->pluck('id')->toArray();
-                $community->users()->syncWithoutDetaching($userIds);
-            });
+            User::whereIn('level', [LevelUserEnum::USER->value, LevelUserEnum::ADMIN->value])
+                ->select('id') // تحديد الأعمدة المطلوبة فقط
+                ->chunk(1000, function ($userIds) use ($community) {
+                    $community->users()->syncWithoutDetaching($userIds->pluck('id')->toArray());
+                });
+
         }
 
 
         if($community->is_global_seller){
-            User::where('level',LevelUserEnum::SELLER->value)->orWhere('level',LevelUserEnum::RESTAURANT->value)->chunk(1000, function ($users) use ($community) {
-                $userIds = $users->pluck('id')->toArray();
-                $community->users()->syncWithoutDetaching($userIds);
-            });
+            User::whereIn('level', [LevelUserEnum::SELLER->value, LevelUserEnum::RESTAURANT->value])
+                ->select('id') // تحديد الأعمدة المطلوبة فقط
+                ->chunk(1000, function ($userIds) use ($community) {
+                    $community->users()->syncWithoutDetaching($userIds->pluck('id')->toArray());
+                });
+
         }
 
         if($community->manager_id!=null){
@@ -61,16 +65,18 @@ class CommunityObServe
     public function updated(Community $community): void
     {
         if($community->is_global && !$community->getOriginal('is_global')){
-            User::where('level',LevelUserEnum::USER->value)->orWhere('level',LevelUserEnum::ADMIN->value)->chunk(1000, function ($users) use ($community) {
-                $userIds = $users->pluck('id')->toArray();
-                $community->users()->syncWithoutDetaching($userIds);
-            });
+            User::whereIn('level', [LevelUserEnum::USER->value, LevelUserEnum::ADMIN->value])
+                ->select('id') // تحديد الأعمدة المطلوبة فقط
+                ->chunk(1000, function ($userIds) use ($community) {
+                    $community->users()->syncWithoutDetaching($userIds->pluck('id')->toArray());
+                });
         }
         if($community->is_global_seller && !$community->getOriginal('is_global_seller')){
-            User::where('level',LevelUserEnum::SELLER->value)->orWhere('level',LevelUserEnum::RESTAURANT->value)->chunk(1000, function ($users) use ($community) {
-                $userIds = $users->pluck('id')->toArray();
-                $community->users()->syncWithoutDetaching($userIds);
-            });
+            User::whereIn('level', [LevelUserEnum::SELLER->value, LevelUserEnum::RESTAURANT->value])
+                ->select('id') // تحديد الأعمدة المطلوبة فقط
+                ->chunk(1000, function ($userIds) use ($community) {
+                    $community->users()->syncWithoutDetaching($userIds->pluck('id')->toArray());
+                });
         }
     }
 
