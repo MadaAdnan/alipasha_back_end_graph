@@ -19,7 +19,8 @@ class ProductsHelper
          * @var $user User
          */
         $user = auth()->user();
-        $plan = $user->plans()->where('type', PlansTypeEnum::PRESENT->value)->whereNot('duration',PlansDurationEnum::FREE->value)->wherePivot('expired_date', '>', now())->first();
+        $plan = $user->plans()->where('type', PlansTypeEnum::PRESENT->value)->wherePivot('expired_date', '>', now())->first();
+
         return $plan;
     }
 
