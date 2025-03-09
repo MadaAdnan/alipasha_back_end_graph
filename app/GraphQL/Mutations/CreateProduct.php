@@ -21,7 +21,7 @@ final class CreateProduct
         $data = $args['input'];
        $user=auth()->user();
         $plan = ProductsHelper::getPresentPlanActive();
-        info('Plan:'.json_encode($plan->toJson()));
+        info('Plan:'.$plan?->id);
         if ($plan == null) {
             throw new GraphQLExceptionHandler('يرجى الإشتراك بخطة للنشر');
         }
