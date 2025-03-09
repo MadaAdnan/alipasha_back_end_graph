@@ -120,7 +120,7 @@ class TenderResource extends Resource implements HasShieldPermissions
                     Forms\Components\SpatieMediaLibraryFileUpload::make('docs')->collection('docs')->acceptedFileTypes(['application/pdf', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document','image/jpeg','image/jpg','image/png','image/web'])->label('ملف مرفقات')->multiple()->maxFiles(3)->downloadable()->openable(),
                     Forms\Components\Select::make('user_id')->options(User::seller()->selectRaw('name,id')->pluck('name', 'id'))->label('المتجر')
                         ->live()->searchable()
-                        ->afterStateUpdated(fn($set, $state) => $set('city_id', User::find($state)?->city_id)),
+                       /* ->afterStateUpdated(fn($set, $state) => $set('city_id', User::find($state)?->city_id))*/,
                     Forms\Components\Select::make('city_id')->options(City::selectRaw('name,id')->pluck('name', 'id'))->searchable()->label('المدينة'),
                     Forms\Components\TextInput::make('name')->label('اسم المناقصة'),
                     Forms\Components\Textarea::make('info')->label('وصف المناقصة'),
