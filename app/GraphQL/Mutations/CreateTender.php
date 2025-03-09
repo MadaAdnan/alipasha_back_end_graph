@@ -3,8 +3,11 @@
 namespace App\GraphQL\Mutations;
 
 use App\Enums\CategoryTypeEnum;
+use App\Enums\PlansTypeEnum;
 use App\Enums\ProductActiveEnum;
+use App\Exceptions\GraphQLExceptionHandler;
 use App\Models\Product;
+use App\Models\User;
 use Carbon\Carbon;
 
 final class CreateTender
@@ -17,6 +20,18 @@ final class CreateTender
     {
         $data = $args['input'];
         $userId = auth()->id();
+        /**
+         * @var $user User
+         */
+        $user=auth()->user();
+        $plan= $user->plans()->where('type',PlansTypeEnum::PRESENT->value)->wherePivot('expired_date','>', now())->first();
+        if($plan==null){
+            throw new GraphQLExceptionHandler('يرجى الإشتراك بخطة للنشر');
+        }
+        $productsCount= Product::whereBetween('created_at',[now()->startOfMonth(),now()->endOfMonth()])->where('user_id',auth()->id())->count();
+        if($productsCount>=$plan->products_count){
+            throw new GraphQLExceptionHandler('لا يمكنك نشر المزيد خلال هذا الشهر يرجى ترقية الخطة لنشر المزيد');
+        }
         $product = Product::create([
             'user_id' => $userId,
             'name' => $data['name'] ?? \Str::words($data['info'], 10),
