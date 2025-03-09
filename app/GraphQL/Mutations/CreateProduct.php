@@ -21,12 +21,12 @@ final class CreateProduct
         $data = $args['input'];
        $user=auth()->user();
         $plan = ProductsHelper::getPresentPlanActive();
-        \Log::error('Plan:'.json_encode($plan->toJson()));
+        info('Plan:'.json_encode($plan->toJson()));
         if ($plan == null) {
             throw new GraphQLExceptionHandler('يرجى الإشتراك بخطة للنشر');
         }
         $isAvailableCreate=ProductsHelper::isAvailableCreateProduct($plan);
-        \Log::error('avaialble:'.$isAvailableCreate);
+        info('avaialble:'.$isAvailableCreate);
         if(!$isAvailableCreate){
             throw new GraphQLExceptionHandler('لا يمكنك نشر المزيد خلال هذا الشهر يرجى ترقية الخطة لنشر المزيد');
         }
