@@ -7,6 +7,7 @@ use App\Enums\PlansTypeEnum;
 use App\Enums\ProductActiveEnum;
 use App\Exceptions\GraphQLExceptionHandler;
 use App\GraphQL\Queries\Product;
+use App\Helpers\ProductsHelper;
 use App\Models\User;
 
 final class CreateProduct
@@ -18,17 +19,13 @@ final class CreateProduct
     public function __invoke($_, array $args)
     {
         $data = $args['input'];
-        $user = auth()->user();
-        /**
-         * @var $user User
-         */
-        $user=auth()->user();
-        $plan= $user->plans()->where('type',PlansTypeEnum::PRESENT->value)->wherePivot('expired_date','>', now())->first();
-        if($plan==null){
+       $user=auth()->user();
+        $plan = ProductsHelper::getPresentPlanActive();
+        if ($plan == null) {
             throw new GraphQLExceptionHandler('يرجى الإشتراك بخطة للنشر');
         }
-        $productsCount= \App\Models\Product::whereBetween('created_at',[now()->startOfMonth(),now()->endOfMonth()])->where('user_id',auth()->id())->count();
-        if($productsCount>=$plan->products_count){
+        $isAvailableCreate=ProductsHelper::isAvailableCreateProduct($plan);
+        if(!$isAvailableCreate){
             throw new GraphQLExceptionHandler('لا يمكنك نشر المزيد خلال هذا الشهر يرجى ترقية الخطة لنشر المزيد');
         }
         try {

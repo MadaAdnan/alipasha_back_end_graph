@@ -6,6 +6,7 @@ use App\Enums\CategoryTypeEnum;
 use App\Enums\PlansTypeEnum;
 use App\Enums\ProductActiveEnum;
 use App\Exceptions\GraphQLExceptionHandler;
+use App\Helpers\ProductsHelper;
 use App\Models\Product;
 use App\Models\User;
 use Carbon\Carbon;
@@ -20,16 +21,12 @@ final class CreateTender
     {
         $data = $args['input'];
         $userId = auth()->id();
-        /**
-         * @var $user User
-         */
-        $user=auth()->user();
-        $plan= $user->plans()->where('type',PlansTypeEnum::PRESENT->value)->wherePivot('expired_date','>', now())->first();
-        if($plan==null){
+        $plan = ProductsHelper::getPresentPlanActive();
+        if ($plan == null) {
             throw new GraphQLExceptionHandler('يرجى الإشتراك بخطة للنشر');
         }
-        $productsCount= Product::whereBetween('created_at',[now()->startOfMonth(),now()->endOfMonth()])->where('user_id',auth()->id())->count();
-        if($productsCount>=$plan->products_count){
+        $isAvailableCreate=ProductsHelper::isAvailableCreateProduct($plan);
+        if(!$isAvailableCreate){
             throw new GraphQLExceptionHandler('لا يمكنك نشر المزيد خلال هذا الشهر يرجى ترقية الخطة لنشر المزيد');
         }
         $product = Product::create([
@@ -45,7 +42,7 @@ final class CreateTender
             'end_date' => isset($data['end_date']) ? Carbon::parse($data['end_date']) : null,
             'code' => $data['code'] ?? null,
             'url' => $data['url'] ?? null,
-            'active' => auth()->user()->is_default_active===true?ProductActiveEnum::ACTIVE->value:ProductActiveEnum::PENDING->value,
+            'active' => auth()->user()->is_default_active === true ? ProductActiveEnum::ACTIVE->value : ProductActiveEnum::PENDING->value,
 
             'expert' => \Str::words($data['info'], 10),
             'category_id' => $data['category_id'] ?? null,
