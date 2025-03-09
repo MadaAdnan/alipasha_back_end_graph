@@ -34,8 +34,8 @@ class CommunityObServe
         }
 
 
-        if($community->is_global){
-            User::where('level',LevelUserEnum::USER->value)->orWhere('level',LevelUserEnum::ADMIN->value)->chunk(1000, function ($users) use ($community) {
+        if($community->is_global_seller){
+            User::where('level',LevelUserEnum::SELLER->value)->orWhere('level',LevelUserEnum::RESTAURANT->value)->chunk(1000, function ($users) use ($community) {
                 $userIds = $users->pluck('id')->toArray();
                 $community->users()->syncWithoutDetaching($userIds);
             });
@@ -57,7 +57,18 @@ class CommunityObServe
      */
     public function updated(Community $community): void
     {
-        //
+        if($community->is_global && !$community->getOriginal('is_global')){
+            User::where('level',LevelUserEnum::SELLER->value)->orWhere('level',LevelUserEnum::RESTAURANT->value)->chunk(1000, function ($users) use ($community) {
+                $userIds = $users->pluck('id')->toArray();
+                $community->users()->syncWithoutDetaching($userIds);
+            });
+        }
+        if($community->is_global_seller && !$community->getOriginal('is_global_seller')){
+            User::where('level',LevelUserEnum::SELLER->value)->orWhere('level',LevelUserEnum::RESTAURANT->value)->chunk(1000, function ($users) use ($community) {
+                $userIds = $users->pluck('id')->toArray();
+                $community->users()->syncWithoutDetaching($userIds);
+            });
+        }
     }
 
     /**
