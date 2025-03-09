@@ -29,10 +29,22 @@ class RenewFreePlanCommand extends Command
     {
         $plan=Plan::where('duration',\App\Enums\PlansDurationEnum::FREE->value)->first();
         if($plan!=null){
-            $users = User::whereHas('plans', function ($query)use($plan) {
+          /*  $users = User::whereHas('plans', function ($query)use($plan) {
                 $query->where('plans.id',$plan->id)->whereDate('plan_user.expired_date', '<', now()->addDays(5));
-            })->pluck('id');
-            $plan->users()->syncWithPivotValues($users,['expired_date'=>now()->addYear()],false);
+            })->orWhereDoesntHave('plans')->pluck('id');
+            $plan->users()->syncWithPivotValues($users,['expired_date'=>now()->addYear()],false);*/
+            User::where(function ($query) use ($plan) {
+                $query->whereHas('plans', function ($subQuery) use ($plan) {
+                    $subQuery->where('plans.id', $plan->id)
+                        ->whereDate('plan_user.expired_date', '<', now()->addDays(5));
+                })->orWhereDoesntHave('plans');
+            })
+                ->select('id')
+                ->chunk(1000, function ($users) use ($plan) {
+                    $userIds = $users->pluck('id')->toArray();
+                    $plan->users()->syncWithPivotValues($userIds, ['expired_date' => now()->addYear()], false);
+                });
+
         }
 
     }
