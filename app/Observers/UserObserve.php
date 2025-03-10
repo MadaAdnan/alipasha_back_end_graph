@@ -8,6 +8,8 @@ use App\Jobs\SendEmailJob;
 use App\Mail\RegisteredEmail;
 use App\Models\Community;
 use App\Models\Plan;
+use App\Models\Point;
+use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Mail;
@@ -52,7 +54,22 @@ class UserObserve
      */
     public function updated(User $user): void
     {
-        //
+        if ($user->email_verified_at != null && $user->getOriginal('email_verified_at') == null && $user->user_id != null) {
+            $setting = Setting::first();
+            if ( $setting->active_points) {
+                /**
+                 * @var $delegate User
+                 */
+                $delegate = $user->user;
+
+                Point::create([
+                    'user_id' => $delegate->id,
+                    'credit' => $setting->num_point_for_register,
+                    'debit' => 0,
+                    'info' => 'ربح من تسجيل المستخدم ' . $user->name,
+                ]);
+            }
+        }
     }
 
     /**
