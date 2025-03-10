@@ -53,7 +53,8 @@ class ProductObserve
                 /**
                  * send notification for users followers seller
                  */
-                $users=User::whereHas('following',fn($query)=>$query->where('seller_id',$product->user_id))->pluck('device_token')->toArray();
+                $usersIds=\DB::table('user_follow')->where('seller_id',$product->user_id)->select('user_id')->pluck('user_id')->toArray();
+                $users=User::whereIn('id',$usersIds)->pluck('device_token')->toArray();
                 $dataInfo['title']='منشور جديد';
                 $dataInfo['body']="قام متجر {$product->user?->seller_name} بإضافة منتج جديد";
                 $dataInfo['url'] = 'https://ali-pasha.com/product?id=' . $product->id;
