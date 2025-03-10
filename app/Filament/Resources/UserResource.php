@@ -152,7 +152,8 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('name')->label('الاسم')->toggleable(isToggledHiddenByDefault: false)->searchable(),
                 /* PhoneColumn::make('phone')
                      ->countryColumn('country_code')->displayFormat(PhoneInputNumberType::E164)->url(fn($state)=>'https://wa.me/'.\Str::replace(' ','',ltrim($state),'+'),true),
-                */ Tables\Columns\TextColumn::make('phone')
+                */
+                Tables\Columns\TextColumn::make('phone')
                     ->formatStateUsing(function ($state) {
                         $phone = $state;
                         if (\Str::startsWith($phone, '+')) {
@@ -186,8 +187,10 @@ class UserResource extends Resource
                     ->formatStateUsing(fn($state) => LevelSellerEnum::tryFrom($state)->getLabel())
                     ->color(fn($state) => LevelSellerEnum::tryFrom($state)->getColor())
                     ->toggleable(isToggledHiddenByDefault: true)->searchable(),
-
+Tables\Columns\TextColumn::make('points')->formatStateUsing(fn($record)=>$record->getTotalPoint())->label('النقاط')->toggleable(isToggledHiddenByDefault: true),
+Tables\Columns\TextColumn::make('balances')->formatStateUsing(fn($record)=>$record->getTotalBalance())->label('الرصيد')->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')->date('Y-m-d')->label('تاريخ التسجيل')->toggleable(isToggledHiddenByDefault: false)->sortable(),
+
             ])
             ->filters([
                 /*Tables\Filters\TernaryFilter::make('is_seller')->falseLabel('مستخدم')->trueLabel('متجر')->queries(
