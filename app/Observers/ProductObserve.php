@@ -58,8 +58,8 @@ class ProductObserve
                 $dataInfo['title']='منشور جديد';
                 $dataInfo['body']="قام متجر {$product->user?->seller_name} بإضافة منتج جديد";
                 $dataInfo['url'] = 'https://ali-pasha.com/product?id=' . $product->id;
-                $job=new SendFirebaseNotificationJob($users,$dataInfo);
-                dispatch($job);
+                $job2=new SendFirebaseNotificationJob($users,$dataInfo);
+                dispatch($job2);
 
             } //
             elseif ($product->active !== $product->getOriginal('active') && $product->active == ProductActiveEnum::BLOCK->value) {
