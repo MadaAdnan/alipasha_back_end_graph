@@ -19,7 +19,15 @@
                                                         <h4>{{$item->name}}</h4>
 
 
-                                                    <p style="font-size: 32px; font-weight: 6000; margin-bottom: 8px;"> $97 <sub style="color: #65676b; font-size: 14px;">{{$item->duration}} </sub>  </p>
+                                                    <p style="font-size: 32px; font-weight: 6000; margin-bottom: 8px;">
+                                                        @if($item->is_discount)
+                                                            <del> {{$item->price}} $</del>
+                                                            {{$item->discount}}
+
+                                                        @else
+                                                            {{$item->price}} $
+                                                            @endif
+                                                        <sub style="color: #65676b; font-size: 14px;">{{$item->duration}} </sub>  </p>
                                                     {{--<p style="font-size: 16px; color: #000000;margin: 20px 0px;">Perfect for individuals starting out.</p>--}}
 
                                                     <form action="">
