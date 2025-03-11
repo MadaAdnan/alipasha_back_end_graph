@@ -115,8 +115,10 @@ if(auth()->check()){
                                                     </p>
                                                     {{--<p style="font-size: 16px; color: #000000;margin: 20px 0px;">Perfect for individuals starting out.</p>--}}
 
-                                                    <form action="">
-                                                        <input type="hidden" name="free" value="123">
+                                                    <form action="{{route('pricing.store')}}" method="post">
+                                                        @csrf
+                                                        @method('post')
+                                                        <input type="hidden" name="plan_id" value="{{$item->id}}">
                                                         <button @if(!in_array($item->id,$userPlans) ) type="submit"
                                                                 style="width: 100%; background-color: #000000; color: #fff; margin: 20px 0px;"
                                                                 @else type="button"
