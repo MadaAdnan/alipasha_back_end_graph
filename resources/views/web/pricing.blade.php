@@ -70,9 +70,16 @@ if(auth()->check()){
 
 
                                                     <ul style="margin-top: 40px;">
-                                                        <li><i class="bi bi-check-circle"></i> 5 Projects</li>
-                                                        <li><i class="bi bi-check-circle"></i> Email Support</li>
-                                                        <li><i class="bi bi-check-circle"></i> Basic Analytics</li>
+                                                        @if($item->type==\App\Enums\PlansTypeEnum::PRESENT->value)
+                                                            <li><i class="bi bi-check-circle"></i> عدد المنتجات في الشهر {{$item->products_count}}</li>
+                                                            <li><i class="bi bi-check-circle"></i> عدد الإعلانات في الشهر {{$item->ads_count}}</li>
+                                                            <li><i class="bi bi-check-circle"></i> عدد المنتجات المميزة {{$item->special_count}}</li>
+                                                        @endif
+@foreach($item->items as $option)
+                                                                <li><i class="bi bi-check-circle"></i> {{$option['item']}}</li>
+@endforeach
+
+
                                                     </ul>
                                                 </div>
                                             </div>
