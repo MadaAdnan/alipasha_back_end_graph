@@ -1,4 +1,7 @@
 @extends('layouts.master_layouts')
+@section('title')
+    | الخطط
+@endsection
 @section('style')
     <style>
         body {
