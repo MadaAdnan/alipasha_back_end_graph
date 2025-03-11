@@ -129,7 +129,7 @@ if(auth()->check()){
                                                             <li><i class="bi bi-check-circle"></i> عدد المنتجات المميزة {{$item->special_count}}</li>
                                                         @endif
 @foreach($item->items as $option)
-                                                                <li>@if($option['active']) <i class="bi bi-check-circle"></i> @else  <i class="bi bi-cancel-circle"></i> @endif {{$option['item']}}</li>
+                                                                <li>@if($option['active']) <i class="bi bi-check-circle"></i> @else  <i class="bi bi-x-circle text-danger"></i> @endif {{$option['item']}}</li>
 @endforeach
 
 
