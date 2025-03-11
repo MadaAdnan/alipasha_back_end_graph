@@ -29,6 +29,7 @@ Route::resource('/jobs',\App\Http\Controllers\Web\JobController::class)->only('i
 Route::resource('/tenders',\App\Http\Controllers\Web\TenderController::class)->only('index','show');
 Route::resource('/services',\App\Http\Controllers\Web\ServiceController::class)->only('index','show');
 Route::resource('/posts',\App\Http\Controllers\Web\PostController::class)->only('index','show');
+Route::resource('/pricing',\App\Http\Controllers\Web\PricingController::class)->only('index','store');
 
 
 Route::middleware('auth:web')->group(function (){
