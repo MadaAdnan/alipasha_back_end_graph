@@ -59,7 +59,7 @@ if(auth()->check()){
 
                                                     <form action="">
                                                         <input type="hidden" name="free" value="123">
-                                                        <button @if(!in_array($item->id,$userPlans) ) type="submit"  style="width: 100%; background-color: #000000; color: #fff; margin: 20px 0px;"  @else type="button"  style="width: 100%; background-color: transparent; border: #00bb00; color: #000; margin: 20px 0px;"   @endif class="btn"
+                                                        <button @if(!in_array($item->id,$userPlans) ) type="submit"  style="width: 100%; background-color: #000000; color: #fff; margin: 20px 0px;"  @else type="button"  style="width: 100%; background-color: transparent; border: #00bb00 solid 2px; color: #000; margin: 20px 0px;"   @endif class="btn"
                                                                >
                                                             @if(!in_array($item->id,$userPlans) ) اشترك بالخطة  @else تم الاشتراك   @endif
                                                         </button>
