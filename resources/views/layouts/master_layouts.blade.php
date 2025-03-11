@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{$settings->name}} @section('title')  @show</title>
+    <title>{{$settings->social['name']}} @section('title')  @show</title>
     <link rel="icon" type="image/png" href="{{asset('assets/logo.svg')}}">
     <!-- Bootstrap CSS -->
     <link
