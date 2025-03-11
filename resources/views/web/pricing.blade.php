@@ -61,7 +61,7 @@ if(auth()->check()){
                                                         <input type="hidden" name="free" value="123">
                                                         <button @if(!in_array($item->id,$userPlans) ) type="submit"  @else type="button"   @endif class="btn"
                                                                 style="width: 100%; background-color: #000000; color: #fff; margin: 20px 0px;">
-                                                            @if(!in_array($item->id,$userPlans) ) إشترك بالخطة  @else تم الإشتراك   @endif
+                                                            @if(!in_array($item->id,$userPlans) ) اشترك بالخطة  @else تم الاشتراك   @endif
                                                         </button>
                                                     </form>
 
