@@ -29,6 +29,7 @@ class CommunityObServe
             $community->users()->syncWithoutDetaching([auth()->id()]);
           //  event(new CreateCommunityEvent($community));
         }catch (Exception | \Error $e){}
+
         if($community->is_global){
             User::whereIn('level', [LevelUserEnum::USER->value, LevelUserEnum::ADMIN->value])
                 ->select('id') // تحديد الأعمدة المطلوبة فقط
@@ -50,9 +51,9 @@ class CommunityObServe
 
         if($community->manager_id!=null){
            $user= $community->manager;
-           $community->users()->syncWithPivotValues([$user->id],['is_manager'=>true,]);
+           $community->users()->syncWithPivotValues([$user->id],['is_manager'=>true,],false);
         }elseif (auth()->check()){
-            $community->users()->syncWithPivotValues([auth()->id()],['is_manager'=>true,]);
+            $community->users()->syncWithPivotValues([auth()->id()],['is_manager'=>true,],false);
         }
 
 
