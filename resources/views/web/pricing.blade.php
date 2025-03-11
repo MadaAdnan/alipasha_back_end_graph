@@ -4,6 +4,7 @@
         body {
             background-color: #fff;
         }
+
         /* Custom arrow styles */
         .carousel-control-prev,
         .carousel-control-next {
@@ -74,7 +75,8 @@ if(auth()->check()){
                                     <div class="row justify-content-center">
                                         @foreach($plan as $item)
                                             <div class="col-md-4">
-                                                <div class="pricing-item  @if(in_array($item->id,$userPlans) ) bg-success-subtle @endif">
+                                                <div
+                                                    class="pricing-item  @if(in_array($item->id,$userPlans) ) bg-success-subtle @endif">
 
                                                     <h4>{{$item->name}}</h4>
 
@@ -112,9 +114,14 @@ if(auth()->check()){
 
                                                     <form action="">
                                                         <input type="hidden" name="free" value="123">
-                                                        <button @if(!in_array($item->id,$userPlans) ) type="submit"  style="width: 100%; background-color: #000000; color: #fff; margin: 20px 0px;"  @else type="button"  style="width: 100%; background-color: transparent; border: #00bb00 solid 2px; color: #000; margin: 20px 0px;"   @endif class="btn"
-                                                               >
-                                                            @if(!in_array($item->id,$userPlans) ) اشترك بالخطة  @else تم الاشتراك   @endif
+                                                        <button @if(!in_array($item->id,$userPlans) ) type="submit"
+                                                                style="width: 100%; background-color: #000000; color: #fff; margin: 20px 0px;"
+                                                                @else type="button"
+                                                                style="width: 100%; background-color: transparent; border: #00bb00 solid 2px; color: #000; margin: 20px 0px;"
+                                                                @endif class="btn"
+                                                        >
+                                                            @if(!in_array($item->id,$userPlans) ) اشترك بالخطة  @else تم
+                                                            الاشتراك   @endif
                                                         </button>
                                                     </form>
 
@@ -124,13 +131,25 @@ if(auth()->check()){
 
                                                     <ul style="margin-top: 40px;">
                                                         @if($item->type==\App\Enums\PlansTypeEnum::PRESENT->value)
-                                                            <li><i class="bi bi-check-circle"></i> عدد المنتجات في الشهر {{$item->products_count}}</li>
-                                                            <li><i class="bi bi-check-circle"></i> عدد الإعلانات في الشهر {{$item->ads_count}}</li>
-                                                            <li><i class="bi bi-check-circle"></i> عدد المنتجات المميزة {{$item->special_count}}</li>
+                                                            @if($item->products_count>0)
+                                                                <li><i class="bi bi-check-circle"></i> عدد المنتجات في
+                                                                    الشهر {{$item->products_count}}</li>
+                                                            @endif
+                                                            @if($item->ads_count>0)
+                                                                <li><i class="bi bi-check-circle"></i> عدد الإعلانات في
+                                                                    الشهر {{$item->ads_count}}</li>
+                                                            @endif
+                                                            @if($item->special_count>0)
+                                                                <li><i class="bi bi-check-circle"></i> عدد المنتجات
+                                                                    المميزة {{$item->special_count}}</li>
+                                                            @endif
                                                         @endif
-@foreach($item->items as $option)
-                                                                <li>@if($option['active']) <i class="bi bi-check-circle"></i> @else  <i class="bi bi-x-circle text-danger"></i> @endif {{$option['item']}}</li>
-@endforeach
+                                                        @foreach($item->items as $option)
+                                                            <li>@if($option['active']) <i
+                                                                    class="bi bi-check-circle"></i> @else  <i
+                                                                    class="bi bi-x-circle text-danger"></i> @endif {{$option['item']}}
+                                                            </li>
+                                                        @endforeach
 
 
                                                     </ul>
