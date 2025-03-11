@@ -14,7 +14,7 @@
                                     <div class="row justify-content-center">
                                         @foreach($plan as $item)
                                             <div class="col-md-4">
-                                                <div class="pricing-item  bg-success">
+                                                <div class="pricing-item  bg-success-subtle">
 
                                                     <h4>{{$item->name}}</h4>
 
