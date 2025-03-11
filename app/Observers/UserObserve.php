@@ -38,6 +38,22 @@ class UserObserve
         }
         $groups = Community::where('is_global', true)->pluck('id')->toArray();
         $user->communities()->syncWithoutDetaching($groups);
+        if($user->user_id!=null){
+            $setting = Setting::first();
+            if ( $setting->active_points) {
+                /**
+                 * @var $delegate User
+                 */
+                $delegate = $user->user;
+
+                Point::create([
+                    'user_id' => $delegate->id,
+                    'credit' => $setting->num_point_for_register,
+                    'debit' => 0,
+                    'info' => 'ربح من تسجيل المستخدم ' . $user->name,
+                ]);
+            }
+        }
     }
 
 
