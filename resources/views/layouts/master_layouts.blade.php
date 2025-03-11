@@ -134,7 +134,7 @@ required=""
 
         <!-- Right Section: Icons -->
         <div class="d-lg-flex align-items-center gap-2">
-            <a href="./pages/pricing.html">
+            <a href="{{route('pricing.index')}}">
                 <button
                     class="btn"
                     style="
