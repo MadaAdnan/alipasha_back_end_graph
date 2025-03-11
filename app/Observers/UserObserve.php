@@ -34,7 +34,7 @@ class UserObserve
         }
         $plan = Plan::where('duration', PlansDurationEnum::FREE->value)->first();
         if ($plan) {
-            $user->plans()->sync([$plan->id]);
+            $user->plans()->syncWithPivotValues([$plan->id],['subscription_date'=>now(),'expired_date'=>now()->addYear()]);
         }
         $groups = Community::where('is_global', true)->pluck('id')->toArray();
         $user->communities()->syncWithoutDetaching($groups);
