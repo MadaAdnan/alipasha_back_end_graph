@@ -1,5 +1,58 @@
 @extends('layouts.master_layouts')
+@section('style')
+    <style>
+        body {
+            background-color: #fff;
+        }
+        /* Custom arrow styles */
+        .carousel-control-prev,
+        .carousel-control-next {
+            position: absolute;
+            z-index: 9999999999999999;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: transparent;
+            border: 1px solid #e30613 !important;
+            transition: all 0.3s ease;
+        }
 
+        .carousel-control-next {
+            top: 50%;
+            right: -60px;
+            background-color: #e30613;
+        }
+
+        .carousel-control-prev {
+            top: 50%;
+            left: -60px;
+            background-color: #e30613;
+        }
+
+        @media (max-width: 768px) {
+            .carousel-control-next {
+                top: 50%;
+                right: -10px;
+                background-color: #e30613;
+            }
+
+            .carousel-control-prev {
+                top: 50%;
+                left: -10px;
+                background-color: #e30613;
+            }
+        }
+
+        .carousel-control-prev:hover,
+        .carousel-control-next:hover {
+            background-color: red;
+            color: #fff;
+        }
+    </style>
+@endsection
 @section('content')
     <div class="container-fluid" style="margin-top: 70px">
         <div class="row">
