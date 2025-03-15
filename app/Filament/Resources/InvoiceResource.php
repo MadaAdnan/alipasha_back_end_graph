@@ -81,6 +81,7 @@ protected static ?string $navigationLabel='طلبات شحن علي باشا';
                 Tables\Columns\TextColumn::make('shipping')->label('اجور الشحن'),
                 Tables\Columns\TextColumn::make('address')->label('عنوان الشحن'),
                 Tables\Columns\TextColumn::make('phone')->label('رقم الهاتف'),
+                Tables\Columns\TextColumn::make('admin_note')->label('ملاحظات'),
                 Tables\Columns\TextColumn::make('created_at')->since()->label('تاريخ الطلب'),
             ])
             ->filters([

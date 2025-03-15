@@ -21,6 +21,9 @@ final  class CreateInvoice
         try {
 
             $weight=0;
+            if(!auth()->check() || auth()->id()==null){
+                throw new GraphQLExceptionHandler('خطأ في الطلب يرجى المحاولة من جديد');
+            }
             $invoice = new Invoice();
             $invoice->seller_id = $data['seller_id'];
             $invoice->user_id = auth()->id();
@@ -30,6 +33,7 @@ final  class CreateInvoice
             $invoice->save();
 
             $seller = User::findOrFail($data['seller_id']);
+
             $total = 0;
             foreach ($data['items'] as $item) {
                 $product = Product::find($item['product_id']);
