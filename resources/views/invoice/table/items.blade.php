@@ -48,8 +48,8 @@
         </td>
     </tr>
     <tr>
-        <td colspan="1">ملاحظات التاجر</td>
-        <td colspan="3">{{$getRecord()->seller_note}}</td>
+        <td colspan="1" class="fi-ta-header-cell-label text-sm font-semibold text-gray-950 dark:text-white">ملاحظات التاجر</td>
+        <td colspan="3" class="fi-ta-header-cell-label text-sm font-semibold text-gray-950 dark:text-white">{{$getRecord()->seller_note}}</td>
     </tr>
     </table>
 
