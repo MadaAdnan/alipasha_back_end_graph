@@ -141,6 +141,7 @@ class ProductResource extends Resource
                         if($record && $record->phone==null){
                             return $record->user?->phone;
                         }
+                        return $record->name;
                     }),
 
                     Forms\Components\TagsInput::make('tags')->suggestions(fn() => Product::product()->pluck('tags')->flatten()->unique())->label('تاغات'),
