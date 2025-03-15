@@ -137,7 +137,9 @@ class ProductResource extends Resource
                     Forms\Components\TextInput::make('video')->label('رابط الفيديو إن وجد'),
                     Forms\Components\TextInput::make('name')->label('اسم المنتج'),
                     Forms\Components\Textarea::make('info')->label('وصف المنتج'),
-                    Forms\Components\TextInput::make('phone')->label('رقم الهاتف'),
+                    Forms\Components\Fieldset::make('الأسعار والتوفر')->schema([
+                        Forms\Components\TextInput::make('phone')->label('رقم الهاتف'),
+                    ])->relationship('user')
 
                     Forms\Components\TagsInput::make('tags')->suggestions(fn() => Product::product()->pluck('tags')->flatten()->unique())->label('تاغات'),
                     Forms\Components\Fieldset::make('الأسعار والتوفر')->schema([
