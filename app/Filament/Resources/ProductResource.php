@@ -139,7 +139,7 @@ class ProductResource extends Resource
                     Forms\Components\Textarea::make('info')->label('وصف المنتج'),
                     Forms\Components\Fieldset::make('الأسعار والتوفر')->schema([
                         Forms\Components\TextInput::make('phone')->label('رقم الهاتف'),
-                    ])->relationship('user')
+                    ])->relationship('user')->visible(fn($context)=>$context!='create')
 
                     Forms\Components\TagsInput::make('tags')->suggestions(fn() => Product::product()->pluck('tags')->flatten()->unique())->label('تاغات'),
                     Forms\Components\Fieldset::make('الأسعار والتوفر')->schema([
