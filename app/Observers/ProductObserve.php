@@ -21,8 +21,12 @@ class ProductObserve
             $data['is_seller'] = true;
             $data['level'] = LevelUserEnum::SELLER->value;
             $data['seller_name'] = $product->user?->name;
-            $product->user->update($data);
+
         }
+        if($product->phone==null){
+           $data['phone']=$product->user?->phone;
+        }
+        $product->user->update($data);
         if($product->active==ProductActiveEnum::ACTIVE->value){
             /**
              * send notification for users followers seller
