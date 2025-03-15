@@ -47,5 +47,9 @@
             {{$getRecord()->shipping+ $getRecord()->total }}
         </td>
     </tr>
+    <tr>
+        <td colspan="1">ملاحظات التاجر</td>
+        <td colspan="3">{{$getRecord()->seller_note}}</td>
+    </tr>
     </table>
 
