@@ -23,7 +23,12 @@ class PricingController extends Controller
     public function index()
     {
         $plans = Plan::where('is_active', 1)->orderBy('sortable')->get()->chunk(3);
-        return view('web.pricing', compact('plans'));
+        $userPlans=[];
+        if(auth()->check()){
+            $userPlans=auth()->user()->plans->pluck('id')->toArray();
+
+        }
+        return view('web.pricing', compact('plans','userPlans'));
     }
 
     /**

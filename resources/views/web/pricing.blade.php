@@ -66,13 +66,7 @@
                     <p class="text-center sub-title mb-4"> أسعار مناسبة ونتائج تسويقية رائعة</p>
                     <div id="pricingCarousel" class="carousel slide">
                         <div class="carousel-inner">
-                            @php
-                                $palns=[];
-if(auth()->check()){
-    $userPlans=auth()->user()->plans->pluck('id')->toArray();
 
-}
-                            @endphp
                             @foreach($plans as $plan)
                                 <div class="carousel-item @if($loop->iteration==1) active @endif">
                                     <div class="row justify-content-center">
