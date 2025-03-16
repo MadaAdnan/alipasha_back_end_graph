@@ -127,6 +127,7 @@
                                 <a href="../pages/post-info.html">
                                     <p class="title" style="text-align: right">
                                         معلومات عن المنشور
+                                        {!! $post->info !!}
                                     </p>
                                     <p class="sub-title" style="text-align: right">{{$post->created_at?->diffForHumans()}}</p>
                                     <div class="pricing" style="display: flex; align-items: center; justify-content: space-around; margin: 10px 0px;">
