@@ -37,6 +37,7 @@ class PostController extends Controller
      */
     public function show(string $id)
     {
+        dd($id);
         $post=Product::whereActive(true)->findOrFail($id);
         return view('web.post-info',compact('post'));
     }
