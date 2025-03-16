@@ -99,10 +99,15 @@
                             <div class="post-info-header">
 
                                 <div style="display: flex; gap: 4px;">
-                                    <form action="" method="POST" style="display: flex; align-items: center; gap: 8px; background-color: transparent;">
-                                        <input type="hidden" name="storId" value="123" />
-                                        <button type="submit" class="btn btn-danger"> متابعة </button>
-                                    </form>
+                                    @auth
+                                        <form action="" method="POST" style="display: flex; align-items: center; gap: 8px; background-color: transparent;">
+                                            @csrf
+                                            @method('POST')
+                                            <input type="hidden" name="storeId" value="{{$product->user_id}}" />
+                                            <button type="submit" class="btn btn-danger"> متابعة </button>
+                                        </form>
+                                    @endauth
+
 
 
                                     <button        data-bs-toggle="modal"

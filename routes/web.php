@@ -32,8 +32,10 @@ Route::resource('/posts',\App\Http\Controllers\Web\PostController::class)->only(
 Route::resource('/pricing',\App\Http\Controllers\Web\PricingController::class)->only('index','store');
 
 
+
 Route::middleware('auth:web')->group(function (){
     Route::resource('/profile',\App\Http\Controllers\Web\ProfileController::class);
+    Route::post('/markets/followers',[\App\Http\Controllers\Web\SellerController::class,'followers']);
 });
 
 Route::get('/.well-known/assetlinks.json', function () {
