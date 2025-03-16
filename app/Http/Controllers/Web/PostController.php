@@ -40,7 +40,7 @@ class PostController extends Controller
     {
 
         $post=Product::whereActive(ProductActiveEnum::ACTIVE->value)->find($id);
-        dd($id,$post);
+
         return view('web.post-info',compact('post'));
     }
 
