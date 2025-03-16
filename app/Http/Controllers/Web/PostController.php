@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Enums\ProductActiveEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -38,7 +39,7 @@ class PostController extends Controller
     public function show(string $id)
     {
 
-        $post=Product::whereActive(true)->find($id);
+        $post=Product::whereActive(ProductActiveEnum::ACTIVE->value)->find($id);
         dd($id,$post);
         return view('web.post-info',compact('post'));
     }
