@@ -174,10 +174,12 @@ required=""
             >
             </span>
           </span>
+            @if(auth()->check())
             <a href="{{route('profile.index')}}">
-                <img src="{{asset('assets/avatar.svg')}}" alt="" />
+                <img src="{{auth()->user()->getFirstMediaUrl('image','webp')}}" alt="" />
             </a>
             <!-- Toggler for Mobile View -->
+                @endif
         </div>
 
         <button
