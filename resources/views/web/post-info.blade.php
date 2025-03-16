@@ -108,7 +108,7 @@
                                         </form>
                                     @endauth
 
-                                        <a href="" class="btn btn-success"><i class="bi bi-whatsapp"></i></a>
+                                        <a href="https://wa.me/{{$post->user?->phone}}?text=المنتج : {{$post->title}}" class="btn btn-success"><i class="bi bi-whatsapp"></i></a>
 
                                     <button        data-bs-toggle="modal"
                                                    data-bs-target="#contact" type="submit"  class="btn btn-danger"> مراسلة التاجر </button>
