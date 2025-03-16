@@ -351,8 +351,10 @@
                         <div class="divider"></div>
                         @foreach($categories as $category)
                             <div class="category-item">
+                                <a href="{{route('index',['category_id'=>$category->id])}}">
                                 <p>{{$category->name}}</p>
                                 <div class="count">{{$category->products_count}}</div>
+                                </a>
                             </div>
                         @endforeach
 

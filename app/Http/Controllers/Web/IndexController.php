@@ -18,24 +18,26 @@ class IndexController extends Controller
      */
     public function index()
     {
-        $specialSeller=User::where([
-            'level'=>LevelUserEnum::SELLER->value,
+        $categoryId = \request()->get('category_id');
+        $specialSeller = User::where([
+            'level' => LevelUserEnum::SELLER->value,
             'is_special' => true,
             'is_active' => true,
-            ])->get();
-       $products= Product::where(function($query){
-            $query->where('active',ProductActiveEnum::ACTIVE->value);
-            $query->where(fn($query)=>
-            $query->where('type',CategoryTypeEnum::PRODUCT->value)
-                ->orWhere('type',CategoryTypeEnum::JOB->value)
-                ->orWhere('type',CategoryTypeEnum::SEARCH_JOB->value)
-                ->orWhere('type',CategoryTypeEnum::NEWS->value)
-                ->orWhere('type',CategoryTypeEnum::TENDER->value)
+        ])->get();
+        $products = Product::when($categoryId,fn($query)=>$query->where('category_id',$categoryId))
+        ->where(function ($query) {
+            $query->where('active', ProductActiveEnum::ACTIVE->value);
+            $query->where(fn($query) => $query->where('type', CategoryTypeEnum::PRODUCT->value)
+                ->orWhere('type', CategoryTypeEnum::JOB->value)
+                ->orWhere('type', CategoryTypeEnum::SEARCH_JOB->value)
+                ->orWhere('type', CategoryTypeEnum::NEWS->value)
+                ->orWhere('type', CategoryTypeEnum::TENDER->value)
             );
         })->latest()->paginate(35);
-$categories=Category::where('is_active',true)
-    ->where(fn($query)=>$query->where('type',CategoryTypeEnum::PRODUCT->value)->orWhere('type',CategoryTypeEnum::RESTAURANT->value))->orderBy('sortable')->get();
-        return view('web.index', compact('specialSeller','products','categories'));
+        $subCategory = Category::whereHas('parents', fn($query) => $query->where('category_id', $categoryId))->get();
+        $categories = Category::where('is_active', true)
+            ->where(fn($query) => $query->where('type', CategoryTypeEnum::PRODUCT->value)->orWhere('type', CategoryTypeEnum::RESTAURANT->value))->orderBy('sortable')->get();
+        return view('web.index', compact('specialSeller', 'products', 'categories','subCategory'));
     }
 
     /**
