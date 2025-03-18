@@ -129,7 +129,7 @@
                             </div>
 
                             <div class="post-content" style="margin: 20px 0px 0px 0px">
-                                <a href="../pages/post-info.html">
+
                                     <p class="title" style="text-align: right">
 
                                         {!! $post->info !!}
@@ -141,7 +141,7 @@
                                         <p class="title" style="color: #e30613;">  {{$post->discount}} $  </p>
                                     </div>
 
-                                </a>
+
                                 <div
                                     style="
                         width: 100%;
@@ -182,13 +182,13 @@
                                 <div style="display: flex; justify-content: end;margin: 20px 0px;">
                                     <div class="post-info">
                                         <div style="display: flex; gap: 4px; flex-direction: column">
-                                            <p class="title" style="text-align: right">{{$post->user?->getImage()}}</p>
+                                            <p class="title" style="text-align: right">{{$post->user?->seller_name}}</p>
                                             <p class="sub-title" style="text-align: right">
                                                {{$post->city?->city?->name}} - {{$post->city?->name}} - {{$post->category?->name}}
                                             </p>
                                         </div>
-                                        <a href="../pages/profile.html">
-                                            <img src="../assets/avatar-2.svg" alt="" />
+                                        <a href="{{route('seller.profile',$post->user_id)}}">
+                                            <img src="{{$post->user->getImage()}}" alt="" />
                                         </a>
                                     </div>
                                 </div>
