@@ -172,7 +172,10 @@
                                 <i class="bi bi-geo-alt-fill"></i> ادلب - دوار الساعة
                             </p>
                         </div>
-                        <img src=" {{$store->getImage()}}" alt="" />
+                        <img src=" {{$store->getImage()}}" style="width: 100px;
+  border-radius: 50%;
+  aspect-ratio: 1/1;
+  object-fit: cover;" alt="" />
                     </div>
                 </div>
             </div>
