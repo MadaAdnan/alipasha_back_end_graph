@@ -89,7 +89,7 @@
             <div style="width: 100%; height: auto; position: relative">
                 <img
                     src="{{$store->getImage('logo')}}"
-                    style="width: 100%; height: 100%; object-fit: cover"
+                    style="width: 100%; min-height: 100%; max-height: 600px; object-fit: cover"
                     alt=""
                 />
                 <div class="stor-info">
