@@ -125,8 +125,10 @@
                           font-weight: 600;
                         "
                                         >
+                                            {{$store->total_views}}
+                                            ---
                                             @if($store->total_views<=1000 )
-                                                {{$store->total_views}}
+
                                                 @elseif($store->total_views>1000 && $store->total_views<=1000000 )
                                                 {{sprintf('%.2f', $store->total_views/1000)}} K
                                             @elseif($store->total_views>1000000)
