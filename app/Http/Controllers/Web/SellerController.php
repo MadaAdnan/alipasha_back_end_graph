@@ -20,6 +20,15 @@ class SellerController extends Controller
     }
 
     /**
+     * @param string $id
+     */
+    public function profile(string $id)
+    {
+        $store=User::find($id);
+        return view('web.store',compact('store'));
+    }
+
+    /**
      * Show the form for creating a new resource.
      */
     public function followers(Request $request)
@@ -28,7 +37,7 @@ class SellerController extends Controller
          * @var $user User
          *
          */
-        $sellerId =$request->storeId;
+        $sellerId = $request->storeId;
         $user = auth()->user();
         $follow = UserFollow::where(['seller_id' => $sellerId, 'user_id' => $user->id])->exists();
         if ($follow) {
@@ -46,13 +55,13 @@ class SellerController extends Controller
             UserFollow::create(['seller_id' => $sellerId, 'user_id' => $user->id]);
 
 
-            if(auth()->check() ){
+            if (auth()->check()) {
                 Interaction::updateOrCreate([
-                    'user_id'=>auth()->id(),
+                    'user_id' => auth()->id(),
                     'seller_id' => $sellerId,
 
-                ],[
-                    'visited'=> \DB::raw('visited + 1'),
+                ], [
+                    'visited' => \DB::raw('visited + 1'),
                 ]);
             }
         }

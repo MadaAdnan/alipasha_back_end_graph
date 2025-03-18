@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Enums\CategoryTypeEnum;
 use App\Enums\ProductActiveEnum;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -40,8 +42,10 @@ class PostController extends Controller
     {
 
         $post=Product::whereActive(ProductActiveEnum::ACTIVE->value)->find($id);
+        $categories = Category::where('is_active', true)
+            ->where(fn($query) => $query->where('type', CategoryTypeEnum::PRODUCT->value)->orWhere('type', CategoryTypeEnum::RESTAURANT->value))->orderBy('sortable')->get();
 
-        return view('web.post-info',compact('post'));
+        return view('web.post-info',compact('post','categories'));
     }
 
     /**

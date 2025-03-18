@@ -30,7 +30,7 @@ Route::resource('/tenders',\App\Http\Controllers\Web\TenderController::class)->o
 Route::resource('/services',\App\Http\Controllers\Web\ServiceController::class)->only('index','show');
 Route::resource('/posts',\App\Http\Controllers\Web\PostController::class)->only('index','show');
 Route::resource('/pricing',\App\Http\Controllers\Web\PricingController::class)->only('index','store');
-
+Route::get('/markets/{id}',[\App\Http\Controllers\Web\SellerController::class,'profile'])->name('seller.profile');
 
 
 Route::middleware('auth:web')->group(function (){
