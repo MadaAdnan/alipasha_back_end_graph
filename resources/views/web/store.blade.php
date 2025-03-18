@@ -208,9 +208,9 @@
                     align-items: center;
                   "
                                 >
-                                    <p>
+                                    <p class="text-danger">
                                         @if($product->is_discount)
-                                            {{$product->discount}} $ <del>{{$product->price}} $</del>
+                                            {{$product->discount}} $ <del class="text-muted">{{$product->price}} $</del>
                                             @else
                                         {{$product->price}} $
                                         @endif
