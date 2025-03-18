@@ -123,7 +123,7 @@
                                         </p>
                                     </div>
                                     <a href="{{route('seller.profile',$post->user_id)}}">
-                                        <img src="{{$post->user?->getImage()}}" alt="" />
+                                        <img src="{{$post->user?->getImage()}}" style="width: 100px; border-radius: 50%;aspect-ratio: 1/1" alt="" />
                                     </a>
                                 </div>
                             </div>
