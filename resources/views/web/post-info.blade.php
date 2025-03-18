@@ -122,7 +122,7 @@
                                             {{$post->user?->name}}
                                         </p>
                                     </div>
-                                    <a href="../pages/profile.html">
+                                    <a href="{{route('seller.profile',$post->user_id)}}">
                                         <img src="{{$post->user?->getImage()}}" alt="" />
                                     </a>
                                 </div>
@@ -311,26 +311,16 @@
                     <div class="categories">
                         <p class="category-text">التصنيفات</p>
                         <div class="divider"></div>
-                        <div class="category-item">
-                            <p>مركز تدريب</p>
-                            <div class="count">5</div>
-                        </div>
-                        <div class="category-item">
-                            <p>مشافي</p>
-                            <div class="count">12</div>
-                        </div>
-                        <div class="category-item">
-                            <p>أفران</p>
-                            <div class="count">5</div>
-                        </div>
-                        <div class="category-item">
-                            <p>دور رعاية المسنين</p>
-                            <div class="count">1</div>
-                        </div>
-                        <div class="category-item">
-                            <p>مدارس</p>
-                            <div class="count">7</div>
-                        </div>
+                       @foreach($categories as $category)
+                            <a href="{{route('index',['category_id'=>$category->id])}}">
+                            <div class="category-item">
+                                <p>{{$category->name}}</p>
+                                <div class="count">{{$category->products_count}}</div>
+                            </div>
+                            </a>
+                       @endforeach
+
+
                     </div>
                 </div>
             </div>
