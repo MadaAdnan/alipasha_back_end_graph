@@ -125,10 +125,12 @@
                           font-weight: 600;
                         "
                                         >
-                                            @if($store->total_views<=1000)
+                                            @if($store->total_views<=1000 )
                                                 {{$store->total_views}}
-                                                @else
-                                                {{(int)( $store->total_views/1000)}} K
+                                                @elseif($store->total_views>1000 && $store->total_views<=1000000 )
+                                                {{sprintf('%.2f', $store->total_views/1000)}} K
+                                            @elseif($store->total_views>1000000)
+                                                {{sprintf('%.2f', $store->total_views/1000000)}} M
                                                 @endif
                                         </p>
                                         <p class="sub-title">مشاهدات</p>
