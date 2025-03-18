@@ -125,8 +125,6 @@
                           font-weight: 600;
                         "
                                         >
-
-
                                             @if($store->total_views<=1000 )
                                                 {{$store->total_views}}
                                                 @elseif($store->total_views>1000 && $store->total_views<=1000000 )
@@ -169,18 +167,18 @@
                                     <p
                                         style="font-weight: 700; font-size: 24px; color: #e30613"
                                     >
-                                        مؤسسة شام للدعاية
+                                        {{$store->seller_name}}
                                     </p>
                                     <p
                                         style="font-size: 18px; color: #544c4c; font-weight: 400"
                                     >
-                                        عالم الدعاية والإعلان
+                                       {{$store->info}}
                                     </p>
                                     <p
                                         class="location"
                                         style="font-size: 18px; color: #544c4c; font-weight: 400"
                                     >
-                                        <i class="bi bi-geo-alt-fill"></i> ادلب - دوار الساعة
+                                        <i class="bi bi-geo-alt-fill"></i> {{$store->address}}
                                     </p>
                                 </div>
                                 <img src=" {{$store->getImage()}}" style="width: 100px;
@@ -192,20 +190,33 @@
                     </div>
 
                     <div class="stor-products">
-                        <div class="products">
-                            <img src="../assets/stor-products.svg" alt=""/>
-                            <div class="type">جديد</div>
-                            <p>Library Stool Chair</p>
-                            <div
-                                style="
+                        @foreach($products as $product)
+                            <div class="products">
+                                <img src="{{$product->getImage()}}" alt=""/>
+                                @if($product->is_discount)
+                                <div class="type">عرض</div>
+                                @elseif($product->level==\App\Enums\LevelProductEnum::SPECIAL->value)
+                                    <div class="type">مميز</div>
+                                @elseif($product->level==\App\Enums\LevelProductEnum::NEWS->value)
+                                    <div class="type">جديد</div>
+                                @endif
+                                <p>{{$product->name}}</p>
+                                <div
+                                    style="
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
                   "
-                            >
-                                <p>$20</p>
-                                <form action="" method="POST"
-                                      style="
+                                >
+                                    <p>
+                                        @if($product->is_discount)
+                                            {{$product->discount}} $ <del>{{$product->price}} $</del>
+                                            @else
+                                        {{$product->price}} $
+                                        @endif
+                                    </p>
+                                    <form action="" method="POST"
+                                          style="
                     cursor: pointer;
                     width: 18px;
                     height: 18px;
@@ -217,14 +228,16 @@
                     align-items: center;
                     justify-content: center;
                   ">
-                                    <input type="hidden" name="storId" value="123"/>
-                                    <button type="submit"
-                                            style="background-color: transparent; border: none; display: flex; align-items: center; gap: 8px; color: #fff;">
-                                        <i class="bi bi-cart-fill"></i>
-                                    </button>
-                                </form>
+                                        <input type="hidden" name="storId" value="123"/>
+                                        <button type="submit"
+                                                style="background-color: transparent; border: none; display: flex; align-items: center; gap: 8px; color: #fff;">
+                                            <i class="bi bi-cart-fill"></i>
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
+                        @endforeach
+
 
                     </div>
                 </div>

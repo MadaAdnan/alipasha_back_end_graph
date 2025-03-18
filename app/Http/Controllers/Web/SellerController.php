@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Enums\ProductActiveEnum;
 use App\GraphQL\Mutations\FollowAccount;
 use App\Http\Controllers\Controller;
 use App\Models\Interaction;
+use App\Models\Product;
 use App\Models\User;
 use App\Models\UserFollow;
 use Illuminate\Http\Request;
@@ -25,7 +27,8 @@ class SellerController extends Controller
     public function profile(string $id)
     {
         $store=User::find($id);
-        return view('web.store',compact('store'));
+        $products=Product::whereActive(ProductActiveEnum::ACTIVE->value)->where('user_id',$id)->inRandomOrder()->latest()->paginate();
+        return view('web.store',compact('store','products'));
     }
 
     /**
