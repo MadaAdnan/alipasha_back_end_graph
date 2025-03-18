@@ -232,7 +232,14 @@
                     overflow: hidden;
                   "
                                 >
-                                    <a href="{{route('posts.show',$product->id)}}">
+                                    <a    @if($product->type==\App\Enums\CategoryTypeEnum::SEARCH_JOB->value || $product->type==\App\Enums\CategoryTypeEnum::JOB->value )
+
+                                          href="{{route('jobs.show',$product->id)}}"
+                                          @elseif($product->type==\App\Enums\CategoryTypeEnum::TENDER->value )
+                                          href="{{route('tenders.show',$product->id)}}"
+                                          @elseif($product->type==\App\Enums\CategoryTypeEnum::RESTAURANT->value ||  $product->type==\App\Enums\CategoryTypeEnum::PRODUCT->value )
+                                          href="{{route('posts.show',$product->id)}}"
+                                        @endif>
                                         <img
                                             style="
                       width: 100%;
@@ -258,7 +265,7 @@
                                 </div>
                                 @if($product->type==\App\Enums\CategoryTypeEnum::PRODUCT->value)
                                 <div style="display: flex; gap: 8px;">
-
+@if($product->type==\App\Enums\CategoryTypeEnum::PRODUCT->value || $product->type==\App\Enums\CategoryTypeEnum::RESTAURANT->value)
                                     <div class="price"
                                          style=" height: 24px; padding: 5px; border-radius: 4px; color: #fff; background-color: #e60613; display: flex; align-items: center; justify-content: center; border: 5px;">
                                         @if($product->is_discount)
@@ -270,6 +277,7 @@
                                         @endif
                                         $
                                     </div>
+                                    @endif
 
                                         <form action="" method="POST" style="
                       width: 60px;
