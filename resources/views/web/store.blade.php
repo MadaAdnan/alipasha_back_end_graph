@@ -125,7 +125,11 @@
                           font-weight: 600;
                         "
                                         >
-                                            {{$store->total_views}}
+                                            @if($store->total_views<=1000)
+                                                {{$store->total_views}}
+                                                @else
+                                                {{$store->total_views/1000}} K
+                                                @endif
                                         </p>
                                         <p class="sub-title">مشاهدات</p>
                                     </div>
