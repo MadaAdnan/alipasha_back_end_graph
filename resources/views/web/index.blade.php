@@ -209,7 +209,17 @@
                             </div>
 
                             <div class="post-content " style="margin: 20px 0px 0px 0px">
-                                <a  href="{{route('posts.show',$product->id)}}">
+
+
+                                                                <a
+                                                                    @if($product->type==\App\Enums\CategoryTypeEnum::SEARCH_JOB->value || $product->type==\App\Enums\CategoryTypeEnum::JOB->value )
+
+                                                                    href="{{route('jobs.show',$product->id)}}"
+                                                                    @elseif($product->type==\App\Enums\CategoryTypeEnum::TENDER->value )
+                                                                    href="{{route('tenders.show',$product->id)}}"
+                                                                    @elseif($product->type==\App\Enums\CategoryTypeEnum::RESTAURANT->value ||  $product->type==\App\Enums\CategoryTypeEnum::PRODUCT->value )
+                                                                    href="{{route('posts.show',$product->id)}}"
+                                                                @endif>
                                     <p class="title" style="text-align: right">
                                         {{$product->expert}}
                                     </p>
