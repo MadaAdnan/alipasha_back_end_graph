@@ -172,7 +172,7 @@
                                 <i class="bi bi-geo-alt-fill"></i> ادلب - دوار الساعة
                             </p>
                         </div>
-                        <img src="../assets/stor-avatar.svg" alt="" />
+                        <img src=" {{$store->getImage()}}" alt="" />
                     </div>
                 </div>
             </div>
