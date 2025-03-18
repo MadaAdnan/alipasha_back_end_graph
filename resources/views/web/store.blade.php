@@ -192,7 +192,7 @@
                     <div class="stor-products">
                         @foreach($products as $product)
                             <div class="products">
-                                <img src="{{$product->getImage()}}" alt=""/>
+                                <img src="{{$product->getImage('images')}}" alt=""/>
                                 @if($product->is_discount)
                                 <div class="type">عرض</div>
                                 @elseif($product->level==\App\Enums\LevelProductEnum::SPECIAL->value)
