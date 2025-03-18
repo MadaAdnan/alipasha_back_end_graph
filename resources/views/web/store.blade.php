@@ -210,7 +210,7 @@
                                 >
                                     <p class="text-danger">
                                         @if($product->is_discount)
-                                            {{$product->discount}} $ <del class="text-muted">{{$product->price}} $</del>
+                                            {{$product->discount}} $ <del class="text-muted fs-6">{{$product->price}} $</del>
                                             @else
                                         {{$product->price}} $
                                         @endif
