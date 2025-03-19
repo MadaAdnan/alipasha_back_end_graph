@@ -153,7 +153,7 @@ class Product extends Model implements HasMedia
 
     public function comments(): HasMany
     {
-        return $this->hasMany(Comment::class)->whereNull('comment_id');
+        return $this->hasMany(Comment::class)->whereNull('comment_id')->latest();
     }
 
     public function rates(): HasMany

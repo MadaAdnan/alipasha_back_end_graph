@@ -41,7 +41,7 @@ class PostController extends Controller
     public function show(string $id)
     {
 
-        $post=Product::whereActive(ProductActiveEnum::ACTIVE->value)->find($id);
+        $post=Product::whereActive(ProductActiveEnum::ACTIVE->value)->with('comments')->find($id);
         $categories = Category::where('is_active', true)
             ->where(fn($query) => $query->where('type', CategoryTypeEnum::PRODUCT->value)->orWhere('type', CategoryTypeEnum::RESTAURANT->value))->orderBy('sortable')->get();
 

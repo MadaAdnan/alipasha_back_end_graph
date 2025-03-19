@@ -296,24 +296,19 @@
                                 <!-- Dummy Comments -->
                                 <div class="comments-list"
                                      style="max-height: 200px; overflow-y: auto; margin-bottom: 15px;">
-                                    <div class="comment"
-                                         style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px;">
-                                        <img src="../assets/avatar-2.svg" alt="Avatar"
-                                             style="width: 40px; height: 40px; border-radius: 50%;">
-                                        <div style="flex-grow: 1;">
-                                            <p style="margin: 0; font-weight: bold;">محمد أحمد</p>
-                                            <p style="margin: 0;">هذا منشور رائع! شكراً للمشاركة.</p>
+                                    @foreach($post->comments as $comment)
+                                        <div class="comment"
+                                             style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px;">
+                                            <img src="{{$comment->user?->getImage()}}" alt="Avatar"
+                                                 style="width: 40px; height: 40px; border-radius: 50%;">
+                                            <div style="flex-grow: 1;">
+                                                <p style="margin: 0; font-weight: bold;">{{$comment->user?->name}}</p>
+                                                <p style="margin: 0;">{{$comment->comment}}</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="comment"
-                                         style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px;">
-                                        <img src="../assets/avatar-2.svg" alt="Avatar"
-                                             style="width: 40px; height: 40px; border-radius: 50%;">
-                                        <div style="flex-grow: 1;">
-                                            <p style="margin: 0; font-weight: bold;">سارة علي</p>
-                                            <p style="margin: 0;">معلومات مفيدة جداً، شكراً لك!</p>
-                                        </div>
-                                    </div>
+                                    @endforeach
+
+
                                 </div>
 
                                 <!-- Add Comment Form -->
