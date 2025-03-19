@@ -341,6 +341,7 @@ Tables\Columns\TextColumn::make('balances')->formatStateUsing(fn($record)=>$reco
             RelationManagers\ProductsRelationManager::class,
             RelationManagers\BalancesRelationManager::class,
             RelationManagers\PlansRelationManager::class,
+            RelationManagers\CommunitiesRelationManager::class,
         ];
     }
 
