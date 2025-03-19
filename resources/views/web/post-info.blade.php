@@ -105,7 +105,7 @@
                                               style="display: flex; align-items: center; gap: 8px; background-color: transparent;">
                                             @csrf
                                             @method('POST')
-                                            <input type="hidden" name="storeId" value="{{$product->user_id}}"/>
+                                            <input type="hidden" name="storeId" value="{{$post->user_id}}"/>
                                             <button type="submit" class="btn btn-danger"> متابعة</button>
                                         </form>
                                     @endauth
