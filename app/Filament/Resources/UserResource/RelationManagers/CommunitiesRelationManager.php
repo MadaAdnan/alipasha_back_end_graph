@@ -51,6 +51,9 @@ protected function canDeleteAny(): bool
             ->recordTitleAttribute('name')
             ->columns([
                 Tables\Columns\TextColumn::make('name')->url(fn($record)=>CommunityResource::getUrl('edit',['record'=>$record->id]),true),
+                Tables\Columns\TextColumn::make('type')->formatStateUsing(fn($state)=>CommunityTypeEnum::tryFrom($state)->getLabel())->color(fn($state)=>CommunityTypeEnum::tryFrom($state)->getColor())
+                    ->icon(fn($state)=>CommunityTypeEnum::tryFrom($state)->getIcon())
+                    ->url(fn($record)=>CommunityResource::getUrl('edit',['record'=>$record->id]),true),
             ])
             ->filters([
                 //
