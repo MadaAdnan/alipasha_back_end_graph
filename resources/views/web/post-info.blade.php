@@ -312,24 +312,26 @@
 
 
                                 </div>
-
+@auth
+                                    <form action="{{route('comments.store')}}" method="POST" style="display: flex; align-items: center; gap: 10px;">
+                                        @csrf
+                                        @method('post')
+                                        <input type="hidden" name="productId" value="{{$post->id}}">
+                                        <input
+                                            type="text"
+                                            name="comment"
+                                            placeholder="أضف تعليقاً..."
+                                            class="form-control"
+                                            style="flex-grow: 1;"
+                                            required
+                                        />
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="bi bi-send"></i>
+                                        </button>
+                                    </form>
+@endauth
                                 <!-- Add Comment Form -->
-                                <form action="{{route('comments.store')}}" method="POST" style="display: flex; align-items: center; gap: 10px;">
-                                    @csrf
-                                    @method('post')
-                                    <input type="hidden" name="productId" value="{{$post->id}}">
-                                    <input
-                                        type="text"
-                                        name="comment"
-                                        placeholder="أضف تعليقاً..."
-                                        class="form-control"
-                                        style="flex-grow: 1;"
-                                        required
-                                    />
-                                    <button type="submit" class="btn btn-primary">
-                                        <i class="bi bi-send"></i>
-                                    </button>
-                                </form>
+
                             </div>
 
                         </div>
