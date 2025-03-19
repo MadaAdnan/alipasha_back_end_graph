@@ -318,15 +318,20 @@
                                     <i style="font-size: 12px;" class="bi bi-eye"></i>
                                     <p class="sub-title">مشاهدات</p>
                                 </button>
-                                <form action="" method="POST"
+                                @if($product->type==\App\Enums\CategoryTypeEnum::PRODUCT->value)
+                                <form action="{{route('post.like')}}" method="POST"
                                       style="display: flex; align-items: center; gap: 8px; background-color: transparent;">
-                                    <input type="hidden" name="postId" value="123"/>
+                                    @csrf
+                                    @method('POST')
+                                    <input type="hidden" name="productId" value="{{$product->id}}"/>
                                     <button type="submit"
                                             style="background-color: transparent; border: none; display: flex; align-items: center; gap: 8px;">
                                         <i style="font-size: 12px;" class="bi bi-hand-thumbs-up"></i>
                                         <p class="sub-title">اعجاب</p>
                                     </button>
+                                    {{$product->likes_count}}
                                 </form>
+                                @endif
                                 <a href="{{route('posts.show',$product->id)}}">
                                     <button
                                         style="display: flex; align-items: center; gap: 8px; background-color: transparent;">

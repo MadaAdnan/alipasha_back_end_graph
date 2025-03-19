@@ -6,6 +6,8 @@ use App\Enums\CategoryTypeEnum;
 use App\Enums\ProductActiveEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Interaction;
+use App\Models\Like;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -70,5 +72,34 @@ class PostController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function like(Request $request){
+        $this->validate($request,[
+            'productId'=>'required'
+        ]);
+        $productId=$request->productId;
+        $product=Product::find($productId);
+        if(Like::where(['product_id'=>$productId,'user_id' => auth()->id()])->exists()){
+            Like::where(['product_id'=>$productId,'user_id' => auth()->id()])->delete();
+        }else{
+            Like::create([
+                'user_id'=>auth()->id(),
+                'product_id'=>$productId,
+            ]);
+            try{
+                Interaction::updateOrCreate([
+                    'user_id'=>auth()->id(),
+                    'category_id'=>$product->category_id,
+
+                ],[
+                    'visited'=> \DB::raw('visited + 1'),
+                ]);
+            }catch(\Exception | \Error $e){
+                info('ERROR:'.$e->getMessage());
+            }
+        }
+        return back();
+
     }
 }
