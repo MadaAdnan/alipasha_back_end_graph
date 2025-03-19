@@ -235,7 +235,12 @@
                                 <div style="display: flex; gap: 8px;">
                                     <div class="price"
                                          style="width: 60px; height: 24px; padding: 5px; border-radius: 4px; color: #fff; background-color: #e60613; display: flex; align-items: center; justify-content: center; border: 5px;">
-                                        6$
+                                       @if(!$post->discount)
+                                           ${{$post->price}}
+                                        @else
+                                           <del>${{$post->price}}</del>
+                                           ${{$post->discount}}
+                                        @endif
                                     </div>
                                     <form action="" method="POST" style="
                         width: 60px;
