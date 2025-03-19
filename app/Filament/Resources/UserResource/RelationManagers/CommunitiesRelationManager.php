@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\UserResource\RelationManagers;
 
 use App\Enums\CommunityTypeEnum;
+use App\Filament\Resources\CommunityResource;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -35,7 +36,7 @@ protected function canCreate(): bool
             ->modifyQueryUsing(fn($query)=>$query->whereNot('type',CommunityTypeEnum::LIVE->value))
             ->recordTitleAttribute('name')
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\TextColumn::make('name')->url(fn($record)=>CommunityResource::getUrl('edit',['record'=>$record->id]),true),
             ])
             ->filters([
                 //
