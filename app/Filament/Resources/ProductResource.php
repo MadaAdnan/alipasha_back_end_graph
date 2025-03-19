@@ -295,7 +295,8 @@ class ProductResource extends Resource
                                 $community = Community::where('type', CommunityTypeEnum::CHAT->value)
                                     ->whereHas('users', fn($query) => $query->where('users.id', auth()->id()))
                                     ->whereHas('users', fn($query) => $query->where('users.id', $record->user_id))
-                                    ->first();                                if($community==null){
+                                    ->first();
+                                if(!$community){
                                     $community= Community::create([
                                         'name'=>auth()->user()->name.' - '.$record->user?->name,
                                         'manager_id'=>auth()->id(),
