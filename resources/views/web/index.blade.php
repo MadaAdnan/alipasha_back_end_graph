@@ -327,9 +327,9 @@
                                     <button type="submit"
                                             style="background-color: transparent; border: none; display: flex; align-items: center; gap: 8px;">
                                         <i style="font-size: 12px;" class="bi bi-hand-thumbs-up"></i>
-                                        <p class="sub-title">اعجاب</p>
+                                        <p class="sub-title">  {{$product->likes_count}} اعجاب</p>
                                     </button>
-                                    {{$product->likes_count}}
+
                                 </form>
                                 @endif
                                 <a href="{{route('posts.show',$product->id)}}">
