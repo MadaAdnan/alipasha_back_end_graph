@@ -292,8 +292,10 @@ class ProductResource extends Resource
                         ->action(function($record,$data){
                             \DB::beginTransaction();
                             try {
-                                $community=Community::where('type',CommunityTypeEnum::CHAT->value)->whereHas('users',fn($query)=>$query->whereIn('users.id',[auth()->id(),$record->user_id]))->first();
-                                if($community==null){
+                                $community = Community::where('type', CommunityTypeEnum::CHAT->value)
+                                    ->whereHas('users', fn($query) => $query->where('users.id', auth()->id()))
+                                    ->whereHas('users', fn($query) => $query->where('users.id', $record->user_id))
+                                    ->first();                                if($community==null){
                                     $community= Community::create([
                                         'name'=>auth()->user()->name.' - '.$record->user?->name,
                                         'manager_id'=>auth()->id(),
