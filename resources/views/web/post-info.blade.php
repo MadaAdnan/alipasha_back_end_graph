@@ -296,7 +296,7 @@
                                 <!-- Dummy Comments -->
                                 <div class="comments-list"
                                      style="max-height: 200px; overflow-y: auto; margin-bottom: 15px;">
-                                    @foreach($post->comments as $comment)
+                                    @forelse($post->comments as $comment)
                                         <div class="comment"
                                              style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px;">
                                             <img src="{{$comment->user?->getImage()}}" alt="Avatar"
@@ -306,13 +306,18 @@
                                                 <p style="margin: 0;">{{$comment->comment}}</p>
                                             </div>
                                         </div>
-                                    @endforeach
+                                    @empty
+                                        <h4>لا يوجد تعليقات</h4>
+                                    @endforelse
 
 
                                 </div>
 
                                 <!-- Add Comment Form -->
-                                <form action="" method="POST" style="display: flex; align-items: center; gap: 10px;">
+                                <form action="{{route('comments.store')}}" method="POST" style="display: flex; align-items: center; gap: 10px;">
+                                    @csrf
+                                    @method('post')
+                                    <input type="hidden" name="productId" value="{{$post->id}}">
                                     <input
                                         type="text"
                                         name="comment"

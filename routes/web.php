@@ -35,6 +35,7 @@ Route::get('/markets/{id}',[\App\Http\Controllers\Web\SellerController::class,'p
 
 Route::middleware('auth:web')->group(function (){
     Route::resource('/profile',\App\Http\Controllers\Web\ProfileController::class);
+    Route::resource('/comments',\App\Http\Controllers\Web\CommentController::class)->only(['store']);
     Route::post('/markets/followers',[\App\Http\Controllers\Web\SellerController::class,'followers']);
 });
 
