@@ -23,7 +23,7 @@
                         <div class="info">
                             <div>
                                 <a href="./profile.html">
-                                    <img src="../assets/avatar-2.svg" alt="avatar" />
+                                    <img src="../assets/avatar-2.svg" alt="avatar"/>
                                 </a>
                                 <p class="title">احمد خالد المحمد يطلب منتجات</p>
                             </div>
@@ -32,26 +32,26 @@
                         <div class="actions">
 
                             <form action="" method="POST" style="width: 100%;">
-                                <input type="hidden" name="storId" value="123" />
+                                <input type="hidden" name="storId" value="123"/>
                                 <button type="submit" class="btn btn-danger"
                                         class="action-buttons"
                                         style="color: #fff; background-color: #e30613"
-                                >   قبول الطلب </button>
+                                > قبول الطلب
+                                </button>
                             </form>
 
 
                             <form action="" method="POST" style="width: 100%;">
-                                <input type="hidden" name="storId" value="123" />
+                                <input type="hidden" name="storId" value="123"/>
                                 <button type="submit" class="btn btn-danger"
                                         class="action-buttons"
                                         style="color: #000000; background-color: #e4e6eb"
-                                >   عرض  الطلبية
+                                > عرض الطلبية
                                 </button>
                             </form>
 
                         </div>
                     </div>
-
 
 
                     <div class="chat-wrapper">
@@ -77,7 +77,7 @@
                   "
                             >
                                 <a href="./profile.html">
-                                    <img src="../assets/avatar-2.svg" alt="avatar" />
+                                    <img src="../assets/avatar-2.svg" alt="avatar"/>
                                 </a>
                                 <p class="title">عبادة كحلوس</p>
                             </div>
@@ -90,7 +90,8 @@
 
             <div class="col-12 col-xl-9" style="margin-top: 10px">
 
-                <div id="toast" style="position: fixed; bottom: 20px; right: 20px; background-color: #28a745; color: #fff; padding: 10px 20px; border-radius: 5px; display: none;">
+                <div id="toast"
+                     style="position: fixed; bottom: 20px; right: 20px; background-color: #28a745; color: #fff; padding: 10px 20px; border-radius: 5px; display: none;">
                     Copy successfully
                 </div>
                 <div class="container">
@@ -100,47 +101,66 @@
 
                                 <div style="display: flex; gap: 4px;">
                                     @auth
-                                        <form action="" method="POST" style="display: flex; align-items: center; gap: 8px; background-color: transparent;">
+                                        <form action="" method="POST"
+                                              style="display: flex; align-items: center; gap: 8px; background-color: transparent;">
                                             @csrf
                                             @method('POST')
-                                            <input type="hidden" name="storeId" value="{{$product->user_id}}" />
-                                            <button type="submit" class="btn btn-danger"> متابعة </button>
+                                            <input type="hidden" name="storeId" value="{{$product->user_id}}"/>
+                                            <button type="submit" class="btn btn-danger"> متابعة</button>
                                         </form>
                                     @endauth
 
-                                        <a href="https://wa.me/{{$post->user?->phone}}" target="_blank" class="btn btn-success"><i class="bi bi-whatsapp"></i></a>
+                                    <a href="https://wa.me/{{$post->user?->phone}}" target="_blank"
+                                       class="btn btn-success"><i class="bi bi-whatsapp"></i></a>
 
-                                    <button        data-bs-toggle="modal"
-                                                   data-bs-target="#contact" type="submit"  class="btn btn-danger"> مراسلة التاجر </button>
+                                    <button data-bs-toggle="modal"
+                                            data-bs-target="#contact" type="submit" class="btn btn-danger"> مراسلة
+                                        التاجر
+                                    </button>
                                 </div>
 
 
                                 <div class="post-info">
                                     <div style="display: flex; gap: 4px; flex-direction: column">
-                                        <p class="sub-title" style="text-align: right">  منشور بواسطة <i class="bi bi-geo-alt"></i> {{$post->city?->name}} </p>
+                                        <p class="sub-title" style="text-align: right"> منشور بواسطة <i
+                                                class="bi bi-geo-alt"></i> {{$post->city?->name}} </p>
                                         <p class="title" style="text-align: right">
                                             {{$post->user?->name}}
                                         </p>
                                     </div>
                                     <a href="{{route('seller.profile',$post->user_id)}}">
-                                        <img src="{{$post->user?->getImage()}}" style="width: 100px; border-radius: 50%;aspect-ratio: 1/1" alt="" />
+                                        <img src="{{$post->user?->getImage()}}"
+                                             style="width: 100px; border-radius: 50%;aspect-ratio: 1/1" alt=""/>
                                     </a>
                                 </div>
                             </div>
 
                             <div class="post-content" style="margin: 20px 0px 0px 0px">
 
-                                    <p class="title" style="text-align: right">
+                                <p class="title" style="text-align: right">
 
-                                        {!! $post->info !!}
-                                    </p>
-                                    <p class="sub-title" style="text-align: right">{{$post->created_at?->diffForHumans()}}</p>
-                                    <div class="pricing" style="display: flex; align-items: center; justify-content: space-around; margin: 10px 0px;">
-                                        <p class="title" style="color: #e30613;"> {{$post->price}} $</p>
-                                        {{--<p class="title" style="color: #e30613;"> €35.25 </p>--}}
-                                        <p class="title" style="color: #e30613;">  {{$post->discount}} $  </p>
+                                    {!! $post->info !!}
+                                </p>
+                                <p class="sub-title"
+                                   style="text-align: right">{{$post->created_at?->diffForHumans()}}</p>
+                                @if(in_array($post->type,[
+    \App\Enums\CategoryTypeEnum::RESTAURANT->value,
+    \App\Enums\CategoryTypeEnum::PRODUCT->value,
+]))
+                                    <div class="pricing"
+                                         style="display: flex; align-items: center; justify-content: space-around; margin: 10px 0px;">
+                                        @if($post->is_discount)
+                                            <p class="title" style="color: #e30613;"> {{$post->discount}} $</p>
+                                            <p class="title" style="color: #e30613;"> €{{$post->getTurkeyPrice()['discount']}} </p>
+                                            <p class="title" style="color: #e30613;">  {{$post->getSyrPrice()['discount']}} ل.س </p>
+                                        @else
+                                            <p class="title" style="color: #e30613;"> {{$post->price}} $</p>
+                                            <p class="title" style="color: #e30613;"> €{{$post->getTurkeyPrice()['price']}} </p>
+                                            <p class="title" style="color: #e30613;">  {{$post->getSyrPrice()['price']}} ل.س </p>
+                                            @endif
+
                                     </div>
-
+                                @endif
 
                                 <div
                                     style="
@@ -154,9 +174,12 @@
                                     <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
                                         <div class="carousel-indicators">
                                             @foreach($post->getImages() as $image)
-                                            <button type="button" data-bs-target="#carouselExampleInterval" data-bs-slide-to="{{$loop->index}}" @if($loop->iteration==1) class="active" aria-current="true" @endif aria-label="Slide {{$loop->iteration}}"></button>
-                                           {{-- <button type="button" data-bs-target="#carouselExampleInterval" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                            <button type="button" data-bs-target="#carouselExampleInterval" data-bs-slide-to="2" aria-label="Slide 3"></button>--}}
+                                                <button type="button" data-bs-target="#carouselExampleInterval"
+                                                        data-bs-slide-to="{{$loop->index}}"
+                                                        @if($loop->iteration==1) class="active" aria-current="true"
+                                                        @endif aria-label="Slide {{$loop->iteration}}"></button>
+                                                {{-- <button type="button" data-bs-target="#carouselExampleInterval" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                                 <button type="button" data-bs-target="#carouselExampleInterval" data-bs-slide-to="2" aria-label="Slide 3"></button>--}}
                                             @endforeach
                                         </div>
                                         <div class="carousel-inner">
@@ -168,11 +191,13 @@
 
 
                                         </div>
-                                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+                                        <button class="carousel-control-prev" type="button"
+                                                data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
                                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                             <span class="visually-hidden">Previous</span>
                                         </button>
-                                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+                                        <button class="carousel-control-next" type="button"
+                                                data-bs-target="#carouselExampleInterval" data-bs-slide="next">
                                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                             <span class="visually-hidden">Next</span>
                                         </button>
@@ -184,28 +209,35 @@
                                         <div style="display: flex; gap: 4px; flex-direction: column">
                                             <p class="title" style="text-align: right">{{$post->user?->seller_name}}</p>
                                             <p class="sub-title" style="text-align: right">
-                                               {{$post->city?->city?->name}} - {{$post->city?->name}} - {{$post->category?->name}}
+                                                {{$post->city?->city?->name}} - {{$post->city?->name}}
+                                                - {{$post->category?->name}}
                                             </p>
                                         </div>
                                         <a href="{{route('seller.profile',$post->user_id)}}">
-                                            <img src="{{$post->user->getImage()}}" style="width: 100px ; border-radius: 50%;aspect-ratio: 1/1" alt="" />
+                                            <img src="{{$post->user->getImage()}}"
+                                                 style="width: 100px ; border-radius: 50%;aspect-ratio: 1/1" alt=""/>
                                         </a>
                                     </div>
                                 </div>
 
                             </div>
 
-                            <div style="margin: 20px 0px 0px 0px; padding: 0px 10px; display: flex; align-items: center; justify-content: space-between;">
-                                <div class="price" style="width: 90px; height: 24px; padding: 5px; border-radius: 4px; color: #fff; background-color: #aaa; display: flex; align-items: center; justify-content: center; border: 5px; font-size: 12px;">
+                            <div
+                                style="margin: 20px 0px 0px 0px; padding: 0px 10px; display: flex; align-items: center; justify-content: space-between;">
+                                <div class="price"
+                                     style="width: 90px; height: 24px; padding: 5px; border-radius: 4px; color: #fff; background-color: #aaa; display: flex; align-items: center; justify-content: center; border: 5px; font-size: 12px;">
                                     @if($post->is_delivery)
                                         متوفر شحن
                                     @else
                                         غير متوفر شحن
-                                        @endif
-                                     </div>
+                                    @endif
+                                </div>
                                 <div style="display: flex; gap: 8px;">
-                                    <div class="price" style="width: 60px; height: 24px; padding: 5px; border-radius: 4px; color: #fff; background-color: #e60613; display: flex; align-items: center; justify-content: center; border: 5px;"> 6$ </div>
-                                    <form action="" method="POST"  style="
+                                    <div class="price"
+                                         style="width: 60px; height: 24px; padding: 5px; border-radius: 4px; color: #fff; background-color: #e60613; display: flex; align-items: center; justify-content: center; border: 5px;">
+                                        6$
+                                    </div>
+                                    <form action="" method="POST" style="
                         width: 60px;
                         height: 24px;
                         background-color: #e30613;
@@ -216,8 +248,9 @@
                         align-items: center;
                         justify-content: center;
                       ">
-                                        <input type="hidden" name="postId" value="123" />
-                                        <button type="submit" style="background-color: transparent; border: none; display: flex; align-items: center; gap: 8px; color: #fff;">
+                                        <input type="hidden" name="postId" value="123"/>
+                                        <button type="submit"
+                                                style="background-color: transparent; border: none; display: flex; align-items: center; gap: 8px; color: #fff;">
                                             <i class="bi bi-cart-fill"></i>
                                         </button>
                                     </form>
@@ -225,7 +258,8 @@
 
                             </div>
 
-                            <div class="post-actions" style="margin: 20px 0px 0px 0px; padding: 0px 10px; display: flex; align-items: center; justify-content: space-between;">
+                            <div class="post-actions"
+                                 style="margin: 20px 0px 0px 0px; padding: 0px 10px; display: flex; align-items: center; justify-content: space-between;">
                                 <button
                                     class="copy-link"
                                     data-post-link="https://example.com/post/123"
@@ -234,13 +268,16 @@
                                     <i style="font-size: 12px;" class="bi bi-share"></i>
                                     <p class="sub-title">مشاركة</p>
                                 </button>
-                                <button style="display: flex; align-items: center; gap: 8px; background-color: transparent;">
+                                <button
+                                    style="display: flex; align-items: center; gap: 8px; background-color: transparent;">
                                     <i style="font-size: 12px;" class="bi bi-eye"></i>
                                     <p class="sub-title">مشاهدات</p>
                                 </button>
-                                <form action="" method="POST" style="display: flex; align-items: center; gap: 8px; background-color: transparent;">
-                                    <input type="hidden" name="postId" value="123" />
-                                    <button type="submit" style="background-color: transparent; border: none; display: flex; align-items: center; gap: 8px;">
+                                <form action="" method="POST"
+                                      style="display: flex; align-items: center; gap: 8px; background-color: transparent;">
+                                    <input type="hidden" name="postId" value="123"/>
+                                    <button type="submit"
+                                            style="background-color: transparent; border: none; display: flex; align-items: center; gap: 8px;">
                                         <i style="font-size: 12px;" class="bi bi-hand-thumbs-up"></i>
                                         <p class="sub-title">اعجاب</p>
                                     </button>
@@ -252,16 +289,21 @@
                                 <h5 style="text-align: right; margin-bottom: 10px;">التعليقات</h5>
 
                                 <!-- Dummy Comments -->
-                                <div class="comments-list" style="max-height: 200px; overflow-y: auto; margin-bottom: 15px;">
-                                    <div class="comment" style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px;">
-                                        <img src="../assets/avatar-2.svg" alt="Avatar" style="width: 40px; height: 40px; border-radius: 50%;">
+                                <div class="comments-list"
+                                     style="max-height: 200px; overflow-y: auto; margin-bottom: 15px;">
+                                    <div class="comment"
+                                         style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px;">
+                                        <img src="../assets/avatar-2.svg" alt="Avatar"
+                                             style="width: 40px; height: 40px; border-radius: 50%;">
                                         <div style="flex-grow: 1;">
                                             <p style="margin: 0; font-weight: bold;">محمد أحمد</p>
                                             <p style="margin: 0;">هذا منشور رائع! شكراً للمشاركة.</p>
                                         </div>
                                     </div>
-                                    <div class="comment" style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px;">
-                                        <img src="../assets/avatar-2.svg" alt="Avatar" style="width: 40px; height: 40px; border-radius: 50%;">
+                                    <div class="comment"
+                                         style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px;">
+                                        <img src="../assets/avatar-2.svg" alt="Avatar"
+                                             style="width: 40px; height: 40px; border-radius: 50%;">
                                         <div style="flex-grow: 1;">
                                             <p style="margin: 0; font-weight: bold;">سارة علي</p>
                                             <p style="margin: 0;">معلومات مفيدة جداً، شكراً لك!</p>
@@ -279,7 +321,7 @@
                                         style="flex-grow: 1;"
                                         required
                                     />
-                                    <button type="submit" class="btn btn-primary" >
+                                    <button type="submit" class="btn btn-primary">
                                         <i class="bi bi-send"></i>
                                     </button>
                                 </form>
@@ -311,14 +353,14 @@
                     <div class="categories">
                         <p class="category-text">التصنيفات</p>
                         <div class="divider"></div>
-                       @foreach($categories as $category)
+                        @foreach($categories as $category)
                             <a href="{{route('index',['category_id'=>$category->id])}}">
-                            <div class="category-item">
-                                <p>{{$category->name}}</p>
-                                <div class="count">{{$category->products_count}}</div>
-                            </div>
+                                <div class="category-item">
+                                    <p>{{$category->name}}</p>
+                                    <div class="count">{{$category->products_count}}</div>
+                                </div>
                             </a>
-                       @endforeach
+                        @endforeach
 
 
                     </div>
@@ -374,14 +416,17 @@
                             </select>
                         </div>
 
-                        <div style="width: 100% ;display: flex; justify-content: center; align-items: center; gap: 8px;" class="mb-3">
+                        <div style="width: 100% ;display: flex; justify-content: center; align-items: center; gap: 8px;"
+                             class="mb-3">
                             <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                                <label class="form-check-label" style="font-size: 12px;" for="flexSwitchCheckDefault">التوفر بالمخزن</label>
+                                <label class="form-check-label" style="font-size: 12px;" for="flexSwitchCheckDefault">التوفر
+                                    بالمخزن</label>
                             </div>
                             <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
-                                <label class="form-check-label" style="font-size: 12px;" for="flexSwitchCheckChecked">إشترك بخدمة شحن علي باشا</label>
+                                <label class="form-check-label" style="font-size: 12px;" for="flexSwitchCheckChecked">إشترك
+                                    بخدمة شحن علي باشا</label>
                             </div>
                         </div>
 

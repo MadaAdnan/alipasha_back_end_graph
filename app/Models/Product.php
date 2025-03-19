@@ -166,6 +166,21 @@ class Product extends Model implements HasMedia
         return $this->hasMany(Like::class);
     }
 
-
+    public  function getTurkeyPrice()
+    {
+        $usd=Setting::first()->dollar_value??35;
+        return [
+            "price"=>$this->price*$usd,
+            "discount"=>$this->discount*$usd,
+        ];
+    }
+    public  function getSyrPrice()
+    {
+        $usd=Setting::first()->dollar_syr??14750;
+        return [
+            "price"=>$this->price*$usd,
+            "discount"=>$this->discount*$usd,
+        ];
+    }
 
 }
