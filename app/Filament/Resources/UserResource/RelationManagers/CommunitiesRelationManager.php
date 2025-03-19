@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\UserResource\RelationManagers;
 
+use App\Enums\CommunityTypeEnum;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -31,6 +32,7 @@ protected function canCreate(): bool
     public function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(fn($query)=>$query->whereNot('type',CommunityTypeEnum::LIVE->value))
             ->recordTitleAttribute('name')
             ->columns([
                 Tables\Columns\TextColumn::make('name'),
