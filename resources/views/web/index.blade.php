@@ -101,7 +101,7 @@
                         {{--                        Special Seller--}}
                         @foreach($specialSeller as $seller)
                             <div class="story-box">
-                                <a href="./pages/profile.html">
+                                <a href="{{route('seller.profile',$seller->id)}}">
                                     <img src="{{$seller->getFirstMediaUrl('custom','webp')}}" alt="Story 2"/>
                                 </a>
                                 <div class="info">
