@@ -1170,6 +1170,9 @@ required=""
         const toast = document.getElementById("toast");
         toast.textContent = message;
         toast.style.display = "block";
+        toast.style.position = "absolute";
+        toast.style.top = "10px";
+        toast.style.left = "40%";
 
         // Hide toast after 2 seconds
         setTimeout(() => {
@@ -1184,7 +1187,7 @@ required=""
 
             // Copy the link to the clipboard
             navigator.clipboard.writeText(postLink).then(() => {
-                showToast("Copy successfully");
+                showToast("تم نسخ الرابط");
             }).catch(() => {
                 showToast("Failed to copy");
             });
