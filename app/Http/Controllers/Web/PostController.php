@@ -46,7 +46,37 @@ class PostController extends Controller
         $post=Product::whereActive(ProductActiveEnum::ACTIVE->value)->with('comments')->find($id);
         $categories = Category::where('is_active', true)
             ->where(fn($query) => $query->where('type', CategoryTypeEnum::PRODUCT->value)->orWhere('type', CategoryTypeEnum::RESTAURANT->value))->orderBy('sortable')->get();
+        $ids = [$post->id];
+        $today = today();
 
+        \DB::transaction(function () use ($ids, $today) {
+
+            // تحديث السجلات الموجودة
+            \DB::table('product_views')
+                ->whereIn('product_id', $ids)
+                ->whereDate('view_at', $today)
+                ->update(['count' => \DB::raw('count + 1')]);
+            $existingIds = \DB::table('product_views')
+                ->whereIn('product_id', $ids)
+                ->whereDate('view_at', $today)
+                ->pluck('product_id')
+                ->toArray();
+            $newIds = array_diff($ids, $existingIds);
+            if (
+                !empty($newIds)) {
+                $inserts = array_map(function ($id) use ($today) {
+                    return [
+                        'product_id' => $id,
+                        'view_at' => $today,
+                        'count' => 1,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ];
+                }, $newIds);
+
+                \DB::table('product_views')->insert($inserts);
+            }
+        });
         return view('web.post-info',compact('post','categories'));
     }
 
