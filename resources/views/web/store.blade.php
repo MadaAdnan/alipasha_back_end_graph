@@ -193,7 +193,7 @@
                         @foreach($products as $product)
                             <a href="{{route('posts.show',$product->id)}}">
                             <div class="products">
-                                <img src="{{$product->getImage('images')}}" alt=""/>
+                                <img src="{{$product->getImage('image')}}" alt=""/>
                                 @if($product->is_discount)
                                 <div class="type">عرض</div>
                                 @elseif($product->level==\App\Enums\LevelProductEnum::SPECIAL->value)
