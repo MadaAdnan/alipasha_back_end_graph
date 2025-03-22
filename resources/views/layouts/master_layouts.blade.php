@@ -1172,7 +1172,7 @@ required=""
         toast.style.display = "block";
         toast.style.position = "fixed";
         toast.style.top = "10px";
-        toast.style.left = "40%";
+        // toast.style.left = "40%";
 
         // Hide toast after 2 seconds
         setTimeout(() => {
