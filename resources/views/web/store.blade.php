@@ -191,6 +191,7 @@
 
                     <div class="stor-products">
                         @foreach($products as $product)
+                            <a href="{{route('posts.show',$product->id)}}">
                             <div class="products">
                                 <img src="{{$product->getImage('images')}}" alt=""/>
                                 @if($product->is_discount)
@@ -236,6 +237,7 @@
                                     </form>
                                 </div>
                             </div>
+                            </a>
                         @endforeach
 
 
