@@ -267,7 +267,7 @@
                         <p class="category-text">التصنيفات</p>
                         <div class="divider"></div>
                         @foreach($categories as $category)
-                            <a href="{{route('profile.store',['id'=>$store->id,'category_id'=>$category->id])}}">
+                            <a href="{{route('seller.profile',['id'=>$store->id,'category_id'=>$category->id])}}">
                             <div class="category-item">
                                 <p>{{$category->name}}</p>
                                 <div class="count">{{$category->products_count}}</div>
