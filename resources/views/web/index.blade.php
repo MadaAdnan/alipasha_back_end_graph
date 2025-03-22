@@ -116,58 +116,60 @@
 
                     </div>
                 </div>
+@auth
+                    <div class="new-post">
+                        <div class="flex-wrapper">
+                            <input
+                                class="post-input form-control border-0 shadow-none"
+                                type="search"
+                                placeholder="..ماذا تفكر أن تنشر"
+                                aria-label="Search"
+                                data-bs-toggle="modal"
+                                data-bs-target="#addPostModal"
+                            />
+                            <a href="{{route('profile.index')}}">
+                                <img src="{{asset('assets/avatar.svg')}}" alt="" class="avatar"/>
+                            </a>
+                        </div>
+                        <div class="divider"></div>
 
-                <div class="new-post">
-                    <div class="flex-wrapper">
-                        <input
-                            class="post-input form-control border-0 shadow-none"
-                            type="search"
-                            placeholder="..ماذا تفكر أن تنشر"
-                            aria-label="Search"
-                            data-bs-toggle="modal"
-                            data-bs-target="#addPostModal"
-                        />
-                        <a href="{{route('profile.index')}}">
-                            <img src="{{asset('assets/avatar.svg')}}" alt="" class="avatar"/>
-                        </a>
-                    </div>
-                    <div class="divider"></div>
-
-                    <div
-                        class="post-actions"
-                        style="
+                        <div
+                            class="post-actions"
+                            style="
                 margin: 10px 0px;
                 display: flex;
                 align-items: center;
                 justify-content: space-around;
               "
-                    >
-                        <div data-bs-toggle="modal"
-                             data-bs-target="#addServiceModal"
-                             style="display: flex; align-items: center; gap: 4px; cursor: pointer;">
-                            <img src="{{asset('assets/post-action-services.svg')}}" alt=""/>
-                            <p class="sub-title">خدمة</p>
-                        </div>
-                        <div data-bs-toggle="modal"
-                             data-bs-target="#addPorsaModal"
-                             style="display: flex; align-items: center; gap: 4px; cursor: pointer;">
-                            <img src="{{asset('assets/post-action-chart.svg')}}" alt=""/>
-                            <p class="sub-title">مناقصة</p>
-                        </div>
-                        <div data-bs-toggle="modal"
-                             data-bs-target="#addJobModal"
-                             style="display: flex; align-items: center; gap: 4px; cursor: pointer;">
-                            <img src="{{asset('assets/post-action-jobs.svg')}}" alt=""/>
-                            <p class="sub-title">وظيفة</p>
-                        </div>
-                        <div data-bs-toggle="modal"
-                             data-bs-target="#addPostModal"
-                             style="display: flex; align-items: center; gap: 4px; cursor: pointer;">
-                            <img src="{{asset('assets/post-action-products.svg')}}" alt=""/>
-                            <p class="sub-title">منتج</p>
+                        >
+                            <div data-bs-toggle="modal"
+                                 data-bs-target="#addServiceModal"
+                                 style="display: flex; align-items: center; gap: 4px; cursor: pointer;">
+                                <img src="{{asset('assets/post-action-services.svg')}}" alt=""/>
+                                <p class="sub-title">خدمة</p>
+                            </div>
+                            <div data-bs-toggle="modal"
+                                 data-bs-target="#addPorsaModal"
+                                 style="display: flex; align-items: center; gap: 4px; cursor: pointer;">
+                                <img src="{{asset('assets/post-action-chart.svg')}}" alt=""/>
+                                <p class="sub-title">مناقصة</p>
+                            </div>
+                            <div data-bs-toggle="modal"
+                                 data-bs-target="#addJobModal"
+                                 style="display: flex; align-items: center; gap: 4px; cursor: pointer;">
+                                <img src="{{asset('assets/post-action-jobs.svg')}}" alt=""/>
+                                <p class="sub-title">وظيفة</p>
+                            </div>
+                            <div data-bs-toggle="modal"
+                                 data-bs-target="#addPostModal"
+                                 style="display: flex; align-items: center; gap: 4px; cursor: pointer;">
+                                <img src="{{asset('assets/post-action-products.svg')}}" alt=""/>
+                                <p class="sub-title">منتج</p>
+                            </div>
                         </div>
                     </div>
-                </div>
+@endauth
+
                 @foreach($products as $product)
                     <div class="posts">
                         <div class="post">
