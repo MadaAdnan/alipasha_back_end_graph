@@ -113,10 +113,15 @@
                                     <a href="https://wa.me/{{$post->user?->phone}}" target="_blank"
                                        class="btn btn-success"><i class="bi bi-whatsapp"></i></a>
 
-                                    <button data-bs-toggle="modal"
-                                            data-bs-target="#contact" type="submit" class="btn btn-danger"> مراسلة
-                                        التاجر
-                                    </button>
+                                        <form action="" method="post">
+                                            @csrf
+                                            @method('post')
+                                            <input type="hidden" name="sellerId" value="{{$post->user?->id}}">
+                                            <button data-bs-toggle="modal"
+                                                    data-bs-target="#contact" type="submit" class="btn btn-danger"> مراسلة
+                                                التاجر
+                                            </button>
+                                        </form>
                                 </div>
 
 
@@ -267,7 +272,7 @@
                                  style="margin: 20px 0px 0px 0px; padding: 0px 10px; display: flex; align-items: center; justify-content: space-between;">
                                 <button
                                     class="copy-link"
-                                    data-post-link="https://example.com/post/123"
+                                    data-post-link="{{route('posts.show',$post->id)}}"
                                     style="display: flex; align-items: center; gap: 8px; background-color: transparent;"
                                 >
                                     <i style="font-size: 12px;" class="bi bi-share"></i>
@@ -276,11 +281,13 @@
                                 <button
                                     style="display: flex; align-items: center; gap: 8px; background-color: transparent;">
                                     <i style="font-size: 12px;" class="bi bi-eye"></i>
-                                    <p class="sub-title">مشاهدات</p>
+                                    <p class="sub-title">مشاهدات {{$post->views_count}}</p>
                                 </button>
-                                <form action="" method="POST"
+                                <form action="{{route('post.like')}}" method="POST"
                                       style="display: flex; align-items: center; gap: 8px; background-color: transparent;">
-                                    <input type="hidden" name="postId" value="123"/>
+                                    @csrf
+                                    @method('post')
+                                    <input type="hidden" name="productId" value="{{$post->id}}"/>
                                     <button type="submit"
                                             style="background-color: transparent; border: none; display: flex; align-items: center; gap: 8px;">
                                         <i style="font-size: 12px;" class="bi bi-hand-thumbs-up"></i>
