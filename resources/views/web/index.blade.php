@@ -127,7 +127,7 @@
                             data-bs-toggle="modal"
                             data-bs-target="#addPostModal"
                         />
-                        <a href="./pages/profile.html">
+                        <a href="{{route('profile.index')}}">
                             <img src="{{asset('assets/avatar.svg')}}" alt="" class="avatar"/>
                         </a>
                     </div>
@@ -316,7 +316,7 @@
                                 <button
                                     style="display: flex; align-items: center; gap: 8px; background-color: transparent;">
                                     <i style="font-size: 12px;" class="bi bi-eye"></i>
-                                    <p class="sub-title">مشاهدات</p>
+                                    <p class="sub-title">مشاهدات {{$product->views_count}}</p>
                                 </button>
                                 @if($product->type==\App\Enums\CategoryTypeEnum::PRODUCT->value)
                                 <form action="{{route('post.like')}}" method="POST"
