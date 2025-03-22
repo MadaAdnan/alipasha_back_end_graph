@@ -33,7 +33,10 @@ class SellerController extends Controller
             ->when(!empty($categoryId),fn($query)=>$query->where('category_id',$categoryId))
             ->inRandomOrder()->latest()->paginate();
         $categoryIds=$store->products->pluck('category_id')->toArray();
-        $categories=Category::whereIn('id',$categoryIds)->get();
+        $categories = Category::whereIn('id', $categoryIds)
+            ->withCount(['products' => function ($query) use ($store) {
+                $query->where('store_id', $store->id);
+            }])->get();
         return view('web.store',compact('store','products','categories'));
     }
 
