@@ -106,7 +106,7 @@
                                 </a>
                                 <div class="info">
                                     <p>{{$seller->seller_name}}</p>
-                                    <a href="./pages/profile.html">
+                                    <a href="{{route('seller.profile',$seller->id)}}">
                                         <img src="{{$seller->getFirstMediaUrl('image','webp')}}" alt="avatar"/>
                                     </a>
                                 </div>
