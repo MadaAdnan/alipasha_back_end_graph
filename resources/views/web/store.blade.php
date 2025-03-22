@@ -248,11 +248,16 @@
                             </div>
                             </a>
                         @endforeach
+
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
                             <div class="d-flex justify-content-between">
                                 <a class="btn btn-sm btn-secondary" href="{{$products->withQueryString()->nextPageUrl()}}">التالي</a>
                                 <a class="btn btn-sm btn-secondary" href="{{$products->withQueryString()->previousPageUrl()}}">السابق</a>
                             </div>
-
+                        </div>
                     </div>
                 </div>
             </div>
