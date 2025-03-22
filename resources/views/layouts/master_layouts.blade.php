@@ -1170,7 +1170,7 @@ required=""
         const toast = document.getElementById("toast");
         toast.textContent = message;
         toast.style.display = "block";
-        toast.style.position = "absolute";
+        toast.style.position = "fixed";
         toast.style.top = "10px";
         toast.style.left = "40%";
 
