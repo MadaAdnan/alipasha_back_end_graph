@@ -35,7 +35,7 @@ class SellerController extends Controller
         $categoryIds=$store->products->pluck('category_id')->toArray();
         $categories = Category::whereIn('id', $categoryIds)
             ->withCount(['products' => function ($query) use ($store) {
-                $query->where('store_id', $store->id);
+                $query->where('user_id', $store->id);
             }])->get();
         return view('web.store',compact('store','products','categories'));
     }
