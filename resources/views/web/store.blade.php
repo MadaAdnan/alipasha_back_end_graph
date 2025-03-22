@@ -91,7 +91,7 @@
                 <div class="container">
                     <div style="width: 100%; height: auto; position: relative">
                         <img
-                            src="{{$store->getImage('logo')}}"
+                            src="{{$store->getImage('image')}}"
                             style="width: 100%; height: auto; max-height: 600px; object-fit: cover"
                             alt=""
                         />
