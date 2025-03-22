@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Enums\ProductActiveEnum;
 use App\GraphQL\Mutations\FollowAccount;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Interaction;
 use App\Models\Product;
 use App\Models\User;
@@ -27,8 +28,13 @@ class SellerController extends Controller
     public function profile(string $id)
     {
         $store=User::find($id);
-        $products=Product::whereActive(ProductActiveEnum::ACTIVE->value)->where('user_id',$id)->inRandomOrder()->latest()->paginate();
-        return view('web.store',compact('store','products'));
+        $categoryId=\request()->get('category_id');
+        $products=Product::whereActive(ProductActiveEnum::ACTIVE->value)->where('user_id',$id)
+            ->when(!empty($categoryId),fn($query)=>$query->where('category_id',$categoryId))
+            ->inRandomOrder()->latest()->paginate();
+        $categoryIds=$store->products->pluck('category_id')->toArray();
+        $categories=Category::whereIn('id',$categoryIds)->get();
+        return view('web.store',compact('store','products','categories'));
     }
 
     /**
