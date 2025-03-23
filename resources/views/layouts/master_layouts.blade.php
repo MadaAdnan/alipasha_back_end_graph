@@ -176,7 +176,7 @@ required=""
           </span>
             @if(auth()->check())
             <a href="{{route('profile.index')}}">
-                <img src="{{auth()->user()->getFirstMediaUrl('image','webp')}}" alt="" />
+                <img src="{{auth()->user()->getFirstMediaUrl('image','webp')}}" style="max-height: 40px" alt="" />
             </a>
             <!-- Toggler for Mobile View -->
                 @endif
