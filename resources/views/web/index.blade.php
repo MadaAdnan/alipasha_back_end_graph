@@ -3,7 +3,7 @@
     <div class="container-fluid" style="margin-top: 70px">
         <div class="row">
             <!-- Right Section (2 columns on large screens, 0 on small) -->
-            <div id="right-sidebar" class="col-3 d-none d-xl-block">
+            <div id="right-sidebar" class="col-4 d-none d-xl-block">
                 <div class="media-scroll bg-light p-4 ">
                     <div class="inbox">
                         <p class="title">صندوق الوارد</p>
@@ -83,7 +83,7 @@
             </div>
 
             <!-- Middle Section (12 columns on small, 8 on larger screens) -->
-            <div class="col-12 col-xl-6">
+            <div class="col-12 col-xl-5">
 
                 <div id="toast"
                      style="position: fixed; bottom: 20px; right: 20px; background-color: #28a745; color: #fff; padding: 10px 20px; border-radius: 5px; display: none;">
