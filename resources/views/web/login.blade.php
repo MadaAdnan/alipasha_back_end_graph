@@ -59,7 +59,9 @@
 <body>
 <div class="login-box">
     <h3>تسجيل الدخول</h3>
-    <form>
+    <form method="post" action="{{route('login')}}">
+        @csrf
+        @method('post')
         <div class="mb-3">
             <label for="email" class="form-label">البريد الإلكتروني</label>
             <input
