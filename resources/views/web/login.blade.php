@@ -75,6 +75,9 @@
             <label for="password" class="form-label">كلمة المرور</label>
             <input type="password" class="form-control" id="password" />
         </div>
+        @if(session()->has('error'))
+        <div class="mb-3 text-danger">{{session()->get('error')}}</div>
+        @endif
         <a
             href="./forgot-password.html"
             style="
