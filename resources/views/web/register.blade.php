@@ -84,6 +84,7 @@
                 id="descriptionInput"
                 placeholder="الاسم"
                 required
+                value="{{old('name')}}"
             />
             @error('name')
             <span class="text-danger">{{$message}}</span>
@@ -109,6 +110,7 @@
                 id="descriptionInput"
                 placeholder="البريد الإلكتروني"
                 required
+                value="{{old('email')}}"
             />
             @error('email')
             <span class="text-danger">{{$message}}</span>
@@ -176,8 +178,9 @@
 @enderror"
                 id="descriptionInput"
                 placeholder="phone"
-                type="number"
+                type="text"
                 required
+                value="{{old('phone')}}"
             />
             @error('phone')
             <span class="text-danger">{{$message}}</span>
@@ -201,9 +204,9 @@
                 aria-label="Default select example"
                 style="text-align: right; font-size: 12px;"
             >
-                <option value="" selected>حدد مدينتك</option>
+                <option value="" >حدد مدينتك</option>
                 @foreach($cities as $city)
-                    <option value="{{$city->id}}">{{$city->name}}</option>
+                    <option @if(old('city')==$city->id) selected @endif value="{{$city->id}}">{{$city->name}}</option>
                 @endforeach
             </select>
             @error('city')
@@ -230,7 +233,7 @@
 
                     "
                 id="descriptionInput"
-
+                value="{{old('address')}}"
                 placeholder="العنوان التفصيلي"
                 required
             />
@@ -253,8 +256,8 @@
                 class="form-control"
                 id="descriptionInput"
                 placeholder=" كود الإحالة"
-                type="number"
-                required
+                type="text"
+
             />
 
         </div>
