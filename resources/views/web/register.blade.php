@@ -78,7 +78,7 @@
             <input
                 name="name"
                 style="text-align: right; font-size: 12px;"
-                class="form-control  @error('name)
+                class="form-control  @error('name')
                     is-invalid
 @enderror"
                 id="descriptionInput"
@@ -103,7 +103,7 @@
                 name="email"
                 style="text-align: right; font-size: 12px;"
                 class="form-control
-@error('email)
+@error('email')
                     is-invalid
 @enderror"
                 id="descriptionInput"
@@ -128,7 +128,7 @@
                 name="password"
                 style="text-align: right; font-size: 12px;"
                 class="form-control
-@error('password)
+@error('password')
                     is-invalid
 @enderror"
                 id="descriptionInput"
@@ -171,7 +171,7 @@
                 name="phone"
                 style="text-align: right; font-size: 12px;"
                 class="form-control
-@error('phone)
+@error('phone')
                     is-invalid
 @enderror"
                 id="descriptionInput"
@@ -195,7 +195,7 @@
             </p>
             <select
                 name="city"
-                class="form-select @error('city)
+                class="form-select @error('city')
                     is-invalid
 @enderror"
                 aria-label="Default select example"
@@ -224,7 +224,7 @@
                 type="text"
                 name="address"
                 style="text-align: right; font-size: 12px;"
-                class="form-control @error('address)
+                class="form-control @error('address')
                     is-invalid
 @enderror
 
