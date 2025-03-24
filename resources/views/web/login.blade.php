@@ -108,7 +108,7 @@
     </form>
 
     <hr />
-    <a href="./signup.html">
+    <a href="{{route('register.ui')}}">
         <button class="google-btn">
             <i class="fab fa-google"></i> ليس لديك حساب؟ أنشئ حساب جديد
         </button>

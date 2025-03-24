@@ -11,6 +11,9 @@ class AuthController extends Controller
     public function loginUi(){
         return view('web.login');
     }
+    public function registerUi(){
+        return view('web.register');
+    }
 
     public function login(Request $request){
         $email=$request->email;

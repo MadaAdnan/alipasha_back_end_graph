@@ -24,6 +24,7 @@ use Mockery\Exception;
     'login' => false,
 ]);*/
 Route::get('login',[\App\Http\Controllers\Web\AuthController::class,'loginUi'])->name('login.ui');
+Route::get('login',[\App\Http\Controllers\Web\AuthController::class,'loginUi'])->name('register.ui');
 Route::post('login',[\App\Http\Controllers\Web\AuthController::class,'login'])->name('login');
 Route::resource('/',\App\Http\Controllers\Web\IndexController::class)->only('index');
 Route::resource('/search',\App\Http\Controllers\Web\SearchController::class)->only('index');
