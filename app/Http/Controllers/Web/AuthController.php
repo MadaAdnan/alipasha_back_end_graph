@@ -15,7 +15,7 @@ class AuthController extends Controller
     public function login(Request $request){
         $email=$request->email;
         $password=$request->password;
-        dd($email,$password);
+
         $user=User::where('email',$email)->first();
         if(!$user){
             return back()->with('error','يرجى التأكد من البيانات المدخلة');
