@@ -38,9 +38,18 @@ class AuthController extends Controller
             'email'=>'required|email|unique:users,email',
             'password'=>'required|min:8',
             'confiermPassword'=>'same:password',
-            'phone'=>'required',
+            'phone'=>'required|min:10',
             'city'=>'required|exists:cities,id',
             'address'=>'required|string',
+        ],[
+            'name.*'=>'يرجى إدخال اسم صالح',
+            'email.*'=>'يرجى إدخال بريد إلكتروني صالح',
+            'email.unique'=>'البريد الإلكتروني موجود بالفعل',
+            'password.*'=>'يرجى إدخال كلمة مرور من 8 احرف على الأقل',
+            'confiermPassword.*'=>'كلمة المرور غير متطابقة',
+            'phone.*'=>'يرجى إدخال رقم هاتف صالح مع رمز الدولة',
+            'city'=>'يرجى تحديد المدينة',
+            'address'=>'يرجى إدخال عنوانك التفصيلي'
         ]);
         $user=User::create([
             'name'=>$request->name,
