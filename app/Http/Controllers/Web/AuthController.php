@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\City;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,8 @@ class AuthController extends Controller
         return view('web.login');
     }
     public function registerUi(){
-        return view('web.register');
+        $cities=City::where('is_main',true)->orderBy('name')->get();
+        return view('web.register',compact('cities'));
     }
 
     public function login(Request $request){
@@ -26,6 +28,28 @@ class AuthController extends Controller
         if(!\Hash::check($password,$user->password)){
             return back()->with('error','يرجى التأكد من البيانات المدخلة');
         }
+        auth()->login($user);
+        return redirect('/');
+    }
+
+    public function register(Request $request){
+        $this->validate($request,[
+            'name'=>'required|string|min:3',
+            'email'=>'required|email|unique:users,email',
+            'password'=>'required|min:8',
+            'confiermPassword'=>'same:password',
+            'phone'=>'required',
+            'city'=>'required|exists:cities,id',
+            'address'=>'required|string',
+        ]);
+        $user=User::create([
+            'name'=>$request->name,
+            'email'=>$request->email,
+            'password'=>bcrypt($request->password),
+            'phone'=>$request->phone,
+            'city_id'=>$request->city,
+            'address'=>$request->address
+        ]);
         auth()->login($user);
         return redirect('/');
     }

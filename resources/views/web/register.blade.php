@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>ALI BASHA</title>
-    <link rel="icon" type="image/png" href="{{asset('assets/logo.svg')}}" />
+    <link rel="icon" type="image/png" href="{{asset('assets/logo.svg')}}"/>
     <!-- Bootstrap CSS -->
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
@@ -16,8 +16,8 @@
     />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{asset('assets/css/style.css')}}" />
-    <link rel="stylesheet" href="{{asset('assets/css/shared.css')}}" />
+    <link rel="stylesheet" href="{{asset('assets/css/style.css')}}"/>
+    <link rel="stylesheet" href="{{asset('assets/css/shared.css')}}"/>
     <style>
         body {
             background-color: #f8f9fa;
@@ -27,6 +27,7 @@
             height: auto;
             padding: 40px 0px;
         }
+
         .login-box {
             background: #fff;
             padding: 20px;
@@ -35,6 +36,7 @@
             width: 350px;
             text-align: right;
         }
+
         .google-btn {
             background: #db4437;
             color: white;
@@ -49,9 +51,11 @@
             border-radius: 4px;
             cursor: pointer;
         }
+
         .google-btn:hover {
             background: #c1351d;
         }
+
         .google-btn i {
             font-size: 20px;
         }
@@ -60,7 +64,9 @@
 <body>
 <div class="login-box">
     <h3>انشاء حساب</h3>
-    <form id="modalForm">
+    <form id="modalForm" method="post" action="{{route('register')}}">
+        @csrf
+        @method('post')
         <div class="mb-3">
             <p
                 for="descriptionInput"
@@ -72,11 +78,16 @@
             <input
                 name="name"
                 style="text-align: right; font-size: 12px;"
-                class="form-control"
+                class="form-control  @error('name)
+                    is-invalid
+@enderror"
                 id="descriptionInput"
                 placeholder="الاسم"
                 required
-            ></input>
+            />
+            @error('name')
+            <span class="text-danger">{{$message}}</span>
+            @enderror
         </div>
 
 
@@ -91,11 +102,17 @@
             <input
                 name="email"
                 style="text-align: right; font-size: 12px;"
-                class="form-control"
+                class="form-control
+@error('email)
+                    is-invalid
+@enderror"
                 id="descriptionInput"
                 placeholder="البريد الإلكتروني"
                 required
-            ></input>
+            />
+            @error('email')
+            <span class="text-danger">{{$message}}</span>
+            @enderror
         </div>
 
         <div class="mb-3">
@@ -110,11 +127,17 @@
                 type="password"
                 name="password"
                 style="text-align: right; font-size: 12px;"
-                class="form-control"
+                class="form-control
+@error('password)
+                    is-invalid
+@enderror"
                 id="descriptionInput"
                 placeholder="كلمة"
                 required
-            ></input>
+            />
+            @error('password')
+            <span class="text-danger">{{$message}}</span>
+            @enderror
         </div>
 
         <div class="mb-3">
@@ -133,7 +156,7 @@
                 id="descriptionInput"
                 placeholder="تاكيد كلمة المرور"
                 required
-            ></input>
+            />
         </div>
 
         <div class="mb-3">
@@ -147,14 +170,19 @@
             <input
                 name="phone"
                 style="text-align: right; font-size: 12px;"
-                class="form-control"
+                class="form-control
+@error('phone)
+                    is-invalid
+@enderror"
                 id="descriptionInput"
                 placeholder="phone"
                 type="number"
                 required
-            ></input>
+            />
+            @error('phone')
+            <span class="text-danger">{{$message}}</span>
+            @enderror
         </div>
-
 
 
         <div class="mb-3">
@@ -167,31 +195,22 @@
             </p>
             <select
                 name="city"
-                class="form-select"
+                class="form-select @error('city)
+                    is-invalid
+@enderror"
                 aria-label="Default select example"
                 style="text-align: right; font-size: 12px;"
             >
-                <option value="1" selected>طرطوس</option>
+                <option value="" selected>حدد مدينتك</option>
+                @foreach($cities as $city)
+                    <option value="{{$city->id}}">{{$city->name}}</option>
+                @endforeach
             </select>
+            @error('city')
+            <span class="text-danger">{{$message}}</span>
+            @enderror
         </div>
 
-        <div class="mb-3">
-            <p
-                for="descriptionInput"
-                class="form-label"
-                style="text-align: right; font-size: 12px;"
-            >
-                المدينة
-            </p>
-            <select
-                name="town"
-                class="form-select"
-                aria-label="Default select example"
-                style="text-align: right; font-size: 12px;"
-            >
-                <option value="1" selected>كفرسوسة</option>
-            </select>
-        </div>
 
         <div class="mb-3">
             <p
@@ -201,15 +220,23 @@
             >
                 العنوان التفصيلي
             </p>
-            <textarea
-                name="description"
+            <input
+                type="text"
+                name="address"
                 style="text-align: right; font-size: 12px;"
-                class="form-control"
+                class="form-control @error('address)
+                    is-invalid
+@enderror
+
+                    "
                 id="descriptionInput"
-                rows="3"
+
                 placeholder="العنوان التفصيلي"
                 required
-            ></textarea>
+            />
+            @error('address')
+            <span class="text-danger">{{$message}}</span>
+            @enderror
         </div>
 
         <div class="mb-3">
@@ -228,7 +255,8 @@
                 placeholder=" كود الإحالة"
                 type="number"
                 required
-            ></input>
+            />
+
         </div>
 
         <button
@@ -239,7 +267,7 @@
             تسجيل الدخول
         </button>
     </form>
-    <hr />
+    <hr/>
     <form action="
       ">
         <button class="google-btn">
@@ -247,10 +275,10 @@
         </button>
 
     </form>
-    <hr />
+    <hr/>
     <a href="{{route('login.ui')}}">
         <button class="google-btn">
-            <i class="fab fa-google"></i>     لديك حساب؟ تسجيل الدخول
+            <i class="fab fa-google"></i> لديك حساب؟ تسجيل الدخول
         </button>
     </a>
 </div>
