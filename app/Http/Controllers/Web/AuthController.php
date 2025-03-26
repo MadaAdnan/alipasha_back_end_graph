@@ -90,7 +90,7 @@ class AuthController extends Controller
         $job=new SendEmailJob($user,new ForgetPasswordEmail($code));
         dispatch($job);
 
-        return redirect()->route('change-password.ui',['code'=>$code])->with('success','تم إرسال رسالة إلى بريدك الإلكتروني');
+        return redirect('/')/*->route('change-password.ui',['code'=>$code])*/->with('success','تم إرسال رسالة إلى بريدك الإلكتروني');
     }
 
     public function changePasswordUi(){
