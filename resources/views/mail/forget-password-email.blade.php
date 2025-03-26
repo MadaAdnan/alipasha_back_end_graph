@@ -9,7 +9,7 @@
 
 
     <x-mail::button :url="route('change-password.ui',['code'=>$code])">
-Button Text
+تغيير كلمة المرور
 </x-mail::button>
 
 شكراً لك,<br>
