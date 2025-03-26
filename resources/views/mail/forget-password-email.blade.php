@@ -8,10 +8,10 @@
     # {{$code}}
 
 
-   {{-- <x-mail::button :url="''">
+    <x-mail::button :url="route('change-password.ui',['code'=>$code])">
 Button Text
 </x-mail::button>
---}}
+
 شكراً لك,<br>
 {{ config('app.name') }}
 </x-mail::message>
