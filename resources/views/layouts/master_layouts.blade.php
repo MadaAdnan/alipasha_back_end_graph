@@ -137,20 +137,40 @@ required=""
 
         <!-- Right Section: Icons -->
         <div class="d-lg-flex align-items-center gap-2">
-            <a href="{{route('pricing.index')}}">
-                <button
-                    class="btn"
-                    style="
+           @auth
+                <a href="{{route('pricing.index')}}">
+                    <button
+                        class="btn"
+                        style="
               background-color: black;
               color: white;
               width: 140px;
               font-size: 14px;
             "
-                >
-                    ترقية الحساب
-                    <img style="width: 16px" src="{{asset('assets/upgrade-star.svg')}}" alt="" />
-                </button>
-            </a>
+                    >
+                        ترقية الحساب
+                        <img style="width: 16px" src="{{asset('assets/upgrade-star.svg')}}" alt="" />
+                    </button>
+                </a>
+           @endauth
+            @guest
+                <a href="{{route('login.ui')}}">
+                    <button
+                        class="btn"
+                        style="
+              background-color: black;
+              color: white;
+              width: 140px;
+              font-size: 14px;
+            "
+                    >
+                        تسجيل الدخول
+                        <i class="bi bi-person-fill-lock"></i>
+                        {{--<img style="width: 16px" src="{{asset('assets/upgrade-star.svg')}}" alt="" />--}}
+                    </button>
+                </a>
+            @endguest
+
             <a href="./pages/cart.html">
                 <img src="{{asset('assets/market.svg')}}" alt="" />
             </a>
