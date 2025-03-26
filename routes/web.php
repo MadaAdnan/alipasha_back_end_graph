@@ -24,6 +24,7 @@ use Mockery\Exception;
     'login' => false,
 ]);*/
 Route::get('login',[\App\Http\Controllers\Web\AuthController::class,'loginUi'])->name('login.ui');
+Route::get('forget-password',[\App\Http\Controllers\Web\AuthController::class,'forgetPasswordUi'])->name('forget-password.ui');
 Route::get('register',[\App\Http\Controllers\Web\AuthController::class,'registerUi'])->name('register.ui');
 Route::post('login',[\App\Http\Controllers\Web\AuthController::class,'login'])->name('login');
 Route::post('register',[\App\Http\Controllers\Web\AuthController::class,'register'])->name('register');

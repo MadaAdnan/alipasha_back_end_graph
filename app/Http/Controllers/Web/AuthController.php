@@ -62,4 +62,8 @@ class AuthController extends Controller
         auth()->login($user);
         return redirect('/');
     }
+
+    public function forgetPasswordUi(){
+        return view('web.forget-password');
+    }
 }

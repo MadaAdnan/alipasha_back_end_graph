@@ -80,7 +80,7 @@
         <div class="mb-3 text-danger">{{session()->get('error')}}</div>
         @endif
         <a
-            href="./forgot-password.html"
+            href="{{route('forget-password.ui')}}"
             style="
             font-size: 14px;
             text-decoration: underline;
