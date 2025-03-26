@@ -124,4 +124,9 @@ class AuthController extends Controller
         }
         return back()->with('error', 'إنتهت مدة الرابط يرجى طلب إستعادة كلمة المرور مرة أخرى');
     }
+
+    public function logout(){
+        auth()->logout();
+        return redirect('/');
+    }
 }

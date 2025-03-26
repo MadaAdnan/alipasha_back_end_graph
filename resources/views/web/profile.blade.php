@@ -81,7 +81,20 @@
                                 الحساب موثق
                             </button>
                         @endif
-
+                            <form action="{{route('logout')}}" method="post">
+                                @csrf
+                                <button type="submit"
+                                    style="
+                  color: #fff;
+                  background-color: #e82129;
+                  font-size: 12px;
+                  padding: 8px;
+                  border-radius: 4px;
+                "
+                                >
+                                   تسجيل الخروج
+                                </button>
+                            </form>
                         <button
                             data-bs-toggle="modal"
                             data-bs-target="#updateAccountModal"
