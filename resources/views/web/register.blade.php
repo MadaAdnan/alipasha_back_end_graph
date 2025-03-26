@@ -284,6 +284,12 @@
             <i class="fab fa-google"></i> لديك حساب؟ تسجيل الدخول
         </button>
     </a>
+    <div class="d-flex my-2 justify-content-end">
+        <a href="{{route('index')}}">
+            <i class="bi bi-arrow-return-left"></i>
+            عودة للصفحة الرئيسية
+        </a>
+    </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
