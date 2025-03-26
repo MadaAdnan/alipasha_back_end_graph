@@ -122,6 +122,6 @@ class AuthController extends Controller
             $user->update(['password' => bcrypt($request->password), 'reset_password' => null]);
             return redirect()->route('login.ui')->with('success', 'تم تغيير كلمة المرور');
         }
-return back()->with('error','إنتهت مدة الرابط يرجى طلب إستعادة كلمة المرور مرة أخرى');
+        return back()->with('error', 'إنتهت مدة الرابط يرجى طلب إستعادة كلمة المرور مرة أخرى');
     }
 }
