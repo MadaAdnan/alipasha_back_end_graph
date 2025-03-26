@@ -60,12 +60,15 @@
             <label for="email" class="form-label">البريد الإلكتروني</label>
             <input
                 type="email"
-                class="form-control"
+                class="form-control   @error('email') is-invalid @enderror"
                 id="email"
                 name="email"
                 aria-describedby="emailHelp"
                 required
             />
+            @error('email')
+            <span class="text-danger">{{$message}}</span>
+            @enderror
         </div>
         <button type="submit" class="btn btn-primary w-100">
             طلب تغير كلمة المرور
