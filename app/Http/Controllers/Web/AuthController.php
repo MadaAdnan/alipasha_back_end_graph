@@ -78,12 +78,12 @@ class AuthController extends Controller
         ],[
             'email.required'=>'يرجى إدخال بريدك الإلكتروني',
             'email.email'=>'يرجى إدخال بريدك الإلكتروني',
-            'email.exists'=>'لم يتم العثور على البريد الإلكتروني في سجلاتنا',
+            'email.exists'=>'لم يتم العثور على بريدك في سجلاتنا',
         ]);
         $email=$request->email;
         $user=User::where('email',$email)->first();
         if(!$user){
-            return back()->with('error','لم يتم العثور على البريد في سجلاتنا');
+            return back()->with('error','لم يتم العثور على بريدك في سجلاتنا');
         }
         $code=StrHelper::getResetPassword();
         $user->update(['reset_password'=>$code]);
