@@ -90,6 +90,22 @@ class AuthController extends Controller
         $job=new SendEmailJob($user,new ForgetPasswordEmail($code));
         dispatch($job);
 
-        return back()->with('success','تم إرسال رسالة إلى بريدك الإلكتروني');
+        return redirect()->route('change-password.ui')->with('success','تم إرسال رسالة إلى بريدك الإلكتروني');
+    }
+
+    public function changePasswordUi(){
+        return view('web.change-password');
+    }
+
+    public function changePassword(Request $request){
+        $this->validate($request,[
+            'code'=>'required|exists:users,reset_password',
+            'password'=>'required|min:8|same:confiemPassword',
+
+        ],[
+          'code.*'=>'للأسف الكود الخاص بك غير موجود يرجى طلب تغيير كلمة المرور من جديد',
+          'password.min'=>'يرجى غدخال كلمة مرور من 8 أحرف على الاقل',
+            'password.same'=>'كلمة المرور غير متطابقة'
+        ]);
     }
 }
