@@ -53,14 +53,18 @@
 <body>
 <div class="login-box">
     <h3>نسيت كلمة المرور</h3>
-    <form action="./code.html">
+    <form action="{{route('forget-password')}}" method="post">
+        @csrf
+        @method('post')
         <div class="mb-3">
             <label for="email" class="form-label">البريد الإلكتروني</label>
             <input
                 type="email"
                 class="form-control"
                 id="email"
+                name="email"
                 aria-describedby="emailHelp"
+                required
             />
         </div>
         <button type="submit" class="btn btn-primary w-100">

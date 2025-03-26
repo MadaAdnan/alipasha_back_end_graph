@@ -28,6 +28,7 @@ Route::get('forget-password',[\App\Http\Controllers\Web\AuthController::class,'f
 Route::get('register',[\App\Http\Controllers\Web\AuthController::class,'registerUi'])->name('register.ui');
 Route::post('login',[\App\Http\Controllers\Web\AuthController::class,'login'])->name('login');
 Route::post('register',[\App\Http\Controllers\Web\AuthController::class,'register'])->name('register');
+Route::post('forget-password',[\App\Http\Controllers\Web\AuthController::class,'forgetPassword'])->name('forget-password');
 Route::resource('/',\App\Http\Controllers\Web\IndexController::class)->only('index');
 Route::resource('/search',\App\Http\Controllers\Web\SearchController::class)->only('index');
 Route::resource('/jobs',\App\Http\Controllers\Web\JobController::class)->only('index','show');

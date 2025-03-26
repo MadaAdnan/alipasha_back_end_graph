@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Exceptions\GraphQLExceptionHandler;
+use App\Helpers\StrHelper;
 use App\Http\Controllers\Controller;
+use App\Jobs\SendEmailJob;
+use App\Mail\ForgetPasswordEmail;
+use App\Mail\ResetPasswordForgetEmail;
 use App\Models\City;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -65,5 +70,26 @@ class AuthController extends Controller
 
     public function forgetPasswordUi(){
         return view('web.forget-password');
+    }
+
+    public function forgetPassword(Request $request){
+        $this->validate($request,[
+            'email'=>'required|email|exists:users,email'
+        ],[
+            'email.required'=>'يرجى إدخال بريدك الإلكتروني',
+            'email.email'=>'يرجى إدخال بريدك الإلكتروني',
+            'email.exists'=>'لم يتم العثور على البريد الإلكتروني في سجلاتنا',
+        ]);
+        $email=$request->email;
+        $user=User::where('email',$email)->first();
+        if(!$user){
+            return back()->with('error','لم يتم العثور على البريد في سجلاتنا');
+        }
+        $code=StrHelper::getResetPassword();
+        $user->update(['reset_password'=>$code]);
+        $job=new SendEmailJob($user,new ForgetPasswordEmail($code));
+        dispatch($job);
+
+        return back()->with('success','تم إرسال رسالة إلى بريدك الإلكتروني');
     }
 }
