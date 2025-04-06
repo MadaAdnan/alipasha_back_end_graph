@@ -76,7 +76,7 @@
                                         <a href="./pages/profile.html" class="rounded-circle">
                                             <img class="rounded-circle" src="{{$community->getImage()}}" style="width: 100px;height: 100px" alt="avatar"/>
                                         </a>
-                                        <p class="title">{{$community->name}}</p>
+                                        <p class="title">{{$community->users()->whereNot('users.id',auth()->id())->first()?->name}}</p>
                                     </div>
                                 </div>
     @endforeach
