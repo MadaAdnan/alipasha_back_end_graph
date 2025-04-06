@@ -35,7 +35,7 @@ foreach ($body as $b){
 
                 @endforeach
                     <div class="position-absolute bottom-0 w-100">
-                        <form action="{{route('messages.store')}}" method="post" class="d-flex gap-1 px-3 py-1 bg-secondary">
+                        <form action="{{route('messages.store')}}" method="post" class="d-flex w-75 px-3 py-1 bg-secondary">
                             @csrf
                             @method('post')
                             <button class="btn btn-sm btn-outline-danger" type="submit"><i class="bi bi-send-fill"></i></button>
