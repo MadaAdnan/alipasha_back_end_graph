@@ -35,8 +35,8 @@ foreach ($body as $b){
 
                 @endforeach
                     <div class="position-absolute bottom-0 w-100">
-                        <form action="">
-                            <input type="text" class="form-input">
+                        <form action="" class="d-flex gap-1">
+                            <input type="text" class="form-control">
                             <button class="btn btn-sm" type="submit"><i class="fa fa-paper-sent"></i></button>
                         </form>
                     </div>
