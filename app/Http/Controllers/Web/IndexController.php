@@ -7,6 +7,7 @@ use App\Enums\LevelUserEnum;
 use App\Enums\ProductActiveEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Community;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -70,8 +71,11 @@ class IndexController extends Controller
                 \DB::table('product_views')->insert($inserts);
             }
         });
-
-        return view('web.index', compact('specialSeller', 'products', 'categories','subCategory'));
+$communities=null;
+if(auth()->check()){
+    $communities=Community::whereHas('users',fn($query)=>$query->where('users.id',auth()->id()))->orderByDesc('last_update')->limit(10);
+}
+        return view('web.index', compact('specialSeller', 'products', 'categories','subCategory','communities'));
     }
 
     /**

@@ -62,22 +62,27 @@
                                 </li>
                             </ul>
                         </div>
-
-                        <div class="chat-item">
-                            <div
-                                style="
+@if($communities!=null)
+    @foreach($communities as $community)
+                                <div class="chat-item">
+                                    <div
+                                        style="
                   display: flex;
                   align-items: center;
                   gap: 4px;
                   margin-bottom: 8px;
                 "
-                            >
-                                <a href="./pages/profile.html">
-                                    <img src="{{asset('assets/avatar-2.svg')}}" alt="avatar"/>
-                                </a>
-                                <p class="title">عبادة كحلوس</p>
-                            </div>
-                        </div>
+                                    >
+                                        <a href="./pages/profile.html">
+                                            <img src="{{$community->getImage()}}" alt="avatar"/>
+                                        </a>
+                                        <p class="title">{{$community->name}}</p>
+                                    </div>
+                                </div>
+    @endforeach
+
+
+    @endif
                     </div>
                 </div>
             </div>
