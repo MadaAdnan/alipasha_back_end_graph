@@ -34,7 +34,7 @@ foreach ($body as $b){
                     </div>
 
                 @endforeach
-                    <div class="position-fixed bottom-0">
+                    <div class="position-absolute bottom-0 w-100">
                         <form action="">
                             <input type="text" class="form-input">
                             <button class="btn btn-sm" type="submit"><i class="fa fa-paper-sent"></i></button>
