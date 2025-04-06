@@ -73,7 +73,7 @@ class IndexController extends Controller
         });
 $communities=null;
 if(auth()->check()){
-    $communities=Community::whereHas('users',fn($query)=>$query->where('users.id',auth()->id()))->orderByDesc('last_update')->limit(10);
+    $communities=Community::whereHas('users',fn($query)=>$query->where('users.id',auth()->id()))->orderByDesc('last_update')->limit(10)->get();
 }
         return view('web.index', compact('specialSeller', 'products', 'categories','subCategory','communities'));
     }
