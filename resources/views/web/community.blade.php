@@ -27,7 +27,7 @@ foreach ($body as $b){
 }
 @endphp
                                 <span>{!! $messageBody!!}</span>
-                                <span>{{$message->created_at?->diffForHumans()}}</span>
+                                <span class="text-muted small">{{$message->created_at?->diffForHumans()}}</span>
                             </div>
                         </div>
                     </div>
