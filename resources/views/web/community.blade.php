@@ -5,12 +5,22 @@
 
             <div class="col-md-8">
                 @foreach($messages as $message)
-                <div class="card card-body">
-                    <div class="d-flex">
-                        <img src="{{$message->user?->getImage()}}" alt="" class="rounded-circle">
-                        <span>{{$message->body}}</span>
+                    @php
+                        $user=$message->user;
+                    @endphp
+                    <div class="d-flex flex-column">
+                       <div class="d-flex flex-row">
+                           <img style="width: 50px;height: 50px" src="{{$user?->getImage()}}" alt="" class="rounded-circle">
+                           <span>{{$user?->seller_name ??$user?->name}}</span>
+                       </div>
+                        <div class="card card-body my-1">
+                            <div class="d-flex">
+
+                                <span>{{$message->body}}</span>
+                            </div>
+                        </div>
                     </div>
-                </div>
+
                 @endforeach
             </div>
         </div>
