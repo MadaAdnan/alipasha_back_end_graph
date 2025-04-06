@@ -7,7 +7,7 @@
                 @foreach($messages as $message)
                 <div class="card card-body">
                     <div class="d-flex">
-
+                        <img src="{{$message->user?->getImage()}}" alt="" class="rounded-circle">
                         <span>{{$message->body}}</span>
                     </div>
                 </div>
