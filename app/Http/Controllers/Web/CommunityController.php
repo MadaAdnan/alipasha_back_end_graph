@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Enums\CommunityTypeEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Community;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class CommunityController extends Controller
@@ -13,8 +15,8 @@ class CommunityController extends Controller
      */
     public function index()
     {
-        $communities=Community::whereHas('users',fn($query)=>$query->where('users.id',auth()->id()))->paginate(10);
-        return view('web.communities',compact('communities'));
+        $communities = Community::whereHas('users', fn($query) => $query->where('users.id', auth()->id()))->paginate(10);
+        return view('web.communities', compact('communities'));
     }
 
     /**
@@ -30,7 +32,27 @@ class CommunityController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $sellerId = $request->sellerId;
+        if ($sellerId = null) {
+            return back()->with('error', 'لم يتمكن من إنشاء المحادثة');
+        }
+        $seller = User::find($sellerId);
+        if ($seller = null) {
+            return back()->with('error', 'لم يتمكن من إنشاء المحادثة');
+        }
+        $community = Community::where('type', CommunityTypeEnum::CHAT->value)
+            ->whereHas('users', fn($query) => $query->where('users.id', auth()->id()))
+            ->whereHas('users', fn($query) => $query->where('users.id', $sellerId))->first();
+        if ($community == null) {
+            $community = Community::create([
+                'name' => $seller->name,
+                'manager_id' => auth()->id(),
+                'type' => CommunityTypeEnum::CHAT->value,
+                'last_update' => now()
+            ]);
+            $community->users()->syncWithoutDetaching([auth()->id(), $sellerId]);
+        }
+        return back();
     }
 
     /**

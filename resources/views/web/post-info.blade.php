@@ -113,7 +113,7 @@
                                     <a href="https://wa.me/{{$post->user?->phone}}" target="_blank"
                                        class="btn btn-success"><i class="bi bi-whatsapp"></i></a>
 
-                                        <form action="" method="post">
+                                        <form action="{{route('communities.store')}}" method="post">
                                             @csrf
                                             @method('post')
                                             <input type="hidden" name="sellerId" value="{{$post->user?->id}}">
