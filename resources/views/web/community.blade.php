@@ -36,8 +36,10 @@ foreach ($body as $b){
                 @endforeach
                     <div class="position-absolute bottom-0 w-100">
                         <form action="" method="post" class="d-flex gap-1 px-3">
+                            @csrf
+                            @method('post')
                             <button class="btn btn-sm btn-outline-danger" type="submit"><i class="bi bi-send-fill"></i></button>
-                            <input type="text" class="form-control" name="message">
+                            <input type="text" class="form-control" name="body">
                             <input type="hidden" name="communityId" value="{{$community->id}}">
 
                         </form>
