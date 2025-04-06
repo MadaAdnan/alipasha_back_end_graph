@@ -14,7 +14,7 @@
                            <span>{{$user?->seller_name ??$user?->name}}</span>
                        </div>
                         <div class="card card-body my-1 w-75 @if($user->id==auth()->id()) bg-success-subtle   @endif">
-                            <div class="d-flex">
+                            <div class="d-flex flex-column">
 @php
     $body=explode(' ',$message->body);
 $messageBody='';
@@ -27,6 +27,7 @@ foreach ($body as $b){
 }
 @endphp
                                 <span>{!! $messageBody!!}</span>
+                                <span>{{$message->created_aat?->diffForHumans()}}</span>
                             </div>
                         </div>
                     </div>
