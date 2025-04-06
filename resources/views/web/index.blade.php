@@ -74,7 +74,7 @@
                 "
                                     >
                                         <a href="./pages/profile.html">
-                                            <img src="{{$community->getImage()}}" alt="avatar"/>
+                                            <img src="{{$community->getImage()}}" style="width: 100px;height: 100px" alt="avatar"/>
                                         </a>
                                         <p class="title">{{$community->name}}</p>
                                     </div>
