@@ -35,9 +35,11 @@ foreach ($body as $b){
 
                 @endforeach
                     <div class="position-absolute bottom-0 w-100">
-                        <form action="" class="d-flex gap-1 px-3">
-                            <input type="text" class="form-control">
+                        <form action="" method="post" class="d-flex gap-1 px-3">
                             <button class="btn btn-sm btn-outline-danger" type="submit"><i class="bi bi-send-fill"></i></button>
+                            <input type="text" class="form-control" name="message">
+                            <input type="hidden" name="communityId" value="{{$community->id}}">
+
                         </form>
                     </div>
                 </div>
