@@ -14,7 +14,7 @@
                            <span>{{$user?->seller_name ??$user?->name}}</span>
                        </div>
                         <div class="card card-body my-1 w-75 @if($user->id==auth()->id()) bg-success-subtle   @endif">
-                            <div class="d-flex flex-column">
+                            <div class="d-flex flex-column gap-2">
 @php
     $body=explode(' ',$message->body);
 $messageBody='';
