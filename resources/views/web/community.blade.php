@@ -15,8 +15,18 @@
                        </div>
                         <div class="card card-body my-1  @if($user->id==auth()->id()) bg-success-subtle   @endif">
                             <div class="d-flex">
-
-                                <span>{{$message->body}}</span>
+@php
+    $body=explode(' ',$message->body);
+$messageBody='';
+foreach ($body as $b){
+    if(filter_var($b,FILTER_SANITIZE_URL)){
+        $messageBody.=" <a href='{$b}'>{$b}</a> ";
+    }else{
+        $messageBody.=" {$b}";
+    }
+}
+@endphp
+                                <span>{!! $messageBody!!}</span>
                             </div>
                         </div>
                     </div>
