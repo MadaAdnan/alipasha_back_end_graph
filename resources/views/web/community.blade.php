@@ -5,7 +5,7 @@
 
             <div class="col-md-6 ">
                 <div class="card position-relative pb-5 px-2">
-                @foreach($messages as $message)
+                @foreach($messages->orderBy('created_at') as $message)
                     @php
                         $user=$message->user;
                     @endphp
