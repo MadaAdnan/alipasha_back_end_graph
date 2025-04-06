@@ -3,7 +3,8 @@
     <div class="container-fluid" style="margin-top: 70px">
         <div class="row justify-content-center">
 
-            <div class="col-md-6 card">
+            <div class="col-md-6 ">
+                <div class="card position-relative">
                 @foreach($messages as $message)
                     @php
                         $user=$message->user;
@@ -33,6 +34,13 @@ foreach ($body as $b){
                     </div>
 
                 @endforeach
+                    <div class="position-fixed bottom-0">
+                        <form action="">
+                            <input type="text" class="form-input">
+                            <button class="btn btn-sm" type="submit"><i class="fa fa-paper-sent"></i></button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
