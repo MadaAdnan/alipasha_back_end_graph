@@ -8,7 +8,7 @@
                     @php
                         $user=$message->user;
                     @endphp
-                    <div class="d-flex flex-column @if($user->id==auth()->id()) align-items-start @else align-items-end @endif justify-content-center">
+                    <div class="d-flex flex-column @if($user->id==auth()->id()) align-items-start bg-info-subtle @else align-items-end  @endif justify-content-center">
                        <div class="d-flex flex-row justify-content-center">
                            <img style="width: 50px;height: 50px" src="{{$user?->getImage()}}" alt="" class="rounded-circle">
                            <span>{{$user?->seller_name ??$user?->name}}</span>
