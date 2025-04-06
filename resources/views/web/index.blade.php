@@ -62,8 +62,8 @@
                                 </li>
                             </ul>
                         </div>
-@if($communities!=null)
-    @foreach($communities as $community)
+                        @if($communities!=null)
+                            @foreach($communities as $community)
                                 <div class="chat-item">
                                     <div
                                         style="
@@ -74,7 +74,8 @@
                 "
                                     >
                                         <a href="./pages/profile.html" class="rounded-circle">
-                                            <img class="rounded-circle" src="{{$community->getImage()}}" style="width: 100px;height: 100px" alt="avatar"/>
+                                            <img class="rounded-circle" src="{{$community->getImage()}}"
+                                                 style="width: 100px;height: 100px" alt="avatar"/>
                                         </a>
                                         @php
                                             if($community->type==\App\Enums\CommunityTypeEnum::CHAT->value){
@@ -84,13 +85,16 @@
     $name=$community->name;
 }
                                         @endphp
-                                        <p class="title">{{$name}}</p>
+                                        <p class="title d-flex flex-column">
+                                            <span>{{$name}}</span>
+                                            <span class="text-muted small">عدد المشتركين : {{$community->users_count}}</span>
+                                        </p>
                                     </div>
                                 </div>
-    @endforeach
+                            @endforeach
 
 
-    @endif
+                        @endif
                     </div>
                 </div>
             </div>
@@ -129,7 +133,7 @@
 
                     </div>
                 </div>
-@auth
+                @auth
                     <div class="new-post">
                         <div class="flex-wrapper">
                             <input
@@ -181,7 +185,7 @@
                             </div>
                         </div>
                     </div>
-@endauth
+                @endauth
 
                 @foreach($products as $product)
                     <div class="posts">
@@ -218,7 +222,8 @@
                                         @endif
                                     </div>
                                     <a href="{{route('seller.profile',$product->user_id)}}">
-                                        <img width="46" height="46" class="rounded-circle" src="{{$product->user?->getImage()}}" alt=""/>
+                                        <img width="46" height="46" class="rounded-circle"
+                                             src="{{$product->user?->getImage()}}" alt=""/>
                                     </a>
                                 </div>
                             </div>
@@ -226,15 +231,15 @@
                             <div class="post-content " style="margin: 20px 0px 0px 0px">
 
 
-                                                                <a
-                                                                    @if($product->type==\App\Enums\CategoryTypeEnum::SEARCH_JOB->value || $product->type==\App\Enums\CategoryTypeEnum::JOB->value )
+                                <a
+                                    @if($product->type==\App\Enums\CategoryTypeEnum::SEARCH_JOB->value || $product->type==\App\Enums\CategoryTypeEnum::JOB->value )
 
-                                                                    href="{{route('jobs.show',$product->id)}}"
-                                                                    @elseif($product->type==\App\Enums\CategoryTypeEnum::TENDER->value )
-                                                                    href="{{route('tenders.show',$product->id)}}"
-                                                                    @elseif($product->type==\App\Enums\CategoryTypeEnum::RESTAURANT->value ||  $product->type==\App\Enums\CategoryTypeEnum::PRODUCT->value )
-                                                                    href="{{route('posts.show',$product->id)}}"
-                                                                @endif>
+                                    href="{{route('jobs.show',$product->id)}}"
+                                    @elseif($product->type==\App\Enums\CategoryTypeEnum::TENDER->value )
+                                    href="{{route('tenders.show',$product->id)}}"
+                                    @elseif($product->type==\App\Enums\CategoryTypeEnum::RESTAURANT->value ||  $product->type==\App\Enums\CategoryTypeEnum::PRODUCT->value )
+                                    href="{{route('posts.show',$product->id)}}"
+                                    @endif>
                                     <p class="title" style="text-align: right">
                                         {{$product->expert}}
                                     </p>
@@ -247,13 +252,13 @@
                     overflow: hidden;
                   "
                                 >
-                                    <a    @if($product->type==\App\Enums\CategoryTypeEnum::SEARCH_JOB->value || $product->type==\App\Enums\CategoryTypeEnum::JOB->value )
+                                    <a @if($product->type==\App\Enums\CategoryTypeEnum::SEARCH_JOB->value || $product->type==\App\Enums\CategoryTypeEnum::JOB->value )
 
-                                          href="{{route('jobs.show',$product->id)}}"
-                                          @elseif($product->type==\App\Enums\CategoryTypeEnum::TENDER->value )
-                                          href="{{route('tenders.show',$product->id)}}"
-                                          @elseif($product->type==\App\Enums\CategoryTypeEnum::RESTAURANT->value ||  $product->type==\App\Enums\CategoryTypeEnum::PRODUCT->value )
-                                          href="{{route('posts.show',$product->id)}}"
+                                       href="{{route('jobs.show',$product->id)}}"
+                                       @elseif($product->type==\App\Enums\CategoryTypeEnum::TENDER->value )
+                                       href="{{route('tenders.show',$product->id)}}"
+                                       @elseif($product->type==\App\Enums\CategoryTypeEnum::RESTAURANT->value ||  $product->type==\App\Enums\CategoryTypeEnum::PRODUCT->value )
+                                       href="{{route('posts.show',$product->id)}}"
                                         @endif>
                                         <img
                                             style="
@@ -272,26 +277,26 @@
                                 style="margin: 20px 0px 0px 0px; padding: 0px 10px; display: flex; align-items: center; justify-content: space-between;">
                                 <div class="price"
                                      style="width: 90px; height: 24px; padding: 5px; border-radius: 4px; color: #fff; background-color: #aaa; display: flex; align-items: center; justify-content: center; border: 5px; font-size: 12px;">
-                                   @if($product->is_delivery)
+                                    @if($product->is_delivery)
                                         متوفر شحن
                                     @else
                                         غير متوفر شحن
                                     @endif
                                 </div>
                                 @if($product->type==\App\Enums\CategoryTypeEnum::PRODUCT->value)
-                                <div style="display: flex; gap: 8px;">
+                                    <div style="display: flex; gap: 8px;">
 
-                                    <div class="price"
-                                         style=" height: 24px; padding: 5px; border-radius: 4px; color: #fff; background-color: #e60613; display: flex; align-items: center; justify-content: center; border: 5px;">
-                                        @if($product->is_discount)
-                                            <del class="text-secondary">{{$product->price}}</del>
-                                            {{$product->discount}}
+                                        <div class="price"
+                                             style=" height: 24px; padding: 5px; border-radius: 4px; color: #fff; background-color: #e60613; display: flex; align-items: center; justify-content: center; border: 5px;">
+                                            @if($product->is_discount)
+                                                <del class="text-secondary">{{$product->price}}</del>
+                                                {{$product->discount}}
 
                                             @else
-                                            {{$product->price}}
-                                        @endif
-                                        $
-                                    </div>
+                                                {{$product->price}}
+                                            @endif
+                                            $
+                                        </div>
 
 
                                         <form action="" method="POST" style="
@@ -306,14 +311,15 @@
                       justify-content: center;
                     ">
                                             <input type="hidden" name="postId" value="123"/>
-                                            <button type="button" onclick="addCart({{json_encode($product->toJson())}},'','')"
+                                            <button type="button"
+                                                    onclick="addCart({{json_encode($product->toJson())}},'','')"
                                                     style="background-color: transparent; border: none; display: flex; align-items: center; gap: 8px; color: #fff;">
                                                 <i class="bi bi-cart-fill"></i>
                                             </button>
                                         </form>
 
 
-                                </div>
+                                    </div>
                                 @endif
 
                             </div>
@@ -334,18 +340,18 @@
                                     <p class="sub-title">مشاهدات {{$product->views_count}}</p>
                                 </button>
                                 @if($product->type==\App\Enums\CategoryTypeEnum::PRODUCT->value)
-                                <form action="{{route('post.like')}}" method="POST"
-                                      style="display: flex; align-items: center; gap: 8px; background-color: transparent;">
-                                    @csrf
-                                    @method('POST')
-                                    <input type="hidden" name="productId" value="{{$product->id}}"/>
-                                    <button type="submit"
-                                            style="background-color: transparent; border: none; display: flex; align-items: center; gap: 8px;">
-                                        <i style="font-size: 12px;" class="bi bi-hand-thumbs-up"></i>
-                                        <p class="sub-title">  {{$product->likes_count}} اعجاب</p>
-                                    </button>
+                                    <form action="{{route('post.like')}}" method="POST"
+                                          style="display: flex; align-items: center; gap: 8px; background-color: transparent;">
+                                        @csrf
+                                        @method('POST')
+                                        <input type="hidden" name="productId" value="{{$product->id}}"/>
+                                        <button type="submit"
+                                                style="background-color: transparent; border: none; display: flex; align-items: center; gap: 8px;">
+                                            <i style="font-size: 12px;" class="bi bi-hand-thumbs-up"></i>
+                                            <p class="sub-title">  {{$product->likes_count}} اعجاب</p>
+                                        </button>
 
-                                </form>
+                                    </form>
                                 @endif
                                 <a href="{{route('posts.show',$product->id)}}">
                                     <button
@@ -359,10 +365,10 @@
                     </div>
                 @endforeach
 
-                    <div class="d-flex justify-content-between">
-                        <a class="btn btn-sm btn-secondary" href="{{$products->nextPageUrl()}}">التالي</a>
-                        <a class="btn btn-sm btn-secondary" href="{{$products->previousPageUrl()}}">السابق</a>
-                    </div>
+                <div class="d-flex justify-content-between">
+                    <a class="btn btn-sm btn-secondary" href="{{$products->nextPageUrl()}}">التالي</a>
+                    <a class="btn btn-sm btn-secondary" href="{{$products->previousPageUrl()}}">السابق</a>
+                </div>
 
 
             </div>
@@ -389,12 +395,12 @@
                         <div class="divider"></div>
                         @foreach($categories as $category)
                             <a href="{{route('index',['category_id'=>$category->id])}}">
-                            <div class="category-item">
+                                <div class="category-item">
 
-                                <p>{{$category->name}}</p>
-                                <div class="count">{{$category->products_count}}</div>
+                                    <p>{{$category->name}}</p>
+                                    <div class="count">{{$category->products_count}}</div>
 
-                            </div>
+                                </div>
                             </a>
                         @endforeach
 
