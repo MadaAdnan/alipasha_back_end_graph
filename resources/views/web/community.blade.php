@@ -34,12 +34,14 @@ foreach ($body as $b){
                     </div>
 
                 @endforeach
-                    <div class="position-absolute bottom-0 w-100 bg-secondary overflow-hidden">
+                    <div class="position-absolute bottom-0  w-100  overflow-hidden">
                         <form action="{{route('messages.store')}}" method="post" class="d-flex w-100 gap-1 px-3 py-1 ">
                             @csrf
                             @method('post')
                             <button class="btn btn-sm btn-outline-danger" type="submit"><i class="bi bi-send-fill"></i></button>
-                            <input type="text" class="form-control" name="body">
+                            <div class="bg-secondary-subtle">
+                                <input type="text" class="form-control " name="body">
+                            </div>
                             <input type="hidden" name="communityId" value="{{$community->id}}">
 
                         </form>
