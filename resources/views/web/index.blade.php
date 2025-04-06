@@ -85,10 +85,12 @@
     $name=$community->name;
 }
                                         @endphp
+                                        <a href="{{route('communities.show',$community->id)}}" >
                                         <p class="title d-flex flex-column">
                                             <span>{{$name}}</span>
                                             <span class="text-muted small">عدد المشتركين : {{$community->users_count}}</span>
                                         </p>
+                                        </a>
                                     </div>
                                 </div>
                             @endforeach
