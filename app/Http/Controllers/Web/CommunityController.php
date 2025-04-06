@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Enums\CommunityTypeEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Community;
+use App\Models\Message;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -60,7 +61,9 @@ class CommunityController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $community=Community::whereHas('users',fn($q)=>$q->where('users.id',auth()->id()))->findOrFail($id);
+        $messages=Message::where('community_id',$id)->limit(50)->get();
+        return view('web.community',compact('community','messages'));
     }
 
     /**

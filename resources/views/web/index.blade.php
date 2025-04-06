@@ -73,7 +73,7 @@
                   margin-bottom: 8px;
                 "
                                     >
-                                        <a href="./pages/profile.html" class="rounded-circle">
+                                        <a href="{{route('communities.show',$community->id)}}" class="rounded-circle">
                                             <img class="rounded-circle" src="{{$community->getImage()}}"
                                                  style="width: 100px;height: 100px" alt="avatar"/>
                                         </a>
