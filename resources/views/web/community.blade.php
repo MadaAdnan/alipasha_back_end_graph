@@ -13,7 +13,7 @@
                            <img style="width: 50px;height: 50px" src="{{$user?->getImage()}}" alt="" class="rounded-circle">
                            <span>{{$user?->seller_name ??$user?->name}}</span>
                        </div>
-                        <div class="card card-body my-1  @if($user->id==auth()->id()) bg-success-subtle   @endif">
+                        <div class="card card-body my-1 w-75 @if($user->id==auth()->id()) bg-success-subtle   @endif">
                             <div class="d-flex">
 @php
     $body=explode(' ',$message->body);
