@@ -4,7 +4,7 @@
         <div class="row justify-content-center">
 
             <div class="col-md-6 ">
-                <div class="card position-relative">
+                <div class="card position-relative pb-5">
                 @foreach($messages as $message)
                     @php
                         $user=$message->user;
