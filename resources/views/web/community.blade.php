@@ -20,7 +20,7 @@
     $body=explode(' ',$message->body);
 $messageBody='';
 foreach ($body as $b){
-    if(filter_var($b,FILTER_SANITIZE_URL) ){
+    if(filter_var(trim($b,'.'),FILTER_SANITIZE_URL) ){
         $messageBody.=" <a href='{$b}'>{$b}</a> ";
     }else{
         $messageBody.=" {$b}";
