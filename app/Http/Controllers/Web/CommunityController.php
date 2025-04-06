@@ -37,7 +37,7 @@ class CommunityController extends Controller
             return back()->with('error', 'لم يتمكن من إنشاء المحادثة');
         }
         $seller = User::find($sellerId);
-        if ($seller = null) {
+        if ($seller == null) {
             return back()->with('error', 'لم يتمكن من إنشاء المحادثة');
         }
         $community = Community::where('type', CommunityTypeEnum::CHAT->value)
