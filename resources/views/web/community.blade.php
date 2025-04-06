@@ -8,8 +8,8 @@
                     @php
                         $user=$message->user;
                     @endphp
-                    <div class="d-flex flex-column">
-                       <div class="d-flex flex-row">
+                    <div class="d-flex flex-column align-items-center justify-content-center">
+                       <div class="d-flex flex-row justify-content-center">
                            <img style="width: 50px;height: 50px" src="{{$user?->getImage()}}" alt="" class="rounded-circle">
                            <span>{{$user?->seller_name ??$user?->name}}</span>
                        </div>
