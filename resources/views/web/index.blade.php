@@ -76,7 +76,15 @@
                                         <a href="./pages/profile.html" class="rounded-circle">
                                             <img class="rounded-circle" src="{{$community->getImage()}}" style="width: 100px;height: 100px" alt="avatar"/>
                                         </a>
-                                        <p class="title">{{$community->users()->whereNot('users.id',auth()->id())->first()?->name}}</p>
+                                        @php
+                                            if($community->type==\App\Enums\CommunityTypeEnum::CHAT->value){
+    $user=$community->users()->whereNot('users.id',auth()->id())->first();
+    $name=$user->seller_name ?? $user->name;
+}else{
+    $name=$community->name;
+}
+                                        @endphp
+                                        <p class="title">{{$name}}</p>
                                     </div>
                                 </div>
     @endforeach
