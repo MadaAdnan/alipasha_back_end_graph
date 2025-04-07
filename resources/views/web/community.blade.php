@@ -1,10 +1,18 @@
 @extends('layouts.master_layouts')
+@section('style')
+    <style>
+        .chat-panel{
+            height: 100vh;
+            overflow-y: scroll;
+        }
+    </style>
+@endsection
 @section('content')
     <div class="container-fluid" style="margin-top: 70px">
         <div class="row justify-content-center">
 
             <div class="col-md-6 ">
-                <div class="card position-relative pb-5 px-2">
+                <div class="card position-relative pb-5 px-2 chat-panel">
                     @foreach($messages as $message)
                         @php
                             $user=$message->user;
