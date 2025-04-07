@@ -6,9 +6,9 @@
             <div class="col-md-6">
                 @foreach($communities as $community)
                 <div class="card card-body">
-                    <div class="d-flex align-items-center">
+                    <div class="d-flex align-items-center justify-content-around">
                       <div>
-                          <img src="{{$community->getImage()}}" style="width: 100px;" alt="" class="rounded-circle">
+                          <img src="{{$community->getImage()}}" style="width: 100px;" alt="" class="rounded-circle mx-2">
                           <span>{{$community->name}}</span>
                       </div>
                         <a href="{{route('communities.show',$community->id)}}" class="btn btn-sm btn-info">إنتقل إلى المحادثة</a>
