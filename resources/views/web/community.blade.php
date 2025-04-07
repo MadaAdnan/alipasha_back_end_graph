@@ -62,7 +62,7 @@
                         <form action="{{route('messages.store')}}" method="post" class="d-flex w-100 gap-1 px-3 py-1 ">
                             @csrf
                             @method('post')
-                            <button class="btn btn-sm btn-outline-danger" type="submit"><i class="bi bi-send-fill"></i>
+                            <button class="btn btn-sm btn-outline-danger " type="submit"><i class="bi bi-send-fill fs-4"></i>
                             </button>
                             <div class="bg-secondary-subtle w-100 p-1 rounded">
                                 <input type="text" class="form-control " name="body" placeholder="اكتب شيئاً ...">
