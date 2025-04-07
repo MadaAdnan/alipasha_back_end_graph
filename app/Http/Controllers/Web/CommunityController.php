@@ -16,8 +16,9 @@ class CommunityController extends Controller
      */
     public function index()
     {
-        $communities = Community::whereHas('users', fn($query) => $query->where('users.id', auth()->id()))
-            ->whereHas('messages', fn ($query) => $query->havingRaw('count(*) > 0'))
+        $communities = Community::whereNot('type', 'live')->whereHas('messages')->whereHas('allUsers', function ($query) {
+            $query->where('users.id', auth()->id());  // جلب المجتمعات التي يشارك فيها المستخدم الحالي
+        })->latest('last_update')
             ->paginate(10);
         return view('web.communities', compact('communities'));
     }
@@ -55,8 +56,8 @@ class CommunityController extends Controller
             ]);
             $community->users()->syncWithoutDetaching([auth()->id(), $sellerId]);
         }
-       // dd($community);
-        return redirect()->route('communities.show',$community->id);
+        // dd($community);
+        return redirect()->route('communities.show', $community->id);
     }
 
     /**
@@ -64,10 +65,10 @@ class CommunityController extends Controller
      */
     public function show(string $id)
     {
-        $community=Community::whereHas('users',fn($q)=>$q->where('users.id',auth()->id()))->findOrFail($id);
-        $messages=Message::where('community_id',$id)->limit(50)->latest()->get();
-        $messages=collect($messages)->sortBy(['created_at']);
-        return view('web.community',compact('community','messages'));
+        $community = Community::whereHas('users', fn($q) => $q->where('users.id', auth()->id()))->findOrFail($id);
+        $messages = Message::where('community_id', $id)->limit(50)->latest()->get();
+        $messages = collect($messages)->sortBy(['created_at']);
+        return view('web.community', compact('community', 'messages'));
     }
 
     /**
