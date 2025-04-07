@@ -7,7 +7,7 @@
                 @foreach($communities as $community)
                 <div class="card card-body">
                     <div class="d-flex">
-                        <img src="{{$community->getImage()}}" alt="" class="rounded-circle">
+                        <img src="{{$community->getImage()}}" style="width: 100px;" alt="" class="rounded-circle">
                         <span>{{$community->name}}</span>
                     </div>
                 </div>
