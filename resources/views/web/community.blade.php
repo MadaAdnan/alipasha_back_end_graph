@@ -2,6 +2,10 @@
 @section('style')
     <style>
         .chat-panel{
+            height: 90vh;
+            overflow-y: scroll;
+        }
+        .chat-panel-write{
             position: sticky;
             bottom: 0px;
             background:
