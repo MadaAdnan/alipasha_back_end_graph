@@ -202,7 +202,7 @@
                                 @endif
                             >
                             <div class="products">
-                                <img src="{{$product->getImage('image')}}" alt=""/>
+                                <img src=" @if($product->hasMedia('image')){{$product->getImage('image')}} @else {{$product->getImage('images')}}  @endif" alt=""/>
                                 @if($product->is_discount)
                                 <div class="type">عرض</div>
                                 @elseif($product->level==\App\Enums\LevelProductEnum::SPECIAL->value)
