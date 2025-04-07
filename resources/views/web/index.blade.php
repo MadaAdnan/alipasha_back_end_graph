@@ -94,7 +94,9 @@
                                     </div>
                                 </div>
                             @endforeach
-
+                                <a href="{{route('communities.index')}}">
+                                    جميع محادثاتي
+                                </a>
 
                         @endif
                     </div>
@@ -405,9 +407,7 @@
                                 </div>
                             </a>
                         @endforeach
-                        <a href="{{route('communities.index')}}">
-                           جميع محادثاتي
-                        </a>
+
 
                     </div>
                 </div>
