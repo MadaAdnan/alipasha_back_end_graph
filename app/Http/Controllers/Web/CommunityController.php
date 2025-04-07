@@ -34,7 +34,7 @@ class CommunityController extends Controller
     public function store(Request $request)
     {
         $sellerId = $request->sellerId;
-        if ($sellerId = null) {
+        if ($sellerId == null) {
             return back()->with('error', 'لم يتمكن من إنشاء المحادثة');
         }
         $seller = User::find($sellerId);
@@ -53,7 +53,7 @@ class CommunityController extends Controller
             ]);
             $community->users()->syncWithoutDetaching([auth()->id(), $sellerId]);
         }
-        dd($community);
+       // dd($community);
         return route('communities.show',$community->id);
     }
 
