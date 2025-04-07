@@ -38,6 +38,7 @@
                         </div>
 
                     @endforeach
+                    @if($community->type==\App\Enums\CommunityTypeEnum::CHAT->value || $community->type==\App\Enums\CommunityTypeEnum::GROUP->value)
                     <div class="position-absolute bottom-0  w-100  overflow-hidden">
                         <form action="{{route('messages.store')}}" method="post" class="d-flex w-100 gap-1 px-3 py-1 ">
                             @csrf
@@ -51,6 +52,7 @@
 
                         </form>
                     </div>
+                        @endif
                 </div>
             </div>
         </div>
