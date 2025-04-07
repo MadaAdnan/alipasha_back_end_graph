@@ -12,8 +12,9 @@
                 #d3cccc;
             z-index: 40;
             padding:
-                58px;
+                30px;
             height: 118px;
+
         }
     </style>
 @endsection
@@ -57,7 +58,7 @@
 
                     @endforeach
                     @if($community->type==\App\Enums\CommunityTypeEnum::CHAT->value || $community->type==\App\Enums\CommunityTypeEnum::GROUP->value)
-                    <div class="chat-panel-write  w-100  overflow-hidden">
+                    <div class="chat-panel-write  w-100 d-flex align-items-center  overflow-hidden">
                         <form action="{{route('messages.store')}}" method="post" class="d-flex w-100 gap-1 px-3 py-1 ">
                             @csrf
                             @method('post')
