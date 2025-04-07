@@ -52,7 +52,7 @@
                                     @endphp
                                     <span>{!! $messageBody!!}</span>
                                     @if($message->type=='image')
-                                        <img src="{{$message->getImage()}}" style="width: 70%;height: fit-content" alt="">
+                                        <img src="{{$message->getImage('attach')}}" style="width: 70%;height: fit-content" alt="">
                                     @endif
                                     <span class="text-muted small">{{$message->created_at?->diffForHumans()}}</span>
                                 </div>
