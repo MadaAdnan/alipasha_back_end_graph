@@ -368,8 +368,8 @@
                 @endforeach
 
                 <div class="d-flex justify-content-between">
-                    <a class="btn btn-sm btn-secondary" href="{{$products->nextPageUrl()}}">التالي</a>
-                    <a class="btn btn-sm btn-secondary" href="{{$products->previousPageUrl()}}">السابق</a>
+                    <a class="btn btn-sm btn-secondary" href="{{$products->withQueryString()->nextPageUrl()}}">التالي</a>
+                    <a class="btn btn-sm btn-secondary" href="{{$products->withQueryString()->previousPageUrl()}}">السابق</a>
                 </div>
 
 
