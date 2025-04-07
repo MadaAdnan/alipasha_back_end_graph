@@ -51,7 +51,7 @@
                                     }
                                     @endphp
                                     <span>{!! $messageBody!!}</span>
-                                    @if($message->type=='image')
+                                    @if($message->type=='webp')
                                         <img src="{{$message->getImage('attach')}}" style="width: 70%;height: fit-content" alt="">
                                     @endif
                                     <span class="text-muted small">{{$message->created_at?->diffForHumans()}}</span>
