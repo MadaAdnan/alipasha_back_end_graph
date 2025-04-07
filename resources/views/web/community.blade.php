@@ -11,7 +11,7 @@
             background:
                 #d3cccc;
             z-index: 40;
-            padding:
+            padding-block:
                 30px;
             height: 118px;
 
