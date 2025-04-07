@@ -2,8 +2,14 @@
 @section('style')
     <style>
         .chat-panel{
-            height: 90vh;
-            overflow-y: scroll;
+            position: sticky;
+            bottom: 0px;
+            background:
+                #d3cccc;
+            z-index: 40;
+            padding:
+                58px;
+            height: 118px;
         }
     </style>
 @endsection
@@ -12,7 +18,7 @@
         <div class="row justify-content-center">
 
             <div class="col-md-6 ">
-                <div class="card position-relative pb-5 px-2 chat-panel">
+                <div class="card position-relative pb-1 px-2 chat-panel">
                     @foreach($messages as $message)
                         @php
                             $user=$message->user;
