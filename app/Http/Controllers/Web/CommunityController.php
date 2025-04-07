@@ -17,7 +17,7 @@ class CommunityController extends Controller
     public function index()
     {
         $communities = Community::whereHas('users', fn($query) => $query->where('users.id', auth()->id()))
-            ->whereHas('messages')
+            ->whereHas('messages', fn ($query) => $query->havingRaw('count(*) > 0'))
             ->paginate(10);
         return view('web.communities', compact('communities'));
     }
