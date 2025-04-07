@@ -3,7 +3,7 @@
     <div class="container-fluid" style="margin-top: 70px">
         <div class="row justify-content-center">
 
-            <div class="col-md-8">
+            <div class="col-md-6">
                 @foreach($communities as $community)
                 <div class="card card-body">
                     <div class="d-flex align-items-center">
