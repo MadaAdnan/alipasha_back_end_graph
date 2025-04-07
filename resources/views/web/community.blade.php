@@ -54,6 +54,9 @@
                                     @if($message->type=='webp')
                                         <img src="{{$message->getImage('attach')}}" style="width: 70%;height: fit-content" alt="">
                                     @endif
+                                    @if($message->type=='aac')
+                                        <audio src="{{$message->getImage('attach')}}" controls/>
+                                    @endif
                                     <span class="text-muted small">{{$message->created_at?->diffForHumans()}}</span>
                                 </div>
                             </div>
