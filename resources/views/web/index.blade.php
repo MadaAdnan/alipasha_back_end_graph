@@ -94,7 +94,7 @@
                                     </div>
                                 </div>
                             @endforeach
-                                <a href="{{route('communities.index')}}">
+                                <a class="btn btn-sm btn-outline-info w-100" href="{{route('communities.index')}}">
                                     جميع محادثاتي
                                 </a>
 
