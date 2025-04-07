@@ -54,7 +54,7 @@ class CommunityController extends Controller
             $community->users()->syncWithoutDetaching([auth()->id(), $sellerId]);
         }
        // dd($community);
-        return route('communities.show',$community->id);
+        return redirect()->route('communities.show',$community->id);
     }
 
     /**
