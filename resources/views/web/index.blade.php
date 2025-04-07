@@ -268,7 +268,7 @@
                       object-fit: cover;
                       margin: 5px 0px 0px 0px;
                     "
-                                            src="{{$product->getImage('images')}}"
+                                            src="@if($product->hasMedia('image')) {{$product->getImage('image')}} @else {{$product->getImage('images')}} @endif"
                                             alt="post-img"
                                         />
                                     </a>
