@@ -9,7 +9,7 @@ use Flowframe\Trend\TrendValue;
 
 class AccessbilityPostsChart extends ChartWidget
 {
-    protected static ?string $heading = 'Chart';
+    protected static ?string $heading = 'إحصائيات الوصول';
 
     protected function getData(): array
     {
