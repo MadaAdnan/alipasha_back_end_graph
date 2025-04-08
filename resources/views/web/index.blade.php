@@ -1,7 +1,7 @@
 @extends('layouts.master_layouts')
 @section('content')
     @php
-        dd(\App\Filament\Seller\Resources\ProductResource::getUrl('/create'))
+        dd(\App\Filament\Seller\Resources\ProductResource::getUrl())
     @endphp
     <div class="container-fluid" style="margin-top: 70px">
         <div class="row">
