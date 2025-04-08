@@ -122,10 +122,6 @@ class ProductResource extends Resource
                     Forms\Components\Select::make('city_id')->options(City::selectRaw('id,name')->pluck('name', 'id'))->searchable()->label('المدينة')->default(auth()->user()->city_id),
                     HelperMedia::getFileUpload(label: 'الصورة الرئيسية', collection: 'image', is_multible: true, ratio: ['1:1'],isWebp: true),
                     HelperMedia::getFileUpload(label: 'صور إضافية', name: 'images', collection: 'images', is_multible: true,isWebp: true),
-//                Forms\Components\SpatieMediaLibraryFileUpload::make('image')
-//                    ->collection('images')->openable()->downloadable()->multiple()
-//                    ->label('الصورة الرئيسية'),
-//                    Forms\Components\SpatieMediaLibraryFileUpload::make('film')->collection('video')->label('فيديو قصير')->acceptedFileTypes(['video/quicktime', 'video/x-ms-wmv', 'video/x-msvideo', 'video/mp4']),
                     Forms\Components\TextInput::make('video')->label('رابط الفيديو إن وجد'),
                     Forms\Components\TextInput::make('name')->label('اسم المنتج'),
                     Forms\Components\Textarea::make('info')->label('وصف المنتج'),
@@ -136,7 +132,6 @@ class ProductResource extends Resource
                         Forms\Components\Toggle::make('is_discount')->label('تفعيل العرض')->live(),
                         Forms\Components\TextInput::make('discount')->label('سعر العرض')->numeric()->required(fn($get) => $get('is_discount')),
                         Forms\Components\Toggle::make('is_delivery')->label('التوصيل'),
-                       // Forms\Components\TextInput::make('weight')->numeric()->label('الوزن')->required(),
 
                     ])->columns(1),
 
