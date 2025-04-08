@@ -2,11 +2,13 @@
 
 namespace App\Providers\Filament;
 
+use App\Enums\LevelUserEnum;
 use App\Http\Middleware\IsAdminMiddelware;
 use Filament\FontProviders\GoogleFontProvider;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\NavigationItem;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -31,6 +33,13 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->plugins([
                 \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make()
+            ])->navigationItems([
+                NavigationItem::make('عودة للموقع')
+                    ->url('/')
+                    ->icon('heroicon-o-presentation-chart-line')
+
+                    ->sort(1),
+
             ])
             ->login()
             ->colors([
