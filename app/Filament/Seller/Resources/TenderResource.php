@@ -35,7 +35,7 @@ class TenderResource extends Resource
     protected static ?string $slug = 'tenders';
     public static function getNavigationBadge(): ?string
     {
-        return (string)Product::tender()->where('active',OrderStatusEnum::PENDING->value)->count();
+        return (string)Product::tender()->where('user_id',auth()->id())->count();
     }
 
     // permissions

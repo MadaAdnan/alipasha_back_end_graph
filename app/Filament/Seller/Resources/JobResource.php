@@ -38,7 +38,10 @@ class JobResource extends Resource
     protected static ?string $pluralLabel = 'الوظائف';
     protected static ?int $navigationSort = 3;
     protected static ?string $navigationGroup = 'العروض';
-
+    public static function getNavigationBadge(): ?string
+    {
+        return (string)Product::job()->where('user_id',auth()->id())->count();
+    }
 // permissions
     public static function getPermissionPrefixes(): array
     {

@@ -39,7 +39,10 @@ class ProductResource extends Resource
     protected static ?string $pluralLabel = 'المنتجات';
     protected static ?int $navigationSort = -15;
     protected static ?string $navigationGroup = 'العروض';
-
+    public static function getNavigationBadge(): ?string
+    {
+        return (string)Product::product()->where('user_id',auth()->id())->count();
+    }
     // permissions
     public static function getPermissionPrefixes(): array
     {
