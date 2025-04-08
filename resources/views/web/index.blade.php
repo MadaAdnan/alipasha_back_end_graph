@@ -386,7 +386,7 @@
             <div id="left-sidebar" class="col-3 d-none d-xl-block">
                 <div class="media-scroll bg-light p-4">
                     <div style="text-align: center">
-                        <a href="{{\App\Filament\Seller\Resources\ProductResource::getUrl('/create')}}">
+                        <a href="{{url(\App\Filament\Seller\Resources\ProductResource::getUrl('/create'))}}">
                         <button
                             class="new-post"
                          {{--   data-bs-toggle="modal"
