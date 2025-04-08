@@ -25,7 +25,7 @@ class AccessbilityPostsChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Blog posts',
+                    'label' => 'وصول المنشورات',
                     'data' => $data->map(fn(TrendValue $value) => $value->aggregate),
                 ],
             ],
