@@ -1,5 +1,8 @@
 @extends('layouts.master_layouts')
 @section('content')
+    @php
+        dd(\App\Filament\Seller\Resources\ProductResource::getUrl('/create'))
+    @endphp
     <div class="container-fluid" style="margin-top: 70px">
         <div class="row">
             <!-- Right Section (2 columns on large screens, 0 on small) -->
