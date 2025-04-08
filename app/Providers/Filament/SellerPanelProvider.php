@@ -73,10 +73,15 @@ class SellerPanelProvider extends PanelProvider
 //                Widgets\FilamentInfoWidget::class,
             ])->navigationItems([
                 NavigationItem::make('عودة للموقع')
-                    ->url('/', shouldOpenInNewTab: true)
+                    ->url('/')
                     ->icon('heroicon-o-presentation-chart-line')
 
                     ->sort(1),
+                NavigationItem::make('لوحة المدير')
+                    ->url('/admin')
+                    ->icon('heroicon-o-presentation-chart-line')
+
+                    ->sort(1)->visible(fn()=>auth()->user()->level==LevelUserEnum::ADMIN->value),
             ])
             ->middleware([
                 EncryptCookies::class,
