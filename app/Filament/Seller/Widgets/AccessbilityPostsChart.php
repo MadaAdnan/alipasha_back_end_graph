@@ -16,7 +16,7 @@ class AccessbilityPostsChart extends ChartWidget
 
         $data = Trend::query(ProductView::whereHas('product', fn($query) => $query->where('products.user_id', auth()->id())))
             ->between(
-                start: now()->startOfYear(),
+                start: now()->subYear(),
                 end: now()->endOfYear(),
             )
             ->perMonth()
