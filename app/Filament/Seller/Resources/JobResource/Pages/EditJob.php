@@ -2,6 +2,7 @@
 
 namespace App\Filament\Seller\Resources\JobResource\Pages;
 
+use App\Enums\CategoryTypeEnum;
 use App\Filament\Seller\Resources\JobResource;
 use App\Models\Product;
 use Filament\Actions;
@@ -21,7 +22,7 @@ class EditJob extends EditRecord
     public function mount(int|string $record): void
     {
         parent::mount($record);
-        $product=Product::find($record);
+        $product=Product::where('type',CategoryTypeEnum::JOB->value)->orWhere('type',CategoryTypeEnum::SEARCH_JOB->value)->find($record);
         abort_if($product->user_id !=auth()->id(),403,'غير مصرح لك بالدخول');
     }
 }

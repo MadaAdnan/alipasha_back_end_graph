@@ -2,6 +2,7 @@
 
 namespace App\Filament\Seller\Resources\ProductResource\Pages;
 
+use App\Enums\CategoryTypeEnum;
 use App\Filament\Seller\Resources\ProductResource;
 use App\Models\Product;
 use Filament\Actions;
@@ -14,7 +15,7 @@ class EditProduct extends EditRecord
     public function mount(int|string $record): void
     {
         parent::mount($record); parent::mount($record);
-        $product=Product::find($record);
+        $product=Product::where('type',CategoryTypeEnum::PRODUCT->value)->orWhere('type',CategoryTypeEnum::RESTAURANT->value)->find($record);
         abort_if($product->user_id !=auth()->id(),403,'غير مصرح لك بالدخول');
 
     }

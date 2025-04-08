@@ -2,6 +2,7 @@
 
 namespace App\Filament\Seller\Resources\TenderResource\Pages;
 
+use App\Enums\CategoryTypeEnum;
 use App\Filament\Seller\Resources\TenderResource;
 use App\Models\Product;
 use Filament\Actions;
@@ -21,7 +22,7 @@ class EditTender extends EditRecord
     public function mount(int|string $record): void
     {
         parent::mount($record); parent::mount($record);
-        $product=Product::find($record);
+        $product=Product::where('type',CategoryTypeEnum::TENDER->value)->find($record);
         abort_if($product->user_id !=auth()->id(),403,'غير مصرح لك بالدخول');
 
     }
