@@ -14,6 +14,7 @@ use App\Models\City;
 use App\Models\Job;
 use App\Models\Product;
 use App\Models\User;
+use BezhanSalleh\FilamentShield\Contracts\HasShieldPermissions;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -23,7 +24,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class JobResource extends Resource
+class JobResource extends Resource implements HasShieldPermissions
 {
     protected static ?string $model = Product::class;
 

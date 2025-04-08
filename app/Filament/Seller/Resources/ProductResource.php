@@ -15,6 +15,7 @@ use App\Models\Category;
 use App\Models\City;
 use App\Models\Product;
 use App\Models\User;
+use BezhanSalleh\FilamentShield\Contracts\HasShieldPermissions;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
@@ -27,7 +28,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportAction;
 use pxlrbt\FilamentExcel\Exports\ExcelExport;
 
-class ProductResource extends Resource
+class ProductResource extends Resource implements HasShieldPermissions
 {
     protected static ?string $model = Product::class;
 
