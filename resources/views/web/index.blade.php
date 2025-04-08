@@ -1,8 +1,6 @@
 @extends('layouts.master_layouts')
 @section('content')
-    @php
-        dd(\App\Filament\Seller\Resources\ProductResource::getUrl())
-    @endphp
+
     <div class="container-fluid" style="margin-top: 70px">
         <div class="row">
             <!-- Right Section (2 columns on large screens, 0 on small) -->
@@ -389,7 +387,7 @@
             <div id="left-sidebar" class="col-3 d-none d-xl-block">
                 <div class="media-scroll bg-light p-4">
                     <div style="text-align: center">
-                        <a href="{{\App\Filament\Seller\Resources\ProductResource::getUrl('/create')}}">
+                        <a href="{{\App\Filament\Seller\Resources\ProductResource::getUrl().'/create'}}">
                         <button
                             class="new-post"
                          {{--   data-bs-toggle="modal"
