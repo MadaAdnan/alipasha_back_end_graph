@@ -13,7 +13,7 @@ class StatsOverview extends BaseWidget
     {
         $product=Product::product()->where('user_id',auth()->id())->where('active',ProductActiveEnum::ACTIVE->value)->count();
         $jobs= Product::job()->where('user_id',auth()->id())->where('active',ProductActiveEnum::ACTIVE->value)->count();
-        $tenders=Product::product()->where('user_id',auth()->id())->where('active',ProductActiveEnum::ACTIVE->value)->count();
+        $tenders=Product::tender()->where('user_id',auth()->id())->where('active',ProductActiveEnum::ACTIVE->value)->count();
       $list=[];
       if($product>0){
           $list[]=Stat::make('عدد المنتجات المفعلة',$product );
