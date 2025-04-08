@@ -10,6 +10,7 @@ use DutchCodingCompany\FilamentSocialite\FilamentSocialitePlugin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\NavigationItem;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -70,6 +71,12 @@ class SellerPanelProvider extends PanelProvider
             ->widgets([
                 Widgets\AccountWidget::class,
 //                Widgets\FilamentInfoWidget::class,
+            ])->navigationItems([
+                NavigationItem::make('عودة للموقع')
+                    ->url('/', shouldOpenInNewTab: true)
+                    ->icon('heroicon-o-presentation-chart-line')
+
+                    ->sort(1),
             ])
             ->middleware([
                 EncryptCookies::class,
