@@ -389,8 +389,8 @@
                         <a href="{{\App\Filament\Seller\Resources\ProductResource::getUrl('/create')}}">
                         <button
                             class="new-post"
-                            data-bs-toggle="modal"
-                            data-bs-target="#addPostModal"
+                         {{--   data-bs-toggle="modal"
+                            data-bs-target="#addPostModal"--}}
                         >
                             منشور جديد
                         </button>
