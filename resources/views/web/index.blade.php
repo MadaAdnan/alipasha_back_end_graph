@@ -386,6 +386,7 @@
             <div id="left-sidebar" class="col-3 d-none d-xl-block">
                 <div class="media-scroll bg-light p-4">
                     <div style="text-align: center">
+                        <a href="{{\App\Filament\Seller\Resources\ProductResource::getUrl('/create')}}">
                         <button
                             class="new-post"
                             data-bs-toggle="modal"
@@ -393,6 +394,7 @@
                         >
                             منشور جديد
                         </button>
+                        </a>
                     </div>
                     <div class="categories">
                         <p class="category-text">التصنيفات</p>
