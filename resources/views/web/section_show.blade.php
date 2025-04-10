@@ -3,6 +3,17 @@
 @section('title')
     {{$category->name}}
 @endsection
+
+@section('style')
+    <style>
+        .img-cover{
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 160px;
+            aspect-ratio: 1/1;
+        }
+    </style>
+@endsection
 @section('content')
     <div class="container-fluid" style="margin-top: 70px">
         <div class="row">
@@ -25,7 +36,9 @@
                                 @endif
                             >
                             <div class="products">
-                                <img src=" @if($product->hasMedia('image')){{$product->getImage('image')}} @else {{$product->getImage('images')}}  @endif" alt=""/>
+                               <div class="img-cover" style="background-image: url('@if($product->hasMedia('image')){{$product->getImage('image')}} @else {{$product->getImage('images')}}  @endif')">
+
+                               </div>
                                 @if($product->is_discount)
                                 <div class="type">عرض</div>
                                 @elseif($product->level==\App\Enums\LevelProductEnum::SPECIAL->value)
