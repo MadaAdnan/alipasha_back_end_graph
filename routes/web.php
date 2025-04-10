@@ -40,6 +40,7 @@ Route::resource('/services',\App\Http\Controllers\Web\ServiceController::class)-
 Route::resource('/posts',\App\Http\Controllers\Web\PostController::class)->only('index','show');
 Route::resource('/pricing',\App\Http\Controllers\Web\PricingController::class)->only('index','store');
 Route::get('/markets/{id}',[\App\Http\Controllers\Web\SellerController::class,'profile'])->name('seller.profile');
+Route::get('/category/{id}',[\App\Http\Controllers\Web\CategoryController::class,'show'])->name('category.show');
 
 
 Route::middleware('auth:web')->group(function (){
