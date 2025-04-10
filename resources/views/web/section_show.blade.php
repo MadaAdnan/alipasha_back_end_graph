@@ -110,11 +110,11 @@
                     <div class="categories">
                         <p class="category-text">التصنيفات</p>
                         <div class="divider"></div>
-                        @foreach($categories as $category)
-                            <a href="{{route('seller.profile',['id'=>$store->id,'category_id'=>$category->id])}}">
+                        @foreach($categories as $cat)
+                            <a href="{{route('category.show',['id'=>$category->id,'category_id'=>$cat->id])}}">
                             <div class="category-item">
-                                <p>{{$category->name}}</p>
-                                <div class="count">{{$category->products_count}}</div>
+                                <p>{{$cat->name}}</p>
+                                <div class="count">{{$cat->products2_count}}</div>
                             </div>
                             </a>
                         @endforeach
