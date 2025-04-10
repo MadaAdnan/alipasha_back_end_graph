@@ -121,7 +121,7 @@
                         </button>
                     </div>
                     <div class="categories">
-                        <p class="category-text">التصنيفات</p>
+                        <p class="category-text">التصنيفات - <a href="{{route('category.show',$category->id)}}">{{$category->name}}</a></p>
                         <div class="divider"></div>
                         @foreach($categories as $cat)
                             <a href="{{route('category.show',['id'=>$category->id,'category_id'=>$cat->id])}}">
