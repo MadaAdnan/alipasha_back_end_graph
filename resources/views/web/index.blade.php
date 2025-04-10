@@ -401,7 +401,7 @@
                         <p class="category-text">التصنيفات</p>
                         <div class="divider"></div>
                         @foreach($categories as $category)
-                            <a href="{{route('index',['category_id'=>$category->id])}}">
+                            <a href="{{route('category.show',$category->id)}}">
                                 <div class="category-item">
 
                                     <p>{{$category->name}}</p>
