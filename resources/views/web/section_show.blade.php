@@ -24,7 +24,7 @@
 
 
                     <div class="stor-products">
-                        @foreach($products as $product)
+                        @forelse($products as $product)
                             <a
                                 @if($product->type==\App\Enums\CategoryTypeEnum::SEARCH_JOB->value || $product->type==\App\Enums\CategoryTypeEnum::JOB->value )
 
@@ -83,7 +83,9 @@
                                 </div>
                             </div>
                             </a>
-                        @endforeach
+                        @empty
+                            <h4 class="alert alert-danger">لا يوجد عناصر لعرضها</h4>
+                        @endforelse
 
 
                     </div>
