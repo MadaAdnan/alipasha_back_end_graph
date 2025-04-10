@@ -84,7 +84,7 @@
                             </div>
                             </a>
                         @empty
-                            <h4 class="alert alert-danger">لا يوجد عناصر لعرضها</h4>
+                            <h4 class="alert alert-danger w-100">لا يوجد عناصر لعرضها</h4>
                         @endforelse
 
 
