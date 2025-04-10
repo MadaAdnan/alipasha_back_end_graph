@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Product;
 use App\Models\ProductView;
 use Illuminate\Http\Request;
 
@@ -39,7 +40,7 @@ class CategoryController extends Controller
     public function show(string $id)
     {
         $category=Category::findOrFail($id);
-        $products=ProductView::where('category_id',$id)->paginate(30);
+        $products=Product::where('category_id',$id)->paginate(30);
         return view('web.section_show',compact('category','products'));
     }
 
