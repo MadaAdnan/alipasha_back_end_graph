@@ -40,8 +40,9 @@ class CategoryController extends Controller
     public function show(string $id)
     {
         $category=Category::findOrFail($id);
+        $categories=$category->children;
         $products=Product::where('category_id',$id)->paginate(30);
-        return view('web.section_show',compact('category','products'));
+        return view('web.section_show',compact('category','products','categories'));
     }
 
     /**
