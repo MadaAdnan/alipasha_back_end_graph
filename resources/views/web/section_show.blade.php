@@ -125,7 +125,7 @@
                         <div class="divider"></div>
                         @foreach($categories as $cat)
                             <a href="{{route('category.show',['id'=>$category->id,'category_id'=>$cat->id])}}">
-                            <div class="category-item @if(request()->get('category_id')==$category->id) bg-danger @endif">
+                            <div class="category-item @if(request()->get('category_id')==$cat->id) bg-danger @endif">
                                 <p >{{$cat->name}}</p>
                                 <div class="count">{{$cat->products2_count}}</div>
                             </div>
