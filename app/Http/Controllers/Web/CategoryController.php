@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Enums\ProductActiveEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
@@ -41,7 +42,9 @@ class CategoryController extends Controller
     {
         $category=Category::findOrFail($id);
         $categories=$category->children;
-        $products=Product::where('category_id',$id)->paginate(30);
+        $category_id=\request()->get('category_id');
+        $products=Product::where(['category_id'=>$id,'active' => ProductActiveEnum::ACTIVE->value])
+            ->when($category_id!=null,fn($query)=>$query->where('sub1_id',$category_id))->paginate(28);
         return view('web.section_show',compact('category','products','categories'));
     }
 
