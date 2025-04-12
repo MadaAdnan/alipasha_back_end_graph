@@ -11,7 +11,7 @@
                             <th>إيداع</th>
                             <th>الرصيد</th>
                             <th>البيان</th>
-                            <th>التاريخ</th>
+                            <th><a href="{{route('balances.index',['sort'=>request()->get('sort')=='desc'?'asc':'desc'])}}">التاريخ</a></th>
                         </tr>
                         </thead>
                         <tbody>
