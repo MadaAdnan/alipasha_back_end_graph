@@ -49,6 +49,8 @@
 
                             </div>
                         </div>
+                        @else
+                            <p>لا يوجد إشعارات</p>
                     @endforelse
 
 
