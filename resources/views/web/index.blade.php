@@ -42,7 +42,7 @@
                                         $uri=\League\Uri\Uri::new($notification->data['url']);
 $route=$notification->data['url'];
 if($uri->getPath()=='/product'){
-    $route=route('posts.show',Str::replace('id=','',$uri->getQuery()));
+    $route=route('posts.show',['id'=>Str::replace('id=','',$uri->getQuery())]);
 }
                                     @endphp
                                     <a  class="btn btn-danger action-buttons"
