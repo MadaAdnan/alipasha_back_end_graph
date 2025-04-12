@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12 ">
-                <div class="table-responsive">
+                <div class="table-responsive" style="margin-top: 100px">
                     <table class="table table-striped">
                         <thead>
                         <tr>
