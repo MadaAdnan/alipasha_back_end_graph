@@ -49,7 +49,7 @@
 
                             </div>
                         </div>
-                        @else
+                        @empty
                             <p>لا يوجد إشعارات</p>
                     @endforelse
 
