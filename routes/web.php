@@ -49,7 +49,7 @@ Route::middleware('auth:web')->group(function (){
     Route::resource('/communities',\App\Http\Controllers\Web\CommunityController::class)->only(['index','show','store']);
     Route::resource('/messages',\App\Http\Controllers\Web\MessageController::class)->only(['store']);
     Route::resource('/balances',\App\Http\Controllers\Web\BalanceController::class)->only(['index']);
-    Route::resource('/invoices',\App\Http\Controllers\Web\InvoiceController::class)->only(['index']);
+    Route::resource('/invoices',\App\Http\Controllers\Web\InvoiceController::class)->only(['index','update']);
     Route::post('/markets/followers',[\App\Http\Controllers\Web\SellerController::class,'followers']);
     Route::post('/products/like',[\App\Http\Controllers\Web\PostController::class,'like'])->name('post.like');
 });

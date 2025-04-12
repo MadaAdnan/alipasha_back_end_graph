@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Enums\OrderStatusEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Invoice;
 use Illuminate\Http\Request;
@@ -13,7 +14,7 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        $invoices=Invoice::where('user_id',auth()->id())->latest()->paginate(20);
+        $invoices=Invoice::where('seller_id',auth()->id())->latest()->paginate(20);
         return view('web.invoice',compact('invoices'));
     }
 
@@ -54,7 +55,23 @@ class InvoiceController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $invoice=Invoice::findOrFail($id);
+        $status=$request->status;
+        $msg='';
+        if($status==OrderStatusEnum::AGREE->value){
+            $invoice->update([
+                'status'=>OrderStatusEnum::AGREE->value,
+            ]);
+            $msg="تمت الموافقة على الطلب";
+        }
+        if($status==OrderStatusEnum::CANCELED->value){
+            $invoice->update([
+                'status'=>OrderStatusEnum::CANCELED->value,
+            ]);
+            $msg="تم رفض الطلب";
+        }
+        return back()->with('success',$msg);
+
     }
 
     /**
