@@ -29,15 +29,19 @@
                             </div>
                             <div class="actions">
 
-                                <form action="" method="POST" style="width: 100%;">
+                               {{-- <form action="" method="POST" style="width: 100%;">
                                     <input type="hidden" name="storId" value="123"/>
-                                    <button type="submit" class="btn btn-danger"
-                                            class="action-buttons"
+                                    <button type="submit" class="btn btn-danger action-buttons"
+
                                             style="color: #fff; background-color: #e30613"
                                     > قبول الطلب
                                     </button>
-                                </form>
-
+                                </form>--}}
+                                <a  class="btn btn-danger action-buttons"
+                                    href="{{$notification->data['url']}}"
+                                   style="color: #fff; background-color: #e30613"
+                                > قبول الطلب
+                                    </a>
 
                                 <form action="" method="POST" style="width: 100%;">
                                     <input type="hidden" name="storId" value="123"/>
