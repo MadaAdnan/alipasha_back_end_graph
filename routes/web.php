@@ -48,6 +48,7 @@ Route::middleware('auth:web')->group(function (){
     Route::resource('/comments',\App\Http\Controllers\Web\CommentController::class)->only(['store']);
     Route::resource('/communities',\App\Http\Controllers\Web\CommunityController::class)->only(['index','show','store']);
     Route::resource('/messages',\App\Http\Controllers\Web\MessageController::class)->only(['store']);
+    Route::resource('/balances',\App\Http\Controllers\Web\BalanceController::class)->only(['index']);
     Route::post('/markets/followers',[\App\Http\Controllers\Web\SellerController::class,'followers']);
     Route::post('/products/like',[\App\Http\Controllers\Web\PostController::class,'like'])->name('post.like');
 });
