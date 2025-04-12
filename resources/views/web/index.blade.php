@@ -12,6 +12,7 @@
                             {{--<li><a href="#">إظهار الكل</a></li>--}}
                             <li><a href="{{route('invoices.index')}}">مبيعاتي</a></li>
                             <li><a href="{{route('my-invoices.index')}}">مشترياتي</a></li>
+                            <li><a href="{{route('orders.index')}}">شحن علي باشا</a></li>
                             <li><a href="{{route('index')}}">الإشعارات</a></li>
                         </ul>
                     </div>
