@@ -46,7 +46,7 @@ if($uri->getPath()=='product'){
 }
                                     @endphp
                                     <a  class="btn btn-danger action-buttons"
-
+data-path="{{$uri->getPath()}}"
                                         href="{{$route}}"
                                         style="color: #fff; background-color: #e30613"
                                     > إذهب
