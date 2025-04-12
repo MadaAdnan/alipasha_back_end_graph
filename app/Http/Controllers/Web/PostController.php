@@ -44,6 +44,9 @@ class PostController extends Controller
     {
 
         $post=Product::whereActive(ProductActiveEnum::ACTIVE->value)->with('comments')->find($id);
+        if($post==null){
+            abort(404,'لم يتم إيجاد المنشور');
+        }
         $categories = Category::where('is_active', true)
             ->where(fn($query) => $query->where('type', CategoryTypeEnum::PRODUCT->value)->orWhere('type', CategoryTypeEnum::RESTAURANT->value))->orderBy('sortable')->get();
         $ids = [$post->id];
