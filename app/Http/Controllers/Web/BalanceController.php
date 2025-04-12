@@ -13,7 +13,8 @@ class BalanceController extends Controller
      */
     public function index()
     {
-        $balances=Balance::where('user_id',auth()->id())->latest()->paginate(30);
+        $sort=\request()->get('sort');
+        $balances=Balance::where('user_id',auth()->id())->when($sort=='desc',fn($query)=>$query->latest(),fn($query)=>$query->oldest())->paginate(30);
         return view('web.balance',compact('balances'));
     }
 
