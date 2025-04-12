@@ -11,8 +11,9 @@
                             <th>إيداع</th>
                             <th>الرصيد</th>
                             <th>البيان</th>
-                            <th><a href="{{route('balances.index',['sort'=>request()->get('sort')=='desc'?'asc':'desc'])}}">التاريخ
-                                @if(request()->get('sort')=='desc')
+                            <th>
+                                <a href="{{route('balances.index',['sort'=>request()->get('sort')=='desc'?'asc':'desc'])}}">التاريخ
+                                    @if(request()->get('sort')=='desc')
                                         <i class="bi bi-sort-down-alt"></i>
 
                                     @else
@@ -35,10 +36,16 @@
 
                         </tbody>
                     </table>
+
                     <div class="d-flex justify-content-between">
-                        <a class="btn btn-sm btn-secondary"
-                           href="{{$balances->withQueryString()->nextPageUrl()}}">التالي</a>
-                        <a class="btn btn-sm btn-secondary" href="{{$balances->withQueryString()->previousPageUrl()}}">السابق</a>
+                        @if($balances->hasMorePages())
+                            <a class="btn btn-sm btn-secondary"
+                               href="{{$balances->withQueryString()->nextPageUrl()}}">التالي</a>
+                        @endif
+                        @if($balances->currentPage()>1)
+                            <a class="btn btn-sm btn-secondary"
+                               href="{{$balances->withQueryString()->previousPageUrl()}}">السابق</a>
+                        @endif
                     </div>
                 </div>
 
