@@ -41,7 +41,7 @@
                                     @php
                                         $uri=\League\Uri\Uri::new($notification->data['url']);
 $route=$notification->data['url'];
-if($uri->getPath()=='product'){
+if($uri->getPath()=='/product'){
     $route=route('posts.show',Str::replace('id=','',$uri->getQuery()));
 }
                                     @endphp
