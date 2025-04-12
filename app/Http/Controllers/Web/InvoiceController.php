@@ -13,7 +13,7 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        $invoices=Invoice::where('seller_id',auth()->id())->latest()->paginate(20);
+        $invoices=Invoice::where('user_id',auth()->id())->latest()->paginate(20);
         return view('web.invoice',compact('invoices'));
     }
 
