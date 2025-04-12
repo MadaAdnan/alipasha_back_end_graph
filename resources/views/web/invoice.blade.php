@@ -4,7 +4,7 @@
         <div class="row justify-content-center">
             @foreach($invoices as $invoice)
                 <div class="col-8 ">
-                    <div class="card">
+                    <div class="card mt-5">
                         <div class="card-title">
                             <span>رقم الطلب : {{$invoice->id}}</span>
                         </div>
