@@ -50,9 +50,13 @@
             @endforelse
                 <div class="col-12">
                     <div class="d-flex justify-content-between">
-                        <a class="btn btn-sm btn-secondary"
-                           href="{{$invoices->withQueryString()->nextPageUrl()}}">التالي</a>
-                        <a class="btn btn-sm btn-secondary" href="{{$invoices->withQueryString()->previousPageUrl()}}">السابق</a>
+                        @if($invoices->hasMorePages())
+                            <a class="btn btn-sm btn-secondary"
+                               href="{{$invoices->withQueryString()->nextPageUrl()}}">التالي</a>
+                        @endif
+                        @if($invoices->currentPage()>1)
+                            <a class="btn btn-sm btn-secondary" href="{{$invoices->withQueryString()->previousPageUrl()}}">السابق</a>
+                        @endif
                     </div>
                 </div>
         </div>

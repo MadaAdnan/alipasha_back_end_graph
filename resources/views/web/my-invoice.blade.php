@@ -48,11 +48,16 @@
             @empty
                 <h3 class="alert alert-info" style="margin-top: 100px">لا يوجد طلبات</h3>
             @endforelse
-                <div class="col-12">
+
+                <div class="col-md-12">
                     <div class="d-flex justify-content-between">
-                        <a class="btn btn-sm btn-secondary"
-                           href="{{$invoices->withQueryString()->nextPageUrl()}}">التالي</a>
+                        @if($invoices->hasMorePages())
+                            <a class="btn btn-sm btn-secondary"
+                               href="{{$invoices->withQueryString()->nextPageUrl()}}">التالي</a>
+                        @endif
+                            @if($invoices->currentPage()>1)
                         <a class="btn btn-sm btn-secondary" href="{{$invoices->withQueryString()->previousPageUrl()}}">السابق</a>
+                                @endif
                     </div>
                 </div>
         </div>
