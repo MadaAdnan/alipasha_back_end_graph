@@ -43,7 +43,7 @@
 
                                     @endphp
                                     <a  class="btn btn-danger action-buttons"
-                                        data-uri="{{$uri->getComponents()}}"
+                                        data-uri="{{json_encode($uri->getComponents())}}"
                                         href="{{$notification->data['url']}}"
                                         style="color: #fff; background-color: #e30613"
                                     > إذهب
