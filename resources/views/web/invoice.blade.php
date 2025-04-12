@@ -4,7 +4,7 @@
         <div class="row justify-content-center">
             @forelse($invoices as $invoice)
                 <div class="col-8 ">
-                    <div class="card mt-5">
+                    <div class="card " style="margin-top: 100px">
                         <div class="card-title">
                             <span>رقم الطلب : {{$invoice->id}}</span>
                         </div>
