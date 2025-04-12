@@ -11,7 +11,14 @@
                             <th>إيداع</th>
                             <th>الرصيد</th>
                             <th>البيان</th>
-                            <th><a href="{{route('balances.index',['sort'=>request()->get('sort')=='desc'?'asc':'desc'])}}">التاريخ</a></th>
+                            <th><a href="{{route('balances.index',['sort'=>request()->get('sort')=='desc'?'asc':'desc'])}}">التاريخ
+                                @if(request()->get('sort')=='desc')
+                                        <i class="bi bi-sort-down-alt"></i>
+
+                                    @else
+                                        <i class="bi bi-sort-up"></i>
+                                    @endif
+                                </a></th>
                         </tr>
                         </thead>
                         <tbody>
