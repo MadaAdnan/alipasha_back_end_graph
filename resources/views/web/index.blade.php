@@ -40,11 +40,14 @@
                                 @if(isset($notification->data['url']) && $notification->data['url']!='')
                                     @php
                                         $uri=\League\Uri\Uri::new($notification->data['url']);
-
+$route=$notification->data['url'];
+if($uri->getComponents()=='product'){
+    $route=route('posts.show',Str::replace('id=','',$uri->getQuery()));
+}
                                     @endphp
                                     <a  class="btn btn-danger action-buttons"
-                                        data-uri="{{json_encode($uri->getComponents())}}"
-                                        href="{{$notification->data['url']}}"
+
+                                        href="{{$route}}"
                                         style="color: #fff; background-color: #e30613"
                                     > إذهب
                                     </a>
