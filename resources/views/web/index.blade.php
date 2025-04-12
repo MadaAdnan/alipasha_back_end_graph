@@ -37,20 +37,23 @@
                                     > قبول الطلب
                                     </button>
                                 </form>--}}
-                                <a  class="btn btn-danger action-buttons"
-                                    href="{{$notification->data['route']}}"
-                                   style="color: #fff; background-color: #e30613"
-                                > قبول الطلب
+                                @if($notification->data['url']!='')
+                                    <a  class="btn btn-danger action-buttons"
+                                        href="{{$notification->data['url']}}"
+                                        style="color: #fff; background-color: #e30613"
+                                    > إذهب
                                     </a>
+                                @endif
 
-                                <form action="" method="POST" style="width: 100%;">
+
+                               {{-- <form action="" method="POST" style="width: 100%;">
                                     <input type="hidden" name="storId" value="123"/>
                                     <button type="submit" class="btn btn-danger"
                                             class="action-buttons"
                                             style="color: #000000; background-color: #e4e6eb"
                                     > عرض الطلبية
                                     </button>
-                                </form>
+                                </form>--}}
 
                             </div>
                         </div>
