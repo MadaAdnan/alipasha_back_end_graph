@@ -9,10 +9,10 @@
                     <div class="inbox">
                         <p class="title">صندوق الوارد</p>
                         <ul>
-                            <li><a href="#">إظهار الكل</a></li>
-                            <li><a href="#">مبيعاتي</a></li>
-                            <li><a href="#">مشترياتي</a></li>
-                            <li><a href="#">الإشعارات</a></li>
+                            {{--<li><a href="#">إظهار الكل</a></li>--}}
+                            <li><a href="{{route('invoices.index')}}">مبيعاتي</a></li>
+                            <li><a href="{{route('my-invoices.index')}}">مشترياتي</a></li>
+                            <li><a href="{{route('index')}}">الإشعارات</a></li>
                         </ul>
                     </div>
                     @forelse($notifications as $notification)
