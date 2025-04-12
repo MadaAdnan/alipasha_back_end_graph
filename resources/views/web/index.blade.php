@@ -15,40 +15,41 @@
                             <li><a href="#">الإشعارات</a></li>
                         </ul>
                     </div>
-
-                    <div class="notification-item">
-                        <div class="info">
-                            <div>
-                                <a href="../pages/profile.html">
-                                    <img src="{{asset('assets/avatar-2.svg')}}" alt="avatar"/>
-                                </a>
-                                <p class="title">احمد خالد المحمد يطلب منتجات</p>
+                    @forelse($notifications as $notification)
+                        <div class="notification-item">
+                            <div class="info">
+                                <div>
+                                    {{--  <a href="../pages/profile.html">
+                                          <img src="{{asset('assets/avatar-2.svg')}}" alt="avatar"/>
+                                      </a>--}}
+                                    <p class="title">{{$notification->data['title']}}</p>
+                                </div>
+                                <p class="time">{{$notification->created_at->diffForHumans()}}</p>
                             </div>
-                            <p class="time">4H</p>
+                            <div class="actions">
+
+                                <form action="" method="POST" style="width: 100%;">
+                                    <input type="hidden" name="storId" value="123"/>
+                                    <button type="submit" class="btn btn-danger"
+                                            class="action-buttons"
+                                            style="color: #fff; background-color: #e30613"
+                                    > قبول الطلب
+                                    </button>
+                                </form>
+
+
+                                <form action="" method="POST" style="width: 100%;">
+                                    <input type="hidden" name="storId" value="123"/>
+                                    <button type="submit" class="btn btn-danger"
+                                            class="action-buttons"
+                                            style="color: #000000; background-color: #e4e6eb"
+                                    > عرض الطلبية
+                                    </button>
+                                </form>
+
+                            </div>
                         </div>
-                        <div class="actions">
-
-                            <form action="" method="POST" style="width: 100%;">
-                                <input type="hidden" name="storId" value="123"/>
-                                <button type="submit" class="btn btn-danger"
-                                        class="action-buttons"
-                                        style="color: #fff; background-color: #e30613"
-                                > قبول الطلب
-                                </button>
-                            </form>
-
-
-                            <form action="" method="POST" style="width: 100%;">
-                                <input type="hidden" name="storId" value="123"/>
-                                <button type="submit" class="btn btn-danger"
-                                        class="action-buttons"
-                                        style="color: #000000; background-color: #e4e6eb"
-                                > عرض الطلبية
-                                </button>
-                            </form>
-
-                        </div>
-                    </div>
+                    @endforelse
 
 
                     <div class="chat-wrapper">
@@ -86,18 +87,19 @@
     $name=$community->name;
 }
                                         @endphp
-                                        <a href="{{route('communities.show',$community->id)}}" >
-                                        <p class="title d-flex flex-column">
-                                            <span>{{$name}}</span>
-                                            <span class="text-muted small">عدد المشتركين : {{$community->users_count}}</span>
-                                        </p>
+                                        <a href="{{route('communities.show',$community->id)}}">
+                                            <p class="title d-flex flex-column">
+                                                <span>{{$name}}</span>
+                                                <span
+                                                    class="text-muted small">عدد المشتركين : {{$community->users_count}}</span>
+                                            </p>
                                         </a>
                                     </div>
                                 </div>
                             @endforeach
-                                <a class="btn btn-sm btn-outline-info w-100" href="{{route('communities.index')}}">
-                                    جميع محادثاتي
-                                </a>
+                            <a class="btn btn-sm btn-outline-info w-100" href="{{route('communities.index')}}">
+                                جميع محادثاتي
+                            </a>
 
                         @endif
                     </div>
@@ -371,7 +373,8 @@
                 @endforeach
 
                 <div class="d-flex justify-content-between">
-                    <a class="btn btn-sm btn-secondary" href="{{$products->withQueryString()->nextPageUrl()}}">التالي</a>
+                    <a class="btn btn-sm btn-secondary"
+                       href="{{$products->withQueryString()->nextPageUrl()}}">التالي</a>
                     <a class="btn btn-sm btn-secondary" href="{{$products->withQueryString()->previousPageUrl()}}">السابق</a>
                 </div>
 
@@ -388,13 +391,13 @@
                 <div class="media-scroll bg-light p-4">
                     <div style="text-align: center">
                         <a href="{{url('/seller/products/create')}}">
-                        <button
-                            class="new-post"
-                         {{--   data-bs-toggle="modal"
-                            data-bs-target="#addPostModal"--}}
-                        >
-                            منشور جديد
-                        </button>
+                            <button
+                                class="new-post"
+                                {{--   data-bs-toggle="modal"
+                                   data-bs-target="#addPostModal"--}}
+                            >
+                                منشور جديد
+                            </button>
                         </a>
                     </div>
                     <div class="categories">

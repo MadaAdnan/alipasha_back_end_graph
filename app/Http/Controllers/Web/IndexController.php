@@ -25,6 +25,11 @@ class IndexController extends Controller
             'is_special' => true,
             'is_active' => true,
         ])->get();
+        $notifications=null;
+        if(auth()->check()){
+            $notifications=auth()->user()->unreadNotifications()->limit(7)->get();
+            auth()->user()->unreadNotifications->markAsRead();
+        }
         $products = Product::when($categoryId,fn($query)=>$query->where('category_id',$categoryId))
         ->where(function ($query) {
             $query->where('active', ProductActiveEnum::ACTIVE->value);
@@ -77,7 +82,7 @@ if(auth()->check()){
         $query->where('users.id', auth()->id());  // جلب المجتمعات التي يشارك فيها المستخدم الحالي
     })->latest('last_update')->limit(10)->get();
 }
-        return view('web.index', compact('specialSeller', 'products', 'categories','subCategory','communities'));
+        return view('web.index', compact('specialSeller', 'products', 'categories','subCategory','communities','notifications'));
     }
 
     /**
