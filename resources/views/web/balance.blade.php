@@ -35,9 +35,7 @@
                         @endforeach
 
                         </tbody>
-                    </table>
-
-                    <div class="d-flex justify-content-between">
+                        <tfoot>
                         @if($balances->hasMorePages())
                             <a class="btn btn-sm btn-secondary"
                                href="{{$balances->withQueryString()->nextPageUrl()}}">التالي</a>
@@ -46,6 +44,11 @@
                             <a class="btn btn-sm btn-secondary"
                                href="{{$balances->withQueryString()->previousPageUrl()}}">السابق</a>
                         @endif
+                        </tfoot>
+                    </table>
+
+                    <div class="d-flex justify-content-between">
+
                     </div>
                 </div>
 
