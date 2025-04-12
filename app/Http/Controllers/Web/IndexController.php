@@ -27,7 +27,7 @@ class IndexController extends Controller
         ])->get();
         $notifications=null;
         if(auth()->check()){
-            $notifications=auth()->user()->unreadNotifications()->limit(7)->get();
+            $notifications=auth()->user()->notifications()->limit(7)->get();
             auth()->user()->unreadNotifications->markAsRead();
         }
         $products = Product::when($categoryId,fn($query)=>$query->where('category_id',$categoryId))
