@@ -9,6 +9,7 @@
                         <tr>
                             <th>سحب</th>
                             <th>إيداع</th>
+                            <th>الرصيد</th>
                             <th>البيان</th>
                             <th>التاريخ</th>
                         </tr>
@@ -18,6 +19,7 @@
                             <tr>
                                 <td>{{$balance->debit}}</td>
                                 <td>{{$balance->credit}}</td>
+                                <td>{{$balance->total}}</td>
                                 <td>{{$balance->info}}</td>
                                 <td>{{$balance->created_at->format('Y-m-d H:i')}}</td>
 
