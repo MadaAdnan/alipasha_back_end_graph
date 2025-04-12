@@ -23,6 +23,7 @@
                                           <img src="{{asset('assets/avatar-2.svg')}}" alt="avatar"/>
                                       </a>--}}
                                     <p class="title">{{$notification->data['title']}}</p>
+                                    <p class="title">{{$notification->data['body']}}</p>
                                 </div>
                                 <p class="time">{{$notification->created_at->diffForHumans()}}</p>
                             </div>

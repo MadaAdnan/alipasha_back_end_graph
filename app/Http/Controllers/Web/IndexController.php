@@ -27,6 +27,7 @@ class IndexController extends Controller
         ])->get();
         $notifications=null;
         if(auth()->check()){
+            // unreadNotifications
             $notifications=auth()->user()->notifications()->limit(7)->get();
             auth()->user()->unreadNotifications->markAsRead();
         }
