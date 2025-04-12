@@ -40,9 +40,10 @@
                                 @if(isset($notification->data['url']) && $notification->data['url']!='')
                                     @php
                                         $uri=\League\Uri\Uri::new($notification->data['url']);
-dd($uri->getQuery());
+
                                     @endphp
                                     <a  class="btn btn-danger action-buttons"
+                                        data-uri="{{$uri->getQuery()}}"
                                         href="{{$notification->data['url']}}"
                                         style="color: #fff; background-color: #e30613"
                                     > إذهب
