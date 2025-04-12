@@ -9,6 +9,9 @@
                             <span>رقم الطلب : {{$invoice->id}}</span>
                         </div>
                         <div class="card-body">
+                            <div>
+                                <span>{{$invoice->user?->name}} <a href="https://wa.me/{{$invoice->user?->phone}}"><i class="bi bi-whatsapp"></i></a></span>
+                            </div>
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     @foreach($invoice->items as $item)
@@ -35,7 +38,7 @@
                                     @csrf
                                     @method('PUT')
                                     <input type="hidden" name="status" value="{{\App\Enums\OrderStatusEnum::CANCELED->value}}">
-                                    <button class="btn-sm btn-success">رفض الطلب</button>
+                                    <button class="btn-sm btn-danger">رفض الطلب</button>
                                 </form>
                             </div>
                         </div>
