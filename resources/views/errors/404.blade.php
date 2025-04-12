@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-12 ">
                 <div class="flex w-100  justify-content-center align-items-center">
-                    <h4 class="alert alert-danger">الصفحة غير موجودة</h4>
+                    <h4 class="alert alert-danger" style="margin-top: 100px">الصفحة غير موجودة</h4>
                 </div>
 
             </div>
