@@ -38,7 +38,7 @@
                                     </button>
                                 </form>--}}
                                 <a  class="btn btn-danger action-buttons"
-                                    href="{{$notification->data['url']}}"
+                                    href="{{$notification->data['route']}}"
                                    style="color: #fff; background-color: #e30613"
                                 > قبول الطلب
                                     </a>
