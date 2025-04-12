@@ -28,7 +28,7 @@
                 </div>
             @empty
                 <h3 class="alert alert-info">لا يوجد طلبات</h3>
-            @endforeach
+            @endforelse
 
         </div>
     </div>
