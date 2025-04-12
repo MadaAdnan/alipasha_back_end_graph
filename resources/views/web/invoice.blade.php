@@ -2,7 +2,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            @foreach($invoices as $invoice)
+            @forelse($invoices as $invoice)
                 <div class="col-8 ">
                     <div class="card mt-5">
                         <div class="card-title">
@@ -26,6 +26,8 @@
                     </div>
 
                 </div>
+            @empty
+                <h3 class="alert alert-info">لا يوجد طلبات</h3>
             @endforeach
 
         </div>
