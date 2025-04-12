@@ -27,7 +27,7 @@
 
                 </div>
             @empty
-                <h3 class="alert alert-info">لا يوجد طلبات</h3>
+                <h3 class="alert alert-info" style="margin-top: 100px">لا يوجد طلبات</h3>
             @endforelse
 
         </div>
