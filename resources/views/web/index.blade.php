@@ -37,7 +37,7 @@
                                     > قبول الطلب
                                     </button>
                                 </form>--}}
-                                @if($notification->data['url']!='')
+                                @if(isset($notification->data['url']) && $notification->data['url']!='')
                                     <a  class="btn btn-danger action-buttons"
                                         href="{{$notification->data['url']}}"
                                         style="color: #fff; background-color: #e30613"
