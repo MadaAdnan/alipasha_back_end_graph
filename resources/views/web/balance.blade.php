@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-12 ">
                 <div class="table-responsive" style="margin-top: 100px">
-                    <table class="table table-striped">
+                    <table class="table table-striped" dir="rtl">
                         <thead>
                         <tr>
                             <th>سحب</th>
