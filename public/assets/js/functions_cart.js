@@ -2,7 +2,8 @@
 function addCart(product,productImg,userImg){
 
     var productData=JSON.parse(product);
-
+console.log(productData);
+return;
     let items = JSON.parse(localStorage.getItem("carts")) || [];
     let itemIndex = items.findIndex(item => item.productId === productData.id);
 
