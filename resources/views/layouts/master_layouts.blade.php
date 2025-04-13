@@ -182,7 +182,7 @@ required=""
 @auth
     @php
 
-            $cartsCount=Cart::where('user_id',auth()->id())->count();
+            $cartsCount=App\Models\Cart::where('user_id',auth()->id())->count();
 
     @endphp
                    <a href="{{route('carts.index')}}" class="position-relative">
