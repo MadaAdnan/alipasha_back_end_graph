@@ -17,7 +17,7 @@
                                     <li><a href="{{route('index')}}">الإشعارات</a></li>
                                 </ul>
                             </div>
-                            @auth
+                            @if(auth()->check())
                                 @forelse($notifications as $notification)
                                     <div class="notification-item">
                                         <div class="info">
@@ -72,7 +72,7 @@
                                 @empty
                                     <p>لا يوجد إشعارات</p>
                                 @endforelse
-                            @endauth
+                          @endif
 
 
 
