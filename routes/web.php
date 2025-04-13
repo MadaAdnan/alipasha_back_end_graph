@@ -33,6 +33,7 @@ Route::post('register',[\App\Http\Controllers\Web\AuthController::class,'registe
 Route::post('forget-password',[\App\Http\Controllers\Web\AuthController::class,'forgetPassword'])->name('forget-password');
 Route::post('change-password',[\App\Http\Controllers\Web\AuthController::class,'changePassword'])->name('change-password');
 Route::resource('/',\App\Http\Controllers\Web\IndexController::class)->only('index');
+Route::resource('/carts',\App\Http\Controllers\Web\CartController::class)->only('index','show');
 Route::resource('/search',\App\Http\Controllers\Web\SearchController::class)->only('index');
 Route::resource('/jobs',\App\Http\Controllers\Web\JobController::class)->only('index','show');
 Route::resource('/tenders',\App\Http\Controllers\Web\TenderController::class)->only('index','show');
