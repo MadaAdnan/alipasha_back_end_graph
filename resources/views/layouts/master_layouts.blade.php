@@ -180,8 +180,13 @@ required=""
                 </a>
             @endguest
 @auth
+    @php
+
+            $cartsCount=Cart::where('user_id',auth()->id())->count();
+
+    @endphp
                    <a href="{{route('carts.index')}}" class="position-relative">
-                       <span class="position-absolute top-0 badge badge-danger cart-badge" >{{$carts_count}}</span>
+                       <span class="position-absolute top-0 badge badge-danger cart-badge" >{{$cartsCount}}</span>
                        <img src="{{asset('assets/market.svg')}}" alt="" />
                    </a>
 @endauth

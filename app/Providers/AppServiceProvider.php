@@ -23,12 +23,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $cartsCount=0;
-        if(auth()->check()){
-            $cartsCount=Cart::where('user_id',auth()->id())->count();
-        }
-\View::share([
-    'carts_count'=>$cartsCount
-]);
+
+
     }
 }
