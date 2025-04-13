@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\GraphQL\Directives\SearchDirectiveDirective;
+use App\Models\Cart;
 use GraphQL\Type\Definition\Directive;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
@@ -22,6 +23,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-
+        $cartsCount=0;
+        if(auth()->check()){
+            $cartsCount=Cart::where('user_id',auth()->id())->count();
+        }
+\View::share([
+    'carts_count'=>$cartsCount
+]);
     }
 }

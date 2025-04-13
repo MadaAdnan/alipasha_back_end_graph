@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Enums\CategoryTypeEnum;
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -12,7 +15,8 @@ class CartController extends Controller
      */
     public function index()
     {
-        return view('web.carts');
+        $carts=Cart::where('user_id',auth()->id())->groupBy('seller_id')->get();
+        return view('web.carts',compact('carts'));
     }
 
     /**
@@ -28,7 +32,21 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $product = Product::find($request->productId);
+        if ($product && ($product->type == CategoryTypeEnum::RESTAURANT->value || $product->type == CategoryTypeEnum::PRODUCT->value)) {
+            $cart = Cart::where(['user_id' => auth()->id(), 'product_id' => $product->id])->first();
+            if ($cart == null) {
+                $cart = Cart::create([
+                    'product_id' => $product->id,
+                    'user_id' => auth()->id(),
+                    'seller_id' => $product->user_id,
+                    'qty' => 1,
+                ]);
+            } else {
+                $cart->update(['qty' => $cart->qty + 1]);
+            }
+        }
+        return back();
     }
 
     /**
