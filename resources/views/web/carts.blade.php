@@ -13,7 +13,7 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <img src="{{$cart->seller?->getImage('image')}}" class="img-fluid rounded-start" alt="...">
+                                <img src="{{$cart->seller?->getImage('image')}}" class="img-fluid rounded-end" alt="...">
                             </div>
                         </div>
                     </div>
