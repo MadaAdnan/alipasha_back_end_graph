@@ -174,11 +174,13 @@ required=""
             <a href="./pages/cart.html">
                 <img src="{{asset('assets/market.svg')}}" alt="" />
             </a>
+              {{-- <a href="{{route('notifications')}}">
             <span
                 class="notification-icon"
                 style="position: relative"
                 onclick="toggleRightSidebar()"
             >
+
             <img src="{{asset('assets/notification.svg')}}" alt="Notification" />
             <span
                 style="
@@ -193,7 +195,7 @@ required=""
               "
             >
             </span>
-          </span>
+          </span>   </a>--}}
             @if(auth()->check())
             <a href="{{route('profile.index')}}">
                 <img src="{{auth()->user()->getFirstMediaUrl('image','webp')}}" style="width: 45px;aspect-ratio: 1/1" alt="" />
