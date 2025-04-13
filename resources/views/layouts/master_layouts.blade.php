@@ -179,11 +179,13 @@ required=""
                     </button>
                 </a>
             @endguest
+@auth
+                   <a href="{{route('carts.index')}}" class="position-relative">
+                       <span class="position-absolute top-0 badge badge-danger cart-badge" >{{$cart_count}}</span>
+                       <img src="{{asset('assets/market.svg')}}" alt="" />
+                   </a>
+@endauth
 
-            <a href="./pages/cart.html" class="position-relative">
-                <span class="position-absolute top-0 badge badge-danger cart-badge" id="cart-badge"></span>
-                <img src="{{asset('assets/market.svg')}}" alt="" />
-            </a>
               {{-- <a href="{{route('notifications')}}">
             <span
                 class="notification-icon"
