@@ -13,7 +13,7 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <img src="{{$cart->seller?->getImage('logo')}}" class="img-fluid rounded-end" alt="...">
+                                <img src="{{$cart->seller?->getImage('logo')}}" style="aspect-ratio: 1/1;width:40%" class="img-fluid rounded-end" alt="...">
                             </div>
                         </div>
                     </div>
