@@ -23,6 +23,15 @@
     <link rel="stylesheet" href="{{asset('assets/css/shared.css')}}" />
 
     @yield('style')
+    <style>
+        .cart-badge{
+            background-color: red;
+            border-radius:
+                100%;
+            font-size: 6pt;
+            top: 16px !important;
+        }
+    </style>
 </head>
 <body>
 <!-- nav bar  -->
@@ -172,7 +181,7 @@ required=""
             @endguest
 
             <a href="./pages/cart.html" class="position-relative">
-                <span class="position-absolute top-0 badge badge-danger">10</span>
+                <span class="position-absolute top-0 badge badge-danger cart-badge" id="cart-badge"></span>
                 <img src="{{asset('assets/market.svg')}}" alt="" />
             </a>
               {{-- <a href="{{route('notifications')}}">
@@ -1218,7 +1227,9 @@ required=""
         });
     });
 </script>
-
+<script>
+    getCountItemsInCart()
+</script>
 </body>
 </html>
 

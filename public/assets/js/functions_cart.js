@@ -33,6 +33,9 @@ function deleteFromCart(productId) {
 }
 
 function getCountItemsInCart() {
+    let cartBadge=document.getElementById('cart-badge');
+
     let items = JSON.parse(localStorage.getItem("carts")) || [];
+    cartBadge.innerText=items.length;
     return items.length
 }
