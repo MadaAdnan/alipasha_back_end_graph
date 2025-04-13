@@ -171,7 +171,8 @@ required=""
                 </a>
             @endguest
 
-            <a href="./pages/cart.html">
+            <a href="./pages/cart.html" class="position-relative">
+                <span class="position-absolute top-0 badge badge-danger">10</span>
                 <img src="{{asset('assets/market.svg')}}" alt="" />
             </a>
               {{-- <a href="{{route('notifications')}}">
