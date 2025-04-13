@@ -7,12 +7,12 @@
                     <div class="card mb-3" style="max-width: 540px;">
                         <div class="row g-0">
 
-                            <div class="col-md-8">
+                            <div class="col-8">
                                 <div class="card-body">
                                     <h5 class="card-title">{{$cart->seller?->seller_name}}</h5>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-4">
                                 <img src="{{$cart->seller?->getImage('logo')}}" style="aspect-ratio: 1/1;width:100%" class="img-fluid rounded-end" alt="...">
                             </div>
                         </div>
