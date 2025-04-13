@@ -207,4 +207,9 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         return $this->belongsTo(User::class);
     }
 
+    public function carts(): HasMany
+    {
+        return $this->hasMany(Cart::class, 'user_id');
+    }
+
 }
