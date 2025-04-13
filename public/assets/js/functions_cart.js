@@ -18,7 +18,8 @@ function addCart(product, productImg, userImg) {
 // تحديث localStorage بالمصفوفة الجديدة
     localStorage.setItem("carts", JSON.stringify(items));
 
-
+    let cartBadge=document.getElementById('cart-badge');
+    cartBadge.innerText=getCountItemsInCart();
     console.log(productData)
 }
 
@@ -33,9 +34,10 @@ function deleteFromCart(productId) {
 }
 
 function getCountItemsInCart() {
-    let cartBadge=document.getElementById('cart-badge');
+
 
     let items = JSON.parse(localStorage.getItem("carts")) || [];
+    let cartBadge=document.getElementById('cart-badge');
     cartBadge.innerText=items.length;
     return items.length
 }
