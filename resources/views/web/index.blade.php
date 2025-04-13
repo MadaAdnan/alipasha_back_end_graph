@@ -129,7 +129,7 @@
                             </div>
                         </div>
                     </div>
-            @endauth
+
 
 
             <!-- Middle Section (12 columns on small, 8 on larger screens) -->
