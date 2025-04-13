@@ -7,11 +7,13 @@ function addCart(product,productImg,userImg){
     let itemIndex = items.findIndex(item => item.productId === productData.id);
 
     if (itemIndex !== -1) {
+
         // إذا كان العنصر موجودًا، قم بزيادة الكمية
         items[itemIndex].qty += 1;
+        items.push({ product: productData, qty });
     } else {
         // إذا لم يكن موجودًا، أضفه إلى المصفوفة
-        items.push({ productId: productData.id, qty: 1 });
+        items.push({ product: productData, qty });
     }
 
 // تحديث localStorage بالمصفوفة الجديدة
