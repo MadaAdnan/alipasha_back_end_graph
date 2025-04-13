@@ -334,7 +334,7 @@
                                         </div>
 
 
-                                        <form action="" method="POST" style="
+                                        <form action="{{route('carts.store')}}" method="POST" style="
                       width: 60px;
                       height: 24px;
                       background-color: #e30613;
