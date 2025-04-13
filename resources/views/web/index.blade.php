@@ -3,7 +3,7 @@
 
     <div class="container-fluid" style="margin-top: 70px">
         <div class="row">
-
+@if(auth()->check())
                 <!-- Right Section (2 columns on large screens, 0 on small) -->
                     <div id="right-sidebar" class="col-4 d-none d-xl-block">
                         <div class="media-scroll bg-light p-4 ">
@@ -17,7 +17,7 @@
                                     <li><a href="{{route('index')}}">الإشعارات</a></li>
                                 </ul>
                             </div>
-                            @if(auth()->check())
+
                                 @forelse($notifications as $notification)
                                     <div class="notification-item">
                                         <div class="info">
@@ -72,7 +72,7 @@
                                 @empty
                                     <p>لا يوجد إشعارات</p>
                                 @endforelse
-                          @endif
+
 
 
 
@@ -129,7 +129,9 @@
                             </div>
                         </div>
                     </div>
-
+@else
+        <div id="right-sidebar" class="col-4 d-none d-xl-block"></div>
+  @endif
 
 
             <!-- Middle Section (12 columns on small, 8 on larger screens) -->
