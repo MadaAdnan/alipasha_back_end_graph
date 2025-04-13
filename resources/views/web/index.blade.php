@@ -345,9 +345,10 @@
                       align-items: center;
                       justify-content: center;
                     ">
-                                            <input type="hidden" name="postId" value="123"/>
-                                            <button type="button"
-                                                    onclick="addCart({{json_encode($product->toJson())}},'','')"
+                                            @csrf
+                                            @method('post')
+                                            <input type="hidden" name="productId" value="{{$product->id}}"/>
+                                            <button type="submit"
                                                     style="background-color: transparent; border: none; display: flex; align-items: center; gap: 8px; color: #fff;">
                                                 <i class="bi bi-cart-fill"></i>
                                             </button>
