@@ -3,7 +3,7 @@
 
     <div class="container-fluid" style="margin-top: 70px">
         <div class="row">
-            @auth
+
                 <!-- Right Section (2 columns on large screens, 0 on small) -->
                     <div id="right-sidebar" class="col-4 d-none d-xl-block">
                         <div class="media-scroll bg-light p-4 ">
@@ -17,59 +17,63 @@
                                     <li><a href="{{route('index')}}">الإشعارات</a></li>
                                 </ul>
                             </div>
-                            @forelse($notifications as $notification)
-                                <div class="notification-item">
-                                    <div class="info">
-                                        <div>
-                                            {{--  <a href="../pages/profile.html">
-                                                  <img src="{{asset('assets/avatar-2.svg')}}" alt="avatar"/>
-                                              </a>--}}
-                                            <p class="title">{{$notification->data['title']}}</p>
-                                            <p class="title">{{$notification->data['body']}}</p>
+                            @auth
+                                @forelse($notifications as $notification)
+                                    <div class="notification-item">
+                                        <div class="info">
+                                            <div>
+                                                {{--  <a href="../pages/profile.html">
+                                                      <img src="{{asset('assets/avatar-2.svg')}}" alt="avatar"/>
+                                                  </a>--}}
+                                                <p class="title">{{$notification->data['title']}}</p>
+                                                <p class="title">{{$notification->data['body']}}</p>
+                                            </div>
+                                            <p class="time">{{$notification->created_at->diffForHumans()}}</p>
                                         </div>
-                                        <p class="time">{{$notification->created_at->diffForHumans()}}</p>
+                                        <div class="actions">
+
+                                            {{-- <form action="" method="POST" style="width: 100%;">
+                                                 <input type="hidden" name="storId" value="123"/>
+                                                 <button type="submit" class="btn btn-danger action-buttons"
+
+                                                         style="color: #fff; background-color: #e30613"
+                                                 > قبول الطلب
+                                                 </button>
+                                             </form>--}}
+
+                                            @if(isset($notification->data['url']) && $notification->data['url']!='')
+                                                @php
+                                                    $uri=\League\Uri\Uri::new($notification->data['url']);
+            $route=$notification->data['url'];
+            if($uri->getPath()=='/product'){
+                $route=route('posts.show',['id'=>Str::replace('id=','',$uri->getQuery())]);
+            }
+                                                @endphp
+                                                <a  class="btn btn-danger action-buttons"
+                                                    data-path="{{$uri->getPath()}}"
+                                                    href="{{$route}}"
+                                                    style="color: #fff; background-color: #e30613"
+                                                > إذهب
+                                                </a>
+                                            @endif
+
+
+                                            {{-- <form action="" method="POST" style="width: 100%;">
+                                                 <input type="hidden" name="storId" value="123"/>
+                                                 <button type="submit" class="btn btn-danger"
+                                                         class="action-buttons"
+                                                         style="color: #000000; background-color: #e4e6eb"
+                                                 > عرض الطلبية
+                                                 </button>
+                                             </form>--}}
+
+                                        </div>
                                     </div>
-                                    <div class="actions">
+                                @empty
+                                    <p>لا يوجد إشعارات</p>
+                                @endforelse
+                            @endauth
 
-                                        {{-- <form action="" method="POST" style="width: 100%;">
-                                             <input type="hidden" name="storId" value="123"/>
-                                             <button type="submit" class="btn btn-danger action-buttons"
-
-                                                     style="color: #fff; background-color: #e30613"
-                                             > قبول الطلب
-                                             </button>
-                                         </form>--}}
-                                        @if(isset($notification->data['url']) && $notification->data['url']!='')
-                                            @php
-                                                $uri=\League\Uri\Uri::new($notification->data['url']);
-        $route=$notification->data['url'];
-        if($uri->getPath()=='/product'){
-            $route=route('posts.show',['id'=>Str::replace('id=','',$uri->getQuery())]);
-        }
-                                            @endphp
-                                            <a  class="btn btn-danger action-buttons"
-                                                data-path="{{$uri->getPath()}}"
-                                                href="{{$route}}"
-                                                style="color: #fff; background-color: #e30613"
-                                            > إذهب
-                                            </a>
-                                        @endif
-
-
-                                        {{-- <form action="" method="POST" style="width: 100%;">
-                                             <input type="hidden" name="storId" value="123"/>
-                                             <button type="submit" class="btn btn-danger"
-                                                     class="action-buttons"
-                                                     style="color: #000000; background-color: #e4e6eb"
-                                             > عرض الطلبية
-                                             </button>
-                                         </form>--}}
-
-                                    </div>
-                                </div>
-                            @empty
-                                <p>لا يوجد إشعارات</p>
-                            @endforelse
 
 
                             <div class="chat-wrapper">
