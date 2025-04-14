@@ -61,27 +61,31 @@ class CartController extends Controller
         $user = User::findOrFail($id);
         $items = Cart::where(['user_id' => auth()->id(), 'seller_id' => $id])->get();
         $weight = 0;
-        foreach (Cart::where(['user_id' => auth()->id(), 'seller_id' => $id])->whereHas('product',fn($q)=>$q->where('is_delivery',true))->get() as $cart) {
+        $shipping = 0;
+        $carts=Cart::where(['user_id' => auth()->id(), 'seller_id' => $id])->whereHas('product',fn($q)=>$q->where('is_delivery',true))->get();
+        foreach ( $carts as $cart) {
             $product = $cart->product;
 
 
             $weight += $product->weight * $cart->qty;
         }
 
-        $shippingPrice = ShippingPrice::where('weight', '>=', $weight)->orderBy('weight')->first();
-        if ($shippingPrice == null) {
-            $shippingPrice = ShippingPrice::orderBy('weight', 'desc')->first();
-        }
+       if($carts->count()>0){
+           $shippingPrice = ShippingPrice::where('weight', '>=', $weight)->orderBy('weight')->first();
+           if ($shippingPrice == null) {
+               $shippingPrice = ShippingPrice::orderBy('weight', 'desc')->first();
+           }
 
-        if (
-            ($cart->seller->city_id == $cart->user->city_id) ||
-            ($cart->seller->city_id == $cart->user->city->city_id) ||
-            ($cart->seller->city->city_id == $cart->user->city_id)
-        ) {
-            $shipping = $shippingPrice->internal_price;
-        } else {
-            $shipping = $shippingPrice->external_price;
-        }
+           if (
+               ($cart->seller->city_id == $cart->user->city_id) ||
+               ($cart->seller->city_id == $cart->user->city->city_id) ||
+               ($cart->seller->city->city_id == $cart->user->city_id)
+           ) {
+               $shipping = $shippingPrice->internal_price;
+           } else {
+               $shipping = $shippingPrice->external_price;
+           }
+       }
         return view('web.cart', compact('user', 'items', 'shipping'));
     }
 
