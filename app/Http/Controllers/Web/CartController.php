@@ -152,7 +152,7 @@ class CartController extends Controller
         }
 
         Cart::where(['user_id' => auth()->id(), 'seller_id' => $id])->delete();
-        return redirect()->route('invoices.index');
+        return redirect()->route('my-invoices.index');
     }
 
     /**
