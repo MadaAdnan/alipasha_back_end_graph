@@ -1232,7 +1232,7 @@ required=""
 
             // Copy the link to the clipboard
             navigator.clipboard.writeText(postLink).then(() => {
-                showToast("تم نسخ الرابط");
+                showToast("تم نسخ رابط المشاركة");
             }).catch(() => {
                 showToast("Failed to copy");
             });
