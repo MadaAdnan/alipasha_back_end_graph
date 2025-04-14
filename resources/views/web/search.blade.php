@@ -151,7 +151,7 @@
                     <div style="background-color: #fff; padding: 16px; border-radius: 16px; margin: 20px 0px; display: flex; flex-wrap: wrap;gap: 16px;">
                         @forelse($products as $product)
                             <div class="card" style="width: 18rem; text-align: right;">
-                                <img src="{{$product->getImage('images')}}" class="card-img-top" alt="...">
+                                <img src="{{$product->hasMedia('images')?$product->getImage('images'):$product->getImage('image')}}" class="card-img-top" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title">{{$product->name}}</h5>
                                     <p class="card-text">{{$product->expert}}</p>
