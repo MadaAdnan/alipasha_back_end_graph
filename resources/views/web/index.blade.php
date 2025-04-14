@@ -137,10 +137,7 @@
             <!-- Middle Section (12 columns on small, 8 on larger screens) -->
             <div class="col-12 col-xl-5">
 
-                <div id="toast"
-                     style="position: fixed; bottom: 20px; right: 20px; background-color: #28a745; color: #fff; padding: 10px 20px; border-radius: 5px; display: none;">
-                    Copy successfully
-                </div>
+
 
                 <div class="container mt-4 bg-white p-2 rounded-4">
                     <div class="stories-container">
