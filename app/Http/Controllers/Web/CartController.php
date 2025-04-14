@@ -135,6 +135,7 @@ class CartController extends Controller
                 'weight' => $weight,
                 'size' => $size,
                 'shipping' => $shipping,
+                'total'=>$total,
                 'phone' => auth()->user()->phone,
                 'address' => auth()->user()->address,
             ]);
@@ -149,6 +150,7 @@ class CartController extends Controller
             ]);
 
         }
+
         Cart::where(['user_id' => auth()->id(), 'seller_id' => $id])->delete();
         return redirect()->route('invoices.index');
     }
