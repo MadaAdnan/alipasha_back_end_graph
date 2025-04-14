@@ -65,14 +65,14 @@
                     <tfoot>
                     <tr>
                         <th colspan="2" class="text-center bg-info-subtle">أجور شحن</th>
-                        <th colspan="1" class="text-center bg-info-subtle">{{$shipping}} $</th>
+                        <th colspan="2" class="text-center bg-info-subtle">{{$shipping}} $</th>
                         <th colspan="2" class="text-center bg-info-subtle">إجمالي القيمة</th>
                         <th colspan="2" class="text-center bg-info-subtle">{{$result}} $</th>
 
                     </tr>
                     <tr>
                         <th colspan="2" class="text-center bg-danger-subtle">الإجمالي</th>
-                        <th colspan="1" class="text-center bg-danger-subtle">{{$result+$shipping}} $</th>
+                        <th colspan="2" class="text-center bg-danger-subtle">{{$result+$shipping}} $</th>
                         <th colspan="4" class="text-center ">
                             @if($items->count()>0)
                                 <form action="{{route('carts.update',$user->id)}}" method="post">
