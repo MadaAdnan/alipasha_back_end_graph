@@ -36,7 +36,7 @@
                             <td class="text-center">{{$item->qty}}</td>
                             @php
                                 $total=$item->product?->getPrice() * $item->qty;
-                                   if($item->product?->is_shipping){
+                                   if($item->product?->is_delivery){
 
 
                                $result+=$total;
@@ -44,7 +44,7 @@
                             @endphp
                             <td class="text-center">{{$total}}</td>
                             <td class="text-center">
-                                @if($item->product?->is_shipping==false)
+                                @if($item->product?->is_delivery==false)
                                     <span class="badge text-bg-danger">غير متاح</span>
                                 @else
                                     <span class="badge text-bg-success"> متاح</span>
