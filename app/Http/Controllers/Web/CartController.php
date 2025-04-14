@@ -56,7 +56,7 @@ class CartController extends Controller
     public function show(string $id)
     {
        $user=User::findOrFail($id);
-       $items=Cart::where(['user_id'=>auth()->id(),'seller_id' => $id]);
+       $items=Cart::where(['user_id'=>auth()->id(),'seller_id' => $id])->get();
        return view('web.cart',compact('user','items'));
     }
 
