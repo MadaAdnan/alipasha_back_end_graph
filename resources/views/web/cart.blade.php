@@ -35,11 +35,12 @@
                             <td class="text-center">{{$item->product?->getPrice()}} $</td>
                             <td class="text-center">{{$item->qty}}</td>
                             @php
-                                if($item->product?->is_shipping){
+                                $total=$item->product?->getPrice() * $item->qty;
+                                   if($item->product?->is_shipping){
 
-                            $total=$item->product?->getPrice() * $item->qty;
-                            $result+=$total;
-                                 }
+
+                               $result+=$total;
+                                    }
                             @endphp
                             <td class="text-center">{{$total}}</td>
                             <td class="text-center">
