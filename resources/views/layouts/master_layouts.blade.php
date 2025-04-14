@@ -236,7 +236,7 @@ required=""
 </nav>
 <div class="position-relative">
     <div id="toast"
-         style="position: absolute; top: 100px; right: 10px; background-color: #28a745; color: #fff; padding: 10px 20px; border-radius: 5px; display: none;">
+         style="position: fixed; top: 80px; right: 45%; background-color: #28a745; color: #fff; padding: 10px 20px; border-radius: 5px; display: none;">
         Copy successfully
     </div>
 </div>
