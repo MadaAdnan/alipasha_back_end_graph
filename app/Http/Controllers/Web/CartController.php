@@ -61,7 +61,7 @@ class CartController extends Controller
         $user = User::findOrFail($id);
         $items = Cart::where(['user_id' => auth()->id(), 'seller_id' => $id])->get();
         $weight = 0;
-        foreach (Cart::where(['user_id' => auth()->id(), 'seller_id' => $id])->whereHas('product',fn($q)=>$q->where('is_delivery',true)) as $cart) {
+        foreach (Cart::where(['user_id' => auth()->id(), 'seller_id' => $id])->whereHas('product',fn($q)=>$q->where('is_delivery',true))->get() as $cart) {
             $product = $cart->product;
 
 
