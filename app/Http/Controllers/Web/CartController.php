@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Web;
 use App\Enums\CategoryTypeEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
+use App\Models\Invoice;
+use App\Models\Item;
 use App\Models\Product;
+use App\Models\ShippingPrice;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -16,8 +19,8 @@ class CartController extends Controller
      */
     public function index()
     {
-        $carts=Cart::where('user_id',auth()->id())->groupBy('seller_id')->get();
-        return view('web.carts',compact('carts'));
+        $carts = Cart::where('user_id', auth()->id())->groupBy('seller_id')->get();
+        return view('web.carts', compact('carts'));
     }
 
     /**
@@ -55,9 +58,31 @@ class CartController extends Controller
      */
     public function show(string $id)
     {
-       $user=User::findOrFail($id);
-       $items=Cart::where(['user_id'=>auth()->id(),'seller_id' => $id])->get();
-       return view('web.cart',compact('user','items'));
+        $user = User::findOrFail($id);
+        $items = Cart::where(['user_id' => auth()->id(), 'seller_id' => $id])->get();
+        $weight = 0;
+        foreach ($items as $cart) {
+            $product = $cart->product;
+
+
+            $weight += $product->weight * $cart->qty;
+        }
+
+        $shippingPrice = ShippingPrice::where('weight', '>=', $weight)->orderBy('weight')->first();
+        if ($shippingPrice == null) {
+            $shippingPrice = ShippingPrice::orderBy('weight', 'desc')->first();
+        }
+
+        if (
+            ($cart->seller->city_id == $cart->user->city_id) ||
+            ($cart->seller->city_id == $cart->user->city->city_id) ||
+            ($cart->seller->city->city_id == $cart->user->city_id)
+        ) {
+            $shipping = $shippingPrice->internal_price;
+        } else {
+            $shipping = $shippingPrice->external_price;
+        }
+        return view('web.cart', compact('user', 'items', 'shipping'));
     }
 
     /**
@@ -73,7 +98,53 @@ class CartController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $carts = Cart::whereHas('product', fn($query) => $query->where('is_delivery', true))->where(['user_id' => auth()->id(), 'seller_id' => $id])->get();
+        $total = 0;
+        $shipping = 0;
+        $size = 0;
+        $weight = 0;
+
+        foreach ($carts as $cart) {
+            $product = $cart->product;
+            $total += $product->getPrice() * $cart->qty;
+
+            $weight += $product->weight * $cart->qty;
+        }
+        $shippingPrice = ShippingPrice::where('weight', '>=', $weight)->orderBy('weight')->first();
+        if ($shippingPrice == null) {
+            $shippingPrice = ShippingPrice::orderBy('weight', 'desc')->first();
+        }
+
+        if (
+            ($cart->seller->city_id == $cart->user->city_id) ||
+            ($cart->seller->city_id == $cart->user->city->city_id) ||
+            ($cart->seller->city->city_id == $cart->user->city_id)
+        ) {
+            $shipping = $shippingPrice->internal_price;
+        } else {
+            $shipping = $shippingPrice->external_price;
+        }
+        if ($carts->count() > 0)
+            $invoice = Invoice::create([
+                'user_id' => auth()->id(),
+                'seller_id' => $id,
+                'weight' => $weight,
+                'size' => $size,
+                'shipping' => $shipping,
+                'phone' => auth()->user()->phone,
+                'address' => auth()->user()->address,
+            ]);
+        foreach ($carts as $cart) {
+            Item::create([
+                'invoice_id' => $invoice->id,
+                'product_id' => $cart->product_id,
+                'qty' => $cart->qty,
+                'price' => $cart->product->getPrice(),
+                'total' => $cart->qty *
+                    $cart->product->getPrice(),
+            ]);
+
+        }
     }
 
     /**

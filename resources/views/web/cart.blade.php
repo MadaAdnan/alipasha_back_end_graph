@@ -51,8 +51,25 @@
                     </tbody>
                     <tfoot>
                     <tr>
-                        <th colspan="3" class="text-center bg-info-subtle">الإجمالي</th>
-                        <th colspan="4" class="text-center bg-info-subtle">{{$result}} $</th>
+                        <th colspan="2" class="text-center bg-info-subtle">أجور شحن</th>
+                        <th colspan="1" class="text-center bg-info-subtle">{{$shipping}} $</th>
+                        <th colspan="2" class="text-center bg-info-subtle">القيمة</th>
+                        <th colspan="1" class="text-center bg-info-subtle">{{$result}} $</th>
+
+                    </tr>
+                    <tr>
+                        <th colspan="2" class="text-center bg-info-subtle">الإجمالي</th>
+                        <th colspan="3" class="text-center bg-info-subtle">{{$result+$shipping}} $</th>
+                        <th colspan="2" class="text-center bg-info-subtle">
+                            @if($items->count()>0)
+                            <form action="{{route('carts.update',$user->id)}}" method="post">
+                                @csrf
+                                @method('PATCH')
+                                <button type="submit" class="btn btn-danger btn-sm text-white">اطلب الآن</button>
+
+                            </form>
+                                @endif
+                        </th>
                     </tr>
                     </tfoot>
                 </table>
