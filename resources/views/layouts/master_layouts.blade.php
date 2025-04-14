@@ -1239,9 +1239,7 @@ required=""
         });
     });
 </script>
-<script>
-    getCountItemsInCart()
-</script>
+
 </body>
 </html>
 
