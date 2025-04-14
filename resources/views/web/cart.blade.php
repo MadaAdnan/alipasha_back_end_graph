@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row justify-content-center" style="margin-top: 100px">
             <div class="table-responsive">
-                <table class="table table-striped">
+                <table class="table table-striped" dir="rtl">
                     <thead>
                     <tr>
                         <th class="text-center">معرف المنتج</th>
