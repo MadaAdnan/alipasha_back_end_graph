@@ -1120,7 +1120,7 @@ required=""
 </div>
 
 <!-- Content goes here -->
-<script src="{{asset('assets/js/functions_cart.js')}}"></script>
+{{--<script src="{{asset('assets/js/functions_cart.js')}}"></script>--}}
 <!-- Bootstrap JS and Popper.js -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
