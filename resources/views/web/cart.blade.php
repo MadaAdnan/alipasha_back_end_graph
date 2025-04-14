@@ -60,7 +60,7 @@
                     <tr>
                         <th colspan="2" class="text-center bg-danger-subtle">الإجمالي</th>
                         <th colspan="1" class="text-center bg-danger-subtle">{{$result+$shipping}} $</th>
-                        <th colspan="4" class="text-center bg-info-subtle">
+                        <th colspan="4" class="text-center ">
                             @if($items->count()>0)
                             <form action="{{route('carts.update',$user->id)}}" method="post">
                                 @csrf
