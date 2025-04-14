@@ -50,12 +50,9 @@
                 </table>
             </div>
 
-            <div class="col-md-8 ">
-                <h4 class="alert alert-danger">لا يوجد عناصر في السلة</h4>
 
-            </div>
 
-            @endforelse
+
         </div>
     </div>
 @endsection
