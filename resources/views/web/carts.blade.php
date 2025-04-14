@@ -1,6 +1,6 @@
 @extends('layouts.master_layouts')
 @section('content')
-    <div class="container">
+    <div class="container" dir="rtl">
         <div class="row justify-content-center" style="margin-top: 100px">
             @forelse($carts as $cart)
                 <div class="col-md-8 ">
