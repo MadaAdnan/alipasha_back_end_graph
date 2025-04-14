@@ -59,8 +59,8 @@
                     </tr>
                     <tr>
                         <th colspan="2" class="text-center bg-info-subtle">الإجمالي</th>
-                        <th colspan="3" class="text-center bg-info-subtle">{{$result+$shipping}} $</th>
-                        <th colspan="2" class="text-center bg-info-subtle">
+                        <th colspan="1" class="text-center bg-info-subtle">{{$result+$shipping}} $</th>
+                        <th colspan="4" class="text-center bg-info-subtle">
                             @if($items->count()>0)
                             <form action="{{route('carts.update',$user->id)}}" method="post">
                                 @csrf
