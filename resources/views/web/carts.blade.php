@@ -12,7 +12,10 @@
 
                                 <div class="col-8">
                                     <div class="card-body">
-                                        <h5 class="card-title">{{$cart->seller?->seller_name}}</h5>
+                                        <h4 class="card-title">{{$cart->seller?->seller_name}}</h4>
+                                        <h6 class="text-muted">{{$cart->seller?->info}}</h6>
+                                        <h6 class="text-muted">{{$cart->seller?->address}}</h6>
+
                                     </div>
                                 </div>
                                 <div class="col-4">
