@@ -1,6 +1,6 @@
 @extends('layouts.master_layouts')
 @section('content')
-    <div class="container" dir="rtl">
+    <div class="container">
         <div class="row justify-content-center" style="margin-top: 100px">
             @forelse($carts as $cart)
                 <div class="col-md-8 ">
@@ -12,9 +12,9 @@
 
                                 <div class="col-8">
                                     <div class="card-body">
-                                        <h4 class="card-title">{{$cart->seller?->seller_name}}</h4>
-                                        <h6 class="text-muted">{{$cart->seller?->info}}</h6>
-                                        <h6 class="text-muted">{{$cart->seller?->address}}</h6>
+                                        <h4 class="card-title text-right">{{$cart->seller?->seller_name}}</h4>
+                                        <h6 class="text-muted text-right">{{$cart->seller?->info}}</h6>
+                                        <h6 class="text-muted text-right">{{$cart->seller?->address}}</h6>
 
                                     </div>
                                 </div>
