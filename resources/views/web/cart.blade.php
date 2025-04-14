@@ -43,8 +43,8 @@
                     </tbody>
                     <tfoot>
                     <tr>
-                        <th colspan="2" class="text-center">الإجمالي</th>
-                        <th colspan="4" class="text-center">{{$result}} $</th>
+                        <th colspan="2" class="text-center bg-info-subtle">الإجمالي</th>
+                        <th colspan="4" class="text-center bg-info-subtle">{{$result}} $</th>
                     </tr>
                     </tfoot>
                 </table>
