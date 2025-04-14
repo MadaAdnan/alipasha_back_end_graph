@@ -6,6 +6,7 @@ use App\Enums\CategoryTypeEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -54,7 +55,9 @@ class CartController extends Controller
      */
     public function show(string $id)
     {
-        //
+       $user=User::findOrFail($id);
+       $items=Cart::where(['user_id'=>auth()->id(),'seller_id' => $id]);
+       return view('web.cart',compact('user','items'));
     }
 
     /**

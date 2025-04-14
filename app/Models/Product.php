@@ -183,4 +183,11 @@ class Product extends Model implements HasMedia
         ];
     }
 
+    public function getPrice(){
+        if($this->is_discount){
+            return $this->discount;
+        }
+        return $this->price;
+    }
+
 }
