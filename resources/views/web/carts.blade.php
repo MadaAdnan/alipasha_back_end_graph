@@ -16,7 +16,7 @@
                                     </div>
                                 </div>
                                 <div class="col-4">
-                                    <img src="{{$cart->seller?->getImage('logo')}}" style="aspect-ratio: 1/1;width:100%"
+                                    <img src="{{$cart->seller?->hasMedia('logo')?$cart->seller?->getImage('logo'):$cart->seller?->getImage('image')}}" style="aspect-ratio: 1/1;width:100%"
                                          class="img-fluid rounded-end" alt="...">
                                 </div>
                             </div>
