@@ -13,6 +13,7 @@
                         <th class="text-center">السعر</th>
                         <th class="text-center">الكمية</th>
                         <th class="text-center">الإجمالي</th>
+                        <th class="text-center">حالة الشحن</th>
                         <th class="text-center">#</th>
                     </tr>
                     </thead>
@@ -27,22 +28,33 @@
                         <tr>
                             <td class="text-center">{{$item->product?->id}}</td>
                             <td class="text-center"><img style="width: 60px;aspect-ratio: 1/1"
-                                     src="{{$item->product?->hasMedia('images')?$item->product?->getImage('images'):$item->product?->getImage()}}"
-                                     alt=""></td>
+                                                         src="{{$item->product?->hasMedia('images')?$item->product?->getImage('images'):$item->product?->getImage()}}"
+                                                         alt=""></td>
                             <td class="text-center">{{$item->product?->name}}</td>
 
                             <td class="text-center">{{$item->product?->getPrice()}} $</td>
                             <td class="text-center">{{$item->qty}}</td>
                             @php
-                                $total=$item->product?->getPrice() * $item->qty;
-                        $result+=$total;
+                                if($item->product?->is_shipping){
+
+                            $total=$item->product?->getPrice() * $item->qty;
+                            $result+=$total;
+                                 }
                             @endphp
                             <td class="text-center">{{$total}}</td>
+                            <td class="text-center">
+                                @if($item->product?->is_shipping==false)
+                                    <span class="badge text-bg-danger">غير متاح</span>
+                                @else
+                                    <span class="badge text-bg-success"> متاح</span>
+                                @endif
+                            </td>
                             <td class="text-center">
                                 <form action="{{route('carts.destroy',$item->id)}}" method="post">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm text-white"><i class="bi bi-trash-fill"></i></button>
+                                    <button type="submit" class="btn btn-danger btn-sm text-white"><i
+                                            class="bi bi-trash-fill"></i></button>
                                 </form>
                             </td>
                         </tr>
@@ -62,20 +74,18 @@
                         <th colspan="1" class="text-center bg-danger-subtle">{{$result+$shipping}} $</th>
                         <th colspan="4" class="text-center ">
                             @if($items->count()>0)
-                            <form action="{{route('carts.update',$user->id)}}" method="post">
-                                @csrf
-                                @method('PATCH')
-                                <button type="submit" class="btn btn-danger btn-sm text-white">اطلب الآن</button>
+                                <form action="{{route('carts.update',$user->id)}}" method="post">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="submit" class="btn btn-danger btn-sm text-white">اطلب الآن</button>
 
-                            </form>
-                                @endif
+                                </form>
+                            @endif
                         </th>
                     </tr>
                     </tfoot>
                 </table>
             </div>
-
-
 
 
         </div>
