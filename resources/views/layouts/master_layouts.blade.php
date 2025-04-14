@@ -1209,10 +1209,10 @@ required=""
         const toast = document.getElementById("toast");
         toast.textContent = message;
         toast.style.display = "inline-block";
-        // toast.style.position = "fixed";
-        // toast.style.top = "10px";
-        // toast.style.zIndex = "10";
-        // toast.style.left = "40%";
+         toast.style.position = "fixed";
+         toast.style.top = "10px";
+         toast.style.zIndex = "10";
+         toast.style.left = "40%";
 
         // Hide toast after 2 seconds
         setTimeout(() => {
