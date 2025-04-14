@@ -13,6 +13,7 @@
                         <th class="text-center">السعر</th>
                         <th class="text-center">الكمية</th>
                         <th class="text-center">الإجمالي</th>
+                        <th class="text-center">#</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -37,13 +38,20 @@
                         $result+=$total;
                             @endphp
                             <td class="text-center">{{$total}}</td>
+                            <td>
+                                <form action="{{route('carts.destroy',$cart->id)}}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm text-white"><i class="bi bi-trash-fill"></i></button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
 
                     </tbody>
                     <tfoot>
                     <tr>
-                        <th colspan="2" class="text-center bg-info-subtle">الإجمالي</th>
+                        <th colspan="3" class="text-center bg-info-subtle">الإجمالي</th>
                         <th colspan="4" class="text-center bg-info-subtle">{{$result}} $</th>
                     </tr>
                     </tfoot>

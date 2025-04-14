@@ -54,7 +54,7 @@ Route::middleware('auth:web')->group(function (){
     Route::resource('/orders',\App\Http\Controllers\Web\OrderController::class)->only(['index']);
     Route::post('/markets/followers',[\App\Http\Controllers\Web\SellerController::class,'followers']);
     Route::post('/products/like',[\App\Http\Controllers\Web\PostController::class,'like'])->name('post.like');
-    Route::resource('/carts',\App\Http\Controllers\Web\CartController::class)->only(['index','show','store']);
+    Route::resource('/carts',\App\Http\Controllers\Web\CartController::class)->only(['index','show','store','destroy']);
 
 });
 
