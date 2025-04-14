@@ -156,7 +156,14 @@
                                     <h5 class="card-title">{{$product->name}}</h5>
                                     <p class="card-text">{{$product->expert}}</p>
                                     <p class="card-text">{{$product->city?->name}} - {{$product->category?->name}} - {{$product->sub1?->name}}</p>
-                                    <a href="./store.html" class="btn btn-primary"> زيارة </a>
+                                    <a @if($product->type==\App\Enums\CategoryTypeEnum::SEARCH_JOB->value || $product->type==\App\Enums\CategoryTypeEnum::JOB->value )
+
+                                       href="{{route('jobs.show',$product->id)}}"
+                                       @elseif($product->type==\App\Enums\CategoryTypeEnum::TENDER->value )
+                                       href="{{route('tenders.show',$product->id)}}"
+                                       @elseif($product->type==\App\Enums\CategoryTypeEnum::RESTAURANT->value ||  $product->type==\App\Enums\CategoryTypeEnum::PRODUCT->value )
+                                       href="{{route('posts.show',$product->id)}}"
+                                       @endif class="btn btn-primary"> زيارة </a>
                                 </div>
                             </div>
                             @empty
