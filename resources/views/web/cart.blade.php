@@ -38,7 +38,7 @@
                         $result+=$total;
                             @endphp
                             <td class="text-center">{{$total}}</td>
-                            <td>
+                            <td class="text-center">
                                 <form action="{{route('carts.destroy',$item->id)}}" method="post">
                                     @csrf
                                     @method('DELETE')
