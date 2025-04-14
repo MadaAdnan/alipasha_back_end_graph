@@ -11,7 +11,7 @@
                             <div class="row g-0">
 
                                 <div class="col-8">
-                                    <div class="card-body">
+                                    <div class="card-body" dir="rtl">
                                         <h4 class="card-title text-right">{{$cart->seller?->seller_name}}</h4>
                                         <h6 class="text-muted text-right">{{$cart->seller?->info}}</h6>
                                         <h6 class="text-muted text-right">{{$cart->seller?->address}}</h6>
