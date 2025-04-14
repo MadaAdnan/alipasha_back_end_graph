@@ -53,7 +53,7 @@
                     <tr>
                         <th colspan="2" class="text-center bg-info-subtle">أجور شحن</th>
                         <th colspan="1" class="text-center bg-info-subtle">{{$shipping}} $</th>
-                        <th colspan="2" class="text-center bg-info-subtle">القيمة</th>
+                        <th colspan="2" class="text-center bg-info-subtle">إجمالي القيمة</th>
                         <th colspan="2" class="text-center bg-info-subtle">{{$result}} $</th>
 
                     </tr>
