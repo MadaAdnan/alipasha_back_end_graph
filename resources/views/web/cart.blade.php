@@ -39,7 +39,7 @@
                             @endphp
                             <td class="text-center">{{$total}}</td>
                             <td>
-                                <form action="{{route('carts.destroy',$cart->id)}}" method="post">
+                                <form action="{{route('carts.destroy',$item->id)}}" method="post">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm text-white"><i class="bi bi-trash-fill"></i></button>
