@@ -156,6 +156,7 @@ class ProductResource extends Resource
                         ProductActiveEnum::ACTIVE->value => ProductActiveEnum::ACTIVE->getLabel(),
                         ProductActiveEnum::BLOCK->value => ProductActiveEnum::BLOCK->getLabel(),
                     ])->label('حالة المنتج')->default(ProductActiveEnum::PENDING->value),
+                    Forms\Components\Textarea::make('block_msg')->required()->visible(fn($get)=>$get('active')==ProductActiveEnum::BLOCK->value)->label('سبب الحظر'),
                     Forms\Components\Radio::make('level')->options([
                         LevelProductEnum::NEWS->value => LevelProductEnum::NEWS->getLabel(),
                         LevelProductEnum::NORMAL->value => LevelProductEnum::NORMAL->getLabel(),
