@@ -86,14 +86,38 @@ class MessageMarketingResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Section::make('رسائل التسويق')->schema([
-                    Forms\Components\Textarea::make('msg_marketing.user')->label('لا يملك منتجات')->required(),
-                    Forms\Components\Textarea::make('msg_marketing.market_5')->label('1 -> 5 منتجات')->required(),
-                    Forms\Components\Textarea::make('msg_marketing.market_20')->label('6 -> 20 منتجات')->required(),
-                    Forms\Components\Textarea::make('msg_marketing.market_50')->label('21 -> 50 منتجات')->required(),
-                    Forms\Components\Textarea::make('msg_marketing.market_100')->label('أكثر من 100')->required(),
-                    Forms\Components\Textarea::make('msg_marketing.followers')->label('رسالة متابعة جديدة')
-                        ->hint('ضع علامةيتابعك [user]، سيتلقى إشعارًا فور نشرك لمنتج جديد ....')
-                        ->required(),
+                    Forms\Components\Grid::make(1)->schema([
+                        Forms\Components\Textarea::make('msg_marketing.user')->label('لا يملك منتجات')->required(),
+                    ]),
+                    Forms\Components\Grid::make()->schema([
+                        Forms\Components\Textarea::make('msg_marketing.market_5')->label('1 -> 5 منتجات')->required(),
+                        Forms\Components\TextInput::make('msg_marketing.point_5')->label('عدد النقاط')->required()->numeric()->default(0)
+
+
+                    ]),
+                    Forms\Components\Grid::make()->schema([
+                        Forms\Components\Textarea::make('msg_marketing.market_20')->label('6 -> 20 منتجات')->required(),
+                        Forms\Components\TextInput::make('msg_marketing.point_20')->label('عدد النقاط')->required()->numeric()->default(0)
+
+
+                    ]),
+                    Forms\Components\Grid::make()->schema([
+                        Forms\Components\Textarea::make('msg_marketing.market_50')->label('21 -> 50 منتجات')->required(),
+                        Forms\Components\TextInput::make('msg_marketing.point_50')->label('عدد النقاط')->required()->numeric()->default(0)
+
+
+                    ]),
+                    Forms\Components\Grid::make()->schema([
+                        Forms\Components\Textarea::make('msg_marketing.market_100')->label('أكثر من 100')->required(),
+                        Forms\Components\TextInput::make('msg_marketing.point_100')->label('عدد النقاط')->required()->numeric()->default(0)
+
+
+                    ]),
+                    Forms\Components\Grid::make(1)->schema([
+                        Forms\Components\Textarea::make('msg_marketing.followers')->label('رسالة متابعة جديدة')
+                            ->hint('ضع علامةيتابعك [user]، سيتلقى إشعارًا فور نشرك لمنتج جديد ....')
+                            ->required(),
+                    ]),
                 ])
             ]);
     }
