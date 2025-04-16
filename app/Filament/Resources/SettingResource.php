@@ -22,10 +22,10 @@ class SettingResource extends Resource implements HasShieldPermissions
 
 
     protected static ?int $navigationSort = -2;
-    protected static ?string $label = 'إعدادات';
-    protected static ?string $modelLabel = 'إعدادات';
-    protected static ?string $navigationLabel = 'الإعدادات';
-    protected static ?string $pluralLabel = 'الإعدادات';
+    protected static ?string $label = 'إعدادات الموقع';
+    protected static ?string $modelLabel = 'إعدادات الموقع';
+    protected static ?string $navigationLabel = 'إعدادات الموقع';
+    protected static ?string $pluralLabel = 'إعدادات الموقع';
     protected static ?string $navigationGroup = 'الإعدادات';
     protected static ?string $slug = 'settings';
 
