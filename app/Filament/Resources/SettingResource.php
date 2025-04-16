@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\IsActiveEnum;
+use App\Enums\ProductActiveEnum;
 use App\Filament\Resources\SettingResource\Pages;
 use App\Filament\Resources\SettingResource\RelationManagers;
 use App\Models\Setting;
@@ -165,7 +167,10 @@ class SettingResource extends Resource implements HasShieldPermissions
                 Tables\Columns\TextColumn::make('email_delivery')->label('مسؤول التوصيل'),
                 Tables\Columns\TextColumn::make('email_support')->label('مسؤول الدعم الفني'),
                 Tables\Columns\TextColumn::make('dollar_value')->label('سعر الدولار'),
-                Tables\Columns\TextColumn::make('active_live')->label('حالة البث'),
+                Tables\Columns\TextColumn::make('active_live')->formatStateUsing(fn($state)=>IsActiveEnum::tryFrom($state)?->getLabel())
+                    ->icon(fn($state)=>IsActiveEnum::tryFrom($state)?->getIcon())
+                    ->color(fn($state)=>IsActiveEnum::tryFrom($state)?->getColor())
+                    ->label('حالة البث'),
             ])
             ->filters([
                 //
