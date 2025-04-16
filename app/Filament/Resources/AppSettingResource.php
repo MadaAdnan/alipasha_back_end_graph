@@ -111,8 +111,8 @@ class AppSettingResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('current_version')->label('الإصدار الحالي من التطبيق'),
                 Tables\Columns\TextColumn::make('force_upgrade')->label('حالة المطالبة بالتحديث'),
-                Tables\Columns\TextColumn::make('url_for_download.play')->label('رابط تحميل من GooglePlay')->url(fn($state) => $state, true)->copyable(),
-                Tables\Columns\TextColumn::make('url_for_download.up_down')->label('رابط تحميل من UpToDown')->url(fn($state) => $state, true)->copyable(),
+                Tables\Columns\TextColumn::make('url_for_download.play')->label('رابط تحميل من GooglePlay')->formatStateUsing(fn($state)=>$state!=''?'زيارة':"")->url(fn($state) => $state, true)->copyable(),
+                Tables\Columns\TextColumn::make('url_for_download.up_down')->label('رابط تحميل من UpToDown')->formatStateUsing(fn($state)=>$state!=''?'زيارة':"")->url(fn($state) => $state, true)->copyable(),
             ])
             ->filters([
                 //
