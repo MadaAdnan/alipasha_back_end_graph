@@ -120,27 +120,6 @@ class SettingResource extends Resource implements HasShieldPermissions
                             Forms\Components\Select::make('plan_id')->relationship('plan', 'name')->searchable()->preload()->label('الخطة الإفتراضية للمستخدمين الجدد'),
 
                         ]),
-
-                        Forms\Components\Wizard\Step::make('معلومات التطبيق')->schema([
-                            Forms\Components\SpatieMediaLibraryFileUpload::make('apk')->collection('apk')->label('رفع التطبيق')->preserveFilenames(),
-                            Forms\Components\Toggle::make('send_notification_hobbies')->label('حالة إشعارات الاهتمامات'),
-
-                            Forms\Components\TextInput::make('current_version')->required()->label('الإصدار الحالي من التطبيق'),
-                            Forms\Components\Toggle::make('force_upgrade')->label('حالة المطالبة بالتحديث'),
-                            Forms\Components\TextInput::make('whats_msg')->nullable()->label('رسالة واتس آب'),
-                            Forms\Components\TextInput::make('url_for_download.play')->url()->label('رابط تحميل من GooglePlay'),
-                            Forms\Components\TextInput::make('url_for_download.up_down')->url()->label('رابط تحميل من UpToDown'),
-                            Forms\Components\Section::make('إعلان بداية التطبيق')->schema([
-                                Forms\Components\Grid::make()->schema([
-                                    Forms\Components\SpatieMediaLibraryFileUpload::make('advice')->collection('advice')->image()->imageEditor()->imageEditorAspectRatios(['1:1', "2:1"])->label('صورة إعلان بداية التطبيق'),
-                                    Forms\Components\TextInput::make('advice_url')->label('رابط الإعلان')->url()->prefix('https://'),
-                                    Forms\Components\Toggle::make('active_advice')->label('حالة الإعلان')
-                                ])->columns(2)
-                            ])
-                        ]),
-
-
-
                         Forms\Components\Wizard\Step::make('خدمة التوصيل')->schema([
                             Forms\Components\Toggle::make('delivery_service')->label('خدمة التوصيل في الدردشة'),
                             Forms\Components\TextInput::make('msg_delivery')->label('رسالة متحركة'),
