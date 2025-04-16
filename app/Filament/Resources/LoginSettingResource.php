@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class LoginSettingResource extends Resource
 {
+    protected static ?string $model = Setting::class;
     protected static ?int $navigationSort = -2;
     protected static ?string $label = 'إعدادات التسجيل بالموقع';
     protected static ?string $modelLabel = 'إعدادات التسجيل بالموقع';
