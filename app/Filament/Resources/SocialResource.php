@@ -102,12 +102,12 @@ class SocialResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('social.twitter')->label(' تويتر')->url(fn($state)=>$state),
-                Tables\Columns\TextColumn::make('social.face')->label(' فيسبوك')->url(fn($state)=>$state),
-                Tables\Columns\TextColumn::make('social.instagram')->label(' إنستغرام')->url(fn($state)=>$state),
-                Tables\Columns\TextColumn::make('social.youtube')->label(' يوتيوب')->url(fn($state)=>$state),
-                Tables\Columns\TextColumn::make('social.linkedin')->label(' لينكدن')->url(fn($state)=>$state),
-                Tables\Columns\TextColumn::make('social.telegram')->label(' تلغرام')->url(fn($state)=>$state),
+                Tables\Columns\TextColumn::make('social.twitter')->formatState(fn($state)=>$state!=''?'زيارة':'')->label(' تويتر')->url(fn($state)=>$state),
+                Tables\Columns\TextColumn::make('social.face')->formatState(fn($state)=>$state!=''?'زيارة':'')->label(' فيسبوك')->url(fn($state)=>$state),
+                Tables\Columns\TextColumn::make('social.instagram')->formatState(fn($state)=>$state!=''?'زيارة':'')->label(' إنستغرام')->url(fn($state)=>$state),
+                Tables\Columns\TextColumn::make('social.youtube')->formatState(fn($state)=>$state!=''?'زيارة':'')->label(' يوتيوب')->url(fn($state)=>$state),
+                Tables\Columns\TextColumn::make('social.linkedin')->formatState(fn($state)=>$state!=''?'زيارة':'')->label(' لينكدن')->url(fn($state)=>$state),
+                Tables\Columns\TextColumn::make('social.telegram')->formatState(fn($state)=>$state!=''?'زيارة':'')->label(' تلغرام')->url(fn($state)=>$state),
             ])
             ->filters([
                 //
