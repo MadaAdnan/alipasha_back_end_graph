@@ -41,7 +41,7 @@ class SendNotificationJob implements ShouldQueue
                 \Notification::send($this->user, new UserNotification($this->data));
             }
         } catch (\Exception | \Error $e) {
-
+\Log::error('Error wnd job '.$e->getMessage());
         }
 
 
