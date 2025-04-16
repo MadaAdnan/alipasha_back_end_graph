@@ -17,25 +17,26 @@ class ProductObserve
     public function created(Product $product): void
     {
         $data = [];
-        if ($product->user != null && ($product->user->is_seller != true || $product->user->level==LevelUserEnum::USER->value)) {
+        if ($product->user != null && ($product->user->is_seller != true || $product->user->level == LevelUserEnum::USER->value)) {
             $data['is_seller'] = true;
             $data['level'] = LevelUserEnum::SELLER->value;
             $data['seller_name'] = $product->user?->name;
 
         }
-        if($product->phone==null){
-           $data['phone']=$product->user?->phone;
+        if ($product->phone == null) {
+            $data['phone'] = $product->user?->phone;
         }
         $product->user->update($data);
-        if($product->active==ProductActiveEnum::ACTIVE->value){
+        if ($product->active == ProductActiveEnum::ACTIVE->value) {
             /**
              * send notification for users followers seller
              */
-            $usersIds=\DB::table('user_follow')->where('seller_id',$product->user_id)->select('user_id')->pluck('user_id')->toArray();
-            $users=User::whereIn('id',$usersIds)->pluck('device_token')->toArray();            $dataInfo['title']='منشور جديد';
-            $dataInfo['body']="قام متجر {$product->user?->seller_name} بإضافة منتج جديد";
+            $usersIds = \DB::table('user_follow')->where('seller_id', $product->user_id)->select('user_id')->pluck('user_id')->toArray();
+            $users = User::whereIn('id', $usersIds)->pluck('device_token')->toArray();
+            $dataInfo['title'] = 'منشور جديد';
+            $dataInfo['body'] = "قام متجر {$product->user?->seller_name} بإضافة منتج جديد";
             $dataInfo['url'] = 'https://ali-pasha.com/product?id=' . $product->id;
-            $job=new SendFirebaseNotificationJob($users,$dataInfo);
+            $job = new SendFirebaseNotificationJob($users, $dataInfo);
             dispatch($job);
         }
 
@@ -57,12 +58,12 @@ class ProductObserve
                 /**
                  * send notification for users followers seller
                  */
-                $usersIds=\DB::table('user_follow')->where('seller_id',$product->user_id)->select('user_id')->pluck('user_id')->toArray();
-                $users=User::whereIn('id',$usersIds)->pluck('device_token')->toArray();
-                $dataInfo['title']='منشور جديد';
-                $dataInfo['body']="قام متجر {$product->user?->seller_name} بإضافة منتج جديد";
+                $usersIds = \DB::table('user_follow')->where('seller_id', $product->user_id)->select('user_id')->pluck('user_id')->toArray();
+                $users = User::whereIn('id', $usersIds)->pluck('device_token')->toArray();
+                $dataInfo['title'] = 'منشور جديد';
+                $dataInfo['body'] = "قام متجر {$product->user?->seller_name} بإضافة منتج جديد";
                 $dataInfo['url'] = 'https://ali-pasha.com/product?id=' . $product->id;
-                $job2=new SendFirebaseNotificationJob($users,$dataInfo);
+                $job2 = new SendFirebaseNotificationJob($users, $dataInfo);
                 dispatch($job2);
 
             } //
@@ -70,11 +71,11 @@ class ProductObserve
                 $user = $product->user;
                 $data['title'] = 'حظر المنتج';
                 $data['body'] = 'تم حظر المنتج  ' . $product->name ?? $product->expert;
-                if($product->block_msg!=''){
-                    $data['body'] .="السبب : {$product->block_msg}";
+                if ($product->block_msg != '') {
+                    $data['body'] .= "السبب : {$product->block_msg}";
                 }
                 $data['url'] = 'https://ali-pasha.com/products?id=' . $product->user->id;
-
+                info('test block');
                 SendNotifyHelper::sendNotify($user, $data);
             } //
             elseif ($product->active === $product->getOriginal('active')) {
