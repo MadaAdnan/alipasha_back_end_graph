@@ -70,6 +70,9 @@ class ProductObserve
                 $user = $product->user;
                 $data['title'] = 'حظر المنتج';
                 $data['body'] = 'تم حظر المنتج  ' . $product->name ?? $product->expert;
+                if($product->block_msg!=''){
+                    $data['body'] .="السبب : {$product->block_msg}";
+                }
                 $data['url'] = 'https://ali-pasha.com/products?id=' . $product->user->id;
 
                 SendNotifyHelper::sendNotify($user, $data);
