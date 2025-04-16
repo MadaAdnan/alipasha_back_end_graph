@@ -22,7 +22,7 @@ class PlanResource extends Resource
 {
     protected static ?string $model = Plan::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
     protected static ?int $navigationSort = 24;
     protected static ?string $navigationGroup = 'الأساسي';
     protected static ?string $label = 'خطة';
