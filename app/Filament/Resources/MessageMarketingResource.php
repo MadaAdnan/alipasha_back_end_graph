@@ -17,7 +17,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class MessageMarketingResource extends Resource
 {
-    protected static ?int $navigationSort = -2;
+    protected static ?string $model = Setting::class;
+    protected static ?int $navigationSort = 5;
     protected static ?string $label = 'رسائل التسويق';
     protected static ?string $modelLabel = 'رسائل التسويق';
     protected static ?string $navigationLabel = 'رسائل التسويق';
