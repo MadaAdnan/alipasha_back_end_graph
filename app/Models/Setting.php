@@ -36,7 +36,8 @@ class Setting extends Model implements HasMedia
         'gold' => 'array',
         'dollar' => 'array',
         'material_izaz' => 'array',
-        'material_idlib' => 'array'
+        'material_idlib' => 'array',
+        'msg_marketing' => 'array'
     ];
 
     public function plan(): BelongsTo
