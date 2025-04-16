@@ -92,7 +92,7 @@ class MessageMarketingResource extends Resource
                     Forms\Components\Textarea::make('msg_marketing.market_50')->label('21 -> 50 منتجات')->required(),
                     Forms\Components\Textarea::make('msg_marketing.market_100')->label('أكثر من 100')->required(),
                     Forms\Components\Textarea::make('msg_marketing.followers')->label('رسالة متابعة جديدة')
-                        ->hint('ضع علامة [user]  بدل إسم المستخدم مثال : يتابعك [user]  جديد ....')
+                        ->hint('ضع علامةيتابعك [user]، سيتلقى إشعارًا فور نشرك لمنتج جديد ....')
                         ->required(),
                 ])
             ]);
