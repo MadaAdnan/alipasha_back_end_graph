@@ -27,7 +27,7 @@ class ServiceResource extends Resource implements HasShieldPermissions
 {
     protected static ?string $model = Product::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
     protected static ?string $label = 'خدمة';
     protected static ?string $modelLabel = 'خدمة';
     protected static ?string $navigationLabel = 'الخدمات';

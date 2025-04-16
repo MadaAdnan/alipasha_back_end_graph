@@ -17,7 +17,7 @@ class ShippingPriceResource extends Resource
 {
     protected static ?string $model = ShippingPrice::class;
 
-    protected static ?string $navigationIcon = 'fas-hand-holding-dollar';
+   // protected static ?string $navigationIcon = 'fas-hand-holding-dollar';
     protected static ?string $navigationGroup='الشحن';
     protected static ?string $label='أسعار الشحن';
     protected static ?string $navigationLabel='أسعار الشحن';

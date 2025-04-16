@@ -22,7 +22,7 @@ class SliderResource extends Resource
 {
     protected static ?string $model = Slider::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
     protected static ?int $navigationSort = 16;
     protected static ?string $label = 'السلايدر';
     protected static ?string $modelLabel = 'السلايدر';

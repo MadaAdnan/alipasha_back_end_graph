@@ -34,7 +34,7 @@ class JobResource extends Resource implements HasShieldPermissions
     protected static ?string $model = Product::class;
     protected static ?string $slug = 'jobs';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
     protected static ?string $label = 'وظيفة';
     protected static ?string $modelLabel = 'وظيفة';
     protected static ?string $navigationLabel = 'الوظائف';

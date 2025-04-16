@@ -24,7 +24,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class NewsResource extends Resource implements HasShieldPermissions
 {
     protected static ?string $model = Product::class;
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
     protected static ?string $label = 'خبر';
     protected static ?string $modelLabel = 'خبر';
     protected static ?string $navigationLabel = 'الأخبار';
