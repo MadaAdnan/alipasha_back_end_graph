@@ -31,7 +31,7 @@ class ProductsHelper
          */
         $user = auth()->user();
         $plan = $user->plans()->where('type', PlansTypeEnum::PRESENT->value)->wherePivot('expired_date', '>', now())->first();;
-        return $user->special_product_count < $plan->special_count;
+        return $plan!=null &&  $user->special_product_count < $plan->special_count;
     }
 
     public static function isAvailableCreateProduct(Plan $plan)
