@@ -136,7 +136,7 @@ class SettingResource extends Resource implements HasShieldPermissions
                         ]),
 
                         Forms\Components\Wizard\Step::make('معلومات شام كاش')->schema([
-                            Forms\Components\RichEditor::make('wallet')->nullable()->label('رقم الحساب في شام كاش'),
+                            Forms\Components\TextInput::make('wallet')->nullable()->label('رقم الحساب في شام كاش'),
                             Forms\Components\SpatieMediaLibraryFileUpload::make('sham-cash')->collection('sham-cash')->conversion('webp')->label('QR شام كاش')->image()->imageCropAspectRatio('1:1')->imageEditor(),
 
                         ])->visible(fn()=>auth()->user()->can('sham_cash_setting')),
