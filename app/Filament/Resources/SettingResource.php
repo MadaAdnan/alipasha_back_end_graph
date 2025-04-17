@@ -139,7 +139,7 @@ class SettingResource extends Resource implements HasShieldPermissions
                             Forms\Components\RichEditor::make('wallet')->nullable()->label('رقم الحساب في شام كاش'),
                             Forms\Components\SpatieMediaLibraryFileUpload::make('sham-cash')->collection('sham-cash')->conversion('webp')->label('QR شام كاش')->image()->imageCropAspectRatio('1:1')->imageEditor(),
 
-                        ]),
+                        ])->visible(fn()=>auth()->user()->can('sham_cash_setting')),
 
                         Forms\Components\Wizard\Step::make('من نحن')->schema([
                             Forms\Components\RichEditor::make('about')->nullable()->label('عن التطبيق'),
