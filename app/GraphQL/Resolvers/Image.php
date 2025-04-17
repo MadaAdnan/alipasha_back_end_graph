@@ -19,6 +19,10 @@ final class Image
     {
         return $root->getFirstMediaUrl('image', 'webp') ?? asset('images/noImage.jpeg');
     }
+    public static function getQrWallet($root): string
+    {
+        return $root->getFirstMediaUrl('sham-cash', 'webp') ?? asset('images/noImage.jpeg');
+    }
 
     /**
      * @param $root

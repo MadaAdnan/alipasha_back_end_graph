@@ -134,7 +134,11 @@ class SettingResource extends Resource implements HasShieldPermissions
                             Forms\Components\Textarea::make('msg_chat')->label('رسالة دخول مسؤول الدعم'),
                         ]),
 
+                        Forms\Components\Wizard\Step::make('معلومات شام كاش')->schema([
+                            Forms\Components\RichEditor::make('wallet')->nullable()->label('رقم الحساب في شام كاش'),
+                            Forms\Components\SpatieMediaLibraryFileUpload::make('sham-cash')->collection('sham-cash')->conversion('webp')->label('QR شام كاش')->image()->imageCropAspectRatio('1:1')->imageEditor(),
 
+                        ]),
 
                         Forms\Components\Wizard\Step::make('من نحن')->schema([
                             Forms\Components\RichEditor::make('about')->nullable()->label('عن التطبيق'),

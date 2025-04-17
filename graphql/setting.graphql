@@ -25,6 +25,8 @@ type Setting{
     support:User
     delivery:User
     url_for_download:UrlDownload
+    sham_cash:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getQrWallet")
+    wallet:String
 }
 type UrlDownload{
     up_down:String
@@ -81,6 +83,7 @@ type Social{
     phone:String
     sub_phone:String
     tiktok:String
+
 }
 
 
