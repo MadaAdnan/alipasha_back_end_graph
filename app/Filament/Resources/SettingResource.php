@@ -41,7 +41,8 @@ class SettingResource extends Resource implements HasShieldPermissions
             'delete',
 
             'restore',
-            'force_delete'
+            'force_delete',
+            'sham_cash'
         ];
     }
 
