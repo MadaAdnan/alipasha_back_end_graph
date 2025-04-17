@@ -120,6 +120,7 @@ input CreateProductInput{
         }
     ])
     is_delivery:Boolean
+    is_special:Boolean
     city_id:Int
     #    city_id:Int @rules(apply: ["required","integer","exists:cities,id"],messages:[
     #        {
@@ -265,6 +266,7 @@ input UpdateProductInput{
             message:"يرجى إدخال 3 أحرف على الأقل"
         }
     ])
+    is_special:Boolean
     city_id:Int @rules(apply: ["nullable","integer","exists:cities,id"],messages:[
         {
             rule:"required",

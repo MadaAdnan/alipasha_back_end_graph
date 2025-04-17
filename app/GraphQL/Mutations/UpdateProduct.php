@@ -2,7 +2,9 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Enums\LevelProductEnum;
 use App\Enums\ProductActiveEnum;
+use App\Helpers\ProductsHelper;
 
 final class UpdateProduct
 {
@@ -19,6 +21,10 @@ final class UpdateProduct
             $product = \App\Models\Product::product()->where('user_id', $userId)->find($productId);
             if (!$product) {
                 throw new \Exception('المنتج رقم ' . $productId . ' غير موجود');
+            }
+            $is_special = $data['is_special'] ?? false;
+            if ($is_special==true && !ProductsHelper::canAddSpecial()) {
+                $is_special = false;
             }
             $product->update([
                 'name' => $data['name'] ?? \Str::words($data['info'], 10),
@@ -41,6 +47,7 @@ final class UpdateProduct
                 // 'latitude' => $data['latitude'] ?? null,
                 // 'longitude' => $data['longitude'] ?? null,
                 'active' =>auth()->user()->is_default_active?$product->active:ProductActiveEnum::PENDING->value,
+                'level' => $is_special ? LevelProductEnum::SPECIAL->value : LevelProductEnum::NORMAL->value,
 
 
             ]);

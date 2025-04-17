@@ -4,8 +4,10 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Enums\CategoryTypeEnum;
+use App\Enums\LevelProductEnum;
 use App\Enums\LevelUserEnum;
 use App\Enums\OrderStatusEnum;
+use App\Enums\ProductActiveEnum;
 use App\Observers\UserObserve;
 use App\Traits\MediaTrait;
 use DutchCodingCompany\FilamentSocialite\Models\Contracts\FilamentSocialiteUser;
@@ -75,7 +77,8 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         'unreadNotifications',
         'invoicesSeller',
         'invoices',
-        'followers'
+        'followers',
+        'specialProduct'
 
     ];
 
@@ -93,6 +96,11 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
     public function products(): HasMany
     {
         return $this->hasMany(Product::class);
+    }
+
+    public function specialProduct(): HasMany
+    {
+        return $this->products()->where(['active'=>ProductActiveEnum::ACTIVE->value,'level' => LevelProductEnum::SPECIAL->value]);
     }
 
     public function plans(): BelongsToMany

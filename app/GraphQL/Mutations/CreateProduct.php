@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations;
 
 use App\Enums\CategoryTypeEnum;
+use App\Enums\LevelProductEnum;
 use App\Enums\PlansTypeEnum;
 use App\Enums\ProductActiveEnum;
 use App\Exceptions\GraphQLExceptionHandler;
@@ -19,20 +20,23 @@ final class CreateProduct
     public function __invoke($_, array $args)
     {
         $data = $args['input'];
-       $user=auth()->user();
+        $user = auth()->user();
         $plan = ProductsHelper::getPresentPlanActive();
-        info('Plan:'.$plan?->id);
+
         if ($plan == null) {
             throw new GraphQLExceptionHandler('يرجى الإشتراك بخطة للنشر');
         }
-        $isAvailableCreate=ProductsHelper::isAvailableCreateProduct($plan);
-        info('avaialble:'.$isAvailableCreate);
-        if(!$isAvailableCreate){
+        $isAvailableCreate = ProductsHelper::isAvailableCreateProduct($plan);
+        if (!$isAvailableCreate) {
             throw new GraphQLExceptionHandler('لا يمكنك نشر المزيد خلال هذا الشهر يرجى ترقية الخطة لنشر المزيد');
+        }
+        $is_special = $data['is_special'] ?? false;
+        if ($is_special==true && !ProductsHelper::canAddSpecial()) {
+            $is_special = false;
         }
         try {
             $product = \App\Models\Product::create([
-                'city_id' => $data['city_id']??$user->city_id,
+                'city_id' => $data['city_id'] ?? $user->city_id,
                 'name' => $data['name'] ?? \Str::words($data['info'], 10),
                 'video' => $data['video'] ?? '',
                 'info' => $data['info'] ?? '',
@@ -47,13 +51,14 @@ final class CreateProduct
                 'sub3_id' => $data['sub3_id'] ?? null,
                 'sub4_id' => $data['sub4_id'] ?? null,
 
-                'active' => auth()->user()->is_default_active===true?ProductActiveEnum::ACTIVE->value:ProductActiveEnum::PENDING->value,
+                'active' => auth()->user()->is_default_active === true ? ProductActiveEnum::ACTIVE->value : ProductActiveEnum::PENDING->value,
                 'user_id' => $user->id,
 
                 'type' => CategoryTypeEnum::PRODUCT->value,
                 'expert' => \Str::words($data['info'], 10),
                 'end_date' => $data['period'] != null ? now()->addDays($data['period']) : null,
                 'is_delivery' => $data['is_delivery'] ?? false,
+                'level' => $is_special ? LevelProductEnum::SPECIAL->value : LevelProductEnum::NORMAL->value,
                 // 'latitude' => $data['latitude'] ?? null,
                 //'longitude' => $data['longitude'] ?? null,
 
@@ -63,14 +68,14 @@ final class CreateProduct
                 $product->addMedia($data['image'])->toMediaCollection('image');
             }*/
 
-            $product->colors()->sync($data['colors']??[]);
+            $product->colors()->sync($data['colors'] ?? []);
 
-            $product->attributes()->sync($data['options']??[]);
+            $product->attributes()->sync($data['options'] ?? []);
 
 
             if (isset($data['images']) && $data['images'] !== null) {
                 foreach ($data['images'] as $key => $image) {
-                        $product->addMedia($image)->toMediaCollection('images');
+                    $product->addMedia($image)->toMediaCollection('images');
                 }
             }
         } catch (\Exception | \Error $e) {

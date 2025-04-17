@@ -24,12 +24,22 @@ class ProductsHelper
         return $plan;
     }
 
+    public static function canAddSpecial(): ?bool
+    {
+        /**
+         * @var $user User
+         */
+        $user = auth()->user();
+        $plan = $user->plans()->where('type', PlansTypeEnum::PRESENT->value)->wherePivot('expired_date', '>', now())->first();;
+        return $user->special_product_count < $plan->special_count;
+    }
+
     public static function isAvailableCreateProduct(Plan $plan)
     {
 
         $productsCount = Product::whereBetween('created_at', [now()->startOfMonth(), now()->endOfMonth()])->where('user_id', auth()->id())->count();
         if ($productsCount >= $plan->products_count) {
-           return false;
+            return false;
         }
         return true;
     }
