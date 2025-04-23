@@ -24,6 +24,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use libphonenumber\PhoneNumberType;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportAction;
@@ -410,7 +411,28 @@ class UserResource extends Resource
                             }
 
                             Notification::make('success')->success()->title('نجاح العملية')->body('تم إضافة المستخدم إلى المجتمعات')->send();
-                        })->label('إضافة إلى مجتمع')
+                        })->label('إضافة إلى مجتمع'),
+                    Tables\Actions\BulkAction::make('send_msg')->form([
+                        Forms\Components\TextInput::make('title')->label('العنوان')->required(),
+                        Forms\Components\Textarea::make('msg')->label('الرسالة')->required(),
+                    ])
+                        ->action(function (  $records,$data) {
+                            try {
+                                $dataMsg['title'] =$data['title'];
+                                $dataMsg['body'] = $data['msg'];
+                                $dataMsg['url'] = 'https://v3.ali-pasha.com';
+                                foreach ($records as $user) {
+                                    SendNotifyHelper::sendNotify($user, $dataMsg);
+                                }
+
+                                Notification::make('success')->title('نجاح العملية')->body('تم إرسال الرسالة بنجاح')->success()->send();
+
+                            } catch (\Exception | \Error $e) {
+
+                                Notification::make('error')->title('فشل العملية')->body($e->getMessage())->danger()->send();
+
+                            }
+                        })->label('رسالة FirBase ')->icon('fas-comment')
                 ]),
             ]);
     }
