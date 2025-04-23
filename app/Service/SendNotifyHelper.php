@@ -10,19 +10,20 @@ class SendNotifyHelper
 {
     public static function sendNotify(User $user, $data)
     {
+        \Log::alert('start not');
         // إرسال الإشعار
         try {
         $job=new SendNotificationJob($user, $data);
          dispatch($job);
         } catch (\Exception | \Error $e) {
-
+            \Log::alert('End not'.$e->getMessage());
         }
         if ($user->device_token != null) {
             try {
                 $job = new SendFirebaseNotificationJob([$user->device_token], $data);
                 dispatch($job);
             } catch (\Exception | \Error $e) {
-
+                \Log::alert('End not Fire'.$e->getMessage());
             }
         }
 

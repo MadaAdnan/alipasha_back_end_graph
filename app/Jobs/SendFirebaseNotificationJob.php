@@ -35,7 +35,7 @@ class SendFirebaseNotificationJob implements ShouldQueue
         $firebaseService=new \App\Service\FirebaseService();
         try{
          $firebaseService->sendNotificationToMultipleTokens($this->ids, $this->data);
-
+            \Log::alert('End Ok');
 
         }catch (Exception | Error $e){
             \Log::info('NotSendNotification');
