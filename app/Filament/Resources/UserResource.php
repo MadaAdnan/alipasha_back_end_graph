@@ -297,7 +297,11 @@ Tables\Columns\TextColumn::make('balances')->formatStateUsing(fn($record)=>$reco
                         ->action(function ($record, $data) {
                             \DB::beginTransaction();
                             try {
-                                SendNotifyHelper::sendNotify($record, ['title'=>'test','body'=>'Test']);
+                                $data['title'] = 'تطبيق علي باشا';
+                                $data['body'] =$data['msg'];
+                                $data['url'] = 'https://v3.ali-pasha.com';
+
+                                SendNotifyHelper::sendNotify($record, $data);
 
                                 Notification::make('success')->title('نجاح العملية')->body('تم إرسال الرسالة بنجاح')->success()->send();
 
