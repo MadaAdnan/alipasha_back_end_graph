@@ -118,6 +118,7 @@ class MessageMarketingResource extends Resource
                             ->hint('ضع علامةيتابعك [user]، سيتلقى إشعارًا فور نشرك لمنتج جديد ....')
                             ->required(),
                     ]),
+                    Forms\Components\TextInput::make('msg_marketing.notify')->label('عدد الايام لإرسال رسالة تشجيع')->required()->numeric()->default(0)
                 ])
             ]);
     }
