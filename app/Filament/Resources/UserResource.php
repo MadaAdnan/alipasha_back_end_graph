@@ -309,7 +309,7 @@ Tables\Columns\TextColumn::make('balances')->formatStateUsing(fn($record)=>$reco
                                 Notification::make('error')->title('فشل العملية')->body($e->getMessage())->danger()->send();
 
                             }
-                        })->label('إرسال رسالةfire')->icon('fas-envelope'),
+                        })->label('رسالة FireBase')->icon('fas-comment'),
                     /* email verified */
                     Tables\Actions\Action::make('email_verified_at')
                         ->action(fn($record) => $record->update(['email_verified_at' => now()]))
