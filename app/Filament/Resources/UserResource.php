@@ -208,9 +208,15 @@ Tables\Columns\TextColumn::make('balances')->formatStateUsing(fn($record)=>$reco
 
                     ])->label('نوع المستخدم'),
                     Forms\Components\Select::make('city')->options(City::where('is_main', true)->pluck('name', 'id'))->label('المحافظة')->live(),
-                    Forms\Components\Select::make('city_id')->options(fn($get) => City::where('city_id', $get('city'))->pluck('name', 'id'))->label('المدينة')
+                    Forms\Components\Select::make('city_id')->options(fn($get) => City::where('city_id', $get('city'))->pluck('name', 'id'))->label('المدينة'),
+                    Forms\Components\Select::make('phone')->options([
+                        'all'=>'الكل',
+                        'notUse'=>'لا يملك هاتف',
+                        'use'=>'يملك هاتف',
+                    ])->label('الهاتف')
 
-                ])->query(function (Builder $query, array $data): Builder {
+                ])
+                    ->query(function (Builder $query, array $data): Builder {
                     return $query
                         ->when(
                             $data['level'],
@@ -219,6 +225,12 @@ Tables\Columns\TextColumn::make('balances')->formatStateUsing(fn($record)=>$reco
                         ->when(
                             $data['city_id'],
                             fn(Builder $query, $value): Builder => $query->where('city_id', $value),
+                        )->when(
+                            $data['phone']=='notUse',
+                            fn(Builder $query, $value): Builder => $query->whereNull('phone'),
+                        )->when(
+                            $data['phone']=='use',
+                            fn(Builder $query, $value): Builder => $query->whereNotNull('phone'),
                         )->when(
                             $data['city'],
                             fn(Builder $query, $value): Builder => $query->whereHas('city', fn($query) => $query->where('cities.city_id', $value)),
