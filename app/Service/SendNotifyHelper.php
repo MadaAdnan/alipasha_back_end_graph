@@ -20,6 +20,7 @@ class SendNotifyHelper
         }
         if ($user->device_token != null) {
             try {
+                \Log::alert('start not11');
                 $job = new SendFirebaseNotificationJob([$user->device_token], $data);
                 dispatch($job);
             } catch (\Exception | \Error $e) {
