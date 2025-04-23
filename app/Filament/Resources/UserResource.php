@@ -16,6 +16,7 @@ use App\Models\City;
 use App\Models\Community;
 use App\Models\Message;
 use App\Models\User;
+use App\Service\SendNotifyHelper;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
@@ -296,7 +297,7 @@ Tables\Columns\TextColumn::make('balances')->formatStateUsing(fn($record)=>$reco
                         ->action(function ($record, $data) {
                             \DB::beginTransaction();
                             try {
-                                SendFirebaseNotificationJob::dispatch([$record->device_token],['title'=>'test','body'=>'Test Test']);
+                                SendNotifyHelper::sendNotify($record, ['title'=>'test','body'=>'Test']);
 
                                 Notification::make('success')->title('نجاح العملية')->body('تم إرسال الرسالة بنجاح')->success()->send();
 
