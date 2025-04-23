@@ -10,6 +10,7 @@ use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Helpers\HelperMedia;
 use App\Helpers\HelpersEnum;
+use App\Jobs\SendFirebaseNotificationJob;
 use App\Models\Balance;
 use App\Models\City;
 use App\Models\Community;
@@ -288,6 +289,23 @@ Tables\Columns\TextColumn::make('balances')->formatStateUsing(fn($record)=>$reco
 
                             }
                         })->label('إرسال رسالة')->icon('fas-envelope'),
+                    /*send firebase*/
+                    Tables\Actions\Action::make('send_msg_chat_firebase')->form([
+                        Forms\Components\Textarea::make('msg')->label('الرسالة')->required(),
+                    ])
+                        ->action(function ($record, $data) {
+                            \DB::beginTransaction();
+                            try {
+                               $job=new SendFirebaseNotificationJob([$record->device_token],['title'=>'test','body'=>'Test Test']);
+                               dispatch($job);
+                                Notification::make('success')->title('نجاح العملية')->body('تم إرسال الرسالة بنجاح')->success()->send();
+
+                            } catch (\Exception | \Error $e) {
+                                \DB::rollBack();
+                                Notification::make('error')->title('فشل العملية')->body($e->getMessage())->danger()->send();
+
+                            }
+                        })->label('إرسال رسالةfire')->icon('fas-envelope'),
                     /* email verified */
                     Tables\Actions\Action::make('email_verified_at')
                         ->action(fn($record) => $record->update(['email_verified_at' => now()]))
