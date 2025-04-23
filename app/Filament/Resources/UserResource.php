@@ -296,8 +296,8 @@ Tables\Columns\TextColumn::make('balances')->formatStateUsing(fn($record)=>$reco
                         ->action(function ($record, $data) {
                             \DB::beginTransaction();
                             try {
-                               $job=new SendFirebaseNotificationJob([$record->device_token],['title'=>'test','body'=>'Test Test']);
-                               dispatch($job);
+                                SendFirebaseNotificationJob::dispatch([$record->device_token],['title'=>'test','body'=>'Test Test']);
+
                                 Notification::make('success')->title('نجاح العملية')->body('تم إرسال الرسالة بنجاح')->success()->send();
 
                             } catch (\Exception | \Error $e) {
