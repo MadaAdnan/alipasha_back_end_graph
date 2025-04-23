@@ -189,8 +189,8 @@ class UserResource extends Resource
                     ->formatStateUsing(fn($state) => LevelSellerEnum::tryFrom($state)->getLabel())
                     ->color(fn($state) => LevelSellerEnum::tryFrom($state)->getColor())
                     ->toggleable(isToggledHiddenByDefault: true)->searchable(),
-Tables\Columns\TextColumn::make('points')->formatStateUsing(fn($record)=>$record->getTotalPoint())->label('النقاط')->toggleable(isToggledHiddenByDefault: true),
-Tables\Columns\TextColumn::make('balances')->formatStateUsing(fn($record)=>$record->getTotalBalance())->label('الرصيد')->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('points')->formatStateUsing(fn($record) => $record->getTotalPoint())->label('النقاط')->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('balances')->formatStateUsing(fn($record) => $record->getTotalBalance())->label('الرصيد')->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')->date('Y-m-d')->label('تاريخ التسجيل')->toggleable(isToggledHiddenByDefault: false)->sortable(),
 
             ])
@@ -210,32 +210,32 @@ Tables\Columns\TextColumn::make('balances')->formatStateUsing(fn($record)=>$reco
                     Forms\Components\Select::make('city')->options(City::where('is_main', true)->pluck('name', 'id'))->label('المحافظة')->live(),
                     Forms\Components\Select::make('city_id')->options(fn($get) => City::where('city_id', $get('city'))->pluck('name', 'id'))->label('المدينة'),
                     Forms\Components\Select::make('phone')->options([
-                        'all'=>'الكل',
-                        'notUse'=>'لا يملك هاتف',
-                        'use'=>'يملك هاتف',
+                        'all' => 'الكل',
+                        'notUse' => 'لا يملك هاتف',
+                        'use' => 'يملك هاتف',
                     ])->label('الهاتف')
 
                 ])
                     ->query(function (Builder $query, array $data): Builder {
-                    return $query
-                        ->when(
-                            $data['level'],
-                            fn(Builder $query, $value): Builder => $query->where('level', $value),
-                        )
-                        ->when(
-                            $data['city_id'],
-                            fn(Builder $query, $value): Builder => $query->where('city_id', $value),
-                        )->when(
-                            $data['phone']=='notUse',
-                            fn(Builder $query, $value): Builder => $query->whereNull('phone'),
-                        )->when(
-                            $data['phone']=='use',
-                            fn(Builder $query, $value): Builder => $query->whereNotNull('phone'),
-                        )->when(
-                            $data['city'],
-                            fn(Builder $query, $value): Builder => $query->whereHas('city', fn($query) => $query->where('cities.city_id', $value)),
-                        );
-                })
+                        return $query
+                            ->when(
+                                $data['level'],
+                                fn(Builder $query, $value): Builder => $query->where('level', $value),
+                            )
+                            ->when(
+                                $data['city_id'],
+                                fn(Builder $query, $value): Builder => $query->where('city_id', $value),
+                            )->when(
+                                $data['phone'] == 'notUse',
+                                fn(Builder $query, $value): Builder => $query->whereNull('phone'),
+                            )->when(
+                                $data['phone'] == 'use',
+                                fn(Builder $query, $value): Builder => $query->whereNotNull('phone'),
+                            )->when(
+                                $data['city'],
+                                fn(Builder $query, $value): Builder => $query->whereHas('city', fn($query) => $query->where('cities.city_id', $value)),
+                            );
+                    })
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -309,7 +309,7 @@ Tables\Columns\TextColumn::make('balances')->formatStateUsing(fn($record)=>$reco
                         ->action(function ($record, $data) {
                             try {
                                 $data['title'] = 'تطبيق علي باشا';
-                                $data['body'] =$data['msg'];
+                                $data['body'] = $data['msg'];
                                 $data['url'] = 'https://v3.ali-pasha.com';
 
                                 SendNotifyHelper::sendNotify($record, $data);
@@ -329,14 +329,14 @@ Tables\Columns\TextColumn::make('balances')->formatStateUsing(fn($record)=>$reco
                         ->label('تأكيد البريد'),
                     /* Add to Community */
                     Tables\Actions\Action::make('add_to_community')->form([
-                        Forms\Components\Select::make('communities')->options(Community::where('type','!=', CommunityTypeEnum::CHAT->value)->where('type', '!=',CommunityTypeEnum::LIVE->value)->pluck('name', 'id'))->multiple()->searchable()
+                        Forms\Components\Select::make('communities')->options(Community::where('type', '!=', CommunityTypeEnum::CHAT->value)->where('type', '!=', CommunityTypeEnum::LIVE->value)->pluck('name', 'id'))->multiple()->searchable()
                             ->label('المجتمع')
                     ])
                         ->action(function ($record, $data) {
                             /**
                              * @var $record User
                              */
-                            $record->communities()->sync($data['communities'],false);
+                            $record->communities()->sync($data['communities'], false);
                             Notification::make('success')->success()->title('نجاح العملية')->body('تم إضافة المستخدم إلى المجتمعات')->send();
                         })->label('إضافة إلى مجتمع')
                 ]),
@@ -345,13 +345,59 @@ Tables\Columns\TextColumn::make('balances')->formatStateUsing(fn($record)=>$reco
                 ExportAction::make()->exports([
                     ExcelExport::make()->fromTable()->withChunkSize(200)->askForFilename()
                         ->withFilename(fn($filename) => 'ali-pasha-' . $filename),
+                ]),
+                Tables\Actions\Action::make('send_msg_phone')->form([
+                    Forms\Components\TextInput::make('title')->label('العنوان')->required(),
+                    Forms\Components\Textarea::make('msg')->label('الرسالة')->required(),
                 ])
+                    ->action(function ($data) {
+                    try {
+                        $dataMsg['title'] =$data['title'];
+                        $dataMsg['body'] = $data['msg'];
+                        $dataMsg['url'] = 'https://v3.ali-pasha.com';
+                        User::whereNull('phone')->chunk(100, function ($users) use ($dataMsg) {
+                            foreach ($users as $user) {
+                                SendNotifyHelper::sendNotify($user, $dataMsg);
+                            }
+                        });
+
+                        Notification::make('success')->title('نجاح العملية')->body('تم إرسال الرسالة بنجاح')->success()->send();
+
+                    } catch (\Exception | \Error $e) {
+
+                        Notification::make('error')->title('فشل العملية')->body($e->getMessage())->danger()->send();
+
+                    }
+                })->label('تنبيه رقم الهاتف')->icon('fas-comment'),
+                Tables\Actions\Action::make('send_msg_verified')->form([
+                    Forms\Components\TextInput::make('title')->label('العنوان')->required(),
+                    Forms\Components\Textarea::make('msg')->label('الرسالة')->required(),
+                ])
+                    ->action(function ($data) {
+                        try {
+                            $dataMsg['title'] =$data['title'];
+                            $dataMsg['body'] = $data['msg'];
+                            $dataMsg['url'] = 'https://v3.ali-pasha.com';
+                            User::whereNull('email_verified_at')->chunk(100, function ($users) use ($dataMsg) {
+                                foreach ($users as $user) {
+                                    SendNotifyHelper::sendNotify($user, $dataMsg);
+                                }
+                            });
+
+                            Notification::make('success')->title('نجاح العملية')->body('تم إرسال الرسالة بنجاح')->success()->send();
+
+                        } catch (\Exception | \Error $e) {
+
+                            Notification::make('error')->title('فشل العملية')->body($e->getMessage())->danger()->send();
+
+                        }
+                    })->label('تنبيه تأكيد البريد ')->icon('fas-comment')
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                     Tables\Actions\BulkAction::make('add_to_community')->form([
-                        Forms\Components\Select::make('communities')->options(Community::where('type','!=', CommunityTypeEnum::CHAT->value)->where('type', '!=',CommunityTypeEnum::LIVE->value)->pluck('name', 'id'))->multiple()->searchable()
+                        Forms\Components\Select::make('communities')->options(Community::where('type', '!=', CommunityTypeEnum::CHAT->value)->where('type', '!=', CommunityTypeEnum::LIVE->value)->pluck('name', 'id'))->multiple()->searchable()
                             ->label('المجتمع')
                     ])
                         ->action(function ($records, $data) {
@@ -360,7 +406,7 @@ Tables\Columns\TextColumn::make('balances')->formatStateUsing(fn($record)=>$reco
                                 /**
                                  * @var $record User
                                  */
-                                $record->communities()->sync($data['communities'],false);
+                                $record->communities()->sync($data['communities'], false);
                             }
 
                             Notification::make('success')->success()->title('نجاح العملية')->body('تم إضافة المستخدم إلى المجتمعات')->send();
