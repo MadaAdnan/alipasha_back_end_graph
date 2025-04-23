@@ -295,7 +295,6 @@ Tables\Columns\TextColumn::make('balances')->formatStateUsing(fn($record)=>$reco
                         Forms\Components\Textarea::make('msg')->label('الرسالة')->required(),
                     ])
                         ->action(function ($record, $data) {
-                            \DB::beginTransaction();
                             try {
                                 $data['title'] = 'تطبيق علي باشا';
                                 $data['body'] =$data['msg'];
@@ -306,7 +305,7 @@ Tables\Columns\TextColumn::make('balances')->formatStateUsing(fn($record)=>$reco
                                 Notification::make('success')->title('نجاح العملية')->body('تم إرسال الرسالة بنجاح')->success()->send();
 
                             } catch (\Exception | \Error $e) {
-                                \DB::rollBack();
+
                                 Notification::make('error')->title('فشل العملية')->body($e->getMessage())->danger()->send();
 
                             }
