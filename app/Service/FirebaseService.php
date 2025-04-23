@@ -47,7 +47,7 @@ class FirebaseService
             $response = $this->messaging->send($message->withChangedTarget(MessageTarget::TOKEN, $token));
             $responses[] = $response;
         }
-
+        \Log::alert('Finish');
         return $responses;
     }
 }
