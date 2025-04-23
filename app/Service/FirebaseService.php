@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Models\User;
 use Kreait\Firebase\Factory;
 use Kreait\Firebase\Messaging\AndroidConfig;
 use Kreait\Firebase\Messaging\CloudMessage;
@@ -33,7 +34,7 @@ class FirebaseService
                 'color' => '#f45342',
                 'sound' => 'default',
                 'tag' => 'grouped_notification',
-                'click_action'=>'FLUTTER_NOTIFICATION_CLICK'
+                'click_action' => 'FLUTTER_NOTIFICATION_CLICK'
             ],
 
         ]);
@@ -44,7 +45,12 @@ class FirebaseService
         $responses = [];
 
         foreach ($deviceTokens as $token) {
+           // $response = $this->messaging->send($message->withChangedTarget(MessageTarget::TOKEN, $token));
+            try {
             $response = $this->messaging->send($message->withChangedTarget(MessageTarget::TOKEN, $token));
+            } catch (\Kreait\Firebase\Exception\Messaging\NotFound $e) {
+                User::where('device_token',$token)->update(['device_token',null]);
+            }
             $responses[] = $response;
         }
         \Log::alert('Finish');
