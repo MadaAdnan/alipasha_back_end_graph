@@ -105,4 +105,12 @@ return 'success';
     }
 
 });
-
+Route::get('/server-resources', function() {
+    return [
+        'memory_limit' => ini_get('memory_limit'),
+        'max_execution_time' => ini_get('max_execution_time'),
+        'disk_free_space' => disk_free_space('/'),
+        'disk_total_space' => disk_total_space('/'),
+        'cpu_load' => sys_getloadavg()
+    ];
+});
