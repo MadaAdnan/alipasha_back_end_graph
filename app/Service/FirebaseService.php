@@ -28,7 +28,7 @@ class FirebaseService
         $logger = new FirebaseNotificationLogger();
         $config = AndroidConfig::fromArray([
             'ttl' => '3600s',
-            'priority' => 'normal',
+            'priority' => 'high',
             'notification' => [
                 'title' => $data['title'],
                 'body' => $data['body'],
