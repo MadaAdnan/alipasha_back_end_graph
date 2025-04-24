@@ -52,7 +52,7 @@ class FirebaseService
             $response = $this->messaging->send($message->withChangedTarget(MessageTarget::TOKEN, $token));
                 $logger->logSuccess($token, $data);
             } catch (\Kreait\Firebase\Exception\Messaging\NotFound $e) {
-                User::where('device_token',$token)->update(['device_token',null]);
+                User::where('device_token',$token)->update(['device_token'=>null]);
                 $logger->logFailure($token, $e->getMessage());
             }
             $responses[] = $response;
