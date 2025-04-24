@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Logging;
-
+use Illuminate\Support\Facades\Log;
 class FirebaseNotificationLogger
 {
     protected string $logChannel = 'firebase';
