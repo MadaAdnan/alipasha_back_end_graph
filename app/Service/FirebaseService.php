@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Logging\FirebaseNotificationLogger;
 use App\Models\User;
 use Kreait\Firebase\Factory;
 use Kreait\Firebase\Messaging\AndroidConfig;
@@ -24,6 +25,7 @@ class FirebaseService
 
     public function sendNotificationToMultipleTokens($deviceTokens, $data)
     {
+        $logger = new FirebaseNotificationLogger();
         $config = AndroidConfig::fromArray([
             'ttl' => '3600s',
             'priority' => 'normal',
@@ -48,8 +50,10 @@ class FirebaseService
            // $response = $this->messaging->send($message->withChangedTarget(MessageTarget::TOKEN, $token));
             try {
             $response = $this->messaging->send($message->withChangedTarget(MessageTarget::TOKEN, $token));
+                $logger->logSuccess($token, $data);
             } catch (\Kreait\Firebase\Exception\Messaging\NotFound $e) {
                 User::where('device_token',$token)->update(['device_token',null]);
+                $logger->logFailure($token, $e->getMessage());
             }
             $responses[] = $response;
         }
