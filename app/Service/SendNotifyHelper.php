@@ -46,7 +46,7 @@ class SendNotifyHelper
                 $job = new SendFirebaseNotificationJob($tokens, $data);
                 dispatch($job);
             } catch (\Exception | \Error $e) {
-
+\Log::error('ERROR : SendNotifyHelper '.$e->getMessage());
             }
 
 
