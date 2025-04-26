@@ -421,8 +421,8 @@ class UserResource extends Resource
                                 $dataMsg['title'] =$data['title'];
                                 $dataMsg['body'] = $data['msg'];
                                 $dataMsg['url'] = 'https://v3.ali-pasha.com';
-
-                                    SendNotifyHelper::sendNotifyMultiUser($records, $dataMsg);
+$users=User::whereIn('id',$records->pluck('id')->toArray())->get();
+                                    SendNotifyHelper::sendNotifyMultiUser($users, $dataMsg);
 
 
                                 Notification::make('success')->title('نجاح العملية')->body('تم إرسال الرسالة بنجاح')->success()->send();
