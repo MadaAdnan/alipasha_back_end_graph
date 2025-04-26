@@ -9,6 +9,7 @@ use Kreait\Firebase\Messaging\AndroidConfig;
 use Kreait\Firebase\Messaging\CloudMessage;
 use Kreait\Firebase\Messaging\MessageTarget;
 use Kreait\Firebase\Messaging\Notification;
+use Kreait\Firebase\ServiceAccount;
 
 class FirebaseService
 
@@ -18,8 +19,9 @@ class FirebaseService
     public function __construct()
     {
         // storage_path('app/firebase/fcm.json')
+
         $factory = (new Factory)
-            ->withServiceAccount(\Storage::path('app/firebase/fcm.json'));
+            ->withProjectId('alipasha-e8c82');
 
         $this->messaging = $factory->createMessaging();
     }
