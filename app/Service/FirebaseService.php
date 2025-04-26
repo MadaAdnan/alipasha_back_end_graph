@@ -9,7 +9,7 @@ use Kreait\Firebase\Messaging\AndroidConfig;
 use Kreait\Firebase\Messaging\CloudMessage;
 use Kreait\Firebase\Messaging\MessageTarget;
 use Kreait\Firebase\Messaging\Notification;
-use Kreait\Firebase\ServiceAccount;
+
 
 class FirebaseService
 
