@@ -21,7 +21,7 @@ class FirebaseService
         // storage_path('app/firebase/fcm.json')
 
         $factory = (new Factory)
-            ->withProjectId('alipasha-e8c82');
+            ->withServiceAccount(storage_path('app/firebase/fcm.json'));
 
         $this->messaging = $factory->createMessaging();
     }
