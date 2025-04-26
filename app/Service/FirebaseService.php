@@ -21,7 +21,20 @@ class FirebaseService
         // storage_path('app/firebase/fcm.json')
 
         $factory = (new Factory)
-            ->withServiceAccount(storage_path('app/firebase/fcm.json'));
+           // ->withServiceAccount(storage_path('app/firebase/fcm.json'));
+            ->withServiceAccount([
+    "type"=> "service_account",
+    "project_id"=> "alipasha-e8c82",
+    "private_key_id"=> "f94cf0e588dde0efb25f9da168a7625ca79439c1",
+    "private_key"=> "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQClBldW+CThsaYv\nObFb8LCm/WhHwKdK6bd3fU/jyB0Bj/E3J59U4+lwNoZtvy7HT7c2ucC6yEhEeRRw\n5UzvclWiwEClaNOrJ//H4m2VfWJjFYpl+DbJJRgEX42cvHrM7oH9Tb8UE4AhD9Nv\nL8R96pgl4pNeU6P2ad79sm6bn1qr19UzwVukIW/GcGB9SXbSx5s6sBh+w1vzbbMh\n1+5Qe3kdsLl05l5q/Twe6iB2lMJ/kciaGMMFarJ1dF9uB+92ICBi5KNQD77JKFNY\nC3bc8MDlM3pPkhEOFL9AFwQ9frSxVOw8Id1N2nKlXX399TPw451PIVUlEdgERkdX\n2S7aX2evAgMBAAECggEAAdnfbPTQEOEOiVQ8kc49hzDp6wHaqA07RWBMGei0sIh8\nXGkkMSkacG8EkkYPhJrmQ3Dz02Oq84dnPcR1xBK9jpnVi+jlzAEb5YE79KjsL+nT\nheekFqcpXU4cz+bSJD3f1scYFaQsdr6VY9JIK7OD1LZ439CLopFucqw/6Oi6RLxV\nvhSVQx+AlLidLVdR9UXs8J8fCDEI1pRM6TaA+fP96ctqIJ+oKDtYBQYpFIAFUHvC\npuTgB4Vmd8PrYhroI9WN4u1nayFoJeciXDaldOFo9QIsy6EfeM0LPXLomgYxQ1+V\neEzEFtIqc3ibTlOa61aA+2WCEW/+51Rh45TpIaToQQKBgQDQCOO3mKuBAVEtX3qH\nZ7IOhaovkELZJ1/vIMH5ckjJKn/5/3X+PApoTH/LCZPIpZCL9PC9ajaOjJDX9KH0\nFQ95ygbDZhczMbKpnhkBUsv7CJ2Qi7m0g4A6xZS84vEL4lXqOu0MIyE3iGwuV+0q\naPvxoGHTT97+qY3YQqffStVy7wKBgQDLEtFe5OIW6zgq1eDpT3aIBbuRZ5d2A4DD\nmrMOS5Ixxck4XrkbhQxxoX7Ku2cwN9p85MuOtV140X4H6Q4CB4vdmPVg0TeWmDaN\nwpNZSPmMdVoR2kr2sDVR/tTSmTgaiJxGUvhqvUvZdqy88vjU0gDxdufh8DBMGYOG\nHLiqOcJXQQKBgF2u8yV1yh4RQsZFDf+2MdgaV3aN55y0/53HSbMUxTRaQEGLyk4Q\nKbuoX5BGotejv4FXb6ZNE36ETKID1378kPiOgxcxfVcflU6PFMGk0Jke2x4B3kIt\nSeytl3qsVFK+vWP6308s7sN8WwNPs0z69CJu0D8B4/EY1/jAo6qJn6/fAoGBAJ/N\n9i875ONuRSwIVU6ktr1B7aH2KE25YfoL4j4soCZE5B1VBUwvvmQpVzLImOJsAabp\nEXsDJERwb0JgVyKnt5wxw19mJN2AeOXDqdrIP4EV1ERaSUWp0rvs0qPL6UeQG5KH\ntm+g+XBvIG4ssj4f6JgcH0xAjHFGXqcKMRPcEiBBAoGBALrEz4gXzMYcJACGp23I\nrqFos/iQHmmaugJe1t19w7gK8ESj977yGmoOU6B4NDlXj9yBaScKC0eazWHn0/wI\ni9ifmofFl70DXOsnR+lEu48omwKZPB1OxJKp+V1T1iZz+k0ircw3l9Mw51y+kV+s\ng6BgQv14b1yEXTwIXVfXSRaz\n-----END PRIVATE KEY-----\n",
+    "client_email"=> "firebase-adminsdk-noa7x@alipasha-e8c82.iam.gserviceaccount.com",
+    "client_id"=> "116359292799425670101",
+    "auth_uri"=> "https://accounts.google.com/o/oauth2/auth",
+    "token_uri"=> "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url"=> "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url"=> "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-noa7x%40alipasha-e8c82.iam.gserviceaccount.com",
+    "universe_domain"=> "googleapis.com"
+]);
 
         $this->messaging = $factory->createMessaging();
     }
