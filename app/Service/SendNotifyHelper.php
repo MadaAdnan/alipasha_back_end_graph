@@ -40,7 +40,7 @@ class SendNotifyHelper
         } catch (\Exception | \Error $e) {
 
         }
-        $tokens=$users->whereNotNull('device_token')->pluk('device_token')->toArray();
+        $tokens=$users->whereNotNull('device_token')->pluck('device_token')->toArray();
 
             try {
                 $job = new SendFirebaseNotificationJob($tokens, $data);
