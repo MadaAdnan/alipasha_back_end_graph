@@ -81,29 +81,9 @@ Route::get('/.well-known/assetlinks.json', function () {
 
 
 Route::get('testnot/{id?}',function($id=null){
-   /*$communities=\App\Models\Community::withCount('users')->having('users_count','<=',1)->pluck('id')->toArray();
-   \App\Models\Community::whereIn('id',$communities)->delete();*/
-
-/*$users= User::orWhere(['is_seller'=>0,'level'=>\App\Enums\LevelUserEnum::USER->value])->whereHas('products')->update([
-    'is_seller'=>1,
-    'level'=>\App\Enums\LevelUserEnum::SELLER->value,
-//]);*/
-//    \App\Models\Plan::where('type',\App\Enums\PlansTypeEnum::SERVICE->value)->whereNull('ads_count')->update(['ads_count'=>0]);
-//    \App\Models\Plan::where('type',\App\Enums\PlansTypeEnum::SERVICE->value)->whereNull('products_count')->update(['products_count'=>0]);
-//    \App\Models\Plan::where('type',\App\Enums\PlansTypeEnum::SERVICE->value)->whereNull('special_count')->update(['special_count'=>0]);
-return 'success';
-    $message=\App\Models\Message::create([
-      'body'=>fake()->paragraph,
-      'type'=>'text',
-      'community_id'=>$id??32,
-      'user_id'=>6680,
-  ]);
-    try {
-        event(new MessageSentEvent($message));
-    } catch (Exception $e) {
-        info('Error Websockets');
-    }
-
+    $user=User::where('email','mh.shamey@gmail.com')->first();
+    \App\Jobs\SendFirebaseNotificationJob::dispatch([$user->device_token],['title'=>'test','body'=>'Test Body']);
+    return 'success';
 });
 Route::get('/server-resources', function() {
     return [
