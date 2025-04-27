@@ -22,7 +22,7 @@ class ProductsHelper
             $user = auth()->user();
         }
 
-        $plan = $user->plans()->where('type', PlansTypeEnum::PRESENT->value)->wherePivot('expired_date', '>', now())->first();
+        $plan = $user->plans()->where('type', PlansTypeEnum::PRESENT->value)->first();
 
         return $plan;
     }
@@ -45,6 +45,7 @@ class ProductsHelper
         if($user->is_verified){
             return true;
         }
+
         $productsCount = Product::whereBetween('created_at', [now()->startOfMonth(), now()->endOfMonth()])->where('user_id', auth()->id())->count();
         if ($productsCount >= $plan->products_count) {
             return false;
