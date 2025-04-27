@@ -37,9 +37,14 @@ class ProductsHelper
         return $plan!=null &&  $user->special_product_count < $plan->special_count;
     }
 
-    public static function isAvailableCreateProduct(Plan $plan)
+    public static function isAvailableCreateProduct(Plan $plan,?User $user=null)
     {
-
+        if($user==null){
+            $user = auth()->user();
+        }
+        if($user->is_verified){
+            return true;
+        }
         $productsCount = Product::whereBetween('created_at', [now()->startOfMonth(), now()->endOfMonth()])->where('user_id', auth()->id())->count();
         if ($productsCount >= $plan->products_count) {
             return false;
