@@ -106,7 +106,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
 
     public function plans(): BelongsToMany
     {
-        return $this->belongsToMany(Plan::class)->withPivot(['expired_date', 'subscription_date']);
+        return $this->belongsToMany(Plan::class)->withPivot(['expired_date', 'subscription_date'])->wherePivot('expired_date', '>', now());
     }
 
     public function getIsVerifiedEmailAttribute()
