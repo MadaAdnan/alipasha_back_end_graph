@@ -12,13 +12,16 @@ use App\Models\User;
 class ProductsHelper
 {
 
-
-    public static function getPresentPlanActive(): ?Plan
+    /**
+     * @var $user User
+     */
+    public static function getPresentPlanActive(?User $user=null): ?Plan
     {
-        /**
-         * @var $user User
-         */
-        $user = auth()->user();
+
+        if($user==null){
+            $user = auth()->user();
+        }
+
         $plan = $user->plans()->where('type', PlansTypeEnum::PRESENT->value)->wherePivot('expired_date', '>', now())->first();
 
         return $plan;

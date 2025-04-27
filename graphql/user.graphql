@@ -25,6 +25,7 @@ type User{
     phone:String
     address:String
     social:Social
+    IsAvailableCreate:Boolean
     image:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImage")
     custom:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getCustomImage")
     logo:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getLogo")

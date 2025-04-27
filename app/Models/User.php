@@ -8,6 +8,7 @@ use App\Enums\LevelProductEnum;
 use App\Enums\LevelUserEnum;
 use App\Enums\OrderStatusEnum;
 use App\Enums\ProductActiveEnum;
+use App\Helpers\ProductsHelper;
 use App\Observers\UserObserve;
 use App\Traits\MediaTrait;
 use DutchCodingCompany\FilamentSocialite\Models\Contracts\FilamentSocialiteUser;
@@ -219,5 +220,8 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
     {
         return $this->hasMany(Cart::class, 'user_id');
     }
-
+public function getIsAvailableCreateAttribute():bool{
+    $plan = ProductsHelper::getPresentPlanActive($this);
+    return ProductsHelper::isAvailableCreateProduct($plan);
+}
 }
