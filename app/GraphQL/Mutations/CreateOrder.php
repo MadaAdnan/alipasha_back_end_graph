@@ -19,6 +19,9 @@ final class CreateOrder
      */
     public function __invoke($_, array $args)
     {
+        if(!auth()->user()->is_active){
+            throw new GraphQLExceptionHandler('تم حظر حسابك يرجى مراجعة الإدارة');
+        }
         $data = $args['input'];
         $size = ($data['length']) * ($data['height']) * ($data['width']) / 100000;
         $maxWeight = ShippingPrice::where('weight', '>=', $data['weight'])

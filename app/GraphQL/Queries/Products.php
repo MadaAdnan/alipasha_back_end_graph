@@ -26,11 +26,11 @@ final class Products
 
         $colors = $args['colors'] ?? [];
         $type = $args['type'] ?? null;
-$userId=$args['user_id']??null;
-$sub1Id=$args['sub1_id']??null;
+        $userId = $args['user_id'] ?? null;
+        $sub1Id = $args['sub1_id'] ?? null;
 
-        return Product::query()->where('active',ProductActiveEnum::ACTIVE->value)
-            ->when($type==null && $userId==null && $sub1Id==null, fn($query) => $query->whereNot('type', CategoryTypeEnum::NEWS->value)->whereNot('type', CategoryTypeEnum::SERVICE->value))
+        return Product::query()->where('active', ProductActiveEnum::ACTIVE->value)
+            ->when($type == null && $userId == null && $sub1Id == null, fn($query) => $query->whereNot('type', CategoryTypeEnum::NEWS->value)->whereNot('type', CategoryTypeEnum::SERVICE->value))
             ->where('active', ProductActiveEnum::ACTIVE->value)
             ->where(function ($query) {
                 $query->whereNull('end_date')->orWhere('end_date', '>=', now());
@@ -62,15 +62,15 @@ $sub1Id=$args['sub1_id']??null;
                 /**
                  * @var $term string
                  */
-                $query->where('name', 'LIKE', "%".$args['search']."%")
-                    ->orWhere('expert', 'LIKE',  "%".$args['search']."%")
-                    ->orWhere('info', 'LIKE',  "%".$args['search']."%");
-               /* $term = '';
-                foreach ($searchTerms as $term) {
-                    $query->orWhere(function ($query) use ($term) {
+                $query->where('name', 'LIKE', "%" . $args['search'] . "%")
+                    ->orWhere('expert', 'LIKE', "%" . $args['search'] . "%")
+                    ->orWhere('info', 'LIKE', "%" . $args['search'] . "%");
+                /* $term = '';
+                 foreach ($searchTerms as $term) {
+                     $query->orWhere(function ($query) use ($term) {
 
-                    });
-                }*/
+                     });
+                 }*/
 
             }))
             // ->whereNotNull('sub1_id')

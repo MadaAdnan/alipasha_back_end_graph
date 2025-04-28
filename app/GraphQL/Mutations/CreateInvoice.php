@@ -16,7 +16,9 @@ final  class CreateInvoice
     public function __invoke($_, array $args)
     {
         $data = $args['input'];
-
+        if(!auth()->user()->is_active){
+            throw new GraphQLExceptionHandler('تم حظر حسابك يرجى مراجعة الإدارة');
+        }
         \DB::beginTransaction();
         try {
 

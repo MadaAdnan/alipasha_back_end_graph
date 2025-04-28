@@ -4,6 +4,7 @@ namespace App\GraphQL\Mutations;
 
 use App\Enums\CategoryTypeEnum;
 use App\Enums\ProductActiveEnum;
+use App\Exceptions\GraphQLExceptionHandler;
 use App\Models\Product;
 
 final class CreateService
@@ -16,6 +17,9 @@ final class CreateService
     {
         $data = $args['input'];
         $userId = auth()->id();
+        if(!auth()->user()->is_active){
+            throw new GraphQLExceptionHandler('تم حظر حسابك يرجى مراجعة الإدارة');
+        }
         $product = Product::create([
             'user_id' => $userId,
             'type'=>CategoryTypeEnum::SERVICE->value,

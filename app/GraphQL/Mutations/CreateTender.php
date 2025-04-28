@@ -21,6 +21,9 @@ final class CreateTender
     {
         $data = $args['input'];
         $userId = auth()->id();
+        if(!auth()->user()->is_active){
+            throw new GraphQLExceptionHandler('تم حظر حسابك يرجى مراجعة الإدارة');
+        }
         $plan = ProductsHelper::getPresentPlanActive();
         if ($plan == null) {
             throw new GraphQLExceptionHandler('يرجى الإشتراك بخطة للنشر');

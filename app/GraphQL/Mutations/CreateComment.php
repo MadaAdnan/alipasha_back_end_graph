@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations;
 
 
+use App\Exceptions\GraphQLExceptionHandler;
 use App\Models\Comment;
 use App\Models\Interaction;
 use App\Service\SendNotifyHelper;
@@ -16,7 +17,9 @@ final class CreateComment
     public function __invoke($_, array $args)
     {
         $product = \App\Models\Product::find($args['product_id']);
-
+        if(!auth()->user()->is_active){
+            throw new GraphQLExceptionHandler('تم حظر حسابك يرجى مراجعة الإدارة');
+        }
         if (auth()->check() && $product != null && isset($args['comment_id']) && $args['comment_id']==null) {
             Interaction::updateOrCreate([
                 'user_id' => auth()->id(),

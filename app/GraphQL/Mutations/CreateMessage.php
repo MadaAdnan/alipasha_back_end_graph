@@ -23,7 +23,9 @@ final class CreateMessage
     {
         $userId = auth()->id();
         $communityId = $args['communityId'];
-
+        if(!auth()->user()->is_active){
+            throw new GraphQLExceptionHandler('تم حظر حسابك يرجى مراجعة الإدارة');
+        }
         $type = 'text';
         try {
             if (isset($args['attach']) && !empty($args['attach'])) {

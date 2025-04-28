@@ -22,6 +22,9 @@ final class CreateAdvice
         $myAdvices = Advice::where(['status' => ProductActiveEnum::ACTIVE->value, 'user_id' => auth()->id()])->count();
         $currentPlan = null;
         $expiredDate = now();
+        if(!auth()->user()->is_active){
+            throw new GraphQLExceptionHandler('تم حظر حسابك يرجى مراجعة الإدارة');
+        }
         if($plans->count() == 0){
             throw new GraphQLExceptionHandler('أنت غير مشترك بخطة إعلانات');
         }

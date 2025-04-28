@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations;
 
 use App\Enums\CommunityTypeEnum;
+use App\Exceptions\GraphQLExceptionHandler;
 use App\Models\Community;
 
 final class CreateChannel
@@ -14,7 +15,9 @@ final class CreateChannel
     public function __invoke($_, array $args)
     {
         $userId = auth()->id();
-
+        if(!auth()->user()->is_active){
+            throw new GraphQLExceptionHandler('تم حظر حسابك يرجى مراجعة الإدارة');
+        }
         $url = \Str::random(6);
         while (true) {
 
