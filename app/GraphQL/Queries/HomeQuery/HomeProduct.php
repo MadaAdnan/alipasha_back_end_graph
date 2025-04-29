@@ -120,7 +120,7 @@ final class HomeProduct
                 ->pluck('category_id')
                 ->toArray();
 
-            $featured = Product::where('level', 'مميز')
+            $featured = Product::where('level',  LevelProductEnum::SPECIAL->value)
                 ->orderBy('created_at', 'desc')
                 ->limit((int)$featuredCount)
                 ->get();
@@ -144,7 +144,7 @@ final class HomeProduct
         } else {
             $half = floor($perPage / 2);
 
-            $featured = Product::where('level', 'مميز')
+            $featured = Product::where('level', LevelProductEnum::SPECIAL->value)
                 ->orderBy('created_at', 'desc')
                 ->limit((int)$half)
                 ->get();
