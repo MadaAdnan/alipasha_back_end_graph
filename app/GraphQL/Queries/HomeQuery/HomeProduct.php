@@ -13,7 +13,7 @@ final class HomeProduct
 {
     public function __invoke($_, array $args)
     {
-      /*  $userCategoryIds = [];
+       $userCategoryIds = [];
         if (auth()->check()) {
             $userCategoryIds = Interaction::where('user_id', auth()->id())->whereNotNull('category_id')
                 ->groupBy('category_id')
@@ -96,67 +96,6 @@ final class HomeProduct
                 \DB::table('product_views')->insert($inserts);
             }
         });
-        return $products;*/
-        $page = $args['page'] ?? 1;
-        $perPage = $args['perPage'] ?? 50;
-        $skip = ($page - 1) * $perPage;
-
-        $user = auth()->user();
-        $isAuthenticated = $user !== null;
-
-        $products = collect();
-
-        if ($isAuthenticated) {
-            $featuredCount = floor($perPage * 0.2);      // 20%
-            $interestCount = floor($perPage * 0.6);      // 60%
-            $remainingCount = $perPage - ($featuredCount + $interestCount); // 20%
-
-            $interestedCategoryIds = DB::table('interactions')
-                ->where('user_id', $user->id)
-                ->select('category_id')
-                ->groupBy('category_id')
-                ->orderByRaw('COUNT(*) DESC')
-                ->pluck('category_id')
-                ->toArray();
-
-            $featured = Product::where('level', 'مميز')
-                ->orderBy('created_at', 'desc')
-                ->limit((int)$featuredCount)
-                ->get();
-
-            $interested = Product::whereIn('category_id', $interestedCategoryIds)
-                ->whereNotIn('id', $featured->pluck('id'))
-                ->orderBy('created_at', 'desc')
-                ->limit((int)$interestCount)
-                ->get();
-
-            $excludedIds = $featured->pluck('id')
-                ->merge($interested->pluck('id'))
-                ->toArray();
-
-            $others = Product::whereNotIn('id', $excludedIds)
-                ->orderBy('created_at', 'desc')
-                ->limit($remainingCount)
-                ->get();
-
-            $products = $featured->merge($interested)->merge($others);
-
-        } else {
-            $half = floor($perPage / 2);
-
-            $featured = Product::where('level', 'مميز')
-                ->orderBy('created_at', 'desc')
-                ->limit((int)$half)
-                ->get();
-
-            $others = Product::whereNotIn('id', $featured->pluck('id'))
-                ->orderBy('created_at', 'desc')
-                ->limit($perPage - count($featured))
-                ->get();
-
-            $products = $featured->merge($others);
-        }
-
         return $products;
 
     }
