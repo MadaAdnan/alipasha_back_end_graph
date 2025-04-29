@@ -171,7 +171,15 @@ final class HomeProduct
 // بناء paginator يدوي
 
 
-        return $products;
+        $paginator = new LengthAwarePaginator(
+            $products,
+            Product::count(),
+            $perPage,
+            $page,
+            ['path' => request()->url(), 'query' => request()->query()]
+        );
+
+        return $paginator;
     }
 
 
