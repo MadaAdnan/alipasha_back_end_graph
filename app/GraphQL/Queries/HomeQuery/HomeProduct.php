@@ -170,7 +170,7 @@ final class HomeProduct
 
         // عمل pagination يدوي
         $paginated = new LengthAwarePaginator(
-            $products,
+            collect($products)->sortDesc(),
             Product::count(),
             $perPage,
             $page,
