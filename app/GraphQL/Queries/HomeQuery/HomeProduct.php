@@ -101,7 +101,7 @@ final class HomeProduct
         $perPage = $args['perPage'] ?? 50;
         $skip = ($page - 1) * $perPage;
 
-        $user = Auth::user();
+        $user = auth()->user();
         $isAuthenticated = $user !== null;
 
         $products = collect();
