@@ -6,6 +6,7 @@ use App\Enums\LevelProductEnum;
 use App\Enums\ProductActiveEnum;
 use App\Models\Interaction;
 use App\Models\Product;
+use Auth;
 use DB;
 use Illuminate\Pagination\LengthAwarePaginator;
 
