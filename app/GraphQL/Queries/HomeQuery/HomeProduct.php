@@ -97,7 +97,6 @@ final class HomeProduct
             }
         });
         return $products;
-
     }
 
 }
