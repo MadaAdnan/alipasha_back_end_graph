@@ -122,6 +122,7 @@ final class HomeProduct
 
             $featured = Product::where('level',  LevelProductEnum::SPECIAL->value)
                 ->where('active',ProductActiveEnum::ACTIVE->value)
+                ->inRandomOrder()
                 ->orderBy('created_at', 'desc')
                 ->limit((int)$featuredCount)
                 ->get();
@@ -129,6 +130,7 @@ final class HomeProduct
             $interested = Product::whereIn('category_id', $interestedCategoryIds)
                 ->whereNotIn('id', $featured->pluck('id'))
                 ->where('active',ProductActiveEnum::ACTIVE->value)
+                ->inRandomOrder()
                 ->orderBy('created_at', 'desc')
                 ->limit((int)$interestCount)
                 ->get();
@@ -140,7 +142,9 @@ final class HomeProduct
             $others = Product::whereNotIn('id', $excludedIds)
                 ->where('active',ProductActiveEnum::ACTIVE->value)
                 ->orderBy('created_at', 'desc')
+                ->inRandomOrder()
                 ->limit($perPage - count($featured) - count($interested))
+
                 ->get();
 
             $products = $featured->merge($interested)->merge($others);
@@ -150,11 +154,13 @@ final class HomeProduct
             $featured = Product::where('level', LevelProductEnum::SPECIAL->value)
                 ->where('active',ProductActiveEnum::ACTIVE->value)
                 ->orderBy('created_at', 'desc')
+                ->inRandomOrder()
                 ->limit((int)$half)
                 ->get();
 
             $others = Product::whereNotIn('id', $featured->pluck('id'))
                 ->where('active',ProductActiveEnum::ACTIVE->value)
+                ->inRandomOrder()
                 ->orderBy('created_at', 'desc')
                 ->limit($perPage - count($featured))
                 ->get();
