@@ -121,12 +121,14 @@ final class HomeProduct
                 ->toArray();
 
             $featured = Product::where('level',  LevelProductEnum::SPECIAL->value)
+                ->where('active',ProductActiveEnum::ACTIVE->value)
                 ->orderBy('created_at', 'desc')
                 ->limit((int)$featuredCount)
                 ->get();
 
             $interested = Product::whereIn('category_id', $interestedCategoryIds)
                 ->whereNotIn('id', $featured->pluck('id'))
+                ->where('active',ProductActiveEnum::ACTIVE->value)
                 ->orderBy('created_at', 'desc')
                 ->limit((int)$interestCount)
                 ->get();
@@ -136,6 +138,7 @@ final class HomeProduct
                 ->toArray();
 
             $others = Product::whereNotIn('id', $excludedIds)
+                ->where('active',ProductActiveEnum::ACTIVE->value)
                 ->orderBy('created_at', 'desc')
                 ->limit($perPage - count($featured) - count($interested))
                 ->get();
@@ -145,11 +148,13 @@ final class HomeProduct
             $half = floor($perPage / 2);
 
             $featured = Product::where('level', LevelProductEnum::SPECIAL->value)
+                ->where('active',ProductActiveEnum::ACTIVE->value)
                 ->orderBy('created_at', 'desc')
                 ->limit((int)$half)
                 ->get();
 
             $others = Product::whereNotIn('id', $featured->pluck('id'))
+                ->where('active',ProductActiveEnum::ACTIVE->value)
                 ->orderBy('created_at', 'desc')
                 ->limit($perPage - count($featured))
                 ->get();
