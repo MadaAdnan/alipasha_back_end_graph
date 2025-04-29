@@ -57,7 +57,7 @@ protected static ?string $title='المستخدمين';
                      */
                     $record=$this->ownerRecord;
                     if($record->type!=CommunityTypeEnum::CHAT->value){
-                        $record->users()->syncWithoutDetaching($data['users']);
+                        $record->users()->syncWithPivotValues($data['users'],['notify'=>1],false);
                         Notification::make('success')->success()->title('نجاح العملية')->body('تم إضافة المستخدمين إلى المجتمع')->send();
                     }else{
                         Notification::make('error')->danger()->title('فشل العملية')->body('لا يمكن إضافة مستخدمين إلى محادثة خاصة')->send();

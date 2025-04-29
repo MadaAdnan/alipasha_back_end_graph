@@ -21,7 +21,7 @@ final  class AccessToCommunity
         if ($community->users()->where('users.id', auth()->id())->exists()) {
             throw new GraphQLExceptionHandler('انت موجود في المجتمع بالفعل');
         }
-        $community->users()->attach(auth()->id());
+        $community->users()->syncWithPivotValues([auth()->id()],['notify'=>1],false);
 
         return $community;
     }

@@ -26,7 +26,7 @@ class CommunityObServe
 
 
         try{
-            $community->users()->syncWithoutDetaching([auth()->id()]);
+            $community->users()->syncWithPivotValues([auth()->id()],['notify'=>1],false);
           //  event(new CreateCommunityEvent($community));
         }catch (Exception | \Error $e){}
 
@@ -34,7 +34,7 @@ class CommunityObServe
             User::whereIn('level', [LevelUserEnum::USER->value, LevelUserEnum::ADMIN->value])
                 ->select('id') // تحديد الأعمدة المطلوبة فقط
                 ->chunk(1000, function ($userIds) use ($community) {
-                    $community->users()->syncWithoutDetaching($userIds->pluck('id')->toArray());
+                    $community->users()->syncWithPivotValues($userIds->pluck('id')->toArray(),['notify'=>1],false);
                 });
 
         }
@@ -44,16 +44,16 @@ class CommunityObServe
             User::whereIn('level', [LevelUserEnum::SELLER->value, LevelUserEnum::RESTAURANT->value])
                 ->select('id') // تحديد الأعمدة المطلوبة فقط
                 ->chunk(1000, function ($userIds) use ($community) {
-                    $community->users()->syncWithoutDetaching($userIds->pluck('id')->toArray());
+                    $community->users()->syncWithPivotValues($userIds->pluck('id')->toArray(),['notify'=>1],false);
                 });
 
         }
 
         if($community->manager_id!=null){
            $user= $community->manager;
-           $community->users()->syncWithPivotValues([$user->id],['is_manager'=>true,],false);
+           $community->users()->syncWithPivotValues([$user->id],['is_manager'=>true,'notify'=>1],false);
         }elseif (auth()->check()){
-            $community->users()->syncWithPivotValues([auth()->id()],['is_manager'=>true,],false);
+            $community->users()->syncWithPivotValues([auth()->id()],['is_manager'=>true,'notify'=>1],false);
         }
 
 
@@ -69,14 +69,14 @@ class CommunityObServe
             User::whereIn('level', [LevelUserEnum::USER->value, LevelUserEnum::ADMIN->value])
                 ->select('id') // تحديد الأعمدة المطلوبة فقط
                 ->chunk(1000, function ($userIds) use ($community) {
-                    $community->users()->syncWithoutDetaching($userIds->pluck('id')->toArray());
+                    $community->users()->syncWithPivotValues($userIds->pluck('id')->toArray(),['notify'=>1],false);
                 });
         }
         if($community->is_global_seller && !$community->getOriginal('is_global_seller')){
             User::whereIn('level', [LevelUserEnum::SELLER->value, LevelUserEnum::RESTAURANT->value])
                 ->select('id') // تحديد الأعمدة المطلوبة فقط
                 ->chunk(1000, function ($userIds) use ($community) {
-                    $community->users()->syncWithoutDetaching($userIds->pluck('id')->toArray());
+                    $community->users()->syncWithPivotValues($userIds->pluck('id')->toArray(),['notify'=>1],false);
                 });
         }
     }
