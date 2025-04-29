@@ -13,9 +13,9 @@ final class HomeProduct
 {
     public function __invoke($_, array $args)
     {
-      /*  $userCategoryIds=[];
-        if(auth()->check()){
-            $userCategoryIds =Interaction::where('user_id', auth()->id())->whereNotNull('category_id')
+      /*  $userCategoryIds = [];
+        if (auth()->check()) {
+            $userCategoryIds = Interaction::where('user_id', auth()->id())->whereNotNull('category_id')
                 ->groupBy('category_id')
                 ->orderByRaw('SUM(visited) DESC')
                 ->pluck('category_id')->toArray();;
@@ -97,90 +97,68 @@ final class HomeProduct
             }
         });
         return $products;*/
-        $page = $args['page']??1;
-        $perPage = 50;
+        $page = $args['page'] ?? 1;
+        $perPage = $args['perPage'] ?? 50;
         $skip = ($page - 1) * $perPage;
 
-        $isAuthenticated = auth()->check();
+        $user = Auth::user();
+        $isAuthenticated = $user !== null;
+
+        $products = collect();
 
         if ($isAuthenticated) {
-            $userId = auth()->id();
+            $featuredCount = floor($perPage * 0.2);      // 20%
+            $interestCount = floor($perPage * 0.6);      // 60%
+            $remainingCount = $perPage - ($featuredCount + $interestCount); // 20%
 
-            // النسب
-            $featuredCount = floor($perPage * 0.2);     // 20%
-            $interestedCount = floor($perPage * 0.6);   // 60%
-            $otherCount = $perPage - ($featuredCount + $interestedCount);
-
-            // الأقسام المهتم بها المستخدم
             $interestedCategoryIds = DB::table('interactions')
-                ->where('user_id', $userId)
+                ->where('user_id', $user->id)
                 ->select('category_id')
                 ->groupBy('category_id')
                 ->orderByRaw('COUNT(*) DESC')
                 ->pluck('category_id')
                 ->toArray();
 
-            // المنتجات المميزة
-            $featuredProducts = Product::where('level', 'مميز')
+            $featured = Product::where('level', 'مميز')
                 ->orderBy('created_at', 'desc')
                 ->limit((int)$featuredCount)
                 ->get();
 
-            // المنتجات من الاهتمامات
-            $interestedProducts = Product::whereIn('category_id', $interestedCategoryIds)
-                ->whereNotIn('id', $featuredProducts->pluck('id'))
+            $interested = Product::whereIn('category_id', $interestedCategoryIds)
+                ->whereNotIn('id', $featured->pluck('id'))
                 ->orderBy('created_at', 'desc')
-                ->limit((int)$interestedCount)
+                ->limit((int)$interestCount)
                 ->get();
 
-            // باقي المنتجات لتعويض النقص
-            $excludedIds = $featuredProducts->pluck('id')
-                ->merge($interestedProducts->pluck('id'))
+            $excludedIds = $featured->pluck('id')
+                ->merge($interested->pluck('id'))
                 ->toArray();
 
-            $remainingCount = $perPage - (count($featuredProducts) + count($interestedProducts));
-
-            $otherProducts = Product::whereNotIn('id', $excludedIds)
+            $others = Product::whereNotIn('id', $excludedIds)
                 ->orderBy('created_at', 'desc')
                 ->limit($remainingCount)
                 ->get();
 
-            $products = $featuredProducts
-                ->merge($interestedProducts)
-                ->merge($otherProducts);
+            $products = $featured->merge($interested)->merge($others);
 
         } else {
-            // الزائر غير مسجل
             $half = floor($perPage / 2);
 
-            $featuredProducts = Product::where('level', 'مميز')
+            $featured = Product::where('level', 'مميز')
                 ->orderBy('created_at', 'desc')
                 ->limit((int)$half)
                 ->get();
 
-            $excludedIds = $featuredProducts->pluck('id')->toArray();
-
-            $otherProducts = Product::whereNotIn('id', $excludedIds)
+            $others = Product::whereNotIn('id', $featured->pluck('id'))
                 ->orderBy('created_at', 'desc')
-                ->limit($perPage - count($featuredProducts))
+                ->limit($perPage - count($featured))
                 ->get();
 
-            $products = $featuredProducts->merge($otherProducts);
+            $products = $featured->merge($others);
         }
 
-// بناء paginator يدوي
+        return $products;
 
-
-        $paginator = new LengthAwarePaginator(
-            $products,
-            Product::count(),
-            $perPage,
-            $page,
-            ['path' => request()->url(), 'query' => request()->query()]
-        );
-
-        return $paginator;
     }
-
 
 }
