@@ -13,7 +13,7 @@ final class HomeProduct
 {
     public function __invoke($_, array $args)
     {
-       $userCategoryIds = [];
+    /*   $userCategoryIds = [];
         if (auth()->check()) {
             $userCategoryIds = Interaction::where('user_id', auth()->id())->whereNotNull('category_id')
                 ->groupBy('category_id')
@@ -96,7 +96,82 @@ final class HomeProduct
                 \DB::table('product_views')->insert($inserts);
             }
         });
-        return $products;
+        return $products;*/
+
+        $page = $args['page'] ?? 1;
+        $perPage = $args['perPage'] ?? 50;
+
+        $user = Auth::user();
+        $isAuthenticated = $user !== null;
+
+        $products = collect();
+
+        if ($isAuthenticated) {
+            $featuredCount = floor($perPage * 0.2);
+            $interestCount = floor($perPage * 0.6);
+            $remainingCount = $perPage - ($featuredCount + $interestCount);
+
+            $interestedCategoryIds = DB::table('interactions')
+                ->where('user_id', $user->id)
+                ->select('category_id')
+                ->groupBy('category_id')
+                ->orderByRaw('COUNT(*) DESC')
+                ->pluck('category_id')
+                ->toArray();
+
+            $featured = Product::where('level', 'مميز')
+                ->orderBy('created_at', 'desc')
+                ->limit((int)$featuredCount)
+                ->get();
+
+            $interested = Product::whereIn('category_id', $interestedCategoryIds)
+                ->whereNotIn('id', $featured->pluck('id'))
+                ->orderBy('created_at', 'desc')
+                ->limit((int)$interestCount)
+                ->get();
+
+            $excludedIds = $featured->pluck('id')
+                ->merge($interested->pluck('id'))
+                ->toArray();
+
+            $others = Product::whereNotIn('id', $excludedIds)
+                ->orderBy('created_at', 'desc')
+                ->limit($perPage - count($featured) - count($interested))
+                ->get();
+
+            $products = $featured->merge($interested)->merge($others);
+        } else {
+            $half = floor($perPage / 2);
+
+            $featured = Product::where('level', 'مميز')
+                ->orderBy('created_at', 'desc')
+                ->limit((int)$half)
+                ->get();
+
+            $others = Product::whereNotIn('id', $featured->pluck('id'))
+                ->orderBy('created_at', 'desc')
+                ->limit($perPage - count($featured))
+                ->get();
+
+            $products = $featured->merge($others);
+        }
+
+        // عمل pagination يدوي
+        $paginated = new LengthAwarePaginator(
+            $products,
+            Product::count(),
+            $perPage,
+            $page,
+            ['path' => request()->url(), 'query' => request()->query()]
+        );
+
+        return [
+            'data' => $paginated->items(),
+            'total' => $paginated->total(),
+            'per_page' => $paginated->perPage(),
+            'current_page' => $paginated->currentPage(),
+            'last_page' => $paginated->lastPage(),
+        ];
     }
 
 }

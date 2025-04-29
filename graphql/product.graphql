@@ -10,8 +10,17 @@ extend type Query{
     HobbiesProduct:[Product] @paginate(builder:"App\\GraphQL\\Queries\\HomeQuery\\HobbiesProduct")
     LatestProduct:[Product] @paginate(builder:"App\\GraphQL\\Queries\\HomeQuery\\LatestProduct")
     SpecialProduct:[Product] @paginate(builder:"App\\GraphQL\\Queries\\HomeQuery\\SpecialProduct")
-    homeProduct:[Product] @paginate(builder:"App\\GraphQL\\Queries\\HomeQuery\\HomeProduct")
+    #homeProduct:[Product] @paginate(builder:"App\\GraphQL\\Queries\\HomeQuery\\HomeProduct")
+    homeProduct(page: Int = 1, perPage: Int = 50): PaginatedProduct!
+    @field(resolver: "App\\GraphQL\\Queries\\HomeQuery\\HomeProduct@__invoke")
+}
 
+type PaginatedProduct {
+    data: [Product!]!
+    total: Int!
+    per_page: Int!
+    current_page: Int!
+    last_page: Int!
 }
 input OrderBy{
     column:String
