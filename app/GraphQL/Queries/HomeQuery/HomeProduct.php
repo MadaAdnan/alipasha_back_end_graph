@@ -166,6 +166,7 @@ final class HomeProduct
                 ->get();
 
             $products = $featured->merge($others);
+
         }
 
         // عمل pagination يدوي

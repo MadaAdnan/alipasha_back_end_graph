@@ -101,7 +101,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
 
     public function specialProduct(): HasMany
     {
-        return $this->products()->where(['active'=>ProductActiveEnum::ACTIVE->value,'level' => LevelProductEnum::SPECIAL->value]);
+        return $this->products()->where(['active' => ProductActiveEnum::ACTIVE->value, 'level' => LevelProductEnum::SPECIAL->value]);
     }
 
     public function plans(): BelongsToMany
@@ -220,8 +220,10 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
     {
         return $this->hasMany(Cart::class, 'user_id');
     }
-public function getIsAvailableCreateAttribute():bool{
-    $plan = ProductsHelper::getPresentPlanActive($this);
-    return ProductsHelper::isAvailableCreateProduct($plan);
-}
+
+    public function getIsAvailableCreateAttribute(): bool
+    {
+        $plan = ProductsHelper::getPresentPlanActive($this);
+        return ProductsHelper::isAvailableCreateProduct($plan);
+    }
 }
