@@ -23,7 +23,7 @@ final class Products
     public function __invoke($_, array $args)
 
     {
-        $orderBy = isset($args['order_by']) ?: ['column' => 'created_at', 'orderBy' => 'desc'];
+        $orderBy = isset($args['order_by']) ?$args['order_by']: ['column' => 'created_at', 'orderBy' => 'desc'];
 
         $colors = isset($args['colors']) ?$args['colors']: [];
         $type = isset($args['type']) ?$args['type']: null;
