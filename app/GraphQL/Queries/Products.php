@@ -50,10 +50,7 @@ final class Products
                     $query->where('type', $type);
                 }
             })
-           ->when($categoryId!=null, fn($query) => $query->where('category_id', $categoryId))
-            ->when($sub1Id!=null, fn($query) => $query->where('sub1_id', $sub1Id))
-            ->when($cityId!=null, fn($query) => $query->where('city_id', $cityId))
-            ->when($userId!=null, fn($query) => $query->where('user_id', $userId))
+
             ->when(isset($args['search']) && !empty($args['search']) && $type !== 'seller', fn($query) => $query->where(function ($query) use ($args) {
 
                 /**
