@@ -2,6 +2,8 @@
 
 namespace App\GraphQL\Resolvers;
 
+use App\Helpers\ProductsHelper;
+
 final class HelperBalanceResolve
 {
 
@@ -13,6 +15,12 @@ final class HelperBalanceResolve
     public function getTotalPoint($root)
     {
         return \DB::table('points')->where('user_id', $root->id)->selectRaw('SUM(credit) - SUM(debit) as total')->first()?->total ?? 0;
+    }
+
+    public function getIsAvailableCreate($root): bool
+    {
+        $plan = ProductsHelper::getPresentPlanActive($root);
+        return ProductsHelper::isAvailableCreateProduct($plan);
     }
 
 }

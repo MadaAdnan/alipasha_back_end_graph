@@ -25,7 +25,7 @@ type User{
     phone:String
     address:String
     social:Social
-    is_available_create:Boolean
+    is_available_create:Boolean @field(resolver: "App\\GraphQL\\Resolvers\\HelperBalanceResolve@getIsAvailableCreate")
     image:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImage")
     custom:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getCustomImage")
     logo:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getLogo")
