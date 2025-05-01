@@ -26,12 +26,12 @@ final class Products
         $orderBy = isset($args['order_by']) ?: ['column' => 'created_at', 'orderBy' => 'desc'];
 
         $colors = isset($args['colors']) ?: [];
-        $type = isset($args['type'])?: null;
+        $type = isset($args['type']) ?: null;
         $userId = isset($args['user_id']) ?: null;
         $sub1Id = isset($args['sub1_id']) ?: null;
         $cityId = isset($args['city_id']) ?: null;
         $categoryId = isset($args['category_id']) ?: null;
-       // throw new GraphQLExceptionHandler($userId);
+        // throw new GraphQLExceptionHandler($userId);
 
         return Product::query()
             ->where('active', ProductActiveEnum::ACTIVE->value)
@@ -40,7 +40,7 @@ final class Products
             ->where(function ($query) {
                 $query->whereNull('end_date')->orWhere('end_date', '>=', now());
             })
-            ->when($type!=null, function ($query) use ($type, $args) {
+            ->when($type != null, function ($query) use ($type, $args) {
                 if (isset($args['sub_type']) && !empty($args['sub_type'])) {
                     $query->where('type', $args['sub_type'])->where('end_date', '>', now());
                 } elseif ($type === 'job' || $type === 'search_job') {
@@ -52,19 +52,17 @@ final class Products
                     $query->where('type', $type);
                 }
             })
-            ->where(function($query)use($userId){
-                if($userId!=null){
-                 //   $query->where('user_id',$userId);
+            ->where(function ($query) use ($userId) {
+                if ($userId != null) {
+                    $query->where('user_id', '=',$userId);
                 }
             })
             //->when($userId!='', fn($query) => $query->where('user_id', $userId))
             ->when($type === 'product' && isset($args['max_price']) && $args['max_price'] > 0, fn($query) => $query->where('price', '>=', [$args['min_price'] ?? 0])->where('price', "<=", $args['max_price'] ?? 10000))
             ->when(collect($colors ?? [])->count() > 0, fn($query) => $query->whereHas('colors', fn($q) => $q->whereIn('colors.id', $colors)))
-
-            ->when($categoryId!=null, fn($query) => $query->where('category_id', $categoryId))
-            ->when($sub1Id!=null, fn($query) => $query->where('sub1_id', $sub1Id))
-            ->when($cityId!=null, fn($query) => $query->where('city_id', $cityId))
-
+            ->when($categoryId != null, fn($query) => $query->where('category_id', $categoryId))
+            ->when($sub1Id != null, fn($query) => $query->where('sub1_id', $sub1Id))
+            ->when($cityId != null, fn($query) => $query->where('city_id', $cityId))
             ->when(isset($args['search']) && !empty($args['search']) && $type !== 'seller', fn($query) => $query->where(function ($query) use ($args) {
 
                 /**
