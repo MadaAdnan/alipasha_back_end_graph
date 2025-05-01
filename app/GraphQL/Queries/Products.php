@@ -53,8 +53,10 @@ final class Products
             ->when($type === 'product' && isset($args['max_price']) && $args['max_price'] > 0, fn($query) => $query->where('price', '>=', [$args['min_price'] ?? 0])->where('price', "<=", $args['max_price'] ?? 10000))
             ->when(collect($colors ?? [])->count() > 0, fn($query) => $query->whereHas('colors', fn($q) => $q->whereIn('colors.id', $colors)))
 
+            ->when($categoryId!=null, fn($query) => $query->where('category_id', $categoryId))
+            ->when($sub1Id!=null, fn($query) => $query->where('sub1_id', $sub1Id))
+            ->when($cityId!=null, fn($query) => $query->where('city_id', $cityId))
 
-            ->when($userId!=null, fn($query) => $query->where('user_id', $userId))
             ->when(isset($args['search']) && !empty($args['search']) && $type !== 'seller', fn($query) => $query->where(function ($query) use ($args) {
 
                 /**
