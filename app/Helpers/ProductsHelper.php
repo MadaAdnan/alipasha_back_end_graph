@@ -42,11 +42,11 @@ class ProductsHelper
         if($user==null){
             $user = auth()->user();
         }
-        if($user->is_verified){
+        if($user?->is_verified==true){
             return true;
         }
 
-        $productsCount = Product::whereBetween('created_at', [now()->startOfMonth(), now()->endOfMonth()])->where('user_id', auth()->id())->count();
+        $productsCount = Product::whereBetween('created_at', [now()->startOfMonth(), now()->endOfMonth()])->where('user_id', $user->id())->count();
         if ($productsCount >= $plan->products_count) {
             return false;
         }
