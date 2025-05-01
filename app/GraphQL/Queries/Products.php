@@ -6,6 +6,7 @@ use App\Enums\CategoryTypeEnum;
 use App\Enums\InteractionTypeEnum;
 use App\Enums\LevelProductEnum;
 use App\Enums\ProductActiveEnum;
+use App\Exceptions\GraphQLExceptionHandler;
 use App\Models\Category;
 use App\Models\Interaction;
 use App\Models\Product;
@@ -22,7 +23,7 @@ final class Products
     public function __invoke($_, array $args)
 
     {
-        $orderBy = $args['order_by'] ?? ['column' => 'created_at', 'orderBy' => 'desc'];
+        $orderBy = isset($args['order_by']) ?: ['column' => 'created_at', 'orderBy' => 'desc'];
 
         $colors = isset($args['colors']) ?: [];
         $type = isset($args['type'])?: null;
@@ -48,32 +49,14 @@ final class Products
                 }*/ else {
                     $query->where('type', $type);
                 }
-            })->when(collect($colors ?? [])->count() > 0, fn($query) => $query->whereHas('colors', fn($q) => $q->whereIn('colors.id', $colors)))
+            })
+            ->when($type === 'product' && isset($args['max_price']) && $args['max_price'] > 0, fn($query) => $query->where('price', '>=', [$args['min_price'] ?? 0])->where('price', "<=", $args['max_price'] ?? 10000))
+            ->when(collect($colors ?? [])->count() > 0, fn($query) => $query->whereHas('colors', fn($q) => $q->whereIn('colors.id', $colors)))
             ->when($categoryId!=null, fn($query) => $query->where('category_id', $categoryId))
             ->when($sub1Id!=null, fn($query) => $query->where('sub1_id', $sub1Id))
             ->when($cityId!=null, fn($query) => $query->where('city_id', $cityId))
             ->when($userId!=null, fn($query) => $query->where('user_id', $userId))
-            ->when(isset($args['search']) && !empty($args['search']) && $type !== 'seller', fn($query) => $query->where(function ($query) use ($args) {
 
-                /**
-                 * @var $searchTerms array<string>
-                 */
-                $searchTerms = explode(' ', $args['search']); // تحويل البحث إلى مصفوفة كلمات
-                /**
-                 * @var $term string
-                 */
-                $query->where('name', 'LIKE', "%" . $args['search'] . "%")
-                    ->orWhere('expert', 'LIKE', "%" . $args['search'] . "%")
-                    ->orWhere('info', 'LIKE', "%" . $args['search'] . "%");
-                /* $term = '';
-                 foreach ($searchTerms as $term) {
-                     $query->orWhere(function ($query) use ($term) {
-
-                     });
-                 }*/
-
-            }))
-            // ->whereNotNull('sub1_id')
             ->orderBy($orderBy['column'], $orderBy['orderBy']);
 
 
