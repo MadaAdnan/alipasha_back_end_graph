@@ -25,12 +25,12 @@ final class Products
     {
         $orderBy = isset($args['order_by']) ?: ['column' => 'created_at', 'orderBy' => 'desc'];
 
-        $colors = isset($args['colors']) ?: [];
-        $type = isset($args['type']) ?: null;
-        $userId = isset($args['user_id']) ?: null;
-        $sub1Id = isset($args['sub1_id']) ?: null;
-        $cityId = isset($args['city_id']) ?: null;
-        $categoryId = isset($args['category_id']) ?: null;
+        $colors = isset($args['colors']) ?$args['colors']: [];
+        $type = isset($args['type']) ?$args['type']: null;
+        $userId = isset($args['user_id']) ?$args['user_id']: null;
+        $sub1Id = isset($args['sub1_id']) ?$args['sub1_id']: null;
+        $cityId = isset($args['city_id']) ?$args['city_id']: null;
+        $categoryId = isset($args['category_id']) ?$args['category_id']: null;
         // throw new GraphQLExceptionHandler($userId);
         \Log::info( "User: {$userId}");
         return Product::query()
