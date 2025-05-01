@@ -11,7 +11,7 @@ use App\Models\Product;
 use App\Models\ShippingPrice;
 use App\Models\User;
 
-final  class CreateInvoice
+final  class CreateNewInvoice
 {
     /** @param array{} $args */
     public function __invoke($_, array $args)

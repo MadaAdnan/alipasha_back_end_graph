@@ -28,6 +28,8 @@ final class Products
         $type = $args['type'] ?? null;
         $userId = $args['user_id'] ?? null;
         $sub1Id = $args['sub1_id'] ?? null;
+        $cityId = $args['city_id'] ?? null;
+        $categoryId = $args['category_id'] ?? null;
 
         return Product::query()->where('active', ProductActiveEnum::ACTIVE->value)
             ->when($type == null && $userId == null && $sub1Id == null, fn($query) => $query->whereNot('type', CategoryTypeEnum::NEWS->value)->whereNot('type', CategoryTypeEnum::SERVICE->value))
@@ -35,7 +37,7 @@ final class Products
             ->where(function ($query) {
                 $query->whereNull('end_date')->orWhere('end_date', '>=', now());
             })
-            ->when(isset($args['type']), function ($query) use ($type, $args) {
+            ->when($type!=null, function ($query) use ($type, $args) {
                 if (isset($args['sub_type']) && !empty($args['sub_type'])) {
                     $query->where('type', $args['sub_type'])->where('end_date', '>', now());
                 } elseif ($type === 'job' || $type === 'search_job') {
@@ -49,10 +51,10 @@ final class Products
             })
             ->when($type === 'product' && isset($args['max_price']) && $args['max_price'] > 0, fn($query) => $query->where('price', '>=', [$args['min_price'] ?? 0])->where('price', "<=", $args['max_price'] ?? 10000))
             ->when(collect($colors ?? [])->count() > 0, fn($query) => $query->whereHas('colors', fn($q) => $q->whereIn('colors.id', $colors)))
-            ->when(isset($args['category_id']), fn($query) => $query->where('category_id', $args['category_id']))
-            ->when(isset($args['sub1_id']), fn($query) => $query->where('sub1_id', $args['sub1_id']))
-            ->when(isset($args['city_id']), fn($query) => $query->where('city_id', $args['city_id']))
-            ->when(isset($args['user_id']), fn($query) => $query->where('user_id', $args['user_id']))
+            ->when($categoryId!=null, fn($query) => $query->where('category_id', $categoryId))
+            ->when($sub1Id!=null, fn($query) => $query->where('sub1_id', $sub1Id))
+            ->when($cityId!=null, fn($query) => $query->where('city_id', $cityId))
+            ->when($userId!=null, fn($query) => $query->where('user_id', $userId))
             ->when(isset($args['search']) && !empty($args['search']) && $type !== 'seller', fn($query) => $query->where(function ($query) use ($args) {
 
                 /**
