@@ -43,6 +43,7 @@ type Item{
 
 extend type Mutation{
     createInvoice(input:InvoiceInput!):Invoice
+    createNewInvoice(input:InvoiceInput!):Invoice
     changeStatusInvoice(invoiceId:ID!,status:String!,msg:String):Invoice @guard
 }
 
