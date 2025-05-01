@@ -84,7 +84,8 @@ final class Products
 
             }))
             // ->whereNotNull('sub1_id')
-            ->orderBy($orderBy['column'], $orderBy['orderBy']);
+          //  ->orderBy($orderBy['column'], $orderBy['orderBy'])
+        ;
 
 
         return $products;
