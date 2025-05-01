@@ -26,6 +26,7 @@ final class Login
             ]);
         }
         $token = $user->createToken('token')->plainTextToken;
+
         return [
             'user' => $user,
             'token' => $token

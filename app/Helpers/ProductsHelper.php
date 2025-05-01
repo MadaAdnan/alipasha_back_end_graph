@@ -46,7 +46,7 @@ class ProductsHelper
             return true;
         }
 
-        $productsCount = Product::whereBetween('created_at', [now()->startOfMonth(), now()->endOfMonth()])->where('user_id', $user->id)->count();
+        $productsCount = Product::whereBetween('created_at', [now()->startOfMonth(), now()->endOfMonth()])->where('user_id', $user?->id)->count();
         if ($productsCount >= $plan->products_count) {
             return false;
         }
