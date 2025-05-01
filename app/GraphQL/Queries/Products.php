@@ -24,12 +24,12 @@ final class Products
     {
         $orderBy = $args['order_by'] ?? ['column' => 'created_at', 'orderBy' => 'desc'];
 
-        $colors = $args['colors'] ?? [];
-        $type = $args['type'] ?? null;
-        $userId = $args['user_id'] ?? null;
-        $sub1Id = $args['sub1_id'] ?? null;
-        $cityId = $args['city_id'] ?? null;
-        $categoryId = $args['category_id'] ?? null;
+        $colors = isset($args['colors']) ?: [];
+        $type = isset($args['type'])?: null;
+        $userId = isset($args['user_id']) ?: null;
+        $sub1Id = isset($args['sub1_id']) ?: null;
+        $cityId = isset($args['city_id']) ?: null;
+        $categoryId = isset($args['category_id']) ?: null;
 
         return Product::query()->where('active', ProductActiveEnum::ACTIVE->value)
             ->when($type == null && $userId == null && $sub1Id == null, fn($query) => $query->whereNot('type', CategoryTypeEnum::NEWS->value)->whereNot('type', CategoryTypeEnum::SERVICE->value))
