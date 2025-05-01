@@ -54,7 +54,7 @@ final class Products
             })
             ->where(function($query)use($userId){
                 if($userId!=null){
-                    $query->where('user_id',$userId);
+                 //   $query->where('user_id',$userId);
                 }
             })
             //->when($userId!='', fn($query) => $query->where('user_id', $userId))
