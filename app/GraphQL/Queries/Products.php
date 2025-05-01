@@ -31,7 +31,7 @@ final class Products
         $sub1Id = isset($args['sub1_id']) ?: null;
         $cityId = isset($args['city_id']) ?: null;
         $categoryId = isset($args['category_id']) ?: null;
-        throw new GraphQLExceptionHandler($userId);
+       // throw new GraphQLExceptionHandler($userId);
 
         return Product::query()->where('active', ProductActiveEnum::ACTIVE->value)
             ->when($type == null && $userId == null && $sub1Id == null, fn($query) => $query->whereNot('type', CategoryTypeEnum::NEWS->value)->whereNot('type', CategoryTypeEnum::SERVICE->value))
