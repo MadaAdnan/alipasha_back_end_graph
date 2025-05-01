@@ -56,7 +56,7 @@ final class Products
                     $query->where('user_id',$userId);
                 }
             })
-           // ->when($userId!='', fn($query) => $query->where('user_id', $userId))
+            ->when($userId!='', fn($query) => $query->where('user_id', $userId))
             ->when($type === 'product' && isset($args['max_price']) && $args['max_price'] > 0, fn($query) => $query->where('price', '>=', [$args['min_price'] ?? 0])->where('price', "<=", $args['max_price'] ?? 10000))
             ->when(collect($colors ?? [])->count() > 0, fn($query) => $query->whereHas('colors', fn($q) => $q->whereIn('colors.id', $colors)))
 
