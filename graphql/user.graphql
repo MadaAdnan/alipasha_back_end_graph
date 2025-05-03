@@ -163,6 +163,7 @@ input UpdateUserInput{
 
     phone:String
     city_id:Int
+    area_id:Int
     seller_name:String
     address:String
     is_delivery:Boolean

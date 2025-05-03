@@ -35,6 +35,7 @@ final class UpdateUser
 
             'phone' => $phone ?? $user->phone,
             'city_id' => $data['city_id'] ?? $user->city_id,
+            'area_id' => $data['area_id'] ?? $user->area_id,
             'seller_name' => $data['seller_name'] ?? $user->seller_name,
             'address' => $data['address'] ?? $user->address,
             'is_delivery' => $data['is_delivery'] ?? $user->is_delivery,

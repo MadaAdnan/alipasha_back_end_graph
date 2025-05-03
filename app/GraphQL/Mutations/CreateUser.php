@@ -41,6 +41,7 @@ final class CreateUser
             'password' => bcrypt($data['password']),
             'phone' => $phone,
             'city_id' => $data['city_id'] ?? null,
+            'area_id' => $data['area_id'] ?? null,
             'device_token' => $data['device_token'] ?? null,
             'level' => 'user',
             'address' => $data['address'] ?? null,
