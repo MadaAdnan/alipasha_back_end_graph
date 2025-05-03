@@ -119,6 +119,11 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         return $this->belongsTo(City::class);
     }
 
+    public function area(): BelongsTo
+    {
+        return $this->belongsTo(City::class,'area_id','id');
+    }
+
     public function followers(): HasMany
     {
         return $this->hasMany(UserFollow::class, 'user_id');

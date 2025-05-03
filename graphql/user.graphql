@@ -44,6 +44,7 @@ type User{
     products:[Product]  @hasMany
     plans:[Plan] @belongsToMany(relation:"plans")
     city:City @belongsTo
+    area:City @belongsTo
     is_special:Boolean
     total_balance:Float @field(resolver: "App\\GraphQL\\Resolvers\\HelperBalanceResolve@getTotalBalance")
     total_point:Float @field(resolver: "App\\GraphQL\\Resolvers\\HelperBalanceResolve@getTotalPoint")

@@ -15,4 +15,6 @@ type City{
     is_delivery:Boolean
     is_main:Boolean
     children:[City] @hasMany
+    level:Int
+    code_city:String
 }

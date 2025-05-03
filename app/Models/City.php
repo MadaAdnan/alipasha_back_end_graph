@@ -58,4 +58,9 @@ class City extends Model implements HasMedia
             $this->id === $otherCity->city_id ||
             $otherCity->id === $this->city_id;
     }
+
+    public function getCodeCityAttribute(): ?string
+    {
+        return $this->code!=''?$this->code:$this->city?->code;
+    }
 }
