@@ -15,6 +15,9 @@ class CityObServe
 
             $city->update(['city_id'=>$city->id]);
 
+        }else{
+           $code= $city->city?->code;
+            $city->update(['code'=>$code]);
         }
 
     }
@@ -30,6 +33,7 @@ class CityObServe
             if($old!=$city->is_delivery){
                 $city->children()->update(['is_delivery'=>$city->is_delivery]);
             }
+
         }
     }
 

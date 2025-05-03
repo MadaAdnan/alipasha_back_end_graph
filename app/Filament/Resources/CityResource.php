@@ -34,7 +34,9 @@ class CityResource extends Resource
                     Forms\Components\SpatieMediaLibraryFileUpload::make('image')->collection('image')->conversion('webp')->image()->imageCropAspectRatio('1:1')->label('صورة')->imageEditor(),
                     Forms\Components\TextInput::make('name')->label('اسم المدينة'),
 
-                    Forms\Components\Select::make('city_id')->options(City::where('is_main', true)->pluck('name', 'id'))->required()->label('تتبع لمدينة'),
+                    Forms\Components\Select::make('city_id')->options(City::where('is_main', true)->pluck('name', 'id'))->required()->label('تتبع لمدينة')->reactive(),
+                    Forms\Components\TextInput::make('code')->label('كود المدينة')->required()->default(fn($context,$record)=>$context=='edit'?$record->city?->code:''),
+                    Forms\Components\TextInput::make('level')->numeric()->integer()->label('مستوى الصعوبة')->required(),
                     Forms\Components\Toggle::make('is_delivery')->label('تفعيل التوصيل'),
                     Forms\Components\Toggle::make('is_active')->label('حالة المدينة'),
                 ])
