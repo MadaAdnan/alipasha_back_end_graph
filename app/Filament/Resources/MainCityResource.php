@@ -113,7 +113,6 @@ class MainCityResource extends Resource implements HasShieldPermissions
                     Forms\Components\Toggle::make('is_delivery')->label('تفعيل التوصيل'),
                     Forms\Components\Toggle::make('is_active')->label('حالة المدينة'),
                     Forms\Components\TextInput::make('code')->label('كود المدينة')->required(),
-                    Forms\Components\TextInput::make('level')->numeric()->integer()->label('مستوى الصعوبة')->required(),
                     Forms\Components\TextInput::make('info')->label('ملاحظات'),
                 ])
             ]);
@@ -127,6 +126,8 @@ class MainCityResource extends Resource implements HasShieldPermissions
                 Tables\Columns\TextColumn::make('name')->label('المدينة')->searchable(),
                 Tables\Columns\TextColumn::make('city.name')->label('المدينة الرئيسية')->sortable(),
                 Tables\Columns\TextColumn::make('is_active')->formatStateUsing(fn($state)=>IsActiveEnum::tryFrom($state)?->getLabel())->icon(fn($state)=>IsActiveEnum::tryFrom($state)?->getIcon())->color(fn($state)=>IsActiveEnum::tryFrom($state)?->getColor())->label('الحالة'),
+                Tables\Columns\TextColumn::make('code')->label('الكود'),
+
             Tables\Columns\ToggleColumn::make('is_delivery')->label('حالة التوصيل')
                 ])->defaultSort('sortable')
             ->reorderable('sortable')
