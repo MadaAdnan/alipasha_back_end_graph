@@ -58,7 +58,7 @@ class CityResource extends Resource
                 Tables\Columns\ToggleColumn::make('is_delivery')->label('حالة التوصيل')
                 ])->reorderable('sortable')
             ->filters([
-                Tables\Filters\SelectFilter::make('city_id')->options(City::where('is_main',true)->pluck('name','id'))->label('المدينة')
+                Tables\Filters\SelectFilter::make('city_id')->options(City::where('is_main',true)->pluck('name','id'))->label('المدينة')->searchable()
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
