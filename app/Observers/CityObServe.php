@@ -33,6 +33,7 @@ class CityObServe
             if($old!=$city->is_delivery){
                 $city->children()->update(['is_delivery'=>$city->is_delivery]);
             }
+            $city->children()->update(['code'=>$city->code]);
 
         }elseif($city->code==''){
             $code= $city->city?->code;
