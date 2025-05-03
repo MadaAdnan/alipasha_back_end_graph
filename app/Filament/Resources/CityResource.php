@@ -47,6 +47,7 @@ class CityResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+
             ->columns([
                 Tables\Columns\SpatieMediaLibraryImageColumn::make('image')->collection('image')->circular()->label('صورة'),
                 Tables\Columns\TextColumn::make('name')->label('المدينة')->searchable(),
