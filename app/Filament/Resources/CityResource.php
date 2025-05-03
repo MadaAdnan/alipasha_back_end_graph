@@ -36,7 +36,7 @@ class CityResource extends Resource
 
                     Forms\Components\Select::make('city_id')->options(City::where('is_main', true)->pluck('name', 'id'))
                         ->required()->label('تتبع لمدينة')->afterStateUpdated(fn($state,$set)=>$set('code',City::find($state)?->code))->reactive(),
-                    Forms\Components\TextInput::make('code')->label('كود المدينة')->required(),
+//                    Forms\Components\TextInput::make('code')->label('كود المدينة')->required(),
                     Forms\Components\TextInput::make('level')->numeric()->integer()->label('مستوى الصعوبة')->required(),
                     Forms\Components\Toggle::make('is_delivery')->label('تفعيل التوصيل'),
                     Forms\Components\Toggle::make('is_active')->label('حالة المدينة'),
