@@ -80,7 +80,8 @@ class UserResource extends Resource
 
 //                        Forms\Components\DatePicker::make('upgrade_date')/*->required(fn($get) => $get('plan') != null)*/ ->label('تاريخ آخر ترقية'),
                                 Forms\Components\DatePicker::make('email_verified_at')->label('حدد تاريخ لتأكيد الحساب'),
-                                Forms\Components\Select::make('city_id')->options(City::pluck('name', 'id'))->label('المدينة'),
+                                Forms\Components\Select::make('city_id')->options(City::where('is_main',true)->pluck('name', 'id'))->label('المحافظة')->reactive(),
+                                Forms\Components\Select::make('area_id')->options(fn($get)=>City::where('city_id',$get('city_id'))->pluck('name', 'id'))->label('المنطقة'),
                                 Forms\Components\Select::make('level')->options([
                                     LevelUserEnum::ADMIN->value => LevelUserEnum::ADMIN->getLabel(),
                                     LevelUserEnum::SELLER->value => LevelUserEnum::SELLER->getLabel(),
