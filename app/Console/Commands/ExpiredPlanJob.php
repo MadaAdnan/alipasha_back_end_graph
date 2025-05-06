@@ -61,7 +61,7 @@ class ExpiredPlanJob extends Command
                 $query->where('duration', PlansDurationEnum::FREE->value);
                 $query->whereDate('expired_date', '=', $today->addDays(5));
             })->get();
-            $plan = Plan::where('duration', PlansDurationEnum::FREE->value)->where('is_active', true)->first();
+            $plan = Plan::where('duration', PlansDurationEnum::FREE->value)->where('is_active', true)->with('users')->first();
             $plan->users()->syncWithPivotValues($users, ['expired_date' => now()->addYear()], false);
             $data['title'] = 'تنبيه';
             $data['body'] = 'سينتهي إشتراكك في الخطة بعد 5 أيام يرجى تجديد الإشتراك';
