@@ -149,6 +149,7 @@ class UserResource extends Resource
     {
         return $table
             ->modifyQueryUsing(fn($query) => $query->latest())
+            ->searchDebounce(750)
             ->columns([
                 Tables\Columns\TextColumn::make('id')->label('#')->searchable(),
                 Tables\Columns\SpatieMediaLibraryImageColumn::make('image')->collection('image')->conversion('webp')->label('صورة المستخدم')->circular()->toggleable(isToggledHiddenByDefault: false),
