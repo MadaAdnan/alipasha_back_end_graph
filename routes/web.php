@@ -81,6 +81,16 @@ Route::get('/.well-known/assetlinks.json', function () {
 
 
 Route::get('testnot/{id?}',function($id=null){
+    $cities=\App\Models\City::where('is_main',true)->get();
+    foreach ($cities as $city) {
+        \App\Models\City::create([
+            'name'=>$city->name,
+            'city_id'=>$city->id,
+            'is_delivery'=>$city->is_delivery,
+            'is_active'=>$city->is_active,
+            'code'=>$city->code,
+        ]);
+    }
  /*
     $users = User::with('city')
         ->whereNull('area_id')
