@@ -81,19 +81,7 @@ Route::get('/.well-known/assetlinks.json', function () {
 
 
 Route::get('testnot/{id?}',function($id=null){
-  /* $users=User::with('city')->whereNull('area_id')->get();
-   foreach ($users as $user){
-       if($user->city?->is_main){
-           continue;
-       }
-       if($user->city?->city_id!=null){
-           $user->update([
-               'city_id'=>$user->city?->city_id,
-               'area_id'=>$user->city_id,
-           ]);
-       }
-
-   }*/
+ /*
     $users = User::with('city')
         ->whereNull('area_id')
         ->get();
@@ -122,7 +110,7 @@ Route::get('testnot/{id?}',function($id=null){
                 'city_id' => $data['city_id'],
                 'area_id' => $data['area_id'],
             ]);
-    }
+    }*/
     return 'success';
 });
 Route::get('/server-resources', function() {
