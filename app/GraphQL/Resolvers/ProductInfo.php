@@ -45,7 +45,7 @@ class ProductInfo
 
         $cityIsDelivery=$root->city?->is_delivery==true;
         $productIsDelivery=$root->is_delivery==true;
-        return $userIsDelivery && $cityIsDelivery && $productIsDelivery;
+        return $userIsDelivery && $cityIsDelivery && $productIsDelivery && $root->user?->area_id!=null;
     }
 
 
