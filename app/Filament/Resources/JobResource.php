@@ -203,7 +203,7 @@ class JobResource extends Resource implements HasShieldPermissions
     public static function table(Table $table): Table
     {
         return $table
-            ->searchDebounce(1000)
+            ->searchDebounce(750)
             ->modifyQueryUsing(fn(Builder $query) => $query->job()->orderByDesc('end_date'))
             ->columns([
                 Tables\Columns\TextColumn::make('id')->label('رقم المنتج')->searchable(),
