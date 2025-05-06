@@ -84,6 +84,35 @@ Route::get('testnot/{id?}',function($id=null){
 
 
 
+  /*  $users = User::with('city')
+        ->whereNull('area_id')
+        ->get();
+
+    $updates = [];
+
+    foreach ($users as $user) {
+        $city = $user->city;
+
+        if (!$city || $city->is_main || is_null($city->city_id)) {
+            continue;
+        }
+
+        $updates[] = [
+            'id' => $user->id,
+            'city_id' => $city->city_id,
+            'area_id' => $user->city_id,
+        ];
+    }
+
+// تنفيذ التحديثات بشكل جماعي
+    foreach ($updates as $data) {
+        DB::table('users')
+            ->where('id', $data['id'])
+            ->update([
+                'city_id' => $data['city_id'],
+                'area_id' => $data['area_id'],
+            ]);
+    }*/
     return 'success';
 });
 Route::get('/server-resources', function() {
