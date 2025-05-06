@@ -83,14 +83,6 @@ Route::get('/.well-known/assetlinks.json', function () {
 Route::get('testnot/{id?}',function($id=null){
 
 
-    $usersUpdtaed=User::whereNotNull('area_id')->with('area','city')->get();
-    foreach ($usersUpdtaed as $item) {
-        if($item->city->is_main==true){
-            continue;
-        }
-        $item->update(['city_id'=>$item->area?->city_id]);
-    }
-return "success";
     $users = User::with('city')
         ->whereNull('area_id')
         ->get();
