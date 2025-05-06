@@ -82,8 +82,7 @@ Route::get('/.well-known/assetlinks.json', function () {
 
 Route::get('testnot/{id?}',function($id=null){
 
-\App\Models\City::where('is_main',1)->update(['city_id'=>null]);
-\App\Models\City::whereNull('is_main')->update(['is_main'=>0]);
+
 
   /*  $users = User::with('city')
         ->whereNull('area_id')
