@@ -214,6 +214,7 @@ class ProductResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->searchDebounce(1000)
             ->columns([
 
                 Tables\Columns\SpatieMediaLibraryImageColumn::make('image')->collection('images')->conversion('webp')->label('الصورة')->size(100),
