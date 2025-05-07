@@ -101,7 +101,7 @@ final  class CreateNewInvoice
             return $invoice;
         } catch (\Exception | \Error $e) {
             \DB::rollBack();
-            throw new GraphQLExceptionHandler($e->getMessage() . 'ase');
+            throw new GraphQLExceptionHandler($e->getMessage());
         }
     }
 }
