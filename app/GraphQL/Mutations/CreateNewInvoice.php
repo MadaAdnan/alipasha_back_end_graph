@@ -88,7 +88,9 @@ final  class CreateNewInvoice
             $invoice->shipping = $far;
             $invoice->total = $total;
             $invoice->save();
-
+if(auth()->user()->getTotalBalance() <($total+$far)){
+    throw new \Exception("للاسف لا تملك رصيد كافي لإتمام الطلب");
+}
             $balance = Balance::create([
                 'credit' => 0,
                 'debit' => ($total + $far),
