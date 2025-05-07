@@ -16,7 +16,12 @@ final class NotificationsQuery
          * @var $notifications
          */
 
-        $notifications= auth()->user()?->notifications()->latest();
+        $notifications= auth()->user()?->notifications()
+            ->where(function ($query) {
+                $query->where('data->is_admin', '!=', 1)
+                    ->orWhereNull('data->is_admin');
+            })
+            ->latest();
         auth()->user()->unreadNotifications->markAsRead();
         return $notifications;
     }
