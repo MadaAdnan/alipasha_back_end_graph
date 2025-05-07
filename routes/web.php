@@ -83,7 +83,7 @@ Route::get('/.well-known/assetlinks.json', function () {
 Route::get('testnot/{id?}',function($id=null){
     $user=User::where('email','mh.shamey@gmail.com')->first();
     if($user){
-        $count=$user->products()->active()->count()-1;
+        $count=$user->products()->active()->count();
         $user->notify(new \App\Notifications\ForceNotificationNotification([
             'title'=>"لديك أكثر من {$count} منتج – أنت تاجر محترف ",
             'body'=>'أنت من نخبة التجار في منصتنا! تابع التميز وشارك متجرك مع العالم، فكل زيارة جديدة قد تكون بداية لعملية بيع ناجحة',
