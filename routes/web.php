@@ -81,6 +81,14 @@ Route::get('/.well-known/assetlinks.json', function () {
 
 
 Route::get('testnot/{id?}',function($id=null){
+    $user=User::where('email','mh.shamey@gmail.com')->first();
+    if($user){
+        $user->notify(new \App\Notifications\ForceNotificationNotification([
+            'title'=>'title',
+            'body'=>'body',
+            'url'=>''
+        ]));
+    }
   /*  $users = User::with('city')
         ->whereNull('area_id')
         ->get();

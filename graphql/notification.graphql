@@ -1,6 +1,7 @@
 extend type Query{
 
     notifications(first:Int,page:Int):[Notification] @guard @paginate(builder:"App\\GraphQL\\Queries\\NotificationsQuery")
+    forceNotification : NotificationData @guard
 
 }
 
