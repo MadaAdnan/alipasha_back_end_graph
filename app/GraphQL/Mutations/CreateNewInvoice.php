@@ -31,7 +31,7 @@ final  class CreateNewInvoice
 
             $weight = 0;
             if (!auth()->check() || auth()->id() == null) {
-                throw new GraphQLExceptionHandler('خطأ في الطلب يرجى المحاولة من جديد');
+                throw new \Exception('خطأ في الطلب يرجى المحاولة من جديد');
             }
             $seller = User::findOrFail($data['seller_id']);
             /**
@@ -88,9 +88,9 @@ final  class CreateNewInvoice
             $invoice->shipping = $far;
             $invoice->total = $total;
             $invoice->save();
-if(auth()->user()->getTotalBalance() <($total+$far)){
-    throw new \Exception("للاسف لا تملك رصيد كافي لإتمام الطلب");
-}
+            if (auth()->user()->getTotalBalance() < ($total + $far)) {
+                throw new \Exception("للاسف لا تملك رصيد كافي لإتمام الطلب");
+            }
             $balance = Balance::create([
                 'credit' => 0,
                 'debit' => ($total + $far),
