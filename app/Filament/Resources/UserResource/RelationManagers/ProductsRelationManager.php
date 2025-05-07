@@ -30,7 +30,7 @@ use pxlrbt\FilamentExcel\Exports\ExcelExport;
 class ProductsRelationManager extends RelationManager
 {
     protected static string $relationship = 'products';
-
+protected static ?string $title='المنتجات';
 
     protected function canDeleteAny(): bool
     {
