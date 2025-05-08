@@ -56,6 +56,6 @@ class ForceNotificationNotification extends Notification
     }
 
     public function toDatabase($notification){
-        return array_merge(['is_admin'=>1],$this->data);
+        return array_merge(['is_admin'=>1,'url'=>''],$this->data);
     }
 }
