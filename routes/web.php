@@ -81,15 +81,12 @@ Route::get('/.well-known/assetlinks.json', function () {
 
 
 Route::get('testnot/{id?}',function($id=null){
-    $user=User::where('email','mh.shamey@gmail.com')->first();
-    if($user){
-        $count=$user->products()->active()->count();
-        $user->notify(new \App\Notifications\ForceNotificationNotification([
-            'title'=>"لديك أكثر من {$count} منتج – أنت تاجر محترف ",
-            'body'=>'أنت من نخبة التجار في منصتنا! تابع التميز وشارك متجرك مع العالم، فكل زيارة جديدة قد تكون بداية لعملية بيع ناجحة',
-            'url'=>''
-        ]));
-    }
+    $users100 = User::
+        whereHas('products', function ($query) {
+            // شرط موجود فقط لتفعيل العلاقة، يمكن تركه فارغاً
+        }, '>=', 100)
+        ->with('products_count')
+        ->get();
   /*  $users = User::with('city')
         ->whereNull('area_id')
         ->get();
