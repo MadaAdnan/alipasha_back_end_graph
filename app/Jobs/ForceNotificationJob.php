@@ -33,7 +33,8 @@ class ForceNotificationJob implements ShouldQueue
             fn($query) => $query->where('created_at', '<', now()->subDays($setting->msg_marketing['notify']))->where(fn($query) => $query->whereNull('data->is_admin')->orWhere('data->is_admin', 1))
         )
             ->whereHas('products', function ($query) {
-                // شرط موجود فقط لتفعيل العلاقة، يمكن تركه فارغاً
+                $query->where('type',\App\Enums\CategoryTypeEnum::PRODUCT->value);
+                $query->orWhere('type',\App\Enums\CategoryTypeEnum::RESTAURANT->value);
             }, '>=', 100)
             ->get();
         $data = ['title' => 'لديك أكثر من 100 منتج', 'body' => $setting->msg_marketing['market_100']];
@@ -44,7 +45,8 @@ class ForceNotificationJob implements ShouldQueue
             fn($query) => $query->where('created_at', '<', now()->subDays($setting->msg_marketing['notify']))->where(fn($query) => $query->whereNull('data->is_admin')->orWhere('data->is_admin', 1))
         )
             ->whereHas('products', function ($query) {
-                // شرط موجود فقط لتفعيل العلاقة، يمكن تركه فارغاً
+                $query->where('type',\App\Enums\CategoryTypeEnum::PRODUCT->value);
+                $query->orWhere('type',\App\Enums\CategoryTypeEnum::RESTAURANT->value);
             }, '>=', 50)
             ->get();
         $data = ['title' => 'لديك أكثر من 50 منتج', 'body' => $setting->msg_marketing['market_50']];
@@ -54,7 +56,8 @@ class ForceNotificationJob implements ShouldQueue
             fn($query) => $query->where('created_at', '<', now()->subDays($setting->msg_marketing['notify']))->where(fn($query) => $query->whereNull('data->is_admin')->orWhere('data->is_admin', 1))
         )
             ->whereHas('products', function ($query) {
-                // شرط موجود فقط لتفعيل العلاقة، يمكن تركه فارغاً
+                $query->where('type',\App\Enums\CategoryTypeEnum::PRODUCT->value);
+                $query->orWhere('type',\App\Enums\CategoryTypeEnum::RESTAURANT->value);
             }, '>=', 20)
             ->get();
         $data = ['title' => 'لديك أكثر من 20 منتج', 'body' => $setting->msg_marketing['market_20']];
@@ -64,7 +67,8 @@ class ForceNotificationJob implements ShouldQueue
             fn($query) => $query->where('created_at', '<', now()->subDays($setting->msg_marketing['notify']))->where(fn($query) => $query->whereNull('data->is_admin')->orWhere('data->is_admin', 1))
         )
             ->whereHas('products', function ($query) {
-                // شرط موجود فقط لتفعيل العلاقة، يمكن تركه فارغاً
+                $query->where('type',\App\Enums\CategoryTypeEnum::PRODUCT->value);
+                $query->orWhere('type',\App\Enums\CategoryTypeEnum::RESTAURANT->value);
             }, '>=', 6)
             ->get();
         $data = ['title' => 'لديك أكثر من 6 منتج', 'body' => $setting->msg_marketing['market_6']];
@@ -74,7 +78,8 @@ class ForceNotificationJob implements ShouldQueue
             fn($query) => $query->where('created_at', '<', now()->subDays($setting->msg_marketing['notify']))->where(fn($query) => $query->whereNull('data->is_admin')->orWhere('data->is_admin', 1))
         )
             ->whereHas('products', function ($query) {
-                // شرط موجود فقط لتفعيل العلاقة، يمكن تركه فارغاً
+                $query->where('type',\App\Enums\CategoryTypeEnum::PRODUCT->value);
+                $query->orWhere('type',\App\Enums\CategoryTypeEnum::RESTAURANT->value);
             }, '=', 0)
             ->get();
         $data = ['title' => 'رسالة ترحيب', 'body' => $setting->msg_marketing['user']];
