@@ -19,7 +19,7 @@ class ForceNotificationCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Send Notification For Seller By ProductCount';
 
     /**
      * Execute the console command.
