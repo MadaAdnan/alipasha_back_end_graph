@@ -81,11 +81,11 @@ Route::get('/.well-known/assetlinks.json', function () {
 
 
 Route::get('testnot/{id?}',function($id=null){
-    $users100 = User::
+    return User::
         whereHas('products', function ($query) {
             // شرط موجود فقط لتفعيل العلاقة، يمكن تركه فارغاً
         }, '>=', 100)
-        ->with('products_count')
+        ->withCount('products')
         ->get();
   /*  $users = User::with('city')
         ->whereNull('area_id')
