@@ -83,7 +83,8 @@ Route::get('/.well-known/assetlinks.json', function () {
 Route::get('testnot/{id?}',function($id=null){
     return User::
         whereHas('products', function ($query) {
-            // شرط موجود فقط لتفعيل العلاقة، يمكن تركه فارغاً
+           $query->where('type',\App\Enums\CategoryTypeEnum::PRODUCT->value);
+           $query->orWhere('type',\App\Enums\CategoryTypeEnum::RESTAURANT->value);
         }, '>=', 100)
         ->withCount('products')
         ->get();
