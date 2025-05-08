@@ -4,6 +4,7 @@ use App\Events\MessageSentEvent;
 use App\Http\Controllers\ImportController;
 use App\Models\Interaction;
 use App\Models\Plan;
+use App\Models\Setting;
 use App\Models\ShippingPrice;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -81,13 +82,6 @@ Route::get('/.well-known/assetlinks.json', function () {
 
 
 Route::get('testnot/{id?}',function($id=null){
-    return User::
-        whereHas('products', function ($query) {
-           $query->where('type',\App\Enums\CategoryTypeEnum::PRODUCT->value);
-           $query->orWhere('type',\App\Enums\CategoryTypeEnum::RESTAURANT->value);
-        }, '>=', 100)
-        ->withCount('products')
-        ->get();
   /*  $users = User::with('city')
         ->whereNull('area_id')
         ->get();
