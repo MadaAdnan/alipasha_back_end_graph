@@ -35,8 +35,8 @@ class VendorResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\SelectColumn::make('city_id')->options(City::where('is_main',1)->pluck('name','id'))->label('المحافظة')->searchable(),
-                Tables\Columns\SelectColumn::make('area_id')->options(City::where('is_main',false)->pluck('name','id'))->label('المدينة')->searchable()->sortable(),
+                Tables\Columns\SelectColumn::make('city_id')->options(City::where('is_main',1)->pluck('name','id'))->label('المحافظة'),
+                Tables\Columns\SelectColumn::make('area_id')->options(City::where('is_main',false)->pluck('name','id'))->label('المدينة')->sortable(),
                 Tables\Columns\TextInputColumn::make('phone'),
                 Tables\Columns\TextColumn::make('address'),
             ])
