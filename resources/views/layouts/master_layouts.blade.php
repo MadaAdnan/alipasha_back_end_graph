@@ -146,6 +146,21 @@ required=""
 
         <!-- Right Section: Icons -->
         <div class="d-lg-flex align-items-center gap-2">
+            <a href="https://ali-pasha.com/app/qr">
+                <button
+                    class="btn"
+                    style="
+              background-color: red;
+              color: white;
+              width: 140px;
+              font-size: 14px;
+            "
+                >
+                    حمل التطبيق
+                    <i class="bi bi-google-play"></i>
+                    {{--<img style="width: 16px" src="{{asset('assets/upgrade-star.svg')}}" alt="" />--}}
+                </button>
+            </a>
            @auth
                 <a href="{{route('pricing.index')}}">
                     <button
@@ -190,21 +205,7 @@ required=""
                        <img src="{{asset('assets/market.svg')}}" alt="" />
                    </a>
 @endauth
-               <a href="https://ali-pasha.com/app/qr">
-                   <button
-                       class="btn"
-                       style="
-              background-color: red;
-              color: white;
-              width: 140px;
-              font-size: 14px;
-            "
-                   >
-                       حمل التطبيق
-                       <i class="bi bi-google-play"></i>
-                       {{--<img style="width: 16px" src="{{asset('assets/upgrade-star.svg')}}" alt="" />--}}
-                   </button>
-               </a>
+
 
               {{-- <a href="{{route('notifications')}}">
             <span
