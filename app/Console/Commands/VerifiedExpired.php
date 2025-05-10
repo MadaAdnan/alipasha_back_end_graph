@@ -29,7 +29,9 @@ class VerifiedExpired extends Command
     public function handle()
     {
         $today = Carbon::today();
-        $users = User::where('is_verified', true)->whereDate('verified_account_date', $today)->get();
+        $users = User::where('is_verified', true)
+            ->whereDate('verified_account_date', $today)
+            ->get();
 
         try {
             $users->update(['is_verified' => false, 'verified_account_date' => null]);

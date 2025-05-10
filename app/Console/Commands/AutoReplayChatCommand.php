@@ -59,8 +59,7 @@ class AutoReplayChatCommand extends Command
             $message = $item->messages()->latest()->first();
             if (now()->subHours(1)->greaterThan($message->created_at) && $item->messages_count==1) {
                 try {
-                    $user = $item->users()->where('users.id', '!=', $message->user_id)->selectRaw('users.id,users.phone')->first();
-                    \Log::info("SUCCESS " . $user->phone);
+                    $user = $item->users()->where('users.id', '!=', $message->user_id)->where(fn($q)=>$q->whereNotNull('phone')->orWhere('phone',"!=",''))->selectRaw('users.id,users.phone')->first();
                     if ($user->phone == '') {
                         continue;
                     }
@@ -72,7 +71,7 @@ class AutoReplayChatCommand extends Command
                         'type' => 'text',
                         'body' => $msg
                     ]);
-                    \Log::info("SUCCESS " . $m->body);
+                    sleep(1);
                 } catch (\Exception | \Error $e) {
                     \Log::info("COUNT:" . $e->getMessage());
                 }

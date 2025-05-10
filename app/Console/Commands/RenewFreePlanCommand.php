@@ -40,7 +40,7 @@ class RenewFreePlanCommand extends Command
                 })->orWhereDoesntHave('plans');
             })
                 ->select('id')
-                ->chunk(1000, function ($users) use ($plan) {
+                ->chunk(100, function ($users) use ($plan) {
                     $userIds = $users->pluck('id')->toArray();
                     $plan->users()->syncWithPivotValues($userIds, ['expired_date' => now()->addYear()], false);
                 });
