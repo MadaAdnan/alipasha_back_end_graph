@@ -142,7 +142,7 @@ class ProductResource extends Resource
                         Forms\Components\TextInput::make('phone')->label('رقم الهاتف')->required(),
                         Forms\Components\Grid::make()->schema([
                             Forms\Components\Select::make('city_id')->options(City::where('is_main',1)->pluck('name','id'))->searchable()->label('المحافظة')->required()->live(),
-                            Forms\Components\Select::make('area_id')->options(fn($get)=>City::where('is_main',0)->where('city_id',$get('city_id'))->pluck('name','id'))->searchable()->label('المحافظة')->required()
+                            Forms\Components\Select::make('area_id')->options(fn($get)=>City::where('is_main',0)->where('city_id',$get('city_id'))->pluck('name','id'))->searchable()->label('المدينة')->required()
                         ])
                     ])->relationship('user')->visible(fn($context)=>$context!='create'),
 
