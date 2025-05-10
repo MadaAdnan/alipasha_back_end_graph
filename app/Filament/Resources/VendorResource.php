@@ -36,12 +36,12 @@ class VendorResource extends Resource
         return $table
 
             ->columns([
-                Tables\Columns\TextColumn::make('name')->url(fn($record)=>UserResource::getUrl('edit',$record),true),
-                Tables\Columns\TextColumn::make('products_count')->label('المنتجات')->url(fn($record)=>UserResource::getUrl('edit',$record),true),
+                Tables\Columns\TextColumn::make('name')->url(fn($record)=>UserResource::getUrl('edit',['record'=>$record->id]),true),
+                Tables\Columns\TextColumn::make('products_count')->label('المنتجات')->url(fn($record)=>UserResource::getUrl('edit',['record'=>$record->id]),true),
                 Tables\Columns\SelectColumn::make('city_id')->options(City::where('is_main', 1)->orderBy('name')->pluck('name', 'id'))->label('المحافظة'),
                 Tables\Columns\SelectColumn::make('area_id')->options(City::where('is_main', false)->orderBy('name')->pluck('name', 'id'))->label('المدينة')->sortable(),
                 Tables\Columns\TextInputColumn::make('phone'),
-                Tables\Columns\TextColumn::make('address')->words(5)->url(fn($record)=>UserResource::getUrl('edit',$record),true),
+                Tables\Columns\TextColumn::make('address')->words(5)->url(fn($record)=>UserResource::getUrl('edit',['record'=>$record->id]),true),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('city_id')->options(City::where('is_main', 1)->orderBy('name')->pluck('name', 'id'))->label('المحافظة'),
