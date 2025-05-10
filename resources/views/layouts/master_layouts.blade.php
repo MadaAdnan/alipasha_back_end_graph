@@ -148,7 +148,7 @@ required=""
         <div class="d-lg-flex align-items-center gap-2">
             <a href="https://ali-pasha.com/app/qr">
                 <button
-                    class="btn d-sm-none"
+                    class="btn d-none d-md-inline-block"
                     style="
               background-color: red;
               color: white;
