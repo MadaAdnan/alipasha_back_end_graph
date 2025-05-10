@@ -160,6 +160,7 @@ required=""
                     <i class="bi bi-google-play"></i>
                     {{--<img style="width: 16px" src="{{asset('assets/upgrade-star.svg')}}" alt="" />--}}
                 </button>
+                <i class="bi bi-google-play text-danger d-inline-block d-md-none"></i>
             </a>
            @auth
                 <a href="{{route('pricing.index')}}">
