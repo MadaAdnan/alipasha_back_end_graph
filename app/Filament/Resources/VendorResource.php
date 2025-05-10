@@ -39,7 +39,7 @@ class VendorResource extends Resource
                 Tables\Columns\TextColumn::make('products_count')->label('المنتجات'),
                 Tables\Columns\SelectColumn::make('city_id')->options(City::where('is_main', 1)->orderBy('name')->pluck('name', 'id'))->label('المحافظة'),
                 Tables\Columns\SelectColumn::make('area_id')->options(City::where('is_main', false)->orderBy('name')->pluck('name', 'id'))->label('المدينة')->sortable(),
-                Tables\Columns\TextColumn::make('phone')->url(fn($record) => $record->phone != '' ? 'https://wa.me/' . $record->phone . '?text= السلام عليكم معك الدعم الفني لتطبيق علي باشا الرجاء إرسال العنوان الدقيق لتحديث بيناتك معرفك هو ' . $record->id : "", true),
+                Tables\Columns\TextColumn::make('phone')->url(fn($record) => $record->phone != '' ? 'https://wa.me/' . $record->phone . '?text= السلام عليكم معك الدعم الفني لتطبيق علي باشا الرجاء إرسال العنوان الدقيق لتحديث بياناتك , معرفك هو ' . $record->id : "", true),
                 Tables\Columns\TextColumn::make('address')->words(5),
             ])
             ->filters([
