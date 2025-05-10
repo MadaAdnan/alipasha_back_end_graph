@@ -47,7 +47,7 @@ class VendorResource extends Resource
                 Tables\Filters\SelectFilter::make('area_id')->options(City::where('is_main', 0)->orderBy('name')->pluck('name', 'id'))->label('المدينة'),
             ])
             ->actions([
-                Tables\Actions\Action::make('whats')->url(fn($record) => $record->phone != '' ? 'https://wa.me/' . $record->phone . '?text= السلام عليكم معك الدعم الفني لتطبيق علي باشا الرجاء إرسال العنوان الدقيق لتحديث بيناتك معرفك هو ' . $record->id : "", true)->label('تواصل واتس'),
+              //  Tables\Actions\Action::make('whats')->url(fn($record) => $record->phone != '' ? 'https://wa.me/' . $record->phone . '?text= السلام عليكم معك الدعم الفني لتطبيق علي باشا الرجاء إرسال العنوان الدقيق لتحديث بيناتك معرفك هو ' . $record->id : "", true)->label('تواصل واتس'),
                Tables\Actions\DeleteAction::make()
             ])
             ->bulkActions([
