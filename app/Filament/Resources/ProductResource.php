@@ -127,8 +127,8 @@ class ProductResource extends Resource
                         ->afterStateUpdated(function($set, $state) {
                             $user=User::find($state);
                             $set('city_id', $user?->city_id);
-                            $set('users.city_id', $user?->city_id);
-                            $set('users.area_id', $user?->area_id);
+                            $set('user.city_id', $user?->city_id);
+                            $set('user.area_id', $user?->area_id);
                         }),
                     Forms\Components\Select::make('city_id')->options(City::selectRaw('id,name')->pluck('name', 'id'))->searchable()->label('المدينة'),
                     SpatieMediaLibraryFileUpload::make('image')->collection('image')->conversion('webp')->label('الصورة الرئيسية')->image()->imageEditor()->imageCropAspectRatio("1:1")->openable()->downloadable()->deletable(),
