@@ -207,31 +207,10 @@ required=""
 @endauth
 
 
-              {{-- <a href="{{route('notifications')}}">
-            <span
-                class="notification-icon"
-                style="position: relative"
-                onclick="toggleRightSidebar()"
-            >
 
-            <img src="{{asset('assets/notification.svg')}}" alt="Notification" />
-            <span
-                style="
-                position: absolute;
-                top: -3px;
-                right: 4px;
-                width: 8px;
-                height: 8px;
-                background-color: #e30613;
-                border-radius: 8px;
-                color: #fff;
-              "
-            >
-            </span>
-          </span>   </a>--}}
             @if(auth()->check())
             <a href="{{route('profile.index')}}">
-                <img src="{{auth()->user()->getFirstMediaUrl('image','webp')}}" style="width: 45px;aspect-ratio: 1/1" alt="" />
+                <img src="{{auth()->user()->getFirstMediaUrl('image','webp')}}" class="rounded-circle" style="width: 45px;aspect-ratio: 1/1" alt="" />
             </a>
             <!-- Toggler for Mobile View -->
                 @endif
