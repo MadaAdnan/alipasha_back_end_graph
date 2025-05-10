@@ -130,25 +130,32 @@ class ProductResource extends Resource
                     SpatieMediaLibraryFileUpload::make('images')->collection('images')->conversion('webp')->label('صور إضافية')->multiple()->image()->imageEditor()->imageCropAspectRatio("1:1")->openable()->downloadable()->deletable(),
 
 
-//                Forms\Components\SpatieMediaLibraryFileUpload::make('image')
-//                    ->collection('images')->openable()->downloadable()->multiple()
-//                    ->label('الصورة الرئيسية'),
-//                    Forms\Components\SpatieMediaLibraryFileUpload::make('film')->collection('video')->label('فيديو قصير')->acceptedFileTypes(['video/quicktime', 'video/x-ms-wmv', 'video/x-msvideo', 'video/mp4']),
                     Forms\Components\TextInput::make('video')->label('رابط الفيديو إن وجد'),
                     Forms\Components\TextInput::make('name')->label('اسم المنتج'),
                     Forms\Components\Textarea::make('info')->label('وصف المنتج'),
                     Forms\Components\Fieldset::make('هاتف المتجر')->schema([
-                        Forms\Components\TextInput::make('phone')->label('رقم الهاتف'),
+                        Forms\Components\TextInput::make('phone')->label('رقم الهاتف')->required(),
+                        Forms\Components\Grid::make()->schema([
+                            Forms\Components\Select::make('city_id')->options(City::where('is_main',1)->pluck('name','id'))->searchable()->label('المحافظة')->required()->live(),
+                            Forms\Components\Select::make('area_id')->options(fn($get)=>City::where('is_main',0)->where('city_id',$get('city_id'))->pluck('name','id'))->searchable()->label('المحافظة')->required()
+                        ])
                     ])->relationship('user')->visible(fn($context)=>$context!='create'),
 
                     Forms\Components\TagsInput::make('tags')->suggestions(fn() => Product::product()->pluck('tags')->flatten()->unique())->label('تاغات'),
                     Forms\Components\Fieldset::make('الأسعار والتوفر')->schema([
-                        Forms\Components\Toggle::make('is_available')->label('التوفر في المخزون'),
-                        Forms\Components\TextInput::make('price')->label('السعر')->numeric()->required(),
-                        Forms\Components\Toggle::make('is_discount')->label('تفعيل العرض')->live(),
-                        Forms\Components\TextInput::make('discount')->label('سعر العرض')->numeric()->required(fn($get) => $get('is_discount')),
-                        Forms\Components\Toggle::make('is_delivery')->label('التوصيل'),
-                        Forms\Components\TextInput::make('weight')->numeric()->label('الوزن')->required(),
+                       Forms\Components\Grid::make()->schema([
+                           Forms\Components\Toggle::make('is_available')->label('التوفر في المخزون'),
+                           Forms\Components\TextInput::make('price')->label('السعر')->numeric()->required(),
+                       ]),
+                        Forms\Components\Grid::make()->schema([
+                            Forms\Components\Toggle::make('is_discount')->label('تفعيل العرض')->live(),
+                            Forms\Components\TextInput::make('discount')->label('سعر العرض')->numeric()->required(fn($get) => $get('is_discount')),
+                        ]),
+                        Forms\Components\Grid::make()->schema([
+                            Forms\Components\Toggle::make('is_delivery')->label('التوصيل'),
+                            Forms\Components\TextInput::make('weight')->numeric()->label('الوزن')->required(),
+                        ]),
+
 
                     ])->columns(1),
                     Forms\Components\Radio::make('active')->options([
