@@ -48,7 +48,7 @@ class VendorResource extends Resource
             ])
             ->actions([
                 Tables\Actions\Action::make('whats')->url(fn($record) => $record->phone != '' ? 'https://wa.me/' . $record->phone . '?text= السلام عليكم معك الدعم الفني لتطبيق علي باشا الرجاء إرسال العنوان الدقيق لتحديث بيناتك معرفك هو ' . $record->id : "", true)->label('تواصل واتس'),
-                DeleteAction::make(),
+               Tables\Actions\DeleteAction::make()
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
