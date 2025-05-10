@@ -190,6 +190,21 @@ required=""
                        <img src="{{asset('assets/market.svg')}}" alt="" />
                    </a>
 @endauth
+               <a href="https://ali-pasha.com/app/qr">
+                   <button
+                       class="btn"
+                       style="
+              background-color: red;
+              color: white;
+              width: 140px;
+              font-size: 14px;
+            "
+                   >
+                       حمل التطبيق
+                       <i class="bi bi-google-play"></i>
+                       {{--<img style="width: 16px" src="{{asset('assets/upgrade-star.svg')}}" alt="" />--}}
+                   </button>
+               </a>
 
               {{-- <a href="{{route('notifications')}}">
             <span
