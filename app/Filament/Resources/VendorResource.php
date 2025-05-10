@@ -41,10 +41,11 @@ class VendorResource extends Resource
                 Tables\Columns\TextColumn::make('address'),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('city_id')->options(City::where('is_main',1)->pluck('name','id'))->label('المحافظة'),
+                Tables\Filters\SelectFilter::make('area_id')->options(City::where('is_main',0)->pluck('name','id'))->label('المدينة'),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('whats')->url(fn($record)=>$record->phone!=''?'https://wa.me/'.$record->phone.'?text=يكتب السلام عليكم معك الدعم الفني لتطبيق علي باشا الرجاء إرسال العنوان الدقيق لتحديث بيناتك معرفك هو '.$record->id:"")->label('تواصل واتس'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
