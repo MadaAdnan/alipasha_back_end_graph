@@ -124,7 +124,12 @@ class ProductResource extends Resource
                 Forms\Components\Section::make('المنتجات')->schema([
                     Forms\Components\Select::make('user_id')->options(User::seller()->selectRaw('id,name')->pluck('name', 'id'))->label('المتجر')
                         ->searchable()->live()
-                        ->afterStateUpdated(fn($set, $state) => $set('city_id', User::find($state)?->city_id)),
+                        ->afterStateUpdated(function($set, $state) {
+                            $user=User::find($state);
+                            $set('city_id', $user?->city_id);
+                            $set('users.city_id', $user?->city_id);
+                            $set('users.area_id', $user?->area_id);
+                        }),
                     Forms\Components\Select::make('city_id')->options(City::selectRaw('id,name')->pluck('name', 'id'))->searchable()->label('المدينة'),
                     SpatieMediaLibraryFileUpload::make('image')->collection('image')->conversion('webp')->label('الصورة الرئيسية')->image()->imageEditor()->imageCropAspectRatio("1:1")->openable()->downloadable()->deletable(),
                     SpatieMediaLibraryFileUpload::make('images')->collection('images')->conversion('webp')->label('صور إضافية')->multiple()->image()->imageEditor()->imageCropAspectRatio("1:1")->openable()->downloadable()->deletable(),
