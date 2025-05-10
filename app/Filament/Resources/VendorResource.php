@@ -36,7 +36,7 @@ class VendorResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\SelectColumn::make('city_id')->options(City::where('is_main',1)->pluck('name','id'))->label('المحافظة')->searchable(),
-                Tables\Columns\SelectColumn::make('city_id')->options(City::where('is_main',1)->pluck('name','id'))->label('المدينة')->searchable(),
+                Tables\Columns\SelectColumn::make('area_id')->options(City::where('is_main',false)->pluck('name','id'))->label('المدينة')->searchable(),
                 Tables\Columns\TextInputColumn::make('phone'),
                 Tables\Columns\TextColumn::make('address'),
             ])
