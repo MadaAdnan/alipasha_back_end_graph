@@ -35,14 +35,14 @@ class VendorResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\SelectColumn::make('city_id')->options(City::where('is_main',1)->pluck('name','id'))->label('المحافظة'),
-                Tables\Columns\SelectColumn::make('area_id')->options(City::where('is_main',false)->pluck('name','id'))->label('المدينة')->sortable(),
+                Tables\Columns\SelectColumn::make('city_id')->options(City::where('is_main',1)->orderBy('name')->pluck('name','id'))->label('المحافظة'),
+                Tables\Columns\SelectColumn::make('area_id')->options(City::where('is_main',false)->orderBy('name')->pluck('name','id'))->label('المدينة')->sortable(),
                 Tables\Columns\TextColumn::make('phone')->url(fn($record)=>$record->phone!=''?'https://wa.me/'.$record->phone.'?text=يكتب السلام عليكم معك الدعم الفني لتطبيق علي باشا الرجاء إرسال العنوان الدقيق لتحديث بيناتك معرفك هو '.$record->id:""),
                 Tables\Columns\TextColumn::make('address'),
             ])
             ->filters([
-                Tables\Filters\SelectFilter::make('city_id')->options(City::where('is_main',1)->pluck('name','id'))->label('المحافظة'),
-                Tables\Filters\SelectFilter::make('area_id')->options(City::where('is_main',0)->pluck('name','id'))->label('المدينة'),
+                Tables\Filters\SelectFilter::make('city_id')->options(City::where('is_main',1)->orderBy('name')->pluck('name','id'))->label('المحافظة'),
+                Tables\Filters\SelectFilter::make('area_id')->options(City::where('is_main',0)->orderBy('name')->pluck('name','id'))->label('المدينة'),
             ])
             ->actions([
                 Tables\Actions\Action::make('whats')->url(fn($record)=>$record->phone!=''?'https://wa.me/'.$record->phone.'?text=يكتب السلام عليكم معك الدعم الفني لتطبيق علي باشا الرجاء إرسال العنوان الدقيق لتحديث بيناتك معرفك هو '.$record->id:"")->label('تواصل واتس'),
