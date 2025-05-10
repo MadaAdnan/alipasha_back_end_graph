@@ -18,8 +18,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class ShamCashResource extends Resource
 {
     protected static ?string $model = Setting::class;
+    protected static ?int $navigationSort = -2;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $slug = 'sham-cash';
     protected static ?string $label = 'إعدادات شام كاش';
     protected static ?string $modelLabel = 'إعدادات شام كاش';
@@ -52,7 +52,8 @@ class ShamCashResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('wallet')->label('رقم الحساب')->copyable(),
+                Tables\Columns\SpatieMediaLibraryImageColumn::make('image')->conversion('webp')->collection('sham-cash')->label('QR')
             ])
             ->filters([
                 //
