@@ -5,7 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ShamCashResource\Pages;
 use App\Filament\Resources\ShamCashResource\RelationManagers;
 use App\Models\Setting;
-use App\Models\ShamCash;
+
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
