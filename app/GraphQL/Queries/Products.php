@@ -33,9 +33,14 @@ final class Products
         $categoryId = isset($args['category_id']) ?$args['category_id']: null;
         // throw new GraphQLExceptionHandler($userId);
         \Log::info( "User: {$userId}");
-        return Product::query()
-            ->when($cityId != null, fn($query) => $query->where('city_id', $cityId)->orWhereHas('city',fn($q)=>$q->where('cities.city_id',$cityId)))
-            ->where('active', ProductActiveEnum::ACTIVE->value)
+        return Product::query()->where('active', ProductActiveEnum::ACTIVE->value)
+            ->when($cityId != null, fn($query) =>
+            $query->where(function ($q) use ($cityId) {
+                $q->where('city_id', $cityId)
+                    ->orWhereHas('city', fn($q2) => $q2->where('cities.city_id', $cityId));
+            })
+            )
+
             ->when($type == null && $userId == null && $sub1Id == null, fn($query) => $query->whereNot('type', CategoryTypeEnum::NEWS->value)
                 ->whereNot('type', CategoryTypeEnum::SERVICE->value))
             ->where(function ($query) {
