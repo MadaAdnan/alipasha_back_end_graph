@@ -34,6 +34,7 @@ final class Products
         // throw new GraphQLExceptionHandler($userId);
         \Log::info( "User: {$userId}");
         return Product::query()
+            ->when($cityId != null, fn($query) => $query->where('city_id', $cityId)->orWhereHas('city',fn($q)=>$q->where('cities.city_id',$cityId)))
             ->where('active', ProductActiveEnum::ACTIVE->value)
             ->when($type == null && $userId == null && $sub1Id == null, fn($query) => $query->whereNot('type', CategoryTypeEnum::NEWS->value)
                 ->whereNot('type', CategoryTypeEnum::SERVICE->value))
@@ -60,7 +61,7 @@ final class Products
             //->when($userId!='', fn($query) => $query->where('user_id', $userId))
             ->when($type === 'product' && isset($args['max_price']) && $args['max_price'] > 0, fn($query) => $query->where('price', '>=', [$args['min_price'] ?? 0])->where('price', "<=", $args['max_price'] ?? 10000))
             ->when(collect($colors ?? [])->count() > 0, fn($query) => $query->whereHas('colors', fn($q) => $q->whereIn('colors.id', $colors)))
-            ->when($cityId != null, fn($query) => $query->where('city_id', $cityId)->orWhereHas('city',fn($q)=>$q->where('cities.city_id',$cityId)))
+
             ->when($categoryId != null, fn($query) => $query->where('category_id', $categoryId))
             ->when($sub1Id != null, fn($query) => $query->where('sub1_id', $sub1Id))
 
