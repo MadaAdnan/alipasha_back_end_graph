@@ -47,6 +47,9 @@ final class SubscribePlan
             \DB::beginTransaction();
             try {
                 $user->plans()->syncWithPivotValues($planId, ['expired_date' => $expiredDate, 'subscription_date' => $subscription_date], false);
+                if ($plan->is_validate) {
+                    $user->update(['is_verified' => true]);
+                }
                 Balance::create([
                     'debit' => $planPrice,
                     'credit' => 0,
