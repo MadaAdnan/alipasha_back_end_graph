@@ -27,6 +27,6 @@ class Plan extends Model
     }
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class)->withPivot(['expired_date','subscription_date']);
+        return $this->belongsToMany(User::class,'plan_user','user_id','id')->withPivot(['expired_date','subscription_date']);
     }
 }
