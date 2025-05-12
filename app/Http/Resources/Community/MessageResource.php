@@ -16,7 +16,6 @@ class MessageResource extends JsonResource
     public function toArray(Request $request): array
     {
         $attachUrl = Image::getAttach($this);
-        info("RESOURCE :".$attachUrl);
         return [
             "id" => $this->id,
             'body' => $this->body,

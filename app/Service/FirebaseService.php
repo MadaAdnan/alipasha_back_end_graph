@@ -18,10 +18,10 @@ class FirebaseService
 
     public function __construct()
     {
-        // storage_path('app/firebase/fcm.json')
+
 
         $factory = (new Factory)
-            // ->withServiceAccount(storage_path('app/firebase/fcm.json'));
+
             ->withServiceAccount([
                 "type" => "service_account",
                 "project_id" => "alipasha-e8c82",
@@ -63,7 +63,6 @@ class FirebaseService
         $responses = [];
 
         foreach ($deviceTokens as $token) {
-            // $response = $this->messaging->send($message->withChangedTarget(MessageTarget::TOKEN, $token));
             try {
                 $response = $this->messaging->send($message->withChangedTarget(MessageTarget::TOKEN, $token));
                 $logger->logSuccess($token, $data);
@@ -73,7 +72,7 @@ class FirebaseService
             }
             $responses[] = $response;
         }
-        \Log::alert('Finish');
+
         return $responses;
     }
 }

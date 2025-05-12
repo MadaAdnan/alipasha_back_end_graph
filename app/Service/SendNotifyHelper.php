@@ -16,7 +16,6 @@ class SendNotifyHelper
         $job=new SendNotificationJob($user, $data);
          dispatch($job);
         } catch (\Exception | \Error $e) {
-            \Log::alert('SendNotifyHelper DataBase'.$e->getMessage());
         }
         if ($user->device_token != null) {
             try {
@@ -25,7 +24,6 @@ class SendNotifyHelper
                 dispatch($job);
 
             } catch (\Exception | \Error $e) {
-                \Log::alert('SendNotifyHelper FireBase'.$e->getMessage());
             }
         }
 
@@ -46,7 +44,6 @@ class SendNotifyHelper
                 $job = new SendFirebaseNotificationJob($tokens, $data);
                 dispatch($job);
             } catch (\Exception | \Error $e) {
-\Log::error('ERROR : SendNotifyHelper '.$e->getMessage());
             }
 
 
