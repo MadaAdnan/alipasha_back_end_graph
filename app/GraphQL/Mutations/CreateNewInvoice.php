@@ -44,11 +44,12 @@ final  class CreateNewInvoice
             if ($ship_price == null) {
                 throw new \Exception('لا يتوفر توصيل حالياً');
             }
-            if ($sellerArea->code != $authArea->code) {
+           /* if ($sellerArea->code != $authArea->code) {
                 $far = $ship_price->external_price;
             } else {
                 $far = $ship_price->internal_price;
-            }
+            }*/
+            $far = $ship_price->internal_price;
             $steps = ((int)$sellerArea->level + (int)$authArea->level) - 1;
             if ($steps <= 0) {
                 $steps = 1;
