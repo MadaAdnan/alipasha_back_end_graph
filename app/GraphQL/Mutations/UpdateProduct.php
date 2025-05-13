@@ -57,8 +57,8 @@ final class UpdateProduct
 
             ];
             $change = false;
-            foreach ($original as $key => $value) {
-                if ($value != $incoming[$key]) {
+            foreach ($incoming as $key => $value) {
+                if ($value != $original[$key]) {
                     $change = true;
                     break;
                 }
