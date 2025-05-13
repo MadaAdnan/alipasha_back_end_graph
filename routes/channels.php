@@ -17,16 +17,25 @@ use Illuminate\Support\Facades\Broadcast;
 });*/
 
 
-Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
+/*Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int)$user->id === (int)$id;
-});
+});*/
 Broadcast::channel('message.{communityId}.{userId}', function (\App\Models\User $user, $communityId,$userId) {
 
     return in_array($communityId,$user->communities->pluck('id')->toArray()) && $user->id==$userId;
 
 });
 
-Broadcast::channel('community.{id}', function ($user, $id) {
+Broadcast::channel('community.{communityId}', function (\App\Models\User $user, $communityId) {
 
-    return (int)$user->id === (int)$id ;
+    return in_array($communityId,$user->communities->pluck('id')->toArray()) ;
+
 });
+
+Broadcast::channel('message.{communityId}', function (\App\Models\User $user, $communityId) {
+
+    return in_array($communityId,$user->communities->pluck('id')->toArray());
+
+});
+
+

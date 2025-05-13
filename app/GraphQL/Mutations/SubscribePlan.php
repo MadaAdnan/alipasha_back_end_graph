@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Enums\PlansDurationEnum;
 use App\Exceptions\ErrorGraphHandler;
 use App\Exceptions\GraphQLExceptionHandler;
 use App\Models\Balance;
@@ -31,7 +32,17 @@ final class SubscribePlan
 
             $balance = $user->getTotalBalance();
             $planPrice = $plan->is_discount ? $plan->discount : $plan->price;
-            $expiredDate = now()->addMonth();
+
+            switch ($plan->duration ){
+                case PlansDurationEnum::MONTH->value:
+                    $expiredDate = now()->addMonth();
+                    break;
+                case PlansDurationEnum::YEAR->value:
+                    $expiredDate = now()->addYear();
+                    break;
+                default :
+                    $expiredDate = now()->addYear();
+            }
             $subscription_date = now();
             if ($balance < $planPrice) {
                 throw new GraphQLExceptionHandler('لا تملك رصيد كافي');
@@ -48,7 +59,7 @@ final class SubscribePlan
             try {
                 $user->plans()->syncWithPivotValues($planId, ['expired_date' => $expiredDate, 'subscription_date' => $subscription_date], false);
                 if ($plan->is_validate) {
-                    $user->update(['is_verified' => true]);
+                    $user->update(['is_verified' => true,'verified_account_date'=>$expiredDate]);
                 }
                 Balance::create([
                     'debit' => $planPrice,
