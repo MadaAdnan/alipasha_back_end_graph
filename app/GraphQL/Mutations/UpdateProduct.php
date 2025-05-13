@@ -28,7 +28,7 @@ final class UpdateProduct
             }
             // getOriginalValues
             $original = $product->only([
-                'name', 'info', 'tags', 'category_id', 'sub1_id', 'sub2_id', 'sub3_id', 'sub4_id',
+                'name', 'info',  'category_id', 'sub1_id', 'sub2_id', 'sub3_id', 'sub4_id',
                 'is_discount', 'discount', 'is_available', 'price', 'city_id', 'video',
                 'expert', 'end_date', 'is_delivery'
             ]);
@@ -36,7 +36,7 @@ final class UpdateProduct
             $incoming = [
                 'name' => $data['name'] ?? \Str::words($data['info'], 10),
                 'info' => $data['info'] ?? null,
-                'tags' => $data['tags'] ?? null,
+
                 'category_id' => $data['category_id'] ?? null,
                 'sub1_id' => $data['sub1_id'] ?? null,
                 'sub2_id' => $data['sub2_id'] ?? null,
@@ -56,6 +56,7 @@ final class UpdateProduct
 
 
             ];
+
             info($original);
             info($incoming);
             $change = false;
@@ -65,6 +66,7 @@ final class UpdateProduct
                     break;
                 }
             }
+            $incoming['tags']= $data['tags'] ?? null;
             if ($change || (isset($data['images']) && $data['images'] !== null)) {
                 $incoming['active'] = auth()->user()->is_default_active ? $product->active : ProductActiveEnum::PENDING->value;
 
