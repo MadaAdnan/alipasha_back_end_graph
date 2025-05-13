@@ -57,7 +57,8 @@ final class UpdateProduct
 
 
             $change = false;
-
+info('CHANGES');
+info($original['name'] !=$incoming['name'] || $original['info']!=$incoming['info']);
                 if ($original['name'] !=$incoming['name'] || $original['info']!=$incoming['info']) {
                     $change = true;
                 }
