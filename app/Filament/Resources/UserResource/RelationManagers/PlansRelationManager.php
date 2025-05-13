@@ -45,9 +45,9 @@ class PlansRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('name')
             ->columns([
-             Tables\Columns\TextColumn::make('name'),
-             Tables\Columns\TextColumn::make('subscription_date'),
-             Tables\Columns\TextColumn::make('expired_date')
+             Tables\Columns\TextColumn::make('name')->label('الخطة'),
+             Tables\Columns\TextColumn::make('subscription_date')->label('تاريخ الإشتراك'),
+             Tables\Columns\TextColumn::make('expired_date')->label('ينتهي في')
 
             ])
             ->filters([
