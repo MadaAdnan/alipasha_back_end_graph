@@ -61,10 +61,14 @@ final class SubscribePlan
                 if ($plan->is_validate) {
                     $user->update(['is_verified' => true,'verified_account_date'=>$expiredDate]);
                 }
+                if ($plan->special_store) {
+                    $user->update(['is_special' => true]);
+                }
                 Balance::create([
                     'debit' => $planPrice,
                     'credit' => 0,
                     'user_id' => $user->id,
+                    'info'=>"إشتراك بخطة {$plan->name} حتى تاريخ  {$expiredDate->format('Y-m-d')}"
                 ]);
                 \DB::commit();
             } catch (\Exception | \Error $e) {
