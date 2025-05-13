@@ -33,7 +33,10 @@ class ProductsHelper
          * @var $user User
          */
         $user = auth()->user();
-        $plan = $user->plans()->where('type', PlansTypeEnum::PRESENT->value)->first();
+        $plan = $user->plans()
+            ->where('type', PlansTypeEnum::PRESENT->value)
+            ->whereNot('duration', PlansDurationEnum::FREE->value)
+            ->first();
         info("ADNAN {$plan->name} - {$user->special_product_count} - {$plan->special_count}");
         return $plan!=null &&  $user->special_product_count < $plan->special_count;
     }
