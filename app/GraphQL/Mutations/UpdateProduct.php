@@ -76,8 +76,7 @@ final class UpdateProduct
                 }
             }
         } catch (\Exception | \Error $e) {
-            \Log::info(get_class($e));
-            \Log::info($e->getMessage());
+
             throw new \Exception($e->getMessage());
         }
 
