@@ -23,11 +23,17 @@ final class UpdateProduct
                 throw new \Exception('المنتج رقم ' . $productId . ' غير موجود');
             }
             $is_special = $data['is_special'] ?? false;
-            if ($is_special==true && !ProductsHelper::canAddSpecial()) {
+            if ($is_special == true && !ProductsHelper::canAddSpecial()) {
                 $is_special = false;
             }
-            info("ADNAN SPECIAL {$is_special}");
-            $product->update([
+            // getOriginalValues
+            $original = $product->only([
+                'name', 'info', 'tags', 'category_id', 'sub1_id', 'sub2_id', 'sub3_id', 'sub4_id',
+                'is_discount', 'discount', 'is_available', 'price', 'city_id', 'video',
+                'expert', 'end_date', 'is_delivery'
+            ]);
+// New Values
+            $incoming = [
                 'name' => $data['name'] ?? \Str::words($data['info'], 10),
                 'info' => $data['info'] ?? null,
                 'tags' => $data['tags'] ?? null,
@@ -47,11 +53,22 @@ final class UpdateProduct
                 'is_delivery' => $data['is_delivery'] ?? false,
                 // 'latitude' => $data['latitude'] ?? null,
                 // 'longitude' => $data['longitude'] ?? null,
-                'active' =>auth()->user()->is_default_active?$product->active:ProductActiveEnum::PENDING->value,
-                'level' => $is_special ? LevelProductEnum::SPECIAL->value : LevelProductEnum::NORMAL->value,
 
 
-            ]);
+            ];
+            $change = false;
+            foreach ($original as $key => $value) {
+                if ($value != $incoming[$key]) {
+                    $change = true;
+                    break;
+                }
+            }
+            if ($change || (isset($data['images']) && $data['images'] !== null)) {
+                $incoming['active'] = auth()->user()->is_default_active ? $product->active : ProductActiveEnum::PENDING->value;
+
+            }
+            $incoming['level'] = $is_special ? LevelProductEnum::SPECIAL->value : LevelProductEnum::NORMAL->value;
+            $product->update($incoming);
             $product->colors()->sync($data['colors'] ?? []);
             if (isset($data['images']) && $data['images'] !== null) {
                 foreach ($data['images'] as $key => $image) {
