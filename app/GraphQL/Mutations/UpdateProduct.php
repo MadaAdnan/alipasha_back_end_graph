@@ -28,9 +28,7 @@ final class UpdateProduct
             }
             // getOriginalValues
             $original = $product->only([
-                'name', 'info',  'category_id', 'sub1_id', 'sub2_id', 'sub3_id', 'sub4_id',
-                'is_discount', 'discount', 'is_available', 'price', 'city_id', 'video',
-                'expert', 'end_date', 'is_delivery'
+                'name', 'info',
             ]);
 // New Values
             $incoming = [
@@ -57,15 +55,13 @@ final class UpdateProduct
 
             ];
 
-            info($original);
-            info($incoming);
+
             $change = false;
-            foreach ($incoming as $key => $value) {
-                if ($value != $original[$key]) {
+
+                if ($original['name'] !=$incoming['name'] || $original['info']!=$incoming['info']) {
                     $change = true;
-                    break;
                 }
-            }
+
             $incoming['tags']= $data['tags'] ?? null;
             if ($change || (isset($data['images']) && $data['images'] !== null)) {
                 $incoming['active'] = auth()->user()->is_default_active ? $product->active : ProductActiveEnum::PENDING->value;
