@@ -26,6 +26,7 @@ final class UpdateProduct
             if ($is_special==true && !ProductsHelper::canAddSpecial()) {
                 $is_special = false;
             }
+            info("ADNAN SPECIAL {$is_special}");
             $product->update([
                 'name' => $data['name'] ?? \Str::words($data['info'], 10),
                 'info' => $data['info'] ?? null,
