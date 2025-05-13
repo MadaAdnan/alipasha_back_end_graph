@@ -240,9 +240,6 @@ class UserResource extends Resource
                             )->when(
                                 $data['phone'] == 'use',
                                 fn(Builder $query, $value): Builder => $query->whereNotNull('phone'),
-                            )->when(
-                                $data['city'],
-                                fn(Builder $query, $value): Builder => $query->whereHas('city', fn($query) => $query->where('cities.city_id', $value)),
                             );
                     })
             ])
