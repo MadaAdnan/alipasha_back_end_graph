@@ -41,12 +41,13 @@ Route::middleware('throttle:20,1')->group(function () {
     Route::resource('/services', \App\Http\Controllers\Web\ServiceController::class)->only('index', 'show');
     Route::resource('/posts', \App\Http\Controllers\Web\PostController::class)->only('index', 'show');
     Route::resource('/pricing', \App\Http\Controllers\Web\PricingController::class)->only('index', 'store');
-    Route::get('/markets/{id}', [\App\Http\Controllers\Web\SellerController::class, 'profile'])->name('seller.profile');
+    Route::get('/profile/{id?}', [\App\Http\Controllers\Web\SellerController::class, 'profile'])->name('seller.profile');
+    Route::get('/profile', [\App\Http\Controllers\Web\SellerController::class, 'profile'])->name('seller.profile');
     Route::get('/category/{id}', [\App\Http\Controllers\Web\CategoryController::class, 'show'])->name('category.show');
 
 
     Route::middleware('auth:web')->group(function () {
-        Route::resource('/profile', \App\Http\Controllers\Web\ProfileController::class);
+        Route::resource('/my-profile', \App\Http\Controllers\Web\ProfileController::class)->only('index','store');
         Route::resource('/comments', \App\Http\Controllers\Web\CommentController::class)->only(['store']);
         Route::resource('/communities', \App\Http\Controllers\Web\CommunityController::class)->only(['index', 'show', 'store']);
         Route::resource('/messages', \App\Http\Controllers\Web\MessageController::class)->only(['store']);
