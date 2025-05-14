@@ -90,18 +90,7 @@ Route::middleware('throttle:20,1')->group(function () {
 
 
 Route::get('testnot/{id?}', function ($id = null) {
-    $user = User::find(6701);
-    $community = \App\Models\Community::find(2258);
 
-    $message = \App\Models\Message::create([
-        'community_id' => 2258,
-        'user_id' => 6701,
-        'body' => fake()->name,
-        'type' => 'text'
-    ]);
-
-
-    event(new \App\Events\MessageNewSentEvent($message));
     /*  $users = User::with('city')
           ->whereNull('area_id')
           ->get();
