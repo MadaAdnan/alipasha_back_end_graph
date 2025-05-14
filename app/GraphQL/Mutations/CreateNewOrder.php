@@ -30,8 +30,8 @@ final class CreateNewOrder
         $maxSize = ShippingPrice::where('size', '>=', $size)
             ->orderBy('size')
             ->first();
-        $from = City::whereNotNull('city_id')->find($data['from_id'])?->first();
-        $to = City::whereNotNull('city_id')->find($data['to_id'])?->first();
+        $from = City::whereNot('is_main',1)->find($data['from_id'])?->first();
+        $to = City::whereNot('is_main',1)->find($data['to_id'])?->first();
 
         if ($from == null || $to == null) {
             throw new GraphQLExceptionHandler('يرجى تحديد مدينة المرسل والمستلم بشكل صحيح');
