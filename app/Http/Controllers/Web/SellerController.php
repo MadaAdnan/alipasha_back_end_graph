@@ -27,13 +27,10 @@ class SellerController extends Controller
      */
     public function profile(string $id=null)
     {
-        if($id!=null){
-            $store=User::findOrFail($id);
-        }else{
+        if($id==null){
             $id=\request()->input('id');
-            $store=User::findOrFail($id);
         }
-
+        $store=User::findOrFail($id);
         $categoryId=\request()->get('category_id');
         $products=Product::whereActive(ProductActiveEnum::ACTIVE->value)->where('user_id',$id)
             ->when(!empty($categoryId),fn($query)=>$query->where('category_id',$categoryId))
