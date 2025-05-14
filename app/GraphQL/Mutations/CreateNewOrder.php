@@ -23,7 +23,7 @@ final class CreateNewOrder
             throw new GraphQLExceptionHandler('تم حظر حسابك يرجى مراجعة الإدارة');
         }
         $data = $args['input'];
-        $size = ($data['length']) * ($data['height']) * ($data['width']) / 100000;
+        $size = ($data['length'] *0.01) * ($data['height']*0.01) * ($data['width']*0.01) ;
         $maxWeight = ShippingPrice::where('weight', '>=', $data['weight'])
             ->orderBy('weight')
             ->first();
