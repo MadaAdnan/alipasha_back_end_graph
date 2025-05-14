@@ -30,8 +30,8 @@ final class CreateNewOrder
         $maxSize = ShippingPrice::where('size', '>=', $size)
             ->orderBy('size')
             ->first();
-        $from = City::whereNot('is_main',1)->find($data['from_id'])?->first();
-        $to = City::whereNot('is_main',1)->find($data['to_id'])?->first();
+        $from = City::whereNot('is_main',1)->find($data['from_id']);
+        $to = City::whereNot('is_main',1)->find($data['to_id']);
 
         if ($from == null || $to == null) {
             throw new GraphQLExceptionHandler('يرجى تحديد مدينة المرسل والمستلم بشكل صحيح');
@@ -40,7 +40,7 @@ final class CreateNewOrder
         $price = $maxSize?->internal_price > $maxWeight?->internal_price ? $maxSize?->internal_price : $maxWeight?->internal_price;
        $ratio=$price/3;
        $steps=($from->level+$to->level)-1;
-        throw new GraphQLExceptionHandler("Level {$from->name} : {$to->name} - Steps {$steps} - Ratio {$ratio} Price {$price}");
+        throw new GraphQLExceptionHandler("Level {$from->name} To {$to->name} - Steps {$steps} - Ratio {$ratio} Price {$price}");
        $price=$price + ($ratio*$steps);
 
 

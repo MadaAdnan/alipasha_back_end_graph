@@ -30,8 +30,8 @@ final class CreateOrder
         $maxSize = ShippingPrice::where('size', '>=', $size)
             ->orderBy('size')
             ->first();
-        $from = City::find($data['from_id'])?->first();
-        $to = City::find($data['to_id'])?->first();
+        $from = City::find($data['from_id']);
+        $to = City::find($data['to_id']);
 
 
 
