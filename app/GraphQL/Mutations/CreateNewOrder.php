@@ -40,9 +40,10 @@ final class CreateNewOrder
         $price = $maxSize?->internal_price > $maxWeight?->internal_price ? $maxSize?->internal_price : $maxWeight?->internal_price;
        $ratio=$price/3;
        $steps=($from->level+$to->level)-1;
-       $price=$price+$ratio*$steps;
+        throw new GraphQLExceptionHandler("Level {$from->level} : {$to->level} - Steps {$steps} - Ratio {$ratio} Price {$price}");
+       $price=$price + ($ratio*$steps);
 
-        throw new GraphQLExceptionHandler("{$price}");
+
         $total_balance = \DB::table('balances')->where('user_id', auth()->id())->selectRaw('SUM(credit) - SUM(debit) as total')->first()?->total ?? 0;
         if ($total_balance <= 0 || $total_balance < $price) {
             throw new GraphQLExceptionHandler('لا تملك رصيد كاف لطلب الشحن');
