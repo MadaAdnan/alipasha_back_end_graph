@@ -40,7 +40,7 @@ final class CreateNewOrder
         $price = $maxSize?->internal_price > $maxWeight?->internal_price ? $maxSize?->internal_price : $maxWeight?->internal_price;
        $ratio=$price/3;
        $steps=($from->level+$to->level)-1;
-        throw new GraphQLExceptionHandler("Level {$data['from_id']} : {$data['to_id']} - Steps {$steps} - Ratio {$ratio} Price {$price}");
+        throw new GraphQLExceptionHandler("Level {$from->name} : {$to->name} - Steps {$steps} - Ratio {$ratio} Price {$price}");
        $price=$price + ($ratio*$steps);
 
 
