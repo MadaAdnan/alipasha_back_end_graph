@@ -90,22 +90,17 @@ Route::middleware('throttle:20,1')->group(function () {
 
 
 Route::get('testnot/{id?}', function ($id = null) {
-    $user=User::find(6701);
-    $community=\App\Models\Community::where('type',\App\Enums\CommunityTypeEnum::CHAT->value)
-        ->whereHas('users',fn($q)=>$q->where('users.id',6701))
-        ->whereHas('users',fn($q)=>$q->where('users.id',13))->first();
-    if(!$community){
-        $community=\App\Models\Community::create([
-            'name'=>'test',
-            'manager_id'=>$user->id,
-            'type'=>\App\Enums\CommunityTypeEnum::CHAT->value,
-            'last_update'=>now(),
-        ]);
-        $community->users()->sync([$user->id,13]);
-    }
+  /*  $user = User::find(6701);
+    $community = \App\Models\Community::find(2258);*/
+    $message = \App\Models\Message::create([
+        'community_id' => 2258,
+        'user_id' => 6701,
+        'body' => fake()->name,
+        'type' => 'text'
+    ]);
 
 
-    event(new \App\Events\CreateNewCommunityEvent($community));
+    event(new MessageSentEvent($message));
     /*  $users = User::with('city')
           ->whereNull('area_id')
           ->get();
