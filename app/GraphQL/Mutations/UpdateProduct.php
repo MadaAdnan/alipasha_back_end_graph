@@ -26,10 +26,6 @@ final class UpdateProduct
             if ($is_special == true && !ProductsHelper::canAddSpecial()) {
                 $is_special = false;
             }
-            // getOriginalValues
-            $original = $product->only([
-                'name', 'info',
-            ]);
 // New Values
             $incoming = [
                 'name' => $data['name'] ?? \Str::words($data['info'], 10),
@@ -49,20 +45,16 @@ final class UpdateProduct
                 'expert' => \Str::words($data['info'], 10),
                 'end_date' => $data['end_date'] ?? null,
                 'is_delivery' => $data['is_delivery'] ?? false,
-                // 'latitude' => $data['latitude'] ?? null,
-                // 'longitude' => $data['longitude'] ?? null,
-
-
             ];
 
 
             $change = false;
 
-                if ($original['name'] !=$incoming['name'] || $original['info']!=$incoming['info']) {
-                    $change = true;
-                }
+            if ($product->name != $incoming['name'] || $product->info != $incoming['info']) {
+                $change = true;
+            }
 
-            $incoming['tags']= $data['tags'] ?? null;
+            $incoming['tags'] = $data['tags'] ?? null;
             if ($change || (isset($data['images']) && $data['images'] !== null)) {
                 $incoming['active'] = auth()->user()->is_default_active ? $product->active : ProductActiveEnum::PENDING->value;
 
