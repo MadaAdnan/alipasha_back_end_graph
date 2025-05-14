@@ -30,7 +30,8 @@ class SellerController extends Controller
         if($id!=null){
             $store=User::findOrFail($id);
         }else{
-            $store=User::findOrFail(\request()->input('id'));
+            $id=\request()->input('id');
+            $store=User::findOrFail($id);
         }
 
         $categoryId=\request()->get('category_id');
