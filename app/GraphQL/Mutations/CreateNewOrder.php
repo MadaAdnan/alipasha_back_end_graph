@@ -42,7 +42,7 @@ final class CreateNewOrder
        $steps=($from->level+$to->level)-1;
 
        $price=$price + ($ratio*$steps);
-        throw new GraphQLExceptionHandler("Level {$from->name} To {$to->name} - Steps {$steps} - Ratio {$ratio} Price {$price}");
+
 
         $total_balance = \DB::table('balances')->where('user_id', auth()->id())->selectRaw('SUM(credit) - SUM(debit) as total')->first()?->total ?? 0;
         if ($total_balance <= 0 || $total_balance < $price) {
