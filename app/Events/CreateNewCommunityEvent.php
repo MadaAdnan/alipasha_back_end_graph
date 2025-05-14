@@ -36,10 +36,13 @@ class CreateNewCommunityEvent implements ShouldBroadcast
     public function broadcastOn(): array
     {
 
-
-        return [
-            new PrivateChannel("community.{$this->community->id}")
-        ];
+        $channels = [];
+        foreach ($this->community->users as $user) {
+            if ($user->id !== $this->community->manager_id) {
+                $channels[] = new PrivateChannel("user.{$user->id}");
+            }
+        }
+        return $channels;
     }
 
     public function broadcastAs(): string

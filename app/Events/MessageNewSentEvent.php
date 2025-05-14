@@ -37,9 +37,13 @@ class MessageNewSentEvent implements ShouldBroadcast
     public function broadcastOn(): array
     {
 
-        return [
-            new PrivateChannel("message.{$this->message->community_id}" )
-        ];
+        $channels = [];
+        foreach ($this->message->community->users as $user) {
+            if ($user->id !== $this->message->user_id) {
+                $channels[] = new PrivateChannel("user.{$user->id}");
+            }
+        }
+        return $channels;
     }
 
 
