@@ -4,6 +4,7 @@ namespace App\GraphQL\Mutations;
 
 use App\Enums\CommunityTypeEnum;
 use App\Events\CreateCommunityEvent;
+use App\Events\CreateNewCommunityEvent;
 use App\Exceptions\GraphQLExceptionHandler;
 use App\Models\Community;
 use App\Models\User;
@@ -41,7 +42,7 @@ final class CreateChat
 
                 $community->users()->sync([$userId, $memberId]);
                 try {
-                    broadcast(new CreateCommunityEvent($community));
+                    broadcast(new CreateNewCommunityEvent($community));
                 } catch (Exception | \Error $e) {
 
                 }

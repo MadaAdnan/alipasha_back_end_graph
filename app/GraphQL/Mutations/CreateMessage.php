@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations;
 
 use App\Enums\CommunityTypeEnum;
+use App\Events\MessageNewSentEvent;
 use App\Events\MessageSentEvent;
 use App\Exceptions\GraphQLExceptionHandler;
 use App\Jobs\SendFirebaseNotificationJob;
@@ -64,7 +65,7 @@ final class CreateMessage
             info('COMM : ' . $e->getMessage());
         }
         try {
-            event(new MessageSentEvent($message));
+            event(new MessageNewSentEvent($message));
         } catch (Exception $e) {
             info('Error Websockets');
         }
