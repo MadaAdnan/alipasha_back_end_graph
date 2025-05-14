@@ -38,6 +38,7 @@ final class CreateNewOrder
         }
 
         $price = $maxSize?->internal_price > $maxWeight?->internal_price ? $maxSize?->internal_price : $maxWeight?->internal_price;
+        throw new GraphQLExceptionHandler("{$price}");
         $total_balance = \DB::table('balances')->where('user_id', auth()->id())->selectRaw('SUM(credit) - SUM(debit) as total')->first()?->total ?? 0;
         if ($total_balance <= 0 || $total_balance < $price) {
             throw new GraphQLExceptionHandler('لا تملك رصيد كاف لطلب الشحن');
