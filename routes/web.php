@@ -46,10 +46,12 @@ Route::middleware('throttle:20,1')->group(function () {
 
 
     Route::middleware('auth:web')->group(function () {
-        Route::resource('/my-profile', \App\Http\Controllers\Web\ProfileController::class)->only('index','store') ->names([
-            'index' => 'profile.index',
-            'store' => 'profile.store',
-        ]);
+        Route::resource('/my-profile', \App\Http\Controllers\Web\ProfileController::class)
+            ->only('index', 'store')
+            ->names([
+                'index' => 'profile.index',
+                'store' => 'profile.store',
+            ]);
         Route::resource('/comments', \App\Http\Controllers\Web\CommentController::class)->only(['store']);
         Route::resource('/communities', \App\Http\Controllers\Web\CommunityController::class)->only(['index', 'show', 'store']);
         Route::resource('/messages', \App\Http\Controllers\Web\MessageController::class)->only(['store']);
@@ -88,6 +90,15 @@ Route::middleware('throttle:20,1')->group(function () {
 
 
 Route::get('testnot/{id?}', function ($id = null) {
+    $user=User::find(6701);
+    $community=\App\Models\Community::create([
+        'name'=>'test',
+'manager_id'=>$user->id,
+'type'=>\App\Enums\CommunityTypeEnum::CHAT->value,
+'last_update'=>now(),
+    ]);
+    $community->users()->sync([$user->id,13]);
+    event(new \App\Events\CreateNewCommunityEvent($community));
     /*  $users = User::with('city')
           ->whereNull('area_id')
           ->get();
