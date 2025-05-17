@@ -21,6 +21,7 @@ class ChildrenRelationManager extends RelationManager
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
+                Forms\Components\Toggle::make('is_active')->label('حالة التفعيل')
             ]);
     }
 
@@ -29,7 +30,7 @@ class ChildrenRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('name')
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\TextColumn::make('name')->searchable(),
             ])
             ->filters([
                 //
