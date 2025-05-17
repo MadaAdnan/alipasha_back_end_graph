@@ -30,6 +30,7 @@ class SellerController extends Controller
         if($id==null){
             $id=\request()->input('id');
         }
+        dd($id);
         $store=User::findOrFail($id);
         $categoryId=\request()->get('category_id');
         $products=Product::whereActive(ProductActiveEnum::ACTIVE->value)->where('user_id',$id)
