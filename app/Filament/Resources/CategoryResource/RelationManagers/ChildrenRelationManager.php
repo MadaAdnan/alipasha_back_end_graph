@@ -31,6 +31,7 @@ class ChildrenRelationManager extends RelationManager
             ->recordTitleAttribute('name')
             ->columns([
                 Tables\Columns\TextColumn::make('name')->searchable(),
+                Tables\Columns\TextColumn::make('is_active'),
             ])
             ->filters([
                 //
