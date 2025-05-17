@@ -14,6 +14,6 @@ final class CategoryBySeller
     {
         $userId = $args['sellerId'];
         $categorisId = \DB::table('products')->whereNull('deleted_at')->where('user_id', $userId)->pluck('sub1_id')->toArray();
-        return Category::whereIn('id', $categorisId) ->orderBy('sortable')->get();
+        return Category::where('is_active',true)->whereIn('id', $categorisId) ->orderBy('sortable')->get();
     }
 }

@@ -14,8 +14,8 @@ final class MainCategories
     public function __invoke($_, array $args)
     {
         $type = $args['type']??null;
-        return Category::
-        when(!empty($type), function ($query) use ($type) {
+        return Category::where('is_active',true)
+        ->when(!empty($type), function ($query) use ($type) {
             if ($type === 'job' || $type === 'search_job') {
                 $query->where('type', 'job')->orWhere('type', 'search_job');
             } else {
