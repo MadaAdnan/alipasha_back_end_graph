@@ -23,10 +23,10 @@ final class MainCategories
             }
         })->when($type === 'product',fn($query)=>$query->where('type','product')->orWhere('type',CategoryTypeEnum::RESTAURANT->value))
             ->where(['is_active' => true, 'is_main' => true/*,'type' => 'product'*/])
-
+            ->with(['children'=>fn($q)=>$q->where('is_active',true)])
             ->orderBy('sortable')
             ->orderByRaw("FIELD(type, 'product', 'job', 'search_job','tender','service','news')")
-            ->with(['children'=>fn($q)=>$q->where('is_active',true)])
+
             ->get();
     }
 }
