@@ -94,6 +94,7 @@ class CategoryResource extends Resource
     {
         return [
             //  RelationManagers\ParentsRelationManager::class
+            RelationManagers\ChildrenRelationManager::class
         ];
     }
 
