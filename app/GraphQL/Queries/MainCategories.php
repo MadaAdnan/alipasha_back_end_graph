@@ -26,6 +26,7 @@ final class MainCategories
 
             ->orderBy('sortable')
             ->orderByRaw("FIELD(type, 'product', 'job', 'search_job','tender','service','news')")
+            ->with(['children'=>fn($q)=>$q->where('is_active',true)])
             ->get();
     }
 }
