@@ -77,7 +77,7 @@ class CategoryResource extends Resource
                         false: fn(Builder $query) => $query->whereHas('parents', fn($query) => $query->where('is_main', true)),
                         blank: fn(Builder $query) => $query // In this example, we do not want to filter the query when it is blank.
                     ),
-                Tables\Filters\SelectFilter::make('parents')->relationship('parents', 'name')->label('فلتر حسب القسم'),
+                Tables\Filters\SelectFilter::make('parents')->relationship('parents', 'name',fn($query)=>$query->where('is_main',true))->searchable()->label('فلتر حسب القسم'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
