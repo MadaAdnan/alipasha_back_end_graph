@@ -24,6 +24,25 @@ use Mockery\Exception;
     'verify' => true,
     'login' => false,
 ]);*/
+
+Route::get('google/auth/redirect', function () {
+
+    return Socialite::driver('google')->redirect();
+
+})->name('google.auth');
+
+
+
+Route::get('oauth/callback/google', function () {
+
+    $user = Socialite::driver('google')->user();
+
+dd($user);
+
+
+    // $user->token
+
+});
 Route::middleware('throttle:20,1')->group(function () {
     Route::get('login', [\App\Http\Controllers\Web\AuthController::class, 'loginUi'])->name('login.ui');
     Route::get('forget-password', [\App\Http\Controllers\Web\AuthController::class, 'forgetPasswordUi'])->name('forget-password.ui');
