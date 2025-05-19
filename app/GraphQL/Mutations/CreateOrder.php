@@ -33,7 +33,9 @@ final class CreateOrder
         $from = City::find($data['from_id']);
         $to = City::find($data['to_id']);
 
-
+        if($from?->is_delivery!=true || $to?->is_delivery!=true ){
+            throw new GraphQLExceptionHandler('الشحن غير متوفر في المدينة المحددة');
+        }
 
         if (!$from?->isRelatedTo($to)) {
             $price = $maxSize?->external_price > $maxWeight?->external_price ? $maxSize?->external_price : $maxWeight?->external_price;
