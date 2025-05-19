@@ -76,7 +76,7 @@ class CartController extends Controller
                 $shippingPrice = ShippingPrice::orderBy('weight', 'desc')->first();
             }
             $shipping = $shippingPrice->internal_price;
-            $steps = ($cart->seller->city?->level ?? 0) + ($cart->user->city?->level ?? 0) - 1;
+            $steps = ($cart->seller->area?->level ?? 0) + ($cart->user->area?->level ?? 0) - 1;
             $ratio = $shipping / 3;
             dd($cart->seller->city?->level,$cart->user->city?->level,$ratio,$shipping+($ratio*$steps));
             $shipping=$shipping+($ratio*$steps);
