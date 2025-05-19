@@ -78,9 +78,11 @@ class CartController extends Controller
             $shipping = $shippingPrice->internal_price;
             $steps = ($cart->seller->city?->level ?? 0) + ($cart->user->city?->level ?? 0) - 1;
             $ratio = $shipping / 3;
+            dd($shipping,$steps,$ratio,$shipping+($ratio*$steps));
             $shipping=$shipping+($ratio*$steps);
 
         }
+
         return view('web.cart', compact('user', 'items', 'shipping'));
     }
 
