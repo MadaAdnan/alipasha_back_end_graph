@@ -26,6 +26,10 @@ final  class CreateInvoice
             if(!auth()->check() || auth()->id()==null){
                 throw new GraphQLExceptionHandler('خطأ في الطلب يرجى المحاولة من جديد');
             }
+            $seller=User::find($data['seller_id']);
+            if(auth()->user()->city?->is_delivery!=true || $seller?->city?->is_delivery!=true ){
+                throw new GraphQLExceptionHandler('الشحن غير متوفر في المدينة المحددة');
+            }
             $invoice = new Invoice();
             $invoice->seller_id = $data['seller_id'];
             $invoice->user_id = auth()->id();
@@ -39,7 +43,7 @@ final  class CreateInvoice
             $total = 0;
             foreach ($data['items'] as $item) {
                 $product = Product::find($item['product_id']);
-                if($product->is_delivery){
+                if($product->is_delivery ){
                     $weight+=$product->weight;
                 }
                 if (!$product) {
