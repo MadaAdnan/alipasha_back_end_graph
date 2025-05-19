@@ -78,7 +78,7 @@ class CartController extends Controller
             $shipping = $shippingPrice->internal_price;
             $steps = ($cart->seller->area?->level ?? 0) + ($cart->user->area?->level ?? 0) - 1;
             $ratio = $shipping / 3;
-            dd($cart->seller->city?->level,$cart->user->city?->level,$ratio,$shipping+($ratio*$steps));
+            dd($cart->seller->area?->level,$cart->user->area?->level,$ratio,$shipping+($ratio*$steps));
             $shipping=$shipping+($ratio*$steps);
 
         }
