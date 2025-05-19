@@ -102,9 +102,9 @@
         action="
       "
     >
-        <button class="google-btn">
+        <a class="google-btn" href="{{route('google.auth')}}">
             <i class="fab fa-google"></i> تسجيل الدخول عبر Google
-        </button>
+        </a>
     </form>
 
     <hr />
