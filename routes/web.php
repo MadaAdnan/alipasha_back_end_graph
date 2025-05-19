@@ -37,11 +37,8 @@ Route::get('oauth/callback/google', function () {
 
     $user = Socialite::driver('google')->user();
 
-dd($user);
-
-
+return $user;
     // $user->token
-
 });
 Route::middleware('throttle:20,1')->group(function () {
     Route::get('login', [\App\Http\Controllers\Web\AuthController::class, 'loginUi'])->name('login.ui');
