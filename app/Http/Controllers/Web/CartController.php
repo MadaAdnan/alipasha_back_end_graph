@@ -114,15 +114,10 @@ class CartController extends Controller
             $shippingPrice = ShippingPrice::orderBy('weight', 'desc')->first();
         }
 
-        if (
-            ($cart->seller->city_id == $cart->user->city_id) ||
-            ($cart->seller->city_id == $cart->user->city->city_id) ||
-            ($cart->seller->city->city_id == $cart->user->city_id)
-        ) {
             $shipping = $shippingPrice->internal_price;
-        } else {
-            $shipping = $shippingPrice->external_price;
-        }
+       $ratio=$shipping/3;
+        $steps = ($cart->seller->city?->level ?? 0) + ($cart->user->city?->level ?? 0) - 1;
+        $shipping=$shipping+($steps*$ratio);
         if ($carts->count() > 0)
             $invoice = Invoice::create([
                 'user_id' => auth()->id(),
