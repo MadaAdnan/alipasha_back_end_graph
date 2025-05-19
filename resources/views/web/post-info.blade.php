@@ -247,7 +247,7 @@
                                            <span style="font-weight: bold;font-size: 12pt">&nbsp;&nbsp; ${{$post->discount}}</span>
                                         @endif
                                     </div>
-                                    <form action="" method="POST" style="
+                                    <form action="{{route('carts.store')}}" method="POST" style="
                         width: 60px;
                         height: 24px;
                         background-color: #e30613;
@@ -258,7 +258,7 @@
                         align-items: center;
                         justify-content: center;
                       ">
-                                        <input type="hidden" name="postId" value="123"/>
+                                        <input type="hidden" name="postId" value="{{$post->id}}"/>
                                         <button type="submit"
                                                 style="background-color: transparent; border: none; display: flex; align-items: center; gap: 8px; color: #fff;">
                                             <i class="bi bi-cart-fill"></i>
