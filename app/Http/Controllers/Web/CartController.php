@@ -78,7 +78,7 @@ class CartController extends Controller
             $shipping = $shippingPrice->internal_price;
             $steps = ($cart->seller->area?->level ?? 0) + ($cart->user->area?->level ?? 0) - 1;
             $ratio = $shipping / 3;
-            dd($cart->seller->area?->level,$cart->user->area?->level,$ratio,$shipping+($ratio*$steps));
+
             $shipping=$shipping+($ratio*$steps);
 
         }
@@ -118,7 +118,7 @@ class CartController extends Controller
 
             $shipping = $shippingPrice->internal_price;
        $ratio=$shipping/3;
-        $steps = ($cart->seller->city?->level ?? 0) + ($cart->user->city?->level ?? 0) - 1;
+        $steps = ($cart->seller->area?->level ?? 0) + ($cart->user->area?->level ?? 0) - 1;
         $shipping=$shipping+($steps*$ratio);
         if ($carts->count() > 0)
             $invoice = Invoice::create([
