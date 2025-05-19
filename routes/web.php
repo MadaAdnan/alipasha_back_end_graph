@@ -25,7 +25,7 @@ use Mockery\Exception;
     'login' => false,
 ]);*/
 
-Route::get('google/auth/redirect', function () {
+Route::get('oauth/redirect/google', function () {
 
     return Socialite::driver('google')->redirect();
 
