@@ -17,13 +17,18 @@
         href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
         rel="stylesheet"
     />
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{asset('assets/css/style.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/css/shared.css')}}" />
 
     @yield('style')
     <style>
+        *{
+            font-family: Alexandria;
+        }
         .cart-badge{
             background-color: red;
             border-radius:
