@@ -247,6 +247,7 @@
                                            <span style="font-weight: bold;font-size: 12pt">&nbsp;&nbsp; ${{$post->discount}}</span>
                                         @endif
                                     </div>
+                                    @if($post->is_delivery)
                                     <form action="{{route('carts.store')}}" method="POST" style="
                         width: 60px;
                         height: 24px;
@@ -264,6 +265,7 @@
                                             <i class="bi bi-cart-fill"></i>
                                         </button>
                                     </form>
+                                        @endif
                                 </div>
 
                             </div>
