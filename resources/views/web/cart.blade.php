@@ -83,6 +83,10 @@ $user->area_id!=null && $user->area->is_delivary==true)
                                     <button type="submit" class="btn btn-danger btn-sm text-white">اطلب الآن</button>
 
                                 </form>
+                                @elseif($user->area_id==null)
+                                <span>يرجى إكمال ملفك الشخصي كي تتمكن من الشحن</span>
+                            @else
+                               <span> السحن غير متاح حاليا لهذا المنتج</span>
                             @endif
                         </th>
                     </tr>

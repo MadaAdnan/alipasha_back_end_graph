@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Enums\CategoryTypeEnum;
 use App\Http\Controllers\Controller;
+use App\Models\Balance;
 use App\Models\Cart;
 use App\Models\Invoice;
 use App\Models\Item;
@@ -79,7 +80,7 @@ class CartController extends Controller
             $steps = ($cart->seller->area?->level ?? 0) + ($cart->user->area?->level ?? 0) - 1;
             $ratio = $shipping / 3;
 
-            $shipping=$shipping+($ratio*$steps);
+            $shipping = $shipping + ($ratio * $steps);
 
         }
 
@@ -116,35 +117,53 @@ class CartController extends Controller
             $shippingPrice = ShippingPrice::orderBy('weight', 'desc')->first();
         }
 
-            $shipping = $shippingPrice->internal_price;
-       $ratio=$shipping/3;
+        $shipping = $shippingPrice->internal_price;
+        $ratio = $shipping / 3;
         $steps = ($cart->seller->area?->level ?? 0) + ($cart->user->area?->level ?? 0) - 1;
-        $shipping=$shipping+($steps*$ratio);
-        if ($carts->count() > 0)
-            $invoice = Invoice::create([
-                'user_id' => auth()->id(),
-                'seller_id' => $id,
-                'weight' => $weight,
-                'size' => $size,
-                'shipping' => $shipping,
-                'total' => $total,
-                'phone' => auth()->user()->phone,
-                'address' => auth()->user()->address,
-            ]);
-        foreach ($carts as $cart) {
-            Item::create([
-                'invoice_id' => $invoice->id,
-                'product_id' => $cart->product_id,
-                'qty' => $cart->qty,
-                'price' => $cart->product->getPrice(),
-                'total' => $cart->qty *
-                    $cart->product->getPrice(),
-            ]);
+        $shipping = $shipping + ($steps * $ratio);
+        \DB::beginTransaction();
+        try {
+            $result = $shipping + $total;
+            if (auth()->user()->getTotalBalance() < $result) {
+                throw new \Exception("لا تملك رصيد مافي");
+            }
+            if ($carts->count() > 0)
 
+                $invoice = Invoice::create([
+                    'user_id' => auth()->id(),
+                    'seller_id' => $id,
+                    'weight' => $weight,
+                    'size' => $size,
+                    'shipping' => $shipping,
+                    'total' => $total,
+                    'phone' => auth()->user()->phone,
+                    'address' => auth()->user()->address,
+                ]);
+            Balance::create([
+                'user_id'=>auth()->id(),
+                'debit'=>$result,
+                'info'=>'قيمة شحن طلب رقم '.$invoice->id,
+            ]);
+            foreach ($carts as $cart) {
+                Item::create([
+                    'invoice_id' => $invoice->id,
+                    'product_id' => $cart->product_id,
+                    'qty' => $cart->qty,
+                    'price' => $cart->product->getPrice(),
+                    'total' => $cart->qty *
+                        $cart->product->getPrice(),
+                ]);
+
+            }
+
+            Cart::where(['user_id' => auth()->id(), 'seller_id' => $id])->delete();
+            \DB::commit();
+            return redirect()->route('my-invoices.index');
+        } catch (\Exception | \Error $error) {
+            \DB::rollBack();
+            return back()->with('error', "لا تملك رصيد مافي");
         }
 
-        Cart::where(['user_id' => auth()->id(), 'seller_id' => $id])->delete();
-        return redirect()->route('my-invoices.index');
     }
 
     /**
