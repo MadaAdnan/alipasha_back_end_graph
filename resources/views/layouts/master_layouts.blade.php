@@ -28,6 +28,7 @@
     <style>
         *{
             font-family: Alexandria;
+            font-size: 10pt;
         }
         .cart-badge{
             background-color: red;
