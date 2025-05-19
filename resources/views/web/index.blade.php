@@ -3,140 +3,138 @@
 
     <div class="container-fluid" style="margin-top: 70px">
         <div class="row">
-@if(auth()->check())
-                <!-- Right Section (2 columns on large screens, 0 on small) -->
-                    <div id="right-sidebar" class="col-4 d-none d-xl-block">
-                        <div class="media-scroll bg-light p-4 ">
-                            <div class="inbox">
-                                <p class="title">صندوق الوارد</p>
+        @if(auth()->check())
+            <!-- Right Section (2 columns on large screens, 0 on small) -->
+                <div id="right-sidebar" class="col-4 d-none d-xl-block">
+                    <div class="media-scroll bg-light p-4 ">
+                        <div class="inbox">
+                            <p class="title">صندوق الوارد</p>
+                            <ul>
+                                {{--<li><a href="#">إظهار الكل</a></li>--}}
+                                <li><a href="{{route('invoices.index')}}">مبيعاتي</a></li>
+                                <li><a href="{{route('my-invoices.index')}}">مشترياتي</a></li>
+                                <li><a href="{{route('orders.index')}}">شحن علي باشا</a></li>
+                                <li><a href="{{route('index')}}">الإشعارات</a></li>
+                            </ul>
+                        </div>
+
+                        @forelse($notifications as $notification)
+                            <div class="notification-item">
+                                <div class="info">
+                                    <div>
+                                        {{--  <a href="../pages/profile.html">
+                                              <img src="{{asset('assets/avatar-2.svg')}}" alt="avatar"/>
+                                          </a>--}}
+                                        <p class="title">{{$notification->data['title']}}</p>
+                                        <p class="title">{{$notification->data['body']}}</p>
+                                    </div>
+                                    <p class="time">{{$notification->created_at->diffForHumans()}}</p>
+                                </div>
+                                <div class="actions">
+
+                                    {{-- <form action="" method="POST" style="width: 100%;">
+                                         <input type="hidden" name="storId" value="123"/>
+                                         <button type="submit" class="btn btn-danger action-buttons"
+
+                                                 style="color: #fff; background-color: #e30613"
+                                         > قبول الطلب
+                                         </button>
+                                     </form>--}}
+
+                                    @if(isset($notification->data['url']) && $notification->data['url']!='')
+                                        @php
+                                            $uri=\League\Uri\Uri::new($notification->data['url']);
+    $route=$notification->data['url'];
+    if($uri->getPath()=='/product'){
+        $route=route('posts.show',['id'=>Str::replace('id=','',$uri->getQuery())]);
+    }
+                                        @endphp
+                                        <a class="btn btn-danger action-buttons"
+                                           data-path="{{$uri->getPath()}}"
+                                           href="{{$route}}"
+                                           style="color: #fff; background-color: #e30613"
+                                        > إذهب
+                                        </a>
+                                    @endif
+
+
+                                    {{-- <form action="" method="POST" style="width: 100%;">
+                                         <input type="hidden" name="storId" value="123"/>
+                                         <button type="submit" class="btn btn-danger"
+                                                 class="action-buttons"
+                                                 style="color: #000000; background-color: #e4e6eb"
+                                         > عرض الطلبية
+                                         </button>
+                                     </form>--}}
+
+                                </div>
+                            </div>
+                        @empty
+                            <p>لا يوجد إشعارات</p>
+                        @endforelse
+
+
+                        <div class="chat-wrapper">
+                            <div class="chats">
+                                <p class="title">المحادثات</p>
                                 <ul>
-                                    {{--<li><a href="#">إظهار الكل</a></li>--}}
-                                    <li><a href="{{route('invoices.index')}}">مبيعاتي</a></li>
-                                    <li><a href="{{route('my-invoices.index')}}">مشترياتي</a></li>
-                                    <li><a href="{{route('orders.index')}}">شحن علي باشا</a></li>
-                                    <li><a href="{{route('index')}}">الإشعارات</a></li>
+                                    <li>
+                                        <i
+                                            class="bi bi-search"
+                                            style="margin-right: 8px; color: #aaa"
+                                        ></i>
+                                    </li>
                                 </ul>
                             </div>
-
-                                @forelse($notifications as $notification)
-                                    <div class="notification-item">
-                                        <div class="info">
-                                            <div>
-                                                {{--  <a href="../pages/profile.html">
-                                                      <img src="{{asset('assets/avatar-2.svg')}}" alt="avatar"/>
-                                                  </a>--}}
-                                                <p class="title">{{$notification->data['title']}}</p>
-                                                <p class="title">{{$notification->data['body']}}</p>
-                                            </div>
-                                            <p class="time">{{$notification->created_at->diffForHumans()}}</p>
-                                        </div>
-                                        <div class="actions">
-
-                                            {{-- <form action="" method="POST" style="width: 100%;">
-                                                 <input type="hidden" name="storId" value="123"/>
-                                                 <button type="submit" class="btn btn-danger action-buttons"
-
-                                                         style="color: #fff; background-color: #e30613"
-                                                 > قبول الطلب
-                                                 </button>
-                                             </form>--}}
-
-                                            @if(isset($notification->data['url']) && $notification->data['url']!='')
-                                                @php
-                                                    $uri=\League\Uri\Uri::new($notification->data['url']);
-            $route=$notification->data['url'];
-            if($uri->getPath()=='/product'){
-                $route=route('posts.show',['id'=>Str::replace('id=','',$uri->getQuery())]);
-            }
-                                                @endphp
-                                                <a  class="btn btn-danger action-buttons"
-                                                    data-path="{{$uri->getPath()}}"
-                                                    href="{{$route}}"
-                                                    style="color: #fff; background-color: #e30613"
-                                                > إذهب
-                                                </a>
-                                            @endif
-
-
-                                            {{-- <form action="" method="POST" style="width: 100%;">
-                                                 <input type="hidden" name="storId" value="123"/>
-                                                 <button type="submit" class="btn btn-danger"
-                                                         class="action-buttons"
-                                                         style="color: #000000; background-color: #e4e6eb"
-                                                 > عرض الطلبية
-                                                 </button>
-                                             </form>--}}
-
-                                        </div>
-                                    </div>
-                                @empty
-                                    <p>لا يوجد إشعارات</p>
-                                @endforelse
-
-
-
-
-                            <div class="chat-wrapper">
-                                <div class="chats">
-                                    <p class="title">المحادثات</p>
-                                    <ul>
-                                        <li>
-                                            <i
-                                                class="bi bi-search"
-                                                style="margin-right: 8px; color: #aaa"
-                                            ></i>
-                                        </li>
-                                    </ul>
-                                </div>
-                                @if($communities!=null)
-                                    @foreach($communities as $community)
-                                        <div class="chat-item">
-                                            <div
-                                                style="
+                            @if($communities!=null)
+                                @foreach($communities as $community)
+                                    <div class="chat-item">
+                                        <div
+                                            style="
                   display: flex;
                   align-items: center;
                   gap: 4px;
                   margin-bottom: 8px;
                 "
-                                            >
-                                                <a href="{{route('communities.show',$community->id)}}" class="rounded-circle">
-                                                    <img class="rounded-circle" src="{{$community->getImage()}}"
-                                                         style="width: 100px;height: 100px" alt="avatar"/>
-                                                </a>
-                                                @php
-                                                    if($community->type==\App\Enums\CommunityTypeEnum::CHAT->value){
-            $user=$community->users()->whereNot('users.id',auth()->id())->first();
-            $name=$user->seller_name ?? $user->name;
-        }else{
-            $name=$community->name;
-        }
-                                                @endphp
-                                                <a href="{{route('communities.show',$community->id)}}">
-                                                    <p class="title d-flex flex-column">
-                                                        <span>{{$name}}</span>
-                                                        <span
-                                                            class="text-muted small">عدد المشتركين : {{$community->users_count}}</span>
-                                                    </p>
-                                                </a>
-                                            </div>
+                                        >
+                                            <a href="{{route('communities.show',$community->id)}}"
+                                               class="rounded-circle">
+                                                <img class="rounded-circle" src="{{$community->getImage()}}"
+                                                     style="width: 100px;height: 100px" alt="avatar"/>
+                                            </a>
+                                            @php
+                                                if($community->type==\App\Enums\CommunityTypeEnum::CHAT->value){
+        $user=$community->users()->whereNot('users.id',auth()->id())->first();
+        $name=$user->seller_name ?? $user->name;
+    }else{
+        $name=$community->name;
+    }
+                                            @endphp
+                                            <a href="{{route('communities.show',$community->id)}}">
+                                                <p class="title d-flex flex-column">
+                                                    <span>{{$name}}</span>
+                                                    <span
+                                                        class="text-muted small">عدد المشتركين : {{$community->users_count}}</span>
+                                                </p>
+                                            </a>
                                         </div>
-                                    @endforeach
-                                    <a class="btn btn-sm btn-outline-info w-100" href="{{route('communities.index')}}">
-                                        جميع محادثاتي
-                                    </a>
+                                    </div>
+                                @endforeach
+                                <a class="btn btn-sm btn-outline-info w-100" href="{{route('communities.index')}}">
+                                    جميع محادثاتي
+                                </a>
 
-                                @endif
-                            </div>
+                            @endif
                         </div>
                     </div>
-@else
-        <div id="right-sidebar" class="col-4 d-none d-xl-block"></div>
-  @endif
+                </div>
+            @else
+                <div id="right-sidebar" class="col-4 d-none d-xl-block"></div>
+        @endif
 
 
-            <!-- Middle Section (12 columns on small, 8 on larger screens) -->
+        <!-- Middle Section (12 columns on small, 8 on larger screens) -->
             <div class="col-12 col-xl-5">
-
 
 
                 <div class="container mt-4 bg-white p-2 rounded-4">
@@ -330,8 +328,8 @@
                                             $
                                         </div>
 
-
-                                        <form action="{{route('carts.store')}}" method="POST" style="
+                                        @if($product->is_delivery)
+                                            <form action="{{route('carts.store')}}" method="POST" style="
                       width: 60px;
                       height: 24px;
                       background-color: #e30613;
@@ -342,15 +340,15 @@
                       align-items: center;
                       justify-content: center;
                     ">
-                                            @csrf
-                                            @method('post')
-                                            <input type="hidden" name="productId" value="{{$product->id}}"/>
-                                            <button type="submit"
-                                                    style="background-color: transparent; border: none; display: flex; align-items: center; gap: 8px; color: #fff;">
-                                                <i class="bi bi-cart-fill"></i>
-                                            </button>
-                                        </form>
-
+                                                @csrf
+                                                @method('post')
+                                                <input type="hidden" name="productId" value="{{$product->id}}"/>
+                                                <button type="submit"
+                                                        style="background-color: transparent; border: none; display: flex; align-items: center; gap: 8px; color: #fff;">
+                                                    <i class="bi bi-cart-fill"></i>
+                                                </button>
+                                            </form>
+                                        @endif
 
                                     </div>
                                 @endif
