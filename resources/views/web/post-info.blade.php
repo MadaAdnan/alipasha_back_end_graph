@@ -239,12 +239,12 @@
                                 </div>
                                 <div style="display: flex; gap: 8px;">
                                     <div class="price"
-                                         style="width: 60px; height: 24px; padding: 5px; border-radius: 4px; color: #fff; background-color: #e60613; display: flex; align-items: center; justify-content: center; border: 5px;">
+                                         style="width: auto; height: 24px; padding: 5px; border-radius: 4px; color: #fff; background-color: #e60613; display: flex; align-items: center; justify-content: center; border: 5px;">
                                        @if(!$post->discount)
                                            ${{$post->price}}
                                         @else
-                                           <del>${{$post->price}}</del>
-                                           ${{$post->discount}}
+                                           <del style="font-size: 9pt">${{$post->price}}</del>
+                                           <span style="font-weight: bold;font-size: 14pt">${{$post->discount}}</span>
                                         @endif
                                     </div>
                                     <form action="" method="POST" style="
