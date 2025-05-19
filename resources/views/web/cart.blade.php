@@ -74,7 +74,9 @@
                         <th colspan="2" class="text-center bg-danger-subtle">الإجمالي</th>
                         <th colspan="2" class="text-center bg-danger-subtle">{{$result+$shipping}} $</th>
                         <th colspan="4" class="text-center ">
-                            @if($shipping>0)
+                            @if($shipping>0 &&
+( auth()->user()->area_id!=null && auth()->user()->area->is_delivary==true) &&
+$user->area_id!=null && $user->area->is_delivary==true)
                                 <form action="{{route('carts.update',$user->id)}}" method="post">
                                     @csrf
                                     @method('PATCH')
