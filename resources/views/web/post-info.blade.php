@@ -244,7 +244,7 @@
                                            ${{$post->price}}
                                         @else
                                            <del style="font-size: 9pt">${{$post->price}}</del>
-                                           <span style="font-weight: bold;font-size: 14pt">&nbsp;&nbsp; ${{$post->discount}}</span>
+                                           <span style="font-weight: bold;font-size: 12pt">&nbsp;&nbsp; ${{$post->discount}}</span>
                                         @endif
                                     </div>
                                     <form action="" method="POST" style="
