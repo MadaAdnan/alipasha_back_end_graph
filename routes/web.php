@@ -9,7 +9,7 @@ use App\Models\ShippingPrice;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Mockery\Exception;
-
+use Laravel\Socialite\Facades\Socialite;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
