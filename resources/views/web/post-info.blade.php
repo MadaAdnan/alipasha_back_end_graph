@@ -243,7 +243,7 @@
                                        @if(!$post->discount)
                                            ${{$post->price}}
                                         @else
-                                           <del style="font-size: 9pt">${{$post->price}}</del> &nbsp;&nbsp;
+                                           <del style="font-size: 9pt">${{$post->price}} &nbsp;&nbsp;</del>
                                            <span style="font-weight: bold;font-size: 14pt">${{$post->discount}}</span>
                                         @endif
                                     </div>
