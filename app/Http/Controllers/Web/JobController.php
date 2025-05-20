@@ -52,6 +52,36 @@ class JobController extends Controller
     public function show(string $id)
     {
         $job=Product::job()->findOrFail($id);
+        $ids = [$job->id];
+        $today = today();
+        \DB::transaction(function () use ($ids, $today) {
+
+            // تحديث السجلات الموجودة
+            \DB::table('product_views')
+                ->whereIn('product_id', $ids)
+                ->whereDate('view_at', $today)
+                ->update(['count' => \DB::raw('count + 1')]);
+            $existingIds = \DB::table('product_views')
+                ->whereIn('product_id', $ids)
+                ->whereDate('view_at', $today)
+                ->pluck('product_id')
+                ->toArray();
+            $newIds = array_diff($ids, $existingIds);
+            if (
+                !empty($newIds)) {
+                $inserts = array_map(function ($id) use ($today) {
+                    return [
+                        'product_id' => $id,
+                        'view_at' => $today,
+                        'count' => 1,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ];
+                }, $newIds);
+
+                \DB::table('product_views')->insert($inserts);
+            }
+        });
         return view('web.job-item',compact('job'));
     }
 
