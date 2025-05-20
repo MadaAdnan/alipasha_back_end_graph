@@ -27,7 +27,8 @@ class ServiceController extends Controller
         $services_count = Product::service()->where('active', ProductActiveEnum::ACTIVE->value)->count();
         $views = ProductView::whereHas('product', fn($query) => $query->where('type', CategoryTypeEnum::SERVICE->value))->sum('count');
         $sellers = User::whereHas('products', fn($query) => $query->where('type', CategoryTypeEnum::SERVICE->value))->count();
-        $categories = Category::whereHas('parents', fn($query) => $query->where('type', CategoryTypeEnum::SERVICE->value))->whereHas('products2')->get();
+        $categories = Category::whereHas('parents', fn($query) => $query->where('type', CategoryTypeEnum::SERVICE->value))->whereHas('products2')
+            ->where('is_active',1)->get();
         $services = Product::service()->where('active', ProductActiveEnum::ACTIVE->value)
             ->when(!empty($q), fn($query) => $query->where('info', 'like', "%{$q}%"))
             ->when(!empty($city), fn($query) => $query->whereHas('city', fn($query) => $query->where('cities.city_id', $city)))
