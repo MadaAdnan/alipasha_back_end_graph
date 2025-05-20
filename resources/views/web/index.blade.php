@@ -242,8 +242,10 @@
                                             @if($product->user?->is_verified==true)
                                                 <i class="bi bi-patch-check" style="color: blue; font-size: 16px;"></i>
                                             @endif
+                                                <a href="{{route('seller.profile',$product->user_id)}}">
+                                            {{$product->user?->seller_name}}
+                                                </a></p>
 
-                                            {{$product->user?->seller_name}}</p>
                                         @if($product->type!=\App\Enums\CategoryTypeEnum::NEWS->value)
                                             <p class="d-block sub-title" style="text-align: right">
                                                 {{$product->city?->name}} - {{$product->category?->name}}
