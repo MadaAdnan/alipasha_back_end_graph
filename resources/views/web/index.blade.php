@@ -242,7 +242,7 @@
                                             @if($product->user?->is_verified==true)
                                                 <i class="bi bi-patch-check" style="color: blue; font-size: 16px;"></i>
                                             @endif
-                                                <a href="{{route('seller.profile',$product->user_id)}}">
+                                                <a href="{{route('seller.profile',$product->user_id)}}" class="text-black">
                                             {{$product->user?->seller_name}}
                                                 </a></p>
 
