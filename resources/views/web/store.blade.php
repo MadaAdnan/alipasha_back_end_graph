@@ -149,7 +149,7 @@
                                     </div>
                                 </div>
                                 <div class="actions" style="margin-top: 10px">
-                                    <a href="./business-gallery.html" class="btn btn-danger">
+                                    <a href="{{route('galleries.show',$store->id)}}" class="btn btn-danger">
 
                                         معرض الأعمال
                                     </a>
