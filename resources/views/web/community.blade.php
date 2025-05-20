@@ -70,22 +70,23 @@
 
                     </div>
 
-                    @if($community->type==\App\Enums\CommunityTypeEnum::CHAT->value || $community->type==\App\Enums\CommunityTypeEnum::GROUP->value)
-                        <div class=" chat-panel-write w-100 d-flex align-items-center  overflow-hidden">
-                            <form action="{{route('messages.store')}}" method="post" class="d-flex w-100 gap-1 px-3 py-1 ">
-                                @csrf
-                                @method('post')
-                                <button class="btn btn-sm btn-outline-danger " type="submit"><i class="bi bi-send-fill fs-4"></i>
-                                </button>
-                                <div class="bg-secondary-subtle w-100 p-1 rounded">
-                                    <input type="text" class="form-control " name="body" placeholder="اكتب شيئاً ...">
-                                </div>
-                                <input type="hidden" name="communityId" value="{{$community->id}}">
 
-                            </form>
-                        </div>
-                    @endif
                 </div>
+                @if($community->type==\App\Enums\CommunityTypeEnum::CHAT->value || $community->type==\App\Enums\CommunityTypeEnum::GROUP->value)
+                    <div class=" chat-panel-write w-100 d-flex align-items-center  overflow-hidden">
+                        <form action="{{route('messages.store')}}" method="post" class="d-flex w-100 gap-1 px-3 py-1 ">
+                            @csrf
+                            @method('post')
+                            <button class="btn btn-sm btn-outline-danger " type="submit"><i class="bi bi-send-fill fs-4"></i>
+                            </button>
+                            <div class="bg-secondary-subtle w-100 p-1 rounded">
+                                <input type="text" class="form-control " name="body" placeholder="اكتب شيئاً ...">
+                            </div>
+                            <input type="hidden" name="communityId" value="{{$community->id}}">
+
+                        </form>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
