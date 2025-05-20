@@ -21,7 +21,7 @@
                         </div>
                         <div>
                             <p class="sub-title">عدد المشاهدات</p>
-                            <p class="title">{{\App\Helpers\StrHelper::formatLike($views)}}</p>
+                            <p class="title">{!! \App\Helpers\StrHelper::formatLike($views) !!}</p>
                         </div>
                     </div>
                     <div class="statistic-item">
