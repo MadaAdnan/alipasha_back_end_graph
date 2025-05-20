@@ -12,7 +12,7 @@
                         </div>
                         <div>
                             <p class="sub-title">المزودين بالمعلومات</p>
-                            <p class="title">5,423</p>
+                            <p class="title">{{$sellers}}</p>
                         </div>
                     </div>
                     <div class="statistic-item">
@@ -21,7 +21,7 @@
                         </div>
                         <div>
                             <p class="sub-title">عدد المشاهدات</p>
-                            <p class="title">{{$jobs->sum('total_views')}}</p>
+                            <p class="title">{{$views}}</p>
                         </div>
                     </div>
                     <div class="statistic-item">
@@ -29,8 +29,8 @@
                             <img src="{{asset('assets/user-statistic-view.svg')}}" alt="" />
                         </div>
                         <div>
-                            <p class="sub-title">الخدمات المنشورة</p>
-                            <p class="title">189</p>
+                            <p class="sub-title">الوظائف المنشورة</p>
+                            <p class="title">{{$jobs_count}}</p>
                         </div>
                     </div>
                 </div>

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Enums\CategoryTypeEnum;
 use App\Enums\ProductActiveEnum;
 use App\Http\Controllers\Controller;
 use App\Models\City;
 use App\Models\Product;
+use App\Models\ProductView;
 use Illuminate\Http\Request;
 
 class JobController extends Controller
@@ -20,6 +22,10 @@ class JobController extends Controller
         $type=\request()->get('type');
         $q=\request()->get('q');
         $cities=City::where('is_active',true)->get();
+        $jobs_count = Product::job()
+            ->where('active', ProductActiveEnum::ACTIVE->value)->count();
+        $views = ProductView::whereHas('product', fn($query) => $query->job())->sum('count');
+        $sellers = Product::job()->select('user_id')->groupBy('user_id')->count();
         $jobs=Product::job()
             ->when(!empty($q),fn($query)=>$query->where('info','like',"%{$q}%"))
             ->where('active',ProductActiveEnum::ACTIVE->value)
@@ -27,7 +33,7 @@ class JobController extends Controller
             ->when(!empty($town),fn($query)=>$query->where('city_id',$town))
             ->when(!empty($type),fn($query)=>$query->where('type',$type))
             ->latest()->paginate(35);
-        return view('web.jobs',compact('jobs','cities'));
+        return view('web.jobs',compact('jobs','cities','jobs_count','views','sellers'));
     }
 
     /**
