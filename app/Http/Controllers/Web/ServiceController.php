@@ -24,12 +24,16 @@ class ServiceController extends Controller
         $category = \request()->get('category');
         $q = \request()->get('q');
         $cities = City::where('is_active', true)->get();
-        $services_count = Product::service()->where('active', ProductActiveEnum::ACTIVE->value)->count();
+        $services_count = Product::service()->whereHas('category',fn($q)=>$q->where('is_active',1))
+            ->whereHas('sub1',fn($q)=>$q->where('is_active',1))
+            ->where('active', ProductActiveEnum::ACTIVE->value)->count();
         $views = ProductView::whereHas('product', fn($query) => $query->where('type', CategoryTypeEnum::SERVICE->value))->sum('count');
         $sellers = User::whereHas('products', fn($query) => $query->where('type', CategoryTypeEnum::SERVICE->value))->count();
         $categories = Category::whereHas('parents', fn($query) => $query->where('type', CategoryTypeEnum::SERVICE->value))->whereHas('products2')
             ->where('is_active',1)->get();
         $services = Product::service()->where('active', ProductActiveEnum::ACTIVE->value)
+            ->whereHas('category',fn($q)=>$q->where('is_active',1))
+            ->whereHas('sub1',fn($q)=>$q->where('is_active',1))
             ->when(!empty($q), fn($query) => $query->where('info', 'like', "%{$q}%"))
             ->when(!empty($city), fn($query) => $query->whereHas('city', fn($query) => $query->where('cities.city_id', $city)))
             ->when(!empty($town), fn($query) => $query->where('city_id', $town))
