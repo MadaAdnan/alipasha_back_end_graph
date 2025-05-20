@@ -24,8 +24,7 @@ class ServiceController extends Controller
         $category = \request()->get('category');
         $q = \request()->get('q');
         $cities = City::where('is_active', true)->get();
-        $services_count = Product::service()->whereHas('category',fn($q)=>$q->where('is_active',1))
-            ->whereHas('sub1',fn($q)=>$q->where('is_active',1))
+        $services_count = Product::service()
             ->where('active', ProductActiveEnum::ACTIVE->value)->count();
         $views = ProductView::whereHas('product', fn($query) => $query->where('type', CategoryTypeEnum::SERVICE->value))->sum('count');
         $sellers = Product::where('type',CategoryTypeEnum::SERVICE->value)->select('user_id')->groupBy('user_id')->count();
