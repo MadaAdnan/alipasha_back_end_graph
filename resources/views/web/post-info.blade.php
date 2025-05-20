@@ -259,6 +259,8 @@
                         align-items: center;
                         justify-content: center;
                       ">
+                                        @csrf
+                                        @method('post')
                                         <input type="hidden" name="postId" value="{{$post->id}}"/>
                                         <button type="submit"
                                                 style="background-color: transparent; border: none; display: flex; align-items: center; gap: 8px; color: #fff;">

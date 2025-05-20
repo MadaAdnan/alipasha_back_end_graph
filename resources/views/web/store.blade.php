@@ -225,7 +225,7 @@
                                         {{$product->price}} $
                                         @endif
                                     </p>
-                                    <form action="" method="POST"
+                                    <form action="{{route('carts.store')}}" method="POST"
                                           style="
                     cursor: pointer;
                     width: 18px;
@@ -238,7 +238,9 @@
                     align-items: center;
                     justify-content: center;
                   ">
-                                        <input type="hidden" name="storId" value="123"/>
+                                        @csrf
+                                        @method('post')
+                                        <input type="hidden" name="productId" value="{{$product->id}}"/>
                                         <button type="submit"
                                                 style="background-color: transparent; border: none; display: flex; align-items: center; gap: 8px; color: #fff;">
                                             <i class="bi bi-cart-fill"></i>
