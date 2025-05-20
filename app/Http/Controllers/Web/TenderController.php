@@ -6,6 +6,7 @@ use App\Enums\ProductActiveEnum;
 use App\Http\Controllers\Controller;
 use App\Models\City;
 use App\Models\Product;
+use App\Models\ProductView;
 use Illuminate\Http\Request;
 
 class TenderController extends Controller
@@ -20,6 +21,10 @@ class TenderController extends Controller
 
         $q=\request()->get('q');
         $cities=City::where('is_active',true)->get();
+        $tender_count = Product::tender()
+            ->where('active', ProductActiveEnum::ACTIVE->value)->count();
+        $views = ProductView::whereHas('product', fn($query) => $query->tender())->sum('count');
+        $sellers = Product::tender()->select('user_id')->groupBy('user_id')->count();
         $tenders=Product::tender()
             ->when(!empty($q),fn($query)=>$query->where('info','like',"%{$q}%"))
             ->where('active',ProductActiveEnum::ACTIVE->value)
@@ -27,7 +32,7 @@ class TenderController extends Controller
             ->when(!empty($town),fn($query)=>$query->where('city_id',$town))
 
             ->latest()->paginate(35);
-        return view('web.tenders',compact('tenders','cities'));
+        return view('web.tenders',compact('tenders','cities','tender_count','views','sellers'));
     }
 
     /**
@@ -52,6 +57,36 @@ class TenderController extends Controller
     public function show(string $id)
     {
         $tender=Product::tender()->findOrFail($id);
+        $ids = [$tender->id];
+        $today = today();
+        \DB::transaction(function () use ($ids, $today) {
+
+            // تحديث السجلات الموجودة
+            \DB::table('product_views')
+                ->whereIn('product_id', $ids)
+                ->whereDate('view_at', $today)
+                ->update(['count' => \DB::raw('count + 1')]);
+            $existingIds = \DB::table('product_views')
+                ->whereIn('product_id', $ids)
+                ->whereDate('view_at', $today)
+                ->pluck('product_id')
+                ->toArray();
+            $newIds = array_diff($ids, $existingIds);
+            if (
+                !empty($newIds)) {
+                $inserts = array_map(function ($id) use ($today) {
+                    return [
+                        'product_id' => $id,
+                        'view_at' => $today,
+                        'count' => 1,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ];
+                }, $newIds);
+
+                \DB::table('product_views')->insert($inserts);
+            }
+        });
         return view('web.tender-item',compact('tender'));
     }
 
