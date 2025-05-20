@@ -22,7 +22,7 @@ class TenderController extends Controller
         $q=\request()->get('q');
         $cities=City::where('is_active',true)->get();
         $tender_count = Product::tender()
-            ->where('active', ProductActiveEnum::ACTIVE->value)->count();
+            ->where('active', ProductActiveEnum::ACTIVE->value)->where('end_date','>',now())->count();
         $views = ProductView::whereHas('product', fn($query) => $query->tender())->sum('count');
         $sellers = Product::tender()->select('user_id')->groupBy('user_id')->count();
         $tenders=Product::tender()
