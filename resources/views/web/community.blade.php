@@ -6,8 +6,8 @@
             overflow-y: scroll;
         }
         .chat-panel-write{
-            position: sticky;
-            bottom: 0px;
+
+
             background:
                 #d3cccc;
             z-index: 40;
@@ -68,7 +68,7 @@
                         </div>
 
                             @if($community->type==\App\Enums\CommunityTypeEnum::CHAT->value || $community->type==\App\Enums\CommunityTypeEnum::GROUP->value)
-                                <div class="  w-100 d-flex align-items-center  overflow-hidden">
+                                <div class=" chat-panel-write w-100 d-flex align-items-center  overflow-hidden">
                                     <form action="{{route('messages.store')}}" method="post" class="d-flex w-100 gap-1 px-3 py-1 ">
                                         @csrf
                                         @method('post')
