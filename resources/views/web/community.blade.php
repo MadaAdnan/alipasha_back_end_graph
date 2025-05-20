@@ -6,7 +6,7 @@
             overflow-y: scroll;
         }
         .chat-panel-write{
-            position: sticky;
+            position: absolute;
             bottom: 0px;
             background:
                 #d3cccc;
