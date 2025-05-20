@@ -153,13 +153,18 @@
 
                                         معرض الأعمال
                                     </a>
-                                    <button
-                                        class="btn btn-danger"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#contact"
-                                    >
-                                        مراسلة التاجر
-                                    </button>
+                                    <form action="{{route('communities.store')}}" method="post">
+                                        @csrf
+                                        @method('POST')
+                                        <input type="hidden" name="sellerId" value="{{$store->id}}">
+                                        <button
+                                            class="btn btn-danger"
+                                           type="submit"
+                                        >
+                                            مراسلة التاجر
+                                        </button>
+                                    </form>
+
                                 </div>
                             </div>
                             <div class="stor-name">
