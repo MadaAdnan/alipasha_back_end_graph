@@ -13,7 +13,7 @@
             z-index: 40;
             padding-block:
                 30px;
-            height: 30vh;
+            height: 20vh;
 
         }
     </style>
