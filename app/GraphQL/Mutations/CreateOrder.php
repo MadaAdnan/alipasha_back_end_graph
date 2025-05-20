@@ -19,6 +19,7 @@ final class CreateOrder
      */
     public function __invoke($_, array $args)
     {
+        throw new GraphQLExceptionHandler('لا يمكن الطلب يرجى تحديث التطبيق');
         if(!auth()->user()->is_active){
             throw new GraphQLExceptionHandler('تم حظر حسابك يرجى مراجعة الإدارة');
         }
