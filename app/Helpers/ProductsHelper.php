@@ -36,8 +36,9 @@ class ProductsHelper
         $plan = $user->plans()
             ->where('type', PlansTypeEnum::PRESENT->value)
             ->whereNot('duration', PlansDurationEnum::FREE->value)
+            ->where('special_count','>',0)
             ->first();
-        info("ADNAN {$plan->name} - {$user->special_product_count} - {$plan->special_count}");
+        //info("ADNAN {$plan->name} - {$user->special_product_count} - {$plan->special_count}");
         return $plan!=null &&  $user->special_product_count < $plan->special_count;
     }
 
