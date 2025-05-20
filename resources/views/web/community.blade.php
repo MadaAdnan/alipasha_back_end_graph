@@ -2,7 +2,7 @@
 @section('style')
     <style>
         .chat-panel{
-            height: 90vh;
+            height:500px;
             overflow-y: scroll;
         }
         .chat-panel-write{
