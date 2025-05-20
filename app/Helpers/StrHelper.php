@@ -52,4 +52,13 @@ class StrHelper
 
         return $code;
     }
+
+    public static function formatLike($count){
+        if($count>1000000){
+            return $count/1000000 ."مليون" ;
+        }if($count>1000){
+            return $count/1000 ."ألف" ;
+        }
+        return $count;
+    }
 }
