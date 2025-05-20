@@ -55,9 +55,9 @@ class StrHelper
 
     public static function formatLike($count){
         if($count>1000000){
-            return $count/1000000 ."مليون" ;
+            return $count/1000000 ."<span class='fs-6 text-muted'>مليون </span> " ;
         }if($count>1000){
-            return $count/1000 ."ألف" ;
+            return $count/1000 ."<span class='fs-6 text-muted'>ألف </span>" ;
         }
         return $count;
     }
