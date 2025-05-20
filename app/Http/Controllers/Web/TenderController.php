@@ -26,7 +26,7 @@ class TenderController extends Controller
         $views = ProductView::whereHas('product', fn($query) => $query->tender())->sum('count');
         $sellers = Product::tender()->select('user_id')->groupBy('user_id')->count();
         $tenders=Product::tender()
-            ->where('end_date','>',now())
+//            ->where('end_date','>',now())
             ->when(!empty($q),fn($query)=>$query->where('info','like',"%{$q}%"))
             ->where('active',ProductActiveEnum::ACTIVE->value)
             ->when(!empty($city),fn($query)=>$query->whereHas('city',fn($query)=>$query->where('cities.city_id',$city)))
