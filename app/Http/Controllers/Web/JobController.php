@@ -22,6 +22,7 @@ class JobController extends Controller
         $town=\request()->get('town');
         $type=\request()->get('type');
         $category=\request()->get('category_id');
+        $sub=\request()->get('sub_id');
         $q=\request()->get('q');
         $cities=City::where('is_active',true)->get();
         $jobs_count = Product::job()
@@ -35,6 +36,7 @@ class JobController extends Controller
             ->when(!empty($town),fn($query)=>$query->where('city_id',$town))
             ->when(!empty($type),fn($query)=>$query->where('type',$type))
             ->when(!empty($category),fn($query)=>$query->where('category_id',$category))
+            ->when(!empty($sub),fn($query)=>$query->where('sub1_id',$sub))
             ->latest()->paginate(35);
         $categories=Category::job()->where('is_active',1)->where('is_main',true)->get();
         return view('web.jobs',compact('jobs','cities','jobs_count','views','sellers','categories'));
