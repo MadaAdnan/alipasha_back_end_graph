@@ -159,7 +159,7 @@ required=""
               background-color: red;
               color: white;
               width: 90px;
-              font-size: 14px;
+              font-size: 10px;
             "
                 >
                     حمل التطبيق
