@@ -248,7 +248,7 @@
                                     </div>
                                 </dt>
                                 @foreach($category->children as $child)
-                                    <a href="?sub_id={{$child->id}}">
+                                    <a @if(request()->input('sub_id')==$child->id) class="text-danger" @endif href="?sub_id={{$child->id}}">
                                         <p>{{$child->name}}</p>
                                     </a>
                                 @endforeach
