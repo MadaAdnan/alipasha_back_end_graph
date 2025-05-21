@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>{{$settings->social['name']}} @section('title')  @show</title>
     @section('icon')
         <link rel="icon" type="image/png" href="{{asset('assets/logo.svg')}}">
     @show
 
-    <!-- Bootstrap CSS -->
+<!-- Bootstrap CSS -->
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
         rel="stylesheet"
@@ -19,60 +19,116 @@
     />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&family=Cairo:wght@200..1000&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&family=Cairo:wght@200..1000&display=swap"
+        rel="stylesheet">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{asset('assets/css/style.css')}}" />
-    <link rel="stylesheet" href="{{asset('assets/css/shared.css')}}" />
+    <link rel="stylesheet" href="{{asset('assets/css/style.css')}}"/>
+    <link rel="stylesheet" href="{{asset('assets/css/shared.css')}}"/>
 
     @yield('style')
     <style>
-        *{
+        * {
             font-family: Cairo;
             font-size: 10pt;
         }
-        .cart-badge{
+
+        .cart-badge {
             background-color: red;
-            border-radius:
-                100%;
+            border-radius: 100%;
             font-size: 6pt;
             top: 16px !important;
         }
     </style>
+
+    <style>
+        #snackbar {
+            visibility: hidden;
+            min-width: 250px;
+            margin-left: -125px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 2px;
+            padding: 16px;
+            position: fixed;
+            z-index: 1;
+            left: 50%;
+            top: 30px;
+            font-size: 17px;
+        }
+
+        #snackbar.show {
+            visibility: visible;
+            -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+
+        @-webkit-keyframes fadein {
+            from {
+                top: 0;
+                opacity: 0;
+            }
+            to {
+                top: 30px;
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadein {
+            from {
+                top: 0;
+                opacity: 0;
+            }
+            to {
+                top: 30px;
+                opacity: 1;
+            }
+        }
+
+        @-webkit-keyframes fadeout {
+            from {
+                top: 30px;
+                opacity: 1;
+            }
+            to {
+                top: 0;
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeout {
+            from {
+                top: 30px;
+                opacity: 1;
+            }
+            to {
+                top: 0;
+                opacity: 0;
+            }
+        }
+    </style>
+
+    <script>
+
+        function myFunction() {
+            var x = document.getElementById("snackbar");
+            x.className = "show";
+            setTimeout(function () {
+                x.className = x.className.replace("show", "");
+            }, 3000);
+        }
+    </script>
+    @if(session()->has('error'))
+        <script>
+            myFunction();
+        </script>
+        @endif
+
 </head>
 <body>
 {{--TOAST --}}
-<div  @if(!session()->has('success')) class="d-none" @endif aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;" dir="rtl">
-    <div class="toast @if(session()->has('success')) show @endif" style="position: absolute; top: 60px; right: 0;">
-        <div class="toast-header">
-            <img src="..." class="rounded mr-2" alt="...">
-            <strong class="mr-auto">نجاح</strong>
-
-            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="toast-body">
-           {{session()->get('success')}}
-        </div>
-    </div>
-</div>
-
-{{--Error--}}
-<div @if(!session()->has('error')) class="d-none" @endif aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;" dir="rtl">
-    <div class="toast @if(session()->has('error')) show @endif" style="position: absolute; top: 60px; right: 0;">
-        <div class="toast-header">
-            <img src="..." class="rounded mr-2" alt="...">
-            <strong class="mr-auto">فشل</strong>
-
-            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="toast-body">
-            {{session()->get('error')}}
-        </div>
-    </div>
-</div>
+<div id="snackbar">{{session()->get('error')}}</div>
 {{--// TOAST--}}
 <!-- nav bar  -->
 <button id="goUpButton" class="btn btn-primary">
@@ -91,28 +147,30 @@
 
         <!-- Search Bar for Large Screens -->
 
-            <form method="get"
-                class="d-none d-md-flex align-items-center"
-                style="
+        <form method="get"
+              class="d-none d-md-flex align-items-center"
+              style="
               background-color: #f0f2f5;
               height: 30px;
               border-radius: 40px;
               padding: 5px 10px;
             "
-                  action="{{route('search.index')}}"
-            >
-                <button type="submit" class="bg-transparent border-none outline-none"> <i class="bi bi-search" style="margin-right: 8px; color: #aaa"></i></button>
-                <input
-                    class="search-nav form-control border-0 shadow-none"
-                    type="search"
-required=""
-                    placeholder="ابحث في هذا المتجر"
-                    aria-label="Search"
-                    style="background-color: transparent; box-shadow: none"
-                    name="q"
-                />
+              action="{{route('search.index')}}"
+        >
+            <button type="submit" class="bg-transparent border-none outline-none"><i class="bi bi-search"
+                                                                                     style="margin-right: 8px; color: #aaa"></i>
+            </button>
+            <input
+                class="search-nav form-control border-0 shadow-none"
+                type="search"
+                required=""
+                placeholder="ابحث في هذا المتجر"
+                aria-label="Search"
+                style="background-color: transparent; box-shadow: none"
+                name="q"
+            />
 
-            </form>
+        </form>
 
 
         <!-- Center Section: Links and Search -->
@@ -125,7 +183,7 @@ required=""
                         href="{{route('index')}}"
                     >
                         <div style="display: flex; gap: 8px; align-items: center;">
-                            <img src="{{asset('assets/home.svg')}}" alt="" />
+                            <img src="{{asset('assets/home.svg')}}" alt=""/>
                             <p class="sub-title d-lg-none"> الواجهة الرئيسية </p>
                         </div>
                     </a>
@@ -202,7 +260,7 @@ required=""
                 </button>
                 {{--<i class="bi bi-google-play text-danger d-inline-block d-md-none"></i>--}}
             </a>
-           @auth
+            @auth
                 <a href="{{route('pricing.index')}}">
                     <button
                         class="btn"
@@ -214,10 +272,10 @@ required=""
             "
                     >
                         ترقية الحساب
-                        <img style="width: 16px" src="{{asset('assets/upgrade-star.svg')}}" alt="" />
+                        <img style="width: 16px" src="{{asset('assets/upgrade-star.svg')}}" alt=""/>
                     </button>
                 </a>
-           @endauth
+            @endauth
             @guest
                 <a href="{{route('login.ui')}}">
                     <button
@@ -235,26 +293,27 @@ required=""
                     </button>
                 </a>
             @endguest
-@auth
-    @php
+            @auth
+                @php
 
-            $cartsCount=App\Models\Cart::where('user_id',auth()->id())->count();
+                    $cartsCount=App\Models\Cart::where('user_id',auth()->id())->count();
 
-    @endphp
-                   <a href="{{route('carts.index')}}" class="position-relative">
-                       <span class="position-absolute top-0 badge badge-danger cart-badge" >{{$cartsCount}}</span>
-                       <img src="{{asset('assets/market.svg')}}" alt="" />
-                   </a>
-@endauth
+                @endphp
+                <a href="{{route('carts.index')}}" class="position-relative">
+                    <span class="position-absolute top-0 badge badge-danger cart-badge">{{$cartsCount}}</span>
+                    <img src="{{asset('assets/market.svg')}}" alt=""/>
+                </a>
+            @endauth
 
 
 
             @if(auth()->check())
-            <a href="{{route('profile.index')}}">
-                <img src="{{auth()->user()->getFirstMediaUrl('image','webp')}}" class="rounded-circle" style="width: 45px;aspect-ratio: 1/1" alt="" />
-            </a>
-            <!-- Toggler for Mobile View -->
-                @endif
+                <a href="{{route('profile.index')}}">
+                    <img src="{{auth()->user()->getFirstMediaUrl('image','webp')}}" class="rounded-circle"
+                         style="width: 45px;aspect-ratio: 1/1" alt=""/>
+                </a>
+                <!-- Toggler for Mobile View -->
+            @endif
         </div>
 
         <button
@@ -322,14 +381,17 @@ required=""
                         </select>
                     </div>
 
-                    <div style="width: 100% ;display: flex; justify-content: center; align-items: center; gap: 8px;" class="mb-3">
+                    <div style="width: 100% ;display: flex; justify-content: center; align-items: center; gap: 8px;"
+                         class="mb-3">
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                            <label class="form-check-label" style="font-size: 12px;" for="flexSwitchCheckDefault">التوفر بالمخزن</label>
+                            <label class="form-check-label" style="font-size: 12px;" for="flexSwitchCheckDefault">التوفر
+                                بالمخزن</label>
                         </div>
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
-                            <label class="form-check-label" style="font-size: 12px;" for="flexSwitchCheckChecked">إشترك بخدمة شحن علي باشا</label>
+                            <label class="form-check-label" style="font-size: 12px;" for="flexSwitchCheckChecked">إشترك
+                                بخدمة شحن علي باشا</label>
                         </div>
                     </div>
 
@@ -528,7 +590,8 @@ required=""
                 <form id="modalForm">
 
 
-                    <div style="width: 100% ;display: flex; justify-content: center; align-items: center; gap: 8px;" class="mb-3">
+                    <div style="width: 100% ;display: flex; justify-content: center; align-items: center; gap: 8px;"
+                         class="mb-3">
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
                             <label class="form-check-label" for="flexRadioDefault1">
@@ -536,7 +599,8 @@ required=""
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
+                                   checked>
                             <label class="form-check-label" for="flexRadioDefault2">
                                 أبحث عن وظيفة
                             </label>
@@ -879,7 +943,6 @@ required=""
                             <option value="1" selected>وظائف عمل الانتاج</option>
                         </select>
                     </div>
-
 
 
                     <div class="modal-footer">
