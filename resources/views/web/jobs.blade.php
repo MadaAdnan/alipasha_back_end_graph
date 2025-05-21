@@ -248,11 +248,14 @@
                                     </div>
                                 </dt>
                                 @foreach($category->children as $child)
-                                    <a @if(request()->input('sub_id')==$child->id) class="text-danger" @endif href="?sub_id={{$child->id}}">
-                                        <p>{{$child->name}}</p>
-                                    </a>
+                                    <dd>
+
+                                        <a @if(request()->input('sub_id')==$child->id) class="text-danger" @endif href="?sub_id={{$child->id}}">
+                                            <p>{{$child->name}}</p>
+                                        </a>
+                                    </dd>
                                 @endforeach
-                                <dd></dd>
+
                             </dl>
                         @endforeach
 
