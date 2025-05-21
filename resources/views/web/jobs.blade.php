@@ -229,8 +229,8 @@
             <div id="left-sidebar" class="col-3 d-none d-xl-block">
                 <div class="media-scroll bg-light p-4 h-100">
                     <div style="text-align: center">
-                        <button class="new-post"     data-bs-toggle="modal"
-                                data-bs-target="#addPostModal">أضف وظيفة غير متوفرة</button>
+
+                        <a class="new-post"   href="{{url('/seller/jobs/create')}}">أضف وظيفة غير متوفرة</a>
                     </div>
                     <div class="categories">
                         <p class="category-text">التصنيفات</p>
@@ -280,12 +280,12 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="formModalLabel">إضافة وظيفة</h5>
-                    <a href="{{url('/')}}/seller/jobs/create"
+                    <button
                         type="button"
                         class="btn-close"
-                       {{-- data-bs-dismiss="modal"
-                        aria-label="Close"--}}
-                    ></a>
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                    ></button>
                 </div>
                 <div class="modal-body">
                     <form id="modalForm">
