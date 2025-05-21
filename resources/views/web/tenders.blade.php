@@ -236,14 +236,26 @@
                         <p class="category-text">التصنيفات</p>
                         <div class="divider"></div>
                         @foreach($categories as $category)
-                            <div class="category-item">
-                                <a href="?category_id={{$category->id}}">
-                                    <p>{{$category->name}}</p>
-                                </a>
-                                    <div class="count">{{$category->products_count}}</div>
+                            <dl>
+                                <dt>
+                                    <div class="category-item">
+                                        <a href="?category_id={{$category->id}}">
+                                            <p>{{$category->name}}</p>
+                                        </a>
+                                        <div class="count">{{$category->products_count}}</div>
 
 
-                            </div>
+                                    </div>
+                                </dt>
+                                @foreach($category->children as $child)
+                                    <dd>
+
+                                        <a @if(request()->input('sub_id')==$child->id) class="text-danger" @endif href="?sub_id={{$child->id}}">
+                                            <p>{{$child->name}}</p>
+                                        </a>
+                                    </dd>
+                                @endforeach
+                            </dl>
                         @endforeach
                     </div>
                 </div>

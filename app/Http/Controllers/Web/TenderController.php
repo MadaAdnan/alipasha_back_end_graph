@@ -20,6 +20,7 @@ class TenderController extends Controller
         $city=\request()->get('city');
         $town=\request()->get('town');
         $category=\request()->get('category_id');
+        $sub=\request()->get('sub_id');
         $q=\request()->get('q');
         $cities=City::where('is_active',true)->get();
         $tender_count = Product::tender()
@@ -34,6 +35,7 @@ class TenderController extends Controller
             ->when(!empty($city),fn($query)=>$query->whereHas('city',fn($query)=>$query->where('cities.city_id',$city)))
             ->when(!empty($town),fn($query)=>$query->where('city_id',$town))
             ->when(!empty($category),fn($query)=>$query->where('category_id',$category))
+            ->when(!empty($sub),fn($query)=>$query->where('category_id',$sub))
             ->latest()->paginate(35);
         return view('web.tenders',compact('tenders','cities','tender_count','views','sellers','categories'));
     }
