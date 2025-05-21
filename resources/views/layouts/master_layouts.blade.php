@@ -62,7 +62,7 @@
     <div class="toast @if(session()->has('error')) show @endif" style="position: absolute; top: 60px; right: 0;">
         <div class="toast-header">
             <img src="..." class="rounded mr-2" alt="...">
-            <strong class="mr-auto">نجاح</strong>
+            <strong class="mr-auto">فشل</strong>
 
             <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
