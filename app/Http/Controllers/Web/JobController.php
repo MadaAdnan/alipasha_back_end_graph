@@ -36,7 +36,7 @@ class JobController extends Controller
             ->when(!empty($type),fn($query)=>$query->where('type',$type))
             ->when(!empty($category),fn($query)=>$query->where('category_id',$category))
             ->latest()->paginate(35);
-        $categories=Category::job()->where('is_active',1)->where('is_main',true)->get();
+        $categories=Category::job()->where('is_active',1)->get();
         return view('web.jobs',compact('jobs','cities','jobs_count','views','sellers','categories'));
     }
 
