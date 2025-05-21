@@ -154,7 +154,7 @@ required=""
         <div class="d-lg-flex align-items-center gap-2">
             <a href="https://ali-pasha.com/app/qr">
                 <button
-                    class="btn d-none d-md-inline-block"
+                    class="btn "
                     style="
               background-color: red;
               color: white;
@@ -166,7 +166,7 @@ required=""
                     <i class="bi bi-google-play"></i>
                     {{--<img style="width: 16px" src="{{asset('assets/upgrade-star.svg')}}" alt="" />--}}
                 </button>
-                <i class="bi bi-google-play text-danger d-inline-block d-md-none"></i>
+                {{--<i class="bi bi-google-play text-danger d-inline-block d-md-none"></i>--}}
             </a>
            @auth
                 <a href="{{route('pricing.index')}}">
