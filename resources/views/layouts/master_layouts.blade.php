@@ -54,7 +54,7 @@
             position: fixed;
             z-index: 1;
             left: 50%;
-            top: 30px;
+            top: 67px;
             font-size: 17px;
         }
 
@@ -70,7 +70,7 @@
                 opacity: 0;
             }
             to {
-                top: 30px;
+                top: 67px;
                 opacity: 1;
             }
         }
@@ -81,14 +81,14 @@
                 opacity: 0;
             }
             to {
-                top: 30px;
+                top: 67px;
                 opacity: 1;
             }
         }
 
         @-webkit-keyframes fadeout {
             from {
-                top: 30px;
+                top: 67px;
                 opacity: 1;
             }
             to {
@@ -99,7 +99,7 @@
 
         @keyframes fadeout {
             from {
-                top: 30px;
+                top: 67px;
                 opacity: 1;
             }
             to {
@@ -119,11 +119,7 @@
             }, 3000);
         }
     </script>
-    @if(session()->has('error'))
-        <script>
-            myFunction();
-        </script>
-        @endif
+
 
 </head>
 <body>
@@ -1338,7 +1334,11 @@
         });
     });
 </script>
-
+@if(session()->has('error'))
+    <script>
+        myFunction();
+    </script>
+@endif
 </body>
 </html>
 
