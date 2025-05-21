@@ -165,7 +165,7 @@
                                         </a>
                                     </td>
                                     <td>{{$job->city?->name}}</td>
-                                    <td>{{$job->start_date->format('Y-m-d')}}</td>
+                                    <td>{{$job->start_date?->format('Y-m-d')}}</td>
                                     <td>الوظائف الإدارية</td>
                                     <td>
                                         <button
