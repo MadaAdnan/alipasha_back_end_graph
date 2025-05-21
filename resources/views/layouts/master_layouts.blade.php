@@ -52,7 +52,7 @@
             border-radius: 2px;
             padding: 16px;
             position: fixed;
-            z-index: 1;
+            z-index: 10;
             left: 50%;
             top: 67px;
             font-size: 17px;
