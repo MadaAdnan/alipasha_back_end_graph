@@ -158,8 +158,8 @@ required=""
                     style="
               background-color: red;
               color: white;
-              width: 90px;
-              font-size: 10px;
+              width: 100px;
+              font-size: 12px;
             "
                 >
                     حمل التطبيق
