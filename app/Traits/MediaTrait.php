@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use App\Enums\CategoryTypeEnum;
 use App\Models\Product;
+use App\Models\User;
 use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -47,6 +48,8 @@ trait MediaTrait
             return $this->getFirstMediaUrl($collection, $conversation);
         }elseif($collection =='logo'){
             return asset('images/bg.jpg');
+        }elseif($this instanceof User && $collection=='image'){
+            return asset('images/user-profile.png');
         }else{
             return asset('images/noImage.jpeg');
         }
