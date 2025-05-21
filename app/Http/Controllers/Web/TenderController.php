@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Enums\ProductActiveEnum;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\City;
 use App\Models\Product;
 use App\Models\ProductView;
@@ -18,22 +19,23 @@ class TenderController extends Controller
     {
         $city=\request()->get('city');
         $town=\request()->get('town');
-
+        $category=\request()->get('category_id');
         $q=\request()->get('q');
         $cities=City::where('is_active',true)->get();
         $tender_count = Product::tender()
             ->where('active', ProductActiveEnum::ACTIVE->value)->where('end_date','>',now())->count();
         $views = ProductView::whereHas('product', fn($query) => $query->tender())->sum('count');
         $sellers = Product::tender()->select('user_id')->groupBy('user_id')->count();
+        $categories=Category::job()->where('is_active',1)->where('is_main',true)->get();
         $tenders=Product::tender()
             ->where('end_date','>',now())
             ->when(!empty($q),fn($query)=>$query->where('info','like',"%{$q}%"))
             ->where('active',ProductActiveEnum::ACTIVE->value)
             ->when(!empty($city),fn($query)=>$query->whereHas('city',fn($query)=>$query->where('cities.city_id',$city)))
             ->when(!empty($town),fn($query)=>$query->where('city_id',$town))
-
+            ->when(!empty($category),fn($query)=>$query->where('category_id',$category))
             ->latest()->paginate(35);
-        return view('web.tenders',compact('tenders','cities','tender_count','views','sellers'));
+        return view('web.tenders',compact('tenders','cities','tender_count','views','sellers','categories'));
     }
 
     /**
