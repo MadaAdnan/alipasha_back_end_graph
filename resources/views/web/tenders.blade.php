@@ -239,8 +239,9 @@
                             <div class="category-item">
                                 <a href="?category_id={{$category->id}}">
                                     <p>{{$category->name}}</p>
-                                    <div class="count">{{$category->products_count}}</div>
                                 </a>
+                                    <div class="count">{{$category->products_count}}</div>
+
 
                             </div>
                         @endforeach
