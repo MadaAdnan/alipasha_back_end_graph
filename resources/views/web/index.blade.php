@@ -105,7 +105,7 @@
                                             <a href="{{route('communities.show',$community->id)}}"
                                                class="rounded-circle">
                                                 <img class="rounded-circle"  src="@if($community->hasMedia('image') && $community->type!=\App\Enums\CommunityTypeEnum::CHAT->value) {{$community->getImage()}} @else {{$community->users()->where('users.id','!=',auth()->id())->first()?->getImage()}}  @endif "
-                                                     style="width: 45px;height: 100px" alt="avatar"/>
+                                                     style="width: 45px;height: 45px" alt="avatar"/>
                                             </a>
                                             @php
                                                 if($community->type==\App\Enums\CommunityTypeEnum::CHAT->value){
