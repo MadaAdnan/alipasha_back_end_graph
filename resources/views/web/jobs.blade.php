@@ -230,7 +230,7 @@
                 <div class="media-scroll bg-light p-4 h-100">
                     <div style="text-align: center">
 
-                        <a class="new-post"   href="{{url('/seller/jobs/create')}}">أضف وظيفة غير متوفرة</a>
+                        <a class="new-post btn btn-danger"   href="{{url('/seller/jobs/create')}}">أضف وظيفة غير متوفرة</a>
                     </div>
                     <div class="categories">
                         <p class="category-text">التصنيفات</p>
