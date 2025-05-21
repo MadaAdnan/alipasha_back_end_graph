@@ -280,12 +280,12 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="formModalLabel">إضافة وظيفة</h5>
-                    <button
+                    <a href="{{url('/')}}/seller/jobs/create"
                         type="button"
                         class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"
-                    ></button>
+                       {{-- data-bs-dismiss="modal"
+                        aria-label="Close"--}}
+                    ></a>
                 </div>
                 <div class="modal-body">
                     <form id="modalForm">
