@@ -158,7 +158,7 @@ required=""
                     style="
               background-color: red;
               color: white;
-              width: 140px;
+              width: 120px;
               font-size: 14px;
             "
                 >
