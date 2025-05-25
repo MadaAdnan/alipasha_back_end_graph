@@ -161,8 +161,8 @@
 {{--// TOAST--}}
 @auth
     <div class="balance-card d-flex flex-column">
-        <span class="title">رصيدك الحالي</span>
-        <span class="balance">{{auth()->user()->getTotalBalance()}} $</span>
+        <a href="{{route('balances.index')}}"> <span class="title">رصيدك الحالي</span></a>
+        <a href="{{route('balances.index')}}"><span class="balance">{{auth()->user()->getTotalBalance()}} $</span></a>
         <span class="divider"></span>
         <span class="footer"><a class="text-white" href="{{route('charges.index')}}">شحن الرصيد</a></span>
     </div>
