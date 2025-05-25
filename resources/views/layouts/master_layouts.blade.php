@@ -133,6 +133,8 @@
             text-align: center;
             align-items: center;
             justify-content: center;
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
         }
         .balance-card span{
             padding-inline: 5px;
