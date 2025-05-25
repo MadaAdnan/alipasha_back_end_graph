@@ -143,6 +143,9 @@
             border-bottom: 1px solid white;
 
         }
+        .text-red{
+            color:#e30613;
+        }
     </style>
 </head>
 <body>
