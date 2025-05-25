@@ -146,6 +146,10 @@
         .text-red{
             color:#e30613;
         }
+        .charge .text-bold{
+            font-size: 14pt;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
