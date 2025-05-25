@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\GraphQL\Queries\HomeQuery\HobbiesProduct;
+use App\GraphQL\Queries\HomeQuery\HobbiesProduct2;
 use App\Services\ProductRecommendationService;
 use App\Services\ProductViewTrackingService;
 use Illuminate\Console\Command;
@@ -81,7 +81,7 @@ class TestSmartHomeQuery extends Command
             $recommendationService = app(ProductRecommendationService::class);
             $viewTrackingService = app(ProductViewTrackingService::class);
 
-            $smartHomeQuery = new HobbiesProduct($recommendationService, $viewTrackingService);
+            $smartHomeQuery = new HobbiesProduct2($recommendationService, $viewTrackingService);
 
             // Simulate authentication if user ID provided
             if ($userId) {

@@ -5,7 +5,7 @@ namespace Tests\Feature;
 use App\Enums\CategoryTypeEnum;
 use App\Enums\LevelProductEnum;
 use App\Enums\ProductActiveEnum;
-use App\GraphQL\Queries\HomeQuery\HobbiesProduct;
+use App\GraphQL\Queries\HomeQuery\HobbiesProduct2;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Interaction;
@@ -20,7 +20,7 @@ class SmartHomeQueryTest extends TestCase
 {
     use RefreshDatabase;
 
-    private HobbiesProduct $smartHomeQuery;
+    private HobbiesProduct2 $smartHomeQuery;
     private ProductRecommendationService $recommendationService;
     private ProductViewTrackingService $viewTrackingService;
 
@@ -30,7 +30,7 @@ class SmartHomeQueryTest extends TestCase
 
         $this->recommendationService = app(ProductRecommendationService::class);
         $this->viewTrackingService = app(ProductViewTrackingService::class);
-        $this->smartHomeQuery = new HobbiesProduct(
+        $this->smartHomeQuery = new HobbiesProduct2(
             $this->recommendationService,
             $this->viewTrackingService
         );
