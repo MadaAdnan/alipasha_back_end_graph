@@ -17,7 +17,7 @@ final class SpecialProduct
     public function __invoke($_, array $args)
     {
 
-return Product::where('id',0);
+//return Product::where('id',0);
         $products= Product::where(['active'=>ProductActiveEnum::ACTIVE->value,
             'level'=>LevelProductEnum::SPECIAL->value])
 
@@ -32,7 +32,7 @@ return Product::where('id',0);
             )  ->where(function ($query) {
                 $query->whereNull('end_date')
                     ->orWhere('end_date', '>', now());
-            });
+            })->inRandomOrder();
 
         $ids = $products->pluck('id')->toArray();
         $today = today();
