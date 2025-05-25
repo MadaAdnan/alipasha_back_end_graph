@@ -154,7 +154,7 @@
         <span class="title">رصيدك الحالي</span>
         <span class="balance">{{auth()->user()->getTotalBalance()}} $</span>
         <span class="divider"></span>
-        <span class="footer"><a class="text-white" href="">شحن الرصيد</a></span>
+        <span class="footer"><a class="text-white" href="{{route('charges.index')}}">شحن الرصيد</a></span>
     </div>
 @endauth
 <!-- nav bar  -->
