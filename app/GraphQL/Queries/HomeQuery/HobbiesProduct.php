@@ -24,7 +24,7 @@ final class HobbiesProduct
     public function __invoke($_, array $args): Collection
     {
         $page = $args['page'] ?? 1;
-        $perPage = $args['perPage'] ?? 50;
+        $perPage = $args['first'] ?? 50;
         $user = auth()->user();
 
         // Get smart product recommendations
