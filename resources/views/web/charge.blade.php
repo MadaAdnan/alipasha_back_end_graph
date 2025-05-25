@@ -2,7 +2,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center" style="margin-top: 100px">
-            <div class="col-12" dir="rtl">
+            <div class="col-md-7" dir="rtl">
                 <p class="text-bold"><span class="text-red">ملاحظة :</span> قد يستغرق شحن الرصيد في تطبيق علي باشا من 5
                     إلى 30 دقيقة</p>
                 <p class="text-bold"><span class="text-red">هام جداً :</span> تأكد من إضافة المعرف الخاص بك في علي باشا
