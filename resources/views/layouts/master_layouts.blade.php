@@ -130,10 +130,13 @@
             color: white;
             z-index: 2;
         }
+        .balance-card span{
+            padding-inline: 5px;
+        }
         .balance-card>.title{
             font-size: 12px;
             font-weight: bold;
-            padding-inline: 5px;
+
         }
     </style>
 </head>
