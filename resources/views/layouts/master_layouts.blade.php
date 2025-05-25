@@ -145,9 +145,11 @@
         }
         .text-red{
             color:#e30613;
+            font-size: 14pt;
+            font-weight: bold;
         }
         .charge .text-bold{
-            font-size: 14pt;
+            font-size: 11pt;
             font-weight: bold;
         }
     </style>
