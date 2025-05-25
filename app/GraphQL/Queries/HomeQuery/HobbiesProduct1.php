@@ -3,33 +3,37 @@
 namespace App\GraphQL\Queries\HomeQuery;
 
 use App\Enums\CategoryTypeEnum;
-use App\Enums\LevelProductEnum;
 use App\Enums\ProductActiveEnum;
+use App\Models\Interaction;
 use App\Models\Product;
+use Illuminate\Database\Eloquent\Builder;
 
-final class LatestProduct
+final class HobbiesProduct1
 {
     /**
-     * @param  null  $_
-     * @param  array{}  $args
+     * @param null $_
+     * @param array{} $args
      */
     public function __invoke($_, array $args)
     {
-        return [];
-        $products= Product::
-            where(fn( $query)=>$query->where('active',ProductActiveEnum::ACTIVE->value)->whereDoesntHave('category',fn($query)=>$query->where('type',CategoryTypeEnum::RESTAURANT->value)))
-            ->whereNot('level',LevelProductEnum::SPECIAL->value)
+        $products = Product::where('id','<',0)->
+            where(fn( $query)=>$query->where('active', ProductActiveEnum::ACTIVE->value)
+            ->whereDoesntHave('category',fn($query)=>$query->where('type',CategoryTypeEnum::RESTAURANT->value)))
+
             ->where(fn($query)=> $query
                 ->where('type',CategoryTypeEnum::PRODUCT->value)
                 ->orWhere('type',CategoryTypeEnum::TENDER->value)
                 ->orWhere('type',CategoryTypeEnum::JOB->value)
                 ->orWhere('type',CategoryTypeEnum::SEARCH_JOB->value)
                 ->orWhere('type',CategoryTypeEnum::NEWS->value)
-            )  ->where(function ($query) {
+            )
+            ->where(function ($query) {
                 $query->whereNull('end_date')
                     ->orWhere('end_date', '>', now());
-            })->orderByDesc('created_at')
-            ;
+            })
+          /*  ->whereIn('category_id', $this->getPopularCategoryProducts())
+            ->orWhere('user_id',$this->getPopularSelelrProducts())*/
+            ->orderByDesc('created_at');
         $ids = $products->pluck('id')->toArray();
         $today = today();
 
@@ -62,5 +66,21 @@ final class LatestProduct
             }
         });
         return $products;
+    }
+
+    private function getPopularCategoryProducts()
+    {
+        return Interaction::where('user_id', auth()->id())->whereNotNull('category_id')
+            ->latest()
+            ->groupBy('category_id')
+            ->orderByRaw('SUM(visited) DESC')
+            ->pluck('category_id')->toArray();
+    }
+    private function getPopularSelelrProducts()
+    {
+        return Interaction::where('user_id', auth()->id())->whereNotNull('seller_id')
+            ->groupBy('seller_id')
+
+            ->pluck('seller_id')->toArray();
     }
 }

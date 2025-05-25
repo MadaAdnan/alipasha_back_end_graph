@@ -13,6 +13,8 @@ extend type Query{
     #homeProduct:[Product] @paginate(builder:"App\\GraphQL\\Queries\\HomeQuery\\HomeProduct")
     homeProduct(page: Int = 1, perPage: Int = 50): PaginatedProduct!
     @field(resolver: "App\\GraphQL\\Queries\\HomeQuery\\HomeProduct@__invoke")
+#    smartHomeProducts(page: Int = 1, perPage: Int = 50): [Product]
+    @field(resolver: "App\\GraphQL\\Queries\\HomeQuery\\HobbiesProduct@__invoke")
 }
 
 type PaginatedProduct {
