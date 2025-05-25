@@ -120,12 +120,29 @@
         }
     </script>
 
-
+    <style>
+        .balance-card{
+            position: fixed;
+            top: 60px;
+            left: 0;
+            padding: 5px;
+            background-color: darkred;
+            color: white;
+        }
+    </style>
 </head>
 <body>
 {{--TOAST --}}
 <div id="snackbar">{{session()->get('error')}}</div>
 {{--// TOAST--}}
+@auth
+    <div class="balance-card d-flex flex-column">
+        <span class="title">رصيدك الحالي</span>
+        <span class="balance">{{auth()->user()->getTotalBalance()}} $</span>
+        <span class="divider"></span>
+        <span class="footer"><a href="">شحن الرصيد</a></span>
+    </div>
+@endauth
 <!-- nav bar  -->
 <button id="goUpButton" class="btn btn-primary">
     <i class="bi bi-arrow-up"></i>
