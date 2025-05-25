@@ -10,7 +10,7 @@
                 <p class="text-bold"><span class="text-red">معرفك هو  :</span> {{auth()->id()}}</p>
 
             </div>
-            <div class="col-md-7">
+            <div class="col-md-7" dir="rtl">
                 <img src="{{$setting->getImage('sham-cash')}}" class="img-fluid" alt="">
                 <p class="text-bold"><span class="text-red">رقم الحساب على شام كاش  :</span> {{$setting->wallet}}</p>
             </div>
