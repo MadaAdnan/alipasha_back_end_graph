@@ -16,6 +16,7 @@ final class SpecialProduct
      */
     public function __invoke($_, array $args)
     {
+
 return Product::where('id',0);
         $products= Product::where(['active'=>ProductActiveEnum::ACTIVE->value,
             'level'=>LevelProductEnum::SPECIAL->value])
