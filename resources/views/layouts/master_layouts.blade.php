@@ -124,7 +124,8 @@
         .balance-card{
             position: fixed;
             top: 60px;
-            left: 0;
+            left: 50%;
+            transform: translateX(-50%);
             padding: 5px;
             background-color: #e30613 ;
             color: white;
