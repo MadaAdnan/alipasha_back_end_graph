@@ -129,6 +129,9 @@
             background-color: darkred;
             color: white;
             z-index: 2;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
         }
         .balance-card span{
             padding-inline: 5px;
