@@ -126,7 +126,7 @@
             top: 60px;
             left: 0;
             padding: 5px;
-            background-color: darkred;
+            background-color: #e30613 ;
             color: white;
             z-index: 2;
             text-align: center;
