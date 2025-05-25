@@ -128,6 +128,12 @@
             padding: 5px;
             background-color: darkred;
             color: white;
+            z-index: 2;
+        }
+        .balance-card>.title{
+            font-size: 12px;
+            font-weight: bold;
+            padding-inline: 5px;
         }
     </style>
 </head>
