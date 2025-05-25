@@ -132,10 +132,11 @@
         }
         .balance-card span{
             padding-inline: 5px;
-        }
-        .balance-card>.title{
             font-size: 12px;
             font-weight: bold;
+        }
+        .balance-card>.divider{
+            border-bottom: 1px solid white;
 
         }
     </style>
