@@ -99,11 +99,11 @@ final class HobbiesProduct
         $products = $this->getInterestBasedRecommendations($user, $perPage);
 
         // Track views for analytics
-        $this->trackProductViews($products);
+        $this->trackProductViews($products->get());
 
         return $products;
     }
-    private function getInterestBasedRecommendations($user, int $perPage): Collection
+    private function getInterestBasedRecommendations($user, int $perPage)
     {
         if (!$user) {
             // For guests, return trending and special products
@@ -139,7 +139,7 @@ final class HobbiesProduct
 
         return $products->shuffle(); // Shuffle for variety
     }
-    private function getGuestRecommendations(int $perPage): Collection
+    private function getGuestRecommendations(int $perPage)
     {
         $specialCount = (int) floor($perPage * 0.4);  // 40% special
         $latestCount = (int) floor($perPage * 0.6);   // 60% latest
@@ -158,7 +158,7 @@ final class HobbiesProduct
 
         return $products->shuffle();
     }
-    private function getUserInterestProducts(int $userId, int $limit, array $excludedIds = []): Collection
+    private function getUserInterestProducts(int $userId, int $limit, array $excludedIds = [])
     {
         // Get user's preferred categories with caching
         $cacheKey = "user_interests_{$userId}";
@@ -197,10 +197,10 @@ final class HobbiesProduct
                     ->orWhere('end_date', '>', now());
             })
             ->inRandomOrder()
-            ->limit($limit)
-            ->get();
+           /* ->limit($limit)
+            ->get()*/;
     }
-    private function getTrendingInUserCategories(int $userId, int $limit, array $excludedIds = []): Collection
+    private function getTrendingInUserCategories(int $userId, int $limit, array $excludedIds = [])
     {
         // Get user's categories
         $userCategories = Interaction::where('user_id', $userId)
@@ -251,10 +251,10 @@ final class HobbiesProduct
         }
 
         return $query->inRandomOrder()
-            ->limit($limit)
-            ->get();
+           /* ->limit($limit)
+            ->get()*/;
     }
-    private function getSpecialProducts(int $limit, array $excludedIds = []): Collection
+    private function getSpecialProducts(int $limit, array $excludedIds = [])
     {
         return Product::where('active', ProductActiveEnum::ACTIVE->value)
             ->where('level', LevelProductEnum::SPECIAL->value)
@@ -276,10 +276,10 @@ final class HobbiesProduct
                     ->orWhere('end_date', '>', now());
             })
             ->inRandomOrder()
-            ->limit($limit)
-            ->get();
+            /*->limit($limit)
+            ->get()*/;
     }
-    private function getLatestProducts(int $limit, array $excludedIds = []): Collection
+    private function getLatestProducts(int $limit, array $excludedIds = [])
     {
         return Product::where('active', ProductActiveEnum::ACTIVE->value)
             ->whereNotIn('id', $excludedIds)
@@ -300,8 +300,8 @@ final class HobbiesProduct
                     ->orWhere('end_date', '>', now());
             })
             ->latest('created_at')
-            ->limit($limit)
-            ->get();
+            /*->limit($limit)
+            ->get()*/;
     }
     private function trackProductViews(Collection $products): void
     {
