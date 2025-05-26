@@ -123,7 +123,7 @@
     <style>
         @media screen and (max-width:440px){
             .balance-card{
-                top:50%;
+                top:50% !important;
             }
         }
         .balance-card{
