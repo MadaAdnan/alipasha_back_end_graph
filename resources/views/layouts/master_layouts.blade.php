@@ -128,7 +128,7 @@
         }
         .balance-card{
             position: fixed;
-
+            top:90%;
             left: 1px;
             transform: translateY(-50%);
             padding: 5px;
