@@ -22,7 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Log::info($request->header());
     return $request->user();
 });
-Route::get('like/{userId},{productId}', function ($userId, $productId) {
+Route::get('like/{userId}/{productId}', function ($userId, $productId) {
     $like = Like::where(['product_id' => $productId, 'user_id' => $userId])->exists();
     if ($like) {
         Like::where(['product_id' => $productId, 'user_id' => $userId])->delete();
