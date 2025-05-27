@@ -384,7 +384,7 @@
                                         @method('POST')
                                         <input type="hidden" name="productId" value="{{$product->id}}"/>
                                         <button type="button"
-                                              @auth  onclick="like('{{route('api.like',['productId'=>$product->id,'userId'=>auth()->id()])}}','Like-{{$product->id}}')" @endauth
+
                                                 style="background-color: transparent; border: none; display: flex; align-items: center; gap: 8px;">
                                             <i style="font-size: 12px;" class="bi bi-hand-thumbs-up"></i>
                                             <p class="sub-title" >  <span id="Like-{{$product->id}}">{{$product->likes_count}}</span> اعجاب</p>
