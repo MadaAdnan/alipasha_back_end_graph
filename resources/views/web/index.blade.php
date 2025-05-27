@@ -384,6 +384,7 @@
                                         @method('POST')
                                         <input type="hidden" name="productId" value="{{$product->id}}"/>
                                         <button type="button"
+                                                data-url="{{route('api.like',['productId'=>$product->id,'userId'=>auth()->id()])}}"
                                                 @if(auth()->check())  onclick="Like('{{route('api.like',['productId'=>$product->id,'userId'=>auth()->id()])}}','Like-{{$product->id}}')" @endif
                                                 style="background-color: transparent; border: none; display: flex; align-items: center; gap: 8px;">
                                             <i style="font-size: 12px;" class="bi bi-hand-thumbs-up"></i>
