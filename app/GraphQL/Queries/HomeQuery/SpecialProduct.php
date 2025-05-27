@@ -32,7 +32,7 @@ final class SpecialProduct
             )  ->where(function ($query) {
                 $query->whereNull('end_date')
                     ->orWhere('end_date', '>', now());
-            })->inRandomOrder();
+            })->inRandomOrder()->where('created_at','>=',now()->subMonths(6));
 
         $ids = $products->pluck('id')->toArray();
         $today = today();

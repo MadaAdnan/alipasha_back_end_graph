@@ -37,7 +37,7 @@ final class HobbiesProduct
                     ->orWhere('end_date', '>', now());
             })
 
-            /*->orderByDesc('created_at')*/->inRandomOrder();
+            ->where('created_at','>=',now()->subMonths(6))->inRandomOrder();
         $ids = $products->pluck('id')->toArray();
         $today = today();
 
