@@ -28,7 +28,7 @@ final class LatestProduct
             )  ->where(function ($query) {
                 $query->whereNull('end_date')
                     ->orWhere('end_date', '>', now());
-            })->where('created_at','>=',now()->subMonths(6))->inRandomOrder()
+            })->where('created_at','>=',now()->subMonths(3))->inRandomOrder()
             ;
         $ids = $products->pluck('id')->toArray();
         $today = today();
