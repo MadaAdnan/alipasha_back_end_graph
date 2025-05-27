@@ -1,5 +1,5 @@
 function Like(url,ID){
-    fetch(`${url}/${userId}/${ProductId}`)
+    fetch(`${url}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('حدث خطأ في الاستجابة');
