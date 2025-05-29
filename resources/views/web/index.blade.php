@@ -11,7 +11,7 @@
                             <p class="title">صندوق الوارد</p>
                             <ul>
                                 {{--<li><a href="#">إظهار الكل</a></li>--}}
-                                <li><a href="{{route('invoices.index')}}">مبيعاتي</a></li>
+                                <li><a href="{{route('invoices.index')}}" class="p-1 border border-1 border-danger">مبيعاتي</a></li>
                                 <li><a href="{{route('my-invoices.index')}}">مشترياتي</a></li>
                                 <li><a href="{{route('orders.index')}}">شحن علي باشا</a></li>
                                 <li><a href="{{route('index')}}">الإشعارات</a></li>
