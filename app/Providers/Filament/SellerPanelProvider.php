@@ -35,7 +35,7 @@ class SellerPanelProvider extends PanelProvider
             ->id('seller')
             ->path('seller')
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::Red,
             ])
             ->plugin(
                 FilamentSocialitePlugin::make()
