@@ -182,7 +182,7 @@
 
 
                             <a href="{{route('profile.index')}}">
-                                <img src="{{asset('assets/avatar.svg')}}" alt="" class="avatar"/>
+                                <img src="{{auth()->user()->getImage('image')}}" alt="" class="avatar"/>
                             </a>
                         </div>
                         <div class="divider"></div>
