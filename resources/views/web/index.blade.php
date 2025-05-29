@@ -174,7 +174,7 @@
 
                                 <input
                                     onclick="document.location.href='{{url('/seller')}}'"
-                                    class="post-input form-control border-0 shadow-none"
+                                    class="post-input form-control border-0 shadow-none cursor-pointer"
                                     type="search"
                                     placeholder="..ماذا تفكر أن تنشر"
                                     aria-label="Search"
