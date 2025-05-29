@@ -145,7 +145,7 @@
                         >
                           الإعلانات الممولة
                         </a>
-                        <a
+                        <a href="{{route('profile.index',['page'=>'products'])}}"
                           style="
                             color: #000000;
                             background-color: #e4e6eb;
