@@ -772,14 +772,17 @@
                     </div>
                 @endforeach
 
+
+
+            </div>
+            <div class="col-8">
                 <div class="d-flex justify-content-between">
                     @if($latests->hasMorePages() || $special->hasMorePages() || $hobbbies->hasMorePages())
-                    <a class="btn btn-sm btn-secondary"
-                       href="{{$latests->withQueryString()->nextPageUrl()}}">التالي</a>
+                        <a class="btn btn-sm btn-secondary"
+                           href="{{$latests->withQueryString()->nextPageUrl()}}">التالي</a>
                     @endif
                     <a class="btn btn-sm btn-secondary" href="{{$latests->withQueryString()->previousPageUrl()}}">السابق</a>
                 </div>
-
 
             </div>
             <div
