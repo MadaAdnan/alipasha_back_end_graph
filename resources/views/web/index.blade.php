@@ -587,7 +587,7 @@
                         </div>
                     </div>
                 @endforeach
-                @foreach($special as $product)
+                @foreach($specials as $product)
                     <div class="posts">
                         <div class="post">
                             <div class="post-header">

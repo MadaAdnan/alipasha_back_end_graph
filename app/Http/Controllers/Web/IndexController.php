@@ -136,7 +136,7 @@ class IndexController extends Controller
                 $query->where('users.id', auth()->id());  // جلب المجتمعات التي يشارك فيها المستخدم الحالي
             })->latest('last_update')->limit(10)->get();
         }
-        return view('web.index', compact('specialSeller', 'products', 'categories', 'subCategory', 'communities', 'notifications'));
+        return view('web.index', compact('specialSeller', 'latests','hobbies','specials', 'categories', 'subCategory', 'communities', 'notifications'));
     }
 
     private function getPopularCategoryProducts()
