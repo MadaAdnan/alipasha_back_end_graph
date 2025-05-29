@@ -43,7 +43,7 @@
                                     data-bs-target="#acceptAccount"--}}
                                     style="
                     color: #fff;
-                    background-color: #0f5fc2;
+                    background-color: #e30613;
                     font-size: 12px;
                     padding: 8px;
                     border-radius: 4px;
