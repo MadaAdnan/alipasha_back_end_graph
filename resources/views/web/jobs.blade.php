@@ -243,7 +243,7 @@
                             <dl>
                                 <dt>
                                     <div class="category-item">
-                                        <a href="?category_id={{$category->id}}">
+                                        <a class="text-danger" href="?category_id={{$category->id}}">
                                             <p>{{$category->name}}</p>
                                         </a>
                                         <div class="count">{{$category->products_count}}</div>
