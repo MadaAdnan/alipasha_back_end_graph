@@ -11,10 +11,10 @@
                             <p class="title">صندوق الوارد</p>
                             <ul>
                                 {{--<li><a href="#">إظهار الكل</a></li>--}}
-                                <li><a href="{{route('invoices.index')}}" class="p-1 border border-1 border-danger rounded @if(request()->routeIs('invoices.index')) bg-danger @endif">مبيعاتي</a></li>
-                                <li><a href="{{route('my-invoices.index')}}" class="p-1 border border-1 border-danger rounded @if(request()->routeIs('my-invoices.index')) bg-danger @endif">مشترياتي</a></li>
-                                <li><a href="{{route('orders.index')}}" class="p-1 border border-1 border-danger rounded @if(request()->routeIs('orders.index')) bg-danger @endif">شحن علي باشا</a></li>
-                                <li><a href="{{route('index')}}" class="p-1 border border-1 border-danger rounded @if(request()->routeIs('index')) bg-danger @endif">الإشعارات</a></li>
+                                <li><a href="{{route('invoices.index')}}" class="p-1 border border-1 border-danger rounded ">مبيعاتي</a></li>
+                                <li><a href="{{route('my-invoices.index')}}" class="p-1 border border-1 border-danger rounded ">مشترياتي</a></li>
+                                <li><a href="{{route('orders.index')}}" class="p-1 border border-1 border-danger rounded">شحن علي باشا</a></li>
+                                <li><a href="{{route('index')}}" class="p-1 border border-1 border-danger rounded ">الإشعارات</a></li>
                             </ul>
                         </div>
 
