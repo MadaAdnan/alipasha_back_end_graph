@@ -37,7 +37,7 @@ final class HobbiesProduct
                     ->orWhere('end_date', '>', now());
             })
             ->when(auth()->check(),fn($query)=>$query->where(fn($q)=>
-            $q->whereIn('category_id',[$this->getPopularSelelrProducts()])
+            $q->whereIn('category_id',[$this->getPopularCategoryProducts()])
                 ->orWhereIn('user_id',[$this->getPopularSelelrProducts()])
             ))
 

@@ -34,7 +34,7 @@ final class SpecialProduct
                     ->orWhere('end_date', '>', now());
             })->inRandomOrder()->where('created_at','>=',now()->subMonths(3))
             ->when(auth()->check(),fn($query)=>$query->where(fn($q)=>
-            $q->whereNotIn('category_id',[$this->getPopularSelelrProducts()])
+            $q->whereNotIn('category_id',[$this->getPopularCategoryProducts()])
                 ->whereNotIn('user_id',[$this->getPopularSelelrProducts()])
             ))
         ;
