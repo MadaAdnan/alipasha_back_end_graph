@@ -36,6 +36,11 @@ final class HobbiesProduct
                 $query->whereNull('end_date')
                     ->orWhere('end_date', '>', now());
             })
+            ->when(auth()->check(),fn($query)=>$query->where(fn($q)=>
+            $q->whereIn('category_id',[$this->getPopularSelelrProducts()])
+                ->orWhereIn('user_id',[$this->getPopularSelelrProducts()])
+            ))
+
 
             ->where('created_at','>=',now()->subMonths(3))->inRandomOrder();
         $ids = $products->pluck('id')->toArray();

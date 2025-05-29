@@ -32,7 +32,12 @@ final class SpecialProduct
             )  ->where(function ($query) {
                 $query->whereNull('end_date')
                     ->orWhere('end_date', '>', now());
-            })->inRandomOrder()->where('created_at','>=',now()->subMonths(3));
+            })->inRandomOrder()->where('created_at','>=',now()->subMonths(3))
+            ->when(auth()->check(),fn($query)=>$query->where(fn($q)=>
+            $q->whereNotIn('category_id',[$this->getPopularSelelrProducts()])
+                ->whereNotIn('user_id',[$this->getPopularSelelrProducts()])
+            ))
+        ;
 
         $ids = $products->pluck('id')->toArray();
         $today = today();
@@ -68,5 +73,19 @@ final class SpecialProduct
         return $products;
     }
 
+    private function getPopularCategoryProducts()
+    {
+        return Interaction::where('user_id', auth()->id())->whereNotNull('category_id')
+            ->latest()
+            ->groupBy('category_id')
+            ->orderByRaw('SUM(visited) DESC')
+            ->pluck('category_id')->toArray();
+    }
+    private function getPopularSelelrProducts()
+    {
+        return Interaction::where('user_id', auth()->id())->whereNotNull('seller_id')
+            ->groupBy('seller_id')
 
+            ->pluck('seller_id')->toArray();
+    }
 }
