@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Web;
 
 use App\Enums\CategoryTypeEnum;
+use App\Enums\LevelProductEnum;
 use App\Enums\LevelUserEnum;
 use App\Enums\ProductActiveEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Community;
+use App\Models\Interaction;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -31,7 +33,36 @@ class IndexController extends Controller
             $notifications = auth()->user()->unreadNotifications()->limit(7)->get();
             auth()->user()->unreadNotifications->markAsRead();
         }
-        $products = Product::when($categoryId, fn($query) => $query->where('category_id', $categoryId))
+        // getSpecialProduct
+        $specials= Product::where(['active'=>ProductActiveEnum::ACTIVE->value,
+            'level'=>LevelProductEnum::SPECIAL->value])
+
+            ->where(fn( $query)=>$query->whereDoesntHave('category',fn($query)=>$query->where('type',CategoryTypeEnum::RESTAURANT->value)))
+
+            ->where(fn($query)=> $query
+                ->where('type',CategoryTypeEnum::PRODUCT->value)
+                ->orWhere('type',CategoryTypeEnum::TENDER->value)
+                ->orWhere('type',CategoryTypeEnum::JOB->value)
+                ->orWhere('type',CategoryTypeEnum::SEARCH_JOB->value)
+                ->orWhere('type',CategoryTypeEnum::NEWS->value)
+            )  ->where(function ($query) {
+                $query->whereNull('end_date')
+                    ->orWhere('end_date', '>', now());
+            })->inRandomOrder()->where('created_at','>=',now()->subMonths(3))
+            ->when(auth()->check(),fn($query)=>$query->where(fn($q)=>
+            $q->whereNotIn('category_id',$this->getPopularCategoryProducts())
+                ->whereNotIn('user_id',$this->getPopularSelelrProducts())
+            ))->paginate(5);
+        ///
+        $countLatest=15;
+        $count=15;
+        if($specials->count()==0){
+            $count=17;
+            $countLatest=18;
+        }
+
+
+        $hobbies = Product::when($categoryId, fn($query) => $query->where('category_id', $categoryId))
             ->where('active', ProductActiveEnum::ACTIVE->value)
             ->where(function ($query) {
                 $query->where('type', CategoryTypeEnum::PRODUCT->value)
@@ -39,13 +70,36 @@ class IndexController extends Controller
                     ->orWhere('type', CategoryTypeEnum::SEARCH_JOB->value)
                     ->orWhere('type', CategoryTypeEnum::NEWS->value)
                     ->orWhere('type', CategoryTypeEnum::TENDER->value);
-        })->latest()->paginate(35);
+        })  ->when(auth()->check(),fn($query)=>$query->where(fn($q)=>
+            $q->whereIn('category_id',$this->getPopularCategoryProducts())
+                ->orWhereIn('user_id',$this->getPopularSelelrProducts())
+            ))->inRandomOrder()
+            ->paginate($count);
+        $latests= Product::
+        where(fn( $query)=>$query->where('active',ProductActiveEnum::ACTIVE->value)->whereDoesntHave('category',fn($query)=>$query->where('type',CategoryTypeEnum::RESTAURANT->value)))
+            ->whereNot('level',LevelProductEnum::SPECIAL->value)
+            ->where(fn($query)=> $query
+                ->where('type',CategoryTypeEnum::PRODUCT->value)
+                ->orWhere('type',CategoryTypeEnum::TENDER->value)
+                ->orWhere('type',CategoryTypeEnum::JOB->value)
+                ->orWhere('type',CategoryTypeEnum::SEARCH_JOB->value)
+                ->orWhere('type',CategoryTypeEnum::NEWS->value)
+            )  ->where(function ($query) {
+                $query->whereNull('end_date')
+                    ->orWhere('end_date', '>', now());
+            })->where('created_at','>=',now()->subMonths(3))->inRandomOrder()
+            ->when(auth()->check(),fn($query)=>$query->where(fn($q)=>
+            $q->whereNotIn('category_id',$this->getPopularCategoryProducts())
+                ->whereNotIn('user_id',$this->getPopularSelelrProducts())
+            ))->paginate($countLatest);
+
         $subCategory = Category::whereHas('parents', fn($query) => $query->where('category_id', $categoryId))->get();
         $categories = Category::where('is_active', true)
             ->where(fn($query) => $query->where('type', CategoryTypeEnum::PRODUCT->value)->orWhere('type', CategoryTypeEnum::RESTAURANT->value))->orderBy('sortable')->get();
 
 
-        $ids = $products->pluck('id')->toArray();
+        $ids = collect(array_merge($latests->toArray(),$hobbies->toArray(),$specials->toArray()))->pluck('id')->toArray();
+        dd($ids);
         $today = today();
 
         \DB::transaction(function () use ($ids, $today) {
@@ -83,6 +137,22 @@ class IndexController extends Controller
             })->latest('last_update')->limit(10)->get();
         }
         return view('web.index', compact('specialSeller', 'products', 'categories', 'subCategory', 'communities', 'notifications'));
+    }
+
+    private function getPopularCategoryProducts()
+    {
+        return Interaction::where('user_id', auth()->id())->whereNotNull('category_id')
+            ->latest()
+            ->groupBy('category_id')
+            ->orderByRaw('SUM(visited) DESC')
+            ->pluck('category_id')->toArray();
+    }
+    private function getPopularSelelrProducts()
+    {
+        return Interaction::where('user_id', auth()->id())->whereNotNull('seller_id')
+            ->groupBy('seller_id')
+
+            ->pluck('seller_id')->toArray();
     }
 
     /**
