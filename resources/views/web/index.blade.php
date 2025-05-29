@@ -171,14 +171,15 @@
                 @auth
                     <div class="new-post">
                         <div class="flex-wrapper">
-                            <input
-                                class="post-input form-control border-0 shadow-none"
-                                type="search"
-                                placeholder="..ماذا تفكر أن تنشر"
-                                aria-label="Search"
-                                data-bs-toggle="modal"
-                                data-bs-target="#addPostModal"
-                            />
+                            <a href="{{url('/seller')}}">
+                                <input
+                                    class="post-input form-control border-0 shadow-none"
+                                    type="search"
+                                    placeholder="..ماذا تفكر أن تنشر"
+                                    aria-label="Search"
+                                />
+                            </a>
+
                             <a href="{{route('profile.index')}}">
                                 <img src="{{asset('assets/avatar.svg')}}" alt="" class="avatar"/>
                             </a>
