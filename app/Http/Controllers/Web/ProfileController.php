@@ -15,7 +15,7 @@ class ProfileController extends Controller
     public function index()
     {
         $cities = City::where('is_active', true)->orderBy('city_id')->get();
-dd('test');
+
         return view('web.profile', compact('cities'));
     }
 
