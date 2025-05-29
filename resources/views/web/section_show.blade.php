@@ -93,8 +93,8 @@
 
 
                     </div>
-                    <div class="row justify-content-center">
-                        <div class="col-md-8">
+                    <div class="row justify-content-center mt-3">
+                        <div class="col-md-10">
                             <div class="d-flex justify-content-between">
                                 @if($products->hasMorePages())
                                     <a class="btn btn-sm btn-secondary" href="{{$products->withQueryString()->nextPageUrl()}}">التالي</a>
