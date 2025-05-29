@@ -147,7 +147,7 @@ div.categories div.category-item div.count {
   color: #fff;
   font-size: 14px;
 }
-a:has('.category-item'){
+a:has('.category-item') *{
     color: red;
 }
 p.title {
