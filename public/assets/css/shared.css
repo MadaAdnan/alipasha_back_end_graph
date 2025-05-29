@@ -139,6 +139,7 @@ div.categories div.category-item div.count {
   background-color: #e30613;
   width: auto;
   height: 24px;
+    padding-inline: 3px;
   border-radius: 5px;
   display: flex;
   align-items: center;
