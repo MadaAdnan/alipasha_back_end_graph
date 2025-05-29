@@ -772,21 +772,16 @@
                     </div>
                 @endforeach
 
+                <div class="d-flex justify-content-between ps-2">
+                    @if($latests->hasMorePages() || $special->hasMorePages() || $hobbbies->hasMorePages())
+                    <a class="btn btn-sm btn-secondary"
+                       href="{{$latests->withQueryString()->nextPageUrl()}}">التالي</a>
+                    @endif
+                    <a class="btn btn-sm btn-secondary" href="{{$latests->withQueryString()->previousPageUrl()}}">السابق</a>
+                </div>
 
-<div class="row justify-content-center">
-    <div class="col-8">
-        <div class="d-flex justify-content-between">
-            @if($latests->hasMorePages() || $special->hasMorePages() || $hobbbies->hasMorePages())
-                <a class="btn btn-sm btn-secondary"
-                   href="{{$latests->withQueryString()->nextPageUrl()}}">التالي</a>
-            @endif
-            <a class="btn btn-sm btn-secondary" href="{{$latests->withQueryString()->previousPageUrl()}}">السابق</a>
-        </div>
 
-    </div>
-</div>
             </div>
-
             <div
                 class="floating-left-sidebar-icon d-xl-none"
                 onclick="toggleLeftSidebar()"
