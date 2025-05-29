@@ -134,7 +134,7 @@
                             الإحصائيات
                         </button>
 
-                         <button
+                         <a href="{{route('profile.index',['page'=>'ads'])}}"
                           style="
                             color: #000000;
                             background-color: #e4e6eb;
@@ -144,8 +144,8 @@
                           "
                         >
                           الإعلانات الممولة
-                        </button>
-                        <button
+                        </a>
+                        <a
                           style="
                             color: #000000;
                             background-color: #e4e6eb;
@@ -155,7 +155,7 @@
                           "
                         >
                           المنتجات
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
