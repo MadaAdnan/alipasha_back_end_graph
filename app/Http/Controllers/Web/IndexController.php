@@ -97,8 +97,8 @@ class IndexController extends Controller
         $categories = Category::where('is_active', true)
             ->where(fn($query) => $query->where('type', CategoryTypeEnum::PRODUCT->value)->orWhere('type', CategoryTypeEnum::RESTAURANT->value))->orderBy('sortable')->get();
 
-
-        $ids = collect(array_merge($latests->toArray(),$hobbies->toArray(),$specials->toArray()))->pluck('id')->toArray();
+dd(array_merge($latests->toArray(),$hobbies->toArray(),$specials->toArray()));
+        $ids = collect()->pluck('id')->toArray();
         dd($ids);
         $today = today();
 
