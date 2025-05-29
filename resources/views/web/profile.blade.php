@@ -37,7 +37,7 @@
               "
                     >
                         @if(auth()->user()->products_count >0)
-                            <a href="./store.html">
+                            <a href="{{route('seller.profile',['id'=>auth()->id()])}}">
                                 <button
                                     data-bs-toggle="modal"
                                     data-bs-target="#acceptAccount"
