@@ -159,7 +159,7 @@
                                 <div class="info">
                                     <p>{{$seller->seller_name}}</p>
                                     <a href="{{route('seller.profile',$seller->id)}}">
-                                        <img src="{{$seller->getFirstMediaUrl('image','webp')}}" alt="avatar"/>
+                                        <img src="{{$seller->getImage('image')}}" alt="avatar"/>
                                     </a>
                                 </div>
                             </div>
