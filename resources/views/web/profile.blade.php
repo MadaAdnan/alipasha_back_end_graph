@@ -37,10 +37,10 @@
               "
                     >
                         @if(auth()->user()->products_count >0)
-                            <a href="{{route('seller.profile',['id'=>auth()->id()])}}">
-                                <button
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#acceptAccount"
+                            <a href="{{route('seller.profile',['id'=>auth()->id()])}}"
+
+                                    {{--data-bs-toggle="modal"
+                                    data-bs-target="#acceptAccount"--}}
                                     style="
                     color: #fff;
                     background-color: #0f5fc2;
@@ -50,8 +50,8 @@
                     "
                                 >
                                     عرض المتجر
-                                </button>
-                            </a>
+                                </a>
+
                         @endif
 
                         @if(!auth()->user()->is_verified)
