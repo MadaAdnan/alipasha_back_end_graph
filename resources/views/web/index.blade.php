@@ -171,7 +171,7 @@
                 @auth
                     <div class="new-post">
                         <div class="flex-wrapper">
-                            <a href="{{url('/seller')}}">
+                            <a href="{{url('/seller')}}" class="post-input">
                                 <input
                                     class="post-input form-control border-0 shadow-none"
                                     type="search"
