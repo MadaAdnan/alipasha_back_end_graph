@@ -147,7 +147,7 @@
                                 <th>المنطقة</th>
                                 <th>آخر موعد للتقديم</th>
                                 <th>التصنيف</th>
-                                <th>النوع</th>
+
                                 <th>الناشر</th>
                             </tr>
                             </thead>
@@ -165,20 +165,8 @@
                                         </a>
                                     </td>
                                     <td>{{$tender->city?->name}}</td>
-                                    <td>{{$tender->start_date?->format('Y-m-d')}}</td>
-                                    <td>الوظائف الإدارية</td>
-                                    <td>
-                                        <button
-                                            class="btn"
-                                            style="background: #ff8f13; color: #fff"
-                                        >
-                                          @if($tender->type=='job')
-                                                شاغر
-                                              @else
-                                                يبحث عن عمل
-                                            @endif
-                                        </button>
-                                    </td>
+                                    <td>@if ($tender->end_date!=null && now()->greaterThan($tender->end_date)) <span class="badge bg-danger">منتهية</span> @else {{$tender->end_date?->format('Y-m-d')}} @endif</td>
+                                    <td>{{$tender->sub1?->name??$tender->category?->name}}</td>
                                     <td>{{$tender->user?->seller_name}}</td>
                                 </tr>
                             @endforeach
@@ -266,7 +254,7 @@
         </div>
     </div>
 
-    <div
+{{--    <div
         class="modal fade"
         id="addPorsaModal"
         tabindex="-1"
@@ -491,6 +479,6 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>--}}
 
 @endsection
