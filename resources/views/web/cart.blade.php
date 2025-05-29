@@ -75,7 +75,7 @@
                         <th colspan="2" class="text-center bg-danger-subtle">{{$result+$shipping}} $</th>
                         <th colspan="4" class="text-center ">
                             @if($shipping>0 &&
-(  auth()->user()->area?->is_delivary==true) && $user->area?->is_delivary==true)
+(  auth()->user()->area?->is_delivery==true) && $user->area?->is_delivery==true)
                                 <form action="{{route('carts.update',$user->id)}}" method="post">
                                     @csrf
                                     @method('PATCH')
@@ -85,8 +85,8 @@
                                 @elseif($user->area_id==null)
                                 <span>يرجى إكمال ملفك الشخصي كي تتمكن من الشحن</span>
                             @else
-                               <span data-user="{{auth()->user()->area}}"
-                                     data-seller="{{$user->area}}"
+                               <span data-user="{{auth()->user()->area->is_delivery}}"
+                                     data-seller="{{$user->area->is_delivery}}"
                                      data-shipping="{{$shipping}}"
                                > الشحن غير متاح حاليا لهذا المنتج</span>
                             @endif
