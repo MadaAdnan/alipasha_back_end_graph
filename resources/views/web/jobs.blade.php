@@ -187,10 +187,14 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="d-flex justify-content-between px-4">
-                        <a class="btn btn-sm btn-secondary" href="{{$jobs->nextPageUrl()}}">التالي</a>
-                        <a class="btn btn-sm btn-secondary" href="{{$jobs->previousPageUrl()}}">السابق</a>
-                    </div>
+                  <div class="row justify-content-center">
+                      <div class="col-md-10">
+                          <div class="d-flex justify-content-between px-4">
+                              <a class="btn btn-sm btn-secondary" href="{{$jobs->nextPageUrl()}}">التالي</a>
+                              <a class="btn btn-sm btn-secondary" href="{{$jobs->previousPageUrl()}}">السابق</a>
+                          </div>
+                      </div>
+                  </div>
                    {{-- <div class="pagination-wrapper">
                         <nav aria-label="Page navigation">
                             <ul class="pagination">
