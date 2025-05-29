@@ -85,10 +85,7 @@
                                 @elseif($user->area_id==null)
                                 <span>يرجى إكمال ملفك الشخصي كي تتمكن من الشحن</span>
                             @else
-                               <span data-user="{{auth()->user()->area->is_delivery}}"
-                                     data-seller="{{$user->area->is_delivery}}"
-                                     data-shipping="{{$shipping}}"
-                               > الشحن غير متاح حاليا لهذا المنتج</span>
+                               <span > الشحن غير متاح حاليا لهذا المنتج</span>
                             @endif
                         </th>
                     </tr>
