@@ -17,6 +17,7 @@ class Setting extends Model implements HasMedia
     protected $guarded = [];
     protected $casts = [
         'social' => 'array',
+        'options' => 'array',
         'url_for_download' => 'array',
         'dollar_value' => 'float',
         'point_value' => 'float',
