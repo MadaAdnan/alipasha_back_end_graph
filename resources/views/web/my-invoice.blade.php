@@ -1,6 +1,6 @@
 @extends('layouts.master_layouts')
 @section('content')
-    <div class="container">
+    <div class="container" dir="rtl">
         <div class="row justify-content-center">
             @forelse($invoices as $invoice)
                 <div class="col-8 ">
