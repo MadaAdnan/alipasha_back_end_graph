@@ -17,7 +17,8 @@ class EditProduct extends EditRecord
         parent::mount($record); parent::mount($record);
         $product=Product::where('type',CategoryTypeEnum::PRODUCT->value)->orWhere('type',CategoryTypeEnum::RESTAURANT->value)->find($record);
         abort_if($product==null,403,'المنتج غير موجود');
-        abort_if($product->user_id != auth()->id(),403,'غير مصرح لك بالدخول');
+        $id=auth()->id();
+        abort_if($product->user_id != auth()->id(),403,"{$product->user_id}- {$id}");
 
 
     }
