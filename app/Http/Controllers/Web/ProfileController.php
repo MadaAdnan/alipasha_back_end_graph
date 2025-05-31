@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\Advice;
 use App\Models\City;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -15,8 +17,14 @@ class ProfileController extends Controller
     public function index()
     {
         $cities = City::where('is_active', true)->orderBy('city_id')->get();
+        $type = \request()->get('type')??'products';
+        $ads=[];
+        if($type=='ads'){
+            $ads=Advice::where('user_id',auth()->id())->where('expired_date','>',now())->orderBy('expired_date')->withCount('views')->get();
 
-        return view('web.profile', compact('cities'));
+        }
+        $products=Product::whereNot('type','service')->where('user_id',auth()->id())->latest()->paginate(20);
+        return view('web.profile', compact('cities', 'type','ads','products'));
     }
 
     /**
@@ -44,7 +52,7 @@ class ProfileController extends Controller
             'address' => $request->address,
             'city_id' => $request->city_id,
         ]);
-        return back()->with('success','نجاح العملية');
+        return back()->with('success', 'نجاح العملية');
     }
 
     /**

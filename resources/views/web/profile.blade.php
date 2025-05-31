@@ -134,7 +134,7 @@
                             الإحصائيات
                         </button>
 
-                         <a href="{{route('profile.index',['page'=>'ads'])}}"
+                         <a href="{{route('profile.index',['type'=>'ads'])}}"
                           style="
                             color: #000000;
                             background-color: #e4e6eb;
@@ -145,7 +145,7 @@
                         >
                           الإعلانات الممولة
                         </a>
-                        <a href="{{route('profile.index',['page'=>'products'])}}"
+                        <a href="{{route('profile.index',['type'=>'products'])}}"
                           style="
                             color: #000000;
                             background-color: #e4e6eb;
@@ -161,86 +161,7 @@
             </div>
 
             <!-- Right Section (2 columns on large screens, 0 on small) -->
-            <div id="right-others-sidebar" class="col-3 d-none">
-                <div class="media-scroll bg-light p-4 h-100">
-                    <div class="inbox">
-                        <p class="title">صندوق الوارد</p>
-                        <ul>
-                            <li><a href=""> إظهار الكل </a></li>
-                            <li><a href="">مبيعاتي</a></li>
-                            <li><a href="">مشترياتي</a></li>
-                            <li><a href="">الإشعارات</a></li>
-                        </ul>
-                    </div>
 
-                    <div class="notification-item">
-                        <div class="info">
-                            <div>
-                                <a href="./profile.html">
-                                    <img src="../assets/avatar-2.svg" alt="avatar"/>
-                                </a>
-                                <p class="title">احمد خالد المحمد يطلب منتجات</p>
-                            </div>
-                            <p class="time">4H</p>
-                        </div>
-                        <div class="actions">
-
-                            <form action="" method="POST" style="width: 100%;">
-                                <input type="hidden" name="storId" value="123"/>
-                                <button type="submit" class="btn btn-danger"
-                                        class="action-buttons"
-                                        style="color: #fff; background-color: #e30613"
-                                > قبول الطلب
-                                </button>
-                            </form>
-
-
-                            <form action="" method="POST" style="width: 100%;">
-                                <input type="hidden" name="storId" value="123"/>
-                                <button type="submit" class="btn btn-danger"
-                                        class="action-buttons"
-                                        style="color: #000000; background-color: #e4e6eb"
-                                > عرض الطلبية
-                                </button>
-                            </form>
-
-                        </div>
-                    </div>
-
-
-                    <div class="chat-wrapper">
-                        <div class="chats">
-                            <p class="title">المحادثات</p>
-                            <ul>
-                                <li>
-                                    <i
-                                        class="bi bi-search"
-                                        style="margin-right: 8px; color: #aaa"
-                                    ></i>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="chat-item">
-                            <div
-                                style="
-                    display: flex;
-                    align-items: center;
-                    gap: 4px;
-                    margin-bottom: 8px;
-                  "
-                            >
-                                <a href="./profile.html">
-                                    <img src="../assets/avatar-2.svg" alt="avatar"/>
-                                </a>
-                                <p class="title">عبادة كحلوس</p>
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-            </div>
         </div>
     </div>
 
@@ -616,4 +537,37 @@
             </div>
         </div>
     </div>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            @if($type=='ads')
+<h1  class="text-center">الإعلانات</h1>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>صورة الإعلان</th>
+                            <th>عدد المشاهدات</th>
+                            <th>تاريخ الإنتهاء</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($ads as $ad)
+                            <tr>
+                                <td><img src="{{$ad->getImage()}}" alt="IMAGE"></td>
+                                <td>{{$ad->viw_count}}</td>
+                                <td>{{$ad->expired_at->format('d-m-Y')}}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
+            @else
+
+            @endif
+        </div>
+    </div>
+</div>
+
 @endsection
