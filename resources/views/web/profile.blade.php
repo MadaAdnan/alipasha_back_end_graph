@@ -591,7 +591,7 @@
                                 <td class="text-center">{{\App\Enums\ProductActiveEnum::tryFrom($product->active)?->getLabel()}}</td>
                                 <td class="text-center">{{$product->expert}}</td>
                                 <td class="text-center">{{$product->created_at?->format('Y-m-d')}}</td>
-                                <td class="text-center"><a href="{{url("/seller/products/{$product->id}")}}" class="btn btn-sm btn-danger">تعديل</a></td>
+                                <td class="text-center"><a href="{{url("/seller/products/{$product->id}/edit")}}" class="btn btn-sm btn-danger">تعديل</a></td>
 
                             </tr>
                         @empty
