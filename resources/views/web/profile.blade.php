@@ -539,7 +539,7 @@
     </div>
 <div class="container-fluid">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-10">
             @if($type=='ads')
 <h1  class="text-center">الإعلانات</h1>
                 <div class="table-responsive" dir="rtl">
