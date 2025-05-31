@@ -110,9 +110,9 @@ Route::middleware('throttle:20,1')->group(function () {
 
 Route::get('testnot/{id?}', function ($id = null) {
 
-   $community=\App\Models\Community::where('is_global_seller',true)->first();
+  /* $community=\App\Models\Community::where('is_global_seller',true)->first();
    $users=User::whereHas('products')->select('id')->pluck('id')->toArray();
-   $community->users()->syncWithoutDetaching($users);
+   $community->users()->syncWithoutDetaching($users);*/
 
     return 'success';
 });
