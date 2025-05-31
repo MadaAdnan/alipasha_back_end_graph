@@ -18,7 +18,8 @@ class EditProduct extends EditRecord
         $product=Product::where('type',CategoryTypeEnum::PRODUCT->value)->orWhere('type',CategoryTypeEnum::RESTAURANT->value)->find($record);
         abort_if($product==null,403,'المنتج غير موجود');
         $id=auth()->id();
-        abort_if($product->user_id != auth()->id(),403,"{$product->user_id}- {$id}");
+        dd($product->toArray());
+        abort_if($product->user_id != auth()->id(),403,"{$product->user}- {$id}");
 
 
     }
