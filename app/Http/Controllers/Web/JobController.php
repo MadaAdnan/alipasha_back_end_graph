@@ -24,7 +24,7 @@ class JobController extends Controller
         $category=\request()->get('category_id');
         $sub=\request()->get('sub_id');
         $q=\request()->get('q');
-        $cities=City::where('is_active',true)->orderBy('city_id')->orderBy('name')->get();
+        $cities=City::where('is_active',true)->orderBy('city_id')->get();
         $jobs_count = Product::job()
             ->where('active', ProductActiveEnum::ACTIVE->value)->count();
         $views = ProductView::whereHas('product', fn($query) => $query->job())->sum('count');
