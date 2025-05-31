@@ -14,6 +14,7 @@ use App\Jobs\SendFirebaseNotificationJob;
 use App\Models\Balance;
 use App\Models\City;
 use App\Models\Community;
+use App\Models\Interaction;
 use App\Models\Message;
 use App\Models\User;
 use App\Service\SendNotifyHelper;
@@ -344,7 +345,10 @@ class UserResource extends Resource
                              */
                             $record->communities()->sync($data['communities'], false);
                             Notification::make('success')->success()->title('نجاح العملية')->body('تم إضافة المستخدم إلى المجتمعات')->send();
-                        })->label('إضافة إلى مجتمع')
+                        })->label('إضافة إلى مجتمع'),
+                    Tables\Actions\Action::make('delete_recommended')
+                        ->action(fn($record)=>Interaction::where('user_id',$record->id)->delete())
+                        ->label('حذف الإهتمامات')->requiresConfirmation()
                 ]),
             ])
             ->headerActions([
@@ -397,7 +401,10 @@ class UserResource extends Resource
                             Notification::make('error')->title('فشل العملية')->body($e->getMessage())->danger()->send();
 
                         }
-                    })->label('تنبيه تأكيد البريد ')->icon('fas-comment')
+                    })->label('تنبيه تأكيد البريد ')->icon('fas-comment'),
+                Tables\Actions\Action::make('delete_recommended')
+                    ->action(fn()=>Interaction::where('id','!=',0)->delete())
+                    ->label('حذف الإهتمامات')->requiresConfirmation()
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
