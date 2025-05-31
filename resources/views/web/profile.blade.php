@@ -552,13 +552,17 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($ads as $ad)
+                        @forelse($ads as $ad)
                             <tr>
                                 <td><img src="{{$ad->getImage()}}" alt="IMAGE"></td>
                                 <td>{{$ad->viw_count}}</td>
                                 <td>{{$ad->expired_at->format('d-m-Y')}}</td>
                             </tr>
-                        @endforeach
+                        @empty
+                            <tr>
+                                <td colspan="3">لا يوجد إعلانات</td>
+                            </tr>
+                        @endforelse
                         </tbody>
                     </table>
                 </div>
