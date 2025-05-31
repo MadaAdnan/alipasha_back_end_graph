@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Interaction;
+use App\Models\Setting;
 use Illuminate\Console\Command;
 
 class DeleteHobbiesCommand extends Command
@@ -26,7 +27,8 @@ class DeleteHobbiesCommand extends Command
      */
     public function handle()
     {
-        Interaction::whereNull('seller_id')->whereBetween('created_at',[now()->subDays(5),now()->subDays(20)])->delete();
-        Interaction::whereBetween('updated_at',[now()->subDays(10),now()->subDays(20)])->delete();
+        $setting=Setting::first();
+        Interaction::whereNull('seller_id')->whereBetween('created_at',[now()->subDays(5),now()->subDays($setting->social['recommended_delete'])])->delete();
+        Interaction::whereBetween('updated_at',[now()->subDays(10),now()->subDays($setting->social['recommended_delete'])])->delete();
     }
 }

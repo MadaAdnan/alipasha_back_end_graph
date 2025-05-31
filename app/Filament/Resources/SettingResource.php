@@ -126,7 +126,7 @@ class SettingResource extends Resource implements HasShieldPermissions
                         ]),
                         Forms\Components\Wizard\Step::make('الإهتمامات')->schema([
                             Forms\Components\TextInput::make('social.recommended_month')->numeric()->default(3)->label('عدد الأشهر لجلب المنتجات'),
-                            Forms\Components\TextInput::make('social.recommended_delete')->numeric()->default(3)->label('حذف الإهتمامات الأقدم من عدد الأيام'),
+                            Forms\Components\TextInput::make('social.recommended_delete')->numeric()->default(10)->label('حذف الإهتمامات الأقدم من عدد الأيام'),
                         ]),
                         Forms\Components\Wizard\Step::make('خدمة التوصيل')->schema([
                             Forms\Components\Toggle::make('delivery_service')->label('خدمة التوصيل في الدردشة'),
