@@ -22,7 +22,9 @@ class EditJob extends EditRecord
     public function mount(int|string $record): void
     {
         parent::mount($record);
-        $product=Product::where('type',CategoryTypeEnum::JOB->value)->orWhere('type',CategoryTypeEnum::SEARCH_JOB->value)->find($record);
+        $product=Product::where(fn($query)=>
+        $query->where('type',CategoryTypeEnum::JOB->value)->orWhere('type',CategoryTypeEnum::SEARCH_JOB->value)
+        )->find($record);
         abort_if($product->user_id !=auth()->id(),403,'غير مصرح لك بالدخول');
     }
 }
