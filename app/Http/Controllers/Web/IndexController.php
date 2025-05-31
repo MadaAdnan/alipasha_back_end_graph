@@ -36,6 +36,18 @@ class IndexController extends Controller
             auth()->user()->unreadNotifications->markAsRead();
         }
         // getSpecialProduct
+        $special_ids=Product::where(['active'=>ProductActiveEnum::ACTIVE->value,
+        'level'=>LevelProductEnum::SPECIAL->value])
+
+        ->where(fn( $query)=>$query->whereDoesntHave('category',fn($query)=>$query->where('type',CategoryTypeEnum::RESTAURANT->value)))
+
+        ->where(fn($query)=> $query
+            ->where('type',CategoryTypeEnum::PRODUCT->value)
+            ->orWhere('type',CategoryTypeEnum::TENDER->value)
+            ->orWhere('type',CategoryTypeEnum::JOB->value)
+            ->orWhere('type',CategoryTypeEnum::SEARCH_JOB->value)
+            ->orWhere('type',CategoryTypeEnum::NEWS->value)
+        )->select('id')->pluck('id')->toArray();
         $specials= Product::where(['active'=>ProductActiveEnum::ACTIVE->value,
             'level'=>LevelProductEnum::SPECIAL->value])
 
@@ -53,7 +65,7 @@ class IndexController extends Controller
                     ->orWhere('end_date', '>', now());
             })->inRandomOrder()
             ->where('created_at','>=',now()->subDays($setting->social['recommended_month']??30))
-           ->paginate(5);
+            ->paginate(5);
         ///
         $countLatest=15;
         $count=15;
@@ -64,6 +76,7 @@ class IndexController extends Controller
 
 
         $hobbies = Product::when($categoryId, fn($query) => $query->where('category_id', $categoryId))
+            ->whereNotIn('id',$special_ids)
             ->where('active', ProductActiveEnum::ACTIVE->value)
             ->where(function ($query) {
                 $query->where('type', CategoryTypeEnum::PRODUCT->value)
@@ -92,7 +105,7 @@ class IndexController extends Controller
             ->when(auth()->check(),fn($query)=>$query->where(fn($q)=>
             $q->whereNotIn('category_id',$this->getPopularCategoryProducts())
                 ->whereNotIn('user_id',$this->getPopularSelelrProducts())
-            ))
+            )) ->whereNotIn('id',$special_ids)
 
             ->paginate($countLatest);
 
