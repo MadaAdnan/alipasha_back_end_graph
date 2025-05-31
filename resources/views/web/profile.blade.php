@@ -556,7 +556,7 @@
                             <tr>
                                 <td class="text-center"><img style="width: 30%;aspect-ratio:1/2" src="{{$ad->getImage()}}" alt="IMAGE"></td>
                                 <td class="text-center">{{$ad->viw_count}}</td>
-                                <td class="text-center">{{$ad->expired_at->format('d-m-Y')}}</td>
+                                <td class="text-center">{{$ad->expired_at->format('Y-m-d')}}</td>
                             </tr>
                         @empty
                             <tr>
@@ -568,7 +568,38 @@
                 </div>
 
             @else
+                <h1  class="text-center">المنتجات</h1>
+                <div class="table-responsive" dir="rtl">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th class="text-center">صورة المنتج</th>
+                            <th class="text-center">عدد المشاهدات</th>
+                            <th class="text-center">حالة المنتج</th>
+                            <th class="text-center">وصف قصير</th>
+                            <th class="text-center">تاريخ النشر</th>
+                            <th class="text-center">تعديل</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @forelse($products as $product)
+                            <tr>
+                                <td class="text-center"><img style="width: 20%;aspect-ratio:1/1" src="{{$product->getImage()}}" alt="IMAGE"></td>
+                                <td class="text-center">{{$product->viw_count}}</td>
+                                <td class="text-center">{{\App\Enums\ProductActiveEnum::tryFrom($product->active)?->getLabel()}}</td>
+                                <td class="text-center">{{$product->expert}}</td>
+                                <td class="text-center">{{$product->created_at?->format('Y-m-d')}}</td>
+                                <td class="text-center"><a href="{{url("/seller/products/{$product->id}")}}" class="btn btn-sm btn-danger">تعديل</a></td>
 
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="3">لا يوجد منتجات</td>
+                            </tr>
+                        @endforelse
+                        </tbody>
+                    </table>
+                </div>
             @endif
         </div>
     </div>
