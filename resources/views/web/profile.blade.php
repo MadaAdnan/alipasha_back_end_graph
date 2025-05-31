@@ -546,17 +546,17 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th>صورة الإعلان</th>
-                            <th>عدد المشاهدات</th>
-                            <th>تاريخ الإنتهاء</th>
+                            <th class="text-center">صورة الإعلان</th>
+                            <th class="text-center">عدد المشاهدات</th>
+                            <th class="text-center">تاريخ الإنتهاء</th>
                         </tr>
                         </thead>
                         <tbody>
                         @forelse($ads as $ad)
                             <tr>
-                                <td><img src="{{$ad->getImage()}}" alt="IMAGE"></td>
-                                <td>{{$ad->viw_count}}</td>
-                                <td>{{$ad->expired_at->format('d-m-Y')}}</td>
+                                <td class="text-center"><img style="width: 30%;aspect-ratio:1/2" src="{{$ad->getImage()}}" alt="IMAGE"></td>
+                                <td class="text-center">{{$ad->viw_count}}</td>
+                                <td class="text-center">{{$ad->expired_at->format('d-m-Y')}}</td>
                             </tr>
                         @empty
                             <tr>
