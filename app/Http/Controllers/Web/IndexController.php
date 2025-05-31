@@ -47,14 +47,13 @@ class IndexController extends Controller
                 ->orWhere('type',CategoryTypeEnum::JOB->value)
                 ->orWhere('type',CategoryTypeEnum::SEARCH_JOB->value)
                 ->orWhere('type',CategoryTypeEnum::NEWS->value)
-            )  ->where(function ($query) {
+            )
+            ->where(function ($query) {
                 $query->whereNull('end_date')
                     ->orWhere('end_date', '>', now());
-            })->inRandomOrder()->where('created_at','>=',now()->subDays($setting->social['recommended_month']??30))
-            ->when(auth()->check(),fn($query)=>$query->where(fn($q)=>
-            $q->whereNotIn('category_id',$this->getPopularCategoryProducts())
-                ->whereNotIn('user_id',$this->getPopularSelelrProducts())
-            ))->paginate(5);
+            })->inRandomOrder()
+            ->where('created_at','>=',now()->subDays($setting->social['recommended_month']??30))
+           ->paginate(5);
         ///
         $countLatest=15;
         $count=15;
