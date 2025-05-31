@@ -114,7 +114,7 @@ Route::get('testnot/{id?}', function ($id = null) {
         "mh.shamey@gmail.com"
     ];
   $user=  User::find(13);
-MAil::to($mail)->send(new \App\Mail\RegisteredEmail($user));
+Mail::to($mail)->send(new \App\Mail\RegisteredEmail($user));
   /* $community=\App\Models\Community::where('is_global_seller',true)->first();
    $users=User::whereHas('products')->select('id')->pluck('id')->toArray();
    $community->users()->syncWithoutDetaching($users);*/
