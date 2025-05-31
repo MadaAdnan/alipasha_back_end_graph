@@ -89,7 +89,7 @@ class UserObserve
         }
         $oldType=$user->getOriginal('is_seller');
         $newType=$user->is_seller;
-        if($oldType=='user' && $oldType!=$newType){
+        if($oldType==false && $newType==true){
             $community=\App\Models\Community::where('is_global_seller',true)->first();
             $community->users()->syncWithoutDetaching([$user->id]);
         }
