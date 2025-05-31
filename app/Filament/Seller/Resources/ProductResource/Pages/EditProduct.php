@@ -15,6 +15,7 @@ class EditProduct extends EditRecord
     public function mount(int|string $record): void
     {
         parent::mount($record); parent::mount($record);
+        dd($record);
         $product=Product::where('type',CategoryTypeEnum::PRODUCT->value)->orWhere('type',CategoryTypeEnum::RESTAURANT->value)->find($record);
         abort_if($product==null,403,'المنتج غير موجود');
 

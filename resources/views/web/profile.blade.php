@@ -584,9 +584,7 @@
                         </thead>
                         <tbody>
                         @forelse($products as $product)
-                            @php
-                                dd($product)
-                            @endphp
+
                             <tr data-id="{{auth()->id()}} - {{$product->user_id}}">
                                 <td class="text-center"><img style="width: 20%;aspect-ratio:1/1" src="{{$product->getImage()}}" alt="IMAGE"></td>
                                 <td class="text-center">{{$product->name}}</td>
