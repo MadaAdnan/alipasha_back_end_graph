@@ -85,6 +85,13 @@ class UserObserve
                     'info' => 'ربح من تسجيل المستخدم ' . $user->name,
                 ]);
             }
+
+        }
+        $oldType=$user->getOriginal('is_seller');
+        $newType=$user->is_seller;
+        if($oldType=='user' && $oldType!=$newType){
+            $community=\App\Models\Community::where('is_global_seller',true)->first();
+            $community->users()->syncWithoutDetaching([$user->id]);
         }
     }
 
