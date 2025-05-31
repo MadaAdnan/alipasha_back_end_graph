@@ -124,10 +124,7 @@ class SettingResource extends Resource implements HasShieldPermissions
                             Forms\Components\Select::make('plan_id')->relationship('plan', 'name')->searchable()->preload()->label('الخطة الإفتراضية للمستخدمين الجدد'),
 
                         ]),
-                        Forms\Components\Wizard\Step::make('الإهتمامات')->schema([
-                            Forms\Components\TextInput::make('social.recommended_month')->numeric()->default(30)->label('عدد الأيام لجلب المنتجات'),
-                            Forms\Components\TextInput::make('social.recommended_delete')->numeric()->default(10)->label('حذف الإهتمامات الأقدم من عدد الأيام'),
-                        ]),
+
                         Forms\Components\Wizard\Step::make('خدمة التوصيل')->schema([
                             Forms\Components\Toggle::make('delivery_service')->label('خدمة التوصيل في الدردشة'),
                             Forms\Components\TextInput::make('msg_delivery')->label('رسالة متحركة'),

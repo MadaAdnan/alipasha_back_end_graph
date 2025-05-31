@@ -99,7 +99,11 @@ class AppSettingResource extends Resource
                             Forms\Components\SpatieMediaLibraryFileUpload::make('advice')->collection('advice')->image()->imageEditor()->imageEditorAspectRatios(['1:1', "2:1"])->label('صورة إعلان بداية التطبيق'),
                             Forms\Components\TextInput::make('advice_url')->label('رابط الإعلان')->url()->prefix('https://'),
                             Forms\Components\Toggle::make('active_advice')->label('حالة الإعلان')
-                        ])->columns(2)
+                        ])->columns(2),
+     Forms\Components\Section::make('الإهتمامات')->schema([
+         Forms\Components\TextInput::make('social.recommended_month')->numeric()->default(30)->label('عدد الأيام لجلب المنتجات'),
+         Forms\Components\TextInput::make('social.recommended_delete')->numeric()->default(10)->label('حذف الإهتمامات الأقدم من عدد الأيام'),
+     ]),
                     ])
                 ]),
             ]);
