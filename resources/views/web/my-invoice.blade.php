@@ -26,22 +26,7 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="card-footer">
-                            <div class="d-flex">
-                                <form action="{{route('invoices.update',$invoice->id)}}" method="post">
-                                    @csrf
-                                    @method('PUT')
-                                    <input type="hidden" name="status" value="{{\App\Enums\OrderStatusEnum::AGREE->value}}">
-                                    <button class="btn-sm btn-success">قبول الطلب</button>
-                                </form>
-                                <form action="{{route('invoices.update',$invoice->id)}}" method="post">
-                                    @csrf
-                                    @method('PUT')
-                                    <input type="hidden" name="status" value="{{\App\Enums\OrderStatusEnum::CANCELED->value}}">
-                                    <button class="btn-sm btn-danger">رفض الطلب</button>
-                                </form>
-                            </div>
-                        </div>
+
                     </div>
 
                 </div>
