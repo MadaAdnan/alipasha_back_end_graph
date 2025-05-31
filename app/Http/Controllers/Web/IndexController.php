@@ -11,6 +11,7 @@ use App\Models\Category;
 use App\Models\Community;
 use App\Models\Interaction;
 use App\Models\Product;
+use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -21,6 +22,7 @@ class IndexController extends Controller
      */
     public function index()
     {
+        $setting=Setting::first();
         $categoryId = \request()->get('category_id');
         $specialSeller = User::where([
             'level' => LevelUserEnum::SELLER->value,
@@ -48,7 +50,7 @@ class IndexController extends Controller
             )  ->where(function ($query) {
                 $query->whereNull('end_date')
                     ->orWhere('end_date', '>', now());
-            })->inRandomOrder()->where('created_at','>=',now()->subMonths(3))
+            })->inRandomOrder()->where('created_at','>=',now()->subDays($setting->social['recommended_month']??30))
             ->when(auth()->check(),fn($query)=>$query->where(fn($q)=>
             $q->whereNotIn('category_id',$this->getPopularCategoryProducts())
                 ->whereNotIn('user_id',$this->getPopularSelelrProducts())
@@ -73,7 +75,7 @@ class IndexController extends Controller
         })  ->when(auth()->check(),fn($query)=>$query->where(fn($q)=>
             $q->whereIn('category_id',$this->getPopularCategoryProducts())
                 ->orWhereIn('user_id',$this->getPopularSelelrProducts())
-            ))->inRandomOrder()
+            ))->inRandomOrder()->where('created_at','>=',now()->subDays($setting->social['recommended_month']??30))
             ->paginate($count);
         $latests= Product::
         where(fn( $query)=>$query->where('active',ProductActiveEnum::ACTIVE->value)->whereDoesntHave('category',fn($query)=>$query->where('type',CategoryTypeEnum::RESTAURANT->value)))
@@ -91,7 +93,9 @@ class IndexController extends Controller
             ->when(auth()->check(),fn($query)=>$query->where(fn($q)=>
             $q->whereNotIn('category_id',$this->getPopularCategoryProducts())
                 ->whereNotIn('user_id',$this->getPopularSelelrProducts())
-            ))->paginate($countLatest);
+            ))
+            ->where('created_at','>=',now()->subDays($setting->social['recommended_month']??30))
+            ->paginate($countLatest);
 
         $subCategory = Category::whereHas('parents', fn($query) => $query->where('category_id', $categoryId))->get();
         $categories = Category::where('is_active', true)
