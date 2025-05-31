@@ -89,12 +89,12 @@ class IndexController extends Controller
             )  ->where(function ($query) {
                 $query->whereNull('end_date')
                     ->orWhere('end_date', '>', now());
-            })->where('created_at','>=',now()->subMonths(3))->inRandomOrder()
+            })->where('created_at','>=',now()->subDays($setting->social['recommended_month']??30))->inRandomOrder()
             ->when(auth()->check(),fn($query)=>$query->where(fn($q)=>
             $q->whereNotIn('category_id',$this->getPopularCategoryProducts())
                 ->whereNotIn('user_id',$this->getPopularSelelrProducts())
             ))
-            ->where('created_at','>=',now()->subDays($setting->social['recommended_month']??30))
+
             ->paginate($countLatest);
 
         $subCategory = Category::whereHas('parents', fn($query) => $query->where('category_id', $categoryId))->get();
