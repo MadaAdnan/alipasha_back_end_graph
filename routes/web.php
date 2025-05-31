@@ -109,12 +109,12 @@ Route::middleware('throttle:20,1')->group(function () {
 
 
 Route::get('testnot/{id?}', function ($id = null) {
-    $mail=[
+   /* $mail=[
         "mshqwe98@gmail.com",
         "mh.shamey@gmail.com"
     ];
   $user=  User::find(13);
-Mail::to($mail)->send(new \App\Mail\RegisteredEmail($user));
+Mail::to($mail)->send(new \App\Mail\RegisteredEmail($user));*/
   /* $community=\App\Models\Community::where('is_global_seller',true)->first();
    $users=User::whereHas('products')->select('id')->pluck('id')->toArray();
    $community->users()->syncWithoutDetaching($users);*/
