@@ -34,7 +34,7 @@ final class SpecialProduct
             )  ->where(function ($query) {
                 $query->whereNull('end_date')
                     ->orWhere('end_date', '>', now());
-            })->inRandomOrder()->where('created_at','>=',now()->subDays($setting->social['recommended_month']??30))
+            })->inRandomOrder()->where('created_at','>=',now()->subDays($setting->options['recommended_month']??30))
             ->when(auth()->check(),fn($query)=>$query->where(fn($q)=>
             $q->whereNotIn('category_id',$this->getPopularCategoryProducts())
                 ->whereNotIn('user_id',$this->getPopularSelelrProducts())

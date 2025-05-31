@@ -28,7 +28,7 @@ class DeleteHobbiesCommand extends Command
     public function handle()
     {
         $setting=Setting::first();
-        Interaction::whereNull('seller_id')->where('created_at','<',now()->subDays($setting->social['recommended_delete']))->delete();
-        Interaction::where('created_at','<',now()->subDays($setting->social['recommended_delete']))->delete();
+        Interaction::whereNull('seller_id')->where('created_at','<',now()->subDays($setting->options['recommended_delete']))->delete();
+        Interaction::where('created_at','<',now()->subDays($setting->options['recommended_delete']))->delete();
     }
 }

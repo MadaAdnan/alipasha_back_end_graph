@@ -64,7 +64,7 @@ class IndexController extends Controller
                 $query->whereNull('end_date')
                     ->orWhere('end_date', '>', now());
             })->inRandomOrder()
-            ->where('created_at','>=',now()->subDays($setting->social['recommended_month']??30))
+            ->where('created_at','>=',now()->subDays($setting->options['recommended_month']??30))
             ->paginate(5);
         ///
         $countLatest=15;
@@ -87,7 +87,7 @@ class IndexController extends Controller
         })  ->when(auth()->check(),fn($query)=>$query->where(fn($q)=>
             $q->whereIn('category_id',$this->getPopularCategoryProducts())
                 ->orWhereIn('user_id',$this->getPopularSelelrProducts())
-            ))->inRandomOrder()->where('created_at','>=',now()->subDays($setting->social['recommended_month']??30))
+            ))->inRandomOrder()->where('created_at','>=',now()->subDays($setting->options['recommended_month']??30))
             ->paginate($count);
         $latests= Product::
         where(fn( $query)=>$query->where('active',ProductActiveEnum::ACTIVE->value)->whereDoesntHave('category',fn($query)=>$query->where('type',CategoryTypeEnum::RESTAURANT->value)))
@@ -101,7 +101,7 @@ class IndexController extends Controller
             )  ->where(function ($query) {
                 $query->whereNull('end_date')
                     ->orWhere('end_date', '>', now());
-            })->where('created_at','>=',now()->subDays($setting->social['recommended_month']??30))->inRandomOrder()
+            })->where('created_at','>=',now()->subDays($setting->options['recommended_month']??30))->inRandomOrder()
             ->when(auth()->check(),fn($query)=>$query->where(fn($q)=>
             $q->whereNotIn('category_id',$this->getPopularCategoryProducts())
                 ->whereNotIn('user_id',$this->getPopularSelelrProducts())
