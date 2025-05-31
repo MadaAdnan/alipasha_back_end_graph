@@ -592,7 +592,15 @@
                                 <td class="text-center">{{\App\Enums\ProductActiveEnum::tryFrom($product->active)?->getLabel()}}</td>
                                 <td class="text-center">{{$product->expert}}</td>
                                 <td class="text-center">{{$product->created_at?->format('Y-m-d')}}</td>
-                                <td class="text-center"><a href="{{url("/seller/products/{$product->id}/edit")}}" class="btn btn-sm btn-danger">تعديل</a></td>
+                                @php
+                                    $url=url("/seller/products/{$product->id}/edit");
+if($product->type=='job' || $product->type=='search_job' ){
+$url=url("/seller/jobs/{$product->id}/edit");
+}elseif($product->type=='tender'){
+    $url=url("/seller/tenders/{$product->id}/edit");
+}
+                                @endphp
+                                <td class="text-center"><a href="{{$url}}" class="btn btn-sm btn-danger">تعديل</a></td>
 
                             </tr>
                         @empty
