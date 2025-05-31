@@ -116,16 +116,16 @@ class SettingResource extends Resource implements HasShieldPermissions
                             Forms\Components\TextInput::make('social.sub_email')->label('بريد الموقع الثانوي')->nullable()->email(),
                             Forms\Components\TextInput::make('social.phone')->label('الهاتف الرئيسي'),
                             Forms\Components\TextInput::make('social.sub_phone')->label('الهاتف الثانوي'),
-                            Forms\Components\Fieldset::make('الإهتمامات')->schema([
-                                Forms\Components\TextInput::make('social.recommended_month')->numeric()->required()->default(30)->label('عدد الأيام لجلب المنتجات'),
-                                Forms\Components\TextInput::make('social.recommended_delete')->numeric()->required()->default(10)->label('حذف الإهتمامات الأقدم من عدد الأيام'),
-                            ]),
+
                             Forms\Components\TextInput::make('address')->label('العنوان'),
                             Forms\Components\TextInput::make('longitude')->label('خط الطول')->nullable()->numeric(),
                             Forms\Components\TextInput::make('latitude')->label('خط العرض')->nullable()->numeric(),
                             Forms\Components\TextInput::make('weather_api')->label('Api الطقس')->nullable(),
                             Forms\Components\Select::make('plan_id')->relationship('plan', 'name')->searchable()->preload()->label('الخطة الإفتراضية للمستخدمين الجدد'),
-
+                            Forms\Components\Fieldset::make('الإهتمامات')->schema([
+                                Forms\Components\TextInput::make('social.recommended_month')->numeric()->required()->default(30)->label('عدد الأيام لجلب المنتجات'),
+                                Forms\Components\TextInput::make('social.recommended_delete')->numeric()->required()->default(10)->label('حذف الإهتمامات الأقدم من عدد الأيام'),
+                            ]),
                         ]),
 
                         Forms\Components\Wizard\Step::make('خدمة التوصيل')->schema([
