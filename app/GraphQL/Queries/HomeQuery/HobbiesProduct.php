@@ -44,7 +44,7 @@ final class HobbiesProduct
             ))
 
 
-            ->where('created_at','>=',now()->subDays($setting->social['recommended_month']))->inRandomOrder();
+            ->where('created_at','>=',now()->subDays($setting->social['recommended_month']??30))->inRandomOrder();
         $ids = $products->pluck('id')->toArray();
         $today = today();
 
