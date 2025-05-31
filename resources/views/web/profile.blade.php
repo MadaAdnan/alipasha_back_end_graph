@@ -574,6 +574,7 @@
                         <thead>
                         <tr>
                             <th class="text-center">صورة المنتج</th>
+                            <th class="text-center">اسم المنتج</th>
                             <th class="text-center">عدد المشاهدات</th>
                             <th class="text-center">حالة المنتج</th>
                             <th class="text-center">وصف قصير</th>
@@ -585,6 +586,7 @@
                         @forelse($products as $product)
                             <tr>
                                 <td class="text-center"><img style="width: 20%;aspect-ratio:1/1" src="{{$product->getImage()}}" alt="IMAGE"></td>
+                                <td class="text-center">{{$product->name}}</td>
                                 <td class="text-center">{{$product->viw_count}}</td>
                                 <td class="text-center">{{\App\Enums\ProductActiveEnum::tryFrom($product->active)?->getLabel()}}</td>
                                 <td class="text-center">{{$product->expert}}</td>
