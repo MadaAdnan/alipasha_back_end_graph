@@ -14,6 +14,12 @@
                             </div>
                             <div class="table-responsive">
                                 <table class="table table-striped">
+                                    <tr>
+                                        <th>المنتج</th>
+                                        <th>سعر الوحدة</th>
+                                        <th>الكمية</th>
+                                        <th>الإجمالي</th>
+                                    </tr>
                                     @foreach($invoice->items as $item)
                                         <tr>
                                             <td>{{$item->product?->name}}</td>
