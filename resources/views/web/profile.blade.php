@@ -543,7 +543,7 @@
             @if($type=='ads')
 <h1  class="text-center">الإعلانات</h1>
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table table-striped">
                         <thead>
                         <tr>
                             <th>صورة الإعلان</th>
