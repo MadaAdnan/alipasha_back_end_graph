@@ -7,6 +7,7 @@ use App\Enums\LevelProductEnum;
 use App\Enums\ProductActiveEnum;
 use App\Models\Interaction;
 use App\Models\Product;
+use App\Models\Setting;
 
 final class LatestProduct
 {
@@ -17,6 +18,7 @@ final class LatestProduct
     public function __invoke($_, array $args)
     {
        // return Product::where('id',0);
+        $setting=Setting::first();
         $products= Product::
             where(fn( $query)=>$query->where('active',ProductActiveEnum::ACTIVE->value)->whereDoesntHave('category',fn($query)=>$query->where('type',CategoryTypeEnum::RESTAURANT->value)))
             ->whereNot('level',LevelProductEnum::SPECIAL->value)
@@ -29,7 +31,7 @@ final class LatestProduct
             )  ->where(function ($query) {
                 $query->whereNull('end_date')
                     ->orWhere('end_date', '>', now());
-            })->where('created_at','>=',now()->subMonths(3))->inRandomOrder()
+            })  ->where('created_at','>=',now()->subDays($setting->social['recommended_month']))->inRandomOrder()
             ->when(auth()->check(),fn($query)=>$query->where(fn($q)=>
             $q->whereNotIn('category_id',$this->getPopularCategoryProducts())
                 ->whereNotIn('user_id',$this->getPopularSelelrProducts())

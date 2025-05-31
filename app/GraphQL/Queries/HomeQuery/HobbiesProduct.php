@@ -8,6 +8,7 @@ use App\Enums\ProductActiveEnum;
 use App\Models\Interaction;
 use App\Models\Product;
 use App\Models\ProductView;
+use App\Models\Setting;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
@@ -21,6 +22,7 @@ final class HobbiesProduct
      */
     public function __invoke($_, array $args)
     {
+        $setting=Setting::first();
         $products = Product::where('id','<',0)->
             where(fn( $query)=>$query->where('active', ProductActiveEnum::ACTIVE->value)
             ->whereDoesntHave('category',fn($query)=>$query->where('type',CategoryTypeEnum::RESTAURANT->value)))
@@ -42,7 +44,7 @@ final class HobbiesProduct
             ))
 
 
-            ->where('created_at','>=',now()->subMonths(3))->inRandomOrder();
+            ->where('created_at','>=',now()->subDays($setting->social['recommended_month']))->inRandomOrder();
         $ids = $products->pluck('id')->toArray();
         $today = today();
 

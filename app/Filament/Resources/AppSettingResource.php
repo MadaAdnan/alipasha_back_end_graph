@@ -100,10 +100,10 @@ class AppSettingResource extends Resource
                             Forms\Components\TextInput::make('advice_url')->label('رابط الإعلان')->url()->prefix('https://'),
                             Forms\Components\Toggle::make('active_advice')->label('حالة الإعلان')
                         ])->columns(2),
-     Forms\Components\Section::make('الإهتمامات')->schema([
-         Forms\Components\TextInput::make('social.recommended_month')->numeric()->required()->default(30)->label('عدد الأيام لجلب المنتجات'),
-         Forms\Components\TextInput::make('social.recommended_delete')->numeric()->required()->default(10)->label('حذف الإهتمامات الأقدم من عدد الأيام'),
-     ]),
+                        Forms\Components\Section::make('الإهتمامات')->schema([
+                            Forms\Components\TextInput::make('social.recommended_month')->numeric()->required()->default(30)->label('عدد الأيام لجلب المنتجات'),
+                            Forms\Components\TextInput::make('social.recommended_delete')->numeric()->required()->default(10)->label('حذف الإهتمامات الأقدم من عدد الأيام'),
+                        ]),
                     ])
                 ]),
             ]);
@@ -115,8 +115,8 @@ class AppSettingResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('current_version')->label('الإصدار الحالي من التطبيق'),
                 Tables\Columns\TextColumn::make('force_upgrade')->label('حالة المطالبة بالتحديث'),
-                Tables\Columns\TextColumn::make('url_for_download.play')->label('رابط تحميل من GooglePlay')->formatStateUsing(fn($state)=>$state!=''?'زيارة':"")->url(fn($state) => $state, true),
-                Tables\Columns\TextColumn::make('url_for_download.up_down')->label('رابط تحميل من UpToDown')->formatStateUsing(fn($state)=>$state!=''?'زيارة':"")->url(fn($state) => $state, true),
+                Tables\Columns\TextColumn::make('url_for_download.play')->label('رابط تحميل من GooglePlay')->formatStateUsing(fn($state) => $state != '' ? 'زيارة' : "")->url(fn($state) => $state, true),
+                Tables\Columns\TextColumn::make('url_for_download.up_down')->label('رابط تحميل من UpToDown')->formatStateUsing(fn($state) => $state != '' ? 'زيارة' : "")->url(fn($state) => $state, true),
             ])
             ->filters([
                 //

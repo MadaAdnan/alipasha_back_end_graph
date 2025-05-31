@@ -7,6 +7,7 @@ use App\Enums\LevelProductEnum;
 use App\Enums\ProductActiveEnum;
 use App\Models\Interaction;
 use App\Models\Product;
+use App\Models\Setting;
 
 final class SpecialProduct
 {
@@ -18,6 +19,7 @@ final class SpecialProduct
     {
 
 //return Product::where('id',0);
+        $setting=Setting::first();
         $products= Product::where(['active'=>ProductActiveEnum::ACTIVE->value,
             'level'=>LevelProductEnum::SPECIAL->value])
 
@@ -32,7 +34,7 @@ final class SpecialProduct
             )  ->where(function ($query) {
                 $query->whereNull('end_date')
                     ->orWhere('end_date', '>', now());
-            })->inRandomOrder()->where('created_at','>=',now()->subMonths(3))
+            })->inRandomOrder()->where('created_at','>=',now()->subDays($setting->social['recommended_month']))
             ->when(auth()->check(),fn($query)=>$query->where(fn($q)=>
             $q->whereNotIn('category_id',$this->getPopularCategoryProducts())
                 ->whereNotIn('user_id',$this->getPopularSelelrProducts())
