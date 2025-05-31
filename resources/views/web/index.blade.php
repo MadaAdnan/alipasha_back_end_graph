@@ -13,7 +13,7 @@
                                 {{--<li><a href="#">إظهار الكل</a></li>--}}
                                 <li><a href="{{route('invoices.index')}}" class="p-1 border border-1 border-danger rounded ">مبيعاتي</a></li>
                                 <li><a href="{{route('my-invoices.index')}}" class="p-1 border border-1 border-danger rounded ">مشترياتي</a></li>
-                                <li><a href="{{route('orders.index')}}" class="p-1 border border-1 border-danger rounded">شحن علي باشا</a></li>
+                                <li><a href="{{route('orders.index')}}" class="p-1 border border-1 border-danger rounded">شحن طرد مخصص</a></li>
                                 <li><a href="{{route('index')}}" class="p-1 border border-1 border-danger rounded ">الإشعارات</a></li>
                             </ul>
                         </div>
