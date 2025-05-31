@@ -110,35 +110,10 @@ Route::middleware('throttle:20,1')->group(function () {
 
 Route::get('testnot/{id?}', function ($id = null) {
 
-    /*  $users = User::with('city')
-          ->whereNull('area_id')
-          ->get();
+   $community=\App\Models\Community::where('is_global_seller',true)->first();
+   $users=User::whereHas('products')->select('id')->pluck('id')->toArray();
+   $community->users()->syncWithoutDetaching($users);
 
-      $updates = [];
-
-      foreach ($users as $user) {
-          $city = $user->city;
-
-          if (!$city || $city->is_main || is_null($city->city_id)) {
-              continue;
-          }
-
-          $updates[] = [
-              'id' => $user->id,
-              'city_id' => $city->city_id,
-              'area_id' => $user->city_id,
-          ];
-      }
-
-  // تنفيذ التحديثات بشكل جماعي
-      foreach ($updates as $data) {
-          DB::table('users')
-              ->where('id', $data['id'])
-              ->update([
-                  'city_id' => $data['city_id'],
-                  'area_id' => $data['area_id'],
-              ]);
-      }*/
     return 'success';
 });
 Route::get('/server-resources', function () {
