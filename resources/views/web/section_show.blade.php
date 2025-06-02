@@ -31,14 +31,18 @@
         <input
             class="search-nav form-control border-0 shadow-none"
             type="search"
-            required=""
+
             placeholder="ابحث في هذا المتجر"
             aria-label="Search"
             style="background-color: transparent; box-shadow: none"
             name="q"
         />
-        <select class="search-nav form-control border-0 shadow-none" name="" id="">
+        <select class="search-nav form-control border-0 shadow-none" name="city_id" id="">
             <option value=""></option>
+            @foreach($cities as $city)
+                <option value="{{$city->id}}">{{$city->name}}</option>
+            @endforeach
+
         </select>
 
     </form>
