@@ -43,7 +43,7 @@
         <select class="search-nav form-control border-0 shadow-none" name="city_id" id="">
             <option value="">اختر مدينة</option>
             @foreach($cities as $city)
-                <option value="{{$city->id}}">{{$city->name}}</option>
+                <option @if(request()->input('city_id')==$city->id) selected @endif value="{{$city->id}}">{{$city->name}}</option>
             @endforeach
 
         </select>
