@@ -1390,6 +1390,7 @@
         myFunction();
     </script>
 @endif
+@yield('js')
 </body>
 </html>
 
