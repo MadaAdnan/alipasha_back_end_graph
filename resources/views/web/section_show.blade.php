@@ -19,7 +19,7 @@
           class="d-none d-md-flex  align-items-center justify-content-start"
           style="
               background-color: #f0f2f5;
-              height: 30px;
+              height: 50px;
               border-radius: 40px;
               padding: 5px 10px;
             "
