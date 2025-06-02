@@ -7,7 +7,7 @@
 <div class="card my-2 p-2">
     <div class="card-title"><h4 class="fw-bold">{{$notification->data['title']}}</h4></div>
     <div class="card-body">{{$notification->data['body']}}</div>
-    <div class="card-footer">{{$notification->created_at->format('h:i a | Y-m-d')}}</div>
+    <div class="card-footer">{{$notification->created_at->format('a h:i  | Y-m-d')}}</div>
 </div>
             @empty
                 <h3 class="alert alert-info" style="margin-top: 100px">لا يوجد إشعارات</h3>
