@@ -279,7 +279,12 @@ class ProductResource extends Resource
                             $data['sub2_id'],
                             fn(Builder $query, $date): Builder => $query->where('sub2_id', $date),
                         );
-                })
+                }),
+                Tables\Filters\TernaryFilter::make('has_video')->queries(
+                    true: fn($query)=>$query->whereNotNull('video'),
+                    false: fn($query)=>$query->whereNull('video'),
+                    blank: fn($query)=>$query,
+                )->label('يحتوي فيديو')
             ])
             ->headerActions([
                 Tables\Actions\Action::make('delivery')->form([
