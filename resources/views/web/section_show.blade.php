@@ -40,7 +40,7 @@
             <button type="submit" class="bg-transparent border-none outline-none"><i class="bi bi-search"
                                                                                      style="margin-right: 8px; color: #aaa"></i>
 
-        <select class=" form-control border-0 shadow-none" name="city_id" id="">
+        <select class="search-nav form-control border-0 shadow-none" name="city_id" id="">
             <option value="">اختر مدينة</option>
             @foreach($cities as $city)
                 <option value="{{$city->id}}">{{$city->name}}</option>
