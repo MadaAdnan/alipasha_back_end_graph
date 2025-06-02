@@ -14,7 +14,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $cities=City::whereIsMain(true)->whereIsDelivery(true)->get();
+        $cities=City::whereIsMain(true)->whereIsDelivery(true)->with('children')->get();
         $orders=Order::where('user_id',auth()->id())->latest()->paginate(30);
         return view('web.orders',compact('orders','cities'));
     }
