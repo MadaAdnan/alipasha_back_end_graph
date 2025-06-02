@@ -9,28 +9,32 @@
                         <form action="">
                             <div class="row">
                                 {{--                              CitySource --}}
-                                <div class="form-group">
-                                    <label for="city-source">محافظة المرسل</label>
-                                    <select name="citySource" id="city-source" class="form-control">
-                                        <option value=""></option>
-                                        @foreach($cities as $city)
-                                            <option value="{{$city->id}}">{{$city->name}}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('citySource')
-                                    <span class="text-danger">{{$message}}</span>
-                                    @enderror
+                                <div class="col-md-6">
+                                    <div class="form-group ">
+                                        <label for="city-source">محافظة المرسل</label>
+                                        <select name="citySource" id="city-source" class="form-control">
+                                            <option value=""></option>
+                                            @foreach($cities as $city)
+                                                <option value="{{$city->id}}">{{$city->name}}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('citySource')
+                                        <span class="text-danger">{{$message}}</span>
+                                        @enderror
+                                    </div>
                                 </div>
                                 {{--                              AreaSource--}}
-                                <div class="form-group">
-                                    <label for="area-source">مدينة المرسل</label>
-                                    <select name="areaSource" id="area-source" class="form-control">
+                              <div class="col-md-6">
+                                  <div class="form-group">
+                                      <label for="area-source">مدينة المرسل</label>
+                                      <select name="areaSource" id="area-source" class="form-control">
 
-                                    </select>
-                                    @error('areaSource')
-                                    <span class="text-danger">{{$message}}</span>
-                                    @enderror
-                                </div>
+                                      </select>
+                                      @error('areaSource')
+                                      <span class="text-danger">{{$message}}</span>
+                                      @enderror
+                                  </div>
+                              </div>
                             </div>
                         </form>
                     </div>
