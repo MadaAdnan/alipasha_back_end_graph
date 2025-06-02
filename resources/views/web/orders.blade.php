@@ -170,7 +170,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="">ملاحظات</label>
-                                <textarea name="note" id="" cols="30" rows="10" class="form-control"></textarea>
+                                <textarea name="note" id="" cols="30" rows="3" class="form-control"></textarea>
                             </div>
 
                         </form>
