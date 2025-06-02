@@ -41,7 +41,7 @@
                                                                                      style="margin-right: 8px; color: #aaa"></i>
 
         <select class=" form-control border-0 shadow-none" name="city_id" id="">
-            <option value=""></option>
+            <option value="">اختر مدينة</option>
             @foreach($cities as $city)
                 <option value="{{$city->id}}">{{$city->name}}</option>
             @endforeach
