@@ -8,7 +8,7 @@
                     <div class="card-body">
                         <form action="">
                             {{--                            Source --}}
-                            <div class="row">
+                            <div class="row my-1">
                                 {{--                              CitySource --}}
                                 <div class="col-md-6">
                                     <div class="form-group ">
@@ -37,7 +37,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row my-1">
                                 {{--                                Name Source--}}
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -61,7 +61,7 @@
                             </div>
 
                             {{--                            Target --}}
-                            <div class="row">
+                            <div class="row my-1">
                                 {{--                              cityTarget --}}
                                 <div class="col-md-6">
                                     <div class="form-group ">
@@ -90,7 +90,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row my-1">
                                 {{--                                nameTarget--}}
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -113,7 +113,7 @@
                                 </div>
                             </div>
 
-                            <div class="row">
+                            <div class="row my-1">
                                 {{--                                phoneTarget--}}
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -136,7 +136,7 @@
                                 </div>
                             </div>
                             {{--                            Dimentions --}}
-                            <div class="row">
+                            <div class="row my-1">
                                 {{--                                height--}}
                                 <div class="col-md-4">
                                     <div class="form-group">
