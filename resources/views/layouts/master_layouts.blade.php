@@ -190,29 +190,33 @@
         </a>
 
         <!-- Search Bar for Large Screens -->
-
-        <form method="get"
-              class="d-none d-md-flex align-items-center"
-              style="
+@section('search')
+            <form method="get"
+                  class="d-none d-md-flex align-items-center"
+                  style="
               background-color: #f0f2f5;
               height: 30px;
               border-radius: 40px;
               padding: 5px 10px;
             "
-              action="{{route('search.index')}}"
-        >
+                  action="{{route('search.index')}}"
+            >
+                <button type="submit" class="bg-transparent border-none outline-none"><i class="bi bi-search"
+                                                                                         style="margin-right: 8px; color: #aaa"></i>
+                </button>
+                <input
+                    class="search-nav form-control border-0 shadow-none"
+                    type="search"
+                    required=""
+                    placeholder="ابحث في هذا المتجر"
+                    aria-label="Search"
+                    style="background-color: transparent; box-shadow: none"
+                    name="q"
+                />
 
-            <input
-                class="search-nav form-control border-0 shadow-none"
-                type="search"
-                required=""
-                placeholder="ابحث في هذا المتجر"
-                aria-label="Search"
-                style="background-color: transparent; box-shadow: none"
-                name="q"
-            />
+            </form>
+@show
 
-        </form>
 
 
         <!-- Center Section: Links and Search -->
