@@ -242,6 +242,7 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('level')->formatStateUsing(fn($state) => LevelProductEnum::tryFrom($state)?->getLabel())->color(fn($state) => LevelProductEnum::tryFrom($state)?->getColor())->icon(fn($state) => LevelProductEnum::tryFrom($state)?->getIcon())->label('تمييز المنتج'),
                 Tables\Columns\TextColumn::make('created_at')->since()->label('أضيف منذ'),
                 Tables\Columns\TextColumn::make('user.phone')->url(fn($state)=>'https://wa.me/'.$state,shouldOpenInNewTab: true)->label('الهاتف'),
+                Tables\Columns\TextColumn::make('video')->url(fn($state)=>$state,shouldOpenInNewTab: true)->label('الفيديو')->toggleable(isToggledHiddenByDefault: false),
 
             ])
             ->filters([
@@ -284,7 +285,9 @@ class ProductResource extends Resource
                     true: fn($query)=>$query->whereNotNull('video'),
                     false: fn($query)=>$query->whereNull('video'),
                     blank: fn($query)=>$query,
-                )->label('يحتوي فيديو')
+                )->label('فلتر فيديو')
+                    ->trueLabel('يحتوي فيديو')->falseLabel('لا يحوي فيديو')
+
             ])
             ->headerActions([
                 Tables\Actions\Action::make('delivery')->form([
