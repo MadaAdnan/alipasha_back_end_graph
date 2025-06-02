@@ -3,34 +3,39 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <form action="">
-                   <div class="row">
-                       <div class="form-group">
-                           <label for="city-source">مدينة المرسل</label>
-                           <select name="citySource" id="city-source" class="form-control">
-                               <option value=""></option>
-                               @foreach($cities as $city)
-                                   <option value="{{$city->id}}">{{$city->name}}</option>
-                               @endforeach
-                           </select>
-                           @error('citySource')
-                           <span class="text-danger">{{$message}}</span>
-                           @enderror
-                       </div>
-                       <div class="form-group">
-                           <label for="city-target">مدينة المرسل إليه</label>
-                           <select name="cityTarget" id="city-target" class="form-control">
-                               <option value=""></option>
-                               @foreach($cities as $city)
-                                   <option value="{{$city->id}}">{{$city->name}}</option>
-                               @endforeach
-                           </select>
-                           @error('cityTarget')
-                           <span class="text-danger">{{$message}}</span>
-                           @enderror
-                       </div>
-                   </div>
-                </form>
+              <div class="card">
+                  <div class="card-header">إنشاء شحنة</div>
+                  <div class="card-body">
+                      <form action="">
+                          <div class="row">
+                              <div class="form-group">
+                                  <label for="city-source">مدينة المرسل</label>
+                                  <select name="citySource" id="city-source" class="form-control">
+                                      <option value=""></option>
+                                      @foreach($cities as $city)
+                                          <option value="{{$city->id}}">{{$city->name}}</option>
+                                      @endforeach
+                                  </select>
+                                  @error('citySource')
+                                  <span class="text-danger">{{$message}}</span>
+                                  @enderror
+                              </div>
+                              <div class="form-group">
+                                  <label for="city-target">مدينة المرسل إليه</label>
+                                  <select name="cityTarget" id="city-target" class="form-control">
+                                      <option value=""></option>
+                                      @foreach($cities as $city)
+                                          <option value="{{$city->id}}">{{$city->name}}</option>
+                                      @endforeach
+                                  </select>
+                                  @error('cityTarget')
+                                  <span class="text-danger">{{$message}}</span>
+                                  @enderror
+                              </div>
+                          </div>
+                      </form>
+                  </div>
+              </div>
             </div>
             @forelse($orders as $order)
                 <div class="col-8 ">
