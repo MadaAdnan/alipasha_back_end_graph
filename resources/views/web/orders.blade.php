@@ -41,7 +41,7 @@
                                 {{--                                Name Source--}}
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="">اشم المرسل</label>
+                                        <label for="">اسم  المرسل</label>
                                         <input name="nameSource" type="text" class="form-control">
                                         @error('nameSource')
                                         <span class="text-danger">{{$message}}</span>
