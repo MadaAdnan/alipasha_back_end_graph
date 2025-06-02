@@ -26,7 +26,7 @@
           action=""
     >
 
-        </button>
+
 
             <input
                 class="search-nav d-inline-block form-control border-0 shadow-none"
@@ -38,7 +38,7 @@
                 name="q"
             />
             <button type="submit" class="bg-transparent border-none outline-none"><i class="bi bi-search"
-                                                                                     style="margin-right: 8px; color: #aaa"></i>
+                                                                                     style="margin-right: 8px; color: #aaa"></i></button>
 
         <select class="search-nav form-control border-0 shadow-none" name="city_id" id="">
             <option value="">اختر مدينة</option>
