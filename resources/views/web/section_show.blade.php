@@ -14,6 +14,35 @@
         }
     </style>
 @endsection
+@section('search')
+    <form method="get"
+          class="d-none d-md-flex align-items-center"
+          style="
+              background-color: #f0f2f5;
+              height: 30px;
+              border-radius: 40px;
+              padding: 5px 10px;
+            "
+          action=""
+    >
+        <button type="submit" class="bg-transparent border-none outline-none"><i class="bi bi-search"
+                                                                                 style="margin-right: 8px; color: #aaa"></i>
+        </button>
+        <input
+            class="search-nav form-control border-0 shadow-none"
+            type="search"
+            required=""
+            placeholder="ابحث في هذا المتجر"
+            aria-label="Search"
+            style="background-color: transparent; box-shadow: none"
+            name="q"
+        />
+        <select class="search-nav form-control border-0 shadow-none" name="" id="">
+            <option value=""></option>
+        </select>
+
+    </form>
+@endsection
 @section('content')
     <div class="container-fluid" style="margin-top: 70px">
         <div class="row">
