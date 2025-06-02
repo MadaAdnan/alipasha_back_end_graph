@@ -1,7 +1,7 @@
 @extends('layouts.master_layouts')
 @section('content')
     <div class="container">
-        <div class="row justify-content-center">
+        <div class="row justify-content-center mt-5">
             <div class="col-md-8 " dir="rtl">
             @forelse($notifications as $notification)
 <div class="card my-2 p-2">
