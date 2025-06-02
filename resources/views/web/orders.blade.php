@@ -102,8 +102,10 @@
 
 @section('js')
     <script>
-        var cities=@json($cities)
-        console.log(cities)
+        window.Laravel = {
+            cities: @json($cities)
+        };
+        console.log(window.Laravel.cities);
     </script>
 
 @endsection
