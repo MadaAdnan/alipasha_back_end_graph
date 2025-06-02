@@ -25,19 +25,22 @@
             "
           action=""
     >
-        <button type="submit" class="bg-transparent border-none outline-none"><i class="bi bi-search"
-                                                                                 style="margin-right: 8px; color: #aaa"></i>
-        </button>
-        <input
-            class="search-nav form-control border-0 shadow-none"
-            type="search"
 
-            placeholder="ابحث في هذا المتجر"
-            aria-label="Search"
-            style="background-color: transparent; box-shadow: none"
-            name="q"
-        />
-        <select class="search-nav form-control border-0 shadow-none" name="city_id" id="">
+        </button>
+        <div>
+            <input
+                class="search-nav form-control border-0 shadow-none"
+                type="search"
+
+                placeholder="ابحث في هذا المتجر"
+                aria-label="Search"
+                style="background-color: transparent; box-shadow: none"
+                name="q"
+            />
+            <button type="submit" class="bg-transparent border-none outline-none"><i class="bi bi-search"
+                                                                                     style="margin-right: 8px; color: #aaa"></i>
+        </div>
+        <select class=" form-control border-0 shadow-none" name="city_id" id="">
             <option value=""></option>
             @foreach($cities as $city)
                 <option value="{{$city->id}}">{{$city->name}}</option>
