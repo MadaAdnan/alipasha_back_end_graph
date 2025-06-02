@@ -16,7 +16,7 @@
 @endsection
 @section('search')
     <form method="get"
-          class="d-none d-md-flex align-items-center"
+          class="d-none d-md-flex  align-items-center"
           style="
               background-color: #f0f2f5;
               height: 30px;
@@ -27,19 +27,19 @@
     >
 
         </button>
-        <div>
+        
             <input
-                class="search-nav form-control border-0 shadow-none"
+                class="search-nav d-inline-block form-control border-0 shadow-none"
                 type="search"
 
                 placeholder="ابحث في هذا المتجر"
                 aria-label="Search"
-                style="background-color: transparent; box-shadow: none"
+                style="background-color: #fff; box-shadow: none"
                 name="q"
             />
             <button type="submit" class="bg-transparent border-none outline-none"><i class="bi bi-search"
                                                                                      style="margin-right: 8px; color: #aaa"></i>
-        </div>
+
         <select class=" form-control border-0 shadow-none" name="city_id" id="">
             <option value=""></option>
             @foreach($cities as $city)
