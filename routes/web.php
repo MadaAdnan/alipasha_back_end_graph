@@ -81,6 +81,7 @@ Route::middleware('throttle:20,1')->group(function () {
         Route::resource('/charges', \App\Http\Controllers\Web\ChargeController::class)->only(['index']);
         Route::resource('/charges', \App\Http\Controllers\Web\ChargeController::class)->only(['index']);
         Route::resource('/galleries', \App\Http\Controllers\Web\GalleryController::class)->only(['show']);
+        Route::resource('/notifications', \App\Http\Controllers\Web\NotificationController::class)->only(['index']);
 
     });
 
