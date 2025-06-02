@@ -2,7 +2,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8 ">
+            <div class="col-md-8 " dir="rtl">
             @forelse($notifications as $notification)
 <div class="card my-2 p-2">
     <div class="card-title">{{$notification->data['title']}}</div>
