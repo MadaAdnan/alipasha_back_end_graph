@@ -16,7 +16,7 @@
 @endsection
 @section('search')
     <form method="get"
-          class="d-none d-md-flex  align-items-center"
+          class="d-none d-md-flex  align-items-center justify-content-start"
           style="
               background-color: #f0f2f5;
               height: 30px;
