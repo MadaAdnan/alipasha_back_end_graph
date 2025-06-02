@@ -27,7 +27,7 @@
     >
 
 
-        <button type="submit" class="bg-transparent border-none outline-none"><i class="bi bi-search"
+        <button type="submit" class="bg-transparent border-none outline-none mx-1"><i class="bi bi-search"
                                                                                  style="margin-right: 8px; color: #aaa"></i></button>
             <input
                 class="search-nav d-inline-block form-control border-0 shadow-none"
