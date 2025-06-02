@@ -32,7 +32,7 @@
             <input
                 class="search-nav d-inline-block form-control border-1 border-secondary shadow-none"
                 type="search"
-
+value="{{request()->input('q')}}"
                 placeholder="ابحث في هذا المتجر"
                 aria-label="Search"
                 style="background-color: #fff; box-shadow: none"
