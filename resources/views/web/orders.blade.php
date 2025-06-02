@@ -7,6 +7,7 @@
                     <div class="card-header">إنشاء شحنة</div>
                     <div class="card-body">
                         <form action="">
+                            {{--                            Source --}}
                             <div class="row">
                                 {{--                              CitySource --}}
                                 <div class="col-md-6">
@@ -24,18 +25,150 @@
                                     </div>
                                 </div>
                                 {{--                              AreaSource--}}
-                              <div class="col-md-6">
-                                  <div class="form-group">
-                                      <label for="area-source">مدينة المرسل</label>
-                                      <select name="areaSource" id="area-source" class="form-control">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="area-source">مدينة المرسل</label>
+                                        <select name="areaSource" id="area-source" class="form-control">
 
-                                      </select>
-                                      @error('areaSource')
-                                      <span class="text-danger">{{$message}}</span>
-                                      @enderror
-                                  </div>
-                              </div>
+                                        </select>
+                                        @error('areaSource')
+                                        <span class="text-danger">{{$message}}</span>
+                                        @enderror
+                                    </div>
+                                </div>
                             </div>
+                            <div class="row">
+                                {{--                                Name Source--}}
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">اشم المرسل</label>
+                                        <input name="nameSource" type="text" class="form-control">
+                                        @error('nameSource')
+                                        <span class="text-danger">{{$message}}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                {{--                                Address Source --}}
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">عنوان المرسل</label>
+                                        <input name="addressSource" type="text" class="form-control">
+                                        @error('addressSource')
+                                        <span class="text-danger">{{$message}}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{--                            Target --}}
+                            <div class="row">
+                                {{--                              cityTarget --}}
+                                <div class="col-md-6">
+                                    <div class="form-group ">
+                                        <label for="city-target">محافظة المرسل إليه</label>
+                                        <select name="cityTarget" id="city-target" class="form-control">
+                                            <option value=""></option>
+                                            @foreach($cities as $city)
+                                                <option value="{{$city->id}}">{{$city->name}}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('cityTarget')
+                                        <span class="text-danger">{{$message}}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                {{--                              areaTarget--}}
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="area-target">مدينة المرسل إليه</label>
+                                        <select name="areaTarget" id="area-target" class="form-control">
+
+                                        </select>
+                                        @error('areaTarget')
+                                        <span class="text-danger">{{$message}}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                {{--                                nameTarget--}}
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">اسم المرسل إليه</label>
+                                        <input name="nameTarget" type="text" class="form-control">
+                                        @error('nameTarget')
+                                        <span class="text-danger">{{$message}}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                {{--                                addressTarget --}}
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">عنوان المرسل إليه</label>
+                                        <input name="addressTarget" type="text" class="form-control">
+                                        @error('addressTarget')
+                                        <span class="text-danger">{{$message}}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                {{--                                phoneTarget--}}
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">هاتف المرسل إليه</label>
+                                        <input name="phoneTarget" type="text" class="form-control">
+                                        @error('phoneTarget')
+                                        <span class="text-danger">{{$message}}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                {{--                                Weight  --}}
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">وزن الحمولة</label>
+                                        <input name="weight" type="text" class="form-control">
+                                        @error('weight')
+                                        <span class="text-danger">{{$message}}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            {{--                            Dimentions --}}
+                            <div class="row">
+                                {{--                                height--}}
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="">الإرتفاع</label>
+                                        <input name="height" id="height" type="text" class="form-control">
+                                        @error('height')
+                                        <span class="text-danger">{{$message}}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                {{--                                width  --}}
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="">العرض</label>
+                                        <input name="width" id="width" type="text" class="form-control">
+                                        @error('width')
+                                        <span class="text-danger">{{$message}}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                {{-- Length --}}
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="">الطول</label>
+                                        <input name="length" id="length" type="text" class="form-control">
+                                        @error('width')
+                                        <span class="text-danger">{{$message}}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
                         </form>
                     </div>
                 </div>
@@ -108,7 +241,7 @@
     <script>
         const cities = @json($cities);
 
-        document.getElementById('city-source').addEventListener('change', function() {
+        document.getElementById('city-source').addEventListener('change', function () {
             const selectedCityId = this.value;
             const districtSelect = document.getElementById('area-source');
 
@@ -119,7 +252,7 @@
             const selectedCity = cities.find(city => city.id == selectedCityId);
 
             if (selectedCity && selectedCity.children.length > 0) {
-                selectedCity.children.forEach(function(district) {
+                selectedCity.children.forEach(function (district) {
                     const option = document.createElement('option');
                     option.value = district.id;
                     option.textContent = district.name;
