@@ -102,10 +102,27 @@
 
 @section('js')
     <script>
-        window.Laravel = {
-            cities: @json($cities)
-        };
-        console.log(window.Laravel.cities);
+        const cities = @json($cities);
+
+        document.getElementById('city-source').addEventListener('change', function() {
+            const selectedCityId = this.value;
+            const districtSelect = document.getElementById('area-source');
+
+            // تفريغ القائمة القديمة
+            districtSelect.innerHTML = '<option value="">اختر مدينة</option>';
+
+            // البحث عن المدينة المختارة
+            const selectedCity = cities.find(city => city.id == selectedCityId);
+
+            if (selectedCity && selectedCity.districts.length > 0) {
+                selectedCity.districts.forEach(function(district) {
+                    const option = document.createElement('option');
+                    option.value = district.id;
+                    option.textContent = district.name;
+                    districtSelect.appendChild(option);
+                });
+            }
+        });
     </script>
 
 @endsection
