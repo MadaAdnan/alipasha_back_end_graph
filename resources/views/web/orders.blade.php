@@ -114,8 +114,8 @@
             // البحث عن المدينة المختارة
             const selectedCity = cities.find(city => city.id == selectedCityId);
 
-            if (selectedCity && selectedCity.districts.length > 0) {
-                selectedCity.districts.forEach(function(district) {
+            if (selectedCity && selectedCity.children.length > 0) {
+                selectedCity.children.forEach(function(district) {
                     const option = document.createElement('option');
                     option.value = district.id;
                     option.textContent = district.name;
