@@ -27,7 +27,7 @@
     >
 
         </button>
-        
+
             <input
                 class="search-nav d-inline-block form-control border-0 shadow-none"
                 type="search"
