@@ -341,9 +341,17 @@
                 message.innerText = "يرجى إدخال الوزن  بشكل صحيح"
                 return;
             }
-            // const sizeTotal
-            const price = pricing.find(p => p.weight > weight)
-            console.log(price)
+            const steps = (areaSourceSelected.level + areaTargetSelected.level) - 1;
+            const priceWight = pricing.find(p => p.weight >= weight)?.internal_price ?? 0
+            const sizeTotal = (width * height * length) / 100000
+            const priceSize = pricing.find(p => p.size >= sizeTotal)?.internal_price ?? 0
+            if (priceWight == undefined && priceSize == undefined) {
+                message.innerText = "الحجم الممدخل غير مسموح به يرجى التواصل مع الإدارة"
+                return;
+            }
+            var far = priceWight > priceSize ? priceWight : priceWight
+            far += (far / 3) * steps
+            message.innerText =far
 
 
         }
