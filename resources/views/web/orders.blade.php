@@ -195,10 +195,10 @@
 
             {{--EndForm--}}
             @forelse($orders as $order)
-                <div class="col-8 ">
+                <div class="col-8 " dir="rtl">
                     <div class="card " style="margin-top: 100px">
                         <div class="card-title">
-                            <span>رقم الطلب : {{$order->id}}</span>
+                            <h3>رقم الطلب : {{$order->id}}</h3>
                         </div>
                         <div class="card-body">
 
