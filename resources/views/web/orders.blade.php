@@ -237,6 +237,10 @@
                                         <td>{{$order->size}}</td>
                                     </tr>
                                     <tr>
+                                        <th>حالة الشحنة</th>
+                                        <td>{{\App\Enums\OrderStatusEnum::tryFrom($order->status)->getLabel()}}</td>
+                                    </tr>
+                                    <tr>
                                         <th>أجور الشحن</th>
                                         <td>{{$order->price}}</td>
                                     </tr>
@@ -244,9 +248,7 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="card-footer">
 
-                        </div>
                     </div>
 
                 </div>
