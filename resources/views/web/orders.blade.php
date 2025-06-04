@@ -176,15 +176,15 @@
                             </div>
                             <div class="row mt-2">
                                 <div class="col-6 border border-1 p-2 text-center">
-                                    <button class="btn btn-sm btn-primary" type="button" onclick="calculate()">أحسب
+                                    <button class="btn btn-sm btn-primary w-100" type="button" onclick="calculate()">أحسب
                                         التكلفة
                                     </button>
                                 </div>
                                 <div class="col-6 border border-1 p-2 text-center">
                                     <span class="text-danger" id="message"></span>
                                 </div>
-                                <div class="col-12 mt-2">
-                                    <button class="btn-sm btn-danger" type="submit">إشحن الحمولة</button>
+                                <div class="col-12 mt-2 text-center">
+                                    <button class="btn btn-sm btn-danger w-50" type="submit">إشحن الحمولة</button>
                                 </div>
                             </div>
                         </form>
