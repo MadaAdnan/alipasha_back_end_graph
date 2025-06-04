@@ -349,7 +349,7 @@
                 message.innerText = "الشحن غير متاح بين هذه المدن"
                 return;
             }
-            var steps = (areaSourceSelected.level + areaTargetSelected.level) - 1;
+            const steps = (areaSourceSelected.level + areaTargetSelected.level) - 1;
 
             const priceWight = pricing.find(p => p.weight >= weight)?.internal_price ?? 0
 
@@ -357,20 +357,15 @@
 
             const price_Size = pricing.find(p => p.size >= sizeTotal)
 
-            priceSize = price_Size?.internal_price;
+           const priceSize = price_Size?.internal_price;
             if (priceWight == undefined && priceSize == undefined) {
-                message.innerText = "الحجم الممدخل غير مسموح به يرجى التواصل مع الإدارة"
+                message.innerText = "الحجم المدخل غير مسموح به يرجى التواصل مع الإدارة"
                 return;
             }
             var far = priceWight > priceSize ? priceWight : priceSize
-            console.log(`WEIGHT:${priceWight}`)
-            console.log(`Size:${sizeTotal}`)
 
-            console.log(`priceSize:${priceSize}`)
-            console.log(`FAR:${far}`)
-            console.log(`Steps:${steps}`)
             far = far + (far / 3) * steps
-            console.log(steps, far)
+
             message.innerText = far
 
 
