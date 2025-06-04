@@ -253,6 +253,7 @@
 @section('js')
     <script>
         const cities = @json($cities);
+        const pricing = @json($pricing);
         var areaSource;
         var areaTarget;
 
@@ -324,11 +325,25 @@
                 message.innerText = "يرجى تحديد مدينة المرسل إليه"
                 return
             }
-            if (width.isEmpty) {
-                message.innerText = "يرجى ملأ الوزن و الحجم بشكل صحيح"
+            if (width == undefined || width == '' || parseFloat(width) <= 0) {
+                message.innerText = "يرجى إدخال العرض  بشكل صحيح"
                 return;
             }
-
+            if (height == undefined || height == '' || parseFloat(height) <= 0) {
+                message.innerText = "يرجى إدخال الإرتفاع  بشكل صحيح"
+                return;
+            }
+            if (length == undefined || length == '' || parseFloat(length) <= 0) {
+                message.innerText = "يرجى إدخال الطول  بشكل صحيح"
+                return;
+            }
+            if (weight == undefined || weight == '' || parseFloat(weight) <= 0) {
+                message.innerText = "يرجى إدخال الوزن  بشكل صحيح"
+                return;
+            }
+            // const sizeTotal
+            const price = pricing.find(p => p.weight > weight)
+            console.log(price)
 
 
         }

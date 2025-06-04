@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Models\City;
 use App\Models\Order;
+use App\Models\ShippingPrice;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -15,8 +16,9 @@ class OrderController extends Controller
     public function index()
     {
         $cities=City::whereIsMain(true)->whereIsDelivery(true)->with('children')->get();
+        $pricing=ShippingPrice::get();
         $orders=Order::where('user_id',auth()->id())->latest()->paginate(30);
-        return view('web.orders',compact('orders','cities'));
+        return view('web.orders',compact('orders','cities','pricing'));
     }
 
     /**
