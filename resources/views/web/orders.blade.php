@@ -176,7 +176,8 @@
                             </div>
                             <div class="row mt-2">
                                 <div class="col-6 border border-1 p-2 text-center">
-                                    <button class="btn btn-sm btn-primary w-100" type="button" onclick="calculate()">أحسب
+                                    <button class="btn btn-sm btn-primary w-100" type="button" onclick="calculate()">
+                                        أحسب
                                         التكلفة
                                     </button>
                                 </div>
@@ -200,40 +201,52 @@
                             <span>رقم الطلب : {{$order->id}}</span>
                         </div>
                         <div class="card-body">
-                            <div>
-                                <span>{{$order->user?->name}} <a href="https://wa.me/{{$order->user?->phone}}"><i
-                                            class="bi bi-whatsapp"></i></a></span>
-                            </div>
-                            {{--    <div class="table-responsive">
-                                    <table class="table table-striped">
-                                        @foreach($invoice->items as $item)
-                                            <tr>
-                                                <td>{{$item->product?->name}}</td>
-                                                <td>{{$item->price}}</td>
-                                                <td>{{$item->qty}}</td>
-                                                <td>{{$item->total}}</td>
-                                            </tr>
-                                        @endforeach
 
-                                    </table>
-                                </div>--}}
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <tr>
+                                        <th>اسم المرسل</th>
+                                        <td>{{$order->sender_name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>عنوان المرسل</th>
+                                        <td>{{$order->sender_address}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>هاتف المرسل</th>
+                                        <td>{{$order->sender_phone}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>اسم المرسل إليه</th>
+                                        <td>{{$order->receive_name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>عنوان المرسل إليه</th>
+                                        <td>{{$order->receive_address}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>هاتف المرسل إليه</th>
+                                        <td>{{$order->receive_phone}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>وزن الحمولة</th>
+                                        <td>{{$order->weight}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>حجم الحمولة</th>
+                                        <td>{{$order->size}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>أجور الشحن</th>
+                                        <td>{{$order->price}}</td>
+                                    </tr>
+
+                                </table>
+                            </div>
                         </div>
-                        {{-- <div class="card-footer">
-                             <div class="d-flex">
-                                 <form action="{{route('invoices.update',$invoice->id)}}" method="post">
-                                     @csrf
-                                     @method('PUT')
-                                     <input type="hidden" name="status" value="{{\App\Enums\OrderStatusEnum::AGREE->value}}">
-                                     <button class="btn-sm btn-success">قبول الطلب</button>
-                                 </form>
-                                 <form action="{{route('invoices.update',$invoice->id)}}" method="post">
-                                     @csrf
-                                     @method('PUT')
-                                     <input type="hidden" name="status" value="{{\App\Enums\OrderStatusEnum::CANCELED->value}}">
-                                     <button class="btn-sm btn-danger">رفض الطلب</button>
-                                 </form>
-                             </div>
-                         </div>--}}
+                        <div class="card-footer">
+
+                        </div>
                     </div>
 
                 </div>
@@ -355,9 +368,9 @@
                 return;
             }
             const steps = (parseInt(areaSourceSelected.level) + parseInt(areaTargetSelected.level)) - 1;
-            const priceWight =parseFloat( pricing.find(p => p.weight >= weight)?.internal_price ?? 0)
+            const priceWight = parseFloat(pricing.find(p => p.weight >= weight)?.internal_price ?? 0)
             const sizeTotal = ((width * 0.01) * (height * 0.01) * (length * 0.01))
-            const priceSize =parseFloat( pricing.find(p => p.size >= sizeTotal)?.internal_price??0)
+            const priceSize = parseFloat(pricing.find(p => p.size >= sizeTotal)?.internal_price ?? 0)
             if (priceWight == undefined && priceSize == undefined) {
                 message.innerText = "الحجم المدخل غير مسموح به يرجى التواصل مع الإدارة"
                 return;
@@ -367,9 +380,8 @@
 
             totalFar = far + ((far / 3) * steps)
 
-            message.innerHTML =`<span class="h5">أجور الشحن :</span><span class="h3">${totalFar} $</span>
+            message.innerHTML = `<span class="h5">أجور الشحن :</span><span class="h3">${totalFar} $</span>
 `
-
 
 
         }
