@@ -73,7 +73,8 @@ protected static ?int $navigationSort=21;
                 Tables\Columns\TextColumn::make('receive_phone')->label('هاتف المستلم'),
                 Tables\Columns\TextColumn::make('sender_name')->label('المرسل')->searchable(),
                 Tables\Columns\TextColumn::make('sender_phone')->label('هاتف المرسل'),
-                Tables\Columns\TextColumn::make('status')->label('حالة الطلب'),
+                Tables\Columns\TextColumn::make('status')->formatStateUsing(fn($state)=>OrderStatusEnum::tryFrom($state)->getLabel())
+                    ->color(fn($state)=>OrderStatusEnum::tryFrom($state)->getColor())->icon(fn($state)=>OrderStatusEnum::tryFrom($state)->getIcon())->label('حالة الطلب'),
                 Tables\Columns\TextColumn::make('price')->label('قيمة الطلب'),
                 Tables\Columns\TextColumn::make('created_at')->date('Y-m-d')->label('تاريخ الطلب'),
             ])
