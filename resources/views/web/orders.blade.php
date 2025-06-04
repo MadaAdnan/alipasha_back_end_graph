@@ -176,7 +176,9 @@
     <div class="col-6">
         <button class="btn btn-sm btn-primary" type="button" onclick="calculate()">أحسب التكلفة</button>
     </div>
-    <div class="col-6"></div>
+    <div class="col-6">
+        <span class="text-danger" id="message"></span>
+    </div>
 </div>
                         </form>
                     </div>
@@ -295,10 +297,16 @@ var areaTarget;
             var height=document.getElementById('height').value
             var width=document.getElementById('width').value
             var length=document.getElementById('length').value
-            // Find City Selected
+            // Find City Source Selected
             var citySourceSelected=cities.find(city=>city.id==document.getElementById('city-source').value)
             var areaSourceSelected=citySourceSelected.children.find(area=>area.id==document.getElementById('area-source').value)
-
+            // Find City Target Selected
+            var cityTargetSelected=cities.find(city=>city.id==document.getElementById('city-target').value)
+            var areaTargetSelected=citySourceSelected.children.find(area=>area.id==document.getElementById('area-target').value)
+            var message=document.getElementById('message')
+if(width.isEmpty()){
+    message.innerText="يرجى ملأ الوزن و الحجم بشكل صحيح"
+}
 
 
             console.log(citySourceSelected,areaSourceSelected)
