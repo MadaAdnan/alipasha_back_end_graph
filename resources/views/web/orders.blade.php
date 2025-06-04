@@ -253,11 +253,11 @@
 @section('js')
     <script>
         const cities = @json($cities);
-        const pricingWeight = @json($pricing);
-        pricingWeight.sort((a, b) => a.weight - b.weight);
+        const pricing = @json($pricing);
+       // pricingWeight.sort((a, b) => a.weight - b.weight);
         const pricingSize = @json($pricing);
-        pricingSize.sort((a, b) => a.size - b.size);
-        console.log(pricingWeight,pricingSize)
+      //  pricingSize.sort((a, b) => a.size - b.size);
+      //  console.log(pricingWeight,pricingSize)
         var areaSource;
         var areaTarget;
 
