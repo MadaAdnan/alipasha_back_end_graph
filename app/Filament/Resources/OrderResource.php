@@ -5,10 +5,12 @@ namespace App\Filament\Resources;
 use App\Enums\OrderStatusEnum;
 use App\Filament\Resources\OrderResource\Pages;
 use App\Filament\Resources\OrderResource\RelationManagers;
+use App\Models\Balance;
 use App\Models\Invoice;
 use App\Models\Order;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -86,7 +88,23 @@ protected static ?int $navigationSort=21;
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\Action::make('confirm')->action(fn($record)=>$record->update(['status'=>OrderStatusEnum::AGREE->value]))->requiresConfirmation()->label('قبول الطلب')->visible(fn($record)=>$record->status==OrderStatusEnum::PENDING->value),
                     Tables\Actions\Action::make('complete')->action(fn($record)=>$record->update(['status'=>OrderStatusEnum::COMPLETE->value]))->requiresConfirmation()->label('إنهاء الطلب')->visible(fn($record)=>$record->status==OrderStatusEnum::AGREE->value),
-                    Tables\Actions\Action::make('cancel')->action(fn($record)=>$record->update(['status'=>OrderStatusEnum::CANCELED->value]))->requiresConfirmation()->label('إلغاء الطلب')->visible(fn($record)=>$record->status!=OrderStatusEnum::COMPLETE->value),
+                    Tables\Actions\Action::make('cancel')->action(function($record){
+                        \DB::beginTransaction();
+                        try{
+                            $record->update(['status'=>OrderStatusEnum::CANCELED->value]);
+                            Balance::create([
+                                'user_id'=>$record->user_id,
+                                'credit'=>$record->price,
+                                'debit'=>0,
+                                'info'=>' إعادة قيمة طلب شحن رقم #'.$record->id,
+                            ]);
+                            \DB::commit();
+                            Notification::make('success')->title('نجاح العملية')->body(' تم إلغاء الشحنة بنجاح')->danger()->send();
+                        }catch (\Exception|\Error $e){
+                            \DB::rollBack();
+                            Notification::make('error')->title('فشل العملية')->body($e->getMessage())->danger()->send();
+                        }
+                    })->requiresConfirmation()->label('إلغاء الطلب')->visible(fn($record)=>$record->status!=OrderStatusEnum::COMPLETE->value),
                 ])
             ])
             ->bulkActions([
