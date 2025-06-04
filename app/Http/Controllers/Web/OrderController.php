@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\Balance;
 use App\Models\City;
 use App\Models\Order;
 use App\Models\ShippingPrice;
@@ -15,10 +16,10 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $cities=City::whereIsMain(true)->whereIsDelivery(true)->with('children')->get();
-        $pricing=ShippingPrice::get();
-        $orders=Order::where('user_id',auth()->id())->latest()->paginate(30);
-        return view('web.orders',compact('orders','cities','pricing'));
+        $cities = City::whereIsMain(true)->whereIsDelivery(true)->with('children')->get();
+        $pricing = ShippingPrice::get();
+        $orders = Order::where('user_id', auth()->id())->latest()->paginate(30);
+        return view('web.orders', compact('orders', 'cities', 'pricing'));
     }
 
     /**
@@ -34,7 +35,71 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'areaSource' => 'required|exists:cities,id',
+            'nameSource' => 'required',
+            'nameTarget' => 'required',
+            'addressSource' => 'required',
+            'addressTarget' => 'required',
+            'phoneTarget' => 'required',
+            'weight' => 'required',
+            'width' => 'required',
+            'length' => 'required',
+            'height' => 'required',
+            'areaTarget' => 'required|exists:cities,id',
+        ]);
+
+        $source = City::find($request->areaSource);
+        $target = City::find($request->areaTarget);
+        if ($source->is_delivery == false || $target->is_delivery == false || $source->level == '' || $target->level == '') {
+            return back()->with('error','السحن غير متاح في هذه المدن');
+        }
+        $steps = $source->level + $target->level - 1;
+        $pricingWeight = ShippingPrice::where('weight', '>=', $request->weight)?->internal_price;
+        $size = (($request->height * 0.01) * ($request->width * 0.01) * ($request->length * 0.01) / 100000);
+        $pricingSize = ShippingPrice::where('size', '>=', $size)?->internal_price;
+        if ($pricingWeight == null || $pricingSize == null) {
+            return back()->with('error','الحمولة أكبر من الحد المسموح به');
+        }
+        $far = $pricingWeight > $pricingSize ? $pricingWeight : $pricingSize;
+        $far = $far + (($far / 3) * $steps);
+        if(auth()->user()->getTotalBalance() < $far){
+            return back()->with('error','لا تملك رصيد كافي لإتمام العملية');
+        }
+
+        \DB::beginTransaction();
+        try{
+           $order= Order::create([
+                'user_id' => auth()->id(),
+                'from_id' => $source->id,
+                'to_id' => $target->id,
+                'weight' => $request->weight,
+                'size' => $size,
+                'width' => $request->width,
+                'length' => $request->length,
+                'height' => $request->height,
+                'receive_name' => $request->nameTarget,
+                'receive_address' => $request->addressTarget,
+                'receive_phone' => $request->phoneTarget,
+
+                'sender_name' => $request->nameSource,
+                'sender_phone' => auth()->user()->phone,
+                'sender_address' => $request->addressSource,
+                'price' => $far,
+                'note' => $request->note,
+            ]);
+            Balance::create([
+                'user_id'=>auth()->id(),
+                'debit'=>$far,
+                'credit'=>0,
+                'info'=>'شحن مخصص طلب رقم #'.$order->id
+            ]);
+            \DB::commit();
+            return back()->with('success','تم إرسال الطلب بنجاح');
+        }catch (\Exception | \Error $e){
+            \DB::rollBack();
+            return back()->with('error',$e->getMessage());
+        }
     }
 
     /**

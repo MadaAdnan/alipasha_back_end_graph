@@ -6,7 +6,9 @@
                 <div class="card ">
                     <div class="card-header">إنشاء شحنة</div>
                     <div class="card-body">
-                        <form action="">
+                        <form action="" method="post">
+                            @csrf
+                            @method('POST')
                             {{--                            Source --}}
                             <div class="row my-1">
                                 {{--                              CitySource --}}
@@ -172,7 +174,7 @@
                                 <label for="">ملاحظات</label>
                                 <textarea name="note" id="" cols="30" rows="3" class="form-control"></textarea>
                             </div>
-                            <div class="row">
+                            <div class="row mt-2">
                                 <div class="col-6">
                                     <button class="btn btn-sm btn-primary" type="button" onclick="calculate()">أحسب
                                         التكلفة
@@ -180,6 +182,9 @@
                                 </div>
                                 <div class="col-6">
                                     <span class="text-danger" id="message"></span>
+                                </div>
+                                <div class="col-12">
+                                    <button class="btn-sm btn-danger" type="submit">إشحن الحمولة</button>
                                 </div>
                             </div>
                         </form>
