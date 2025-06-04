@@ -99,7 +99,7 @@ protected static ?int $navigationSort=21;
                                 'info'=>' إعادة قيمة طلب شحن رقم #'.$record->id,
                             ]);
                             \DB::commit();
-                            Notification::make('success')->title('نجاح العملية')->body(' تم إلغاء الشحنة بنجاح')->danger()->send();
+                            Notification::make('success')->title('نجاح العملية')->body(' تم إلغاء الشحنة بنجاح')->success()->send();
                         }catch (\Exception|\Error $e){
                             \DB::rollBack();
                             Notification::make('error')->title('فشل العملية')->body($e->getMessage())->danger()->send();
