@@ -359,6 +359,7 @@
             var far = priceWight > priceSize ? priceWight : priceSize
             console.log(`WEIGHT:${priceWight}`)
             console.log(`Size:${sizeTotal}`)
+
             console.log(`priceSize:${priceSize}`)
             console.log(`FAR:${far}`)
             far += (far / 3) * steps
