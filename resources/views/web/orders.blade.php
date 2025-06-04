@@ -324,7 +324,7 @@
                 message.innerText = "يرجى تحديد مدينة المرسل إليه"
                 return
             }
-            if (width.isEmpty()) {
+            if (width.isEmpty) {
                 message.innerText = "يرجى ملأ الوزن و الحجم بشكل صحيح"
                 return;
             }
