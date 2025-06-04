@@ -67,9 +67,9 @@ class OrderController extends Controller
             return back()->with('error', 'الشحن غير متاح في هذه المدن');
         }
         $steps = $source->level + $target->level - 1;
-        $pricingWeight = ShippingPrice::where('weight', '>=', $request->weight)?->internal_price;
+        $pricingWeight = ShippingPrice::where('weight', '>=', $request->weight)->first()?->internal_price;
         $size = (($request->height * 0.01) * ($request->width * 0.01) * ($request->length * 0.01) / 100000);
-        $pricingSize = ShippingPrice::where('size', '>=', $size)?->internal_price;
+        $pricingSize = ShippingPrice::where('size', '>=', $size)->first()?->internal_price;
         if ($pricingWeight == null || $pricingSize == null) {
             return back()->with('error', 'الحمولة أكبر من الحد المسموح به');
         }
