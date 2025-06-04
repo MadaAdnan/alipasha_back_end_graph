@@ -246,7 +246,7 @@
                                     </tr>
                                     <tr>
                                         <th>تاريخ الطلب</th>
-                                        <td>{{$order->created_at?->format('h:i a | Y-m-d')}}</td>
+                                        <td>{{$order->created_at?->format('a h:i | Y-m-d')}}</td>
                                     </tr>
 
                                 </table>
