@@ -349,7 +349,7 @@
                 message.innerText = "الحجم الممدخل غير مسموح به يرجى التواصل مع الإدارة"
                 return;
             }
-            var far = priceWight > priceSize ? priceWight : priceWight
+            var far = priceWight > priceSize ? priceWight : priceSize
             far += (far / 3) * steps
             console.log(steps , far)
             message.innerText =far
