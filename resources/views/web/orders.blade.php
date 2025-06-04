@@ -197,7 +197,7 @@
             @forelse($orders as $order)
                 <div class="col-8 " dir="rtl">
                     <div class="card " style="margin-top: 100px">
-                        <div class="card-title">
+                        <div class="card-header">
                             <h3>رقم الطلب : {{$order->id}}</h3>
                         </div>
                         <div class="card-body">
