@@ -362,12 +362,7 @@
 
             totalFar = far + ((far / 3) * steps)
 
-            message.innerHTML =`
-<p> source : ${areaSourceSelected.name} - ${areaSourceSelected.code} - ${areaSourceSelected.level} </p>
-<p> target : ${areaTargetSelected.name} - ${areaTargetSelected.code} - ${areaTargetSelected.level} </p>
-<p> steps : ${steps}  </p>
-<p> far : ${far}  </p>
-<span class="h5">أجور الشحن :</span><span class="h6">${totalFar}</span>
+            message.innerHTML =`<span class="h5">أجور الشحن :</span><span class="h3">${totalFar} $</span>
 `
 
 
