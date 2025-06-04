@@ -83,6 +83,11 @@ protected static ?int $navigationSort=21;
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\Action::make('confirm')->action(fn($record)=>$record->update(['status'=>OrderStatusEnum::AGREE->value]))->requiresConfirmation()->label('قبول الطلب')->visible(fn($record)=>$record->status==OrderStatusEnum::PENDING->value),
+                    Tables\Actions\Action::make('complete')->action(fn($record)=>$record->update(['status'=>OrderStatusEnum::COMPLETE->value]))->requiresConfirmation()->label('إنهاء الطلب')->visible(fn($record)=>$record->status==OrderStatusEnum::AGREE->value),
+                    Tables\Actions\Action::make('cancel')->action(fn($record)=>$record->update(['status'=>OrderStatusEnum::CANCELED->value]))->requiresConfirmation()->label('إلغاء الطلب')->visible(fn($record)=>$record->status!=OrderStatusEnum::COMPLETE->value),
+                ])
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
