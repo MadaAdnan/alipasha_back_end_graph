@@ -364,15 +364,17 @@
             }
 
             var far = priceWight > priceSize ? priceWight : priceSize
-            console.log(far)
+
             totalFar = far + ((far / 3) * steps)
 
-            message.innerHTML =`<span class="h5">أجور الشحن :</span><span class="h6">${totalFar}</span>`
-            console.log("AREA :",areaSourceSelected,
-                cityTargetSelected)
-            console.log("Pricing",priceWight,
-                sizeTotal,
-                priceSize)
+            message.innerHTML =`
+<p> source : ${areaSourceSelected.name} - ${areaSourceSelected.code} - ${areaSourceSelected.level} </p>
+<p> target : ${areaTargetSelected.name} - ${areaTargetSelected.code} - ${areaTargetSelected.level} </p>
+<p> steps : ${steps}  </p>
+<p> far : ${far}  </p>
+<span class="h5">أجور الشحن :</span><span class="h6">${totalFar}</span>
+`
+
 
 
         }
