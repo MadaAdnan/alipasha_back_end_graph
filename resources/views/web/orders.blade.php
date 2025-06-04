@@ -1,4 +1,7 @@
 @extends('layouts.master_layouts')
+@section('title')
+    طلب شحن  مخصص
+@endsection
 @section('content')
     <div class="container">
         <div class="row justify-content-center mt-5">
