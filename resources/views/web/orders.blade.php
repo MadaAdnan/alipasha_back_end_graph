@@ -346,6 +346,7 @@
                 return;
             }
             const steps = (areaSourceSelected.level + areaTargetSelected.level) - 1;
+          console.log(areaSourceSelected,areaTargetSelected)
             const priceWight = pricing.find(p => p.weight >= weight)?.internal_price ?? 0
 
             const sizeTotal = ((width * 0.01) * (height * 0.01) * (length * 0.01))
