@@ -266,7 +266,7 @@
             @empty
                 <h3 class="alert alert-info" style="margin-top: 100px">لا يوجد طلبات</h3>
             @endforelse
-            <div class="col-12">
+            <div class="col-md-8">
                 <div class="d-flex justify-content-between">
                     @if($orders->hasMorePages())
                         <a class="btn btn-sm btn-secondary"
