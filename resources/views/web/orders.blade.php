@@ -249,10 +249,31 @@
 @section('js')
     <script>
         const cities = @json($cities);
+var areaSource;
+var areaTarget;
 
         document.getElementById('city-source').addEventListener('change', function () {
             const selectedCityId = this.value;
             const districtSelect = document.getElementById('area-source');
+
+            // تفريغ القائمة القديمة
+            districtSelect.innerHTML = '<option value="">اختر مدينة</option>';
+
+            // البحث عن المدينة المختارة
+            const selectedCity = cities.find(city => city.id == selectedCityId);
+
+            if (selectedCity && selectedCity.children.length > 0) {
+                selectedCity.children.forEach(function (district) {
+                    const option = document.createElement('option');
+                    option.value = district.id;
+                    option.textContent = district.name;
+                    districtSelect.appendChild(option);
+                });
+            }
+        });
+        document.getElementById('city-target').addEventListener('change', function () {
+            const selectedCityId = this.value;
+            const districtSelect = document.getElementById('area-target');
 
             // تفريغ القائمة القديمة
             districtSelect.innerHTML = '<option value="">اختر مدينة</option>';
