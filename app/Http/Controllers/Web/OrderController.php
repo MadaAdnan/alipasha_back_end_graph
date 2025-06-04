@@ -64,7 +64,7 @@ class OrderController extends Controller
         $source = City::find($request->areaSource);
         $target = City::find($request->areaTarget);
         if ($source->is_delivery == false || $target->is_delivery == false || $source->level == '' || $target->level == '') {
-            return back()->with('error', 'السحن غير متاح في هذه المدن');
+            return back()->with('error', 'الشحن غير متاح في هذه المدن');
         }
         $steps = $source->level + $target->level - 1;
         $pricingWeight = ShippingPrice::where('weight', '>=', $request->weight)?->internal_price;
