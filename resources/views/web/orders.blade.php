@@ -295,7 +295,13 @@ var areaTarget;
             var height=document.getElementById('height').value
             var width=document.getElementById('width').value
             var length=document.getElementById('length').value
-            console.log(weight)
+
+            var citySourceSelected=cities.find(city=>city.id==document.getElementById('city-source').value)
+            var areaSourceSelected=citySourceSelected.children.find(area=>area.id==document.getElementById('area-source').value)
+
+            // Find City Selected
+
+            console.log(citySourceSelected,areaSourceSelected)
         }
     </script>
 
