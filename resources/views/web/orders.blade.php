@@ -366,7 +366,7 @@
 
             far = far + ((far / 3) * steps)
 
-            message.innerText = far
+            message.innerHTML =`<h4>أجور الشحن :</h4><span class="">${far}</span>`
 
 
         }
