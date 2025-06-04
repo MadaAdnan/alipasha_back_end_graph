@@ -362,11 +362,17 @@
                 message.innerText = "الحجم المدخل غير مسموح به يرجى التواصل مع الإدارة"
                 return;
             }
+
             var far = priceWight > priceSize ? priceWight : priceSize
+            console.log(far)
+            totalFar = far + ((far / 3) * steps)
 
-            far = far + ((far / 3) * steps)
-
-            message.innerHTML =`<span class="h5">أجور الشحن :</span><span class="h6">${far}</span>`
+            message.innerHTML =`<span class="h5">أجور الشحن :</span><span class="h6">${totalFar}</span>`
+            console.log("AREA :",areaSourceSelected,
+                cityTargetSelected)
+            console.log("Pricing",priceWight,
+                sizeTotal,
+                priceSize)
 
 
         }
