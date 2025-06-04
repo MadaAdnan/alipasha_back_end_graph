@@ -244,6 +244,10 @@
                                         <th>أجور الشحن</th>
                                         <td>{{$order->price}}</td>
                                     </tr>
+                                    <tr>
+                                        <th>تاريخ الطلب</th>
+                                        <td>{{$order->created_at?->format('h:i a | Y-m-d')}}</td>
+                                    </tr>
 
                                 </table>
                             </div>
