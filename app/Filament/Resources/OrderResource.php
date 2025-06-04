@@ -104,7 +104,7 @@ protected static ?int $navigationSort=21;
                             \DB::rollBack();
                             Notification::make('error')->title('فشل العملية')->body($e->getMessage())->danger()->send();
                         }
-                    })->requiresConfirmation()->label('إلغاء الطلب')->visible(fn($record)=>$record->status!=OrderStatusEnum::COMPLETE->value),
+                    })->requiresConfirmation()->label('إلغاء الطلب')->visible(fn($record)=>$record->status!=OrderStatusEnum::COMPLETE->value&& $record->status!=OrderStatusEnum::CANCELED->value),
                 ])
             ])
             ->bulkActions([
