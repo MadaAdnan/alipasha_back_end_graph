@@ -318,7 +318,8 @@
                 message.innerText = "يرجى تحديد محافظة المرسل إليه"
                 return
             }
-            var areaTargetSelected = citySourceSelected.children.find(area => area.id == document.getElementById('area-target').value)
+            var areaTargetSelected = cityTargetSelected.children.find(area => area.id == document.getElementById('area-target').value)
+
             if (areaTargetSelected == undefined) {
                 message.innerText = "يرجى تحديد مدينة المرسل إليه"
                 return
@@ -329,7 +330,7 @@
             }
 
 
-            console.log(citySourceSelected, areaSourceSelected)
+
         }
     </script>
 
