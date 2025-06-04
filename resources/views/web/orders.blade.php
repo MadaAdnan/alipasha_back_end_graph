@@ -349,15 +349,10 @@
                 message.innerText = "الشحن غير متاح بين هذه المدن"
                 return;
             }
-            const steps = (areaSourceSelected.level + areaTargetSelected.level) - 1;
-
-            const priceWight = pricing.find(p => p.weight >= weight)?.internal_price ?? 0
-
+            const steps = (parseInt(areaSourceSelected.level) + parseInt(areaTargetSelected.level)) - 1;
+            const priceWight =parseFloat( pricing.find(p => p.weight >= weight)?.internal_price ?? 0)
             const sizeTotal = ((width * 0.01) * (height * 0.01) * (length * 0.01))
-
-            const price_Size = pricing.find(p => p.size >= sizeTotal)
-
-           const priceSize = price_Size?.internal_price;
+            const priceSize =parseFloat( pricing.find(p => p.size >= sizeTotal)?.internal_price??0)
             if (priceWight == undefined && priceSize == undefined) {
                 message.innerText = "الحجم المدخل غير مسموح به يرجى التواصل مع الإدارة"
                 return;
