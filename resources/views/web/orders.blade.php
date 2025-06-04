@@ -248,6 +248,10 @@
                                         <th>تاريخ الطلب</th>
                                         <td>{{$order->created_at?->format('a h:i | Y-m-d')}}</td>
                                     </tr>
+                                    <tr>
+                                        <th>ملاحظات</th>
+                                        <td>{{$order->note}}</td>
+                                    </tr>
 
                                 </table>
                             </div>
