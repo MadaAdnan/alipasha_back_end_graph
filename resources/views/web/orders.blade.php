@@ -364,7 +364,7 @@
             }
             var far = priceWight > priceSize ? priceWight : priceSize
 
-            far = far + (far / 3) * steps
+            far = far + ((far / 3) * steps)
 
             message.innerText = far
 
