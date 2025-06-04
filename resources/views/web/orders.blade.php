@@ -254,10 +254,10 @@
     <script>
         const cities = @json($cities);
         const pricing = @json($pricing);
-       // pricingWeight.sort((a, b) => a.weight - b.weight);
+        // pricingWeight.sort((a, b) => a.weight - b.weight);
         const pricingSize = @json($pricing);
-      //  pricingSize.sort((a, b) => a.size - b.size);
-      //  console.log(pricingWeight,pricingSize)
+        //  pricingSize.sort((a, b) => a.size - b.size);
+        //  console.log(pricingWeight,pricingSize)
         var areaSource;
         var areaTarget;
 
@@ -350,8 +350,9 @@
 
             const sizeTotal = (width * height * length) / 100000
 
-            const priceSize = pricing.find(p => p.size >= sizeTotal)?.internal_price ?? 0
-
+            const price_Size = pricing.find(p => p.size >= sizeTotal)
+            console.log(price_Size)
+            priceSize=price_Size?.internal_price;
             if (priceWight == undefined && priceSize == undefined) {
                 message.innerText = "الحجم الممدخل غير مسموح به يرجى التواصل مع الإدارة"
                 return;
@@ -363,8 +364,8 @@
             console.log(`priceSize:${priceSize}`)
             console.log(`FAR:${far}`)
             far += (far / 3) * steps
-            console.log(steps , far)
-            message.innerText =far
+            console.log(steps, far)
+            message.innerText = far
 
 
         }
