@@ -363,7 +363,8 @@
 
             console.log(`priceSize:${priceSize}`)
             console.log(`FAR:${far}`)
-            far += (far / 3) * steps
+            console.log(`Steps:${steps}`)
+            far =far+ (far / 3) * steps
             console.log(steps, far)
             message.innerText = far
 
