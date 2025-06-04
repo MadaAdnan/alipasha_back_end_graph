@@ -345,8 +345,12 @@
                 message.innerText = "يرجى إدخال الوزن  بشكل صحيح"
                 return;
             }
-            const steps = (areaSourceSelected.level + areaTargetSelected.level) - 1;
-          console.log(areaSourceSelected,areaTargetSelected)
+            if (areaTargetSelected.is_delivery == 0 || areaSourceSelected.is_delivery == 0 || areaTargetSelected.level == undefined || areaSourceSelected.level == undefined) {
+                message.innerText = "الشحن غير متاح بين هذه المدن"
+                return;
+            }
+            var steps = (areaSourceSelected.level + areaTargetSelected.level) - 1;
+
             const priceWight = pricing.find(p => p.weight >= weight)?.internal_price ?? 0
 
             const sizeTotal = ((width * 0.01) * (height * 0.01) * (length * 0.01))
@@ -365,7 +369,7 @@
             console.log(`priceSize:${priceSize}`)
             console.log(`FAR:${far}`)
             console.log(`Steps:${steps}`)
-            far =far+ (far / 3) * steps
+            far = far + (far / 3) * steps
             console.log(steps, far)
             message.innerText = far
 
