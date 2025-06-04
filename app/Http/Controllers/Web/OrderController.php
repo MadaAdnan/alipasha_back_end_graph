@@ -104,7 +104,7 @@ class OrderController extends Controller
                 'user_id' => auth()->id(),
                 'debit' => $far,
                 'credit' => 0,
-                'info' => 'شحن مخصص طلب رقم #' . $order->id
+                'info' => 'خصم أجور شحن مخصص طلب رقم #' . $order->id
             ]);
             \DB::commit();
             return back()->with('success', 'تم إرسال الطلب بنجاح');

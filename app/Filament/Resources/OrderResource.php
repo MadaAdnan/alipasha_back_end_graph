@@ -96,7 +96,7 @@ protected static ?int $navigationSort=21;
                                 'user_id'=>$record->user_id,
                                 'credit'=>$record->price,
                                 'debit'=>0,
-                                'info'=>' إعادة قيمة طلب شحن رقم #'.$record->id,
+                                'info'=>' إعادة قيمة  أجور شحن طلب رقم #'.$record->id,
                             ]);
                             \DB::commit();
                             Notification::make('success')->title('نجاح العملية')->body(' تم إلغاء الشحنة بنجاح')->success()->send();
