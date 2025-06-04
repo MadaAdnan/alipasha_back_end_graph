@@ -47,29 +47,41 @@ class OrderController extends Controller
             'length' => 'required',
             'height' => 'required',
             'areaTarget' => 'required|exists:cities,id',
+        ], [
+            'areaSource.required' => 'الحقل مدينة المرسل مطلوب',
+            'nameSource.required' => 'الحقل اسم المرسل مطلوب',
+            'nameTarget.required' => 'الحقل اسم المرسل إليه مطلوب',
+            'addressSource.required' => 'الحقل عنوان المرسل مطلوب',
+            'addressTarget.required' => 'الحقل عنوان المرسل إليه مطلوب',
+            'phoneTarget.required' => 'الحقل هاف المرسل إليه مطلوب',
+            'weight.required' => 'الحقل الوزن مطلوب',
+            'width.required' => 'الحقل العرض مطلوب',
+            'length.required' => 'الحقل الطول مطلوب',
+            'height.required' => 'الحقل الإرتفاع مطلوب',
+            'areaTarget.required' => 'الحقل مدينة المرسل إليه مطلوب',
         ]);
 
         $source = City::find($request->areaSource);
         $target = City::find($request->areaTarget);
         if ($source->is_delivery == false || $target->is_delivery == false || $source->level == '' || $target->level == '') {
-            return back()->with('error','السحن غير متاح في هذه المدن');
+            return back()->with('error', 'السحن غير متاح في هذه المدن');
         }
         $steps = $source->level + $target->level - 1;
         $pricingWeight = ShippingPrice::where('weight', '>=', $request->weight)?->internal_price;
         $size = (($request->height * 0.01) * ($request->width * 0.01) * ($request->length * 0.01) / 100000);
         $pricingSize = ShippingPrice::where('size', '>=', $size)?->internal_price;
         if ($pricingWeight == null || $pricingSize == null) {
-            return back()->with('error','الحمولة أكبر من الحد المسموح به');
+            return back()->with('error', 'الحمولة أكبر من الحد المسموح به');
         }
         $far = $pricingWeight > $pricingSize ? $pricingWeight : $pricingSize;
         $far = $far + (($far / 3) * $steps);
-        if(auth()->user()->getTotalBalance() < $far){
-            return back()->with('error','لا تملك رصيد كافي لإتمام العملية');
+        if (auth()->user()->getTotalBalance() < $far) {
+            return back()->with('error', 'لا تملك رصيد كافي لإتمام العملية');
         }
 
         \DB::beginTransaction();
-        try{
-           $order= Order::create([
+        try {
+            $order = Order::create([
                 'user_id' => auth()->id(),
                 'from_id' => $source->id,
                 'to_id' => $target->id,
@@ -89,16 +101,16 @@ class OrderController extends Controller
                 'note' => $request->note,
             ]);
             Balance::create([
-                'user_id'=>auth()->id(),
-                'debit'=>$far,
-                'credit'=>0,
-                'info'=>'شحن مخصص طلب رقم #'.$order->id
+                'user_id' => auth()->id(),
+                'debit' => $far,
+                'credit' => 0,
+                'info' => 'شحن مخصص طلب رقم #' . $order->id
             ]);
             \DB::commit();
-            return back()->with('success','تم إرسال الطلب بنجاح');
-        }catch (\Exception | \Error $e){
+            return back()->with('success', 'تم إرسال الطلب بنجاح');
+        } catch (\Exception | \Error $e) {
             \DB::rollBack();
-            return back()->with('error',$e->getMessage());
+            return back()->with('error', $e->getMessage());
         }
     }
 
