@@ -128,7 +128,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="">وزن الحمولة</label>
-                                        <input name="weight" type="text" class="form-control">
+                                        <input name="weight" id="weight" type="text" class="form-control">
                                         @error('weight')
                                         <span class="text-danger">{{$message}}</span>
                                         @enderror
@@ -172,7 +172,12 @@
                                 <label for="">ملاحظات</label>
                                 <textarea name="note" id="" cols="30" rows="3" class="form-control"></textarea>
                             </div>
-
+<div class="row">
+    <div class="col-6">
+        <button class="btn btn-sm btn-primary" type="button" onclick="calculate()">أحسب التكلفة</button>
+    </div>
+    <div class="col-6"></div>
+</div>
                         </form>
                     </div>
                 </div>
@@ -264,6 +269,13 @@
                 });
             }
         });
+        function calculate(){
+            var weight=document.getElementById('weight').value
+            var height=document.getElementById('height').value
+            var width=document.getElementById('width').value
+            var length=document.getElementById('length').value
+            console.log(weight)
+        }
     </script>
 
 @endsection
