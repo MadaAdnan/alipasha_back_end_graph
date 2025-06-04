@@ -41,7 +41,7 @@
                                 {{--                                Name Source--}}
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="">اسم  المرسل</label>
+                                        <label for="">اسم المرسل</label>
                                         <input name="nameSource" type="text" class="form-control">
                                         @error('nameSource')
                                         <span class="text-danger">{{$message}}</span>
@@ -172,14 +172,16 @@
                                 <label for="">ملاحظات</label>
                                 <textarea name="note" id="" cols="30" rows="3" class="form-control"></textarea>
                             </div>
-<div class="row">
-    <div class="col-6">
-        <button class="btn btn-sm btn-primary" type="button" onclick="calculate()">أحسب التكلفة</button>
-    </div>
-    <div class="col-6">
-        <span class="text-danger" id="message"></span>
-    </div>
-</div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <button class="btn btn-sm btn-primary" type="button" onclick="calculate()">أحسب
+                                        التكلفة
+                                    </button>
+                                </div>
+                                <div class="col-6">
+                                    <span class="text-danger" id="message"></span>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -251,8 +253,8 @@
 @section('js')
     <script>
         const cities = @json($cities);
-var areaSource;
-var areaTarget;
+        var areaSource;
+        var areaTarget;
 
         document.getElementById('city-source').addEventListener('change', function () {
             const selectedCityId = this.value;
@@ -292,24 +294,42 @@ var areaTarget;
                 });
             }
         });
-        function calculate(){
-            var weight=document.getElementById('weight').value
-            var height=document.getElementById('height').value
-            var width=document.getElementById('width').value
-            var length=document.getElementById('length').value
+
+        function calculate() {
+            var weight = document.getElementById('weight').value
+            var height = document.getElementById('height').value
+            var width = document.getElementById('width').value
+            var length = document.getElementById('length').value
+            var message = document.getElementById('message')
             // Find City Source Selected
-            var citySourceSelected=cities.find(city=>city.id==document.getElementById('city-source').value)
-            var areaSourceSelected=citySourceSelected.children.find(area=>area.id==document.getElementById('area-source').value)
+            var citySourceSelected = cities.find(city => city.id == document.getElementById('city-source').value)
+            if (citySourceSelected == undefined) {
+                message.innerText = "يرجى تحديد محافظة المرسل"
+                return
+            }
+            var areaSourceSelected = citySourceSelected.children.find(area => area.id == document.getElementById('area-source').value)
+            if (areaSourceSelected == undefined) {
+                message.innerText = "يرجى تحديد مدينة المرسل"
+                return
+            }
             // Find City Target Selected
-            var cityTargetSelected=cities.find(city=>city.id==document.getElementById('city-target').value)
-            var areaTargetSelected=citySourceSelected.children.find(area=>area.id==document.getElementById('area-target').value)
-            var message=document.getElementById('message')
-if(width.isEmpty()){
-    message.innerText="يرجى ملأ الوزن و الحجم بشكل صحيح"
-}
+            var cityTargetSelected = cities.find(city => city.id == document.getElementById('city-target').value)
+            if (cityTargetSelected == undefined) {
+                message.innerText = "يرجى تحديد محافظة المرسل إليه"
+                return
+            }
+            var areaTargetSelected = citySourceSelected.children.find(area => area.id == document.getElementById('area-target').value)
+            if (areaTargetSelected == undefined) {
+                message.innerText = "يرجى تحديد مدينة المرسل إليه"
+                return
+            }
+            if (width.isEmpty()) {
+                message.innerText = "يرجى ملأ الوزن و الحجم بشكل صحيح"
+                return;
+            }
 
 
-            console.log(citySourceSelected,areaSourceSelected)
+            console.log(citySourceSelected, areaSourceSelected)
         }
     </script>
 
