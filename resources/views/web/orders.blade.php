@@ -343,8 +343,11 @@
             }
             const steps = (areaSourceSelected.level + areaTargetSelected.level) - 1;
             const priceWight = pricing.find(p => p.weight >= weight)?.internal_price ?? 0
+            console.log(`WEIGHT:${priceWight}`)
             const sizeTotal = (width * height * length) / 100000
+            console.log(`Size:${sizeTotal}`)
             const priceSize = pricing.find(p => p.size >= sizeTotal)?.internal_price ?? 0
+            console.log(`priceSize:${sizeTotal}`)
             if (priceWight == undefined && priceSize == undefined) {
                 message.innerText = "الحجم الممدخل غير مسموح به يرجى التواصل مع الإدارة"
                 return;
