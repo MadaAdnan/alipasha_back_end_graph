@@ -74,7 +74,7 @@ Route::middleware('throttle:20,1')->group(function () {
         Route::resource('/balances', \App\Http\Controllers\Web\BalanceController::class)->only(['index']);
         Route::resource('/invoices', \App\Http\Controllers\Web\InvoiceController::class)->only(['index', 'update']);
         Route::resource('/my-invoices', \App\Http\Controllers\Web\MyInvoiceController::class)->only(['index']);
-        Route::resource('/orders', \App\Http\Controllers\Web\OrderController::class)->only(['index']);
+        Route::resource('/orders', \App\Http\Controllers\Web\OrderController::class)->only(['index','store']);
         Route::post('/markets/followers', [\App\Http\Controllers\Web\SellerController::class, 'followers']);
         Route::post('/products/like', [\App\Http\Controllers\Web\PostController::class, 'like'])->name('post.like');
         Route::resource('/carts', \App\Http\Controllers\Web\CartController::class)->only(['index', 'show', 'store', 'destroy', 'update']);

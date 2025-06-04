@@ -6,7 +6,7 @@
                 <div class="card ">
                     <div class="card-header">إنشاء شحنة</div>
                     <div class="card-body">
-                        <form action="" method="post">
+                        <form action="{{route('orders.store')}}" method="post">
                             @csrf
                             @method('POST')
                             {{--                            Source --}}
