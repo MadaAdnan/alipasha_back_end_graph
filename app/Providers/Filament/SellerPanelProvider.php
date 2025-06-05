@@ -3,6 +3,7 @@
 namespace App\Providers\Filament;
 
 use App\Enums\LevelUserEnum;
+use App\Filament\Seller\Pages\DashboardPage;
 use App\Filament\Seller\Pages\RegisterPage;
 use App\Http\Middleware\IsSellerMiddelware;
 use App\Models\User;
@@ -65,7 +66,7 @@ class SellerPanelProvider extends PanelProvider
             ->discoverResources(in: app_path('Filament/Seller/Resources'), for: 'App\\Filament\\Seller\\Resources')
             ->discoverPages(in: app_path('Filament/Seller/Pages'), for: 'App\\Filament\\Seller\\Pages')
             ->pages([
-                Pages\Dashboard::class,
+                DashboardPage::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Seller/Widgets'), for: 'App\\Filament\\Seller\\Widgets')
             ->widgets([
