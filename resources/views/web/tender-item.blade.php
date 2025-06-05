@@ -1,5 +1,7 @@
 @extends('layouts.master_layouts')
-
+@section('title')
+    {{$tender->name ?? Str::words($tender->expert,2)}}
+@endsection
 @section('content')
     <div class="col-12 col-xl-9" style="margin-top: 10px">
         <div class="containter" style="background-color: #fff; padding: 16px; border-radius: 16px;">
