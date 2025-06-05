@@ -142,7 +142,7 @@
 
 
         <!-- Middle Section (12 columns on small, 8 on larger screens) -->
-            <a class="col-12 col-xl-5">
+            <div class="col-12 col-xl-5">
 
 
                 <div class="container mt-4 bg-white p-2 rounded-4">
@@ -172,7 +172,7 @@
                     </div>
                 </div>
                 @auth
-                    <a class="new-post">
+                    <div class="new-post">
                         <div class="flex-wrapper">
 
                                 <input
@@ -190,7 +190,7 @@
                         </div>
                         <div class="divider"></div>
 
-                        <a
+                        <div
                             class="post-actions"
                             style="
                 margin: 10px 0px;
@@ -199,27 +199,30 @@
                 justify-content: space-around;
               "
                         >
-                            <a href="{{url('/seller/services/create')}}" data-bs-toggle="modal"
+                            <div data-bs-toggle="modal"
                                  data-bs-target="#addServiceModal"
                                  style="display: flex; align-items: center; gap: 4px; cursor: pointer;">
                                 <img src="{{asset('assets/post-action-services.svg')}}" alt=""/>
                                 <p class="sub-title">خدمة</p>
-                            </a>
-                            <a href="{{url('/seller/tenders/create')}}"
+                            </div>
+                            <div data-bs-toggle="modal"
+                                 data-bs-target="#addPorsaModal"
                                  style="display: flex; align-items: center; gap: 4px; cursor: pointer;">
                                 <img src="{{asset('assets/post-action-chart.svg')}}" alt=""/>
                                 <p class="sub-title">مناقصة</p>
-                            </a>
-                            <a href="{{url('/seller/jobs/create')}}"
+                            </div>
+                            <div data-bs-toggle="modal"
+                                 data-bs-target="#addJobModal"
                                  style="display: flex; align-items: center; gap: 4px; cursor: pointer;">
                                 <img src="{{asset('assets/post-action-jobs.svg')}}" alt=""/>
                                 <p class="sub-title">وظيفة</p>
-                            </a>
-                            <a href="{{url('/seller/products/create')}}"
+                            </div>
+                            <div data-bs-toggle="modal"
+                                 data-bs-target="#addPostModal"
                                  style="display: flex; align-items: center; gap: 4px; cursor: pointer;">
                                 <img src="{{asset('assets/post-action-products.svg')}}" alt=""/>
                                 <p class="sub-title">منتج</p>
-                            </a>
+                            </div>
                         </div>
                     </div>
                 @endauth
