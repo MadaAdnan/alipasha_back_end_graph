@@ -42,7 +42,7 @@
         .category-item p{
             color: black;
         }
-        .category-item.bg-danger{
+        .category-item.bg-danger p{
             color:white;
         }
     </style>
