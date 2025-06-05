@@ -17,38 +17,38 @@
                                 <div style="width: 100% ;display: flex; justify-content: center; align-items: center; gap: 8px;" class="mb-3">
                                     <div style="display: flex; gap: 8px; flex-wrap: wrap;">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="type" id="products">
+                                            <input class="form-check-input" type="radio" name="type" id="products" value="products">
                                             <label class="form-check-label" for="منتج">
                                                 منتج
                                             </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="type" id="seller" checked>
+                                            <input class="form-check-input" type="radio" name="type" id="seller" value="seller" >
                                             <label class="form-check-label" for="متجر">
                                                 متجر
                                             </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="type" id="jobs" checked>
+                                            <input class="form-check-input" type="radio" name="type" id="jobs" value="jobs" >
                                             <label class="form-check-label" for="وظائف">
                                                 وظائف
                                             </label>
                                         </div>
 
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="type" id="tenders" checked>
+                                            <input class="form-check-input" type="radio" name="type" id="tenders" value="tenders" >
                                             <label class="form-check-label" for="مناقصات">
                                                 مناقصات
                                             </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="type" id="services" checked>
+                                            <input class="form-check-input" type="radio" name="type" id="services" value="services" >
                                             <label class="form-check-label" for="خدمات">
                                                 خدمات
                                             </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="type" id="news" checked>
+                                            <input class="form-check-input" type="radio" name="type" id="news" value="news" >
                                             <label class="form-check-label" for="اخبار">
                                                 اخبار
                                             </label>
