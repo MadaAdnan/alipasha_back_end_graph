@@ -45,7 +45,7 @@ class SearchController extends Controller
         ->paginate();
         $cities=City::where('is_active',true)->where('is_main',true)->orderBy('city_id')->get();
         $categories=Category::where('is_active',true)
-            ->where(fn($query)=>$query->where('type',CategoryTypeEnum::PRODUCT->value)->orWhere('type',CategoryTypeEnum::RESTAURANT->value))->orderBy('sortable')->get();
+            ->where(fn($query)=>$query->where('type',CategoryTypeEnum::PRODUCT->value)->orWhere('type',CategoryTypeEnum::RESTAURANT->value))->orderBy('sortable')->with('children')->get();
         return view('web.search',compact('products','cities','categories'));
     }
 

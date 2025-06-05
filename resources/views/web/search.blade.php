@@ -99,6 +99,7 @@
                                         name="category"
                                         class="form-select"
                                         aria-label="Default select example"
+                                        id="category"
                                         style="text-align: right"
                                     >
                                         <option value="" @if(request()->get('category')==null) selected @endif></option>
@@ -121,6 +122,7 @@
                                         class="form-select"
                                         aria-label="Default select example"
                                         style="text-align: right"
+                                        id="section"
                                     >
                                         <option value="1" selected>عام</option>=
                                     </select>
@@ -138,6 +140,7 @@
                                             max="10000"
                                             step="1"
                                             value="5000"
+                                            name="price"
                                             >
                                         <div class="mt-2">
                                             <span>القيمة الحالية: </span>
@@ -249,6 +252,28 @@
                     }
                 }
             });
+        });
+    </script>
+    <script>
+        const categories = @json($categories);
+        document.getElementById('category').addEventListener('change', function () {
+            const selectedCityId = this.value;
+            const districtSelect = document.getElementById('section');
+
+            // تفريغ القائمة القديمة
+            districtSelect.innerHTML = '<option value="">اختر القسم</option>';
+
+            // البحث عن المدينة المختارة
+            const selectedCity = categories.find(city => city.id == selectedCityId);
+
+            if (selectedCity && selectedCity.children.length > 0) {
+                selectedCity.children.forEach(function (district) {
+                    const option = document.createElement('option');
+                    option.value = district.id;
+                    option.textContent = district.name;
+                    districtSelect.appendChild(option);
+                });
+            }
         });
     </script>
 
