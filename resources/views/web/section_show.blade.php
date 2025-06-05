@@ -155,7 +155,7 @@ value="{{request()->input('q')}}"
                 <div class="media-scroll bg-light p-4 h-100">
                     <div style="text-align: center">
                         <a href="{{url('/seller/products/create')}}"
-                            class="new-post btn btn-sm btn-danger"
+                            class="new-post btn btn-md btn-danger w-50"
 
                         >
                             منشور جديد
