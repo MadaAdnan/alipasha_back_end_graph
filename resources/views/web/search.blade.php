@@ -127,8 +127,9 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="rangeInput" class="form-label">اختر قيمة بين 0 و 10,000</label>
+
                                     <div id="price">
+                                        <label for="rangeInput" class="form-label">اختر قيمة بين 0 و 10,000</label>
                                         <input
                                             type="range"
                                             class="form-range"
