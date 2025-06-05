@@ -1,89 +1,12 @@
 @extends('layouts.master_layouts')
-
+@section('title')
+    {{$service->name ?? Str::words($service->expert,2)}}
+@endsection
 @section('content')
     <div class="container-fluid" style="margin-top: 70px">
         <div class="row">
 
-            <!-- Right Section (2 columns on large screens, 0 on small) -->
-            <div id="right-others-sidebar" class="col-3 d-none">
-                <div class="media-scroll bg-light p-4 h-100">
-                    <div class="inbox">
-                        <p class="title">صندوق الوارد</p>
-                        <ul>
-                            <li><a href=""> إظهار الكل </a></li>
-                            <li><a href="">مبيعاتي</a></li>
-                            <li><a href="">مشترياتي</a></li>
-                            <li><a href="">الإشعارات</a></li>
-                        </ul>
-                    </div>
 
-                    <div class="notification-item">
-                        <div class="info">
-                            <div>
-                                <a href="./profile.html">
-                                    <img src="../assets/avatar-2.svg" alt="avatar" />
-                                </a>
-                                <p class="title">احمد خالد المحمد يطلب منتجات</p>
-                            </div>
-                            <p class="time">4H</p>
-                        </div>
-                        <div class="actions">
-
-                            <form action="" method="POST" style="width: 100%;">
-                                <input type="hidden" name="storId" value="123" />
-                                <button type="submit" class="btn btn-danger"
-                                        class="action-buttons"
-                                        style="color: #fff; background-color: #e30613"
-                                >   قبول الطلب </button>
-                            </form>
-
-
-                            <form action="" method="POST" style="width: 100%;">
-                                <input type="hidden" name="storId" value="123" />
-                                <button type="submit" class="btn btn-danger"
-                                        class="action-buttons"
-                                        style="color: #000000; background-color: #e4e6eb"
-                                >   عرض  الطلبية
-                                </button>
-                            </form>
-
-                        </div>
-                    </div>
-
-
-
-                    <div class="chat-wrapper">
-                        <div class="chats">
-                            <p class="title">المحادثات</p>
-                            <ul>
-                                <li>
-                                    <i
-                                        class="bi bi-search"
-                                        style="margin-right: 8px; color: #aaa"
-                                    ></i>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="chat-item">
-                            <div
-                                style="
-                    display: flex;
-                    align-items: center;
-                    gap: 4px;
-                    margin-bottom: 8px;
-                  "
-                            >
-                                <a href="./profile.html">
-                                    <img src="../assets/avatar-2.svg" alt="avatar" />
-                                </a>
-                                <p class="title">عبادة كحلوس</p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
 
             <div class="col-12 col-xl-9" style="margin-top: 10px">
                 <div class="containter" style="background-color: #fff; padding: 16px; border-radius: 16px;">
@@ -93,7 +16,7 @@
                             <div class="col-md-8">
                                 <div class="card-body" dir="rtl">
                                     <h5 class="card-title">{{$service->name}}</h5>
-                                    
+
                                     <p class="card-text">{!! $service->info !!}</p>
                                     @if($service->url)
                                         <a href="{{$service->url}}" class="btn btn-sm"></a>

@@ -1,5 +1,7 @@
 @extends('layouts.master_layouts')
-
+@section('title')
+    الخدمات
+@endsection
 @section('content')
     <div class="container-fluid" style="margin-top: 70px">
         <div class="row">
