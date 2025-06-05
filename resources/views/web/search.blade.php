@@ -227,6 +227,20 @@
         }else{
             price.classList.remove('d-none')
         }
+
+        const typeInputs = document.querySelectorAll('input[name="type"]');
+
+        typeInputs.forEach(input => {
+            input.addEventListener('change', () => {
+                if (input.checked) {
+                    if(input.value() !='products'){
+                        price.classList.add('d-none')
+                    }else{
+                        price.classList.remove('d-none')
+                    }
+                }
+            });
+        });
     </script>
 
 @endsection
