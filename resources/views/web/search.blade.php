@@ -233,6 +233,7 @@
         typeInputs.forEach(input => {
             input.addEventListener('change', () => {
                 if (input.checked) {
+                    console.log(input.value)
                     if(input.value !='products'){
                         price.classList.add('d-none')
                     }else{
