@@ -70,12 +70,12 @@
                         <th colspan="2" class="text-center bg-info-subtle">أجور شحن</th>
                         <th colspan="2" class="text-center bg-info-subtle">{{$shipping}} $</th>
                         <th colspan="2" class="text-center bg-info-subtle">إجمالي القيمة</th>
-                        <th colspan="2" class="text-center bg-info-subtle">{{sprintf('.2%f',$result)}} $</th>
+                        <th colspan="2" class="text-center bg-info-subtle">{{sprintf('%.2f',$result)}} $</th>
 
                     </tr>
                     <tr>
                         <th colspan="2" class="text-center bg-danger-subtle">الإجمالي</th>
-                        <th colspan="2" class="text-center bg-danger-subtle">{{sprintf('2%.f',$result+$shipping)}} $</th>
+                        <th colspan="2" class="text-center bg-danger-subtle">{{sprintf('%.2f',$result+$shipping)}} $</th>
                         <th colspan="4" class="text-center ">
                             @if($shipping>0 &&
 (  auth()->user()->area?->is_delivery==true) && $user->area?->is_delivery==true)
