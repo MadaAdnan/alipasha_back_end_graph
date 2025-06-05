@@ -154,13 +154,12 @@ value="{{request()->input('q')}}"
             <div id="left-sidebar" class="col-3 d-none d-xl-block">
                 <div class="media-scroll bg-light p-4 h-100">
                     <div style="text-align: center">
-                        <button
+                        <a href="{{url('/seller/products/create')}}"
                             class="new-post"
-                            data-bs-toggle="modal"
-                            data-bs-target="#addPostModal"
+
                         >
                             منشور جديد
-                        </button>
+                        </a>
                     </div>
                     <div class="categories">
                         <p class="category-text"> <a href="{{route('category.show',$category->id)}}">{{$category->name}}</a></p>
