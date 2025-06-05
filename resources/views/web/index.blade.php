@@ -201,29 +201,29 @@
                         >
                             <div
                                  >
-                                <a href="" style="display: flex; align-items: center; gap: 4px; cursor: pointer;">
+                                <a href="{{url('/seller/services/create')}}" style="display: flex; align-items: center; gap: 4px; cursor: pointer;">
                                     <img src="{{asset('assets/post-action-services.svg')}}" alt=""/>
                                     <p class="sub-title">خدمة</p>
                                 </a>
 
                             </div>
-                            <div data-bs-toggle="modal"
-                                 data-bs-target="#addPorsaModal"
-                                 style="display: flex; align-items: center; gap: 4px; cursor: pointer;">
+                            <div>
+                                <a href="{{url('/seller/tenders/create')}}" style="display: flex; align-items: center; gap: 4px; cursor: pointer;">
                                 <img src="{{asset('assets/post-action-chart.svg')}}" alt=""/>
                                 <p class="sub-title">مناقصة</p>
+                                </a>
                             </div>
-                            <div data-bs-toggle="modal"
-                                 data-bs-target="#addJobModal"
-                                 style="display: flex; align-items: center; gap: 4px; cursor: pointer;">
+                            <div >
+                                <a href="{{url('/seller/jobs/create')}}" style="display: flex; align-items: center; gap: 4px; cursor: pointer;">
                                 <img src="{{asset('assets/post-action-jobs.svg')}}" alt=""/>
                                 <p class="sub-title">وظيفة</p>
+                                </a>
                             </div>
-                            <div data-bs-toggle="modal"
-                                 data-bs-target="#addPostModal"
-                                 style="display: flex; align-items: center; gap: 4px; cursor: pointer;">
+                            <div>
+                                <a href="{{url('/seller/products/create')}}" style="display: flex; align-items: center; gap: 4px; cursor: pointer;">
                                 <img src="{{asset('assets/post-action-products.svg')}}" alt=""/>
                                 <p class="sub-title">منتج</p>
+                                </a>
                             </div>
                         </div>
                     </div>
