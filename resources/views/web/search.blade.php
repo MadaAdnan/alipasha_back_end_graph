@@ -48,7 +48,7 @@
                                             </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="type" id="news" value="news" >
+                                            <input class="form-check-input" type="radio" name="type" id="news" value="news" checked>
                                             <label class="form-check-label" for="اخبار">
                                                 اخبار
                                             </label>
