@@ -1,4 +1,7 @@
 @extends('layouts.master_layouts')
+@section('title')
+    مشترياتي
+@endsection
 @section('content')
     <div class="container" dir="rtl">
         <div class="row justify-content-center">

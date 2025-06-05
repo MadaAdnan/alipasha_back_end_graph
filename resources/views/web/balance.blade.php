@@ -1,4 +1,7 @@
 @extends('layouts.master_layouts')
+@section('title')
+    صفحة الرصيد
+@endsection
 @section('content')
     <div class="container">
         <div class="row">
