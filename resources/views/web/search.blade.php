@@ -17,38 +17,38 @@
                                 <div style="width: 100% ;display: flex; justify-content: center; align-items: center; gap: 8px;" class="mb-3">
                                     <div style="display: flex; gap: 8px; flex-wrap: wrap;">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="type" id="منتج">
+                                            <input class="form-check-input" type="radio" name="type" id="products">
                                             <label class="form-check-label" for="منتج">
                                                 منتج
                                             </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="type" id="متجر" checked>
+                                            <input class="form-check-input" type="radio" name="type" id="seller" checked>
                                             <label class="form-check-label" for="متجر">
                                                 متجر
                                             </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="type" id="وظائف" checked>
+                                            <input class="form-check-input" type="radio" name="type" id="jobs" checked>
                                             <label class="form-check-label" for="وظائف">
                                                 وظائف
                                             </label>
                                         </div>
 
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="type" id="مناقصات" checked>
+                                            <input class="form-check-input" type="radio" name="type" id="tenders" checked>
                                             <label class="form-check-label" for="مناقصات">
                                                 مناقصات
                                             </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="type" id="خدمات" checked>
+                                            <input class="form-check-input" type="radio" name="type" id="services" checked>
                                             <label class="form-check-label" for="خدمات">
                                                 خدمات
                                             </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="type" id="اخبار" checked>
+                                            <input class="form-check-input" type="radio" name="type" id="news" checked>
                                             <label class="form-check-label" for="اخبار">
                                                 اخبار
                                             </label>
@@ -128,18 +128,20 @@
 
                                 <div class="mb-3">
                                     <label for="rangeInput" class="form-label">اختر قيمة بين 0 و 10,000</label>
-                                    <input
-                                        type="range"
-                                        class="form-range"
-                                        id="rangeInput"
-                                        min="0"
-                                        max="10000"
-                                        step="1"
-                                        value="5000"
-                                        oninput="updateValue(this.value)">
-                                    <div class="mt-2">
-                                        <span>القيمة الحالية: </span>
-                                        <span id="rangeValue">5000</span>
+                                    <div id="price">
+                                        <input
+                                            type="range"
+                                            class="form-range"
+                                            id="rangeInput"
+                                            min="0"
+                                            max="10000"
+                                            step="1"
+                                            value="5000"
+                                            oninput="updateValue(this.value)">
+                                        <div class="mt-2">
+                                            <span>القيمة الحالية: </span>
+                                            <span id="rangeValue">5000</span>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -213,4 +215,17 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('js')
+    <script>
+        const selectedShipping = document.querySelector('input[name="type"]:checked');
+        const price=document.getElementById('price')
+        if(selectedShipping !='products'){
+            price.classList.add('d-none')
+        }else{
+            price.classList.remove('d-none')
+        }
+    </script>
+
 @endsection
