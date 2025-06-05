@@ -24,7 +24,7 @@ class SearchController extends Controller
         $category=\request()->get('category');
         $section=\request()->get('section');
         $price=\request()->get('price');
-
+dd($price);
         $products=Product::where('active',ProductActiveEnum::ACTIVE->value)
             ->when(!empty($type),function($query)use($type){
                 if($type==CategoryTypeEnum::SEARCH_JOB->value || $type==CategoryTypeEnum::JOB->value ){
