@@ -9,6 +9,7 @@ use Filament\Widgets\StatsOverviewWidget\Stat;
 
 class StatsOverview extends BaseWidget
 {
+    protected static ?int $sort=1;
     protected function getStats(): array
     {
         $product=Product::product()->where('user_id',auth()->id())->where('active',ProductActiveEnum::ACTIVE->value)->count();
