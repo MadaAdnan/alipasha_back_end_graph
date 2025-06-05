@@ -224,7 +224,7 @@
         const   rangeValue=document.getElementById('rangeValue')
 
         rangeValue.innerText=rangeInput.value;
-        rangeInput.addEventListener('change',()=>{
+        rangeInput.addEventListener('input',()=>{
             rangeValue.innerText=rangeInput.value;
         })
         const selectedShipping = document.querySelector('input[name="type"]:checked');
