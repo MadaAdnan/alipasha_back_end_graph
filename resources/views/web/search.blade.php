@@ -220,15 +220,13 @@
 
 @section('js')
     <script>
-        document.onload(function(){
-            const selectedShipping = document.querySelector('input[name="type"]:checked');
-            const price=document.getElementById('price')
-            if(selectedShipping.value !='products'){
-                price.classList.add('d-none')
-            }else{
-                price.classList.remove('d-none')
-            }
-        })
+        const selectedShipping = document.querySelector('input[name="type"]:checked');
+        const price=document.getElementById('price')
+        if(selectedShipping.value !='products'){
+            price.classList.add('d-none')
+        }else{
+            price.classList.remove('d-none')
+        }
 
 
         const typeInputs = document.querySelectorAll('input[name="type"]');
