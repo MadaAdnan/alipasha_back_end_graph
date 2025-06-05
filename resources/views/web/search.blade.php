@@ -72,7 +72,7 @@
                                         class="form-label"
                                         style="text-align: right; font-size: 12px;"
                                     >
-                                        المدينة
+                                        المحافظة
                                     </p>
                                     <select
                                         name="city"
