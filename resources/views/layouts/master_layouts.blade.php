@@ -39,7 +39,7 @@
             font-size: 6pt;
             top: 16px !important;
         }
-        .category-item a{
+        .category-item p{
             color: black;
         }
     </style>
