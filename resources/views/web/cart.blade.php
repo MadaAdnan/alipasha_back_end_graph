@@ -75,7 +75,8 @@
                     </tr>
                     <tr>
                         <th colspan="2" class="text-center bg-danger-subtle">الإجمالي</th>
-                        <th colspan="2" class="text-center bg-danger-subtle">{{sprintf('%.2f',$result+$shipping)}} $</th>
+                        <th colspan="2" class="text-center bg-danger-subtle">{{sprintf('%.2f',$result+$shipping)}}$
+                        </th>
                         <th colspan="4" class="text-center ">
                             @if($shipping>0 &&
 (  auth()->user()->area?->is_delivery==true) && $user->area?->is_delivery==true)
@@ -85,10 +86,10 @@
                                     <button type="submit" class="btn btn-danger btn-sm text-white">اطلب الآن</button>
 
                                 </form>
-                                @elseif($user->area_id==null)
+                            @elseif($user->area_id==null)
                                 <span>يرجى إكمال ملفك الشخصي كي تتمكن من الشحن</span>
                             @else
-                               <span > الشحن غير متاح حاليا لهذا المنتج</span>
+                                <span> الشحن غير متاح حاليا لهذا المنتج</span>
                             @endif
                         </th>
                     </tr>

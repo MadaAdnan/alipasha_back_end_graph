@@ -20,6 +20,7 @@ class SearchController extends Controller
         $type=\request()->get('type');
         $text=\request()->get('q');
         $city=\request()->get('city');
+
         $category=\request()->get('category');
         $department=\request()->get('department');
         $price=\request()->get('price');
@@ -42,7 +43,7 @@ class SearchController extends Controller
             ->when(!empty($price),fn($query)=>$query->whereBetween('price',[0,$price]))
             ->latest()
         ->paginate();
-        $cities=City::where('is_active',true)->orderBy('city_id')->get();
+        $cities=City::where('is_active',true)->where('is_main',true)->orderBy('city_id')->get();
         $categories=Category::where('is_active',true)
             ->where(fn($query)=>$query->where('type',CategoryTypeEnum::PRODUCT->value)->orWhere('type',CategoryTypeEnum::RESTAURANT->value))->orderBy('sortable')->get();
         return view('web.search',compact('products','cities','categories'));
