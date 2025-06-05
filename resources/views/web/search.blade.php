@@ -11,9 +11,9 @@
             <div class="col-12 col-xl-9" style="margin-top: 10px">
                 <div class="container">
 
-                    <form action="" style="background: #fff; padding: 16px; border-radius: 16px;">
+
                         <div  class="search-form">
-                            <form action="{{route('search.index')}}">
+                            <form action="{{route('search.index')}}" style="background: #fff; padding: 16px; border-radius: 16px;">
                                 <div style="width: 100% ;display: flex; justify-content: center; align-items: center; gap: 8px;" class="mb-3">
                                     <div style="display: flex; gap: 8px; flex-wrap: wrap;">
                                         <div class="form-check">
@@ -96,10 +96,10 @@
                                         إختر التصنيف
                                     </p>
                                     <select
-                                        name="category"
+                                        name="section"
                                         class="form-select"
                                         aria-label="Default select example"
-                                        id="category"
+                                        id="sections"
                                         style="text-align: right"
                                     >
                                         <option value="" @if(request()->get('category')==null) selected @endif></option>
@@ -111,20 +111,20 @@
 
                                 <div class="mb-3">
                                     <p
-                                        for="sections"
+                                        for="categories"
                                         class="form-label"
                                         style="text-align: right; font-size: 12px;"
                                     >
                                         إختر القسم
                                     </p>
                                     <select
-                                        name="section"
+                                        name="category"
                                         class="form-select"
                                         aria-label="Default select example"
                                         style="text-align: right"
-                                        id="section"
+                                        id="categories"
                                     >
-                                        <option value="1" selected>عام</option>=
+
                                     </select>
                                 </div>
 
@@ -154,7 +154,7 @@
                             </form>
 
                         </div>
-                    </form>
+
 
                     <div style="background-color: #fff; padding: 16px; border-radius: 16px; margin: 20px 0px; display: flex; flex-wrap: wrap;gap: 16px;">
                         @forelse($products as $product)
@@ -256,18 +256,18 @@
     </script>
     <script>
         const categories = @json($categories);
-        document.getElementById('category').addEventListener('change', function () {
-            const selectedCityId = this.value;
-            const districtSelect = document.getElementById('section');
+        document.getElementById('sections').addEventListener('change', function () {
+            const selectedSectionId = this.value;
+            const districtSelect = document.getElementById('categories');
 
             // تفريغ القائمة القديمة
             districtSelect.innerHTML = '<option value="">اختر القسم</option>';
 
             // البحث عن المدينة المختارة
-            const selectedCity = categories.find(city => city.id == selectedCityId);
+            const selectedSection = categories.find(city => city.id == selectedSectionId);
 
-            if (selectedCity && selectedCity.children.length > 0) {
-                selectedCity.children.forEach(function (district) {
+            if (selectedSection && selectedSection.children.length > 0) {
+                selectedSection.children.forEach(function (district) {
                     const option = document.createElement('option');
                     option.value = district.id;
                     option.textContent = district.name;
