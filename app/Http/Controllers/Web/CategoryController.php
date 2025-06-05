@@ -50,7 +50,7 @@ class CategoryController extends Controller
         $products=Product::where(['category_id'=>$id,'active' => ProductActiveEnum::ACTIVE->value])
             ->when(!empty($search),fn($query)=>$query->where('name','Like',"%{$search}%")->orWhere('expert','Like',"%{$search}%"))
             ->when(!empty($cityId),fn($query)=>$query->whereHas('city',fn($q)=>$q->where('city_id',$cityId)))
-            ->when($category_id!=null,fn($query)=>$query->where('sub1_id',$category_id))->paginate(28);
+            ->when($category_id!=null,fn($query)=>$query->where('sub1_id',$category_id))->latest()->paginate(28);
         return view('web.section_show',compact('category','products','categories','cities'));
     }
 
