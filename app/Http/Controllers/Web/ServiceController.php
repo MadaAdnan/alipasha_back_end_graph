@@ -19,11 +19,11 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        $city = \request()->get('city');
-        $town = \request()->get('town');
+        $city = \request()->get('town');
+
         $category = \request()->get('category');
         $q = \request()->get('q');
-        $cities = City::where('is_active', true)->get();
+        $cities = City::where('is_active', true)->where('is_main', true)->get();
         $services_count = Product::service()
             ->where('active', ProductActiveEnum::ACTIVE->value)->count();
         $views = ProductView::whereHas('product', fn($query) => $query->where('type', CategoryTypeEnum::SERVICE->value))->sum('count');
@@ -34,8 +34,8 @@ class ServiceController extends Controller
             ->whereHas('category',fn($q)=>$q->where('is_active',1))
             ->whereHas('sub1',fn($q)=>$q->where('is_active',1))
             ->when(!empty($q), fn($query) => $query->where('info', 'like', "%{$q}%"))
-            ->when(!empty($city), fn($query) => $query->whereHas('city', fn($query) => $query->where('cities.city_id', $city)))
-            ->when(!empty($town), fn($query) => $query->where('city_id', $town))
+            ->when(!empty($city), fn($query) => $query->where('city_id', $city))
+
             ->when(!empty($category), fn($query) => $query->where('sub1_id', $category))
             ->latest()->paginate(35);
 
