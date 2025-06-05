@@ -17,7 +17,7 @@
                                 <div style="width: 100% ;display: flex; justify-content: center; align-items: center; gap: 8px;" class="mb-3">
                                     <div style="display: flex; gap: 8px; flex-wrap: wrap;">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="type" id="products" value="products">
+                                            <input class="form-check-input" type="radio" name="type" id="products" value="{{\App\Enums\CategoryTypeEnum::PRODUCT->value}}">
                                             <label class="form-check-label" for="منتج">
                                                 منتج
                                             </label>
@@ -29,26 +29,26 @@
                                             </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="type" id="jobs" value="jobs" >
+                                            <input class="form-check-input" type="radio" name="type" id="jobs"  value="{{\App\Enums\CategoryTypeEnum::JOB->value}}" >
                                             <label class="form-check-label" for="وظائف">
                                                 وظائف
                                             </label>
                                         </div>
 
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="type" id="tenders" value="tenders" >
+                                            <input class="form-check-input" type="radio" name="type" id="tenders"  value="{{\App\Enums\CategoryTypeEnum::TENDER->value}}" >
                                             <label class="form-check-label" for="مناقصات">
                                                 مناقصات
                                             </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="type" id="services" value="services" >
+                                            <input class="form-check-input" type="radio" name="type" id="services"  value="{{\App\Enums\CategoryTypeEnum::SERVICE->value}}" >
                                             <label class="form-check-label" for="خدمات">
                                                 خدمات
                                             </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="type" id="news" value="news" checked>
+                                            <input class="form-check-input" type="radio" name="type" id="news"  value="{{\App\Enums\CategoryTypeEnum::NEWS->value}}" checked>
                                             <label class="form-check-label" for="اخبار">
                                                 اخبار
                                             </label>
@@ -232,7 +232,7 @@
         })
         const selectedShipping = document.querySelector('input[name="type"]:checked');
         const price=document.getElementById('price')
-        if(selectedShipping.value !='products'){
+        if(selectedShipping.value !='{{\App\Enums\CategoryTypeEnum::PRODUCT->value}}'){
             price.classList.add('d-none')
         }else{
             price.classList.remove('d-none')
@@ -245,7 +245,7 @@
             input.addEventListener('change', () => {
                 if (input.checked) {
                     console.log(input.value)
-                    if(input.value !='products'){
+                    if(input.value !='{{\App\Enums\CategoryTypeEnum::PRODUCT->value}}'){
                         price.classList.add('d-none')
                     }else{
                         price.classList.remove('d-none')

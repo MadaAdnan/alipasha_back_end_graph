@@ -22,7 +22,7 @@ class SearchController extends Controller
         $city=\request()->get('city');
 
         $category=\request()->get('category');
-        $department=\request()->get('department');
+        $section=\request()->get('section');
         $price=\request()->get('price');
 
         $products=Product::where('active',ProductActiveEnum::ACTIVE->value)
@@ -38,9 +38,9 @@ class SearchController extends Controller
             })
             ->when(!empty($text),fn($query)=>$query->where('name','like',"%{$text}%")->orWhere('info','like',"%{$text}%"))
             ->when(!empty($city),fn($query)=>$query->where('city_id',$city))
-            ->when(!empty($category),fn($query)=>$query->where('category_id',$category))
-            ->when(!empty($department),fn($query)=>$query->where('sub1_id',$department))
-            ->when(!empty($price),fn($query)=>$query->whereBetween('price',[0,$price]))
+            ->when(!empty($category),fn($query)=>$query->where('sub1_id',$category))
+            ->when(!empty($section),fn($query)=>$query->where('category_id',$section))
+            ->when(!empty($price) && $type==CategoryTypeEnum::PRODUCT->value,fn($query)=>$query->whereBetween('price',[0,$price]))
             ->latest()
         ->paginate();
         $cities=City::where('is_active',true)->where('is_main',true)->orderBy('city_id')->get();
