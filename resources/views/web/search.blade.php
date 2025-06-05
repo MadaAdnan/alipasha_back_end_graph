@@ -138,7 +138,7 @@
                                             max="10000"
                                             step="1"
                                             value="5000"
-                                            oninput="updateValue(this.value)">
+                                            >
                                         <div class="mt-2">
                                             <span>القيمة الحالية: </span>
                                             <span id="rangeValue">0</span>
