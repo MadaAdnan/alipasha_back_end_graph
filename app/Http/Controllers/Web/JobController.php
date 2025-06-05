@@ -18,13 +18,13 @@ class JobController extends Controller
      */
     public function index()
     {
-        $city=\request()->get('city');
-        $town=\request()->get('town');
+        $city=\request()->get('town');
+
         $type=\request()->get('type');
         $category=\request()->get('category_id');
         $sub=\request()->get('sub_id');
         $q=\request()->get('q');
-        $cities=City::where('is_active',true)->orderBy('city_id')->get();
+        $cities=City::where('is_active',true)->where('is_main',true)->orderBy('city_id')->get();
         $jobs_count = Product::job()
             ->where('active', ProductActiveEnum::ACTIVE->value)->count();
         $views = ProductView::whereHas('product', fn($query) => $query->job())->sum('count');
@@ -32,8 +32,8 @@ class JobController extends Controller
         $jobs=Product::job()
             ->when(!empty($q),fn($query)=>$query->where('info','like',"%{$q}%"))
             ->where('active',ProductActiveEnum::ACTIVE->value)
-            ->when(!empty($city),fn($query)=>$query->whereHas('city',fn($query)=>$query->where('cities.city_id',$city)))
-            ->when(!empty($town),fn($query)=>$query->where('city_id',$town))
+            ->when(!empty($city),fn($query)=>$query->where('city_id',$city))
+
             ->when(!empty($type),fn($query)=>$query->where('type',$type))
             ->when(!empty($category),fn($query)=>$query->where('category_id',$category))
             ->when(!empty($sub),fn($query)=>$query->where('sub1_id',$sub))
