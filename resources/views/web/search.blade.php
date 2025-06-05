@@ -223,7 +223,7 @@
         document.onload(function(){
             const selectedShipping = document.querySelector('input[name="type"]:checked');
             const price=document.getElementById('price')
-            if(selectedShipping !='products'){
+            if(selectedShipping.value !='products'){
                 price.classList.add('d-none')
             }else{
                 price.classList.remove('d-none')
