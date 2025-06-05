@@ -149,7 +149,7 @@
                     <div class="stories-container">
                         <div class="story-box">
                             <div class="add-market">
-                                <img src="{{asset('assets/add-market.svg')}}" alt="Story 1"/>
+                                <a href="https://wa.me/{{$setting->support?->phone}}"> <img src="{{asset('assets/add-market.svg')}}" alt="Story 1"/></a>
                                 <p>أضف متجرك هنا</p>
                             </div>
                         </div>
