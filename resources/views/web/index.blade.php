@@ -199,11 +199,13 @@
                 justify-content: space-around;
               "
                         >
-                            <div data-bs-toggle="modal"
-                                 data-bs-target="#addServiceModal"
-                                 style="display: flex; align-items: center; gap: 4px; cursor: pointer;">
-                                <img src="{{asset('assets/post-action-services.svg')}}" alt=""/>
-                                <p class="sub-title">خدمة</p>
+                            <div
+                                 >
+                                <a href="" style="display: flex; align-items: center; gap: 4px; cursor: pointer;">
+                                    <img src="{{asset('assets/post-action-services.svg')}}" alt=""/>
+                                    <p class="sub-title">خدمة</p>
+                                </a>
+
                             </div>
                             <div data-bs-toggle="modal"
                                  data-bs-target="#addPorsaModal"
