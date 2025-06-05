@@ -1,5 +1,7 @@
 @extends('layouts.master_layouts')
-
+@section('title')
+    الملف الشخصي
+@endsection
 @section('content')
     <div class="container-fluid" style="margin-top: 70px">
         <div class="row">
@@ -439,23 +441,6 @@
                             </select>
                         </div>
 
-                        {{--  <div class="mb-3">
-                              <p
-                                  for="city"
-                                  class="form-label"
-                                  style="text-align: right; font-size: 12px;"
-                              >
-                                  <span style="color: #e30613;"> * </span>   المدينة
-                              </p>
-                              <select
-                                  name="date"
-                                  class="form-select"
-                                  aria-label="Default select example"
-                                  style="text-align: right"
-                              >
-                                  <option value="1" selected>سرمدا</option>
-                              </select>
-                          </div>--}}
 
 
                         <div class="mb-3">
@@ -479,45 +464,7 @@
                         </div>
 
 
-                        {{--<div class="mb-3">
-                            <p
-                                for="descriptionInput"
-                                class="form-label"
-                                style="text-align: right; font-size: 12px;"
 
-                            >
-                                <span style="color: #e30613;"> * </span>   يفتح الساعة
-                            </p>
-                            <input
-                                name="discription"
-                                style="text-align: right; font-size: 12px;"
-                                class="form-control"
-                                id="descriptionInput"
-                                placeholder="العنوان التفصيلي"
-                                type="time"
-                                required
-                            />
-                        </div>
---}}
-                        {{--<div class="mb-3">
-                            <p
-                                for="descriptionInput"
-                                class="form-label"
-                                style="text-align: right; font-size: 12px;"
-
-                            >
-                                <span style="color: #e30613;"> * </span>  يغلق الساعة
-                            </p>
-                            <input
-                                name="discription"
-                                style="text-align: right; font-size: 12px;"
-                                class="form-control"
-                                id="descriptionInput"
-                                placeholder="العنوان التفصيلي"
-                                type="time"
-                                required
-                            ></input>
-                        </div>--}}
 
 
                         <div class="modal-footer">

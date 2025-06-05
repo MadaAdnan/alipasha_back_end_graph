@@ -18,6 +18,9 @@
         }
     </style>
 @endsection
+@section('title')
+    محادثة
+@endsection
 @section('content')
     <div class="container-fluid" style="margin-top: 70px">
         <div class="row justify-content-center">

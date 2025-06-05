@@ -1,6 +1,6 @@
 @extends('layouts.master_layouts')
 @section('title')
-    صفحة الرصيد
+     الرصيد
 @endsection
 @section('content')
     <div class="container">

@@ -1,5 +1,7 @@
 @extends('layouts.master_layouts')
-
+@section('title')
+   البحث : {{request()->input('q')}}
+@endsection
 @section('content')
     <div class="container-fluid" style="margin-top: 70px">
         <div class="row">

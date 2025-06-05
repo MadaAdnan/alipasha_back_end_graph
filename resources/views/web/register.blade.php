@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>ALI BASHA</title>
+    <title>علي باشا - تسجيل حساب جديد</title>
     <link rel="icon" type="image/png" href="{{asset('assets/logo.svg')}}"/>
     <!-- Bootstrap CSS -->
     <link

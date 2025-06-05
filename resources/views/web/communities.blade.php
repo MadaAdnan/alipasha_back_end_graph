@@ -1,4 +1,7 @@
 @extends('layouts.master_layouts')
+@section('title')
+    المحادثات والمجتمعات
+@endsection
 @section('content')
     <div class="container-fluid" style="margin-top: 70px">
         <div class="row justify-content-center">

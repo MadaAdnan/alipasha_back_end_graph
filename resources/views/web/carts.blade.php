@@ -1,4 +1,7 @@
 @extends('layouts.master_layouts')
+@section('title')
+    السلة
+@endsection
 @section('content')
     <div class="container">
         <div class="row justify-content-center" style="margin-top: 100px">
