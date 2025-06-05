@@ -19,7 +19,7 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        $city = \request()->get('town');
+        $city = \request()->get('city');
 
         $category = \request()->get('category');
         $q = \request()->get('q');
