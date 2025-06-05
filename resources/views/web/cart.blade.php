@@ -75,7 +75,7 @@
                     </tr>
                     <tr>
                         <th colspan="2" class="text-center bg-danger-subtle">الإجمالي</th>
-                        <th colspan="2" class="text-center bg-danger-subtle">{{sprintf('.2%f',$result+$shipping)}} $</th>
+                        <th colspan="2" class="text-center bg-danger-subtle">{{sprintf('2%.f',$result+$shipping)}} $</th>
                         <th colspan="4" class="text-center ">
                             @if($shipping>0 &&
 (  auth()->user()->area?->is_delivery==true) && $user->area?->is_delivery==true)
