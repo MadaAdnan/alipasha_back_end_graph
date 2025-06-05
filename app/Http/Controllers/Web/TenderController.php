@@ -17,8 +17,8 @@ class TenderController extends Controller
      */
     public function index()
     {
-        $city=\request()->get('city');
-        $town=\request()->get('town');
+        $city=\request()->get('town');
+
         $category=\request()->get('category_id');
         $sub=\request()->get('sub_id');
         $q=\request()->get('q');
@@ -32,8 +32,8 @@ class TenderController extends Controller
             ->where('end_date','>',now())
             ->when(!empty($q),fn($query)=>$query->where('info','like',"%{$q}%"))
             ->where('active',ProductActiveEnum::ACTIVE->value)
-            ->when(!empty($city),fn($query)=>$query->whereHas('city',fn($query)=>$query->where('cities.city_id',$city)))
-            ->when(!empty($town),fn($query)=>$query->where('city_id',$town))
+            ->when(!empty($city),fn($query)=>$query->where('city_id',$city))
+
             ->when(!empty($category),fn($query)=>$query->where('category_id',$category))
             ->when(!empty($sub),fn($query)=>$query->where('category_id',$sub))
             ->latest()->paginate(35);
