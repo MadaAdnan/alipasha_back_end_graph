@@ -141,7 +141,7 @@
                                             oninput="updateValue(this.value)">
                                         <div class="mt-2">
                                             <span>القيمة الحالية: </span>
-                                            <span id="rangeValue">5000</span>
+                                            <span id="rangeValue">0</span>
                                         </div>
                                     </div>
                                 </div>
@@ -220,6 +220,13 @@
 
 @section('js')
     <script>
+        const   rangeInput=document.getElementById('rangeInput')
+        const   rangeValue=document.getElementById('rangeValue')
+
+        rangeValue.innerText=rangeInput.value;
+        rangeInput.addEventListener('change',()=>{
+            rangeValue.innerText=rangeInput.value;
+        })
         const selectedShipping = document.querySelector('input[name="type"]:checked');
         const price=document.getElementById('price')
         if(selectedShipping.value !='products'){
