@@ -39,6 +39,9 @@
             font-size: 6pt;
             top: 16px !important;
         }
+        .category-item a{
+            color: black;
+        }
     </style>
 
     <style>
