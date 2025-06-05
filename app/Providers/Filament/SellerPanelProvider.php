@@ -72,7 +72,7 @@ class SellerPanelProvider extends PanelProvider
                 Widgets\AccountWidget::class,
 //                Widgets\FilamentInfoWidget::class,
             ])->navigationItems([
-                NavigationItem::make('عودة للموقع')
+                NavigationItem::make('عودة لمنصة علي باشا')
                     ->url('/')
                     ->icon('heroicon-o-presentation-chart-line')
 
