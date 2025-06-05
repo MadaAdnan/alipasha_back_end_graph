@@ -70,7 +70,7 @@ class SellerPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Seller/Widgets'), for: 'App\\Filament\\Seller\\Widgets')
             ->widgets([
-//                Widgets\AccountWidget::class,
+                Widgets\AccountWidget::class,
 //                Widgets\FilamentInfoWidget::class,
             ])->navigationItems([
                 NavigationItem::make('عودة لمنصة علي باشا')
