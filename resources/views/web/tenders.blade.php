@@ -146,6 +146,7 @@
                             <thead>
                             <tr>
                                 <th>استعراض</th>
+                                <th>وصف المناقصة</th>
                                 <th>المنطقة</th>
                                 <th>آخر موعد للتقديم</th>
                                 <th>التصنيف</th>
@@ -166,6 +167,7 @@
                                             </button>
                                         </a>
                                     </td>
+                                    <td>{{$tender->expert}}</td>
                                     <td>{{$tender->city?->name}}</td>
                                     <td>@if ($tender->end_date!=null && now()->greaterThan($tender->end_date)) <span class="badge bg-danger">منتهية</span> @else {{$tender->end_date?->format('Y-m-d')}} @endif</td>
                                     <td>{{$tender->sub1?->name??$tender->category?->name}}</td>

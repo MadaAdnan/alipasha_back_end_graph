@@ -146,6 +146,7 @@
                             <thead>
                             <tr>
                                 <th>استعراض</th>
+                                <th>وصف الوظيفة</th>
                                 <th>المنطقة</th>
                                 <th>آخر موعد للتقديم</th>
                                 <th>التصنيف</th>
@@ -166,6 +167,7 @@
                                             </button>
                                         </a>
                                     </td>
+                                    <td>{{$job->expert}}</td>
                                     <td>{{$job->city?->name}}</td>
                                     <td>@if ($job->end_date!=null && now()->greaterThan($job->end_date)) <span class="badge bg-danger">منتهية</span> @else {{$job->end_date?->format('Y-m-d')}} @endif</td>
                                     <td>{{$job->sub1?->name??$job->category?->name}}</td>
