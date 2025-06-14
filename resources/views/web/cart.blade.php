@@ -36,7 +36,7 @@
                             <td class="text-center">{{$item->product?->name}}</td>
 
                             <td class="text-center">{{$item->product?->getPrice()}} $</td>
-                            <td class="text-center"><a class="btn btn-sm btn-secondary" href="">+</a> <span class="fw-bold fs-3">{{$item->qty}}</span> <a class="btn btn-sm btn-secondary" href="">-</a></td>
+                            <td class="text-center"><a class="btn btn-sm btn-secondary" href="">+</a> <span class="fw-bold fs-5">{{$item->qty}}</span> <a class="btn btn-sm btn-secondary" href="">-</a></td>
                             @php
                                 $total=$item->product?->getPrice() * $item->qty;
                                    if($item->product?->is_delivery){
