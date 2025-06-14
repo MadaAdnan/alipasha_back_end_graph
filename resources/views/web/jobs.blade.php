@@ -181,7 +181,10 @@
                                             @endif
                                         </button>
                                     </td>
-                                    <td>{{$job->user?->seller_name}}</td>
+                                    @php
+                                        $seller=$job->user;
+                                    @endphp
+                                    <td>{{$seller?->seller_name}} @if($seller?->is_verified)    <i class="bi bi-patch-check" style="color: blue; font-size: 16px;"></i> @endif</td>
                                 </tr>
                             @endforeach
 

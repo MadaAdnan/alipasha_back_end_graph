@@ -169,7 +169,7 @@
                                     <td>{{$tender->city?->name}}</td>
                                     <td>@if ($tender->end_date!=null && now()->greaterThan($tender->end_date)) <span class="badge bg-danger">منتهية</span> @else {{$tender->end_date?->format('Y-m-d')}} @endif</td>
                                     <td>{{$tender->sub1?->name??$tender->category?->name}}</td>
-                                    <td>{{$tender->user?->seller_name}}</td>
+                                    <td>{{$tender->user?->seller_name}} @if($tender->user?->is_verified)    <i class="bi bi-patch-check" style="color: blue; font-size: 16px;"></i> @endif</td>
                                 </tr>
                             @endforeach
 

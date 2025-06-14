@@ -134,7 +134,7 @@
                                 <div style="display: flex; justify-content: end;margin: 20px 0px;">
                                     <div class="post-info">
                                         <div style="display: flex; gap: 4px; flex-direction: column">
-                                            <p class="title" style="text-align: right">{{$post->user?->seller_name}}</p>
+                                            <p class="title" style="text-align: right">{{->seller_name}} @if($post->user?->is_verified)    <i class="bi bi-patch-check" style="color: blue; font-size: 16px;"></i> @endif</p>
                                             <p class="sub-title" style="text-align: right">
                                                 {{$post->city?->city?->name}} - {{$post->city?->name}}
                                                 - {{$post->category?->name}}

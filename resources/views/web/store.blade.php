@@ -173,6 +173,7 @@
                                         style="font-weight: 700; font-size: 24px; color: #e30613"
                                     >
                                         {{$store->seller_name}}
+                                        @if($store->is_verified)    <i class="bi bi-patch-check" style="color: blue; font-size: 16px;"></i> @endif
                                     </p>
                                     <p
                                         style="font-size: 18px; color: #544c4c; font-weight: 400"
