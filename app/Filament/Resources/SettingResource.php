@@ -112,10 +112,10 @@ class SettingResource extends Resource implements HasShieldPermissions
                             Forms\Components\Toggle::make('delivery_service')->label('خدمة التوصيل في الدردشة'),
                             Forms\Components\TextInput::make('msg_delivery')->label('رسالة متحركة'),
                             Forms\Components\Select::make('delivery_id')
-                                ->relationship('delivery', 'name')->preload()
+                                ->relationship('delivery', 'name')
                                 /* ->options(User::pluck('name','id'))*/ ->searchable()->label('مسؤول التوصيل'),
                             Forms\Components\Select::make('support_id')
-                                ->relationship('support', 'name')->preload()
+                                ->relationship('support', 'name')
                                 /*->options(User::pluck('name','id'))*/ ->searchable()->label('بريد مسؤول الدعم'),
                             Forms\Components\Textarea::make('msg_chat')->label('رسالة دخول مسؤول الدعم'),
                         ]),
