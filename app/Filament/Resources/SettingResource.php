@@ -121,13 +121,7 @@ class SettingResource extends Resource implements HasShieldPermissions
                         ]),
 
 
-                        Forms\Components\Wizard\Step::make('من نحن')->schema([
-                            Forms\Components\RichEditor::make('about')->nullable()->label('عن التطبيق'),
-                        ]),
 
-                        Forms\Components\Wizard\Step::make('سياسة الخصوصية')->schema([
-                            Forms\Components\RichEditor::make('privacy')->nullable()->label('سياسة الخصوصية'),
-                        ]),
 
                         Forms\Components\Wizard\Step::make('البث الحي')->schema([
                             Forms\Components\Toggle::make('active_live')->label('تفعيل وضع البث')->reactive(),
