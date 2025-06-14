@@ -48,7 +48,12 @@ class CartController extends Controller
                     'qty' => 1,
                 ]);
             } else {
-                $cart->update(['qty' => $cart->qty + 1]);
+                if($request->type=='min'){
+                    $cart->update(['qty' => $cart->qty - 1,'']);
+                }else{
+                    $cart->update(['qty' => $cart->qty + 1]);
+                }
+
             }
         }
         return back();

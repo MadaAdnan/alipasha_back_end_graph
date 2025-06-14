@@ -36,7 +36,21 @@
                             <td class="text-center">{{$item->product?->name}}</td>
 
                             <td class="text-center">{{$item->product?->getPrice()}} $</td>
-                            <td class="text-center"><a class="btn btn-sm btn-secondary" href="">+</a> <span class="fw-bold fs-5">{{$item->qty}}</span> <a class="btn btn-sm btn-secondary" href="">-</a></td>
+                            <td class="text-center">
+                                <form action="{{route('carts.store')}}" method="post">
+                                    @method('POST')
+                                    @csrf
+                                    <input type="hidden" name="product_id" value="{{$item->product?->id}}">
+                                    <button class="btn btn-sm btn-secondary">+</button>
+                                </form>
+                                <span class="fw-bold fs-5">{{$item->qty}}</span>
+                                <form action="{{route('carts.store')}}" method="post">
+                                    @method('POST')
+                                    @csrf
+                                    <input type="hidden" name="product_id" value="{{$item->product?->id}}">
+                                    <input type="hidden" name="type" value="min">
+                                    <button class="btn btn-sm btn-secondary">-</button>
+                                </form> </td>
                             @php
                                 $total=$item->product?->getPrice() * $item->qty;
                                    if($item->product?->is_delivery){
