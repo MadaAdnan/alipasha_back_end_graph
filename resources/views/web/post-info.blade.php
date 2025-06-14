@@ -10,7 +10,7 @@
 
 
 
-            <div class="col-12 col-md-6 offset-3" style="margin-top: 10px">
+            <div class="col-12 col-md-6 offset-md-3" style="margin-top: 10px">
 
                 <div id="toast"
                      style="position: fixed; bottom: 20px; right: 20px; background-color: #28a745; color: #fff; padding: 10px 20px; border-radius: 5px; display: none;">
