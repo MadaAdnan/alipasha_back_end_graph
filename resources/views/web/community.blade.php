@@ -28,7 +28,7 @@
             <div class="col-md-6 ">
                 <div class="card position-relative pb-1 px-2 chat-panel">
                     <div class="d-flex flex-column">
-                        <div class="chat-board">
+                        <div class="chat-board" id="chat-board">
                             @foreach($messages as $message)
                                 @php
                                     $user=$message->user;
@@ -94,3 +94,13 @@
         </div>
     </div>
 @endsection
+
+@section('js')
+
+    <script>
+        window.onload = function () {
+            const chatBox = document.getElementById('chat-board');
+            chatBox.scrollTop = chatBox.scrollHeight;
+        };
+    </script>
+    @endsection
