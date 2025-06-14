@@ -36,7 +36,7 @@
                             <td class="text-center">{{$item->product?->name}}</td>
 
                             <td class="text-center">{{$item->product?->getPrice()}} $</td>
-                            <td class="text-center">
+                            <td class="text-center d-flex">
                                 <form action="{{route('carts.store')}}" method="post">
                                     @method('POST')
                                     @csrf
