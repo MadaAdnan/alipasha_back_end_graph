@@ -179,7 +179,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-between w-75">
                         <a class="btn btn-sm btn-secondary" href="{{$tenders->nextPageUrl()}}">التالي</a>
                         <a class="btn btn-sm btn-secondary" href="{{$tenders->previousPageUrl()}}">السابق</a>
                     </div>
