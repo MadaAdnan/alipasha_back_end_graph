@@ -179,7 +179,7 @@
                 التصنيفات
             </div>
             <!-- Left Section (2 columns on large screens, 0 on small) -->
-            <div id="left-sidebar" class="col-3 d-none d-xl-block">
+            <div id="left-sidebar" class="col-3 d-none d-xl-block" dir="rtl">
                 <div class="media-scroll bg-light p-4 h-100">
                     <div style="text-align: center">
                         <button class="new-post"  data-bs-toggle="modal"
