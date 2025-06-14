@@ -185,7 +185,7 @@
                         <button class="new-post"  data-bs-toggle="modal"
                                 data-bs-target="#addServiceModal">أضف خدمة غير متوفرة</button>
                     </div>
-                    <div class="categories">
+                    <div class="categories" dir="rtl">
                         <p class="category-text">التصنيفات</p>
                         <div class="divider"></div>
                         @foreach($categories as $category)
