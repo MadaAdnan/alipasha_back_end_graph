@@ -50,7 +50,7 @@ class CartController extends Controller
             } else {
                 if($request->type=='min'){
                     if($cart->qty>1){
-                        $cart->update(['qty' => $cart->qty - 1,'']);
+                        $cart->update(['qty' => $cart->qty - 1]);
                     }
 
                 }else{
