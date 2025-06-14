@@ -40,7 +40,7 @@ Route::get('oauth/callback/google', function () {
 return $user;
     // $user->token
 });
-Route::middleware('throttle:20,1')->group(function () {
+Route::middleware('throttle:60,1')->group(function () {
     Route::get('login', [\App\Http\Controllers\Web\AuthController::class, 'loginUi'])->name('login.ui');
     Route::get('forget-password', [\App\Http\Controllers\Web\AuthController::class, 'forgetPasswordUi'])->name('forget-password.ui');
     Route::get('change-password', [\App\Http\Controllers\Web\AuthController::class, 'changePasswordUi'])->name('change-password.ui');
@@ -77,7 +77,7 @@ Route::middleware('throttle:20,1')->group(function () {
         Route::resource('/orders', \App\Http\Controllers\Web\OrderController::class)->only(['index','store']);
         Route::post('/markets/followers', [\App\Http\Controllers\Web\SellerController::class, 'followers']);
         Route::post('/products/like', [\App\Http\Controllers\Web\PostController::class, 'like'])->name('post.like');
-        Route::resource('/carts', \App\Http\Controllers\Web\CartController::class)->only(['index', 'show', 'store', 'destroy', 'update'])->middleware(\App\Http\Middleware\RateLimitPerSecond::class);
+        Route::resource('/carts', \App\Http\Controllers\Web\CartController::class)->only(['index', 'show', 'store', 'destroy', 'update'])/*->middleware(\App\Http\Middleware\RateLimitPerSecond::class)*/;
         Route::resource('/charges', \App\Http\Controllers\Web\ChargeController::class)->only(['index']);
         Route::resource('/charges', \App\Http\Controllers\Web\ChargeController::class)->only(['index']);
         Route::resource('/galleries', \App\Http\Controllers\Web\GalleryController::class)->only(['show']);
