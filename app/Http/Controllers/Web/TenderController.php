@@ -36,7 +36,7 @@ class TenderController extends Controller
 
             ->when(!empty($category),fn($query)=>$query->where('category_id',$category))
             ->when(!empty($sub),fn($query)=>$query->where('category_id',$sub))
-            ->latest()->paginate(35);
+            ->latest()->paginate(10);
         return view('web.tenders',compact('tenders','cities','tender_count','views','sellers','categories'));
     }
 
