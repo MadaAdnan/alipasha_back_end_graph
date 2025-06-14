@@ -243,7 +243,7 @@
 
                         <a class="new-post btn btn-danger"   href="{{url('/seller/jobs/create')}}">أضف وظيفة غير متوفرة</a>
                     </div>
-                    <div class="categories">
+                    <div class="categories" dir="rtl">
                         <p class="category-text">التصنيفات</p>
                         <div class="divider"></div>
                         @foreach($categories as $category)

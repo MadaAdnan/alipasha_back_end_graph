@@ -224,7 +224,7 @@
                         <a class="new-post btn btn-danger"   href="{{url('/seller/tenders/create')}}">أضف مناقصة جديدة</a>
 
                     </div>
-                    <div class="categories">
+                    <div class="categories" dir="rtl">
                         <p class="category-text">التصنيفات</p>
                         <div class="divider"></div>
                         @foreach($categories as $category)
