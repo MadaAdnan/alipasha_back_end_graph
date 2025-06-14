@@ -78,11 +78,11 @@
                                          style="display: flex; align-items: center; justify-content: space-around; margin: 10px 0px;">
                                         @if($post->is_discount)
                                             <p class="title" style="color: #e30613;">${{$post->discount}}</p>
-                                            <p class="title" style="color: #e30613;"> €{{$post->getTurkeyPrice()['discount']}} </p>
+                                            <p class="title" style="color: #e30613;"> ₺{{$post->getTurkeyPrice()['discount']}} </p>
                                             <p class="title" style="color: #e30613;">ل.س{{$post->getSyrPrice()['discount']}}  </p>
                                         @else
                                             <p class="title" style="color: #e30613;">${{$post->price}}</p>
-                                            <p class="title" style="color: #e30613;"> €{{$post->getTurkeyPrice()['price']}} </p>
+                                            <p class="title" style="color: #e30613;"> ₺{{$post->getTurkeyPrice()['price']}} </p>
                                             <p class="title" style="color: #e30613;">  ل.س{{$post->getSyrPrice()['price']}}  </p>
                                             @endif
 
