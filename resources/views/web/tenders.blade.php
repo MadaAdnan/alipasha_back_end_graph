@@ -182,8 +182,12 @@
                     <div class="row justify-content-center">
                         <div class="col-8">
                             <div class="d-flex justify-content-between ">
+                                @if($tenders->hasMorePages())
                                 <a class="btn btn-sm btn-secondary" href="{{$tenders->nextPageUrl()}}">التالي</a>
+                                @endif
+                                @if($tenders->currentPage()>1)
                                 <a class="btn btn-sm btn-secondary" href="{{$tenders->previousPageUrl()}}">السابق</a>
+                                    @endif
                             </div>
                         </div>
                     </div>
