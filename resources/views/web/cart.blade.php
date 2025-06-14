@@ -41,7 +41,7 @@
                                     @method('POST')
                                     @csrf
                                     <input type="hidden" name="product_id" value="{{$item->product?->id}}">
-                                    <button class="btn btn-sm btn-secondary">+</button>
+                                    <button type="submit" class="btn btn-sm btn-secondary">+</button>
                                 </form>
                                 <span class="fw-bold fs-5">{{$item->qty}}</span>
                                 <form action="{{route('carts.store')}}" method="post">
@@ -49,7 +49,7 @@
                                     @csrf
                                     <input type="hidden" name="product_id" value="{{$item->product?->id}}">
                                     <input type="hidden" name="type" value="min">
-                                    <button class="btn btn-sm btn-secondary">-</button>
+                                    <button type="submit" class="btn btn-sm btn-secondary">-</button>
                                 </form> </td>
                             @php
                                 $total=$item->product?->getPrice() * $item->qty;
