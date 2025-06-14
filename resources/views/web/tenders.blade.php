@@ -31,7 +31,7 @@
                             <img src="{{asset('assets/user-statistic-view.svg')}}" alt="" />
                         </div>
                         <div>
-                            <p class="sub-title">المناقصات الحالية</p>
+                            <p class="sub-title">المناقصات المنشورة</p>
                             <p class="title">{{$tender_count}}</p>
                         </div>
                     </div>
