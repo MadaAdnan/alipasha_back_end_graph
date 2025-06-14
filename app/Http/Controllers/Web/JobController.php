@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\City;
 use App\Models\Product;
 use App\Models\ProductView;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class JobController extends Controller
@@ -28,7 +29,7 @@ class JobController extends Controller
         $jobs_count = Product::job()
             ->where('active', ProductActiveEnum::ACTIVE->value)->count();
         $views = ProductView::whereHas('product', fn($query) => $query->job())->sum('count');
-        $sellers = Product::job()->select('user_id')->groupBy('user_id')->count();
+        $sellers = User::whereHas('products',fn($query)=>$query->where('products.type','job')->orWhere('products.type','search_job'))->count();
         $jobs=Product::job()
             ->when(!empty($q),fn($query)=>$query->where('info','like',"%{$q}%"))
             ->where('active',ProductActiveEnum::ACTIVE->value)
