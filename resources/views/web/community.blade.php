@@ -26,9 +26,9 @@
         <div class="row justify-content-center">
 
             <div class="col-md-6 ">
-                <div class="card position-relative pb-1 px-2 chat-panel">
+                <div class="card position-relative pb-1 px-2 chat-panel" id="chat-board">
                     <div class="d-flex flex-column">
-                        <div class="chat-board" id="chat-board">
+                        <div class="chat-board" >
                             @foreach($messages as $message)
                                 @php
                                     $user=$message->user;
