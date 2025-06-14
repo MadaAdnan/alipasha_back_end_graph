@@ -179,9 +179,13 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="d-flex justify-content-between w-75">
-                        <a class="btn btn-sm btn-secondary" href="{{$tenders->nextPageUrl()}}">التالي</a>
-                        <a class="btn btn-sm btn-secondary" href="{{$tenders->previousPageUrl()}}">السابق</a>
+                    <div class="row justify-content-center">
+                        <div class="col-8">
+                            <div class="d-flex justify-content-between ">
+                                <a class="btn btn-sm btn-secondary" href="{{$tenders->nextPageUrl()}}">التالي</a>
+                                <a class="btn btn-sm btn-secondary" href="{{$tenders->previousPageUrl()}}">السابق</a>
+                            </div>
+                        </div>
                     </div>
                    {{-- <div class="pagination-wrapper">
                         <nav aria-label="Page navigation">
