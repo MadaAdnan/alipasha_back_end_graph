@@ -187,7 +187,7 @@
                     </div>
                     <div class="categories" dir="rtl">
                         <p class="category-text">التصنيفات</p>
-                        <div class="divider"></div>
+                        <div class="divider" dir="rtl"></div>
                         @foreach($categories as $category)
                             <div class="category-item">
                                 <p><a href="{{route('services.index',['category'=>$category->id])}}">{{$category->name}}</a></p>
