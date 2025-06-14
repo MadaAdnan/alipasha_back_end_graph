@@ -107,23 +107,6 @@ class SettingResource extends Resource implements HasShieldPermissions
             ->schema([
                 Forms\Components\Section::make('الإعدادات')->schema([
                     Forms\Components\Wizard::make([
-                        Forms\Components\Wizard\Step::make('معلومات الموقع')->schema([
-//                            Forms\Components\SpatieMediaLibraryFileUpload::make('sliders')->multiple()->imageCropAspectRatio(),
-                            Forms\Components\SpatieMediaLibraryFileUpload::make('logo')->collection('logo')->conversion('webp')->label('أيقونة الموقع')->image()->imageCropAspectRatio('1:1')->imageEditor(),
-                            Forms\Components\SpatieMediaLibraryFileUpload::make('white-logo')->collection('white-logo')->conversion('webp')->label('لوغو الفوتر')->image()->imageCropAspectRatio('1:1')->imageEditor(),
-                            Forms\Components\TextInput::make('social.name')->label('اسم الموقع'),
-                            Forms\Components\TextInput::make('social.email')->label('بريد الموقع الرئيسي')->nullable()->email(),
-                            Forms\Components\TextInput::make('social.sub_email')->label('بريد الموقع الثانوي')->nullable()->email(),
-                            Forms\Components\TextInput::make('social.phone')->label('الهاتف الرئيسي'),
-                            Forms\Components\TextInput::make('social.sub_phone')->label('الهاتف الثانوي'),
-
-                            Forms\Components\TextInput::make('address')->label('العنوان'),
-                            Forms\Components\TextInput::make('longitude')->label('خط الطول')->nullable()->numeric(),
-                            Forms\Components\TextInput::make('latitude')->label('خط العرض')->nullable()->numeric(),
-                            Forms\Components\TextInput::make('weather_api')->label('Api الطقس')->nullable(),
-                            Forms\Components\Select::make('plan_id')->relationship('plan', 'name')->searchable()->preload()->label('الخطة الإفتراضية للمستخدمين الجدد'),
-
-                        ]),
 
                         Forms\Components\Wizard\Step::make('خدمة التوصيل')->schema([
                             Forms\Components\Toggle::make('delivery_service')->label('خدمة التوصيل في الدردشة'),

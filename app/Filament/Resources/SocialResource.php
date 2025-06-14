@@ -87,13 +87,31 @@ class SocialResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('معلومات مواقع التواصل')->schema([
-                    Forms\Components\TextInput::make('social.twitter')->label('رابط تويتر')->nullable()->url()->placeholder('https://'),
-                    Forms\Components\TextInput::make('social.face')->label('رابط فيسبوك')->nullable()->url()->placeholder('https://'),
-                    Forms\Components\TextInput::make('social.instagram')->label('رابط إنستغرام')->nullable()->url()->placeholder('https://'),
-                    Forms\Components\TextInput::make('social.youtube')->label('رابط يوتيوب')->nullable()->url()->placeholder('https://'),
-                    Forms\Components\TextInput::make('social.linkedin')->label('رابط لينكدن')->nullable()->url()->placeholder('https://'),
-                    Forms\Components\TextInput::make('social.telegram')->label('رابط تلغرام')->nullable()->url()->placeholder('https://'),
+                Forms\Components\Section::make('الإعدادات العامة')->schema([
+                    Forms\Components\Fieldset::make('معلومات مواقع التواصل')->schema([
+                        Forms\Components\TextInput::make('social.twitter')->label('رابط تويتر')->nullable()->url()->placeholder('https://'),
+                        Forms\Components\TextInput::make('social.face')->label('رابط فيسبوك')->nullable()->url()->placeholder('https://'),
+                        Forms\Components\TextInput::make('social.instagram')->label('رابط إنستغرام')->nullable()->url()->placeholder('https://'),
+                        Forms\Components\TextInput::make('social.youtube')->label('رابط يوتيوب')->nullable()->url()->placeholder('https://'),
+                        Forms\Components\TextInput::make('social.linkedin')->label('رابط لينكدن')->nullable()->url()->placeholder('https://'),
+                        Forms\Components\TextInput::make('social.telegram')->label('رابط تلغرام')->nullable()->url()->placeholder('https://'),
+                    ]),
+                    Forms\Components\Fieldset::make('إعدادات عامة')->schema([
+                        Forms\Components\SpatieMediaLibraryFileUpload::make('logo')->collection('logo')->conversion('webp')->label('أيقونة الموقع')->image()->imageCropAspectRatio('1:1')->imageEditor(),
+                        Forms\Components\SpatieMediaLibraryFileUpload::make('white-logo')->collection('white-logo')->conversion('webp')->label('لوغو الفوتر')->image()->imageCropAspectRatio('1:1')->imageEditor(),
+                        Forms\Components\TextInput::make('social.name')->label('اسم الموقع'),
+                        Forms\Components\TextInput::make('social.email')->label('بريد الموقع الرئيسي')->nullable()->email(),
+                        Forms\Components\TextInput::make('social.sub_email')->label('بريد الموقع الثانوي')->nullable()->email(),
+                        Forms\Components\TextInput::make('social.phone')->label('الهاتف الرئيسي'),
+                        Forms\Components\TextInput::make('social.sub_phone')->label('الهاتف الثانوي'),
+
+                        Forms\Components\TextInput::make('address')->label('العنوان'),
+                        Forms\Components\TextInput::make('longitude')->label('خط الطول')->nullable()->numeric(),
+                        Forms\Components\TextInput::make('latitude')->label('خط العرض')->nullable()->numeric(),
+                        Forms\Components\TextInput::make('weather_api')->label('Api الطقس')->nullable(),
+                        Forms\Components\Select::make('plan_id')->relationship('plan', 'name')->searchable()->preload()->label('الخطة الإفتراضية للمستخدمين الجدد'),
+
+                    ])
                 ]),
             ]);
     }
