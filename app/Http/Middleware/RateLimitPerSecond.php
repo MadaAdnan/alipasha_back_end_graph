@@ -16,7 +16,8 @@ class RateLimitPerSecond
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $key = 'rate_limit:' . $request->ip();
+        $user=auth()->user();
+        $key = 'rate_limit:' . $user->id;
         $limit = 70; // عدد الطلبات المسموح بها في الثانية
 
         $current = Cache::get($key, 0);
