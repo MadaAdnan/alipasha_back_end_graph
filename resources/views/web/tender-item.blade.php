@@ -41,8 +41,14 @@
                             {{--<a href="https://www.linkedin.com/in/obada-kahlous">
                                 <p class="card-text"> stars </p>
                             </a>--}}
-                            <form action="">
-                                <input type="hidden" name="free" value="123">
+                            @php
+                                $sellerId=\App\Models\Setting::first()->support_id;
+                            @endphp
+                            <form action="{{route('communities.store')}}" method="post">
+                                @csrf
+                                @method('POST')
+
+                                <input type="hidden" name="sellerId" value="{{$sellerId}}">
                                 <button type="submit" class="btn" style="width: 100%; background-color: #e30613; color: #fff; margin: 20px 0px;">إبلاغ عن المناقصة</button>
                             </form>
                         </div>
