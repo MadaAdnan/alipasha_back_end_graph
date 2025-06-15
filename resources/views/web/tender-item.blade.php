@@ -52,6 +52,7 @@
                     </div>
                 </div>
             </div>
+            @if($tender->hasMedia('attach'))
             <p class="title mb-4" style="text-align: center; margin: 20px 0px; font-size: 20px;"> الملفات المرفقة </p>
             <div class="files" style="display: flex; gap: 10px; flex-wrap: wrap;">
                 <div style="width: 300px; height: auto;">
@@ -62,6 +63,7 @@
                 </div>
 
             </div>
+                @endif
         </div>
     </div>
 @endsection
