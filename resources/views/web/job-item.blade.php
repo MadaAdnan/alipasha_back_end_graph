@@ -26,7 +26,9 @@
                             <p class="card-text">{!! $job->info !!}</p>
                             <p class="card-text">بداية التقديم : {{$job->start_date?->format('Y-m-d')}} - نهاية التقديم {{$job->end_date?->format('Y-m-d')}}</p>
                             <p class="card-text" > <i class="bi bi-eye" style="font-size: 14px; color: red;"></i> {{$job->views_count}} </p>
+                              @if($job->code!='')
                             <p class="card-text" > <i class="bi bi-copy" style="font-size: 14px; color: red;"></i> {{$job->code}} </p>
+                             @endif
                             @if($job->email!='')
                             <p class="card-text" > <i class="bi bi-envelope" style="font-size: 14px; color: red;"></i> {{$job->email}}</p>
                              @endif
