@@ -3,9 +3,14 @@
     {{$job->name ?? Str::words($job->expert,2)}}
 @endsection
 @section('content')
-    <div class="col-12 col-xl-9" style="margin-top: 10px">
+    <div class="container-fluid" style="margin-top: 70px">
+        <div class="row justify-content-center">
+
+
+
+            <div class="col-12 col-md-8 " style="margin-top: 70px">
         <div class="containter" style="background-color: #fff; padding: 16px; border-radius: 16px;">
-            <h1  class="title mb-4" style="text-align: right;"> مناقصة</h1>
+            <h1  class="title mb-4" style="text-align: right;"> وظائف</h1>
             <div class="card mb-3" style="width: 100%;">
                 <div class="row g-0">
                     <div class="col-md-8">

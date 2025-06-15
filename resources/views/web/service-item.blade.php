@@ -4,11 +4,11 @@
 @endsection
 @section('content')
     <div class="container-fluid" style="margin-top: 70px">
-        <div class="row">
+        <div class="row justify-content-center">
 
 
 
-            <div class="col-12 col-xl-9" style="margin-top: 10px">
+            <div class="col-12 col-md-8 " style="margin-top: 70px">
                 <div class="containter" style="background-color: #fff; padding: 16px; border-radius: 16px;">
                     <h1  class="title mb-4" style="text-align: right;"> خدمة : {{$service->category?->name}} </h1>
                     <div class="card mb-3" style="width: 100%;">
