@@ -27,10 +27,17 @@
                             <p class="card-text">بداية التقديم : {{$tender->start_date?->format('Y-m-d')}} - نهاية التقديم {{$tender->end_date?->format('Y-m-d')}}</p>
                             <p class="card-text" > <i class="bi bi-eye" style="font-size: 14px; color: red;"></i> {{$tender->views_count}} </p>
                             <p class="card-text" > <i class="bi bi-copy" style="font-size: 14px; color: red;"></i> {{$tender->code}} </p>
+                            @if($tender->email!='')
                             <p class="card-text" > <i class="bi bi-envelope" style="font-size: 14px; color: red;"></i> {{$tender->email}}</p>
+                            @endif
+                            @if($tender->phone!='')
                             <p class="card-text" > <i class="bi bi-telephone" style="font-size: 14px; color: red;"></i>  {{$tender->phone}}</p>
+                                @endif
                             <p class="card-text"> <i class="bi bi-geo-alt" style="font-size: 14px; color: red;"></i> {{$tender->city?->name}} - {{$tender->category?->name}} - {{$tender->sub1?->name}}</p>
-                            <p class="card-text"> <i class="bi bi-link-45deg" style="font-size: 14px; color: red;"></i> {{$tender->url}}</p>
+                            @if($tender->url!='')
+                            <p class="card-text"> <i class="bi bi-link-45deg" style="font-size: 14px; color: red;"></i>
+                                <a href="{{$tender->url}}">{{$tender->url}}</a></p>
+                                    @endif
                             {{--<a href="https://www.linkedin.com/in/obada-kahlous">
                                 <p class="card-text"> stars </p>
                             </a>--}}
