@@ -163,9 +163,17 @@
                     </div>
 
 
-                    <div class="d-flex justify-content-between">
-                        <a class="btn btn-sm btn-secondary" href="{{$services->nextPageUrl()}}">التالي</a>
-                        <a class="btn btn-sm btn-secondary" href="{{$services->previousPageUrl()}}">السابق</a>
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <div class="d-flex justify-content-between">
+                                @if($services->hasMorePages())
+                                <a class="btn btn-sm btn-secondary" href="{{$services->nextPageUrl()}}">التالي</a>
+                                @endif
+                                 @if($services->currentPage()>1)
+                                <a class="btn btn-sm btn-secondary" href="{{$services->previousPageUrl()}}">السابق</a>
+                                @endif
+                            </div>
+                        </div>
                     </div>
 
                 </div>
