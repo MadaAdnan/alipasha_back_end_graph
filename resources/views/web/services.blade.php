@@ -182,7 +182,7 @@
             <div id="left-sidebar" class="col-3 d-none d-xl-block" dir="rtl">
                 <div class="media-scroll bg-light p-4 h-100">
                     <div style="text-align: center">
-                        <a class="new-post"  href="{{url('/seller/services/create')}}">أضف خدمة غير متوفرة</a>
+                        <a class="new-post btn btn-sm btn-danger"  href="{{url('/seller/services/create')}}">أضف خدمة غير متوفرة</a>
                     </div>
                     <div class="categories" dir="rtl">
                         <p class="category-text">التصنيفات</p>
