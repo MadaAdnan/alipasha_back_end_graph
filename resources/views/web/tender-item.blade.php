@@ -3,7 +3,7 @@
     {{$tender->name ?? Str::words($tender->expert,2)}}
 @endsection
 @section('content')
-    <div class="col-12 col-md-8 offset-md-2" style="margin-top: 60px">
+    <div class="col-12 col-md-8 offset-md-2" style="margin-top: 70px">
         <div class="containter" style="background-color: #fff; padding: 16px; border-radius: 16px;">
             <h1  class="title mb-4" style="text-align: right;"> مناقصة</h1>
             <div class="card mb-3" style="width: 100%;">
