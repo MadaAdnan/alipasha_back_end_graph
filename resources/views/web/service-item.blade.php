@@ -22,9 +22,14 @@
                                         <a href="{{$service->url}}" class="btn btn-sm"></a>
                                         @endif
                                     <p class="card-text">{{$service->category?->name}}</p>
+                                       @if($service->phone!='')
                                     <p class="card-text" > <i class="bi bi-telephone" style="font-size: 14px; color: red;"></i> {{$service->phone}}</p>
+                                      @endif
+
                                     <p class="card-text"> <i class="bi bi-geo-alt" style="font-size: 14px; color: red;"></i>  {{$service->city?->name}}    </p>
+                                      @if($service->address!='')
                                     <p class="card-text"> <i class="bi bi-geo-alt" style="font-size: 14px; color: red;"></i> {{$service->address}} </p>
+                                     @endif
                                     <p class="card-text"><small class="text-muted">{{$service->created_at?->diffForHumans()}}</small></p>
                                     @php
                                         $sellerId=\App\Models\Setting::first()->support_id;
@@ -46,7 +51,7 @@
                 </div>
             </div>
 
-         
+
 
         </div>
     </div>
