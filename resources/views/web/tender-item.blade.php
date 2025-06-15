@@ -3,7 +3,7 @@
     {{$tender->name ?? Str::words($tender->expert,2)}}
 @endsection
 @section('content')
-    <div class="col-12 col-xl-9" style="margin-top: 10px">
+    <div class="col-12 col-xl-8" style="margin-top: 10px">
         <div class="containter" style="background-color: #fff; padding: 16px; border-radius: 16px;">
             <h1  class="title mb-4" style="text-align: right;"> مناقصة</h1>
             <div class="card mb-3" style="width: 100%;">
@@ -11,7 +11,7 @@
                     <div class="col-md-8">
                         <div class="card-body" style="position: relative;" dir="rtl">
                             <div style="display: flex; align-items: center; gap: 8px;">
-                                <a href="./profile.html">
+                                <a href="{{route('seller.profile',['id'=>$tender->user?->id])}}">
                                     <img class="rounded-circle" width="75" src="{{$tender->user?->getImage()}}" alt="" />
                                 </a>
                                 <div style="display: flex; gap: 4px; flex-direction: column">
