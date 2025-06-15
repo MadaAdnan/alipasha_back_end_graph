@@ -26,7 +26,7 @@ class TenderResource extends Resource implements HasShieldPermissions
 {
     protected static ?string $model = Product::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
     protected static ?string $label = 'مناقصة';
     protected static ?string $modelLabel = 'مناقصة';
     protected static ?string $navigationLabel = 'المناقصات';
