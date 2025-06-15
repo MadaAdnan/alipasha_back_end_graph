@@ -37,7 +37,7 @@ class ServiceController extends Controller
             ->when(!empty($city), fn($query) => $query->where('city_id', $city))
 
             ->when(!empty($category), fn($query) => $query->where('sub1_id', $category))
-            ->latest()->paginate(35);
+            ->latest()->paginate(10);
 
         return view('web.services', compact('cities', 'services', 'services_count', 'views', 'sellers', 'categories'));
     }
