@@ -46,33 +46,7 @@
                 </div>
             </div>
 
-            <div
-                class="floating-left-sidebar-icon d-lg-none"
-                onclick="toggleLeftSidebar()"
-            >
-                التصنيفات
-            </div>
-            <!-- Left Section (2 columns on large screens, 0 on small) -->
-            <div id="left-sidebar" class="col-3 d-none d-xl-block">
-                <div class="media-scroll bg-light p-4 h-100">
-                    <div style="text-align: center">
-                        <button class="new-post"  data-bs-toggle="modal"
-                                data-bs-target="#addServiceModal">أضف خدمة غير متوفرة</button>
-                    </div>
-                    <div class="categories">
-                        <p class="category-text">التصنيفات</p>
-                        <div class="divider"></div>
-                        @foreach($categories as $category)
-                        <div class="category-item">
-                            <p><a href="{{route('services.index',['category'=>$category->id])}}">{{$category->name}}</a></p>
-                            <div class="count">{{$category->products2_count}}</div>
-                        </div>
-                        @endforeach
-
-                    </div>
-                </div>
-            </div>
-
+         
 
         </div>
     </div>

@@ -94,8 +94,8 @@ class ServiceController extends Controller
                 \DB::table('product_views')->insert($inserts);
             }
         });
-        $categories = Category::whereHas('parents', fn($query) => $query->where('type', CategoryTypeEnum::SERVICE->value))->whereHas('products2')->get();
-        return view('web.service-item',compact('service','categories'));
+      //  $categories = Category::whereHas('parents', fn($query) => $query->where('type', CategoryTypeEnum::SERVICE->value))->whereHas('products2')->get();
+        return view('web.service-item',compact('service',));
     }
 
     /**
