@@ -182,8 +182,7 @@
             <div id="left-sidebar" class="col-3 d-none d-xl-block" dir="rtl">
                 <div class="media-scroll bg-light p-4 h-100">
                     <div style="text-align: center">
-                        <button class="new-post"  data-bs-toggle="modal"
-                                data-bs-target="#addServiceModal">أضف خدمة غير متوفرة</button>
+                        <a class="new-post"  href="{{url('/seller/services/create')}}">أضف خدمة غير متوفرة</a>
                     </div>
                     <div class="categories" dir="rtl">
                         <p class="category-text">التصنيفات</p>
