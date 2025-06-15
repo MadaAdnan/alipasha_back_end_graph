@@ -27,15 +27,30 @@
                             <p class="card-text">بداية التقديم : {{$job->start_date?->format('Y-m-d')}} - نهاية التقديم {{$job->end_date?->format('Y-m-d')}}</p>
                             <p class="card-text" > <i class="bi bi-eye" style="font-size: 14px; color: red;"></i> {{$job->views_count}} </p>
                             <p class="card-text" > <i class="bi bi-copy" style="font-size: 14px; color: red;"></i> {{$job->code}} </p>
+                            @if($job->email!='')
                             <p class="card-text" > <i class="bi bi-envelope" style="font-size: 14px; color: red;"></i> {{$job->email}}</p>
+                             @endif
+                            @if($job->phone!='')
                             <p class="card-text" > <i class="bi bi-telephone" style="font-size: 14px; color: red;"></i>  {{$job->phone}}</p>
+                            @endif
                             <p class="card-text"> <i class="bi bi-geo-alt" style="font-size: 14px; color: red;"></i> {{$job->city?->name}} - {{$job->category?->name}} - {{$job->sub1?->name}}</p>
+                            @if($job->url!='')
+                                <p class="card-text"> <i class="bi bi-link-45deg" style="font-size: 14px; color: red;"></i>
+                                    <a target="_blank" href="{{$job->url}}">{{$job->url}}</a></p>
+                            @endif
+
                             {{--<a href="https://www.linkedin.com/in/obada-kahlous">
                                 <p class="card-text"> stars </p>
                             </a>--}}
-                            <form action="">
-                                <input type="hidden" name="free" value="123">
-                                <button type="submit" class="btn" style="width: 100%; background-color: #e30613; color: #fff; margin: 20px 0px;">إبلاغ عن المناقصة</button>
+                            @php
+                                $sellerId=\App\Models\Setting::first()->support_id;
+                            @endphp
+                            <form action="{{route('communities.store')}}" method="post">
+                                @csrf
+                                @method('POST')
+
+                                <input type="hidden" name="sellerId" value="{{$sellerId}}">
+                                <button type="submit" class="btn" style="width: 100%; background-color: #e30613; color: #fff; margin: 20px 0px;">إبلاغ عن وظيفة</button>
                             </form>
                         </div>
                     </div>
@@ -44,6 +59,7 @@
                     </div>
                 </div>
             </div>
+            @if($tender->hasMedia('attach'))
             <p class="title mb-4" style="text-align: center; margin: 20px 0px; font-size: 20px;"> الملفات المرفقة </p>
             <div class="files" style="display: flex; gap: 10px; flex-wrap: wrap;">
                 <div style="width: 300px; height: auto;">
@@ -54,6 +70,7 @@
                 </div>
 
             </div>
+                @endif
         </div>
     </div>
 @endsection
