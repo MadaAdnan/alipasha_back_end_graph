@@ -26,10 +26,16 @@
                                     <p class="card-text"> <i class="bi bi-geo-alt" style="font-size: 14px; color: red;"></i>  {{$service->city?->name}}    </p>
                                     <p class="card-text"> <i class="bi bi-geo-alt" style="font-size: 14px; color: red;"></i> {{$service->address}} </p>
                                     <p class="card-text"><small class="text-muted">{{$service->created_at?->diffForHumans()}}</small></p>
-                                   {{-- <form action="">
-                                        <input type="hidden" name="free" value="123">
+                                    @php
+                                        $sellerId=\App\Models\Setting::first()->support_id;
+                                    @endphp
+                                    <form action="{{route('communities.store')}}" method="post">
+                                        @csrf
+                                        @method('POST')
+
+                                        <input type="hidden" name="sellerId" value="{{$sellerId}}">
                                         <button type="submit" class="btn" style="width: 100%; background-color: #e30613; color: #fff; margin: 20px 0px;">إبلاغ عن الخدمة</button>
-                                    </form>--}}
+                                    </form>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -70,191 +76,5 @@
 
         </div>
     </div>
-    <!-- service modal -->
-    <div
-        class="modal fade"
-        id="addServiceModal"
-        tabindex="-1"
-        aria-labelledby="formModalLabel"
-        aria-hidden="true"
-        dir="ltr"
-    >
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="formModalLabel">إضافة خدمة</h5>
-                    <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"
-                    ></button>
-                </div>
-                <div class="modal-body">
-                    <form id="modalForm">
 
-                        <div class="mb-3">
-                            <p
-                                for="descriptionInput"
-                                class="form-label"
-                                style="text-align: right; font-size: 12px;"
-                            >
-                                الوصف
-                            </p>
-                            <textarea
-                                name="description"
-                                style="text-align: right; font-size: 12px;"
-                                class="form-control"
-                                id="descriptionInput"
-                                rows="3"
-                                placeholder="الوصف"
-                                required
-                            ></textarea>
-                        </div>
-
-                        <div class="mb-3">
-                            <p
-                                for="descriptionInput"
-                                class="form-label"
-                                style="text-align: right; font-size: 12px;"
-                            >
-                                العنوان التفصيلي
-                            </p>
-                            <input
-                                name="deatile"
-                                style="text-align: right; font-size: 12px;"
-                                class="form-control"
-                                id="descriptionInput"
-                                placeholder="العنوان التفصيلي"
-                                required
-                            ></input>
-                        </div>
-
-                        <div class="mb-3">
-                            <p
-                                for="descriptionInput"
-                                class="form-label"
-                                style="text-align: right; font-size: 12px;"
-                            >
-                                البريد الإلكتروني
-                            </p>
-                            <input
-                                name="email"
-                                style="text-align: right; font-size: 12px;"
-                                class="form-control"
-                                id="descriptionInput"
-                                placeholder="البريد الإلكتروني"
-                                required
-                            ></input>
-                        </div>
-
-                        <div class="mb-3">
-                            <p
-                                for="descriptionInput"
-                                class="form-label"
-                                style="text-align: right; font-size: 12px;"
-
-                            >
-                                رقم الهاتف
-                            </p>
-                            <input
-                                name="nmber"
-                                style="text-align: right; font-size: 12px;"
-                                class="form-control"
-                                id="descriptionInput"
-                                placeholder="رقم الهاتف"
-                                type="number"
-                                required
-                            ></input>
-                        </div>
-
-                        <div class="mb-3">
-                            <p
-                                for="descriptionInput"
-                                class="form-label"
-                                style="text-align: right; font-size: 12px;"
-                            >
-                                رابط الخدمة
-                            </p>
-                            <input
-                                name="service_url"
-                                style="text-align: right; font-size: 12px;"
-                                class="form-control"
-                                id="descriptionInput"
-                                placeholder="رابط الخدمة"
-                                required
-                            ></input>
-                        </div>
-
-                        <div class="mb-3">
-                            <p
-                                for="descriptionInput"
-                                class="form-label"
-                                style="text-align: right; font-size: 12px;"
-                            >
-                                القسم الرئيسي
-                            </p>
-                            <select
-                                name="main-section"
-                                class="form-select"
-                                aria-label="Default select example"
-                                style="text-align: right; font-size: 12px;"
-                            >
-                                <option value="1" selected>القسم الرئيسي</option>
-                            </select>
-                        </div>
-
-                        <div class="mb-3">
-                            <p
-                                for="descriptionInput"
-                                class="form-label"
-                                style="text-align: right; font-size: 12px;"
-                            >
-                                القسم الفرعي
-                            </p>
-                            <select
-                                name="sub-section"
-                                class="form-select"
-                                aria-label="Default select example"
-                                style="text-align: right; font-size: 12px;"
-                            >
-                                <option value="1" selected>وظائف عمل الانتاج</option>
-                            </select>
-                        </div>
-
-                        <div class="mb-3">
-                            <p
-                                for="fileInput"
-                                class="form-label"
-                                style="text-align: right; font-size: 12px;"
-                            >
-                                إضافة مرفقات
-                            </p>
-                            <input
-                                type="file"
-                                class="form-control"
-                                id="fileInput"
-                                accept="image/*"
-                                multiple
-                                required
-                            />
-                        </div>
-
-                        <div class="modal-footer">
-                            <button
-                                type="button"
-                                class="btn btn-secondary"
-                                data-bs-dismiss="modal"
-                            >
-                                اغلاق
-                            </button>
-                            <button type="submit" class="btn btn-primary">
-                                إضافة
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 @endsection

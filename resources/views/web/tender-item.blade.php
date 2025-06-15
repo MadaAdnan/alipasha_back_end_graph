@@ -38,9 +38,6 @@
                             <p class="card-text"> <i class="bi bi-link-45deg" style="font-size: 14px; color: red;"></i>
                                 <a target="_blank" href="{{$tender->url}}">{{$tender->url}}</a></p>
                                     @endif
-                            {{--<a href="https://www.linkedin.com/in/obada-kahlous">
-                                <p class="card-text"> stars </p>
-                            </a>--}}
                             @php
                                 $sellerId=\App\Models\Setting::first()->support_id;
                             @endphp
