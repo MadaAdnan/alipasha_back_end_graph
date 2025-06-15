@@ -97,7 +97,7 @@ class PrivacyResource extends Resource
                         Forms\Components\Wizard\Step::make('سياسة الخصوصية')->schema([
                             Forms\Components\RichEditor::make('privacy')->nullable()->label('سياسة الخصوصية'),
                         ]),
-                    ])
+                    ])->skippable()
                     ])
 
                     ]);
