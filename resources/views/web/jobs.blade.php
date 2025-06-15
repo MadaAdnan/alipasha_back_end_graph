@@ -6,7 +6,7 @@
     <div class="container-fluid" style="margin-top: 70px">
         <div class="row">
 
-            <div class="col-12 col-xl-9" style="margin-top: 10px">
+            <div class="col-12 col-md-8 offset-md-2" style="margin-top: 70px">
                 <div class="container statistic">
                     <div class="statistic-item">
                         <div class="statistic-icon">
