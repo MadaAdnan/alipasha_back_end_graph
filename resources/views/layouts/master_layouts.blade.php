@@ -166,6 +166,9 @@
             font-size: 11pt;
             font-weight: bold;
         }
+        .btn-danger{
+            background-color: #e30613 !important;
+        }
     </style>
 </head>
 <body>
