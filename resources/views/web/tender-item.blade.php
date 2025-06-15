@@ -36,7 +36,7 @@
                             <p class="card-text"> <i class="bi bi-geo-alt" style="font-size: 14px; color: red;"></i> {{$tender->city?->name}} - {{$tender->category?->name}} - {{$tender->sub1?->name}}</p>
                             @if($tender->url!='')
                             <p class="card-text"> <i class="bi bi-link-45deg" style="font-size: 14px; color: red;"></i>
-                                <a href="{{$tender->url}}">{{$tender->url}}</a></p>
+                                <a target="_blank" href="{{$tender->url}}">{{$tender->url}}</a></p>
                                     @endif
                             {{--<a href="https://www.linkedin.com/in/obada-kahlous">
                                 <p class="card-text"> stars </p>
