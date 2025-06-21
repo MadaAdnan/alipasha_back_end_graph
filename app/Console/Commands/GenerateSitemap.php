@@ -62,7 +62,7 @@ class GenerateSitemap extends Command
             foreach ($products as $product) {
                 $url = Url::create("/posts/{$product->id}")
                     ->setLastModificationDate($lastMod)
-                    ->addImage($product->getImage('images'))
+                    ->addImage($product->getImage())
                     ->setPriority(0.8)
                     ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY);
                 $sitemap->add($url);
