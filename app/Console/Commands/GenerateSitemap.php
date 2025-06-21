@@ -103,7 +103,7 @@ class GenerateSitemap extends Command
                 $sitemap->add($url);
             }
         });
-        $sitemap->writeToFile(public_path('jobs.xml'));
+        $sitemap->writeToFile(public_path('tenders.xml'));
         $this->info('Sitemap generated successfully!');
     }
 
