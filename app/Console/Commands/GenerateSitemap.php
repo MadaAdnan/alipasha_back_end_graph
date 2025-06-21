@@ -54,7 +54,9 @@ class GenerateSitemap extends Command
             );
         }*/
 
-        // المنتجات
+        ##################################################################
+        ####################  Products #######################################
+        #################################################################
         Product::product()->chunk(200, function ($products) use ($sitemap) {
             $lastMod = $product->updated_at ?? now();
             foreach ($products as $product) {
@@ -69,13 +71,32 @@ class GenerateSitemap extends Command
 
         // حفظ الملف في المسار العام
         $sitemap->writeToFile(public_path('products.xml'));
+
+        ##################################################################
+        ####################  JOBS #######################################
+        #################################################################
         $sitemap = Sitemap::create();
-        Product::job()->chunk(200, function ($products) use ($sitemap) {
+        Product::job()->where('end_date','>=',now())->chunk(200, function ($products) use ($sitemap) {
             $lastMod = $product->updated_at ?? now();
             foreach ($products as $product) {
                 $url = Url::create("/jobs/{$product->id}")
                     ->setLastModificationDate($lastMod)
-                    /*->addImage($product->getImage('images'))*/
+                    ->setPriority(0.8)
+                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY);
+                $sitemap->add($url);
+            }
+        });
+        $sitemap->writeToFile(public_path('jobs.xml'));
+        ##################################################################
+        ####################  tenders #######################################
+        #################################################################
+        $sitemap = Sitemap::create();
+        Product::tender()->where('end_date','>=',now())->chunk(200, function ($products) use ($sitemap) {
+            $lastMod = $product->updated_at ?? now();
+            foreach ($products as $product) {
+                $url = Url::create("/tenders/{$product->id}")
+                    ->setLastModificationDate($lastMod)
+
                     ->setPriority(0.8)
                     ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY);
                 $sitemap->add($url);
