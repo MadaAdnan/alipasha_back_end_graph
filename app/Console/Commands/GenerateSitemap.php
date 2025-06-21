@@ -87,8 +87,9 @@ class GenerateSitemap extends Command
         #################################################################
         $sitemap = Sitemap::create();
         Product::job()->where('end_date','>=',now())->latest()->chunk(200, function ($products) use ($sitemap,$domain) {
-            $lastMod = $product->updated_at ?? now();
+
             foreach ($products as $product) {
+                $lastMod = $product->updated_at ?? now();
                 $url = Url::create("{$domain}/jobs/{$product->id}")
                     ->setLastModificationDate($lastMod)
                     ->setPriority(0.8)
@@ -102,8 +103,9 @@ class GenerateSitemap extends Command
         #################################################################
         $sitemap = Sitemap::create();
         Product::tender()->where('end_date','>=',now())->latest()->chunk(200, function ($products) use ($sitemap,$domain) {
-            $lastMod = $product->updated_at ?? now();
+
             foreach ($products as $product) {
+                $lastMod = $product->updated_at ?? now();
                 $url = Url::create("{$domain}/tenders/{$product->id}")
                     ->setLastModificationDate($lastMod)
 
