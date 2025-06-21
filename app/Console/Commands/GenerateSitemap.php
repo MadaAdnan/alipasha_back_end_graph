@@ -70,7 +70,7 @@ class GenerateSitemap extends Command
         // حفظ الملف في المسار العام
         $sitemap->writeToFile(public_path('products.xml'));
         $sitemap = Sitemap::create();
-        Product::jobs()->chunk(200, function ($products) use ($sitemap) {
+        Product::job()->chunk(200, function ($products) use ($sitemap) {
             $lastMod = $product->updated_at ?? now();
             foreach ($products as $product) {
                 $url = Url::create("/jobs/{$product->id}")
