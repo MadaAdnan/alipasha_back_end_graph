@@ -108,7 +108,6 @@ class GenerateSitemap extends Command
                 $lastMod = $product->updated_at ?? now();
                 $url = Url::create("{$domain}/tenders/{$product->id}")
                     ->setLastModificationDate($lastMod)
-
                     ->setPriority(0.8)
                     ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY);
                 $sitemap->add($url);
