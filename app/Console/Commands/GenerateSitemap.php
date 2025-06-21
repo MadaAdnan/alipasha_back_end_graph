@@ -58,7 +58,7 @@ class GenerateSitemap extends Command
         ##################################################################
         ####################  Products #######################################
         #################################################################
-        Product::product()->chunk(200, function ($products) use ($sitemap,$domain) {
+        Product::product()->latest()->chunk(200, function ($products) use ($sitemap,$domain) {
             $lastMod = $product->updated_at ?? now();
             foreach ($products as $product) {
                 $url = Url::create("{$domain}/posts/{$product->id}")
@@ -77,7 +77,7 @@ class GenerateSitemap extends Command
         ####################  JOBS #######################################
         #################################################################
         $sitemap = Sitemap::create();
-        Product::job()->where('end_date','>=',now())->chunk(200, function ($products) use ($sitemap,$domain) {
+        Product::job()->where('end_date','>=',now())->latest()->chunk(200, function ($products) use ($sitemap,$domain) {
             $lastMod = $product->updated_at ?? now();
             foreach ($products as $product) {
                 $url = Url::create("{$domain}/jobs/{$product->id}")
@@ -92,7 +92,7 @@ class GenerateSitemap extends Command
         ####################  tenders #######################################
         #################################################################
         $sitemap = Sitemap::create();
-        Product::tender()->where('end_date','>=',now())->chunk(200, function ($products) use ($sitemap,$domain) {
+        Product::tender()->where('end_date','>=',now())->latest()->chunk(200, function ($products) use ($sitemap,$domain) {
             $lastMod = $product->updated_at ?? now();
             foreach ($products as $product) {
                 $url = Url::create("{$domain}/tenders/{$product->id}")
