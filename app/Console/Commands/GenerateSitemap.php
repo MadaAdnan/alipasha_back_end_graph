@@ -64,7 +64,7 @@ class GenerateSitemap extends Command
                 if ($product->getImageSiteMap()) {
                     $url = Url::create("{$domain}/posts/{$product->id}")
                         ->setLastModificationDate($lastMod)
-                        ->addImage($product->getImageSiteMap())
+                        ->addImage($product->getImageSiteMap(),$product->name)
                         ->setPriority(0.8)
                         ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY);
                 } else {
