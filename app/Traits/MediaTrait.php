@@ -41,18 +41,30 @@ trait MediaTrait
      * */
     public function getImage($collection = 'image', $conversation = 'webp'): string
     {
-        if($this instanceof  Product && ($this->type!=CategoryTypeEnum::PRODUCT->value && $this->type!=CategoryTypeEnum::RESTAURANT->value && $this->type!=CategoryTypeEnum::NEWS->value)){
-            return $this->user?->getImage()??asset('images/noImage.jpeg');
+        if ($this instanceof Product && ($this->type != CategoryTypeEnum::PRODUCT->value && $this->type != CategoryTypeEnum::RESTAURANT->value && $this->type != CategoryTypeEnum::NEWS->value)) {
+            return $this->user?->getImage() ?? asset('images/noImage.jpeg');
         }
-        if($this->hasMedia($collection)){
+        if ($this->hasMedia($collection)) {
             return $this->getFirstMediaUrl($collection, $conversation);
-        }elseif($collection =='logo'){
+        } elseif ($collection == 'logo') {
             return asset('images/bg.jpg');
-        }elseif($this instanceof User && $collection=='image'){
+        } elseif ($this instanceof User && $collection == 'image') {
             return asset('images/user-profile.png');
-        }else{
+        } else {
             return asset('images/noImage.jpeg');
         }
+
+    }
+
+    public function getImageSiteMap(): null|string
+    {
+
+        if ($this->hasMedia('image')) {
+            return $this->getFirstMediaUrl('image', 'webp');
+        } else if ($this->hasMedia('images')) {
+            return $this->getFirstMediaUrl('images', 'webp');
+        }
+        return null;
 
     }
 
@@ -62,8 +74,8 @@ trait MediaTrait
     public function getImages($collection = 'image', $conversation = 'webp'): array
     {
         $list = [];
-        if($this instanceof Product && $collection=='image' && !$this->hasMedia('image')){
-            $collection='images';
+        if ($this instanceof Product && $collection == 'image' && !$this->hasMedia('image')) {
+            $collection = 'images';
         }
         foreach ($this->getMedia($collection) as $media) {
             $list[] = $media->getUrl($conversation);

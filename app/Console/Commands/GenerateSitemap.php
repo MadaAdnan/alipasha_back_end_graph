@@ -59,13 +59,22 @@ class GenerateSitemap extends Command
         ####################  Products #######################################
         #################################################################
         Product::product()->latest()->chunk(200, function ($products) use ($sitemap,$domain) {
-            $lastMod = $product->updated_at ?? now();
+
             foreach ($products as $product) {
-                $url = Url::create("{$domain}/posts/{$product->id}")
-                    ->setLastModificationDate($lastMod)
-                    ->addImage($product->getImage())
-                    ->setPriority(0.8)
-                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY);
+                $lastMod = $product->updated_at ?? now();
+                if($product->getImageSiteMap()){
+                    $url = Url::create("{$domain}/posts/{$product->id}")
+                        ->setLastModificationDate($lastMod)
+                        ->addImage($product->getImageSiteMap())
+                        ->setPriority(0.8)
+                        ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY);
+                }else{
+                    $url = Url::create("{$domain}/posts/{$product->id}")
+                        ->setLastModificationDate($lastMod)
+
+                        ->setPriority(0.8)
+                        ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY);
+                }
                 $sitemap->add($url);
             }
         });
