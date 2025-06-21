@@ -53,14 +53,15 @@ class GenerateSitemap extends Command
                     ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)
             );
         }*/
+        $domain='https://web.ali-pasha.com';
 
         ##################################################################
         ####################  Products #######################################
         #################################################################
-        Product::product()->chunk(200, function ($products) use ($sitemap) {
+        Product::product()->chunk(200, function ($products) use ($sitemap,$domain) {
             $lastMod = $product->updated_at ?? now();
             foreach ($products as $product) {
-                $url = Url::create("/posts/{$product->id}")
+                $url = Url::create("{$domain}/posts/{$product->id}")
                     ->setLastModificationDate($lastMod)
                     ->addImage($product->getImage())
                     ->setPriority(0.8)
@@ -76,10 +77,10 @@ class GenerateSitemap extends Command
         ####################  JOBS #######################################
         #################################################################
         $sitemap = Sitemap::create();
-        Product::job()->where('end_date','>=',now())->chunk(200, function ($products) use ($sitemap) {
+        Product::job()->where('end_date','>=',now())->chunk(200, function ($products) use ($sitemap,$domain) {
             $lastMod = $product->updated_at ?? now();
             foreach ($products as $product) {
-                $url = Url::create("/jobs/{$product->id}")
+                $url = Url::create("{$domain}/jobs/{$product->id}")
                     ->setLastModificationDate($lastMod)
                     ->setPriority(0.8)
                     ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY);
@@ -91,10 +92,10 @@ class GenerateSitemap extends Command
         ####################  tenders #######################################
         #################################################################
         $sitemap = Sitemap::create();
-        Product::tender()->where('end_date','>=',now())->chunk(200, function ($products) use ($sitemap) {
+        Product::tender()->where('end_date','>=',now())->chunk(200, function ($products) use ($sitemap,$domain) {
             $lastMod = $product->updated_at ?? now();
             foreach ($products as $product) {
-                $url = Url::create("/tenders/{$product->id}")
+                $url = Url::create("{$domain}/tenders/{$product->id}")
                     ->setLastModificationDate($lastMod)
 
                     ->setPriority(0.8)
