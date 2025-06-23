@@ -7,7 +7,7 @@ use Http;
 class SmsService
 {
     protected $username="_JAJBN";
-    protected $password="dysqfnnhg8g2qp";
+    protected $password="zysz3wozensjbo";
     protected $apiUrl = 'https://api.sms-gate.app/3rdparty/v1/message';
 
 
