@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Queries;
 
+use App\Helpers\StrHelper;
 use App\Mail\RegisteredEmail;
 
 final class ResendEmailVerify
@@ -13,7 +14,7 @@ final class ResendEmailVerify
     public function __invoke($_, array $args)
     {
         $user = auth()->user();
-        $user->update(['code_verified' => \Str::random(6)]);
+        $user->update(['code_verified' => StrHelper::generateDigits(6)]);
         \Mail::to($user)->send(new RegisteredEmail($user));
         return $user;
     }

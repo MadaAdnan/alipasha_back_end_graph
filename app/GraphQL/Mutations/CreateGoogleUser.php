@@ -33,7 +33,7 @@ final class CreateGoogleUser
                 'user_id' => $affiliate_id,
                 'email_verified_at' => isset($data['hash']) && StrHelper::generateMd5() == $data['hash'] ? now() : null,
                 'is_active' => true,
-                'code_verified' => \Str::random(6)
+                'code_verified' =>StrHelper::generateDigits(6)
             ]);
         } else {
             if (!Hash::check($data['password'], $user->password)) {

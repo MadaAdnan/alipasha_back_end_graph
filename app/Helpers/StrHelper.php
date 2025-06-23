@@ -62,4 +62,8 @@ class StrHelper
         }
         return $count;
     }
+
+    public static function generateDigits($length){
+        return  str_pad(random_int(0, 999999), $length, '0', STR_PAD_LEFT);
+    }
 }

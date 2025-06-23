@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations;
 
 use App\Exceptions\GraphQLExceptionHandler;
+use App\Helpers\StrHelper;
 use App\Models\Setting;
 use App\Models\User;
 
@@ -47,7 +48,7 @@ final class CreateUser
             'address' => $data['address'] ?? null,
             'is_active' => true,
             'user_id' => $affiliate_id,
-            'code_verified' => \Str::random(6),
+            'code_verified' =>StrHelper::generateDigits(6),
             'is_special' => false,
         ]);
         $token = $user->createToken('User')->plainTextToken;
