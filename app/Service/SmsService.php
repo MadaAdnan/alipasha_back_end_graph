@@ -14,8 +14,11 @@ class SmsService
 
     public function sendSms(array $phoneNumbers, string $message): array
     {
-        $response = Http::withBasicAuth($this->username, $this->password)
-            ->withHeaders(['Content-Type' => 'application/json'])
+        $response = Http::withHeaders([
+            'Content-Type' => 'application/json',
+            'Authorization' => 'Basic ' . base64_encode("{$this->username}:{$this->password}")
+        ])
+
             ->post($this->apiUrl, [
                 'message' => $message,
                 'phoneNumbers' => $phoneNumbers
