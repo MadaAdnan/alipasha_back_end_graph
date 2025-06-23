@@ -6,10 +6,9 @@ use Http;
 
 class SmsService
 {
-    protected $username="_JAJBN";
-    protected $password="zysz3wozensjbo";
+    protected $username = "_JAJBN";
+    protected $password = "zysz3wozensjbo";
     protected $apiUrl = 'https://api.sms-gate.app/3rdparty/v1/message';
-
 
 
     public function sendSms(array $phoneNumbers, string $message): array
@@ -17,7 +16,13 @@ class SmsService
         $url = $this->apiUrl;
         $username = $this->username;
         $password = $this->password;
-
+        foreach ($phoneNumbers as $key => $phoneNumber) {
+            if (\Str::startsWith($phoneNumber, '+') || \Str::startsWith($phoneNumber, '00')) {
+                continue;
+            } else {
+                $phoneNumbers[$key] = '+' . $phoneNumber;
+            }
+        }
         $payload = json_encode([
             'message' => $message,
             'phoneNumbers' => $phoneNumbers
