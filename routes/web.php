@@ -7,6 +7,7 @@ use App\Models\Plan;
 use App\Models\Setting;
 use App\Models\ShippingPrice;
 use App\Models\User;
+use App\Service\SmsService;
 use Illuminate\Support\Facades\Route;
 use Mockery\Exception;
 use Laravel\Socialite\Facades\Socialite;
@@ -110,6 +111,14 @@ Route::middleware('throttle:60,1')->group(function () {
 
 
 Route::get('testnot/{id?}', function ($id = null) {
+    $user=User::find(13);
+    $sms = new SmsService();
+    $message = "أهلا بك في تطبيق علي باشا \n
+            كود التحقق الخاص بك هو \n {$user->code_verified}";
+    $phone = $user->phone;
+    if (!empty($phone)) {
+        $sms->sendSms([$user->phone], $message);
+    }
    /* $mail=[
         "mshqwe98@gmail.com",
         "mh.shamey@gmail.com"
