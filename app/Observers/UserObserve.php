@@ -11,6 +11,7 @@ use App\Models\Plan;
 use App\Models\Point;
 use App\Models\Setting;
 use App\Models\User;
+use App\Service\SmsService;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Mail;
 
@@ -30,17 +31,25 @@ class UserObserve
 
             $job = new SendEmailJob([$user], new RegisteredEmail($user));
             dispatch($job);
+            $sms = new SmsService();
+            $message = "أهلا بك في تطبيق علي باشا \n
+            كود التحقق الخاص بك هو \n {$user->code_verified}";
+            $phone = $user->phone;
+            if (!empty($phone)) {
+                $sms->sendSms([$user->phone], $message);
+            }
+
         } catch (\Exception | \Error $e) {
         }
         $plan = Plan::where('duration', PlansDurationEnum::FREE->value)->first();
         if ($plan) {
-            $user->plans()->syncWithPivotValues([$plan->id],['subscription_date'=>now(),'expired_date'=>now()->addYear()]);
+            $user->plans()->syncWithPivotValues([$plan->id], ['subscription_date' => now(), 'expired_date' => now()->addYear()]);
         }
         $groups = Community::where('is_global', true)->pluck('id')->toArray();
         $user->communities()->syncWithoutDetaching($groups);
-        if($user->user_id!=null){
+        if ($user->user_id != null) {
             $setting = Setting::first();
-            if ( $setting->active_points) {
+            if ($setting->active_points) {
                 /**
                  * @var $delegate User
                  */
@@ -72,7 +81,7 @@ class UserObserve
     {
         if ($user->email_verified_at != null && $user->getOriginal('email_verified_at') == null && $user->user_id != null) {
             $setting = Setting::first();
-            if ( $setting->active_points) {
+            if ($setting->active_points) {
                 /**
                  * @var $delegate User
                  */
@@ -87,10 +96,10 @@ class UserObserve
             }
 
         }
-        $oldType=$user->getOriginal('is_seller');
-        $newType=$user->is_seller;
-        if($oldType==false && $newType==true){
-            $community=\App\Models\Community::where('is_global_seller',true)->first();
+        $oldType = $user->getOriginal('is_seller');
+        $newType = $user->is_seller;
+        if ($oldType == false && $newType == true) {
+            $community = \App\Models\Community::where('is_global_seller', true)->first();
             $community->users()->syncWithoutDetaching([$user->id]);
         }
     }

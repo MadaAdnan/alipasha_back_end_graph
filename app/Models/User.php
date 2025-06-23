@@ -89,10 +89,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         self::observe(UserObserve::class);
     }
 
-    public function scopeSeller(Builder $query)
-    {
-        return $query->where(['is_seller' => true, 'level' => LevelUserEnum::SELLER->value]);
-    }
+
 
     public function products(): HasMany
     {

@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Service\SmsService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -33,6 +34,7 @@ class SendEmailJob implements ShouldQueue
     {
         try{
             Mail::to($this->users)->send($this->emailable);
+
         }catch(\Exception | \Error $e){}
 
     }
