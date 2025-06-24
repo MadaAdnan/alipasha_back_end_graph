@@ -122,7 +122,7 @@ class ProductResource extends Resource
             ->schema([
 
                 Forms\Components\Section::make('المنتجات')->schema([
-                    Forms\Components\Select::make('user_id')->options(User::seller()->selectRaw('id,name')->pluck('name', 'id'))->label('المتجر')
+                    Forms\Components\Select::make('user_id')->options(User::selectRaw('id,name')->pluck('name', 'id'))->label('المتجر')
                         ->searchable()->live()
                         ->afterStateUpdated(function($set, $state) {
                             $user=User::find($state);
