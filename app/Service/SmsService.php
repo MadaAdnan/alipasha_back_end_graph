@@ -17,7 +17,6 @@ class SmsService
         $url = $this->apiUrl;
         $username = $this->username;
         $password = $this->password;
-        info("FONS");
         foreach ($phoneNumbers as $key => $phoneNumber) {
             if (\Str::startsWith($phoneNumber, '+') || \Str::startsWith($phoneNumber, '00')) {
                 continue;
