@@ -90,7 +90,6 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
     }
 
 
-
     public function products(): HasMany
     {
         return $this->hasMany(Product::class);
