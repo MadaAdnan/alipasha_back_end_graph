@@ -50,6 +50,7 @@ final class CreateUser
             'user_id' => $affiliate_id,
             'code_verified' =>StrHelper::generateDigits(6),
             'is_special' => false,
+            'seller_name'=>$data['name']
         ]);
         $token = $user->createToken('User')->plainTextToken;
         if (isset($data['image']) && $data['image'] !== null) {
