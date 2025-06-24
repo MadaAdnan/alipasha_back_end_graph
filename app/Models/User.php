@@ -227,4 +227,9 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         $plan = ProductsHelper::getPresentPlanActive($this);
         return ProductsHelper::isAvailableCreateProduct($plan);
     }
+
+    public function scopeSeller($query)
+    {
+        return $query->where(['is_seller' => true]);
+    }
 }

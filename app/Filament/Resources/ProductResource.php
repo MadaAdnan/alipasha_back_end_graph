@@ -122,7 +122,7 @@ class ProductResource extends Resource
             ->schema([
 
                 Forms\Components\Section::make('المنتجات')->schema([
-                    Forms\Components\Select::make('user_id')->options(User::selectRaw('id,name')->pluck('name', 'id'))->label('المتجر')
+                    Forms\Components\Select::make('user_id')->options(User::seller()->selectRaw('id,name')->pluck('name', 'id'))->label('المتجر')
                         ->searchable()->live()
                         ->afterStateUpdated(function($set, $state) {
                             $user=User::find($state);
@@ -246,7 +246,7 @@ class ProductResource extends Resource
 
             ])
             ->filters([
-//                Tables\Filters\SelectFilter::make('user_id')->options(User::seller()->pluck('seller_name', 'id')->toArray())->label('المتجر')->searchable(),
+                Tables\Filters\SelectFilter::make('user_id')->options(User::seller()->pluck('seller_name', 'id')->toArray())->label('المتجر')->searchable(),
                 Tables\Filters\Filter::make('level')->form([
                     Forms\Components\Select::make('level')->options([
                         LevelProductEnum::NORMAL->value => LevelProductEnum::NORMAL->getLabel(),
