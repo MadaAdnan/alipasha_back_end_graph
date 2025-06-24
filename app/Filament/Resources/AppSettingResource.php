@@ -94,6 +94,7 @@ class AppSettingResource extends Resource
                     Forms\Components\TextInput::make('whats_msg')->nullable()->label('رسالة واتس آب'),
                     Forms\Components\TextInput::make('url_for_download.play')->url()->label('رابط تحميل من GooglePlay'),
                     Forms\Components\TextInput::make('url_for_download.up_down')->url()->label('رابط تحميل من UpToDown'),
+                    Forms\Components\TextInput::make('url_for_download.direct')->url()->label('رابط تحميل مباشر'),
                     Forms\Components\Section::make('إعلان بداية التطبيق')->schema([
                         Forms\Components\Grid::make()->schema([
                             Forms\Components\SpatieMediaLibraryFileUpload::make('advice')->collection('advice')->image()->imageEditor()->imageEditorAspectRatios(['1:1', "2:1"])->label('صورة إعلان بداية التطبيق'),
