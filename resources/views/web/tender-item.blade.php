@@ -60,11 +60,11 @@
                     </div>
                 </div>
             </div>
-            @if($tender->hasMedia('attach'))
+            @if($tender->hasMedia('docs'))
             <p class="title mb-4" style="text-align: center; margin: 20px 0px; font-size: 20px;"> الملفات المرفقة </p>
             <div class="files" style="display: flex; gap: 10px; flex-wrap: wrap;">
                 <div style="width: 300px; height: auto;">
-                    @foreach($tender->getMedia('attach') as $media)
+                    @foreach($tender->getMedia('docs') as $media)
                         <a href="{{$media->getUrl()}}">مرفق {{$loop->iteration}}</a>
                     @endforeach
 
