@@ -62,6 +62,7 @@ class TenderController extends Controller
     public function show(string $id)
     {
         $tender=Product::tender()->findOrFail($id);
+
         $ids = [$tender->id];
         $today = today();
         \DB::transaction(function () use ($ids, $today) {
