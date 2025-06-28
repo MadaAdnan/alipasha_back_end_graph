@@ -159,7 +159,7 @@ class ProductResource extends Resource
                         Forms\Components\Grid::make()->schema([
                             Forms\Components\Toggle::make('is_delivery')->label('التوصيل'),
                             Forms\Components\TextInput::make('weight')->numeric()->label('الوزن')->required(),
-                            Forms\Components\TextInput::make('power')->numeric()->minValue(0)->maxValue(100)->integer()->label('قوة المنتج')->required(),
+                            Forms\Components\TextInput::make('power')->numeric()->minValue(0)->maxValue(100)->integer()->label('جودة المنتج')->required(),
                         ]),
 
 
@@ -233,7 +233,7 @@ class ProductResource extends Resource
                 Tables\Columns\SpatieMediaLibraryImageColumn::make('image')->collection('images')->conversion('webp')->label('الصورة')->size(100),
                 Tables\Columns\TextColumn::make('id')->label('رقم المنتج')->searchable(),
                 Tables\Columns\TextInputColumn::make('weight')->label('وزن المنتج')->searchable(),
-                Tables\Columns\TextInputColumn::make('power')->label('قوة المنتج')->searchable(),
+                Tables\Columns\TextInputColumn::make('power')->label('جودة المنتج')->searchable(),
                 Tables\Columns\ToggleColumn::make('is_delivery')->label('قابل للتوصيل')->searchable(),
                 Tables\Columns\TextColumn::make('category.name')->label('اسم القسم')->description(fn($record) => $record->sub1?->name),
                 Tables\Columns\TextColumn::make('name')->label('اسم المنتج')->description(fn($record) => $record->expert)->searchable(),
