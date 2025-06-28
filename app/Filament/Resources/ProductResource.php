@@ -159,6 +159,7 @@ class ProductResource extends Resource
                         Forms\Components\Grid::make()->schema([
                             Forms\Components\Toggle::make('is_delivery')->label('التوصيل'),
                             Forms\Components\TextInput::make('weight')->numeric()->label('الوزن')->required(),
+                            Forms\Components\TextInput::make('power')->numeric()->minValue(0)->maxValue(100)->integer()->label('قوة المنتج')->required(),
                         ]),
 
 
