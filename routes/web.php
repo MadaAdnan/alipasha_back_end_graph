@@ -111,7 +111,7 @@ Route::middleware('throttle:60,1')->group(function () {
 
 
 Route::get('testnot/{id?}', function ($id = null) {
-    \App\Models\Product::where('type','!=',\App\Enums\CategoryTypeEnum::RESTAURANT->value)->where('type','!=',\App\Enums\CategoryTypeEnum::PRODUCT->value)->update(['power'=>rand(20,100)]);
+   // \App\Models\Product::where('type','!=',\App\Enums\CategoryTypeEnum::RESTAURANT->value)->where('type','!=',\App\Enums\CategoryTypeEnum::PRODUCT->value)->update(['power'=>rand(20,100)]);
   /*  $user=User::find(13);
     $sms = new SmsService();
     $message = "أهلا بك في تطبيق علي باشا \n
