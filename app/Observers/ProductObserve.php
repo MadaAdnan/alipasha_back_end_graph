@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Enums\CategoryTypeEnum;
 use App\Enums\LevelUserEnum;
 use App\Enums\ProductActiveEnum;
 use App\Jobs\SendFirebaseNotificationJob;
@@ -11,6 +12,14 @@ use App\Service\SendNotifyHelper;
 
 class ProductObserve
 {
+
+    public function creating(Product $product): void
+    {
+        if($product->type!=CategoryTypeEnum::PRODUCT->value && $product->type!=CategoryTypeEnum::RESTAURANT->value){
+            $product->power=rand(20,100);
+        }
+
+    }
     /**
      * Handle the Product "created" event.
      */
