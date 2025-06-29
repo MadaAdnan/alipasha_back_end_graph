@@ -18,7 +18,7 @@ final class LatestProduct
     public function __invoke($_, array $args)
     {
 
-        return Product::where('id',0);
+       // return Product::where('id',0);
         $setting=Setting::first();
         $products= Product::
             where(fn( $query)=>$query->where('active',ProductActiveEnum::ACTIVE->value)->whereDoesntHave('category',fn($query)=>$query->where('type',CategoryTypeEnum::RESTAURANT->value)))
