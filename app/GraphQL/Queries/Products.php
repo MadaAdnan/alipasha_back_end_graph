@@ -32,8 +32,8 @@ final class Products
         $cityId = isset($args['city_id']) ?$args['city_id']: null;
         $categoryId = isset($args['category_id']) ?$args['category_id']: null;
         // throw new GraphQLExceptionHandler($userId);
-        \Log::info( "User: {$userId}");
-        return Product::query()->where('active', ProductActiveEnum::ACTIVE->value)
+
+        return Product::active()
             ->when($cityId != null, fn($query) =>
             $query->where(function ($q) use ($cityId) {
                 $q->where('city_id', $cityId)
