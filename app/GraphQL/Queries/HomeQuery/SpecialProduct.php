@@ -17,7 +17,7 @@ final class SpecialProduct
      */
     public function __invoke($_, array $args)
     {
-
+return [];
 //return Product::where('id',0);
         $setting=Setting::first();
         $products= Product::where(['active'=>ProductActiveEnum::ACTIVE->value,

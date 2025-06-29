@@ -17,6 +17,7 @@ final class LatestProduct
      */
     public function __invoke($_, array $args)
     {
+        return [];
        // return Product::where('id',0);
         $setting=Setting::first();
         $products= Product::
