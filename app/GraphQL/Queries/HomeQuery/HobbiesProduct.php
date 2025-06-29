@@ -23,28 +23,8 @@ final class HobbiesProduct
     public function __invoke($_, array $args)
     {
         $setting = Setting::first();
-        $sellers=[];
 
-        if(auth()->check()){
-            $sellers=auth()->user()->followers->pluck('seller_id')->toArray();
-        }
-        $specialLevel=LevelProductEnum::SPECIAL->value;
-        $products = Product::active()->whereIn('type', [
-            CategoryTypeEnum::PRODUCT->value,
-            CategoryTypeEnum::TENDER->value,
-            CategoryTypeEnum::JOB->value,
-            CategoryTypeEnum::SEARCH_JOB->value,
-            CategoryTypeEnum::NEWS->value,
-        ])
-            ->where('created_at', '>=', now()->subDays($setting->options['recommended_month'] ?? 30))->inRandomOrder()
-            ->where('power', '>=', 20)
-            ->orderByRaw("
-        (level = ?) DESC,
-        (user_id IN (" . ($sellers ? implode(',', $sellers) : 0) . ")) DESC,
-        RAND()
-    ", [$specialLevel])
-        ;
-      /*  $products = Product::where('id', '<', 0)->
+       $products = Product::where('id', '<', 0)->
         where(fn($query) => $query->where('active', ProductActiveEnum::ACTIVE->value)
             ->whereDoesntHave('category', fn($query) => $query->where('type', CategoryTypeEnum::RESTAURANT->value)))
             ->where(fn($query) => $query
@@ -61,7 +41,7 @@ final class HobbiesProduct
             ->when(auth()->check(), fn($query) => $query->where(fn($q) => $q->whereIn('category_id', $this->getPopularCategoryProducts())
                 ->orWhereIn('user_id', $this->getPopularSelelrProducts())
             ))
-            ->where('created_at', '>=', now()->subDays($setting->options['recommended_month'] ?? 30))->inRandomOrder();*/
+            ->where('created_at', '>=', now()->subDays($setting->options['recommended_month'] ?? 30))->inRandomOrder();
         $ids = $products->pluck('id')->toArray();
         $today = today();
 
