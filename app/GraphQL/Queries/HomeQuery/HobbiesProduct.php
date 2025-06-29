@@ -23,8 +23,8 @@ final class HobbiesProduct
     public function __invoke($_, array $args)
     {
         $setting = Setting::first();
-        return Product::where('id', 0);
-        $products = Product::active()->where(fn($query) => $query->whereDoesntHave('category', fn($query) => $query->where('type', CategoryTypeEnum::RESTAURANT->value)))
+       // return Product::where('id', 0);
+        $products = Product::active()->where('power','>',20)->where(fn($query) => $query->whereDoesntHave('category', fn($query) => $query->where('type', CategoryTypeEnum::RESTAURANT->value)))
             ->whereIn('type',[
                 CategoryTypeEnum::PRODUCT->value,
 CategoryTypeEnum::TENDER->value,

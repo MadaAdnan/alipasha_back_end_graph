@@ -26,13 +26,13 @@ final class SpecialProduct
 
             ->where(fn( $query)=>$query->whereDoesntHave('category',fn($query)=>$query->where('type',CategoryTypeEnum::RESTAURANT->value)))
 
-            ->where(fn($query)=> $query
-                ->where('type',CategoryTypeEnum::PRODUCT->value)
-                ->orWhere('type',CategoryTypeEnum::TENDER->value)
-                ->orWhere('type',CategoryTypeEnum::JOB->value)
-                ->orWhere('type',CategoryTypeEnum::SEARCH_JOB->value)
-                ->orWhere('type',CategoryTypeEnum::NEWS->value)
-            )  ->where(function ($query) {
+          ->whereIn('type',[
+              CategoryTypeEnum::PRODUCT->value,
+              CategoryTypeEnum::TENDER->value,
+              CategoryTypeEnum::JOB->value,
+              CategoryTypeEnum::SEARCH_JOB->value,
+              CategoryTypeEnum::NEWS->value,
+          ]) ->where(function ($query) {
                 $query->whereNull('end_date')
                     ->orWhere('end_date', '>', now());
             })->inRandomOrder()->where('created_at','>=',now()->subDays($setting->options['recommended_month']??30))
