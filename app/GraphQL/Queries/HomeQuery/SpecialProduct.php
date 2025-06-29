@@ -20,28 +20,8 @@ final class SpecialProduct
 
 //return Product::where('id',0);
         $setting=Setting::first();
-        $sellers=[];
 
-        if(auth()->check()){
-            $sellers=auth()->user()->followers->pluck('seller_id')->toArray();
-        }
-        $specialLevel=LevelProductEnum::SPECIAL->value;
-        $products = Product::active()->whereIn('type', [
-            CategoryTypeEnum::PRODUCT->value,
-            CategoryTypeEnum::TENDER->value,
-            CategoryTypeEnum::JOB->value,
-            CategoryTypeEnum::SEARCH_JOB->value,
-            CategoryTypeEnum::NEWS->value,
-        ])
-            ->where('created_at', '>=', now()->subDays($setting->options['recommended_month'] ?? 30))->inRandomOrder()
-            ->where('power', '>=', 20)
-            ->orderByRaw("
-        (level = ?) DESC,
-        (user_id IN (" . ($sellers ? implode(',', $sellers) : 0) . ")) DESC,
-        RAND()
-    ", [$specialLevel])
-        ;
-      /*  $products= Product::where(['active'=>ProductActiveEnum::ACTIVE->value,
+      $products= Product::where(['active'=>ProductActiveEnum::ACTIVE->value,
             'level'=>LevelProductEnum::SPECIAL->value])
 
             ->where(fn( $query)=>$query->whereDoesntHave('category',fn($query)=>$query->where('type',CategoryTypeEnum::RESTAURANT->value)))
@@ -60,7 +40,7 @@ final class SpecialProduct
             $q->whereNotIn('category_id',$this->getPopularCategoryProducts())
                 ->whereNotIn('user_id',$this->getPopularSelelrProducts())
             ))
-        ;*/
+        ;
 
         $ids = $products->pluck('id')->toArray();
         $today = today();
