@@ -41,7 +41,7 @@ final class SpecialProduct
                 ->whereNotIn('user_id',$this->getPopularSelelrProducts())
             ))
         ;
-
+        $products=$this->newQuery();
         $ids = $products->pluck('id')->toArray();
         $today = today();
 
@@ -78,6 +78,7 @@ final class SpecialProduct
 
     private function getPopularCategoryProducts()
     {
+
         return Interaction::where('user_id', auth()->id())->whereNotNull('category_id')
             ->latest()
             ->groupBy('category_id')
@@ -90,5 +91,30 @@ final class SpecialProduct
             ->groupBy('seller_id')
 
             ->pluck('seller_id')->toArray();
+    }
+
+    private function newQuery(){
+        $sellers=[];
+        $setting=Setting::first();
+        if(auth()->check()){
+            $sellers=auth()->user()->followers->pluck('seller_id')->toArray();
+        }
+        $specialLevel=LevelProductEnum::SPECIAL->value;
+        $products = Product::active()->whereIn('type', [
+            CategoryTypeEnum::PRODUCT->value,
+            CategoryTypeEnum::TENDER->value,
+            CategoryTypeEnum::JOB->value,
+            CategoryTypeEnum::SEARCH_JOB->value,
+            CategoryTypeEnum::NEWS->value,
+        ])
+          //  ->where('created_at', '>=', now()->subDays($setting->options['recommended_month'] ?? 30))->inRandomOrder()
+            ->where('power', '>=', 20)
+            ->orderByRaw("
+        (level = ?) DESC,
+        (user_id IN (" . ($sellers ? implode(',', $sellers) : 0) . ")) DESC,
+        RAND()
+    ", [$specialLevel])
+        ;
+        return $products;
     }
 }
