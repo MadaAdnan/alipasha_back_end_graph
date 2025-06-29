@@ -50,7 +50,7 @@ final class Products
                 if (isset($args['sub_type']) && !empty($args['sub_type'])) {
                     $query->where('type', $args['sub_type'])->where('end_date', '>', now());
                 } elseif ($type === 'job' || $type === 'search_job') {
-                    $query->where('type', 'job')->orWhere('type', 'search_job')->where('end_date', '>', now());
+                    $query->where(fn($q)=>$q->where('type', 'job')->orWhere('type', 'search_job'))->where('end_date', '>', now());
                 } /*elseif ($type === 'seller') {
                     $query->whereHas('user', fn($query) => $query->where('seller_name', 'like', "%" . $args['search'] . "%"));
 
