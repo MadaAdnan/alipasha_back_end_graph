@@ -23,17 +23,15 @@ final class HobbiesProduct
     public function __invoke($_, array $args)
     {
         $setting = Setting::first();
-
-       $products = Product::where('id', '<', 0)->
-        where(fn($query) => $query->where('active', ProductActiveEnum::ACTIVE->value)
-            ->whereDoesntHave('category', fn($query) => $query->where('type', CategoryTypeEnum::RESTAURANT->value)))
-            ->where(fn($query) => $query
-                ->where('type', CategoryTypeEnum::PRODUCT->value)
-                ->orWhere('type', CategoryTypeEnum::TENDER->value)
-                ->orWhere('type', CategoryTypeEnum::JOB->value)
-                ->orWhere('type', CategoryTypeEnum::SEARCH_JOB->value)
-                ->orWhere('type', CategoryTypeEnum::NEWS->value)
-            )
+        return Product::where('id', 0);
+        $products = Product::active()->where(fn($query) => $query->whereDoesntHave('category', fn($query) => $query->where('type', CategoryTypeEnum::RESTAURANT->value)))
+            ->whereIn('type',[
+                CategoryTypeEnum::PRODUCT->value,
+CategoryTypeEnum::TENDER->value,
+CategoryTypeEnum::JOB->value,
+CategoryTypeEnum::SEARCH_JOB->value,
+CategoryTypeEnum::NEWS->value,
+            ])
             ->where(function ($query) {
                 $query->whereNull('end_date')
                     ->orWhere('end_date', '>', now());
