@@ -83,7 +83,7 @@ class UserResource extends Resource
                                             $el->code => '<img src="' . $el->getImage() . '" style="width:20px; display:inline-block; margin-inline-end:6px;"> ' . $el->name,
                                         ];
                                     })->toArray()
-                                    )->label('الدولة')->toHtml(),
+                                    )->label('الدولة')->allowHtml(),
                                     Forms\Components\TextInput::make('phone')->label('رقم الهاتف')->required()->columnSpan(4)
                                 ]),
                                 Forms\Components\TextInput::make('affiliate')->label('كود الإحالة')->readOnly()->visible(fn($context) => $context != 'create'),
