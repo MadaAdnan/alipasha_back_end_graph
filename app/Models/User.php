@@ -232,4 +232,8 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
     {
         return $query->where(['is_seller' => true])->whereNotNull('seller_name');
     }
+    public function getFullPhoneAttribute(): string
+    {
+        return "{$this->phone_code}{$this->phone}";
+    }
 }

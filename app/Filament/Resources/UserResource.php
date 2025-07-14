@@ -14,6 +14,7 @@ use App\Jobs\SendFirebaseNotificationJob;
 use App\Models\Balance;
 use App\Models\City;
 use App\Models\Community;
+use App\Models\Country;
 use App\Models\Interaction;
 use App\Models\Message;
 use App\Models\User;
@@ -76,7 +77,10 @@ class UserResource extends Resource
                                           lenient: true, // default: false
                                       )->displayNumberFormat(PhoneInputNumberType::E164)->formatOnDisplay(false)->formatAsYouType(true)->label('رقم الهاتف'),
                                  */
-                                Forms\Components\TextInput::make('phone')->label('رقم الهاتف')->required(),
+                                Forms\Components\Grid::make(5)->schema([
+                                    Forms\Components\Select::make('phone_code')->options(Country::pluck('code','name'))->label('الدولة'),
+                                    Forms\Components\TextInput::make('phone')->label('رقم الهاتف')->required()->columnSpan(4)
+                                ]),
                                 Forms\Components\TextInput::make('affiliate')->label('كود الإحالة')->readOnly()->visible(fn($context) => $context != 'create'),
 
 //                        Forms\Components\DatePicker::make('upgrade_date')/*->required(fn($get) => $get('plan') != null)*/ ->label('تاريخ آخر ترقية'),
