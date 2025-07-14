@@ -78,8 +78,7 @@ class UserResource extends Resource
                                       )->displayNumberFormat(PhoneInputNumberType::E164)->formatOnDisplay(false)->formatAsYouType(true)->label('رقم الهاتف'),
                                  */
                                 Forms\Components\Grid::make(5)->schema([
-                                    Forms\Components\Select::make('phone_code')->options(  Country::all()->pluck('code', 'name')->mapWithKeys(function ($el) {
-
+                                    Forms\Components\Select::make('phone_code')->options(  Country::all()->mapWithKeys(function ($el) {
                                         return [
                                             $el->code => '<img src="' . $el->getImage() . '" style="width:20px; display:inline-block; margin-inline-end:6px;"> ' . $el->name,
                                         ];
