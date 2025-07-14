@@ -185,7 +185,6 @@ class UserResource extends Resource
                         }
                         return 'https://wa.me/' . "{$record->phone_code}{$phone}";
                     }, true)
-                    ->formatStateUsing(fn($record) => $record->country_code . $record->phone)
                     ->label('رقم الهاتف')->toggleable(isToggledHiddenByDefault: false)->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('city.name')->label('المدينة')->toggleable(isToggledHiddenByDefault: false)->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('email')->label('البريد الإلكتروني')->toggleable(isToggledHiddenByDefault: false)->searchable(),
