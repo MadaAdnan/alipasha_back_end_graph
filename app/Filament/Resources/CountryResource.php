@@ -30,7 +30,7 @@ class CountryResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Section::make('الدول')->schema([
-                    Forms\Components\SpatieMediaLibraryFileUpload::make('image')->collection('image')->conversion('webp')->imageCropAspectRatio(1/3)->label('علم الدولة'),
+                    Forms\Components\SpatieMediaLibraryFileUpload::make('image')->collection('image')->conversion('webp')->imageCropAspectRatio('1:3')->label('علم الدولة'),
                     Forms\Components\TextInput::make('name')->required()->unique(ignoreRecord: true)->label('الاسم'),
                     Forms\Components\TextInput::make('code')->required()->unique(ignoreRecord: true)->label('الكود'),
                     Forms\Components\Toggle::make('is_active')->label('الحالة'),
