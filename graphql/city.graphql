@@ -3,6 +3,7 @@ extend type Query{
     mainCity:[City] @all @where(key: "is_main", operator: "=", value: 1)
     citiesByCategory(categoryId:Int):[City]
     citiesHasVendor(type:String):[City]
+    countries:[Country] @all
 }
 
 
@@ -17,4 +18,12 @@ type City{
     children:[City] @hasMany
     level:Int
     code_city:String
+}
+
+type Country{
+    id:ID!
+    name:String
+    code:String
+    image:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImage")
+
 }
