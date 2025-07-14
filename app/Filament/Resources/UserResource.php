@@ -81,7 +81,7 @@ class UserResource extends Resource
                                     Forms\Components\Select::make('phone_code')->options(  Country::all()->mapWithKeys(fn ($el) =>[
                                             $el->code =>  "{$el->name} - {$el->code}"
                                         ])->toArray()
-                                    )->label('الدولة')->allowHtml(),
+                                    )->label('الدولة')->searchable(),
                                     Forms\Components\TextInput::make('phone')->label('رقم الهاتف')->required()->columnSpan(4)
                                 ]),
                                 Forms\Components\TextInput::make('affiliate')->label('كود الإحالة')->readOnly()->visible(fn($context) => $context != 'create'),
