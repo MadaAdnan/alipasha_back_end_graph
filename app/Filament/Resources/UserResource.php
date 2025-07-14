@@ -167,14 +167,14 @@ class UserResource extends Resource
                      ->countryColumn('country_code')->displayFormat(PhoneInputNumberType::E164)->url(fn($state)=>'https://wa.me/'.\Str::replace(' ','',ltrim($state),'+'),true),
                 */
                 Tables\Columns\TextColumn::make('phone')
-                    ->formatStateUsing(function ($state) {
-                        $phone = $state;
+                    ->formatStateUsing(function ($record) {
+                        $phone = $record->phone;
                         if (\Str::startsWith($phone, '+')) {
                             $phone = \Str::substr($phone, 1, \Str::length($phone) - 1);
                         } elseif (\Str::startsWith($phone, '00')) {
                             $phone = \Str::substr($phone, 2, \Str::length($phone) - 1);
                         }
-                        return $phone;
+                        return "{$record->phone_code}{$phone}";
                     })
                     ->url(function ($record) {
                         $phone = $record->phone;
@@ -183,7 +183,7 @@ class UserResource extends Resource
                         } elseif (\Str::startsWith($phone, '00')) {
                             $phone = \Str::substr($phone, 2, \Str::length($phone) - 1);
                         }
-                        return 'https://wa.me/' . $phone;
+                        return 'https://wa.me/' . "{$record->phone_code}{$phone}";
                     }, true)
                     ->formatStateUsing(fn($record) => $record->country_code . $record->phone)
                     ->label('رقم الهاتف')->toggleable(isToggledHiddenByDefault: false)->searchable()->sortable(),
