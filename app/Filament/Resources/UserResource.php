@@ -78,7 +78,13 @@ class UserResource extends Resource
                                       )->displayNumberFormat(PhoneInputNumberType::E164)->formatOnDisplay(false)->formatAsYouType(true)->label('رقم الهاتف'),
                                  */
                                 Forms\Components\Grid::make(5)->schema([
-                                    Forms\Components\Select::make('phone_code')->options(Country::pluck('code','name'))->label('الدولة'),
+                                    Forms\Components\Select::make('phone_code')->options(  Country::all()->pluck('code', 'name')->mapWithKeys(function ($el) {
+
+                                        return [
+                                            $el->code => '<img src="' . $el->getImage() . '" style="width:20px; display:inline-block; margin-inline-end:6px;"> ' . $el->name,
+                                        ];
+                                    })->toArray()
+                                    )->label('الدولة'),
                                     Forms\Components\TextInput::make('phone')->label('رقم الهاتف')->required()->columnSpan(4)
                                 ]),
                                 Forms\Components\TextInput::make('affiliate')->label('كود الإحالة')->readOnly()->visible(fn($context) => $context != 'create'),
