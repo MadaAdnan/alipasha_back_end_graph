@@ -42,7 +42,7 @@ class CountryResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\SpatieMediaLibraryImageColumn::make('image')->collection('image')->conversion('webp')->label('علم الدولة'),
+                Tables\Columns\SpatieMediaLibraryImageColumn::make('image')->collection('image')->conversion('webp')->width(75)->height(25)->label('علم الدولة'),
                Tables\Columns\TextColumn::make('name')->label('الاسم'),
                 Tables\Columns\TextColumn::make('code')->label('الكود'),
                 Tables\Columns\TextColumn::make('is_active')->label('الحالة'),
