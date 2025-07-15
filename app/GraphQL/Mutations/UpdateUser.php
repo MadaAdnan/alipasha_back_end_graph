@@ -34,6 +34,7 @@ final class UpdateUser
             'email' => $data['email'] ?? $user->email,
 
             'phone' => $phone ?? $user->phone,
+            'phone_code' => $data['phone_code'] ?? $user->phone_code,
             'city_id' => $data['city_id'] ?? $user->city_id,
             'area_id' => $data['area_id'] ?? $user->area_id,
             'seller_name' => $data['seller_name'] ?? $user->seller_name,
