@@ -205,11 +205,7 @@ class UserResource extends Resource
 
             ])
             ->filters([
-                /*Tables\Filters\TernaryFilter::make('is_seller')->falseLabel('مستخدم')->trueLabel('متجر')->queries(
-                    true: fn($query) => $query->where('is_seller', 1),
-                    false: fn($query) => $query->where('is_seller', 0),
-                    blank: fn($query) => $query,
-                )->label('نوع المستخدم'),*/
+
                 Tables\Filters\Filter::make('filter')->form([
                     Forms\Components\Select::make('level')->options([
                         LevelUserEnum::SELLER->value => LevelUserEnum::SELLER->getLabel(),

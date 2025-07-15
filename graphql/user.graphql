@@ -55,6 +55,7 @@ type User{
     unread_notifications_count:Int
     communities:[Community] @belongsToMany(relation:"communities")
     category:Category
+    full_phone:String
 
 }
 type Follower{
