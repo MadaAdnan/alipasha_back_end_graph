@@ -30,7 +30,7 @@ class CountryResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Section::make('الدول')->schema([
-                    Forms\Components\SpatieMediaLibraryFileUpload::make('image')->collection('image')->conversion('webp')->imageCropAspectRatio('3:1')->label('علم الدولة'),
+                    Forms\Components\SpatieMediaLibraryFileUpload::make('image')->collection('image')->conversion('webp')->imageCropAspectRatio('2:1')->label('علم الدولة'),
                     Forms\Components\TextInput::make('name')->required()->unique(ignoreRecord: true)->label('الاسم'),
                     Forms\Components\TextInput::make('code')->required()->unique(ignoreRecord: true)->label('الكود'),
                     Forms\Components\Toggle::make('is_active')->label('الحالة'),
@@ -42,7 +42,7 @@ class CountryResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\SpatieMediaLibraryImageColumn::make('image')->collection('image')->conversion('webp')->width(75)->height(25)->label('علم الدولة'),
+                Tables\Columns\SpatieMediaLibraryImageColumn::make('image')->collection('image')->conversion('webp')->width(50)->height(25)->label('علم الدولة'),
                Tables\Columns\TextColumn::make('name')->label('الاسم'),
                 Tables\Columns\TextColumn::make('code')->label('الكود'),
                 Tables\Columns\TextColumn::make('is_active')->label('الحالة'),
