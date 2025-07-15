@@ -164,6 +164,7 @@ input UpdateUserInput{
     ])
 
     phone:String
+    phone_code:String
     city_id:Int
     area_id:Int
     seller_name:String
