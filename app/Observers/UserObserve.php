@@ -36,7 +36,7 @@ class UserObserve
             كود التحقق الخاص بك هو \n {$user->code_verified}";
             $phone = $user->phone;
             if (!empty($phone)) {
-                $sms->sendSms([$user->phone], $message);
+            //    $sms->sendSms([$user->phone], $message);
             }
 
         } catch (\Exception | \Error $e) {
