@@ -109,6 +109,15 @@ Route::middleware('throttle:60,1')->group(function () {
     return view('import');
 });*/
 
+Route::get('/download-file/{record}', function (YourModel $record) {
+    $path = "$record->id/{$record->file_name}.xlsx";
+
+    if (!Storage::disk('local')->exists($path)) {
+        abort(404, 'File not found.');
+    }
+
+    return Storage::disk('local')->download($path);
+})->name('download.file');
 
 Route::get('testnot/{id?}', function ($id = null) {
 
