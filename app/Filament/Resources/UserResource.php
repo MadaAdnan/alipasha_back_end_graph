@@ -12,6 +12,7 @@ use App\Helpers\HelperMedia;
 use App\Helpers\HelpersEnum;
 use App\Jobs\SendFirebaseNotificationJob;
 use App\Models\Balance;
+use App\Models\Category;
 use App\Models\City;
 use App\Models\Community;
 use App\Models\Country;
@@ -190,6 +191,7 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('email')->label('البريد الإلكتروني')->toggleable(isToggledHiddenByDefault: false)->searchable(),
                 Tables\Columns\TextColumn::make('seller_name')->label('اسم المتجر')->toggleable(isToggledHiddenByDefault: false)->searchable(),
                 Tables\Columns\TextColumn::make('products_count')->label('عدد المنتجات')->toggleable(isToggledHiddenByDefault: false),
+                Tables\Columns\TextColumn::make('category.name')->label('التصنيف')->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('is_verified_email')->label('حالة التأكيد')->formatStateUsing(fn($state) => HelpersEnum::getEmailVerified($state, 'label'))
                     ->icon(fn($state) => HelpersEnum::getEmailVerified($state, 'icon'))
                     ->color(fn($state) => HelpersEnum::getEmailVerified($state, 'color'))
@@ -214,6 +216,7 @@ class UserResource extends Resource
 
                     ])->label('نوع المستخدم'),
                     Forms\Components\Select::make('city_id')->options(City::where('is_main', true)->pluck('name', 'id'))->label('المحافظة')->live(),
+                    Forms\Components\Select::make('category_id')->options(Category::where('is_main', true)->pluck('name', 'id'))->label('التصنيف')->live(),
                     Forms\Components\Select::make('area_id')->options(fn($get) => City::where('city_id', $get('city_id'))->pluck('name', 'id'))->label('المدينة'),
                     Forms\Components\Select::make('phone')->options([
                         'all' => 'الكل',
@@ -227,6 +230,9 @@ class UserResource extends Resource
                             ->when(
                                 $data['level'],
                                 fn(Builder $query, $value): Builder => $query->where('level', $value),
+                            )  ->when(
+                                $data['category_id'],
+                                fn(Builder $query, $value): Builder => $query->where('category_id', $value),
                             )
                             ->when(
                                 $data['city_id'],
