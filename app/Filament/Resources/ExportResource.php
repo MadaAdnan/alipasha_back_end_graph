@@ -47,7 +47,7 @@ public static function canEdit(Model $record): bool
                 //
             ])
             ->actions([
-                Tables\Actions\Action::make('download')->url(fn ($record) => route('download.file', ['record' => $record->id])),
+                Tables\Actions\Action::make('download')->url(fn ($record) => route('download.file', ['record' => $record->id]),true),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
