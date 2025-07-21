@@ -47,7 +47,7 @@ public static function canEdit(Model $record): bool
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('download')->url(fn($record)=>\Storage::download(\Storage::disk('local')->get("$record->id/$record->file_name.xlsx"))),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
