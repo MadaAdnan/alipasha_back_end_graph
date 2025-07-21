@@ -42,7 +42,7 @@ public static function canEdit(Model $record): bool
             ->defaultSort('completed_at','desc')
             ->columns([
                 Tables\Columns\TextColumn::make('file_name')->label('الملف'),
-                Tables\Columns\TextColumn::make('created_at')->date('Y-m-d H:i')->label('الملف'),
+                Tables\Columns\TextColumn::make('completed_at')->since()->label('الملف'),
             ])
             ->filters([
                 //
