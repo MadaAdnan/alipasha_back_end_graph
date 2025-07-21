@@ -6,6 +6,7 @@ use App\Enums\CommunityTypeEnum;
 
 use App\Enums\LevelSellerEnum;
 use App\Enums\LevelUserEnum;
+use App\Filament\Exports\UserExporter;
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Helpers\HelperMedia;
@@ -79,9 +80,9 @@ class UserResource extends Resource
                                       )->displayNumberFormat(PhoneInputNumberType::E164)->formatOnDisplay(false)->formatAsYouType(true)->label('رقم الهاتف'),
                                  */
                                 Forms\Components\Grid::make(5)->schema([
-                                    Forms\Components\Select::make('phone_code')->options(  Country::all()->mapWithKeys(fn ($el) =>[
-                                            $el->code =>  "{$el->name} - {$el->code}"
-                                        ])->toArray()
+                                    Forms\Components\Select::make('phone_code')->options(Country::all()->mapWithKeys(fn($el) => [
+                                        $el->code => "{$el->name} - {$el->code}"
+                                    ])->toArray()
                                     )->label('الدولة')->searchable(),
                                     Forms\Components\TextInput::make('phone')->label('رقم الهاتف')->required()->columnSpan(4)
                                 ]),
@@ -89,8 +90,8 @@ class UserResource extends Resource
 
 //                        Forms\Components\DatePicker::make('upgrade_date')/*->required(fn($get) => $get('plan') != null)*/ ->label('تاريخ آخر ترقية'),
                                 Forms\Components\DatePicker::make('email_verified_at')->label('حدد تاريخ لتأكيد الحساب'),
-                                Forms\Components\Select::make('city_id')->options(City::where('is_main',true)->pluck('name', 'id'))->label('المحافظة')->reactive()->searchable()->searchDebounce(750),
-                                Forms\Components\Select::make('area_id')->options(fn($get)=>City::where('city_id',$get('city_id'))->pluck('name', 'id'))->label('المنطقة')->searchable()->searchDebounce(750),
+                                Forms\Components\Select::make('city_id')->options(City::where('is_main', true)->pluck('name', 'id'))->label('المحافظة')->reactive()->searchable()->searchDebounce(750),
+                                Forms\Components\Select::make('area_id')->options(fn($get) => City::where('city_id', $get('city_id'))->pluck('name', 'id'))->label('المنطقة')->searchable()->searchDebounce(750),
                                 Forms\Components\Select::make('level')->options([
                                     LevelUserEnum::ADMIN->value => LevelUserEnum::ADMIN->getLabel(),
                                     LevelUserEnum::SELLER->value => LevelUserEnum::SELLER->getLabel(),
@@ -230,7 +231,7 @@ class UserResource extends Resource
                             ->when(
                                 $data['level'],
                                 fn(Builder $query, $value): Builder => $query->where('level', $value),
-                            )  ->when(
+                            )->when(
                                 $data['category_id'],
                                 fn(Builder $query, $value): Builder => $query->where('category_id', $value),
                             )
@@ -242,7 +243,6 @@ class UserResource extends Resource
                                 $data['area_id'],
                                 fn(Builder $query, $value): Builder => $query->where('area_id', $value),
                             )
-
                             ->when(
                                 $data['phone'] == 'notUse',
                                 fn(Builder $query, $value): Builder => $query->whereNull('phone'),
@@ -355,7 +355,7 @@ class UserResource extends Resource
                             Notification::make('success')->success()->title('نجاح العملية')->body('تم إضافة المستخدم إلى المجتمعات')->send();
                         })->label('إضافة إلى مجتمع'),
                     Tables\Actions\Action::make('delete_recommended')
-                        ->action(fn($record)=>Interaction::where('user_id',$record->id)->delete())
+                        ->action(fn($record) => Interaction::where('user_id', $record->id)->delete())
                         ->label('حذف الإهتمامات')->requiresConfirmation()
                 ]),
             ])
@@ -369,31 +369,31 @@ class UserResource extends Resource
                     Forms\Components\Textarea::make('msg')->label('الرسالة')->required(),
                 ])
                     ->action(function ($data) {
-                    try {
-                        $dataMsg['title'] =$data['title'];
-                        $dataMsg['body'] = $data['msg'];
-                        $dataMsg['url'] = 'https://v3.ali-pasha.com';
-                        User::whereNull('phone')->chunk(100, function ($users) use ($dataMsg) {
-                            foreach ($users as $user) {
-                                SendNotifyHelper::sendNotify($user, $dataMsg);
-                            }
-                        });
+                        try {
+                            $dataMsg['title'] = $data['title'];
+                            $dataMsg['body'] = $data['msg'];
+                            $dataMsg['url'] = 'https://v3.ali-pasha.com';
+                            User::whereNull('phone')->chunk(100, function ($users) use ($dataMsg) {
+                                foreach ($users as $user) {
+                                    SendNotifyHelper::sendNotify($user, $dataMsg);
+                                }
+                            });
 
-                        Notification::make('success')->title('نجاح العملية')->body('تم إرسال الرسالة بنجاح')->success()->send();
+                            Notification::make('success')->title('نجاح العملية')->body('تم إرسال الرسالة بنجاح')->success()->send();
 
-                    } catch (\Exception | \Error $e) {
+                        } catch (\Exception | \Error $e) {
 
-                        Notification::make('error')->title('فشل العملية')->body($e->getMessage())->danger()->send();
+                            Notification::make('error')->title('فشل العملية')->body($e->getMessage())->danger()->send();
 
-                    }
-                })->label('تنبيه رقم الهاتف')->icon('fas-comment'),
+                        }
+                    })->label('تنبيه رقم الهاتف')->icon('fas-comment'),
                 Tables\Actions\Action::make('send_msg_verified')->form([
                     Forms\Components\TextInput::make('title')->label('العنوان')->required(),
                     Forms\Components\Textarea::make('msg')->label('الرسالة')->required(),
                 ])
                     ->action(function ($data) {
                         try {
-                            $dataMsg['title'] =$data['title'];
+                            $dataMsg['title'] = $data['title'];
                             $dataMsg['body'] = $data['msg'];
                             $dataMsg['url'] = 'https://v3.ali-pasha.com';
                             User::whereNull('email_verified_at')->chunk(100, function ($users) use ($dataMsg) {
@@ -411,7 +411,7 @@ class UserResource extends Resource
                         }
                     })->label('تنبيه تأكيد البريد ')->icon('fas-comment'),
                 Tables\Actions\Action::make('delete_recommended')
-                    ->action(fn()=>Interaction::where('id','!=',0)->delete())
+                    ->action(fn() => Interaction::where('id', '!=', 0)->delete())
                     ->label('حذف الإهتمامات')->requiresConfirmation()
             ])
             ->bulkActions([
@@ -436,13 +436,13 @@ class UserResource extends Resource
                         Forms\Components\TextInput::make('title')->label('العنوان')->required(),
                         Forms\Components\Textarea::make('msg')->label('الرسالة')->required(),
                     ])
-                        ->action(function (  $records,$data) {
+                        ->action(function ($records, $data) {
                             try {
-                                $dataMsg['title'] =$data['title'];
+                                $dataMsg['title'] = $data['title'];
                                 $dataMsg['body'] = $data['msg'];
                                 $dataMsg['url'] = 'https://v3.ali-pasha.com';
 //$users=User::whereIn('id',$records->pluck('id')->toArray())->pluck();
-                                    SendNotifyHelper::sendNotifyMultiUser($records, $dataMsg);
+                                SendNotifyHelper::sendNotifyMultiUser($records, $dataMsg);
 
 
                                 Notification::make('success')->title('نجاح العملية')->body('تم إرسال الرسالة بنجاح')->success()->send();
@@ -454,7 +454,7 @@ class UserResource extends Resource
                             }
                         })->label('رسالة FirBase ')->icon('fas-comment')
                 ]),
-                Tables\Actions\ExportBulkAction::make("ExportAction")
+                Tables\Actions\ExportBulkAction::make("ExportAction")->exporter(UserExporter::class)
             ]);
     }
 
