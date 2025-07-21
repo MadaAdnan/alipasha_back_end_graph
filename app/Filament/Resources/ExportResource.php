@@ -47,7 +47,7 @@ public static function canEdit(Model $record): bool
                 //
             ])
             ->actions([
-                Tables\Actions\Action::make('download')->url(function($record){
+                Tables\Actions\Action::make('download')->action(function($record){
                     $path = "$record->id/{$record->file_name}.xlsx";
                     if (!\Storage::disk('local')->exists($path)) {
                         abort(404, 'File not found.');
