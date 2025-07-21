@@ -113,7 +113,7 @@ Route::get('/download-file/{record}', function (\App\Models\Export $record) {
     $path = "$record->id/{$record->file_name}.xlsx";
 
     if (!Storage::disk('local')->exists($path)) {
-       return "faild";
+       return "{$path}";
     }
 
     return Storage::disk('local')->download($path);
