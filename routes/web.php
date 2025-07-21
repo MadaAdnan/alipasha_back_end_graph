@@ -111,24 +111,24 @@ Route::middleware('throttle:60,1')->group(function () {
 
 
 Route::get('testnot/{id?}', function ($id = null) {
-   // \App\Models\Product::where('type','!=',\App\Enums\CategoryTypeEnum::RESTAURANT->value)->where('type','!=',\App\Enums\CategoryTypeEnum::PRODUCT->value)->update(['power'=>rand(20,100)]);
-  /*  $user=User::find(13);
-    $sms = new SmsService();
-    $message = "أهلا بك في تطبيق علي باشا \n
-            كود التحقق الخاص بك هو \n {$user->code_verified}";
-    $phone = $user->phone;
-    if (!empty($phone)) {
-      return  $sms->sendSms([$user->phone], $message);
+   /* $users=User::whereNull('category_id')->whereHas('products')->get();
+    foreach ($users as $user){
+        $product=$user->products()->first();
+        $user->update([
+            'category_id'=>$product?->category_id
+        ]);
     }*/
-   /* $mail=[
-        "mshqwe98@gmail.com",
-        "mh.shamey@gmail.com"
-    ];
-  $user=  User::find(13);
-Mail::to($mail)->send(new \App\Mail\RegisteredEmail($user));*/
-  /* $community=\App\Models\Community::where('is_global_seller',true)->first();
-   $users=User::whereHas('products')->select('id')->pluck('id')->toArray();
-   $community->users()->syncWithoutDetaching($users);*/
+    DB::update("
+    UPDATE users
+    JOIN (
+        SELECT user_id, MIN(category_id) as category_id
+        FROM products
+        GROUP BY user_id
+    ) as p ON users.id = p.user_id
+    SET users.category_id = p.category_id
+    WHERE users.category_id IS NULL
+");
+
 
     return 'success';
 });
