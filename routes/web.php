@@ -111,14 +111,8 @@ Route::middleware('throttle:60,1')->group(function () {
 
 
 Route::get('testnot/{id?}', function ($id = null) {
-   /* $users=User::whereNull('category_id')->whereHas('products')->get();
-    foreach ($users as $user){
-        $product=$user->products()->first();
-        $user->update([
-            'category_id'=>$product?->category_id
-        ]);
-    }*/
-    DB::update("
+
+  /*  DB::update("
     UPDATE users
     JOIN (
         SELECT user_id, MIN(category_id) as category_id
@@ -127,7 +121,7 @@ Route::get('testnot/{id?}', function ($id = null) {
     ) as p ON users.id = p.user_id
     SET users.category_id = p.category_id
     WHERE users.category_id IS NULL
-");
+");*/
 
 
     return 'success';
