@@ -109,7 +109,7 @@ Route::middleware('throttle:60,1')->group(function () {
     return view('import');
 });*/
 
-Route::get('/download-file/{record}', function (YourModel $record) {
+Route::get('/download-file/{record}', function (\App\Models\Export $record) {
     $path = "$record->id/{$record->file_name}.xlsx";
 
     if (!Storage::disk('local')->exists($path)) {
