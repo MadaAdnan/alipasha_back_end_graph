@@ -110,7 +110,7 @@ Route::middleware('throttle:60,1')->group(function () {
 });*/
 
 Route::get('/download-file/{record}', function (\App\Models\Export $record) {
-    $path = "$record->id/$record->file_name.xlsx";
+    $path = "filament_exports/$record->id/$record->file_name.xlsx";
 
     if (!Storage::disk('local')->exists($path)) {
        return "{$path}";
