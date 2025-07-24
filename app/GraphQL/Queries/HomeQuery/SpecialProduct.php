@@ -42,7 +42,8 @@ final class SpecialProduct
             ))
         ;
         $products=$this->newQuery();
-        $ids = $products->pluck('id')->toArray();
+//        $ids = $products->pluck('id')->toArray();
+        $ids=[];
         $today = today();
 
         \DB::transaction(function () use ($ids, $today) {

@@ -38,7 +38,8 @@ final class LatestProduct
                 ->whereNotIn('user_id',$this->getPopularSelelrProducts())
             ))
             ;
-        $ids = $products->pluck('id')->toArray();
+      //  $ids = $products->pluck('id')->toArray();
+        $ids=[];
         $today = today();
 
         \DB::transaction(function () use ($ids, $today) {

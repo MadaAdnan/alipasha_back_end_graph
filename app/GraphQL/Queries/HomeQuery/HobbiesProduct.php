@@ -40,7 +40,8 @@ final class HobbiesProduct
                 ->orWhereIn('user_id', $this->getPopularSelelrProducts())
             ))
             ->where('created_at', '>=', now()->subDays($setting->options['recommended_month'] ?? 30))->inRandomOrder();
-        $ids = $products->pluck('id')->toArray();
+      //  $ids = $products->pluck('id')->toArray();
+        $ids=[];
         $today = today();
 
         \DB::transaction(function () use ($ids, $today) {
