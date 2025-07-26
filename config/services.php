@@ -32,7 +32,7 @@ return [
     ],
     'google' => [
         'key' => env('GOOGLE_APP_ID','1:890729410482:web:519576aa2c512a83b17eab'),
-        'client_secret' => env('GOOGLE_SECRET_KEY','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'),
+        'client_secret' => env('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'),
         'client_id'=>env('GOOGLE_CLIENT_ID','890729410482-v6ns5ghs09md1o06al2qq31233tksm4f.apps.googleusercontent.com'),
 //        'redirect'=>env('GOOGLE_REDIRECT','https://pazarpasha.com/oauth/callback/google'),
         'redirect'=>env('GOOGLE_REDIRECT','https://pazarpasha.com/oauth/callback/google'),
