@@ -98,14 +98,11 @@
         </button>
     </form>
     <hr />
-    <form
-        action="
-      "
-    >
-        <a class="google-btn" href="{{route('google.auth')}}">
+
+        <a class="google-btn" href="{{route('google.auth.site')}}">
             <i class="fab fa-google"></i> تسجيل الدخول عبر Google
         </a>
-    </form>
+
 
     <hr />
     <a href="{{route('register.ui')}}">

@@ -30,7 +30,7 @@ Route::get('oauth/redirect/google', function () {
 
     return Socialite::driver('google')->redirect();
 
-})->name('google.auth');
+})->name('google.auth.site');
 
 
 
