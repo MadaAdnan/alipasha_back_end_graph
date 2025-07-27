@@ -28,18 +28,21 @@ class UserObserve
     public function created(User $user): void
     {
         try {
+            $setting = Setting::first();
+            if ($setting->send_via_email) {
+                $job = new SendEmailJob([$user], new RegisteredEmail($user));
+                dispatch($job);
+            }
 
-            $job = new SendEmailJob([$user], new RegisteredEmail($user));
-            dispatch($job);
             $sms = new SmsService();
             $message = "أهلا بك في تطبيق علي باشا \n
             كود التحقق الخاص بك هو \n {$user->code_verified}";
             $phone = $user->phone;
-            if (!empty($phone)) {
-            //    $sms->sendSms([$user->phone], $message);
+            if (!empty($phone) && $setting->send_via_whatsapp) {
+                $sms->sendSms([$user->phone], $message);
             }
 
-        } catch (\Exception | \Error $e) {
+        } catch (\Exception|\Error $e) {
         }
         $plan = Plan::where('duration', PlansDurationEnum::FREE->value)->first();
         if ($plan) {
