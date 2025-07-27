@@ -101,7 +101,10 @@ class AppSettingResource extends Resource
                             Forms\Components\TextInput::make('advice_url')->label('رابط الإعلان')->url()->prefix('https://'),
                             Forms\Components\Toggle::make('active_advice')->label('حالة الإعلان')
                         ])->columns(2),
-
+                        Forms\Components\Grid::make()->schema([
+                            Forms\Components\Toggle::make('send_via_whatsapp')->label('إرسال رسالة التحقق بالواتسآب'),
+                            Forms\Components\Toggle::make('send_via_email')->label('إرسال رسالة التحقق بالبريد')
+                        ])->columns(2),
                     ])
                 ]),
             ]);

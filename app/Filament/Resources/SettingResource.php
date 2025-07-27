@@ -118,6 +118,7 @@ class SettingResource extends Resource implements HasShieldPermissions
                                 ->relationship('support', 'name')
                                 /*->options(User::pluck('name','id'))*/ ->searchable()->label('بريد مسؤول الدعم'),
                             Forms\Components\Textarea::make('msg_chat')->label('رسالة دخول مسؤول الدعم'),
+                            Forms\Components\Textarea::make('footer_order')->label('رسالة ذيل  الطلب'),
                         ]),
 
 
