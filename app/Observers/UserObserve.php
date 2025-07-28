@@ -39,7 +39,7 @@ class UserObserve
             كود التحقق الخاص بك هو \n {$user->code_verified}";
             $phone = $user->phone;
             if (!empty($phone) && $setting->send_via_whatsapp) {
-                $sms->sendSms([$user->phone], $message);
+              //  $sms->sendSms([$user->phone], $message);
             }
 
         } catch (\Exception|\Error $e) {
