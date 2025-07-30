@@ -42,6 +42,9 @@ return $user;
     // $user->token
 });
 Route::middleware('throttle:60,1')->group(function () {
+    Route::get('download-app',function(){
+        return response()->download(Setting::first()?->getFirstMediaPath('apk'));
+    });
     Route::get('login', [\App\Http\Controllers\Web\AuthController::class, 'loginUi'])->name('login.ui');
     Route::get('forget-password', [\App\Http\Controllers\Web\AuthController::class, 'forgetPasswordUi'])->name('forget-password.ui');
     Route::get('change-password', [\App\Http\Controllers\Web\AuthController::class, 'changePasswordUi'])->name('change-password.ui');

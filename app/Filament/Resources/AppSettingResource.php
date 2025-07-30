@@ -86,7 +86,8 @@ class AppSettingResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Section::make('إعدادات التطبيق')->schema([
-                    Forms\Components\SpatieMediaLibraryFileUpload::make('apk')->collection('apk')->label('رفع التطبيق')->preserveFilenames(),
+                    Forms\Components\SpatieMediaLibraryFileUpload::make('apk')->collection('apk')
+                        ->label('رفع التطبيق')->preserveFilenames(),
                     Forms\Components\Toggle::make('send_notification_hobbies')->label('حالة إشعارات الاهتمامات'),
 
                     Forms\Components\TextInput::make('current_version')->label('الإصدار الحالي من التطبيق')->required(),
