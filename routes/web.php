@@ -43,7 +43,10 @@ return $user;
 });
 Route::middleware('throttle:60,1')->group(function () {
     Route::get('download-app',function(){
-        return response()->download(Setting::first()?->getFirstMediaPath('apk'));
+        return response()->download(Setting::first()?->getFirstMediaPath('apk'),[
+            'Content-Type' => 'application/vnd.android.package-archive',
+            'Content-Disposition' => 'attachment; filename="myapp.apk"',
+        ]);
     });
     Route::get('login', [\App\Http\Controllers\Web\AuthController::class, 'loginUi'])->name('login.ui');
     Route::get('forget-password', [\App\Http\Controllers\Web\AuthController::class, 'forgetPasswordUi'])->name('forget-password.ui');
