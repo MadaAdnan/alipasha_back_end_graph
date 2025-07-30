@@ -29,9 +29,9 @@ class InvoiceResource extends Resource
     protected static ?string $model = Invoice::class;
 
    // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-protected static ?string $label='طلبات شحن علي باشا';
-protected static ?string $pluralLabel='طلبات شحن علي باشا';
-protected static ?string $navigationLabel='طلبات شحن علي باشا';
+protected static ?string $label='طلبات الشراء';
+protected static ?string $pluralLabel='طلبات الشراء';
+protected static ?string $navigationLabel='طلبات الشراء';
     protected static ?string $navigationGroup='الشحن';
     public static function form(Form $form): Form
     {
