@@ -43,7 +43,7 @@ return $user;
 });
 Route::middleware('throttle:60,1')->group(function () {
     Route::get('download-app',function(){
-        return response()->download(Setting::first()?->getFirstMediaPath('apk'),[
+        return response()->file(Setting::first()?->getFirstMediaPath('apk'),[
             'Content-Type' => 'application/vnd.android.package-archive',
             'Content-Disposition' => 'attachment; filename="myapp.apk"',
         ]);
