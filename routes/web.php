@@ -45,7 +45,7 @@ Route::middleware('throttle:60,1')->group(function () {
     Route::get('download-app',function(){
         return response()->file(Setting::first()?->getFirstMediaPath('apk'),[
             'Content-Type' => 'application/vnd.android.package-archive',
-            'Content-Disposition' => 'attachment; filename="myapp.apk"',
+            'Content-Disposition' => 'attachment; filename="ali-pasha.apk"',
         ]);
     });
     Route::get('login', [\App\Http\Controllers\Web\AuthController::class, 'loginUi'])->name('login.ui');
