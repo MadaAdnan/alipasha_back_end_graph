@@ -38,23 +38,23 @@ final  class CreateNewInvoice
              * @var $authArea City
              * @var $sellerArea City
              */
-            $authArea = auth()->user()->area;
+          /*  $authArea = auth()->user()->area;
             $sellerArea = $seller->area;
-            $ship_price = ShippingPrice::where('weight', '>=', $weight)->orderBy('weight')->first();
-            if ($ship_price == null) {
+            $ship_price = ShippingPrice::where('weight', '>=', $weight)->orderBy('weight')->first();*/
+          /*  if ($ship_price == null) {
                 throw new \Exception('لا يتوفر توصيل حالياً');
-            }
+            }*/
            /* if ($sellerArea->code != $authArea->code) {
                 $far = $ship_price->external_price;
             } else {
                 $far = $ship_price->internal_price;
             }*/
-            $far = $ship_price->internal_price;
+          /*  $far = $ship_price->internal_price;
             $steps = ((int)$sellerArea->level + (int)$authArea->level) - 1;
             if ($steps <= 0) {
                 $steps = 1;
             }
-            $far += ($far / 3) * $steps;
+            $far += ($far / 3) * $steps;*/
             $invoice = new Invoice();
             $invoice->seller_id = $data['seller_id'];
             $invoice->user_id = auth()->id();
@@ -86,18 +86,18 @@ final  class CreateNewInvoice
             }
 
             $invoice->weight = $weight;
-            $invoice->shipping = $far;
-            $invoice->total = $total;
+            $invoice->shipping = 0;//$far;
+            $invoice->total =0; // $total;
             $invoice->save();
-            if (auth()->user()->getTotalBalance() < ($total + $far)) {
+          /*  if (auth()->user()->getTotalBalance() < ($total + $far)) {
                 throw new \Exception("للاسف لا تملك رصيد كافي لإتمام الطلب");
-            }
-            $balance = Balance::create([
+            }*/
+           /* $balance = Balance::create([
                 'credit' => 0,
                 'debit' => ($total + $far),
                 'info' => "طلب شحن منتجات رقم {$invoice->id}",
                 'user_id' => auth()->id(),
-            ]);
+            ]);*/
             \DB::commit();
             return $invoice;
         } catch (\Exception | \Error $e) {
