@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Enums\PlansDurationEnum;
 use App\Helpers\StrHelper;
 use App\Jobs\SendEmailJob;
+use App\Jobs\SmsJob;
 use App\Mail\RegisteredEmail;
 use App\Models\Community;
 use App\Models\Plan;
@@ -34,12 +35,13 @@ class UserObserve
                 dispatch($job);
             }
 
-            $sms = new SmsService();
+
             $message = "أهلا بك في تطبيق علي باشا \n
             كود التحقق الخاص بك هو \n {$user->code_verified}";
-            $phone = $user->phone;
+            $phone = $user->phone_code.$user->phone;
             if (!empty($phone) && $setting->send_via_whatsapp) {
-              //  $sms->sendSms([$user->phone], $message);
+                $smsJob=new SMsJob($phone,$message);
+               dispatch($smsJob);
             }
 
         } catch (\Exception|\Error $e) {
