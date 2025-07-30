@@ -22,9 +22,9 @@ final  class CreateNewInvoice
             throw new GraphQLExceptionHandler('تم حظر حسابك يرجى مراجعة الإدارة');
         }
 
-        if (auth()->user()->getTotalBalance() <= 0) {
+       /* if (auth()->user()->getTotalBalance() <= 0) {
             throw new GraphQLExceptionHandler('لا تملك رصيد كاف لإتمام الطلب');
-        }
+        }*/
 
         \DB::beginTransaction();
         try {
