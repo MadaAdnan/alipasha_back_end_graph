@@ -6,18 +6,22 @@
 
     <div class="container-fluid" style="margin-top: 70px">
         <div class="row">
-        @if(auth()->check())
-            <!-- Right Section (2 columns on large screens, 0 on small) -->
+            @if(auth()->check())
+                <!-- Right Section (2 columns on large screens, 0 on small) -->
                 <div id="right-sidebar" class="col-4 d-none d-xl-block">
                     <div class="media-scroll bg-light p-4 ">
                         <div class="inbox">
                             <p class="title">صندوق الوارد</p>
                             <ul>
                                 {{--<li><a href="#">إظهار الكل</a></li>--}}
-                                <li><a href="{{route('invoices.index')}}" class="p-1 border border-1 border-danger rounded ">مبيعاتي</a></li>
-                                <li><a href="{{route('my-invoices.index')}}" class="p-1 border border-1 border-danger rounded ">مشترياتي</a></li>
-                                <li><a href="{{route('orders.index')}}" class="p-1 border border-1 border-danger rounded">شحن طرد مخصص</a></li>
-                                <li><a href="{{route('notifications.index')}}" class="p-1 border border-1 border-danger rounded ">الإشعارات</a></li>
+                                <li><a href="{{route('invoices.index')}}"
+                                       class="p-1 border border-1 border-danger rounded ">مبيعاتي</a></li>
+                                <li><a href="{{route('my-invoices.index')}}"
+                                       class="p-1 border border-1 border-danger rounded ">مشترياتي</a></li>
+                                <li><a href="{{route('orders.index')}}"
+                                       class="p-1 border border-1 border-danger rounded">شحن طرد مخصص</a></li>
+                                <li><a href="{{route('notifications.index')}}"
+                                       class="p-1 border border-1 border-danger rounded ">الإشعارات</a></li>
                             </ul>
                         </div>
 
@@ -55,6 +59,8 @@
             $route=route('posts.show',['id'=>$id]);
         }
 
+    }elseif ($uri->getPath()=='/incoming'){
+        $route=route('invoices.index');
     }
                                         @endphp
                                         <a class="btn btn-danger action-buttons"
@@ -89,8 +95,8 @@
                                 <ul>
                                     <li>
                                         <i
-                                            class="bi bi-search"
-                                            style="margin-right: 8px; color: #aaa"
+                                                class="bi bi-search"
+                                                style="margin-right: 8px; color: #aaa"
                                         ></i>
                                     </li>
                                 </ul>
@@ -99,7 +105,7 @@
                                 @foreach($communities as $community)
                                     <div class="chat-item">
                                         <div
-                                            style="
+                                                style="
                   display: flex;
                   align-items: center;
                   gap: 4px;
@@ -108,7 +114,8 @@
                                         >
                                             <a href="{{route('communities.show',$community->id)}}"
                                                class="rounded-circle">
-                                                <img class="rounded-circle"  src="@if($community->hasMedia('image') && $community->type!=\App\Enums\CommunityTypeEnum::CHAT->value) {{$community->getImage()}} @else {{$community->users()->where('users.id','!=',auth()->id())->first()?->getImage()}}  @endif "
+                                                <img class="rounded-circle"
+                                                     src="@if($community->hasMedia('image') && $community->type!=\App\Enums\CommunityTypeEnum::CHAT->value) {{$community->getImage()}} @else {{$community->users()->where('users.id','!=',auth()->id())->first()?->getImage()}}  @endif "
                                                      style="width: 45px;height: 45px" alt="avatar"/>
                                             </a>
                                             @php
@@ -123,7 +130,7 @@
                                                 <p class="title d-flex flex-column">
                                                     <span>{{$name}}</span>
                                                     <span
-                                                        class="text-muted small">عدد المشتركين : {{$community->users_count}}</span>
+                                                            class="text-muted small">عدد المشتركين : {{$community->users_count}}</span>
                                                 </p>
                                             </a>
                                         </div>
@@ -139,10 +146,10 @@
                 </div>
             @else
                 <div id="right-sidebar" class="col-4 d-none d-xl-block"></div>
-        @endif
+            @endif
 
 
-        <!-- Middle Section (12 columns on small, 8 on larger screens) -->
+            <!-- Middle Section (12 columns on small, 8 on larger screens) -->
             <div class="col-12 col-xl-5">
 
 
@@ -150,7 +157,8 @@
                     <div class="stories-container">
                         <div class="story-box">
                             <div class="add-market">
-                                <a href="https://wa.me/{{$settings->support?->phone}}" target="_blank"> <img src="{{asset('assets/add-market.svg')}}" alt="Story 1"/></a>
+                                <a href="https://wa.me/{{$settings->support?->phone}}" target="_blank"> <img
+                                            src="{{asset('assets/add-market.svg')}}" alt="Story 1"/></a>
                                 <p>أضف متجرك هنا</p>
                             </div>
                         </div>
@@ -176,13 +184,13 @@
                     <div class="new-post">
                         <div class="flex-wrapper">
 
-                                <input
+                            <input
                                     onclick="document.location.href='{{url('/seller')}}'"
                                     class="post-input form-control border-0 shadow-none cursor-pointer"
                                     type="search"
                                     placeholder="..ماذا تفكر أن تنشر"
                                     aria-label="Search"
-                                />
+                            />
 
 
                             <a href="{{route('profile.index')}}">
@@ -192,8 +200,8 @@
                         <div class="divider"></div>
 
                         <div
-                            class="post-actions"
-                            style="
+                                class="post-actions"
+                                style="
                 margin: 10px 0px;
                 display: flex;
                 align-items: center;
@@ -201,29 +209,33 @@
               "
                         >
                             <div
-                                 >
-                                <a href="{{url('/seller/services/create')}}" style="display: flex; align-items: center; gap: 4px; cursor: pointer;">
+                            >
+                                <a href="{{url('/seller/services/create')}}"
+                                   style="display: flex; align-items: center; gap: 4px; cursor: pointer;">
                                     <img src="{{asset('assets/post-action-services.svg')}}" alt=""/>
                                     <p class="sub-title">خدمة</p>
                                 </a>
 
                             </div>
                             <div>
-                                <a href="{{url('/seller/tenders/create')}}" style="display: flex; align-items: center; gap: 4px; cursor: pointer;">
-                                <img src="{{asset('assets/post-action-chart.svg')}}" alt=""/>
-                                <p class="sub-title">مناقصة</p>
-                                </a>
-                            </div>
-                            <div >
-                                <a href="{{url('/seller/jobs/create')}}" style="display: flex; align-items: center; gap: 4px; cursor: pointer;">
-                                <img src="{{asset('assets/post-action-jobs.svg')}}" alt=""/>
-                                <p class="sub-title">وظيفة</p>
+                                <a href="{{url('/seller/tenders/create')}}"
+                                   style="display: flex; align-items: center; gap: 4px; cursor: pointer;">
+                                    <img src="{{asset('assets/post-action-chart.svg')}}" alt=""/>
+                                    <p class="sub-title">مناقصة</p>
                                 </a>
                             </div>
                             <div>
-                                <a href="{{url('/seller/products/create')}}" style="display: flex; align-items: center; gap: 4px; cursor: pointer;">
-                                <img src="{{asset('assets/post-action-products.svg')}}" alt=""/>
-                                <p class="sub-title">منتج</p>
+                                <a href="{{url('/seller/jobs/create')}}"
+                                   style="display: flex; align-items: center; gap: 4px; cursor: pointer;">
+                                    <img src="{{asset('assets/post-action-jobs.svg')}}" alt=""/>
+                                    <p class="sub-title">وظيفة</p>
+                                </a>
+                            </div>
+                            <div>
+                                <a href="{{url('/seller/products/create')}}"
+                                   style="display: flex; align-items: center; gap: 4px; cursor: pointer;">
+                                    <img src="{{asset('assets/post-action-products.svg')}}" alt=""/>
+                                    <p class="sub-title">منتج</p>
                                 </a>
                             </div>
                         </div>
@@ -235,12 +247,12 @@
                         <div class="post">
                             <div class="post-header">
                                 <button
-                                    class="btn btn-light"
-                                    data-bs-toggle="popover"
-                                    data-bs-placement="bottom"
-                                    data-bs-content-id="popover-content"
-                                    tabindex="0"
-                                    role="button"
+                                        class="btn btn-light"
+                                        data-bs-toggle="popover"
+                                        data-bs-placement="bottom"
+                                        data-bs-content-id="popover-content"
+                                        tabindex="0"
+                                        role="button"
                                 >
                                     <i class="bi bi-three-dots"></i>
                                 </button>
@@ -255,9 +267,9 @@
                                             @if($product->user?->is_verified==true)
                                                 <i class="bi bi-patch-check" style="color: blue; font-size: 16px;"></i>
                                             @endif
-                                                <a href="{{route('seller.profile',$product->user_id)}}" class="text-black">
-                                            {{$product->user?->seller_name}}
-                                                </a></p>
+                                            <a href="{{route('seller.profile',$product->user_id)}}" class="text-black">
+                                                {{$product->user?->seller_name}}
+                                            </a></p>
 
                                         @if($product->type!=\App\Enums\CategoryTypeEnum::NEWS->value)
                                             <p class="d-block sub-title" style="text-align: right">
@@ -277,20 +289,20 @@
 
 
                                 <a
-                                    @if($product->type==\App\Enums\CategoryTypeEnum::SEARCH_JOB->value || $product->type==\App\Enums\CategoryTypeEnum::JOB->value )
+                                        @if($product->type==\App\Enums\CategoryTypeEnum::SEARCH_JOB->value || $product->type==\App\Enums\CategoryTypeEnum::JOB->value )
 
-                                    href="{{route('jobs.show',$product->id)}}"
-                                    @elseif($product->type==\App\Enums\CategoryTypeEnum::TENDER->value )
-                                    href="{{route('tenders.show',$product->id)}}"
-                                    @elseif($product->type==\App\Enums\CategoryTypeEnum::RESTAURANT->value ||  $product->type==\App\Enums\CategoryTypeEnum::PRODUCT->value )
-                                    href="{{route('posts.show',$product->id)}}"
-                                    @endif>
+                                            href="{{route('jobs.show',$product->id)}}"
+                                        @elseif($product->type==\App\Enums\CategoryTypeEnum::TENDER->value )
+                                            href="{{route('tenders.show',$product->id)}}"
+                                        @elseif($product->type==\App\Enums\CategoryTypeEnum::RESTAURANT->value ||  $product->type==\App\Enums\CategoryTypeEnum::PRODUCT->value )
+                                            href="{{route('posts.show',$product->id)}}"
+                                        @endif>
                                     <p class="title" style="text-align: right">
                                         {{$product->expert}}
                                     </p>
                                 </a>
                                 <div
-                                    style="
+                                        style="
                     width: 100%;
                     height: 100%;
                     border-radius: 10px;
@@ -299,35 +311,35 @@
                                 >
                                     <a @if($product->type==\App\Enums\CategoryTypeEnum::SEARCH_JOB->value || $product->type==\App\Enums\CategoryTypeEnum::JOB->value )
 
-                                       href="{{route('jobs.show',$product->id)}}"
+                                           href="{{route('jobs.show',$product->id)}}"
                                        @elseif($product->type==\App\Enums\CategoryTypeEnum::TENDER->value )
-                                       href="{{route('tenders.show',$product->id)}}"
+                                           href="{{route('tenders.show',$product->id)}}"
                                        @elseif($product->type==\App\Enums\CategoryTypeEnum::RESTAURANT->value ||  $product->type==\App\Enums\CategoryTypeEnum::PRODUCT->value )
-                                       href="{{route('posts.show',$product->id)}}"
-                                        @endif>
+                                           href="{{route('posts.show',$product->id)}}"
+                                            @endif>
                                         <img
-                                            style="
+                                                style="
                       width: 100%;
                       object-fit: cover;
                       margin: 5px 0px 0px 0px;
                     "
-                                            src="@if($product->hasMedia('image')) {{$product->getImage('image')}} @else {{$product->getImage('images')}} @endif"
-                                            alt="post-img"
+                                                src="@if($product->hasMedia('image')) {{$product->getImage('image')}} @else {{$product->getImage('images')}} @endif"
+                                                alt="post-img"
                                         />
                                     </a>
                                 </div>
                             </div>
 
                             <div
-                                style="margin: 20px 0px 0px 0px; padding: 0px 10px; display: flex; align-items: center; justify-content: space-between;">
-                               {{-- <div class="price"
-                                     style="width: 90px; height: 24px; padding: 5px; border-radius: 4px; color: #fff; background-color: #aaa; display: flex; align-items: center; justify-content: center; border: 5px; font-size: 12px;">
-                                    @if($product->is_delivery)
-                                        متوفر شحن
-                                    @else
-                                        غير متوفر شحن
-                                    @endif
-                                </div>--}}
+                                    style="margin: 20px 0px 0px 0px; padding: 0px 10px; display: flex; align-items: center; justify-content: space-between;">
+                                {{-- <div class="price"
+                                      style="width: 90px; height: 24px; padding: 5px; border-radius: 4px; color: #fff; background-color: #aaa; display: flex; align-items: center; justify-content: center; border: 5px; font-size: 12px;">
+                                     @if($product->is_delivery)
+                                         متوفر شحن
+                                     @else
+                                         غير متوفر شحن
+                                     @endif
+                                 </div>--}}
                                 @if($product->type==\App\Enums\CategoryTypeEnum::PRODUCT->value)
                                     <div style="display: flex; gap: 8px;">
 
@@ -373,15 +385,15 @@
                             <div class="post-actions"
                                  style="margin: 20px 0px 0px 0px; padding: 0px 10px; display: flex; align-items: center; justify-content: space-between;">
                                 <button
-                                    class="copy-link"
-                                    data-post-link="{{route('posts.show',$product->id)}}"
-                                    style="display: flex; align-items: center; gap: 8px; background-color: transparent;"
+                                        class="copy-link"
+                                        data-post-link="{{route('posts.show',$product->id)}}"
+                                        style="display: flex; align-items: center; gap: 8px; background-color: transparent;"
                                 >
                                     <i style="font-size: 12px;" class="bi bi-share"></i>
                                     <p class="sub-title">مشاركة</p>
                                 </button>
                                 <button
-                                    style="display: flex; align-items: center; gap: 8px; background-color: transparent;">
+                                        style="display: flex; align-items: center; gap: 8px; background-color: transparent;">
                                     <i style="font-size: 12px;" class="bi bi-eye"></i>
                                     <p class="sub-title">مشاهدات {{$product->views_count}}</p>
                                 </button>
@@ -393,17 +405,20 @@
                                         <input type="hidden" name="productId" value="{{$product->id}}"/>
                                         <button type="button"
 
-                                                @if(auth()->check())  onclick="Like('{{route('api.like',['productId'=>$product->id,'userId'=>auth()->id()])}}','Like-{{$product->id}}')" @endif
+                                                @if(auth()->check())  onclick="Like('{{route('api.like',['productId'=>$product->id,'userId'=>auth()->id()])}}','Like-{{$product->id}}')"
+                                                @endif
                                                 style="background-color: transparent; border: none; display: flex; align-items: center; gap: 8px;">
                                             <i style="font-size: 12px;" class="bi bi-hand-thumbs-up"></i>
-                                            <p class="sub-title" >  <span id="Like-{{$product->id}}">{{$product->likes_count}}</span> اعجاب</p>
+                                            <p class="sub-title"><span
+                                                        id="Like-{{$product->id}}">{{$product->likes_count}}</span>
+                                                اعجاب</p>
                                         </button>
 
                                     </form>
                                 @endif
                                 <a href="{{route('posts.show',$product->id)}}">
                                     <button
-                                        style="display: flex; align-items: center; gap: 8px; background-color: transparent;">
+                                            style="display: flex; align-items: center; gap: 8px; background-color: transparent;">
                                         <i style="font-size: 12px;" class="bi bi-chat-dots"></i>
                                         <p class="sub-title">تعليق</p>
                                     </button>
@@ -418,12 +433,12 @@
                         <div class="post">
                             <div class="post-header">
                                 <button
-                                    class="btn btn-light"
-                                    data-bs-toggle="popover"
-                                    data-bs-placement="bottom"
-                                    data-bs-content-id="popover-content"
-                                    tabindex="0"
-                                    role="button"
+                                        class="btn btn-light"
+                                        data-bs-toggle="popover"
+                                        data-bs-placement="bottom"
+                                        data-bs-content-id="popover-content"
+                                        tabindex="0"
+                                        role="button"
                                 >
                                     <i class="bi bi-three-dots"></i>
                                 </button>
@@ -460,20 +475,20 @@
 
 
                                 <a
-                                    @if($product->type==\App\Enums\CategoryTypeEnum::SEARCH_JOB->value || $product->type==\App\Enums\CategoryTypeEnum::JOB->value )
+                                        @if($product->type==\App\Enums\CategoryTypeEnum::SEARCH_JOB->value || $product->type==\App\Enums\CategoryTypeEnum::JOB->value )
 
-                                    href="{{route('jobs.show',$product->id)}}"
-                                    @elseif($product->type==\App\Enums\CategoryTypeEnum::TENDER->value )
-                                    href="{{route('tenders.show',$product->id)}}"
-                                    @elseif($product->type==\App\Enums\CategoryTypeEnum::RESTAURANT->value ||  $product->type==\App\Enums\CategoryTypeEnum::PRODUCT->value )
-                                    href="{{route('posts.show',$product->id)}}"
-                                    @endif>
+                                            href="{{route('jobs.show',$product->id)}}"
+                                        @elseif($product->type==\App\Enums\CategoryTypeEnum::TENDER->value )
+                                            href="{{route('tenders.show',$product->id)}}"
+                                        @elseif($product->type==\App\Enums\CategoryTypeEnum::RESTAURANT->value ||  $product->type==\App\Enums\CategoryTypeEnum::PRODUCT->value )
+                                            href="{{route('posts.show',$product->id)}}"
+                                        @endif>
                                     <p class="title" style="text-align: right">
                                         {{$product->expert}}
                                     </p>
                                 </a>
                                 <div
-                                    style="
+                                        style="
                     width: 100%;
                     height: 100%;
                     border-radius: 10px;
@@ -482,27 +497,27 @@
                                 >
                                     <a @if($product->type==\App\Enums\CategoryTypeEnum::SEARCH_JOB->value || $product->type==\App\Enums\CategoryTypeEnum::JOB->value )
 
-                                       href="{{route('jobs.show',$product->id)}}"
+                                           href="{{route('jobs.show',$product->id)}}"
                                        @elseif($product->type==\App\Enums\CategoryTypeEnum::TENDER->value )
-                                       href="{{route('tenders.show',$product->id)}}"
+                                           href="{{route('tenders.show',$product->id)}}"
                                        @elseif($product->type==\App\Enums\CategoryTypeEnum::RESTAURANT->value ||  $product->type==\App\Enums\CategoryTypeEnum::PRODUCT->value )
-                                       href="{{route('posts.show',$product->id)}}"
-                                        @endif>
+                                           href="{{route('posts.show',$product->id)}}"
+                                            @endif>
                                         <img
-                                            style="
+                                                style="
                       width: 100%;
                       object-fit: cover;
                       margin: 5px 0px 0px 0px;
                     "
-                                            src="@if($product->hasMedia('image')) {{$product->getImage('image')}} @else {{$product->getImage('images')}} @endif"
-                                            alt="post-img"
+                                                src="@if($product->hasMedia('image')) {{$product->getImage('image')}} @else {{$product->getImage('images')}} @endif"
+                                                alt="post-img"
                                         />
                                     </a>
                                 </div>
                             </div>
 
                             <div
-                                style="margin: 20px 0px 0px 0px; padding: 0px 10px; display: flex; align-items: center; justify-content: space-between;">
+                                    style="margin: 20px 0px 0px 0px; padding: 0px 10px; display: flex; align-items: center; justify-content: space-between;">
                                 <div class="price"
                                      style="width: 90px; height: 24px; padding: 5px; border-radius: 4px; color: #fff; background-color: #aaa; display: flex; align-items: center; justify-content: center; border: 5px; font-size: 12px;">
                                     @if($product->is_delivery)
@@ -556,15 +571,15 @@
                             <div class="post-actions"
                                  style="margin: 20px 0px 0px 0px; padding: 0px 10px; display: flex; align-items: center; justify-content: space-between;">
                                 <button
-                                    class="copy-link"
-                                    data-post-link="{{route('posts.show',$product->id)}}"
-                                    style="display: flex; align-items: center; gap: 8px; background-color: transparent;"
+                                        class="copy-link"
+                                        data-post-link="{{route('posts.show',$product->id)}}"
+                                        style="display: flex; align-items: center; gap: 8px; background-color: transparent;"
                                 >
                                     <i style="font-size: 12px;" class="bi bi-share"></i>
                                     <p class="sub-title">مشاركة</p>
                                 </button>
                                 <button
-                                    style="display: flex; align-items: center; gap: 8px; background-color: transparent;">
+                                        style="display: flex; align-items: center; gap: 8px; background-color: transparent;">
                                     <i style="font-size: 12px;" class="bi bi-eye"></i>
                                     <p class="sub-title">مشاهدات {{$product->views_count}}</p>
                                 </button>
@@ -576,17 +591,20 @@
                                         <input type="hidden" name="productId" value="{{$product->id}}"/>
                                         <button type="button"
 
-                                                @if(auth()->check())  onclick="Like('{{route('api.like',['productId'=>$product->id,'userId'=>auth()->id()])}}','Like-{{$product->id}}')" @endif
+                                                @if(auth()->check())  onclick="Like('{{route('api.like',['productId'=>$product->id,'userId'=>auth()->id()])}}','Like-{{$product->id}}')"
+                                                @endif
                                                 style="background-color: transparent; border: none; display: flex; align-items: center; gap: 8px;">
                                             <i style="font-size: 12px;" class="bi bi-hand-thumbs-up"></i>
-                                            <p class="sub-title" >  <span id="Like-{{$product->id}}">{{$product->likes_count}}</span> اعجاب</p>
+                                            <p class="sub-title"><span
+                                                        id="Like-{{$product->id}}">{{$product->likes_count}}</span>
+                                                اعجاب</p>
                                         </button>
 
                                     </form>
                                 @endif
                                 <a href="{{route('posts.show',$product->id)}}">
                                     <button
-                                        style="display: flex; align-items: center; gap: 8px; background-color: transparent;">
+                                            style="display: flex; align-items: center; gap: 8px; background-color: transparent;">
                                         <i style="font-size: 12px;" class="bi bi-chat-dots"></i>
                                         <p class="sub-title">تعليق</p>
                                     </button>
@@ -600,12 +618,12 @@
                         <div class="post">
                             <div class="post-header">
                                 <button
-                                    class="btn btn-light"
-                                    data-bs-toggle="popover"
-                                    data-bs-placement="bottom"
-                                    data-bs-content-id="popover-content"
-                                    tabindex="0"
-                                    role="button"
+                                        class="btn btn-light"
+                                        data-bs-toggle="popover"
+                                        data-bs-placement="bottom"
+                                        data-bs-content-id="popover-content"
+                                        tabindex="0"
+                                        role="button"
                                 >
                                     <i class="bi bi-three-dots"></i>
                                 </button>
@@ -642,20 +660,20 @@
 
 
                                 <a
-                                    @if($product->type==\App\Enums\CategoryTypeEnum::SEARCH_JOB->value || $product->type==\App\Enums\CategoryTypeEnum::JOB->value )
+                                        @if($product->type==\App\Enums\CategoryTypeEnum::SEARCH_JOB->value || $product->type==\App\Enums\CategoryTypeEnum::JOB->value )
 
-                                    href="{{route('jobs.show',$product->id)}}"
-                                    @elseif($product->type==\App\Enums\CategoryTypeEnum::TENDER->value )
-                                    href="{{route('tenders.show',$product->id)}}"
-                                    @elseif($product->type==\App\Enums\CategoryTypeEnum::RESTAURANT->value ||  $product->type==\App\Enums\CategoryTypeEnum::PRODUCT->value )
-                                    href="{{route('posts.show',$product->id)}}"
-                                    @endif>
+                                            href="{{route('jobs.show',$product->id)}}"
+                                        @elseif($product->type==\App\Enums\CategoryTypeEnum::TENDER->value )
+                                            href="{{route('tenders.show',$product->id)}}"
+                                        @elseif($product->type==\App\Enums\CategoryTypeEnum::RESTAURANT->value ||  $product->type==\App\Enums\CategoryTypeEnum::PRODUCT->value )
+                                            href="{{route('posts.show',$product->id)}}"
+                                        @endif>
                                     <p class="title" style="text-align: right">
                                         {{$product->expert}}
                                     </p>
                                 </a>
                                 <div
-                                    style="
+                                        style="
                     width: 100%;
                     height: 100%;
                     border-radius: 10px;
@@ -664,27 +682,27 @@
                                 >
                                     <a @if($product->type==\App\Enums\CategoryTypeEnum::SEARCH_JOB->value || $product->type==\App\Enums\CategoryTypeEnum::JOB->value )
 
-                                       href="{{route('jobs.show',$product->id)}}"
+                                           href="{{route('jobs.show',$product->id)}}"
                                        @elseif($product->type==\App\Enums\CategoryTypeEnum::TENDER->value )
-                                       href="{{route('tenders.show',$product->id)}}"
+                                           href="{{route('tenders.show',$product->id)}}"
                                        @elseif($product->type==\App\Enums\CategoryTypeEnum::RESTAURANT->value ||  $product->type==\App\Enums\CategoryTypeEnum::PRODUCT->value )
-                                       href="{{route('posts.show',$product->id)}}"
-                                        @endif>
+                                           href="{{route('posts.show',$product->id)}}"
+                                            @endif>
                                         <img
-                                            style="
+                                                style="
                       width: 100%;
                       object-fit: cover;
                       margin: 5px 0px 0px 0px;
                     "
-                                            src="@if($product->hasMedia('image')) {{$product->getImage('image')}} @else {{$product->getImage('images')}} @endif"
-                                            alt="post-img"
+                                                src="@if($product->hasMedia('image')) {{$product->getImage('image')}} @else {{$product->getImage('images')}} @endif"
+                                                alt="post-img"
                                         />
                                     </a>
                                 </div>
                             </div>
 
                             <div
-                                style="margin: 20px 0px 0px 0px; padding: 0px 10px; display: flex; align-items: center; justify-content: space-between;">
+                                    style="margin: 20px 0px 0px 0px; padding: 0px 10px; display: flex; align-items: center; justify-content: space-between;">
                                 <div class="price"
                                      style="width: 90px; height: 24px; padding: 5px; border-radius: 4px; color: #fff; background-color: #aaa; display: flex; align-items: center; justify-content: center; border: 5px; font-size: 12px;">
                                     @if($product->is_delivery)
@@ -738,15 +756,15 @@
                             <div class="post-actions"
                                  style="margin: 20px 0px 0px 0px; padding: 0px 10px; display: flex; align-items: center; justify-content: space-between;">
                                 <button
-                                    class="copy-link"
-                                    data-post-link="{{route('posts.show',$product->id)}}"
-                                    style="display: flex; align-items: center; gap: 8px; background-color: transparent;"
+                                        class="copy-link"
+                                        data-post-link="{{route('posts.show',$product->id)}}"
+                                        style="display: flex; align-items: center; gap: 8px; background-color: transparent;"
                                 >
                                     <i style="font-size: 12px;" class="bi bi-share"></i>
                                     <p class="sub-title">مشاركة</p>
                                 </button>
                                 <button
-                                    style="display: flex; align-items: center; gap: 8px; background-color: transparent;">
+                                        style="display: flex; align-items: center; gap: 8px; background-color: transparent;">
                                     <i style="font-size: 12px;" class="bi bi-eye"></i>
                                     <p class="sub-title">مشاهدات {{$product->views_count}}</p>
                                 </button>
@@ -758,17 +776,20 @@
                                         <input type="hidden" name="productId" value="{{$product->id}}"/>
                                         <button type="button"
 
-                                                @if(auth()->check())  onclick="Like('{{route('api.like',['productId'=>$product->id,'userId'=>auth()->id()])}}','Like-{{$product->id}}')" @endif
+                                                @if(auth()->check())  onclick="Like('{{route('api.like',['productId'=>$product->id,'userId'=>auth()->id()])}}','Like-{{$product->id}}')"
+                                                @endif
                                                 style="background-color: transparent; border: none; display: flex; align-items: center; gap: 8px;">
                                             <i style="font-size: 12px;" class="bi bi-hand-thumbs-up"></i>
-                                            <p class="sub-title" >  <span id="Like-{{$product->id}}">{{$product->likes_count}}</span> اعجاب</p>
+                                            <p class="sub-title"><span
+                                                        id="Like-{{$product->id}}">{{$product->likes_count}}</span>
+                                                اعجاب</p>
                                         </button>
 
                                     </form>
                                 @endif
                                 <a href="{{route('posts.show',$product->id)}}">
                                     <button
-                                        style="display: flex; align-items: center; gap: 8px; background-color: transparent;">
+                                            style="display: flex; align-items: center; gap: 8px; background-color: transparent;">
                                         <i style="font-size: 12px;" class="bi bi-chat-dots"></i>
                                         <p class="sub-title">تعليق</p>
                                     </button>
@@ -780,17 +801,18 @@
 
                 <div class="d-flex justify-content-between ps-2">
                     @if($latests->hasMorePages() || $specials->hasMorePages() || $hobbbies->hasMorePages())
-                    <a class="btn btn-sm btn-secondary"
-                       href="{{$latests->withQueryString()->nextPageUrl()}}">التالي</a>
+                        <a class="btn btn-sm btn-secondary"
+                           href="{{$latests->withQueryString()->nextPageUrl()}}">التالي</a>
                     @endif
-                    <a class="btn btn-sm btn-secondary" href="{{$latests->withQueryString()->previousPageUrl()}}">السابق</a>
+                    <a class="btn btn-sm btn-secondary"
+                       href="{{$latests->withQueryString()->previousPageUrl()}}">السابق</a>
                 </div>
 
 
             </div>
             <div
-                class="floating-left-sidebar-icon d-xl-none"
-                onclick="toggleLeftSidebar()"
+                    class="floating-left-sidebar-icon d-xl-none"
+                    onclick="toggleLeftSidebar()"
             >
                 التصنيفات
             </div>
@@ -800,9 +822,9 @@
                     <div style="text-align: center">
                         <a href="{{url('/seller/products/create')}}">
                             <button
-                                class="new-post"
-                                {{--   data-bs-toggle="modal"
-                                   data-bs-target="#addPostModal"--}}
+                                    class="new-post"
+                                    {{--   data-bs-toggle="modal"
+                                       data-bs-target="#addPostModal"--}}
                             >
                                 منشور جديد
                             </button>
