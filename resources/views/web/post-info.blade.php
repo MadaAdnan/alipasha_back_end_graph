@@ -31,7 +31,7 @@
                                             <button type="submit" class="btn btn-danger"> متابعة</button>
                                         </form>
                                     @endauth
-@php
+@php($message=null)
     $message = "السلام عليكم ورحمة الله وبركاته ";
           $message .= "\n ";
           $message .= "📦 طلب جديد من تطبيق علي باشا:";
