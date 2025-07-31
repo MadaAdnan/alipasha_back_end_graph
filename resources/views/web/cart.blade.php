@@ -3,6 +3,9 @@
     عناصر السلة
 @endsection
 @section('content')
+    @if(session()->has('phone'))
+        <h1>{{session()->get('phone')}}</h1>
+        @endif
     <div class="container">
         <div class="row justify-content-center" style="margin-top: 100px">
             <div class="table-responsive">
