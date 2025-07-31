@@ -31,7 +31,7 @@
                                             <button type="submit" class="btn btn-danger"> متابعة</button>
                                         </form>
                                     @endauth
-
+{{$message}}
                                     <a href="https://wa.me/{{$post->user?->phone}}?text={!! $message !!}" target="_blank"
                                        class="btn btn-success"><i class="bi bi-whatsapp"></i></a>
 
