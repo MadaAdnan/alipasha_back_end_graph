@@ -43,8 +43,10 @@ $message .= "\n ";
 $message.="السعر  : ".$$post->price;
 $message .= "\n ";
 $message.=\App\Models\Setting::first()->footer_order;
+$user=$post->user;
+$phone=$user?->phone_code.$user?->phone;
 @endphp
-                                    <a href="https://wa.me/{{$post->user?->phone}}?text={{$message}}" target="_blank"
+                                    <a href="https://wa.me/{{$phone}}?text={{$message}}" target="_blank"
                                        class="btn btn-success"><i class="bi bi-whatsapp"></i></a>
 
                                         <form action="{{route('communities.store')}}" method="post">
