@@ -61,6 +61,7 @@
                                            data-path="{{$uri->getPath()}}"
                                            href="{{$route}}"
                                            style="color: #fff; background-color: #e30613"
+                                           data-url="{{$notification->data['url']}}"
                                         > إذهب
                                         </a>
                                     @endif
