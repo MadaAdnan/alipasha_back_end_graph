@@ -32,7 +32,7 @@
                                         </form>
                                     @endauth
 
-                                    <a href="https://wa.me/{{$post->user?->phone}}?text={!! nl2br($message) !!}" target="_blank"
+                                    <a href="https://wa.me/{{$post->user?->phone}}?text={!! urlencode($message) !!}" target="_blank"
                                        class="btn btn-success"><i class="bi bi-whatsapp"></i></a>
 
                                         <form action="{{route('communities.store')}}" method="post">
