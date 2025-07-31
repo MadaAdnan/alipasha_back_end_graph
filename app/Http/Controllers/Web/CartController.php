@@ -184,7 +184,7 @@ $message.="📦 طلب جديد من تطبيق علي باشا:";
             \DB::commit();
 
             $phone="$seller->phone_code"."$seller->phone";
-            return redirect('https://wa.me/'.$product->user->phone.'?text='.$message);
+            return redirect('https://wa.me/'.$phone.'?text='.$message);
             return redirect()->route('my-invoices.index');
         } catch (\Exception | \Error $error) {
             \DB::rollBack();
