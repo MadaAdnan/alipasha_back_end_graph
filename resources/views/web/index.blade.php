@@ -59,7 +59,7 @@
             $route=route('posts.show',['id'=>$id]);
         }
 
-    }elseif ($uri->getPath()=='/incoming'){
+    }elseif ($uri->getPath()=='/incomming'){
         $route=route('invoices.index');
     }
                                         @endphp
