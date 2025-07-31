@@ -27,7 +27,7 @@ use Laravel\Socialite\Facades\Socialite;
 ]);*/
 
 Route::get('oauth/redirect/google', function () {
-
+    Session::put('original_domain', request()->getHost());
     return Socialite::driver('google')->redirect();
 
 })->name('google.auth.site');
@@ -36,10 +36,20 @@ Route::get('oauth/redirect/google', function () {
 
 Route::get('oauth/callback/google', function () {
 
-    $user = Socialite::driver('google')->user();
+    try {
+        $user = Socialite::driver('google')->user();
 
-return $user;
-    // $user->token
+        // استرجاع الدومين الأصلي
+        $originalDomain = Session::pull('original_domain', 'pazarpasha.com');
+
+        // هنا يمكنك تسجيل المستخدم مثلاً أو أي منطق آخر
+
+        // إعادة التوجيه إلى الدومين الأصلي
+        return redirect()->away("https://$originalDomain");
+
+    } catch (\Exception $e) {
+        return 'OAuth Error: ' . $e->getMessage();
+    }
 });
 Route::middleware('throttle:60,1')->group(function () {
     Route::get('download-app',function(){
