@@ -145,9 +145,9 @@ $message.="📦 طلب جديد من تطبيق علي باشا:";
         \DB::beginTransaction();
         try {
             $result =/* $shipping +*/ $total;
-            if (auth()->user()->getTotalBalance() < $result) {
+            /*if (auth()->user()->getTotalBalance() < $result) {
                 throw new \Exception("لا تملك رصيد مافي");
-            }
+            }*/
             if ($carts->count() > 0)
 
                 $invoice = Invoice::create([
