@@ -188,7 +188,7 @@ $message.="📦 طلب جديد من تطبيق علي باشا:";
             return redirect()->route('my-invoices.index');
         } catch (\Exception | \Error $error) {
             \DB::rollBack();
-            return back()->with('error', "لا تملك رصيد مافي");
+            return back()->with('error', $error->getMessage());
         }
 
     }
