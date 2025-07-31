@@ -319,14 +319,14 @@
 
                             <div
                                 style="margin: 20px 0px 0px 0px; padding: 0px 10px; display: flex; align-items: center; justify-content: space-between;">
-                                <div class="price"
+                               {{-- <div class="price"
                                      style="width: 90px; height: 24px; padding: 5px; border-radius: 4px; color: #fff; background-color: #aaa; display: flex; align-items: center; justify-content: center; border: 5px; font-size: 12px;">
                                     @if($product->is_delivery)
                                         متوفر شحن
                                     @else
                                         غير متوفر شحن
                                     @endif
-                                </div>
+                                </div>--}}
                                 @if($product->type==\App\Enums\CategoryTypeEnum::PRODUCT->value)
                                     <div style="display: flex; gap: 8px;">
 
