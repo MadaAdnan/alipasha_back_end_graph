@@ -31,8 +31,20 @@
                                             <button type="submit" class="btn btn-danger"> متابعة</button>
                                         </form>
                                     @endauth
-
-                                    <a href="https://wa.me/{{$post->user?->phone}}" target="_blank"
+@php
+    $message = "السلام عليكم ورحمة الله وبركاته ";
+          $message .= "\n ";
+          $message .= "📦 طلب جديد من تطبيق علي باشا:";
+$message .= "\n ";
+$message.="معرف المنتج : ".$$post->id;
+$message .= "\n ";
+$message.="اسم المنتج : ".$$post->name;
+$message .= "\n ";
+$message.="السعر  : ".$$post->price;
+$message .= "\n ";
+$message.=\App\Models\Setting::first()->footer_order;
+@endphp
+                                    <a href="https://wa.me/{{$post->user?->phone}}?text={{$message}}" target="_blank"
                                        class="btn btn-success"><i class="bi bi-whatsapp"></i></a>
 
                                         <form action="{{route('communities.store')}}" method="post">
