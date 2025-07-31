@@ -9,6 +9,7 @@ use App\Models\Cart;
 use App\Models\Invoice;
 use App\Models\Item;
 use App\Models\Product;
+use App\Models\Setting;
 use App\Models\ShippingPrice;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -188,7 +189,7 @@ class CartController extends Controller
                 $phone = "$seller->phone_code" . "$seller->phone";
 
             }
-
+$message.="\n".Setting::first()?->footer_order;
             return redirect()->route('my-invoices.index')->with([
                 'message'=>$message,
                 'phone'=>$phone
