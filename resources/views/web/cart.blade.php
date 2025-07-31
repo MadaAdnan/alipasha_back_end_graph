@@ -81,10 +81,10 @@
                     </tbody>
                     <tfoot>
                     <tr>
-                        <th colspan="2" class="text-center bg-info-subtle">أجور شحن</th>
-                        <th colspan="2" class="text-center bg-info-subtle">{{$shipping}} $</th>
-                        <th colspan="2" class="text-center bg-info-subtle">إجمالي القيمة</th>
-                        <th colspan="2" class="text-center bg-info-subtle">{{sprintf('%.2f',$result)}} $</th>
+                       {{-- <th colspan="2" class="text-center bg-info-subtle">أجور شحن</th>
+                        <th colspan="2" class="text-center bg-info-subtle">{{$shipping}} $</th>--}}
+                        <th colspan="4" class="text-center bg-info-subtle">إجمالي القيمة</th>
+                        <th colspan="4" class="text-center bg-info-subtle">{{sprintf('%.2f',$result)}} $</th>
 
                     </tr>
                     <tr>
