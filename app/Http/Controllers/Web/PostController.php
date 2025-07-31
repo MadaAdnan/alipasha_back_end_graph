@@ -85,7 +85,20 @@ class PostController extends Controller
                 \DB::table('product_views')->insert($inserts);
             }
         });
-        return view('web.post-info',compact('post','categories'));
+        $message = "السلام عليكم ورحمة الله وبركاته ";
+        $message .= "\n ";
+        $message .= "📦 طلب جديد من تطبيق علي باشا:";
+        $message .= "\n ";
+        $message.="معرف المنتج : ".$$post->id;
+        $message .= "\n ";
+        $message.="اسم المنتج : ".$$post->name;
+        $message .= "\n ";
+        $message.="السعر  : ".$$post->price;
+        $message .= "\n ";
+        $message.=\App\Models\Setting::first()->footer_order;
+        $user=$post->user;
+        $phone=$user?->phone_code.$user?->phone;
+        return view('web.post-info',compact('post','categories','message','phone'));
     }
 
     /**
