@@ -28,6 +28,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
 
-
+        config([
+            'services.google.redirect' => url('/oauth/callback/google'),
+        ]);
     }
 }
