@@ -89,11 +89,11 @@ class PostController extends Controller
         $message .= "\n ";
         $message .= "📦 طلب جديد من تطبيق علي باشا:";
         $message .= "\n ";
-        $message.="معرف المنتج : ".$$post->id;
+        $message.="معرف المنتج : ".$post->id;
         $message .= "\n ";
-        $message.="اسم المنتج : ".$$post->name;
+        $message.="اسم المنتج : ".$post->name;
         $message .= "\n ";
-        $message.="السعر  : ".$$post->price;
+        $message.="السعر  : ".$post->price;
         $message .= "\n ";
         $message.=\App\Models\Setting::first()->footer_order;
         $user=$post->user;
