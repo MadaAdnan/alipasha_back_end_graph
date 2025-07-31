@@ -89,7 +89,7 @@
                     </tr>
                     <tr>
                         <th colspan="2" class="text-center bg-danger-subtle">الإجمالي</th>
-                        <th colspan="2" class="text-center bg-danger-subtle">{{sprintf('%.2f',$result/*+$shipping*/)}}$
+                        <th colspan="2" class="text-center bg-danger-subtle">{{sprintf('%.2f',$result/*+$shipping*/)}} $
                         </th>
                         <th colspan="4" class="text-center ">
                             {{--@if($shipping>0 &&
