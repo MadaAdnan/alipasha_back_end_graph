@@ -48,12 +48,12 @@ class CartController extends Controller
                     'qty' => 1,
                 ]);
             } else {
-                if($request->type=='min'){
-                    if($cart->qty>1){
+                if ($request->type == 'min') {
+                    if ($cart->qty > 1) {
                         $cart->update(['qty' => $cart->qty - 1]);
                     }
 
-                }else{
+                } else {
                     $cart->update(['qty' => $cart->qty + 1]);
                 }
 
@@ -72,7 +72,7 @@ class CartController extends Controller
         $weight = 0;
         $shipping = 0;
         $carts = Cart::where(['user_id' => auth()->id(), 'seller_id' => $id])->get();
-       foreach ($carts as $cart) {
+        foreach ($carts as $cart) {
             $product = $cart->product;
 
 
@@ -108,25 +108,25 @@ class CartController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $carts = Cart::/*whereHas('product', fn($query) => $query->where('is_delivery', true))->*/where(['user_id' => auth()->id(), 'seller_id' => $id])->get();
+        $carts = Cart::/*whereHas('product', fn($query) => $query->where('is_delivery', true))->*/ where(['user_id' => auth()->id(), 'seller_id' => $id])->get();
         $total = 0;
         $shipping = 0;
         $size = 0;
         $weight = 0;
-$message="السلام عليكم ورحمة الله وبركاته ";
-$message.="\n ";
-$message.="📦 طلب جديد من تطبيق علي باشا:";
+        $message = "السلام عليكم ورحمة الله وبركاته ";
+        $message .= "\n ";
+        $message .= "📦 طلب جديد من تطبيق علي باشا:";
         foreach ($carts as $cart) {
             $product = $cart->product;
-            $message.="\n ";
-            $message.="معرف المنتج : ".$product->id;
-            $message.="\n ";
-            $message.="اسم المنتج : ".$product->name;
-            $message.="\n ";
-            $message.="الكمية : ".$cart->qty;
-            $message.="\n ";
-            $message.="السعر : ".$product->getPrice();
-            $message.="\n ";
+            $message .= "\n ";
+            $message .= "معرف المنتج : " . $product->id;
+            $message .= "\n ";
+            $message .= "اسم المنتج : " . $product->name;
+            $message .= "\n ";
+            $message .= "الكمية : " . $cart->qty;
+            $message .= "\n ";
+            $message .= "السعر : " . $product->getPrice();
+            $message .= "\n ";
 
 
             $total += $product->getPrice() * $cart->qty;
@@ -144,7 +144,8 @@ $message.="📦 طلب جديد من تطبيق علي باشا:";
         $shipping = $shipping + ($steps * $ratio);
         \DB::beginTransaction();
         try {
-            $result =/* $shipping +*/ $total;
+            $result =/* $shipping +*/
+                $total;
             /*if (auth()->user()->getTotalBalance() < $result) {
                 throw new \Exception("لا تملك رصيد مافي");
             }*/
@@ -160,11 +161,11 @@ $message.="📦 طلب جديد من تطبيق علي باشا:";
                     'phone' => auth()->user()->phone,
                     'address' => auth()->user()->address,
                 ]);
-           /* Balance::create([
-                'user_id'=>auth()->id(),
-                'debit'=>$result,
-                'info'=>'قيمة شحن طلب رقم '.$invoice->id,
-            ]);*/
+            /* Balance::create([
+                 'user_id'=>auth()->id(),
+                 'debit'=>$result,
+                 'info'=>'قيمة شحن طلب رقم '.$invoice->id,
+             ]);*/
             foreach ($carts as $cart) {
                 Item::create([
                     'invoice_id' => $invoice->id,
@@ -179,16 +180,18 @@ $message.="📦 طلب جديد من تطبيق علي باشا:";
             /**
              * @var $seller User
              */
-            $seller=$carts->first()?->product?->user;
+            $seller = Cart::where(['user_id' => auth()->id(), 'seller_id' => $id])->first()?->product?->user;
             Cart::where(['user_id' => auth()->id(), 'seller_id' => $id])->delete();
             \DB::commit();
+            if ($seller) {
+                $phone = "$seller->phone_code" . "$seller->phone";
+                return redirect('https://wa.me/' . $phone . '?text=' . $message);
+            }
 
-            $phone="$seller->phone_code"."$seller->phone";
-            return redirect('https://wa.me/'.$phone.'?text='.$message);
             return redirect()->route('my-invoices.index');
-        } catch (\Exception | \Error $error) {
+        } catch (\Exception|\Error $error) {
             \DB::rollBack();
-            return back()->with('error', $error->getMessage().'-'.$error->getLine());
+            return back()->with('error', $error->getMessage() . '-' . $error->getLine());
         }
 
     }
