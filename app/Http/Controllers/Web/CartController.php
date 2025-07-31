@@ -176,13 +176,13 @@ $message.="📦 طلب جديد من تطبيق علي باشا:";
                 ]);
 
             }
-
-            Cart::where(['user_id' => auth()->id(), 'seller_id' => $id])->delete();
-            \DB::commit();
             /**
              * @var $seller User
              */
             $seller=$carts[0]?->product?->user;
+            Cart::where(['user_id' => auth()->id(), 'seller_id' => $id])->delete();
+            \DB::commit();
+
             $phone=$seller->phone_code.$seller->phone;
             return redirect('https://wa.me/'.$product->user->phone.'?text='.$message);
             return redirect()->route('my-invoices.index');
