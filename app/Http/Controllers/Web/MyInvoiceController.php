@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Enums\OrderStatusEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Invoice;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class MyInvoiceController extends Controller
@@ -30,7 +32,22 @@ class MyInvoiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $product=Product::find($request->product_id);
+     $invoice=   Invoice::create([
+            'user_id'=>auth()->id(),
+           'phone' => auth()->user()->phone,
+            'address' => auth()->user()->address,
+            'seller_id' => $product->user_id,
+            'status' => OrderStatusEnum::PENDING->value,
+            'total' => $product->price,
+        ]);
+        $invoice->items()->create([
+            'qty' => 1,
+            'product_id' => $product->id,
+            'price' => $product->price,
+            'total' => $product->price,
+        ]);
+        return back();
     }
 
     /**

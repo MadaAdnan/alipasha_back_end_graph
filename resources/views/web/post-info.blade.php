@@ -33,7 +33,13 @@
                                     @endauth
 
                                     <a href="https://wa.me/{{$post->user?->phone}}?text={!! urlencode($message) !!}" target="_blank"
-                                       class="btn btn-success"><i class="bi bi-whatsapp"></i></a>
+                                       class="btn btn-success"></a>
+                                        <form method="post" action="{{route('my-invoices.store')}}" id="FormCart">
+                                            @csrf
+
+                                            <input type="hidden" name="product_id" value="{{$post->id}}">
+                                            <button class="btn btn-sm btn-success" type="button" id="SUBMIT"> <i class="bi bi-whatsapp"></i></button>
+                                        </form>
 
                                         <form action="{{route('communities.store')}}" method="post">
                                             @csrf
@@ -539,4 +545,15 @@
             </div>
         </div>
     </div>
+@endsection
+@section('js')
+    <script>
+        var form=document.getElementById('FormCart');
+
+            var btn=document.getElementById('SUBMIT');
+            btn.addEventListener('click',function(){
+                open('https://wa.me/{{$phone}}?text={!! urlencode($message) !!}','_blank')
+                form.submit();
+            });
+    </script>
 @endsection
