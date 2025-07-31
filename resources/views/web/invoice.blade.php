@@ -34,18 +34,28 @@
                         </div>
                         <div class="card-footer">
                             <div class="d-flex">
+                                @if(in_array($invoice->status,[
+                                    \App\Enums\OrderStatusEnum::PENDING->value,
+]))
                                 <form action="{{route('invoices.update',$invoice->id)}}" method="post">
                                     @csrf
                                     @method('PUT')
                                     <input type="hidden" name="status" value="{{\App\Enums\OrderStatusEnum::AGREE->value}}">
                                     <button class="btn-sm btn-success">قبول الطلب</button>
                                 </form>
+                                @endif
+                                    @if(in_array($invoice->status,[
+                                       \App\Enums\OrderStatusEnum::PENDING->value,
+                                       \App\Enums\OrderStatusEnum::AGREE->value,
+                                       \App\Enums\OrderStatusEnum::AWAY->value
+   ]))
                                 <form action="{{route('invoices.update',$invoice->id)}}" method="post">
                                     @csrf
                                     @method('PUT')
                                     <input type="hidden" name="status" value="{{\App\Enums\OrderStatusEnum::CANCELED->value}}">
                                     <button class="btn-sm btn-danger">رفض الطلب</button>
                                 </form>
+                                        @endif
                             </div>
                         </div>
                     </div>
