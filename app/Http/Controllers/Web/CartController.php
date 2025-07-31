@@ -179,7 +179,7 @@ $message.="📦 طلب جديد من تطبيق علي باشا:";
             /**
              * @var $seller User
              */
-            $seller=$carts[0]?->product?->user;
+            $seller=$carts->first()?->product?->user;
             Cart::where(['user_id' => auth()->id(), 'seller_id' => $id])->delete();
             \DB::commit();
 
