@@ -182,7 +182,7 @@ $message.="📦 طلب جديد من تطبيق علي باشا:";
             /**
              * @var $seller User
              */
-            $seller=$product->user;
+            $seller=$carts[0]?->product?->user;
             $phone=$seller->phone_code.$seller->phone;
             return redirect('https://wa.me/'.$product->user->phone.'?text='.$message);
             return redirect()->route('my-invoices.index');
