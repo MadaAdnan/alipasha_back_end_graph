@@ -61,6 +61,8 @@
 
     }elseif ($uri->getPath()=='/incomming'){
         $route=route('invoices.index');
+    }elseif ($uri->getPath()=='/import'){
+        $route=route('my-invoices.index');
     }
                                         @endphp
                                         <a class="btn btn-danger action-buttons"
