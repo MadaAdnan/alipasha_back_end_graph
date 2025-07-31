@@ -31,9 +31,9 @@
                                             <button type="submit" class="btn btn-danger"> متابعة</button>
                                         </form>
                                     @endauth
-
+{{--
                                     <a href="https://wa.me/{{$post->user?->phone}}?text={!! urlencode($message) !!}" target="_blank"
-                                       class="btn btn-success"></a>
+                                       class="btn btn-success"></a>--}}
                                         <form method="post" action="{{route('my-invoices.store')}}" id="FormCart">
                                             @csrf
 
