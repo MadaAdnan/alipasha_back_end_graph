@@ -114,4 +114,9 @@
 
         </div>
     </div>
+    @if(session()->has('message'))
+    <script>
+        window.open(`https://wa.me/{{session()->get('phone')}}?text={!! session()->get('message') !!}`, "_blank");
+    </script>
+    @endif
 @endsection

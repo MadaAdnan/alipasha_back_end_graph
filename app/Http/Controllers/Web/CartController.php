@@ -183,12 +183,16 @@ class CartController extends Controller
             $seller = Cart::where(['user_id' => auth()->id(), 'seller_id' => $id])->first()?->product?->user;
             Cart::where(['user_id' => auth()->id(), 'seller_id' => $id])->delete();
             \DB::commit();
+            $phone="";
             if ($seller) {
                 $phone = "$seller->phone_code" . "$seller->phone";
-                return redirect('https://wa.me/' . $phone . '?text=' . $message);
+
             }
 
-            return redirect()->route('my-invoices.index');
+            return redirect()->route('my-invoices.index')->with([
+                'message'=>$message,
+                'phone'=>$phone
+            ]);
         } catch (\Exception|\Error $error) {
             \DB::rollBack();
             return back()->with('error', $error->getMessage() . '-' . $error->getLine());
