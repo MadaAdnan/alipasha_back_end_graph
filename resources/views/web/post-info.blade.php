@@ -31,8 +31,8 @@
                                             <button type="submit" class="btn btn-danger"> متابعة</button>
                                         </form>
                                     @endauth
-{!! nl2br($message) !!}
-                                    <a href="https://wa.me/{{$post->user?->phone}}?text={!! $message !!}" target="_blank"
+
+                                    <a href="https://wa.me/{{$post->user?->phone}}?text={!! nl2br($message) !!}" target="_blank"
                                        class="btn btn-success"><i class="bi bi-whatsapp"></i></a>
 
                                         <form action="{{route('communities.store')}}" method="post">
