@@ -201,10 +201,9 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
     public function invoicesSeller(): HasMany
     {
         return $this->hasMany(Invoice::class, 'seller_id', 'id')->whereIn('status', [
-            'test'
-           /* OrderStatusEnum::AGREE->value,
+//           OrderStatusEnum::AGREE->value,
             OrderStatusEnum::PENDING->value,
-            OrderStatusEnum::AWAY->value*/
+//            OrderStatusEnum::AWAY->value
         ]);
     }
 
