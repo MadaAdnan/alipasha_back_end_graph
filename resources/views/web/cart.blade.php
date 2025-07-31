@@ -16,7 +16,7 @@
                         <th class="text-center">السعر</th>
                         <th class="text-center">الكمية</th>
                         <th class="text-center">الإجمالي</th>
-                        <th class="text-center">حالة الشحن</th>
+{{--                        <th class="text-center">حالة الشحن</th>--}}
                         <th class="text-center">#</th>
                     </tr>
                     </thead>
@@ -53,20 +53,20 @@
                                 </form> </td>
                             @php
                                 $total=$item->product?->getPrice() * $item->qty;
-                                   if($item->product?->is_delivery){
+                                  // if($item->product?->is_delivery){
 
 
                                $result+=$total;
-                                    }
+                                   // }
                             @endphp
                             <td class="text-center">{{$total}}</td>
-                            <td class="text-center">
-                                @if($item->product?->is_delivery==false)
-                                    <span class="badge text-bg-danger">غير متاح</span>
-                                @else
-                                    <span class="badge text-bg-success"> متاح</span>
-                                @endif
-                            </td>
+{{--                            <td class="text-center">--}}
+{{--                                @if($item->product?->is_delivery==false)--}}
+{{--                                    <span class="badge text-bg-danger">غير متاح</span>--}}
+{{--                                @else--}}
+{{--                                    <span class="badge text-bg-success"> متاح</span>--}}
+{{--                                @endif--}}
+{{--                            </td>--}}
                             <td class="text-center">
                                 <form action="{{route('carts.destroy',$item->id)}}" method="post">
                                     @csrf
@@ -89,22 +89,22 @@
                     </tr>
                     <tr>
                         <th colspan="2" class="text-center bg-danger-subtle">الإجمالي</th>
-                        <th colspan="2" class="text-center bg-danger-subtle">{{sprintf('%.2f',$result+$shipping)}}$
+                        <th colspan="2" class="text-center bg-danger-subtle">{{sprintf('%.2f',$result/*+$shipping*/)}}$
                         </th>
                         <th colspan="4" class="text-center ">
-                            @if($shipping>0 &&
-(  auth()->user()->area?->is_delivery==true) && $user->area?->is_delivery==true)
+                            {{--@if($shipping>0 &&
+(  auth()->user()->area?->is_delivery==true) && $user->area?->is_delivery==true)--}}
                                 <form action="{{route('carts.update',$user->id)}}" method="post">
                                     @csrf
                                     @method('PATCH')
                                     <button type="submit" class="btn btn-danger btn-sm text-white">اطلب الآن</button>
 
                                 </form>
-                            @elseif($user->area_id==null)
+                           {{-- @elseif($user->area_id==null)
                                 <span>يرجى إكمال ملفك الشخصي كي تتمكن من الشحن</span>
                             @else
                                 <span> الشحن غير متاح حاليا لهذا المنتج</span>
-                            @endif
+                            @endif--}}
                         </th>
                     </tr>
                     </tfoot>

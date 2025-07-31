@@ -71,8 +71,8 @@ class CartController extends Controller
         $items = Cart::where(['user_id' => auth()->id(), 'seller_id' => $id])->get();
         $weight = 0;
         $shipping = 0;
-        $carts = Cart::where(['user_id' => auth()->id(), 'seller_id' => $id])->whereHas('product', fn($q) => $q->where('is_delivery', true))->get();
-        foreach ($carts as $cart) {
+        $carts = Cart::where(['user_id' => auth()->id(), 'seller_id' => $id])->get();
+       foreach ($carts as $cart) {
             $product = $cart->product;
 
 
@@ -108,14 +108,27 @@ class CartController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $carts = Cart::whereHas('product', fn($query) => $query->where('is_delivery', true))->where(['user_id' => auth()->id(), 'seller_id' => $id])->get();
+        $carts = Cart::/*whereHas('product', fn($query) => $query->where('is_delivery', true))->*/where(['user_id' => auth()->id(), 'seller_id' => $id])->get();
         $total = 0;
         $shipping = 0;
         $size = 0;
         $weight = 0;
-
+$message="السلام عليكم ورحمة الله وبركاته ";
+$message.="\n ";
+$message.="📦 طلب جديد من تطبيق علي باشا:";
         foreach ($carts as $cart) {
             $product = $cart->product;
+            $message.="\n ";
+            $message.="معرف المنتج : ".$product->id;
+            $message.="\n ";
+            $message.="اسم المنتج : ".$product->name;
+            $message.="\n ";
+            $message.="الكمية : ".$cart->qty;
+            $message.="\n ";
+            $message.="السعر : ".$product->getPrice();
+            $message.="\n ";
+
+
             $total += $product->getPrice() * $cart->qty;
 
             $weight += $product->weight * $cart->qty;
@@ -131,7 +144,7 @@ class CartController extends Controller
         $shipping = $shipping + ($steps * $ratio);
         \DB::beginTransaction();
         try {
-            $result = $shipping + $total;
+            $result =/* $shipping +*/ $total;
             if (auth()->user()->getTotalBalance() < $result) {
                 throw new \Exception("لا تملك رصيد مافي");
             }
@@ -142,16 +155,16 @@ class CartController extends Controller
                     'seller_id' => $id,
                     'weight' => $weight,
                     'size' => $size,
-                    'shipping' => $shipping,
+                    'shipping' => 0,//$shipping,
                     'total' => $total,
                     'phone' => auth()->user()->phone,
                     'address' => auth()->user()->address,
                 ]);
-            Balance::create([
+           /* Balance::create([
                 'user_id'=>auth()->id(),
                 'debit'=>$result,
                 'info'=>'قيمة شحن طلب رقم '.$invoice->id,
-            ]);
+            ]);*/
             foreach ($carts as $cart) {
                 Item::create([
                     'invoice_id' => $invoice->id,
@@ -166,6 +179,12 @@ class CartController extends Controller
 
             Cart::where(['user_id' => auth()->id(), 'seller_id' => $id])->delete();
             \DB::commit();
+            /**
+             * @var $seller User
+             */
+            $seller=$product->user;
+            $phone=$seller->phone_code.$seller->phone;
+            return redirect('https://wa.me/'.$product->user->phone.'?text='.$message);
             return redirect()->route('my-invoices.index');
         } catch (\Exception | \Error $error) {
             \DB::rollBack();
