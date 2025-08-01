@@ -35,7 +35,7 @@ Route::get('oauth/redirect/google', function () {
 
 
 Route::get('oauth/callback/google', function () {
-return "test";
+
     try {
         $user = Socialite::driver('google')->user();
 
