@@ -40,12 +40,13 @@ Route::get('oauth/callback/google', function () {
         $user = Socialite::driver('google')->user();
 
         // استرجاع الدومين الأصلي
-        $originalDomain = Session::pull('original_domain', 'pazarpasha.com');
+      //  $originalDomain = Session::pull('original_domain', 'pazarpasha.com');
 
         // هنا يمكنك تسجيل المستخدم مثلاً أو أي منطق آخر
 
         // إعادة التوجيه إلى الدومين الأصلي
-        return redirect()->away("https://$originalDomain");
+        return $user;
+      //  return redirect()->away("https://$originalDomain");
 
     } catch (\Exception $e) {
         return 'OAuth Error: ' . $e->getMessage();
