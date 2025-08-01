@@ -39,7 +39,7 @@ Route::get('oauth/callback/google', function () {
     try {
         $user = Socialite::driver('google')->user();
 
-
+        return "مرحبا بك، " . $user->getName() . " (البريد: " . $user->getEmail() . ")";
         return $user;
       //  return redirect()->away("https://$originalDomain");
 
