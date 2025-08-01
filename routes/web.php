@@ -26,7 +26,7 @@ use Laravel\Socialite\Facades\Socialite;
     'login' => false,
 ]);*/
 
-Route::get('redirect/google', function () {
+Route::get('oauth/redirect/google', function () {
 
     return Socialite::driver('google')->redirect();
 
@@ -34,7 +34,7 @@ Route::get('redirect/google', function () {
 
 
 
-Route::get('callback/google', function () {
+Route::get('oauth/callback/google', function () {
 
     try {
         $user = Socialite::driver('google')->user();

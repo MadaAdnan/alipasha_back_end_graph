@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2b485bb7513056fa5ad2226942aefb9f",
+    "content-hash": "06429f338940ff56803c062df407147f",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -1641,32 +1641,32 @@
         },
         {
             "name": "dutchcodingcompany/filament-socialite",
-            "version": "2.3.0",
+            "version": "2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/DutchCodingCompany/filament-socialite.git",
-                "reference": "ec4d69cb5b88d3eb9f54d8b977956034a5838a2f"
+                "reference": "be7e58a1e73f9222f288f0ab04b1945198310e62"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/DutchCodingCompany/filament-socialite/zipball/ec4d69cb5b88d3eb9f54d8b977956034a5838a2f",
-                "reference": "ec4d69cb5b88d3eb9f54d8b977956034a5838a2f",
+                "url": "https://api.github.com/repos/DutchCodingCompany/filament-socialite/zipball/be7e58a1e73f9222f288f0ab04b1945198310e62",
+                "reference": "be7e58a1e73f9222f288f0ab04b1945198310e62",
                 "shasum": ""
             },
             "require": {
                 "filament/filament": "^3.2.72",
-                "illuminate/contracts": "^10.0|^11.0",
+                "illuminate/contracts": "^10.0|^11.0|^12.0",
                 "laravel/socialite": "^5.5",
                 "php": "^8.1",
                 "spatie/laravel-package-tools": "^1.9.2"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^3.8",
-                "larastan/larastan": "^2.9",
+                "larastan/larastan": "^2.9|^3.0",
                 "nunomaduro/collision": "^7.0|^8.1",
-                "orchestra/testbench": "^8.0|^9.0",
-                "phpunit/phpunit": "^10.0",
-                "rector/rector": "^0.19.8"
+                "orchestra/testbench": "^8.0|^9.0|^10.0",
+                "phpunit/phpunit": "^10.0|^11.5.3",
+                "rector/rector": "^0.19.8|^2.0"
             },
             "suggest": {
                 "owenvoke/blade-fontawesome": "^2.0"
@@ -1723,9 +1723,9 @@
             ],
             "support": {
                 "issues": "https://github.com/DutchCodingCompany/filament-socialite/issues",
-                "source": "https://github.com/DutchCodingCompany/filament-socialite/tree/2.3.0"
+                "source": "https://github.com/DutchCodingCompany/filament-socialite/tree/2.4.0"
             },
-            "time": "2024-11-29T12:05:03+00:00"
+            "time": "2025-02-25T10:24:58+00:00"
         },
         {
             "name": "egulias/email-validator",
