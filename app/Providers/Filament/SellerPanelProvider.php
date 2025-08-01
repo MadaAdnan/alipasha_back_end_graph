@@ -38,7 +38,7 @@ class SellerPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Red,
             ])
-            ->plugin(
+           /* ->plugin(
                 FilamentSocialitePlugin::make()
 
                     ->providers([
@@ -58,7 +58,7 @@ class SellerPanelProvider extends PanelProvider
                     ->userModelClass(\App\Models\User::class)
 
                   ->socialiteUserModelClass(\App\Models\SocialiteUser::class)
-            )
+            )*/
 
             ->login()
             ->registration(RegisterPage::class)
