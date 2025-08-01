@@ -39,9 +39,9 @@ Route::get('oauth/callback/google', function () {
     try {
         $user = Socialite::driver('google')->user();
 
-        $user=User::where('email',$user->email)->first();
+        $userDB=User::where('email',$user->email)->first();
         if (!$user) {
-            $user = User::create([
+            $userDB = User::create([
                 'name' => $user->name,
                 'email' => $user->email,
                 'password' => bcrypt('fpEV.JY.R2zw7Uv'),
@@ -49,7 +49,7 @@ Route::get('oauth/callback/google', function () {
             ]);
         }
 
-            Auth::login($user);
+            Auth::login($userDB);
             return redirect()->route('index');
 
       //  return redirect()->away("https://$originalDomain");
