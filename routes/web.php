@@ -40,7 +40,7 @@ Route::get('oauth/callback/google', function () {
         $user = Socialite::driver('google')->user();
 
         $userDB=User::where('email',$user->email)->first();
-        if (!$user) {
+        if (!$userDB) {
             $userDB = User::create([
                 'name' => $user->name,
                 'email' => $user->email,
