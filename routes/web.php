@@ -29,7 +29,7 @@ use Laravel\Socialite\Facades\Socialite;
 Route::get('oauth/redirect/google', function () {
 
     return Socialite::driver('google')->redirect();
-
+//
 })->name('google.auth.site');
 
 
