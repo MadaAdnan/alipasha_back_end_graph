@@ -39,8 +39,19 @@ Route::get('oauth/callback/google', function () {
     try {
         $user = Socialite::driver('google')->user();
 
-        return "مرحبا بك، " . $user->getName() . " (البريد: " . $user->getEmail() . ")";
-        return $user;
+        $user=User::where('email',$user->email)->first();
+        if (!$user) {
+            $user = User::create([
+                'name' => $user->name,
+                'email' => $user->email,
+                'password' => bcrypt('fpEV.JY.R2zw7Uv'),
+                'phone' => $user->phone,
+            ]);
+        }
+
+            Auth::login($user);
+            return redirect()->route('index');
+
       //  return redirect()->away("https://$originalDomain");
 
     } catch (\Exception $e) {
