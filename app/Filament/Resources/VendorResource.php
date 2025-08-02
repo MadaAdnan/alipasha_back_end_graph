@@ -42,7 +42,9 @@ class VendorResource extends Resource
                 Tables\Columns\SelectColumn::make('city_id')->options(City::where('is_main', 1)->orderBy('name')->pluck('name', 'id'))->label('المحافظة'),
                 Tables\Columns\SelectColumn::make('area_id')->options(City::where('is_main', false)->orderBy('name')->pluck('name', 'id'))->label('المدينة')->sortable(),
                 Tables\Columns\TextInputColumn::make('phone'),
-                Tables\Columns\SelectColumn::make('phone_code')->options(Country::pluck('code')->toArray()),
+                Tables\Columns\SelectColumn::make('phone_code')->options(Country::all()->mapWithKeys(fn($el) => [
+                    $el->code => "{$el->name} - {$el->code}"
+                ])->toArray()),
                 Tables\Columns\TextColumn::make('address')->words(5)->url(fn($record)=>UserResource::getUrl('edit',['record'=>$record->id]),true),
             ])
             ->filters([
