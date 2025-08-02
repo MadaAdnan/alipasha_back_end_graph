@@ -60,10 +60,11 @@ $users=User::query()
                     Forms\Components\TextInput::make('total')->numeric()->readOnly(fn($context)=>$context=='edit')->label('إجمالي قيمة البضاعة'),
                Forms\Components\TextInput::make('shipping')->numeric()->label('إجمالي أجور الشحن'),
               Forms\Components\Repeater::make('items')->relationship('items')->schema([
-                  Forms\Components\Grid::make()->schema([
+                  Forms\Components\Grid::make(3)->schema([
                       Forms\Components\Select::make('product_id')->options(Product::product()
                           ->selectRaw('id, name')->pluck('name','id') ->map(fn($name) => $name ?? 'بدون اسم')
                           ->toArray())->searchable()->label('المنتج')->required(),
+                      Forms\Components\TextInput::make('price')->label('السعر')->required(),
                       Forms\Components\TextInput::make('qty')->label('الكمية')->required()
                   ])
               ])->label('المنتجات')->minItems(1)->required()
