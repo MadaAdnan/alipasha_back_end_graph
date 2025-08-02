@@ -73,10 +73,10 @@ protected static ?string $navigationLabel='طلبات الشراء';
 
                 Tables\Columns\TextColumn::make('id')->label('#'),
                 Tables\Columns\TextColumn::make('seller.seller_name')->label('المتجر')->url(fn($record) => UserResource::getUrl('edit', [$record->seller->id]), true),
-                Tables\Columns\TextColumn::make('seller.phone')->formatStateUsing(fn($record)=>"{$record->seller?->phone_code}{$record->seller?->phone}")->label('المتجر')->url(fn($record) => "https://wa.me{$record->seller?->phone_code}{$record->seller?->phone}", true),
+                Tables\Columns\TextColumn::make('seller.phone')->formatStateUsing(fn($record)=>"{$record->seller?->phone_code}{$record->seller?->phone}")->label('هاتف المتجر')->url(fn($record) => "https://wa.me{$record->seller?->phone_code}{$record->seller?->phone}", true),
 
                 Tables\Columns\TextColumn::make('user.name')->label('الزبون')->url(fn($record) => UserResource::getUrl('edit', [$record->user->id]), true),
-                Tables\Columns\TextColumn::make('user.phone')->formatStateUsing(fn($record)=>"{$record->user?->phone_code}{$record->user?->phone}")->label('الزبون')->url(fn($record) => "https://wa.me{$record->user?->phone_code}{$record->user?->phone}", true),
+                Tables\Columns\TextColumn::make('user.phone')->formatStateUsing(fn($record)=>"{$record->user?->phone_code}{$record->user?->phone}")->label('هاتف الزبون')->url(fn($record) => "https://wa.me{$record->user?->phone_code}{$record->user?->phone}", true),
                 Tables\Columns\TextColumn::make('status')->formatStateUsing(fn($state) => OrderStatusEnum::tryFrom($state)?->getLabel())->icon(fn($state) => OrderStatusEnum::tryFrom($state)?->getIcon())->color(fn($state) => OrderStatusEnum::tryFrom($state)?->getColor())->label('حالة الطلب'),
 
 
