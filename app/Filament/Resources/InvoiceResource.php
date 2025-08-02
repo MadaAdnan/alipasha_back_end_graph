@@ -73,16 +73,19 @@ protected static ?string $navigationLabel='طلبات الشراء';
 
                 Tables\Columns\TextColumn::make('id')->label('#'),
                 Tables\Columns\TextColumn::make('seller.seller_name')->label('المتجر')->url(fn($record) => UserResource::getUrl('edit', [$record->seller->id]), true),
-                Tables\Columns\TextColumn::make('seller.phone')->formatStateUsing(fn($record)=>"{$record->user?->phone_code}{$record->user?->phone}")->label('المتجر')->url(fn($record) => "https://wa.me{$record->user?->phone_code}{$record->user?->phone}", true),
+                Tables\Columns\TextColumn::make('seller.phone')->formatStateUsing(fn($record)=>"{$record->seller?->phone_code}{$record->seller?->phone}")->label('المتجر')->url(fn($record) => "https://wa.me{$record->seller?->phone_code}{$record->seller?->phone}", true),
 
                 Tables\Columns\TextColumn::make('user.name')->label('الزبون')->url(fn($record) => UserResource::getUrl('edit', [$record->user->id]), true),
+                Tables\Columns\TextColumn::make('user.phone')->formatStateUsing(fn($record)=>"{$record->user?->phone_code}{$record->user?->phone}")->label('الزبون')->url(fn($record) => "https://wa.me{$record->user?->phone_code}{$record->user?->phone}", true),
                 Tables\Columns\TextColumn::make('status')->formatStateUsing(fn($state) => OrderStatusEnum::tryFrom($state)?->getLabel())->icon(fn($state) => OrderStatusEnum::tryFrom($state)?->getIcon())->color(fn($state) => OrderStatusEnum::tryFrom($state)?->getColor())->label('حالة الطلب'),
 
-                Tables\Columns\TextColumn::make('seller_note')->label('ملاحظات التاجر'),
+
                 Tables\Columns\TextColumn::make('total')->label('إجمالي السعر'),
-                Tables\Columns\TextColumn::make('shipping')->label('اجور الشحن'),
-                Tables\Columns\TextColumn::make('address')->label('عنوان الشحن'),
-                Tables\Columns\TextColumn::make('phone')->label('رقم الهاتف'),
+                Tables\Columns\TextColumn::make('seller_note')->label('ملاحظات التاجر'),
+                Tables\Columns\TextColumn::make('seller.category.name')->label('تصنيف التاجر'),
+//                Tables\Columns\TextColumn::make('shipping')->label('اجور الشحن'),
+//                Tables\Columns\TextColumn::make('address')->label('عنوان الشحن'),
+//                Tables\Columns\TextColumn::make('phone')->label('رقم الهاتف'),
                 Tables\Columns\TextColumn::make('admin_note')->label('ملاحظات'),
                 Tables\Columns\TextColumn::make('created_at')->since()->label('تاريخ الطلب'),
             ])
