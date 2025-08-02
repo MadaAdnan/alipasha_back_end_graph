@@ -80,6 +80,7 @@ protected static ?string $navigationLabel='طلبات الشراء';
                 Tables\Columns\TextColumn::make('status')->formatStateUsing(fn($state) => OrderStatusEnum::tryFrom($state)?->getLabel())->icon(fn($state) => OrderStatusEnum::tryFrom($state)?->getIcon())->color(fn($state) => OrderStatusEnum::tryFrom($state)?->getColor())->label('حالة الطلب'),
 
 
+                Tables\Columns\TextColumn::make('items_count')->label('عدد بنود الطلب'),
                 Tables\Columns\TextColumn::make('total')->label('إجمالي السعر'),
                 Tables\Columns\TextColumn::make('seller_note')->label('ملاحظات التاجر'),
                 Tables\Columns\TextColumn::make('seller.category.name')->label('تصنيف التاجر'),
