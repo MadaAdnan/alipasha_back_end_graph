@@ -32,10 +32,10 @@
             </td>
         </tr>
         <tr class="divide-y divide-gray-200 dark:divide-white/5 border border-2">
-            <td><a class="fi-ta-header-cell-label text-sm font-semibold text-gray-950 dark:text-white" href="{{\App\Filament\Resources\UserResource::getUrl('edit',['record'=>$getRecord()->user->id])}}">{{$getRecord()->user?->name ?? $getRecord()->user?->seller_name}}</a></td>
-            <td><a class="fi-ta-header-cell-label text-sm font-semibold text-gray-950 dark:text-white" href="https://wa.me/{{$getRecord()->phone}}">{{$getRecord()->phone}}</a></td>
-            <td class="fi-ta-header-cell-label text-sm font-semibold text-gray-950 dark:text-white">{{$getRecord()->address}} </td>
-            <td class="fi-ta-header-cell-label text-sm font-semibold text-gray-950 dark:text-white">{{$getRecord()->user->city?->name}}</td>
+            <td class="text-center"><a class="fi-ta-header-cell-label text-sm font-semibold text-gray-950 dark:text-white" href="{{\App\Filament\Resources\UserResource::getUrl('edit',['record'=>$getRecord()->user->id])}}">{{$getRecord()->user?->name ?? $getRecord()->user?->seller_name}}</a></td>
+            <td class="text-center"><a class="fi-ta-header-cell-label text-sm font-semibold text-gray-950 dark:text-white" href="https://wa.me/{{$getRecord()->phone}}">{{$getRecord()->phone}}</a></td>
+            <td class="text-center fi-ta-header-cell-label text-sm font-semibold text-gray-950 dark:text-white">{{$getRecord()->address}} </td>
+            <td class="text-center fi-ta-header-cell-label text-sm font-semibold text-gray-950 dark:text-white">{{$getRecord()->user->city?->name}}</td>
         </tr>
     </table>
 
