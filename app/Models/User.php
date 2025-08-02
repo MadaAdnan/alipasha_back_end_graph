@@ -215,6 +215,18 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         return $value;
     }
 
+    public function setPhoneAttribute($value): void
+    {
+        if (\Str::length($value) > 9 && \Str::startsWith($value, '963')) {
+            $this->attributes['phone'] = \Str::substr($value, 3);
+        } elseif (\Str::startsWith($value, '+')) {
+            $this->attributes['phone'] = \Str::substr($value, 1);
+        } elseif (\Str::startsWith($value, '00')) {
+            $this->attributes['phone'] = \Str::substr($value, 2);
+        }
+
+    }
+
     public function advices(): HasMany
     {
         return $this->hasMany(Advice::class);
