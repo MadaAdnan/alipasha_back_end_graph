@@ -207,7 +207,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         ]);
     }
 
-    public function getPhoneAttribute($value): string
+    public function getPhoneAttribute($value): string|null
     {
         if (\Str::length($value) > 9 && \Str::startsWith($value, '963')) {
             return \Str::substr($value, 3);
