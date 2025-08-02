@@ -43,18 +43,20 @@ $users=User::query()
             ->schema([
                 Forms\Components\Section::make('الطلبات')->schema([
                     Forms\Components\TextInput::make('id')->label('رقم الفاتورة')->readOnly(fn($context)=>$context=='edit'),
-                    Forms\Components\Select::make('user_id')->options(
-                        $users
-                            ->map(fn($name) => $name ?? 'بدون اسم')
-                            ->toArray()
-                    )->label('المستخدم')->searchable()->dehydrated(fn($context)=>$context=='edit'),
-                    Forms\Components\Select::make('seller_id')->options(
-                       $users
-                            ->pluck('name', 'id')
-                            ->map(fn($name) => $name ?? 'بدون اسم')
-                            ->toArray()
-                    )->label('المتجر')->searchable()->dehydrated(fn($context)=>$context=='edit'),
+                   Forms\Components\Grid::make()->schema([
+                       Forms\Components\Select::make('user_id')->options(
+                           $users
+                               ->map(fn($name) => $name ?? 'بدون اسم')
+                               ->toArray()
+                       )->label('المستخدم')->searchable()->dehydrated(fn($context)=>$context=='edit'),
+                       Forms\Components\Select::make('seller_id')->options(
+                           $users
+                               ->pluck('name', 'id')
+                               ->map(fn($name) => $name ?? 'بدون اسم')
+                               ->toArray()
+                       )->label('المتجر')->searchable()->dehydrated(fn($context)=>$context=='edit'),
 
+                   ]),
            //    Forms\Components\TextInput::make('phone')->readOnly(fn($context)=>$context=='edit')->label('الهاتف'),
              //  Forms\Components\TextInput::make('address')->readOnly(fn($context)=>$context=='edit')->label('العنوان'),
                //     Forms\Components\TextInput::make('total')->numeric()->readOnly(fn($context)=>$context=='edit')->label('إجمالي قيمة البضاعة'),
