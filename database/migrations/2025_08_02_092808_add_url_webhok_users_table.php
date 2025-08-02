@@ -28,7 +28,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('url_webhok');
-          //  $table->dropColumn('url_webhok');
+            $table->dropColumn('is_sync_webhok');
             $table->dropColumn('business_email');
         });
         Schema::table('products', function (Blueprint $table) {

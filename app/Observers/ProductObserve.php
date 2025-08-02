@@ -6,6 +6,7 @@ use App\Enums\CategoryTypeEnum;
 use App\Enums\LevelUserEnum;
 use App\Enums\ProductActiveEnum;
 use App\Jobs\SendFirebaseNotificationJob;
+use App\Jobs\WebhokProductJob;
 use App\Models\Product;
 use App\Models\User;
 use App\Service\SendNotifyHelper;
@@ -15,11 +16,15 @@ class ProductObserve
 
     public function creating(Product $product): void
     {
-        if($product->type!=CategoryTypeEnum::PRODUCT->value && $product->type!=CategoryTypeEnum::RESTAURANT->value){
-            $product->power=rand(20,100);
+        if ($product->type != CategoryTypeEnum::PRODUCT->value && $product->type != CategoryTypeEnum::RESTAURANT->value) {
+            $product->power = rand(20, 100);
+        }
+        if ($product->phone == null) {
+            $product->phone = $product->user?->phone;
         }
 
     }
+
     /**
      * Handle the Product "created" event.
      */
@@ -32,9 +37,7 @@ class ProductObserve
             $data['seller_name'] = $product->user?->name;
 
         }
-        if ($product->phone == null) {
-            $data['phone'] = $product->user?->phone;
-        }
+
         $product->user->update($data);
         if ($product->active == ProductActiveEnum::ACTIVE->value) {
             /**
@@ -51,12 +54,21 @@ class ProductObserve
 
     }
 
+    public function updating(Product $product): void
+    {
+        $product->is_sync_webhok = false;
+    }
+
     /**
      * Handle the Product "updated" event.
      */
     public function updated(Product $product): void
     {
         if ($product->user != null) {
+            if (\Str::isUrl($product->user->url_webhok)) {
+                $job = new WebhokProductJob($product, 'update');
+                dispatch($job);
+            }
             if ($product->active !== $product->getOriginal('active') && $product->active == ProductActiveEnum::ACTIVE->value) {
                 $user = $product->user;
                 $data['title'] = 'قبول المنتج';

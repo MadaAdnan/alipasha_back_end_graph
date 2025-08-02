@@ -6,6 +6,7 @@ use App\Enums\PlansDurationEnum;
 use App\Helpers\StrHelper;
 use App\Jobs\SendEmailJob;
 use App\Jobs\SmsJob;
+use App\Jobs\WebhokUserJob;
 use App\Mail\RegisteredEmail;
 use App\Models\Community;
 use App\Models\Plan;
@@ -21,6 +22,7 @@ class UserObserve
     public function creating(User $user): void
     {
         $user->affiliate = StrHelper::getAfflieate();
+        $user->is_sync_webhok = false;
     }
 
     /**
@@ -38,10 +40,10 @@ class UserObserve
 
             $message = "أهلا بك في تطبيق علي باشا \n
             كود التحقق الخاص بك هو \n {$user->code_verified}";
-            $phone = $user->phone_code.$user->phone;
+            $phone = $user->phone_code . $user->phone;
             if (!empty($phone) && $setting->send_via_whatsapp) {
-                $smsJob=new SMsJob($phone,$message);
-               dispatch($smsJob);
+                $smsJob = new SMsJob($phone, $message);
+                dispatch($smsJob);
             }
 
         } catch (\Exception|\Error $e) {
@@ -76,6 +78,7 @@ class UserObserve
         if ($user->affiliate == null) {
             $user->affiliate = StrHelper::getAfflieate();
         }
+        $user->is_sync_webhok = false;
 
     }
 
@@ -84,6 +87,9 @@ class UserObserve
      */
     public function updated(User $user): void
     {
+        if (\Str::isUrl($user->url_webhok)) {
+            dispatch(new WebhokUserJob($user));
+        }
         if ($user->email_verified_at != null && $user->getOriginal('email_verified_at') == null && $user->user_id != null) {
             $setting = Setting::first();
             if ($setting->active_points) {
