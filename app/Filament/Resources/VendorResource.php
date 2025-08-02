@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\VendorResource\Pages;
 use App\Filament\Resources\VendorResource\RelationManagers;
 use App\Models\City;
+use App\Models\Country;
 use App\Models\User;
 use App\Models\Vendor;
 use Filament\Actions\DeleteAction;
@@ -41,6 +42,7 @@ class VendorResource extends Resource
                 Tables\Columns\SelectColumn::make('city_id')->options(City::where('is_main', 1)->orderBy('name')->pluck('name', 'id'))->label('المحافظة'),
                 Tables\Columns\SelectColumn::make('area_id')->options(City::where('is_main', false)->orderBy('name')->pluck('name', 'id'))->label('المدينة')->sortable(),
                 Tables\Columns\TextInputColumn::make('phone'),
+                Tables\Columns\SelectColumn::make('phone_code')->options(Country::pluck('code')->toArray()),
                 Tables\Columns\TextColumn::make('address')->words(5)->url(fn($record)=>UserResource::getUrl('edit',['record'=>$record->id]),true),
             ])
             ->filters([
