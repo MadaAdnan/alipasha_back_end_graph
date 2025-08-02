@@ -72,8 +72,10 @@ protected static ?string $navigationLabel='طلبات الشراء';
             ->columns([
 
                 Tables\Columns\TextColumn::make('id')->label('#'),
-                Tables\Columns\TextColumn::make('user.name')->label('الزبون')->url(fn($record) => UserResource::getUrl('edit', [$record->user->id]), true),
                 Tables\Columns\TextColumn::make('seller.seller_name')->label('المتجر')->url(fn($record) => UserResource::getUrl('edit', [$record->seller->id]), true),
+                Tables\Columns\TextColumn::make('seller.phone')->formatStateUsing(fn($record)=>"{$record->user?->phone_code}{$record->user?->phone}")->label('المتجر')->url(fn($record) => "https://wa.me{$record->user?->phone_code}{$record->user?->phone}", true),
+
+                Tables\Columns\TextColumn::make('user.name')->label('الزبون')->url(fn($record) => UserResource::getUrl('edit', [$record->user->id]), true),
                 Tables\Columns\TextColumn::make('status')->formatStateUsing(fn($state) => OrderStatusEnum::tryFrom($state)?->getLabel())->icon(fn($state) => OrderStatusEnum::tryFrom($state)?->getIcon())->color(fn($state) => OrderStatusEnum::tryFrom($state)?->getColor())->label('حالة الطلب'),
 
                 Tables\Columns\TextColumn::make('seller_note')->label('ملاحظات التاجر'),
@@ -92,7 +94,7 @@ protected static ?string $navigationLabel='طلبات الشراء';
 
                 //Tables\Actions\Action::make('show_invoice')->url(InvoiceResource::getUrl('list')),
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\ActionGroup::make([
+              /*  Tables\Actions\ActionGroup::make([
                     Tables\Actions\Action::make('take')->requiresConfirmation()->action(fn($record) => $record->update(['status' => OrderStatusEnum::AWAY->value]))->label('تأكيد إستلام البضاعة من التاجر')->visible(fn($record) => $record->status == OrderStatusEnum::AGREE->value),
                     Tables\Actions\Action::make('agree')->requiresConfirmation()->action(fn($record) => $record->update(['status' => OrderStatusEnum::AGREE->value]))->label('تأكيد موافقة التاجر')->visible(fn($record) => $record->status == OrderStatusEnum::PENDING->value),
                      Tables\Actions\Action::make('complete')->requiresConfirmation()->action(fn($record) => $record->update(['status' => OrderStatusEnum::COMPLETE->value]))->label('تأكيد تسليم الطلب للزبون')->visible(fn($record) => $record->status == OrderStatusEnum::AWAY->value),
@@ -144,7 +146,7 @@ protected static ?string $navigationLabel='طلبات الشراء';
                             return CommunityResource::getUrl('edit',['record'=>$community->id]);
                         }
                     })->label('دخول للمحادثة')
-                ])
+                ])*/
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
