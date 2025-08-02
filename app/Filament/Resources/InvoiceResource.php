@@ -163,8 +163,8 @@ protected static ?string $navigationLabel='طلبات الشراء';
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ShowInvoice::route('/'),
-            'list' => Pages\ListInvoices::route('/list'),
+            'index' => Pages\ListInvoices::route('/'),
+            'list' =>  Pages\ShowInvoice::route('/list'),
             'create' => Pages\CreateInvoice::route('/create'),
             'edit' => Pages\EditInvoice::route('/{record}/edit'),
         ];
