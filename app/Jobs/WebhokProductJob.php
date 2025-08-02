@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Http\Resources\WebHok\ProductResource;
 use App\Models\Product;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -32,21 +33,7 @@ class WebhokProductJob implements ShouldQueue
                $response = \Http::post($this->product->user?->url_webhok, [
                    'action' => $this->action,
                    'type'=>'product',
-                   'data' => [
-                       'id' => $this->product->id,
-                       'name' => $this->product->name,
-                       'price' => $this->product->getPrice(),
-                       'image' => $this->product->getImage(),
-                       'images' => $this->product->getImages(),
-                       'expert' => $this->product->expert,
-                       'info' => $this->product->info,
-                       'url' => $this->product->url,
-                       'email' => $this->product->email,
-                       'phone' => "{$this->product->user?->phone_code}" . "{$this->product->user?->phone}",
-                       'address' => $this->product->address,
-                       'city' => $this->product->user?->city?->name,
-                       'area' => $this->product->user?->area?->name,
-                   ]
+                   'data' => new ProductResource($this->product),
                ]);
                if ($response->successful() && $response->json('status') == 'success') {
                    \DB::table('products')->where('id',$this->product->id)->update([

@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Http\Resources\WebHok\UserResource;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -30,18 +31,7 @@ class WebhokUserJob implements ShouldQueue
             $response = \Http::post($this->user?->url_webhok, [
                 'action' => 'update',
                 'type' => 'user',
-                'data' => [
-                    'name' => $this->user->name,
-                    'seller_name' => $this->user->seller_name,
-                    'phone' => "{$this->user->phone_code}{$this->user->phone}",
-                    'email' => $this->user->email,
-                    'address' => $this->user->address,
-                    'city' => $this->user?->city?->name,
-                    'area' => $this->user?->area?->name,
-                    'logo' => $this->user->getImage('logo'),
-                    'primary_color' => $this->user->id_color,
-                    'social' => $this->user->social
-                ]
+                'data' => new UserResource($this->user)
             ]);
             if ($response->successful() && $response->json('status') == 'success') {
                 \DB::table('users')->where('id', $this->user->id)->update([
