@@ -55,10 +55,10 @@ $users=User::query()
                             ->toArray()
                     )->label('المتجر')->searchable()->dehydrated(fn($context)=>$context=='edit'),
 
-               Forms\Components\TextInput::make('phone')->readOnly(fn($context)=>$context=='edit')->label('الهاتف'),
-               Forms\Components\TextInput::make('address')->readOnly(fn($context)=>$context=='edit')->label('العنوان'),
-                    Forms\Components\TextInput::make('total')->numeric()->readOnly(fn($context)=>$context=='edit')->label('إجمالي قيمة البضاعة'),
-               Forms\Components\TextInput::make('shipping')->numeric()->label('إجمالي أجور الشحن'),
+           //    Forms\Components\TextInput::make('phone')->readOnly(fn($context)=>$context=='edit')->label('الهاتف'),
+             //  Forms\Components\TextInput::make('address')->readOnly(fn($context)=>$context=='edit')->label('العنوان'),
+               //     Forms\Components\TextInput::make('total')->numeric()->readOnly(fn($context)=>$context=='edit')->label('إجمالي قيمة البضاعة'),
+               //Forms\Components\TextInput::make('shipping')->numeric()->label('إجمالي أجور الشحن'),
               Forms\Components\Repeater::make('items')->relationship('items')->schema([
                   Forms\Components\Grid::make(3)->schema([
                       Forms\Components\Select::make('product_id')->options(Product::product()
