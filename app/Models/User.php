@@ -206,7 +206,13 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
 //            OrderStatusEnum::AWAY->value
         ]);
     }
-
+public function getPhoneAttribute(): string
+    {
+        if(\Str::length($this->phone)>9 && \Str::startsWith($this->phone,'963')){
+            return \Str::substr($this->phone,3);
+        }
+        return $this->phone;
+    }
     public function advices(): HasMany
     {
         return $this->hasMany(Advice::class);
