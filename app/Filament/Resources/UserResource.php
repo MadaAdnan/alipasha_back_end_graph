@@ -136,11 +136,15 @@ class UserResource extends Resource
                                 Forms\Components\Toggle::make('is_verified')->label('توثيق المتجر'),
                                 Forms\Components\DatePicker::make('verified_account_date')->label('تاريخ إنتهاء التوثيق'),
                                 Forms\Components\ColorPicker::make('id_color')->label('هوية المتجر')->default("#FF0000"),
+                                Forms\Components\Group::make()->schema([
+                                    Forms\Components\TextInput::make('url_webhok')->url()->label('رابط ويب هوك الخاص بالمتجر'),
+                                    Forms\Components\TextInput::make('business_email')->email()->label('البريد الإلكتروني الخاص بمتجرك'),
+                                ]),
                             ]),
 
                         ])->visible(fn($get) => $get('is_seller')),
                         Forms\Components\Wizard\Step::make('معلومات مواقع التواصل')->schema([
-                            Forms\Components\TextInput::make('social.instagram')->label('رابط إنستغرام')->nullable()->url()->placeholder('https://'),
+                            Forms\Components\TextInput::make('social . instagram')->label('رابط إنستغرام')->nullable()->url()->placeholder('https://'),
                             Forms\Components\TextInput::make('social.face')->label('رابط فيسبوك')->nullable()->url()->placeholder('https://'),
                             Forms\Components\TextInput::make('social.linkedin')->label('رابط لينكدن')->nullable()->url()->placeholder('https://'),
                             Forms\Components\TextInput::make('social.tiktok')->label('رابط تيك توك')->nullable()->url()->placeholder('https://'),
@@ -311,7 +315,7 @@ class UserResource extends Resource
                                 \DB::commit();
                                 Notification::make('success')->title('نجاح العملية')->body('تم إرسال الرسالة بنجاح')->success()->send();
 
-                            } catch (\Exception | \Error $e) {
+                            } catch (\Exception|\Error $e) {
                                 \DB::rollBack();
                                 Notification::make('error')->title('فشل العملية')->body($e->getMessage())->danger()->send();
 
@@ -331,7 +335,7 @@ class UserResource extends Resource
 
                                 Notification::make('success')->title('نجاح العملية')->body('تم إرسال الرسالة بنجاح')->success()->send();
 
-                            } catch (\Exception | \Error $e) {
+                            } catch (\Exception|\Error $e) {
 
                                 Notification::make('error')->title('فشل العملية')->body($e->getMessage())->danger()->send();
 
@@ -381,7 +385,7 @@ class UserResource extends Resource
 
                             Notification::make('success')->title('نجاح العملية')->body('تم إرسال الرسالة بنجاح')->success()->send();
 
-                        } catch (\Exception | \Error $e) {
+                        } catch (\Exception|\Error $e) {
 
                             Notification::make('error')->title('فشل العملية')->body($e->getMessage())->danger()->send();
 
@@ -404,7 +408,7 @@ class UserResource extends Resource
 
                             Notification::make('success')->title('نجاح العملية')->body('تم إرسال الرسالة بنجاح')->success()->send();
 
-                        } catch (\Exception | \Error $e) {
+                        } catch (\Exception|\Error $e) {
 
                             Notification::make('error')->title('فشل العملية')->body($e->getMessage())->danger()->send();
 
@@ -447,7 +451,7 @@ class UserResource extends Resource
 
                                 Notification::make('success')->title('نجاح العملية')->body('تم إرسال الرسالة بنجاح')->success()->send();
 
-                            } catch (\Exception | \Error $e) {
+                            } catch (\Exception|\Error $e) {
 
                                 Notification::make('error')->title('فشل العملية')->body($e->getMessage())->danger()->send();
 
