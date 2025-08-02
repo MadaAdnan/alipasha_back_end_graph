@@ -14,7 +14,9 @@ class Invoice extends Model
 
     protected $guarded = [];
 
-
+protected $withCount=[
+    'items'
+];
     protected static function boot()
     {
         parent::boot();
