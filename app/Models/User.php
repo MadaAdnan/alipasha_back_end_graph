@@ -117,7 +117,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
 
     public function area(): BelongsTo
     {
-        return $this->belongsTo(City::class,'area_id','id');
+        return $this->belongsTo(City::class, 'area_id', 'id');
     }
 
     public function followers(): HasMany
@@ -206,13 +206,15 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
 //            OrderStatusEnum::AWAY->value
         ]);
     }
-public function getPhoneAttribute(): string
+
+    public function getPhoneAttribute($value): string
     {
-        if(\Str::length($this->phone)>9 && \Str::startsWith($this->phone,'963')){
-            return \Str::substr($this->phone,3);
+        if (\Str::length($value) > 9 && \Str::startsWith($value, '963')) {
+            return \Str::substr($value, 3);
         }
-        return $this->phone;
+        return $value;
     }
+
     public function advices(): HasMany
     {
         return $this->hasMany(Advice::class);
@@ -238,6 +240,7 @@ public function getPhoneAttribute(): string
     {
         return $query->where(['is_seller' => true])->whereNotNull('seller_name');
     }
+
     public function getFullPhoneAttribute(): string
     {
         return "{$this->phone_code}{$this->phone}";
