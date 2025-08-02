@@ -23,13 +23,13 @@ class ListInvoices extends ListRecords
     public function getTabs(): array
     {
         return [
-            Tab::make('all')->modifyQueryUsing(fn($query)=>$query)->label('الكل'),
-            Tab::make( OrderStatusEnum::PENDING->value)->modifyQueryUsing(fn($query)=>$query->where('status','pending'))->label(OrderStatusEnum::PENDING->getLabel()),
+            Tab::make('all')->modifyQueryUsing(fn($query)=>$query->with(['user','seller']))->label('الكل'),
+            Tab::make( OrderStatusEnum::PENDING->value)->modifyQueryUsing(fn($query)=>$query->where('status','pending')->with(['user','seller']))->label(OrderStatusEnum::PENDING->getLabel()),
             Tab::make( OrderStatusEnum::AGREE->value)->modifyQueryUsing(fn($query)=>$query->where('status','agree')->with(['user','seller']))->label(OrderStatusEnum::AGREE->getLabel()),
-            Tab::make( OrderStatusEnum::AWAY->value)->modifyQueryUsing(fn($query)=>$query->where('status','away'))->label(OrderStatusEnum::AWAY->getLabel()),
-            Tab::make( OrderStatusEnum::COMPLETE->value)->modifyQueryUsing(fn($query)=>$query->where('status','complete'))->label(OrderStatusEnum::COMPLETE->getLabel()),
-            Tab::make( OrderStatusEnum::CONFIRM_COMPLETE->value)->modifyQueryUsing(fn($query)=>$query->where('status','confirm_complete'))->label(OrderStatusEnum::CONFIRM_COMPLETE->getLabel()),
-            Tab::make( OrderStatusEnum::CANCELED->value)->modifyQueryUsing(fn($query)=>$query->where('status','canceled'))->label(OrderStatusEnum::CANCELED->getLabel()),
+            Tab::make( OrderStatusEnum::AWAY->value)->modifyQueryUsing(fn($query)=>$query->where('status','away')->with(['user','seller']))->label(OrderStatusEnum::AWAY->getLabel()),
+            Tab::make( OrderStatusEnum::COMPLETE->value)->modifyQueryUsing(fn($query)=>$query->where('status','complete')->with(['user','seller']))->label(OrderStatusEnum::COMPLETE->getLabel()),
+            Tab::make( OrderStatusEnum::CONFIRM_COMPLETE->value)->modifyQueryUsing(fn($query)=>$query->where('status','confirm_complete')->with(['user','seller']))->label(OrderStatusEnum::CONFIRM_COMPLETE->getLabel()),
+            Tab::make( OrderStatusEnum::CANCELED->value)->modifyQueryUsing(fn($query)=>$query->where('status','canceled')->with(['user','seller']))->label(OrderStatusEnum::CANCELED->getLabel()),
 
 
         ];
