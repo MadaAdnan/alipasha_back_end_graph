@@ -60,7 +60,7 @@ final class CreateUser
             $user->addMedia($data['imag'])->toMediaCollection('image');
         }
         return [
-            'user' => $user,
+            'user' => $user->refresh(),
             'token' => $token
         ];
     }
