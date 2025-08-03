@@ -40,7 +40,7 @@ final class CreateUser
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'phone' => filter_var($phone,FILTER_SANITIZE_NUMBER_INT),
+            'phone' => $phone,
             'phone_code'=>$data['phone_code'],
             'city_id' => $data['city_id'] ?? null,
             'area_id' => $data['area_id'] ?? null,
