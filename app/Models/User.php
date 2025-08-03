@@ -223,6 +223,8 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
             $this->attributes['phone'] = \Str::substr($value, 1);
         } elseif (\Str::startsWith($value, '00')) {
             $this->attributes['phone'] = \Str::substr($value, 2);
+        }else{
+            $this->attributes['phone'] = $value;
         }
 
     }
