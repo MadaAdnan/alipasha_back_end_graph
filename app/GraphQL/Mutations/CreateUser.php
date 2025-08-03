@@ -16,6 +16,8 @@ final class CreateUser
     public function __invoke($_, array $args)
     {
         $data = $args['input'];
+        info('Manaully create user');
+        info(json_encode($data));
         $affiliate_id = null;
         $setting = Setting::first();
         if (!$setting->available_any_email) {
