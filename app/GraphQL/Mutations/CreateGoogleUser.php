@@ -39,7 +39,7 @@ final class CreateGoogleUser
                 'code_verified' =>StrHelper::generateDigits(6)
             ]);
             try{
-                $plan = Plan::where('duration', PlansDurationEnum::FREE->value)->first();
+                $plan = Plan::where('plans.duration', PlansDurationEnum::FREE->value)->first();
                 if ($plan) {
                     $user->plans()->syncWithPivotValues([$plan->id], ['subscription_date' => now(), 'expired_date' => now()->addYear()]);
                 }

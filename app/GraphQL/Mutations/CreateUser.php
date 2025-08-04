@@ -61,7 +61,7 @@ final class CreateUser
             $user->addMedia($data['imag'])->toMediaCollection('image');
         }
         try{
-            $plan = Plan::where('duration', PlansDurationEnum::FREE->value)->first();
+            $plan = Plan::where('plans.duration', PlansDurationEnum::FREE->value)->first();
             if ($plan) {
                 $user->plans()->syncWithPivotValues([$plan->id], ['subscription_date' => now(), 'expired_date' => now()->addYear()]);
             }
