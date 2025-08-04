@@ -16,8 +16,7 @@ final class CreateGoogleUser
     public function __invoke($_, array $args)
     {
         $data = $args['input'];
-        info('Google create user');
-        info(json_encode($data));
+
         $affiliate_id = null;
         if (isset($data['affiliate']) && $data['affiliate'] != null) {
             $affiliate_id = User::where('affiliate', $data['affiliate'])->first()?->id;
