@@ -2,8 +2,10 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Enums\PlansDurationEnum;
 use App\Exceptions\GraphQLExceptionHandler;
 use App\Helpers\StrHelper;
+use App\Models\Plan;
 use App\Models\Setting;
 use App\Models\User;
 
@@ -58,6 +60,13 @@ final class CreateUser
         if (isset($data['image']) && $data['image'] !== null) {
             $user->addMedia($data['imag'])->toMediaCollection('image');
         }
+        try{
+            $plan = Plan::where('duration', PlansDurationEnum::FREE->value)->first();
+            if ($plan) {
+                $user->plans()->syncWithPivotValues([$plan->id], ['subscription_date' => now(), 'expired_date' => now()->addYear()]);
+            }
+        }catch (\Exception|\Error $e){}
+
         return [
             'user' => $user->refresh(),
             'token' => $token

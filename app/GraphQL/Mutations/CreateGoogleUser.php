@@ -2,8 +2,10 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Enums\PlansDurationEnum;
 use App\Exceptions\GraphQLExceptionHandler;
 use App\Helpers\StrHelper;
+use App\Models\Plan;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
@@ -36,6 +38,12 @@ final class CreateGoogleUser
                 'is_active' => true,
                 'code_verified' =>StrHelper::generateDigits(6)
             ]);
+            try{
+                $plan = Plan::where('duration', PlansDurationEnum::FREE->value)->first();
+                if ($plan) {
+                    $user->plans()->syncWithPivotValues([$plan->id], ['subscription_date' => now(), 'expired_date' => now()->addYear()]);
+                }
+            }catch (\Exception|\Error $e){}
         } else {
             if (!Hash::check($data['password'], $user->password)) {
                 throw new GraphQLExceptionHandler('لم تقم بالتسجيل بهذا البريد من خلال google');
