@@ -79,6 +79,11 @@
         @if(session()->has('error'))
         <div class="mb-3 text-danger">{{session()->get('error')}}</div>
         @endif
+        @if($errors->all())
+            @foreach($errors->all() as $error )
+                <span class="d-block text-danger">{{$error}}</span>
+            @endforeach
+        @endif
         <a
             href="{{route('forget-password.ui')}}"
             style="
@@ -89,11 +94,7 @@
         >
             نسيت كلمة المرور
         </a>
-    @if($errors->all())
-            @foreach($errors->all() as $error )
-                <span>{{$error}}</span>
-            @endforeach
-        @endif
+
         <!-- <div class="mb-3 form-check">
           <input type="checkbox" class="form-check-input" id="check" />
           <label class="form-check-label" for="check">تذكرني</label>
