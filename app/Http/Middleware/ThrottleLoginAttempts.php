@@ -37,7 +37,7 @@ class ThrottleLoginAttempts
      * @param  int  $decayMinutes
      * @return mixed
      */
-    public function handle(Request $request, Closure $next, int $maxAttempts = 5, int $decayMinutes = 1): mixed
+    public function handle(Request $request, Closure $next, int $maxAttempts = 3, int $decayMinutes = 1): mixed
     {
         $key = $this->throttleKey($request);
 

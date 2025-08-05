@@ -62,8 +62,8 @@ Route::get('oauth/callback/google', function () {
 
 
 Route::middleware([\App\Http\Middleware\XFrameOptionMiddleware::class])->group(function (){
-    Route::post('login', [\App\Http\Controllers\Web\AuthController::class, 'login'])->name('login')->middleware('throttle.login:5,1');
-    Route::post('register', [\App\Http\Controllers\Web\AuthController::class, 'register'])->name('register')->middleware('throttle.login:5,1');
+    Route::post('login', [\App\Http\Controllers\Web\AuthController::class, 'login'])->name('login')->middleware('throttle.login:3,1');
+    Route::post('register', [\App\Http\Controllers\Web\AuthController::class, 'register'])->name('register')->middleware('throttle.login:3,1');
 
     Route::middleware('throttle:60,1')->group(function () {
         Route::get('download-app',function(){
