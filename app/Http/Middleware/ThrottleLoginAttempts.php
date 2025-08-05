@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Cache\RateLimiter;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
 
 class ThrottleLoginAttempts
@@ -41,6 +42,10 @@ class ThrottleLoginAttempts
         $key = $this->throttleKey($request);
 
         if ($this->limiter->tooManyAttempts($key, $maxAttempts)) {
+            $seconds = \Illuminate\Support\Facades\RateLimiter::availableIn($key);
+            throw \Illuminate\Validation\ValidationException::withMessages([
+                'email' => ["فمت بمحاولات عديدة إنتظر $seconds ثواني."]
+            ]);
             return response()->json([
                 'message' => 'Too many login attempts. Please try again later.',
                 'retry_after' => $this->limiter->availableIn($key)
