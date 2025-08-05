@@ -3,9 +3,12 @@
 namespace App\Filament\Resources\UserResource\Pages;
 
 use App\Filament\Resources\UserResource;
+use App\Jobs\SendGlobalFirebaseNotificationJob;
 use Filament\Actions;
 use Filament\Resources\Components\Tab;
 use Filament\Resources\Pages\ListRecords;
+use Filament\Forms;
+use Filament\Notifications\Notification;
 
 class ListUsers extends ListRecords
 {
@@ -15,8 +18,29 @@ class ListUsers extends ListRecords
     {
         return [
             Actions\CreateAction::make(),
+            Actions\Action::make('send_global_notification')
+                ->label('إشعار فير بيسس جماعي')
+                ->form([
+                    Forms\Components\TextInput::make('title')
+                        ->required()
+                        ->label('عنوان الإشعار'),
+                    Forms\Components\Textarea::make('body')
+                        ->required()
+                        ->label('الإشعار')
+                        ->rows(4),
+                ])
+                ->action(function (array $data) {
+                    // Dispatch the global notification job starting from offset 0
+                    SendGlobalFirebaseNotificationJob::dispatch($data['title'], $data['body'], 0);
+
+                    Notification::make()
+                        ->title('تم وضع الإشعار في قائمة الإنتظار للمعالجة')
+                        ->success()
+                        ->send();
+                })
         ];
     }
+
     public function getTabs(): array
     {
         return [
