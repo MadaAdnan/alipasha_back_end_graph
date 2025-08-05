@@ -89,11 +89,11 @@
         >
             نسيت كلمة المرور
         </a>
-        @if($errors->any())
+   {{--     @if($errors->any())
             @foreach($error as $errors->all())
                 <span>{{$error}}</span>
             @endforeach
-        @endif
+        @endif--}}
         <!-- <div class="mb-3 form-check">
           <input type="checkbox" class="form-check-input" id="check" />
           <label class="form-check-label" for="check">تذكرني</label>
