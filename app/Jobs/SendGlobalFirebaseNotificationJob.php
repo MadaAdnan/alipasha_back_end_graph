@@ -15,20 +15,19 @@ class SendGlobalFirebaseNotificationJob implements ShouldQueue
 
     protected $title;
     protected $body;
-    protected $offset;
+
 
     /**
      * Create a new job instance.
      *
      * @param string $title
      * @param string $body
-     * @param int $offset
      */
-    public function __construct(string $title, string $body, int $offset = 0)
+    public function __construct(string $title, string $body)
     {
         $this->title = $title;
         $this->body = $body;
-        $this->offset = $offset;
+
     }
 
     /**
@@ -36,31 +35,16 @@ class SendGlobalFirebaseNotificationJob implements ShouldQueue
      */
     public function handle(): void
     {
-        // Get a batch of 500 users with device tokens
-        $users = User::whereNotNull('device_token')
-            ->offset($this->offset)
-            ->limit(500)
-            ->get();
+        // Process users in chunks of 500 with 10 second delays between each chunk
+        User::whereNotNull('device_token')->chunk(500, function ($users, $index) {
+            // Extract device tokens
+            $tokens = $users->pluck('device_token')->toArray();
 
-        if ($users->isEmpty()) {
-            // No more users to process
-            return;
-        }
-
-        // Extract device tokens
-        $tokens = $users->pluck('device_token')->toArray();
-
-        // Dispatch notification job for this batch
-        SendFirebaseNotificationJob::dispatch($tokens, [
-            'title' => $this->title,
-            'body' => $this->body,
-        ]);
-
-        // Check if there are more users to process
-        if ($users->count() == 500) {
-            // Dispatch another job for the next batch with a 10-second delay
-            SendGlobalFirebaseNotificationJob::dispatch($this->title, $this->body, $this->offset + 500)
-                ->delay(now()->addSeconds(10));
-        }
+            // Dispatch notification job for this chunk with delay based on chunk index
+            SendFirebaseNotificationJob::dispatch($tokens, [
+                'title' => $this->title,
+                'body' => $this->body,
+            ])->delay(now()->addSeconds($index * 10));
+        });
     }
 }

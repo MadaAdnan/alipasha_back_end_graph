@@ -30,8 +30,8 @@ class ListUsers extends ListRecords
                         ->rows(4),
                 ])
                 ->action(function (array $data) {
-                    // Dispatch the global notification job starting from offset 0
-                    SendGlobalFirebaseNotificationJob::dispatch($data['title'], $data['body'], 0);
+                    // Dispatch the global notification job
+                    SendGlobalFirebaseNotificationJob::dispatch($data['title'], $data['body']);
 
                     Notification::make()
                         ->title('تم وضع الإشعار في قائمة الإنتظار للمعالجة')
