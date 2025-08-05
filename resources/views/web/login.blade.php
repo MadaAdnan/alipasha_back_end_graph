@@ -67,6 +67,7 @@
             <input
                 type="email"
                 class="form-control"
+                value="{{old('email')}}"
                 id="email"
                 name="email"
                 aria-describedby="emailHelp"
@@ -74,7 +75,7 @@
         </div>
         <div class="mb-3">
             <label for="password" class="form-label">كلمة المرور</label>
-            <input type="password" class="form-control" name="password" id="password" />
+            <input type="password" class="form-control" name="password" id="password" value="{{old('password')}}" />
         </div>
         @if(session()->has('error'))
         <div class="mb-3 text-danger">{{session()->get('error')}}</div>
