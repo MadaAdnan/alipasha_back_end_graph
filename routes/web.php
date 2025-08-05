@@ -58,6 +58,9 @@ Route::get('oauth/callback/google', function () {
         return 'OAuth Error: ' . $e->getMessage();
     }
 });
+Route::post('login', [\App\Http\Controllers\Web\AuthController::class, 'login'])->name('login')->middleware('throttle.login:5,1');
+Route::post('register', [\App\Http\Controllers\Web\AuthController::class, 'register'])->name('register')->middleware('throttle.login:5,1');
+
 Route::middleware('throttle:60,1')->group(function () {
     Route::get('download-app',function(){
         return response()->file(Setting::first()?->getFirstMediaPath('apk'),[
@@ -69,9 +72,8 @@ Route::middleware('throttle:60,1')->group(function () {
     Route::get('forget-password', [\App\Http\Controllers\Web\AuthController::class, 'forgetPasswordUi'])->name('forget-password.ui');
     Route::get('change-password', [\App\Http\Controllers\Web\AuthController::class, 'changePasswordUi'])->name('change-password.ui');
     Route::get('register', [\App\Http\Controllers\Web\AuthController::class, 'registerUi'])->name('register.ui');
-    Route::post('login', [\App\Http\Controllers\Web\AuthController::class, 'login'])->name('login');
+
     Route::post('logout', [\App\Http\Controllers\Web\AuthController::class, 'logout'])->name('logout')->middleware('auth:web');
-    Route::post('register', [\App\Http\Controllers\Web\AuthController::class, 'register'])->name('register');
     Route::post('forget-password', [\App\Http\Controllers\Web\AuthController::class, 'forgetPassword'])->name('forget-password');
     Route::post('change-password', [\App\Http\Controllers\Web\AuthController::class, 'changePassword'])->name('change-password');
     Route::resource('/', \App\Http\Controllers\Web\IndexController::class)->only('index');

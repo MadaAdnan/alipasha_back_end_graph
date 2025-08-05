@@ -1,5 +1,5 @@
 extend type Mutation{
-    login(email:String!,password:String!,device_token:String): UserWithToken!
+    login(email:String!,password:String!,device_token:String): UserWithToken! @middleware(checks: ["throttle.login:5,1"])
     createUser(input:CreateUserInput) : UserWithToken
     createGoogleUser(input:CreateGoogleUserInput) : UserWithToken
     forgetPassword(email:String!):Boolean
