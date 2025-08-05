@@ -46,10 +46,7 @@ class ThrottleLoginAttempts
             throw \Illuminate\Validation\ValidationException::withMessages([
                 'email' => ["فمت بمحاولات عديدة إنتظر $seconds ثواني."]
             ]);
-            return response()->json([
-                'message' => 'Too many login attempts. Please try again later.',
-                'retry_after' => $this->limiter->availableIn($key)
-            ], 429);
+
         }
 
         $this->limiter->hit($key, $decayMinutes * 60);
