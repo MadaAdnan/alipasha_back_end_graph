@@ -1,5 +1,5 @@
 extend type Mutation{
-    login(email:String!,password:String!,device_token:String): UserWithToken! @throttle(name:"login",maxAttempts:5,decayMinutes:1)
+    login(email:String!,password:String!,device_token:String): UserWithToken! @throttle(name:"throttle.login",maxAttempts:5,decayMinutes:1)
     createUser(input:CreateUserInput) : UserWithToken
     createGoogleUser(input:CreateGoogleUserInput) : UserWithToken
     forgetPassword(email:String!):Boolean
