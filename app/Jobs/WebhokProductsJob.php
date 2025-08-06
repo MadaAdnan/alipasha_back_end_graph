@@ -38,7 +38,7 @@ class WebhokProductsJob implements ShouldQueue
                 \DB::table('products')->whereIn('id', $this->products->pluck('id')->toArray())->update([
                     'is_sync_webhok' => true,
                 ]);
-
+                \Log::info("WEB hok {$response->body()}");
             }
         } catch (\Exception $e) {
             \Log::error($e->getMessage());

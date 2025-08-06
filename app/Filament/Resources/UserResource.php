@@ -12,6 +12,7 @@ use App\Filament\Resources\UserResource\RelationManagers;
 use App\Helpers\HelperMedia;
 use App\Helpers\HelpersEnum;
 use App\Jobs\SendFirebaseNotificationJob;
+use App\Jobs\WebhokProductsJob;
 use App\Models\Balance;
 use App\Models\Category;
 use App\Models\City;
@@ -19,6 +20,7 @@ use App\Models\Community;
 use App\Models\Country;
 use App\Models\Interaction;
 use App\Models\Message;
+use App\Models\Product;
 use App\Models\User;
 use App\Service\SendNotifyHelper;
 use Filament\Forms;
@@ -260,6 +262,15 @@ class UserResource extends Resource
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
                 Tables\Actions\ActionGroup::make([
+                    // sync products
+                    Tables\Actions\Action::make('sync_products')->action(function ($record) {
+                        $products=Product::where([
+                            'user_id'=>$record->id,
+                            'is_sync_webhok' => false,
+                        ])->get();
+                        $job=new WebhokProductsJob($products, $record->url_webhok);
+                        dispatch($job);
+                    }),
                     /* add balance */
                     Tables\Actions\Action::make('add_balance')->form([
                         Forms\Components\TextInput::make('value')->label('القيمة')->required()->gt(0),
