@@ -29,6 +29,7 @@ class WebhokProductsJob implements ShouldQueue
     public function handle(): void
     {
         try {
+            \Log::info("Start Sync");
             $response = \Http::post($this->url_webhok, [
                 'action' =>'create',
                 'type' => 'products',
