@@ -30,7 +30,7 @@ class WebhokProductsJob implements ShouldQueue
     {
         try {
             $response = \Http::post($this->url_webhok, [
-                'action' => $this->action,
+                'action' =>'create',
                 'type' => 'products',
                 'data' => ProductResource::collection($this > $this->products),
             ]);
