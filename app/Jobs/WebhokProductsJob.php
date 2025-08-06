@@ -41,7 +41,7 @@ class WebhokProductsJob implements ShouldQueue
                 \Log::info("WEB hok {$response->body()}");
             }
         } catch (\Exception $e) {
-            \Log::error($e->getMessage());
+            \Log::error("Error Web hok {$e->getMessage()}");
         }
     }
 }
