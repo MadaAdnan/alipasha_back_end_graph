@@ -264,13 +264,13 @@ class UserResource extends Resource
                 Tables\Actions\ActionGroup::make([
                     // sync products
                     Tables\Actions\Action::make('sync_products')->action(function ($record) {
-                        $products=Product::where([
-                            'user_id'=>$record->id,
+                        $products = Product::where([
+                            'user_id' => $record->id,
                             'is_sync_webhok' => false,
                         ])->get();
-                        $job=new WebhokProductsJob($products, $record->url_webhok);
+                        $job = new WebhokProductsJob($products, $record->url_webhok);
                         dispatch($job);
-                    }),
+                    })->visible(fn($record) => \Str::isUrl($record->url_webhok) && $record->products()->where('products.is_sync_webhok', false)->count() > 0),
                     /* add balance */
                     Tables\Actions\Action::make('add_balance')->form([
                         Forms\Components\TextInput::make('value')->label('القيمة')->required()->gt(0),
