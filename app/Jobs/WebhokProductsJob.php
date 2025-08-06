@@ -32,7 +32,7 @@ class WebhokProductsJob implements ShouldQueue
             $response = \Http::post($this->url_webhok, [
                 'action' =>'create',
                 'type' => 'products',
-                'data' => ProductResource::collection($this > $this->products),
+                'data' => ProductResource::collection($this->products)->jsonSerialize(),
             ]);
             if ($response->successful() && $response->json('status') == 'success') {
                 \DB::table('products')->whereIn('id', $this->products->pluck('id')->toArray())->update([
