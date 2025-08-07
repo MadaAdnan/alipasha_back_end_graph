@@ -98,7 +98,8 @@ class IndexController extends Controller
                 ->orWhere('type',CategoryTypeEnum::JOB->value)
                 ->orWhere('type',CategoryTypeEnum::SEARCH_JOB->value)
                 ->orWhere('type',CategoryTypeEnum::NEWS->value)
-            )  ->where(function ($query) {
+            )
+            ->where(function ($query) {
                 $query->whereNull('end_date')
                     ->orWhere('end_date', '>', now());
             })->where('created_at','>=',now()->subDays($setting->options['recommended_month']??30))->inRandomOrder()
