@@ -30,7 +30,7 @@ class WebhokProductsJob implements ShouldQueue
     {
         try {
             \Log::info("Start Sync");
-            $response = \Http::post($this->url_webhok, [
+            $response = \Http::asForm()->post($this->url_webhok,[
                 'action' =>'create',
                 'type' => 'products',
                 'data' => ProductResource::collection($this->products)->jsonSerialize(),
