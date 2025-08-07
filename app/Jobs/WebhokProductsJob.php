@@ -40,6 +40,8 @@ class WebhokProductsJob implements ShouldQueue
                     'is_sync_webhok' => true,
                 ]);
                 \Log::info("WEB hok {$response->body()}");
+            }else{
+                \Log::info($response->body());
             }
         } catch (\Exception $e) {
             \Log::error("Error Web hok {$e->getMessage()}");
