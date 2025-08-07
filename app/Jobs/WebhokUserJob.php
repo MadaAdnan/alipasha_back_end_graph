@@ -28,6 +28,7 @@ class WebhokUserJob implements ShouldQueue
     public function handle(): void
     {
         try {
+            \Log::info("SYNC USER");
             $response = \Http::post($this->user?->url_webhok, [
                 'action' => 'update',
                 'type' => 'user',
