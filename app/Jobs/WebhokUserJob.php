@@ -28,12 +28,10 @@ class WebhokUserJob implements ShouldQueue
     public function handle(): void
     {
         try {
-            \Log::info("SYNC USER");
-            \Log::info("{$this->user?->url_webhok}");
-            $response = \Http::asForm()->post($this->user?->url_webhok, [
+            $response = \Http::post($this->user?->url_webhok, [
                 'action' => 'update',
                 'type' => 'user',
-                'data' => collect(new UserResource($this->user))->toArray(),
+                'data' => (new UserResource($this->user))->toArray(request()),
             ]);
             if ($response->successful() && $response->json('status') == 'success') {
                 \DB::table('users')->where('id', $this->user->id)->update([
