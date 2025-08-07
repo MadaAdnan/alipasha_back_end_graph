@@ -33,7 +33,7 @@ class WebhokUserJob implements ShouldQueue
             $response = \Http::asForm()->post($this->user?->url_webhok, [
                 'action' => 'update',
                 'type' => 'user',
-                'data' => new UserResource($this->user)
+                'data' => collect(new UserResource($this->user))->toArray(),
             ]);
             if ($response->successful() && $response->json('status') == 'success') {
                 \DB::table('users')->where('id', $this->user->id)->update([
