@@ -29,7 +29,7 @@ class WebhokUserJob implements ShouldQueue
     {
         try {
             \Log::info("SYNC USER");
-            $response = \Http::post($this->user?->url_webhok, [
+            $response = \Http::asForm()->post($this->user?->url_webhok, [
                 'action' => 'update',
                 'type' => 'user',
                 'data' => new UserResource($this->user)
