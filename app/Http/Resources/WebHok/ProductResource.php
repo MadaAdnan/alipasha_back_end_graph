@@ -29,7 +29,8 @@ class ProductResource extends JsonResource
             'city' => $this->user?->city?->name,
             'area' => $this->user?->area?->name,
             'is_available' => $this->is_available,
-            'video'=>$this->video
+            'video'=>$this->video,
+            'category_name'=>$this->category?->name
         ];
     }
 }
