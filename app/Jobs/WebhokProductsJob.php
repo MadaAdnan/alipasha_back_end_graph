@@ -29,8 +29,6 @@ class WebhokProductsJob implements ShouldQueue
     public function handle(): void
     {
         try {
-            \Log::info("Start Sync");
-            \Log::info("{$this->url_webhok}");
             $response = \Http::asForm()->post($this->url_webhok,[
                 'action' =>'create',
                 'type' => 'products',
@@ -40,9 +38,7 @@ class WebhokProductsJob implements ShouldQueue
                 \DB::table('products')->whereIn('id', $this->products->pluck('id')->toArray())->update([
                     'is_sync_webhok' => true,
                 ]);
-                \Log::info("WEB hok {$response->body()}");
-            }else{
-                \Log::info($response->body());
+
             }
         } catch (\Exception $e) {
             \Log::error("Error Web hok {$e->getMessage()}");
