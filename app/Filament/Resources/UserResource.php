@@ -13,6 +13,7 @@ use App\Helpers\HelperMedia;
 use App\Helpers\HelpersEnum;
 use App\Jobs\SendFirebaseNotificationJob;
 use App\Jobs\WebhokProductsJob;
+use App\Jobs\WebhokUserJob;
 use App\Models\Balance;
 use App\Models\Category;
 use App\Models\City;
@@ -270,7 +271,11 @@ class UserResource extends Resource
                         ])->get();
                         $job = new WebhokProductsJob($products, $record->url_webhok);
                         dispatch($job);
-                    })->visible(fn($record) => \Str::isUrl($record->url_webhok) && $record->products()->where('products.is_sync_webhok', false)->count() > 0),
+                    })->visible(fn($record) => \Str::isUrl($record->url_webhok) && $record->products()->where('products.is_sync_webhok', false)->count() > 0)->label('مزامنة المنتجات'),
+                    Tables\Actions\Action::make('sync_user')->action(function ($record) {
+                        $job = new WebhokUserJob($record);
+                        dispatch($job);
+                    })->visible(fn($record) => \Str::isUrl($record->url_webhok) && $record->is_sync_webhok==false)->label('مزامنة الإعدادات'),
                     /* add balance */
                     Tables\Actions\Action::make('add_balance')->form([
                         Forms\Components\TextInput::make('value')->label('القيمة')->required()->gt(0),
