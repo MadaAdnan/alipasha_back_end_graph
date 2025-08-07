@@ -802,7 +802,7 @@
                 @endforeach
 
                 <div class="d-flex justify-content-between ps-2">
-                    @if($latests?->hasMorePages() || $specials?->hasMorePages() || $hobbbies?->hasMorePages())
+                    @if($latests?->hasMorePages() || $specials?->hasMorePages())
                         <a class="btn btn-sm btn-secondary"
                            href="{{$latests?->withQueryString()?->nextPageUrl()}}">التالي</a>
                     @endif
