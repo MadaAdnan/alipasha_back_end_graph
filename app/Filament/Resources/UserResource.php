@@ -101,9 +101,9 @@ class UserResource extends Resource
                                     LevelUserEnum::USER->value => LevelUserEnum::USER->getLabel(),
                                     LevelUserEnum::STAFF->value => LevelUserEnum::STAFF->getLabel(),
                                 ]),
-                                Forms\Components\Select::make('roles')->relationship('roles', 'name')->multiple()->label('الأدوار'),
+                                Forms\Components\Select::make('roles')->relationship('roles', 'name')->multiple()->label('الأدوار')->visible(auth()->hasRole('super_admin')),
                                 Forms\Components\Toggle::make('is_active')->label('حالة المستخدم'),
-                                Forms\Components\Toggle::make('is_seller')->label('تفعيل المتجر')->live(),
+                                Forms\Components\Toggle::make('is_seller')->label('تفعيل المتجر')->live()->visible(auth()->hasRole('super_admin')),
                             ]),
                         ]),
                         Forms\Components\Wizard\Step::make('بيانات المتجر')->schema([
