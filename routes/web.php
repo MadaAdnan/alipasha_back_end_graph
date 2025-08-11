@@ -160,10 +160,10 @@ Route::middleware([\App\Http\Middleware\XFrameOptionMiddleware::class])->group(f
         return 'success';
     });
     Route::get('/server-resources', function () {
-        $user=User::find(51491);
+      /*  $user=User::find(51491);
         //return $user->plans()->where('type', PlansTypeEnum::PRESENT->value)->get();
         $plan = ProductsHelper::getPresentPlanActive($user);
-        return $plan;
+        return $plan;*/
        /* return [
             'memory_limit' => ini_get('memory_limit'),
             'max_execution_time' => ini_get('max_execution_time'),
