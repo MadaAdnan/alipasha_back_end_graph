@@ -1,6 +1,7 @@
 <?php
 
 use App\Events\MessageSentEvent;
+use App\Helpers\ProductsHelper;
 use App\Http\Controllers\ImportController;
 use App\Models\Interaction;
 use App\Models\Plan;
@@ -158,12 +159,15 @@ Route::middleware([\App\Http\Middleware\XFrameOptionMiddleware::class])->group(f
         return 'success';
     });
     Route::get('/server-resources', function () {
-        return [
+        $user=User::find(51491);
+        $plan = ProductsHelper::getPresentPlanActive($user);
+        return $plan;
+       /* return [
             'memory_limit' => ini_get('memory_limit'),
             'max_execution_time' => ini_get('max_execution_time'),
             'disk_free_space' => disk_free_space('/'),
             'disk_total_space' => disk_total_space('/'),
             'cpu_load' => sys_getloadavg()
-        ];
+        ];*/
     });
 });
