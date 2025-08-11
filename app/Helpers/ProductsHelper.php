@@ -22,9 +22,20 @@ class ProductsHelper
             $user = auth()->user();
         }
 
-        $plan = $user->plans()->where('type', PlansTypeEnum::PRESENT->value)->first();
+        $plans = $user->plans()->where('type', PlansTypeEnum::PRESENT->value)->get();
+        $planfree=null;
+        $plan=null;
+        foreach ( $plans as $item) {
+            if($item->dueration==PlansDurationEnum::FREE->value){
+                $palnfree=$item;
+            }else{
+                $plan=$item;
+                break;
+            }
 
-        return $plan;
+        }
+
+        return $plan ?? $planfree;
     }
 
     public static function canAddSpecial(): ?bool
