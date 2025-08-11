@@ -26,7 +26,7 @@ class ProductsHelper
         $planfree = null;
         $plan = null;
         foreach ($plans as $item) {
-            if ($item->dueration == PlansDurationEnum::FREE->value) {
+            if ($item->duration == PlansDurationEnum::FREE->value) {
                 $planfree = $item;
             } else {
                 $plan = $item;
