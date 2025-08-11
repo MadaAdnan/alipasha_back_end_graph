@@ -161,7 +161,7 @@ Route::middleware([\App\Http\Middleware\XFrameOptionMiddleware::class])->group(f
     });
     Route::get('/server-resources', function () {
         $user=User::find(51491);
-        return $user->plans()->where('type', PlansTypeEnum::PRESENT->value)->get();
+        //return $user->plans()->where('type', PlansTypeEnum::PRESENT->value)->get();
         $plan = ProductsHelper::getPresentPlanActive($user);
         return $plan;
        /* return [
