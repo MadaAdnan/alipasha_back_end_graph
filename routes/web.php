@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\PlansTypeEnum;
 use App\Events\MessageSentEvent;
 use App\Helpers\ProductsHelper;
 use App\Http\Controllers\ImportController;
@@ -160,6 +161,7 @@ Route::middleware([\App\Http\Middleware\XFrameOptionMiddleware::class])->group(f
     });
     Route::get('/server-resources', function () {
         $user=User::find(51491);
+        return $user->plans()->where('type', PlansTypeEnum::PRESENT->value)->get();
         $plan = ProductsHelper::getPresentPlanActive($user);
         return $plan;
        /* return [
