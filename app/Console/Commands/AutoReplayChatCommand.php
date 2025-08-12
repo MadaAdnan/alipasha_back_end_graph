@@ -64,7 +64,7 @@ class AutoReplayChatCommand extends Command
                         continue;
                     }
                     $msg = "مرجبا بك هذا رد تلقائي , يمكنك تنبيه التاجر بوجود محادثة جديدة معه في علي باشا عبر واتسآب من الرابط 👇\n
-                        https://wa.me/" . trim($user->phone,'+' ) . "?text=مرحباً-هل-يمكنك-الرد-على-محادثتي-بتطبيق-علي-باشا";
+                        https://wa.me/" .$user->phone_code. trim($user->phone,'+' ) . "?text=مرحباً-هل-يمكنك-الرد-على-محادثتي-بتطبيق-علي-باشا";
                     $m = Message::create([
                         'community_id' => $item->id,
                         'user_id' => $user->id,

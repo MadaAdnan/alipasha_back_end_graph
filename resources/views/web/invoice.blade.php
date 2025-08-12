@@ -10,7 +10,7 @@
                         </div>
                         <div class="card-body">
                             <div>
-                                <span>{{$invoice->user?->name}} <a href="https://wa.me/{{$invoice->user?->phone}}"><i class="bi bi-whatsapp"></i></a></span>
+                                <span>{{$invoice->user?->name}} <a href="https://wa.me/{{$invoice->user?->phone_code}}{{$invoice->user?->phone}}"><i class="bi bi-whatsapp"></i></a></span>
                             </div>
                             <div class="table-responsive">
                                 <table class="table table-striped">
