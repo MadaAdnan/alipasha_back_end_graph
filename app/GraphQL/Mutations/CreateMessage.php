@@ -72,7 +72,7 @@ final class CreateMessage
         if($message->community->type==CommunityTypeEnum::CHAT->value && $message->community->messages_count <= 1){
 
             $user=$message->community->users()->whereNot('users.id',$userId)->first();
-$msg="(رد تلقائي) شكرا على تواصلك مع {$user?->seller_name} في حال تأخرنا بالرد يمكنك التواصل معنا عبر الواتساب عبر الرابط https://wa.me/{$user?->phone} ";
+$msg="(رد تلقائي) شكرا على تواصلك مع {$user?->seller_name} في حال تأخرنا بالرد يمكنك التواصل معنا عبر الواتساب عبر الرابط https://wa.me/{$user?->phone_code}{$user?->phone} ";
 //            $msg="في حال تأخر التاجر عن الرد يمكنك التواصل معه عن طريق واتسآب إضغط على الرابط للتواصل https://wa.me/{$user?->phone}";
             Message::create([
                 'body' => $msg,
