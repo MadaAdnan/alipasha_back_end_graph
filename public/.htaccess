@@ -20,5 +20,3 @@
     RewriteRule ^ index.php [L]
 </IfModule>
 
-# Disable PHP version exposure
-php_flag expose_php Off
