@@ -43,3 +43,6 @@ Route::get('like/{userId}/{productId}', function ($userId, $productId) {
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/messages', \App\Http\Controllers\Api\V1\MessageController::class)->only('store');
 });
+Route::middleware(\App\Http\Middleware\PassApiStatisticsMiddleware::class)->group(function () {
+    Route::get('users-count',[\App\Http\Controllers\Api\StatisticsController::class,'userCount']);
+});
