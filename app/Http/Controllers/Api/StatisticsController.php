@@ -22,11 +22,9 @@ return $counts;
 
     public function userPlans()
     {
-        $users = User::whereHas('plans', function ($query) {
-            $query->where('duration', '!=', PlansDurationEnum::FREE->value);
-        })
-            ->with(['plans' => function ($query) {
-                $query->where('expired_date', '>', now())
+        $users = User::
+            with(['plans' => function ($query) {
+                $query->where('duration','!=',PlansDurationEnum::FREE->value)->where('expired_date', '>', now())
                     ->select('plans.*', 'plan_user.expired_date');
             }])
             ->get();
