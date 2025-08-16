@@ -46,4 +46,5 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::middleware(\App\Http\Middleware\PassApiStatisticsMiddleware::class)->group(function () {
     Route::get('users-count',[\App\Http\Controllers\Api\StatisticsController::class,'userCount']);
     Route::get('users-plans',[\App\Http\Controllers\Api\StatisticsController::class,'userPlans']);
+    Route::get('orders-count',[\App\Http\Controllers\Api\StatisticsController::class,'ordersCount']);
 });
