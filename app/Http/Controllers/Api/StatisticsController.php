@@ -34,7 +34,7 @@ class StatisticsController extends Controller
 
     public function ordersCount()
     {
-        $counts = \DB::table('bills')->selectRaw('
+        $counts = \DB::table('invoices')->selectRaw('
    COALESCE(SUM(CASE WHEN status = "complete" THEN 1 ELSE 0 END), 0) as completed_count,
         COALESCE(SUM(CASE WHEN status = "pending" THEN 1 ELSE 0 END), 0) as pending_count,
         COALESCE(SUM(CASE WHEN status = "canceled" THEN 1 ELSE 0 END), 0) as canceled_count
