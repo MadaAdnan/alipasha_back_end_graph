@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Enums\PlansDurationEnum;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Api\Statistics\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -29,6 +30,6 @@ return $counts;
                     ->select('plans.*', 'plan_user.expired_date');
             }])
             ->get();
-        return $users;
+        return response()->json(UserResource::collection($users));
     }
 }
