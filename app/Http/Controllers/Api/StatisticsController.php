@@ -10,7 +10,7 @@ class StatisticsController extends Controller
 {
     public function userCount()
     {
-        $counts = User::selectRaw('
+        $counts = \DB::table('users')->selectRaw('
     COUNT(*) as total,
     SUM(CASE WHEN email_verified_at IS NOT NULL THEN 1 ELSE 0 END) as verified_count,
     SUM(CASE WHEN email_verified_at IS NULL THEN 1 ELSE 0 END) as unverified_count'
