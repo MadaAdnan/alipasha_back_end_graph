@@ -37,7 +37,7 @@ class StatisticsController extends Controller
         $counts = \DB::table('orders')->selectRaw('
     SUM(CASE WHEN status = "complete" THEN 1 ELSE 0 END) as completed_count,
     SUM(CASE WHEN status = "pending" THEN 1 ELSE 0 END) as pending_count,
-    SUM(CASE WHEN status = "canceled" THEN 1 ELSE 0 END) as canceled_count,
+    SUM(CASE WHEN status = "canceled" THEN 1 ELSE 0 END) as canceled_count
    '
         )->first();
         return $counts;
