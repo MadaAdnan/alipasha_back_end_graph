@@ -18,7 +18,7 @@ class StatisticsController extends Controller
     SUM(CASE WHEN email_verified_at IS NOT NULL THEN 1 ELSE 0 END) as verified_count,
     SUM(CASE WHEN email_verified_at IS NULL THEN 1 ELSE 0 END) as unverified_count'
         )->first();
-        return $counts;
+        return response()->json(['usersCount'=>$counts]);
     }
 
     public function userPlans()
@@ -29,7 +29,7 @@ class StatisticsController extends Controller
                     ->select('plans.*', 'plan_user.expired_date');
             }])
             ->get();
-        return response()->json(UserResource::collection($users));
+        return response()->json(['users'=>UserResource::collection($users)]);
     }
 
     public function ordersCount()
@@ -40,7 +40,7 @@ class StatisticsController extends Controller
         COALESCE(SUM(CASE WHEN status = "canceled" THEN 1 ELSE 0 END), 0) as canceled_count
    '
         )->first();
-        return $counts;
+        return response()->json(['ordersCount'=>$counts]);
     }
 
     public function usersAffiliate()
@@ -48,6 +48,6 @@ class StatisticsController extends Controller
         $users=User::whereHas('users')->with(['users'=>fn($query)=>$query->with('plans',
         fn($query)=>$query->whereNot('duration',PlansDurationEnum::FREE->value)
         )])->get();
-        return response()->json(UserResource::collection($users));
+        return response()->json(['users'=>UserResource::collection($users)]);
     }
 }
