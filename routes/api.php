@@ -47,4 +47,5 @@ Route::middleware(\App\Http\Middleware\PassApiStatisticsMiddleware::class)->grou
     Route::get('users-count',[\App\Http\Controllers\Api\StatisticsController::class,'userCount']);
     Route::get('users-plans',[\App\Http\Controllers\Api\StatisticsController::class,'userPlans']);
     Route::get('orders-count',[\App\Http\Controllers\Api\StatisticsController::class,'ordersCount']);
+    Route::get('users-affiliate',[\App\Http\Controllers\Api\StatisticsController::class,'usersAffiliate']);
 });

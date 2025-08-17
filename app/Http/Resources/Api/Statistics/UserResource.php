@@ -19,7 +19,7 @@ class UserResource extends JsonResource
             'phone'=>"{$this->phone_code}{$this->phone}",
             'email'=>$this->email,
             'createdAt'=>$this->created_at->format('Y-m-d H:i:s'),
-            'plans'=>PlanResource::collection($this->plans)
+            'plans'=>PlanResource::collection($this->whenLoaded('plans'))
         ];
     }
 }

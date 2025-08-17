@@ -42,4 +42,10 @@ class StatisticsController extends Controller
         )->first();
         return $counts;
     }
+
+    public function usersAffiliate()
+    {
+        $users=User::whereHas('users')->get();
+        return response()->json(UserResource::collection($users));
+    }
 }

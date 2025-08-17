@@ -236,7 +236,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'user_id');
     }
 
     public function carts(): HasMany
@@ -258,5 +258,10 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
     public function getFullPhoneAttribute(): string
     {
         return "{$this->phone_code}{$this->phone}";
+    }
+
+    public function users(): HasMany
+    {
+        return $this->hasMany(User::class,'user_id')->whereNotNull('email_verified_at');
     }
 }
