@@ -45,7 +45,7 @@ class StatisticsController extends Controller
 
     public function usersAffiliate()
     {
-        $users=User::whereHas('users')->get();
+        $users=User::whereHas('users',fn($query)=>$query->with('plans'))->get();
         return response()->json(UserResource::collection($users));
     }
 }
