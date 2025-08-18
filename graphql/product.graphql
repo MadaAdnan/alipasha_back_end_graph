@@ -8,12 +8,11 @@ extend type Query{
     searchProduct(type:String,search:String):[Product] @paginate(builder:"App\\GraphQL\\Queries\\SearchProduct")
     combinedProducts:[Product] @paginate(builder:"App\\GraphQL\\Queries\\HomeQuery\\CombinedProducts")
     HobbiesProduct:[Product] @paginate(builder:"App\\GraphQL\\Queries\\HomeQuery\\HobbiesProduct")
-    #LatestProduct:[Product] @paginate(builder:"App\\GraphQL\\Queries\\HomeQuery\\LatestProduct")
-    LatestProduct:[Product] @paginate(builder:"App\\GraphQL\\Queries\\SpecialRecommendedProducts")
+    LatestProduct:[Product] @paginate(builder:"App\\GraphQL\\Queries\\HomeQuery\\LatestProduct")
+#    LatestProduct:[Product] @paginate(builder:"App\\GraphQL\\Queries\\SpecialRecommendedProducts")
     SpecialProduct:[Product] @paginate(builder:"App\\GraphQL\\Queries\\HomeQuery\\SpecialProduct")
     #homeProduct:[Product] @paginate(builder:"App\\GraphQL\\Queries\\HomeQuery\\HomeProduct")
     homeProduct(page: Int = 1, perPage: Int = 50): PaginatedProduct!
-    #specialRecommendedProducts(first:Int,page:Int):[Product] @paginate(builder:"App\\GraphQL\\Queries\\SpecialRecommendedProducts") @guard
 
 }
 
