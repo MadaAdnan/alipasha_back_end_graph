@@ -34,7 +34,7 @@ final class RecommendedSpecialProducts
             ])
             ->where(function ($query) {
                 $query->whereNull('end_date')
-                    ->orWhere('end_date', '>', now());
+                    ->orWhere('end_date', '>', now()->timezone('UTC'));
             })
             ->where('created_at', '>=', now()->subDays($setting->options['recommended_month'] ?? 30))
             ->inRandomOrder()
