@@ -20,7 +20,7 @@ final class LatestProduct
 
         //return Product::where('id',0);
         $setting=Setting::first();
-        $products= Product::active()->where('power','>',20)
+       /* $products= Product::active()->where('power','>',20)
             ->where(fn( $query)=>$query->whereDoesntHave('category',fn($query)=>$query->where('type',CategoryTypeEnum::RESTAURANT->value)))
             ->whereNot('level',LevelProductEnum::SPECIAL->value)
             ->where(function ($query) {
@@ -37,7 +37,45 @@ final class LatestProduct
             $q->whereNotIn('category_id',$this->getPopularCategoryProducts())
                 ->whereNotIn('user_id',$this->getPopularSelelrProducts())
             ))
-            ;
+            ;*/
+        $now = now(); // خزّن الآن مرة واحدة لتجنب فروق زمنية صغيرة
+
+        $popularCategories = $this->getPopularCategoryProducts() ?? [];
+        $popularSellers = $this->getPopularSelelrProducts() ?? [];
+
+        $productsQuery = Product::active()
+            ->where('power', '>', 20)
+            ->whereDoesntHave('category', fn($q) => $q->where('type', CategoryTypeEnum::RESTAURANT->value))
+            ->whereNot('level', LevelProductEnum::SPECIAL->value)
+            // ===== هنا: الشرط الخاص بـ end_date (NULL أو صالح) =====
+            ->where(function ($q) use ($now) {
+                $q->whereNull('end_date')                    // أظهر المنتجات التي end_date = NULL
+                ->orWhere('end_date', '>', $now)           // أو التي تاريخها في المستقبل
+                ->orWhere('end_date', '')                  // أو حقل فارغ '' (إذا كان لديك مثل هذه القيم)
+                ->orWhereRaw("end_date = '0000-00-00' OR end_date = '0000-00-00 00:00:00'"); // تعامل مع الـ zero-date إن وجد
+            })
+            ->whereIn('type', [
+                CategoryTypeEnum::PRODUCT->value,
+                CategoryTypeEnum::TENDER->value,
+                CategoryTypeEnum::JOB->value,
+                CategoryTypeEnum::SEARCH_JOB->value,
+                CategoryTypeEnum::NEWS->value,
+            ])
+            ->where('created_at', '>=', now()->subDays($setting->options['recommended_month'] ?? 30));
+
+// تجنّب whereNotIn على مصفوفات فارغة — اضف الشروط فقط إن كانت القوائم غير فارغة
+        if (auth()->check()) {
+            $productsQuery->where(function ($q) use ($popularCategories, $popularSellers) {
+                if (!empty($popularCategories)) {
+                    $q->whereNotIn('category_id', $popularCategories);
+                }
+                if (!empty($popularSellers)) {
+                    $q->whereNotIn('user_id', $popularSellers);
+                }
+            });
+        }
+
+        $products = $productsQuery->inRandomOrder();
       //  $ids = $products->pluck('id')->toArray();
         $ids=[];
         $today = today();

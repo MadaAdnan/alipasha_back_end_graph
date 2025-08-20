@@ -24,7 +24,7 @@ final class HobbiesProduct
     {
         $setting = Setting::first();
         // return Product::where('id', 0);
-        $products = Product::active()->where('power', '>', 20)->where(fn($query) => $query->whereDoesntHave('category', fn($query) => $query->where('type', CategoryTypeEnum::RESTAURANT->value)))
+      /*  $products = Product::active()->where('power', '>', 20)->where(fn($query) => $query->whereDoesntHave('category', fn($query) => $query->where('type', CategoryTypeEnum::RESTAURANT->value)))
             ->where(function ($query) {
                 $query->where('end_date', '>', now());
             })
@@ -39,7 +39,34 @@ final class HobbiesProduct
             ->when(auth()->check(), fn($query) => $query->where(fn($q) => $q->whereIn('category_id', $this->getPopularCategoryProducts())
                 ->orWhereIn('user_id', $this->getPopularSelelrProducts())
             ))
-            ->where('created_at', '>=', now()->subDays($setting->options['recommended_month'] ?? 30))->inRandomOrder();
+            ->where('created_at', '>=', now()->subDays($setting->options['recommended_month'] ?? 30))->inRandomOrder();*/
+        $now=now();
+        $products = Product::active()
+            ->where('power', '>', 20)
+            ->whereDoesntHave('category', fn($query) =>
+            $query->where('type', CategoryTypeEnum::RESTAURANT->value)
+            )
+            ->where(function ($q) use ($now) {
+                $q->whereNull('end_date')                    // أظهر المنتجات التي end_date = NULL
+                ->orWhere('end_date', '>', $now)           // أو التي تاريخها في المستقبل
+                ->orWhere('end_date', '')                  // أو حقل فارغ '' (إذا كان لديك مثل هذه القيم)
+                ->orWhereRaw("end_date = '0000-00-00' OR end_date = '0000-00-00 00:00:00'"); // تعامل مع الـ zero-date إن وجد
+            })
+            ->whereIn('type', [
+                CategoryTypeEnum::PRODUCT->value,
+                CategoryTypeEnum::TENDER->value,
+                CategoryTypeEnum::JOB->value,
+                CategoryTypeEnum::SEARCH_JOB->value,
+                CategoryTypeEnum::NEWS->value,
+            ])
+            ->when(auth()->check(), fn($query) =>
+            $query->where(function ($q) {
+                $q->whereIn('category_id', $this->getPopularCategoryProducts())
+                    ->orWhereIn('user_id', $this->getPopularSelelrProducts());
+            })
+            )
+            ->where('created_at', '>=', now()->subDays($setting->options['recommended_month'] ?? 30))
+            ->inRandomOrder();
       //  $ids = $products->pluck('id')->toArray();
         $ids=[];
         $today = today();

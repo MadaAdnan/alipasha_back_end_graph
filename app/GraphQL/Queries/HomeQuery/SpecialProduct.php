@@ -20,15 +20,17 @@ final class SpecialProduct
 
 //return Product::where('id',0);
         $setting=Setting::first();
-
+ $now=now();
       $products= Product::where(['active'=>ProductActiveEnum::ACTIVE->value,
             'level'=>LevelProductEnum::SPECIAL->value])
 
             ->where(fn( $query)=>$query->whereDoesntHave('category',fn($query)=>$query->where('type',CategoryTypeEnum::RESTAURANT->value)))
-          ->where(function ($query) {
-
-              $query->where('end_date', '>', now());
-          })
+            ->where(function ($q) use ($now) {
+                $q->whereNull('end_date')                    // أظهر المنتجات التي end_date = NULL
+                ->orWhere('end_date', '>', $now)           // أو التي تاريخها في المستقبل
+                ->orWhere('end_date', '')                  // أو حقل فارغ '' (إذا كان لديك مثل هذه القيم)
+                ->orWhereRaw("end_date = '0000-00-00' OR end_date = '0000-00-00 00:00:00'"); // تعامل مع الـ zero-date إن وجد
+            })
           ->whereIn('type',[
               CategoryTypeEnum::PRODUCT->value,
               CategoryTypeEnum::TENDER->value,
@@ -41,7 +43,7 @@ final class SpecialProduct
                 ->whereNotIn('user_id',$this->getPopularSelelrProducts())
             ))
         ;
-        $products=$this->newQuery();
+
 //        $ids = $products->pluck('id')->toArray();
         $ids=[];
         $today = today();
