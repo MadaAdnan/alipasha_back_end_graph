@@ -29,10 +29,13 @@ class WebhokProductJob implements ShouldQueue
     public function handle(): void
     {
         if (\Str::isUrl($this->product->user?->url_webhok)) {
+            $url=$this->product->user?->url_webhok;
+            $domain= parse_url($url, PHP_URL_HOST);;
            try{
-               $response = \Http::post($this->product->user?->url_webhok, [
+               $response = \Http::post($url, [
                    'action' => $this->action,
                    'type'=>'product',
+                   'domain'=>$domain,
                    'data' => new ProductResource($this->product),
                ]);
                if ($response->successful() && $response->json('status') == 'success') {

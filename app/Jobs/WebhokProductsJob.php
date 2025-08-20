@@ -29,9 +29,12 @@ class WebhokProductsJob implements ShouldQueue
     public function handle(): void
     {
         try {
-            $response = \Http::asForm()->post($this->url_webhok,[
+            $url=$this->url_webhok;
+            $domain= parse_url($url, PHP_URL_HOST);;
+            $response = \Http::asForm()->post($url,[
                 'action' =>'create',
                 'type' => 'products',
+                'domain'=>$domain,
                 'data' => ProductResource::collection($this->products)->jsonSerialize(),
             ]);
             if ($response->successful() && $response->json('status') == 'success') {

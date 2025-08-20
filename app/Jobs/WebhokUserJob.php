@@ -28,9 +28,12 @@ class WebhokUserJob implements ShouldQueue
     public function handle(): void
     {
         try {
-            $response = \Http::post($this->user?->url_webhok, [
+            $url=$this->user?->url_webhok;
+            $domain= parse_url($url, PHP_URL_HOST);;
+            $response = \Http::post($url, [
                 'action' => 'update',
                 'type' => 'user',
+                'domain'=>$domain,
                 'data' => (new UserResource($this->user))->toArray(request()),
             ]);
             if ($response->successful() && $response->json('status') == 'success') {
