@@ -43,7 +43,7 @@ final class SpecialProduct
                 ->whereNotIn('user_id',$this->getPopularSelelrProducts())
             ))
         ;
-
+        $products=$this->newQuery();
 //        $ids = $products->pluck('id')->toArray();
         $ids=[];
         $today = today();
@@ -103,6 +103,7 @@ final class SpecialProduct
             $sellers=auth()->user()->followers->pluck('seller_id')->toArray();
         }
         $specialLevel=LevelProductEnum::SPECIAL->value;
+        $now=now();
         $products = Product::active()->whereIn('type', [
             CategoryTypeEnum::PRODUCT->value,
             CategoryTypeEnum::TENDER->value,
@@ -110,6 +111,13 @@ final class SpecialProduct
             CategoryTypeEnum::SEARCH_JOB->value,
             CategoryTypeEnum::NEWS->value,
         ])
+
+  ->where(function ($q) use ($now) {
+            $q->whereNull('end_date')                    // أظهر المنتجات التي end_date = NULL
+            ->orWhere('end_date', '>', $now)           // أو التي تاريخها في المستقبل
+            ->orWhere('end_date', '')                  // أو حقل فارغ '' (إذا كان لديك مثل هذه القيم)
+            ->orWhereRaw("end_date = '0000-00-00' OR end_date = '0000-00-00 00:00:00'"); // تعامل مع الـ zero-date إن وجد
+        })
           //  ->where('created_at', '>=', now()->subDays($setting->options['recommended_month'] ?? 30))->inRandomOrder()
             ->where('power', '>=', 20)
             ->orderByRaw("
