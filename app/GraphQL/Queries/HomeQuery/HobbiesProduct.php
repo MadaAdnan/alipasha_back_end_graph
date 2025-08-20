@@ -26,8 +26,7 @@ final class HobbiesProduct
         // return Product::where('id', 0);
         $products = Product::active()->where('power', '>', 20)->where(fn($query) => $query->whereDoesntHave('category', fn($query) => $query->where('type', CategoryTypeEnum::RESTAURANT->value)))
             ->where(function ($query) {
-                $query->whereNull('end_date')
-                    ->orWhere('end_date', '>', now());
+                $query->where('end_date', '>', now());
             })
             ->whereIn('type', [
                 CategoryTypeEnum::PRODUCT->value,

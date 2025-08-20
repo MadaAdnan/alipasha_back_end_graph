@@ -26,8 +26,7 @@ final class RecommendedSpecialProducts
             ])
             ->where(fn($query) => $query->whereDoesntHave('category', fn($query) => $query->where('type', CategoryTypeEnum::RESTAURANT->value)))
             ->where(function ($query) {
-                $query->whereNull('end_date')
-                    ->orWhere('end_date', '>', now()->timezone('UTC'));
+                $query->where('end_date', '>', now());
             })
             ->whereIn('type', [
                 CategoryTypeEnum::PRODUCT->value,
