@@ -28,7 +28,7 @@ class syncProductWebHokCommand extends Command
      */
     public function handle()
     {
-        \Log::info("START SYNC PRODS");
+
         $users = User::whereNotNull('url_webhok')->whereHas('products', fn($query) => $query->where('products.is_sync_webhok', false))
             ->with([
                 'products' => fn($query) => $query->where('products.is_sync_webhok', false),
