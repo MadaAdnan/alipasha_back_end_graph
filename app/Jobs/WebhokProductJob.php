@@ -30,7 +30,8 @@ class WebhokProductJob implements ShouldQueue
     {
         if (\Str::isUrl($this->product->user?->url_webhok)) {
             $url=$this->product->user?->url_webhok;
-            $domain= parse_url($url, PHP_URL_HOST);;
+            $domain= parse_url($url, PHP_URL_HOST);
+            \Log::error("START");
            try{
                $response = \Http::post($url, [
                    'action' => $this->action,
@@ -44,8 +45,10 @@ class WebhokProductJob implements ShouldQueue
                    ]);
 
                }
+               \Log::error("End => ".$response->body());
            }catch (\Exception $e){
-               \Log::error($e->getMessage());
+
+               \Log::error("Error WebHok ".$e->getMessage());
            }
         }
     }

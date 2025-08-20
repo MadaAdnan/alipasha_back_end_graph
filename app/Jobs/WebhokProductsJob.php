@@ -30,7 +30,8 @@ class WebhokProductsJob implements ShouldQueue
     {
         try {
             $url=$this->url_webhok;
-            $domain= parse_url($url, PHP_URL_HOST);;
+            $domain= parse_url($url, PHP_URL_HOST);
+              \Log::error("START");
             $response = \Http::asForm()->post($url,[
                 'action' =>'create',
                 'type' => 'products',
@@ -42,7 +43,7 @@ class WebhokProductsJob implements ShouldQueue
                     'is_sync_webhok' => true,
                 ]);
 
-            }
+            }  \Log::error("End => ".$response->body());
         } catch (\Exception $e) {
             \Log::error("Error Web hok {$e->getMessage()}");
         }

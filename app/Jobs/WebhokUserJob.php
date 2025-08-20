@@ -29,7 +29,8 @@ class WebhokUserJob implements ShouldQueue
     {
         try {
             $url=$this->user?->url_webhok;
-            $domain= parse_url($url, PHP_URL_HOST);;
+            $domain= parse_url($url, PHP_URL_HOST);
+            \Log::error("START");
             $response = \Http::post($url, [
                 'action' => 'update',
                 'type' => 'user',
@@ -41,6 +42,7 @@ class WebhokUserJob implements ShouldQueue
                     'is_sync_webhok' => true,
                 ]);
             }
+            \Log::error("End => ".$response->body());
         } catch (\Exception|\Error $e) {
             \Log::error($e->getMessage());
         }
