@@ -113,4 +113,15 @@ trait MediaTrait
         }
 
     }
+
+    public function getImageForceSiteMap()
+    {
+        if ($this->hasMedia('image')) {
+            return $this->getFirstMediaUrl('image', 'webp');
+        } elseif ($this->hasMedia('images')) {
+            return $this->getFirstMediaUrl('images', 'webp');
+        }
+        return null;
+
+    }
 }
