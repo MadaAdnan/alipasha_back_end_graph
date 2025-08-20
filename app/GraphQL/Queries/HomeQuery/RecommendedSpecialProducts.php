@@ -18,13 +18,17 @@ final class RecommendedSpecialProducts
     public function __invoke($_, array $args)
     {
         $setting = Setting::first();
-        
+
         // Get products that are special and active
         $products = Product::where([
                 'active' => ProductActiveEnum::ACTIVE->value,
                 'level' => LevelProductEnum::SPECIAL->value
             ])
             ->where(fn($query) => $query->whereDoesntHave('category', fn($query) => $query->where('type', CategoryTypeEnum::RESTAURANT->value)))
+            ->where(function ($query) {
+                $query->whereNull('end_date')
+                    ->orWhere('end_date', '>', now()->timezone('UTC'));
+            })
             ->whereIn('type', [
                 CategoryTypeEnum::PRODUCT->value,
                 CategoryTypeEnum::TENDER->value,
@@ -32,10 +36,7 @@ final class RecommendedSpecialProducts
                 CategoryTypeEnum::SEARCH_JOB->value,
                 CategoryTypeEnum::NEWS->value,
             ])
-            ->where(function ($query) {
-                $query->whereNull('end_date')
-                    ->orWhere('end_date', '>', now()->timezone('UTC'));
-            })
+
             ->where('created_at', '>=', now()->subDays($setting->options['recommended_month'] ?? 30))
             ->inRandomOrder()
             ->when(auth()->check(), function ($query) {
@@ -79,7 +80,7 @@ final class RecommendedSpecialProducts
                 \DB::table('product_views')->insert($inserts);
             }
         });
-        
+
         return $products;
     }
 

@@ -25,17 +25,17 @@ final class SpecialProduct
             'level'=>LevelProductEnum::SPECIAL->value])
 
             ->where(fn( $query)=>$query->whereDoesntHave('category',fn($query)=>$query->where('type',CategoryTypeEnum::RESTAURANT->value)))
-
+          ->where(function ($query) {
+              $query->whereNull('end_date')
+                  ->orWhere('end_date', '>', now());
+          })
           ->whereIn('type',[
               CategoryTypeEnum::PRODUCT->value,
               CategoryTypeEnum::TENDER->value,
               CategoryTypeEnum::JOB->value,
               CategoryTypeEnum::SEARCH_JOB->value,
               CategoryTypeEnum::NEWS->value,
-          ]) ->where(function ($query) {
-                $query->whereNull('end_date')
-                    ->orWhere('end_date', '>', now());
-            })->inRandomOrder()->where('created_at','>=',now()->subDays($setting->options['recommended_month']??30))
+          ])->inRandomOrder()->where('created_at','>=',now()->subDays($setting->options['recommended_month']??30))
             ->when(auth()->check(),fn($query)=>$query->where(fn($q)=>
             $q->whereNotIn('category_id',$this->getPopularCategoryProducts())
                 ->whereNotIn('user_id',$this->getPopularSelelrProducts())

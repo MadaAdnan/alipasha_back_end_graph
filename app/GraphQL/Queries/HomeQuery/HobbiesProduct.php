@@ -25,6 +25,10 @@ final class HobbiesProduct
         $setting = Setting::first();
         // return Product::where('id', 0);
         $products = Product::active()->where('power', '>', 20)->where(fn($query) => $query->whereDoesntHave('category', fn($query) => $query->where('type', CategoryTypeEnum::RESTAURANT->value)))
+            ->where(function ($query) {
+                $query->whereNull('end_date')
+                    ->orWhere('end_date', '>', now());
+            })
             ->whereIn('type', [
                 CategoryTypeEnum::PRODUCT->value,
                 CategoryTypeEnum::TENDER->value,
@@ -32,10 +36,7 @@ final class HobbiesProduct
                 CategoryTypeEnum::SEARCH_JOB->value,
                 CategoryTypeEnum::NEWS->value,
             ])
-            ->where(function ($query) {
-                $query->whereNull('end_date')
-                    ->orWhere('end_date', '>', now());
-            })
+
             ->when(auth()->check(), fn($query) => $query->where(fn($q) => $q->whereIn('category_id', $this->getPopularCategoryProducts())
                 ->orWhereIn('user_id', $this->getPopularSelelrProducts())
             ))
