@@ -28,6 +28,7 @@ class WebhokProductsJob implements ShouldQueue
      */
     public function handle(): void
     {
+        dd($this->url_webhok);
         try {
             $url=$this->url_webhok;
             $domain= parse_url($url, PHP_URL_HOST);

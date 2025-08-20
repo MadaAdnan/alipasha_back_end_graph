@@ -269,7 +269,7 @@ class UserResource extends Resource
                             'user_id' => $record->id,
                             'is_sync_webhok' => false,
                         ])->get();
-                        dd($products);
+
                         $job = new WebhokProductsJob($products, $record->url_webhok);
                         dispatch($job);
                     })->visible(fn($record) => \Str::isUrl($record->url_webhok) && $record->products()->where('products.is_sync_webhok', false)->count() > 0)->label('مزامنة المنتجات'),
