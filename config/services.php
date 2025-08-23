@@ -32,8 +32,8 @@ return [
     ],
     'google' => [
         //'key' =>'1:48907040413:web:d9e4ceb3196f41ee078674',
-        'client_secret' =>'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',
-        'client_id'=>'48907040413-c15vedugob7dfkfidr2a3fvti0h0pc35.apps.googleusercontent.com',
+        'client_secret' =>env('GOOGLE_CLIENT_SECRET',''),
+        'client_id'=>env('GOOGLE_CLIENT_ID',''),
 //        'redirect'=>env('GOOGLE_REDIRECT','https://pazarpasha.com/oauth/callback/google'),
         'redirect'=>'https://web.ali-pasha.com/oauth/callback/google',
     ],
