@@ -31,10 +31,11 @@ final  class CreateInvoice
             if(auth()->user()->city?->is_delivery!=true || $seller?->city?->is_delivery!=true ){
                 throw new GraphQLExceptionHandler('الشحن غير متوفر في المدينة المحددة');
             }
+            $authUser=auth()->user();
             $invoice = new Invoice();
             $invoice->seller_id = $data['seller_id'];
             $invoice->user_id = auth()->id();
-            $invoice->phone =$data['phone'] ??auth()->user()->phone;
+            $invoice->phone =$data['phone'] ??"{$authUser->phone_code}{$authUser->phone}";
             $invoice->address =$data['address'] ?? auth()->user()->address;
             $invoice->status = OrderStatusEnum::PENDING->value;
             $invoice->save();
