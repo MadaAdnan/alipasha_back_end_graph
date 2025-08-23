@@ -32,8 +32,8 @@ return [
     ],
     'google' => [
 
-        'client_secret' =>env('GOOGLE_CLIENT_SECRET',''),
-        'client_id'=>env('GOOGLE_CLIENT_ID',''),
+        'client_secret' =>env('GOOGLE_CLIENT_SECRET'),
+        'client_id'=>env('GOOGLE_CLIENT_ID'),
 //        'redirect'=>env('GOOGLE_REDIRECT','https://pazarpasha.com/oauth/callback/google'),
         'redirect'=>'https://web.ali-pasha.com/oauth/callback/google',
     ],
