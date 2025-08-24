@@ -103,6 +103,7 @@ type DataImage{
 extend type Mutation {
     changeAvilable(id:ID!):Product @guard
     addVote(productId:Int,vote:Int): Product @guard
+    clickWhatsapp(productId:Int): Product @guard
     deleteProduct(id:ID!):Product
     createProduct(input:CreateProductInput) : Product @guard
     addLike(product_id:ID!):Product @guard
