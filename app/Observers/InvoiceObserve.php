@@ -17,7 +17,7 @@ class InvoiceObserve
     {
         try{
             $data['title'] = 'طلب جديد ';
-            $data['body'] = "الزبون {$invoice->user->name}  يطلب منتجات من متجرك";
+            $data['body'] = "الزبون {$invoice->user->name}  يحاول طلب منتج من متجرك";
             $data['url'] = 'https://ali-pasha.com/incomming';
             SendNotifyHelper::sendNotify($invoice->seller ,$data);
         }catch (\Exception |\Error $e){
