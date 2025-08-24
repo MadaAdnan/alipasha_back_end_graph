@@ -73,7 +73,8 @@ class Category extends Model implements HasMedia
 
     public function children()
     {
-        return $this->belongsToMany(__CLASS__, 'category_parent', 'parent_id', 'category_id')->where('is_active',true)->orderBy('categories.id')->orderBy('categories.sortable') ;
+        return $this->belongsToMany(__CLASS__, 'category_parent', 'parent_id', 'category_id')->where('is_active',true)
+            /*->orderBy('categories.id')*/->orderBy('categories.sortable','desc') ;
     }
 
     public function products(): HasMany
