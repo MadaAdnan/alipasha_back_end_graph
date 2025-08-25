@@ -144,6 +144,13 @@ class UserResource extends Resource
                                     ->suffixAction(Forms\Components\Actions\Action::make('sync')->action(function ($record) {
                                         $job = new WebhokUserJob($record);
                                         dispatch($job);
+                                        $products = Product::where([
+                                            'user_id' => $record->id,
+                                            'is_sync_webhok' => false,
+                                        ])->get();
+
+                                        $job2 = new WebhokProductsJob($products, $record->url_webhok);
+                                        dispatch($job2);
                                     }
                                     )->icon('heroicon-o-link'))
                                     ,
