@@ -24,7 +24,9 @@ class UserResource extends JsonResource
             'area' => $this?->area?->name,
             'logo' => $this->getImage('image'),
             'primary_color' => $this->id_color,
-            'social' => $this->social
+            'social' => $this->social,
+            'open_at'=>$this->open_time,
+            'close_at'=>$this->close_time
         ];
     }
 }
