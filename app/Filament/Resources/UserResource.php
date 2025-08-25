@@ -141,8 +141,8 @@ class UserResource extends Resource
                                 Forms\Components\ColorPicker::make('id_color')->label('هوية المتجر')->default("#FF0000"),
                                 Forms\Components\Group::make()->schema([
                                     Forms\Components\TextInput::make('url_webhok')->url()->label('رابط ويب هوك الخاص بالمتجر')
-                                    ->suffixAction(Forms\Components\Actions\Action::make('sync')->action(function ($state) {
-                                    dd($state);
+                                    ->suffixAction(Forms\Components\Actions\Action::make('sync')->action(function ($state,$record) {
+                                    dd($record);
                                     }
                                     ))
                                     ,
