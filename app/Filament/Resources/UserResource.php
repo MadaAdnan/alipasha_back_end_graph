@@ -273,6 +273,8 @@ class UserResource extends Resource
                         $job = new WebhokProductsJob($products, $record->url_webhok);
                         dispatch($job);
                     })->visible(fn($record) => \Str::isUrl($record->url_webhok) && $record->products()->where('products.is_sync_webhok', false)->count() > 0)->label('مزامنة المنتجات'),
+
+
                     Tables\Actions\Action::make('sync_user')->action(function ($record) {
                         $job = new WebhokUserJob($record);
                         dispatch($job);
