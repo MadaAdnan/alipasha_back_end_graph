@@ -140,7 +140,12 @@ class UserResource extends Resource
                                 Forms\Components\DatePicker::make('verified_account_date')->label('تاريخ إنتهاء التوثيق'),
                                 Forms\Components\ColorPicker::make('id_color')->label('هوية المتجر')->default("#FF0000"),
                                 Forms\Components\Group::make()->schema([
-                                    Forms\Components\TextInput::make('url_webhok')->url()->label('رابط ويب هوك الخاص بالمتجر'),
+                                    Forms\Components\TextInput::make('url_webhok')->url()->label('رابط ويب هوك الخاص بالمتجر')
+                                    ->suffixAction(Forms\Components\Actions\Action::make('sync')->action(function ($state) {
+                                    dd($state);
+                                    }
+                                    ))
+                                    ,
                                     Forms\Components\TextInput::make('business_email')->email()->label('البريد الإلكتروني الخاص بمتجرك'),
                                 ]),
                             ]),
