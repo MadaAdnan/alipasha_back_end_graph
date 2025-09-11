@@ -35,9 +35,9 @@ class ListProducts extends ListRecords
             'بإنتظار التفعيل' => Tab::make()
                 ->modifyQueryUsing(fn (Builder $query) => $query->pending())->badge(fn () => Product::product()->pending()->count()),
             'المقبولة' => Tab::make()
-                ->modifyQueryUsing(fn (Builder $query) => $query->active())->badge(fn () => Product::product()->active()->count()),
+                ->modifyQueryUsing(fn (Builder $query) => $query->active())/*->badge(fn () => Product::product()->active()->count())*/,
             'المحظورة' => Tab::make()
-                ->modifyQueryUsing(fn (Builder $query) => $query->block())->badge(fn () => Product::product()->block()->count()),
+                ->modifyQueryUsing(fn (Builder $query) => $query->block())/*->badge(fn () => Product::product()->block()->count())*/,
             'سلة المحذوفات' => Tab::make()
                 ->modifyQueryUsing(fn (Builder $query) => $query->onlyTrashed())->badge(fn () => Product::product()->onlyTrashed()->count())
         ];
