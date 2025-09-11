@@ -69,6 +69,10 @@ class Product extends Model implements HasMedia
     {
         return $query->where('active', '!=', ProductActiveEnum::PENDING->value);
     }
+    public function scopeBlock($query)
+    {
+        return $query->where('active',  ProductActiveEnum::BLOCK->value);
+    }
 
     public function scopeProduct($query)
     {
