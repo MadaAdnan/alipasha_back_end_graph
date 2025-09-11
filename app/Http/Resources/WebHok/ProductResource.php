@@ -30,7 +30,7 @@ class ProductResource extends JsonResource
             'address' => $this->address,
             'city' => $this->user?->city?->name,
             'area' => $this->user?->area?->name,
-            'is_available' => $this->is_available,
+            'is_available' =>(boolean) $this->is_available,
             'video'=>$this->video,
             'category_name'=>$this->category?->name
         ];
