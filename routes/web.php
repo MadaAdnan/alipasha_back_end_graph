@@ -13,6 +13,7 @@ use App\Service\SmsService;
 use Illuminate\Support\Facades\Route;
 use Mockery\Exception;
 use Laravel\Socialite\Facades\Socialite;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -35,13 +36,12 @@ Route::get('oauth/redirect/google', function () {
 })->name('google.auth.site');
 
 
-
 Route::get('oauth/callback/google', function () {
 
     try {
         $user = Socialite::driver('google')->user();
 
-        $userDB=User::where('email',$user->email)->first();
+        $userDB = User::where('email', $user->email)->first();
         if (!$userDB) {
             $userDB = User::create([
                 'name' => $user->name,
@@ -51,10 +51,10 @@ Route::get('oauth/callback/google', function () {
             ]);
         }
 
-            Auth::login($userDB);
-            return redirect()->route('index');
+        Auth::login($userDB);
+        return redirect()->route('index');
 
-      //  return redirect()->away("https://$originalDomain");
+        //  return redirect()->away("https://$originalDomain");
 
     } catch (\Exception $e) {
         return 'OAuth Error: ' . $e->getMessage();
@@ -62,14 +62,13 @@ Route::get('oauth/callback/google', function () {
 });
 
 
-
-Route::middleware([\App\Http\Middleware\XFrameOptionMiddleware::class])->group(function (){
+Route::middleware([\App\Http\Middleware\XFrameOptionMiddleware::class])->group(function () {
     Route::post('login', [\App\Http\Controllers\Web\AuthController::class, 'login'])->name('login')->middleware('throttle.login:3,1');
     Route::post('register', [\App\Http\Controllers\Web\AuthController::class, 'register'])->name('register')->middleware('throttle.login:3,1');
 
     Route::middleware('throttle:60,1')->group(function () {
-        Route::get('download-app',function(){
-            return response()->file(Setting::first()?->getFirstMediaPath('apk'),[
+        Route::get('download-app', function () {
+            return response()->file(Setting::first()?->getFirstMediaPath('apk'), [
                 'Content-Type' => 'application/vnd.android.package-archive',
                 'Content-Disposition' => 'attachment; filename="ali-pasha.apk"',
             ]);
@@ -105,11 +104,12 @@ Route::middleware([\App\Http\Middleware\XFrameOptionMiddleware::class])->group(f
             Route::resource('/messages', \App\Http\Controllers\Web\MessageController::class)->only(['store']);
             Route::resource('/balances', \App\Http\Controllers\Web\BalanceController::class)->only(['index']);
             Route::resource('/invoices', \App\Http\Controllers\Web\InvoiceController::class)->only(['index', 'update']);
-            Route::resource('/my-invoices', \App\Http\Controllers\Web\MyInvoiceController::class)->only(['index','store']);
-            Route::resource('/orders', \App\Http\Controllers\Web\OrderController::class)->only(['index','store']);
+            Route::resource('/my-invoices', \App\Http\Controllers\Web\MyInvoiceController::class)->only(['index', 'store']);
+            Route::resource('/orders', \App\Http\Controllers\Web\OrderController::class)->only(['index', 'store']);
             Route::post('/markets/followers', [\App\Http\Controllers\Web\SellerController::class, 'followers']);
             Route::post('/products/like', [\App\Http\Controllers\Web\PostController::class, 'like'])->name('post.like');
-            Route::resource('/carts', \App\Http\Controllers\Web\CartController::class)->only(['index', 'show', 'store', 'destroy', 'update'])/*->middleware(\App\Http\Middleware\RateLimitPerSecond::class)*/;
+            Route::resource('/carts', \App\Http\Controllers\Web\CartController::class)->only(['index', 'show', 'store', 'destroy', 'update'])/*->middleware(\App\Http\Middleware\RateLimitPerSecond::class)*/
+            ;
             Route::resource('/charges', \App\Http\Controllers\Web\ChargeController::class)->only(['index']);
             Route::resource('/charges', \App\Http\Controllers\Web\ChargeController::class)->only(['index']);
             Route::resource('/galleries', \App\Http\Controllers\Web\GalleryController::class)->only(['show']);
@@ -132,7 +132,6 @@ Route::middleware([\App\Http\Middleware\XFrameOptionMiddleware::class])->group(f
     });
 
 
-
     Route::get('/download-file/{record}', function (\App\Models\Export $record) {
         $path = "filament_exports/$record->id/$record->file_name.xlsx";
 
@@ -145,31 +144,27 @@ Route::middleware([\App\Http\Middleware\XFrameOptionMiddleware::class])->group(f
 
     Route::get('testnot/{id?}', function ($id = null) {
 
-        /*  DB::update("
-          UPDATE users
-          JOIN (
-              SELECT user_id, MIN(category_id) as category_id
-              FROM products
-              GROUP BY user_id
-          ) as p ON users.id = p.user_id
-          SET users.category_id = p.category_id
-          WHERE users.category_id IS NULL
-      ");*/
-
+        $products = \App\Models\Product::where([
+            'user_id' => 54184,
+            'is_sync_webhok' => false,
+        ])->get();
+        $user = User::find(54184);
+        $job = new \App\Jobs\WebhokProductsJob($products, $user->url_webhok);
+        dispatch($job);
 
         return 'success';
     });
     Route::get('/server-resources', function () {
-      /*  $user=User::find(51491);
-        //return $user->plans()->where('type', PlansTypeEnum::PRESENT->value)->get();
-        $plan = ProductsHelper::getPresentPlanActive($user);
-        return $plan;*/
-       /* return [
-            'memory_limit' => ini_get('memory_limit'),
-            'max_execution_time' => ini_get('max_execution_time'),
-            'disk_free_space' => disk_free_space('/'),
-            'disk_total_space' => disk_total_space('/'),
-            'cpu_load' => sys_getloadavg()
-        ];*/
+        /*  $user=User::find(51491);
+          //return $user->plans()->where('type', PlansTypeEnum::PRESENT->value)->get();
+          $plan = ProductsHelper::getPresentPlanActive($user);
+          return $plan;*/
+        /* return [
+             'memory_limit' => ini_get('memory_limit'),
+             'max_execution_time' => ini_get('max_execution_time'),
+             'disk_free_space' => disk_free_space('/'),
+             'disk_total_space' => disk_total_space('/'),
+             'cpu_load' => sys_getloadavg()
+         ];*/
     });
 });
