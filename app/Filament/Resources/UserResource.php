@@ -188,24 +188,11 @@ class UserResource extends Resource
                 /* PhoneColumn::make('phone')
                      ->countryColumn('country_code')->displayFormat(PhoneInputNumberType::E164)->url(fn($state)=>'https://wa.me/'.\Str::replace(' ','',ltrim($state),'+'),true),
                 */
-                Tables\Columns\TextColumn::make('phone')
-                    ->formatStateUsing(function ($record) {
-                        $phone = $record->phone;
-                        if (\Str::startsWith($phone, '+')) {
-                            $phone = \Str::substr($phone, 1, \Str::length($phone) - 1);
-                        } elseif (\Str::startsWith($phone, '00')) {
-                            $phone = \Str::substr($phone, 2, \Str::length($phone) - 1);
-                        }
-                        return "{$record->phone_code}{$phone}";
-                    })
-                    ->url(function ($record) {
-                        $phone = $record->phone;
-                        if (\Str::startsWith($phone, '+')) {
-                            $phone = \Str::substr($phone, 1, \Str::length($phone) - 1);
-                        } elseif (\Str::startsWith($phone, '00')) {
-                            $phone = \Str::substr($phone, 2, \Str::length($phone) - 1);
-                        }
-                        return 'https://wa.me/' . "{$record->phone_code}{$phone}";
+                Tables\Columns\TextColumn::make('full_phone')
+
+                    ->url(function ($state) {
+
+                        return 'https://wa.me/' . "{$state}";
                     }, true)
                     ->label('رقم الهاتف')->toggleable(isToggledHiddenByDefault: false)->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('city.name')->label('المدينة')->toggleable(isToggledHiddenByDefault: false)->searchable()->sortable(),
