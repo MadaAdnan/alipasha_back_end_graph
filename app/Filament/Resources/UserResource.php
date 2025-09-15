@@ -194,7 +194,7 @@ class UserResource extends Resource
 
                         return 'https://wa.me/' . "{$state}";
                     }, true)
-                    ->label('رقم الهاتف')->toggleable(isToggledHiddenByDefault: false)->searchable()->sortable(),
+                    ->label('رقم الهاتف')->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('city.name')->label('المدينة')->toggleable(isToggledHiddenByDefault: false)->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('email')->label('البريد الإلكتروني')->toggleable(isToggledHiddenByDefault: false)->searchable(),
                 Tables\Columns\TextColumn::make('seller_name')->label('اسم المتجر')->toggleable(isToggledHiddenByDefault: false)->searchable(),
