@@ -152,7 +152,7 @@ Route::middleware([\App\Http\Middleware\XFrameOptionMiddleware::class])->group(f
         $job = new \App\Jobs\WebhokProductsJob($products, $user->url_webhok);
         dispatch($job);
 
-        return 'success';
+        return "Success {$products->count()}";
     });
     Route::get('/server-resources', function () {
         /*  $user=User::find(51491);
