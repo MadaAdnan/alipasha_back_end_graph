@@ -49,6 +49,7 @@ class ProfileController extends Controller
             'name' => $request->name,
             'seller_name' => $request->store_name,
             'phone' => $request->phone,
+            'phone_code' => $request->phone_code,
             'address' => $request->address,
             'city_id' => $request->city_id,
         ]);

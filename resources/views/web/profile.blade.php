@@ -413,7 +413,7 @@
                                     >
                                         <option value="">رمز الدولة</option>
                                         @foreach(\App\Models\Country::all() as $country)
-                                            <option value="{{ $country->code }}" {{ old('phone_code') == $country->code ? 'selected' : '' }}>
+                                            <option @if(auth()->user()->phone_code == $country->code) selected @endif value="{{ $country->code }}" {{ old('phone_code') == $country->code ? 'selected' : '' }}>
                                                 {{ $country->name }} ({{ $country->code }})
                                             </option>
                                         @endforeach
@@ -430,7 +430,7 @@
                                         placeholder="رقم الهاتف"
                                         type="text"
                                         required
-                                        value="{{ old('phone') }}"
+                                        value="{{ old('phone') ??auth()->user()->phone }}"
                                     />
                                     @error('phone')
                                     <span class="text-danger">{{ $message }}</span>
