@@ -17,14 +17,14 @@ class ProfileController extends Controller
     public function index()
     {
         $cities = City::where('is_active', true)->orderBy('city_id')->get();
-        $type = \request()->get('type')??'products';
-        $ads=[];
-        if($type=='ads'){
-            $ads=Advice::where('user_id',auth()->id())->where('expired_date','>',now())->orderBy('expired_date')->withCount('views')->get();
+        $type = \request()->get('type') ?? 'products';
+        $ads = [];
+        if ($type == 'ads') {
+            $ads = Advice::where('user_id', auth()->id())->where('expired_date', '>', now())->orderBy('expired_date')->withCount('views')->get();
 
         }
-        $products=Product::whereNot('type','service')->where('user_id',auth()->id())->latest()->paginate(20);
-        return view('web.profile', compact('cities', 'type','ads','products'));
+        $products = Product::whereNot('type', 'service')->where('user_id', auth()->id())->latest()->paginate(20);
+        return view('web.profile', compact('cities', 'type', 'ads', 'products'));
     }
 
     /**
@@ -40,7 +40,6 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-
         /**
          * @var $user User
          */
