@@ -56,7 +56,7 @@ type Product{
     is_delivery:Boolean @field(resolver: "App\\GraphQL\\Resolvers\\ProductInfo@isDelivery")
     is_available:Boolean
     level:String
-    phone:String
+    phone:String @field(resolver: "App\\GraphQL\\Resolvers\\ProductInfo@fullPhone")
     email:String
     address:String
     url:String

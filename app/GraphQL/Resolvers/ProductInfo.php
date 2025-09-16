@@ -48,6 +48,25 @@ class ProductInfo
         return $userIsDelivery && $cityIsDelivery && $productIsDelivery /*&& $root->user?->area_id!=null*/;
     }
 
+    /**
+     * @param $root Product
+     * @return string
+     */
+    public static function fullPhone($root):string{
+        $phone=  $root->phone;
+        if(\Str::startsWith($phone, '+')){
+            $phone=  \Str::substr($phone, 0,1);
+        }elseif(\Str::startsWith($phone, '00')){
+            $phone=  \Str::substr($phone, 0,2);
+        }elseif (\Str::startsWith($phone, '09')){
+            $phone=  \Str::substr($phone, 0,1);
+            $phone="{$root->user->phone_code}{$phone}";
+        }elseif($phone==''){
+            $phone="{$root->user->phone_code}{$root->user->phone}";
+        }
+        return $phone;
+    }
+
 
 
 
