@@ -17,6 +17,14 @@ class SettingObserve
         //
     }
 
+
+    public function updating(Setting $setting)
+    {
+        //dollar.idlib.usd.bay
+        $setting->dollar_value=$setting->dollar['idleb']['usd']['bay']??$setting->dollar_value;
+        $setting->dollar_syr=$setting->dollar['idleb']['syr']['bay']??$setting->dollar_syr;
+
+    }
     /**
      * Handle the Setting "updated" event.
      */
