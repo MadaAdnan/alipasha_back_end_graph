@@ -49,6 +49,7 @@ class AuthController extends Controller
             'password' => 'required|min:8',
             'confiermPassword' => 'same:password',
             'phone' => 'required|min:10',
+            'phone_code'=>'required|exists:countries,code',
             'city' => 'required|exists:cities,id',
             'address' => 'required|string',
         ], [
@@ -58,6 +59,7 @@ class AuthController extends Controller
             'password.*' => 'يرجى إدخال كلمة مرور من 8 احرف على الأقل',
             'confiermPassword.*' => 'كلمة المرور غير متطابقة',
             'phone.*' => 'يرجى إدخال رقم هاتف صالح مع رمز الدولة',
+            'phone_code.*' => 'يرجى تحديد الدولة',
             'city' => 'يرجى تحديد المدينة',
             'address' => 'يرجى إدخال عنوانك التفصيلي'
         ]);
@@ -67,7 +69,8 @@ class AuthController extends Controller
             'password' => bcrypt($request->password),
             'phone' => $request->phone,
             'city_id' => $request->city,
-            'address' => $request->address
+            'address' => $request->address,
+            'phone_code' => $request->phone_code,
         ]);
         auth()->login($user);
         return redirect('/');
