@@ -20,10 +20,10 @@ class SettingObserve
 
     public function updating(Setting $setting)
     {
-        dd($setting->dollar['idleb']['usd']['bay']);
+
         //dollar.idlib.usd.bay
-        $setting->dollar_value=$setting->dollar['idleb']['usd']['bay']??$setting->dollar_value;
-        $setting->dollar_syr=$setting->dollar['idleb']['syr']['bay']??$setting->dollar_syr;
+        $setting->dollar_value=$setting->dollar['idlib']['usd']['bay']??$setting->dollar_value;
+        $setting->dollar_syr=$setting->dollar['idlib']['syr']['bay']??$setting->dollar_syr;
 
     }
     /**
