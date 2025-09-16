@@ -375,7 +375,7 @@
                             ></input>
                         </div>
 
-                        <div class="mb-3">
+                        {{--<div class="mb-3">
                             <p
                                 for="descriptionInput"
                                 class="form-label"
@@ -393,8 +393,51 @@
                                 value="{{auth()->user()->phone}}"
                                 required
                             ></input>
+                        </div>--}}
+{{--                        New phone--}}
+                        <div class="mb-3">
+                            <p
+                                for="descriptionInput"
+                                class="form-label"
+                                style="text-align: right; font-size: 12px;"
+                            >
+                                رقم الهاتف
+                            </p>
+                            <div class="row g-2">
+                                <div class="col-4">
+                                    <select
+                                        name="phone_code"
+                                        class="form-select @error('phone_code') is-invalid @enderror"
+                                        style="text-align: right; font-size: 12px;"
+                                        required
+                                    >
+                                        <option value="">رمز الدولة</option>
+                                        @foreach(\App\Models\Country::all() as $country)
+                                            <option value="{{ $country->code }}" {{ old('phone_code') == $country->code ? 'selected' : '' }}>
+                                                {{ $country->name }} ({{ $country->code }})
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('phone_code')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="col-8">
+                                    <input
+                                        name="phone"
+                                        style="text-align: right; font-size: 12px;"
+                                        class="form-control @error('phone') is-invalid @enderror"
+                                        placeholder="رقم الهاتف"
+                                        type="text"
+                                        required
+                                        value="{{ old('phone') }}"
+                                    />
+                                    @error('phone')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
-
                         <div class="mb-3">
                             <p
                                 for="descriptionInput"
