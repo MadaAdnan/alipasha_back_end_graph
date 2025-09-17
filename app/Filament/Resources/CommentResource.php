@@ -6,6 +6,7 @@ use App\Enums\CategoryTypeEnum;
 use App\Filament\Resources\CommentResource\Pages;
 use App\Filament\Resources\CommentResource\RelationManagers;
 use App\Models\Comment;
+use App\Models\Product;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -28,7 +29,7 @@ class CommentResource extends Resource
         return $form
             ->schema([
                Forms\Components\Section::make('التعليقات')->schema([
-                   Forms\Components\Select::make('product_id')->relationship('product','expert',fn($query)=>$query->whereIn('type',['product','news'])->select('id','expert','name'))->label('المنتج')->required(),
+                   Forms\Components\Select::make('product_id')->options(Product::selectRaw('id,CONCAT(name,"#",id) as name')->pluck('id','name'))->label('المنتج')->required(),
                    Forms\Components\Textarea::make('comment')->label('التعليق')->required(),
                ])
             ]);
