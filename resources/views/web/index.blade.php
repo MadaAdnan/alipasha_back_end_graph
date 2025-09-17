@@ -24,7 +24,7 @@
                                        class="p-1 border border-1 border-danger rounded ">الإشعارات</a></li>
                             </ul>
                         </div>
-
+@if(isset($notifications) && is_array($notifications))
                         @forelse($notifications as $notification)
                             <div class="notification-item">
                                 <div class="info">
@@ -89,7 +89,7 @@
                         @empty
                             <p>لا يوجد إشعارات</p>
                         @endforelse
-
+@endif
 
                         <div class="chat-wrapper">
                             <div class="chats">
