@@ -141,7 +141,8 @@
                                 <a class="btn btn-sm btn-outline-info w-100" href="{{route('communities.index')}}">
                                     جميع محادثاتي
                                 </a>
-
+                            @else
+                                <p>هنا تظهر محادثاتك</p>
                             @endif
                         </div>
                     </div>
