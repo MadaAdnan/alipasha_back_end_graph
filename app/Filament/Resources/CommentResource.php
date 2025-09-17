@@ -29,7 +29,7 @@ class CommentResource extends Resource
         return $form
             ->schema([
                Forms\Components\Section::make('التعليقات')->schema([
-                   Forms\Components\Select::make('product_id')->options(Product::selectRaw('id,CONCAT(name,"#",id) as name')->pluck('name','id'))->label('المنتج')->required(),
+                   Forms\Components\Select::make('product_id')->options(Product::selectRaw('id,CONCAT(name,"#",id) as fullname')->pluck('fullname','id'))->label('المنتج')->required(),
                    Forms\Components\Textarea::make('comment')->label('التعليق')->required(),
                ])
             ]);
