@@ -29,7 +29,7 @@ class CommentResource extends Resource
         return $form
             ->schema([
                Forms\Components\Section::make('التعليقات')->schema([
-                   Forms\Components\Select::make('product_id')->options(fn($record)=>$record ?Product::selectRaw('id, CONCAT(COALESCE(name, "بدون اسم"), "#", id) as fullname')->where('id',$record->id)
+                   Forms\Components\Select::make('product_id')->options(fn($record)=>$record ?Product::selectRaw('id, CONCAT(COALESCE(name, "بدون اسم"), "#", id) as fullname')->where('id',$record->product_id)
                        ->pluck('fullname', 'id') :Product::selectRaw('id, CONCAT(COALESCE(name, "بدون اسم"), "#", id) as fullname')
                        ->pluck('fullname', 'id'))->label('المنتج')->required(),
                    Forms\Components\Textarea::make('comment')->label('التعليق')->required(),
