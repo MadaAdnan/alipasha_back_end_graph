@@ -6,7 +6,7 @@
 
     <div class="container-fluid" style="margin-top: 70px">
         <div class="row">
-            @if(auth()->check())
+          {{--  @if(auth()->check())--}}
                 <!-- Right Section (2 columns on large screens, 0 on small) -->
                 <div id="right-sidebar" class="col-4 d-none d-xl-block">
                     <div class="media-scroll bg-light p-4 ">
@@ -146,9 +146,9 @@
                         </div>
                     </div>
                 </div>
-            @else
+          {{--  @else
                 <div id="right-sidebar" class="col-4 d-none d-xl-block"></div>
-            @endif
+            @endif--}}
 
 
             <!-- Middle Section (12 columns on small, 8 on larger screens) -->
