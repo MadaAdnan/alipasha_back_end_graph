@@ -146,7 +146,7 @@
                         </div>
                         @else
                             <div class="chat-wrapper text-center" style="position: relative; height: 85vh">
-                                <img src="{{asset('images/no-chat.png')}}" alt="No Chat Found" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                                <img src="{{asset('images/no-chat.png')}}" alt="No Chat Found" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)  scale(0.8); transform-origin: center;">
                             </div>
 
                         @endif
