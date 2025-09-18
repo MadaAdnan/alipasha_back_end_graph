@@ -146,8 +146,7 @@
                         </div>
                         @else
                             <div class="chat-wrapper">
-                                <i class="bi bi-comments fs-2" ></i>
-                                <p class="text-muted fs-2">ستظهر محادثاتك <br>  التي تجريها هنا</p>
+                                <img src="{{asset('images/no-chat.png')}}" alt="No Chat Found">
                             </div>
                         @endif
                     </div>
