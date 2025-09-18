@@ -145,7 +145,7 @@
 
                         </div>
                         @else
-                            <div class="chat-wrapper text-center py-3 " style="height: 80vh">
+                            <div class="chat-wrapper text-center py-3 " style="height: 85vh">
                                 <img src="{{asset('images/no-chat.png')}}" alt="No Chat Found">
                             </div>
                         @endif
