@@ -90,7 +90,7 @@
                             <p>لا يوجد إشعارات</p>
                         @endforelse
 @endif
-
+                        @if($communities!=null)
                         <div class="chat-wrapper">
                             <div class="chats">
                                 <p class="title">المحادثات</p>
@@ -103,7 +103,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            @if($communities!=null)
+
                                 @foreach($communities as $community)
                                     <div class="chat-item">
                                         <div
@@ -141,10 +141,15 @@
                                 <a class="btn btn-sm btn-outline-info w-100" href="{{route('communities.index')}}">
                                     جميع محادثاتي
                                 </a>
-                            @else
-                                <p>هنا تظهر محادثاتك</p>
-                            @endif
+
+
                         </div>
+                        @else
+                            <div class="chat-wrapper">
+                                <i class="bi bi-comments fs-2" ></i>
+                                <p class="text-muted fs-2">ستظهر محادثاتك <br>  التي تجريها هنا</p>
+                            </div>
+                        @endif
                     </div>
                 </div>
           {{--  @else
