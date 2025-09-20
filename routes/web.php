@@ -143,16 +143,16 @@ Route::middleware([\App\Http\Middleware\XFrameOptionMiddleware::class])->group(f
     })->name('download.file');
 
     Route::get('testnot/{id?}', function ($id = null) {
-
-        $products = \App\Models\Product::where([
+        dd( \DB::table('users')->where('email', 'redadnan@gmail.com')->exists());
+      /*  $products = \App\Models\Product::where([
             'user_id' => 54184,
-           /* 'is_sync_webhok' => false,*/
+           'is_sync_webhok' => false,
         ])->get();
         $user = User::find(54184);
         $job = new \App\Jobs\WebhokProductsJob($products, $user->url_webhok);
-        dispatch($job);
+        dispatch($job);*/
 
-        return "Success {$products->count()}";
+        return "Success ";
     });
     Route::get('/server-resources', function () {
         /*  $user=User::find(51491);
