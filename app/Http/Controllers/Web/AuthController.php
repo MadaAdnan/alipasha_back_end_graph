@@ -82,9 +82,13 @@ class AuthController extends Controller
             'is_special' => false,
             'seller_name'=>$request->name
         ]);
-        session()->forget('errors');
-      \Auth::login($user);
-        return to_route('login');
+       sleep(1);
+        if($user){
+            session()->forget('errors');
+            \Auth::login($user);
+            return to_route('index');
+        }
+     return redirect()->back();
     }
 
     public function forgetPasswordUi()
