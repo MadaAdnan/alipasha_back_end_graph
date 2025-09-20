@@ -65,6 +65,13 @@
 <div class="login-box">
     <h3>انشاء حساب</h3>
     <form id="modalForm" method="post" action="{{route('register')}}">
+
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li class="text-danger">{{$error}}</li>
+                @endforeach
+            </ul>
+
         @csrf
         @method('post')
         <div class="mb-3">
