@@ -64,7 +64,7 @@
 <body>
 <div class="login-box">
     <h3>انشاء حساب</h3>
-    <form id="modalForm" method="post" action="{{route('register')}}">
+    <form {{--id="modalForm"--}} method="post" action="{{route('register')}}">
 
             <ul>
                 @foreach($errors->all() as $error)
