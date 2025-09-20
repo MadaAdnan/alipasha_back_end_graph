@@ -54,7 +54,7 @@ class AuthController extends Controller
             'address' => 'required|string',
         ], [
             'name.*' => 'يرجى إدخال اسم صالح',
-            'email.*' => 'يرجى إدخال بريد إلكتروني صالح',
+            'email.required' => 'يرجى إدخال بريد إلكتروني صالح',
             'email.unique' => 'البريد الإلكتروني موجود بالفعل',
             'password.*' => 'يرجى إدخال كلمة مرور من 8 احرف على الأقل',
             'confiermPassword.*' => 'كلمة المرور غير متطابقة',
