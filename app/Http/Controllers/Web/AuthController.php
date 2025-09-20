@@ -47,7 +47,7 @@ class AuthController extends Controller
             'name' => 'required|string|min:3',
             'email' => 'required|unique:users,email',
             'password' => 'required|min:8',
-            'confiermPassword' => 'same:password',
+            'confirmPassword' => 'same:password',
             'phone' => 'required',
             'phone_code'=>'required|exists:countries,code',
             'city' => 'required|exists:cities,id',

@@ -65,13 +65,6 @@
 <div class="login-box">
     <h3>انشاء حساب</h3>
     <form {{--id="modalForm"--}} method="post" action="{{route('register')}}">
-
-            <ul>
-                @foreach($errors->all() as $error)
-                    <li class="text-danger">{{$error}}</li>
-                @endforeach
-            </ul>
-
         @csrf
         @method('post')
         <div class="mb-3">
@@ -114,7 +107,7 @@
 @error('email')
                     is-invalid
 @enderror"
-                id="descriptionInput"
+
                 placeholder="البريد الإلكتروني"
                 required
                 value="{{old('email')}}"
@@ -140,7 +133,7 @@
 @error('password')
                     is-invalid
 @enderror"
-                id="descriptionInput"
+
                 placeholder="كلمة"
                 required
             />
@@ -151,7 +144,7 @@
 
         <div class="mb-3">
             <p
-                for="descriptionInput"
+
                 class="form-label"
                 style="text-align: right; font-size: 12px;"
             >
@@ -159,10 +152,10 @@
             </p>
             <input
                 type="password"
-                name="confiermPassword"
+                name="confirmPassword"
                 style="text-align: right; font-size: 12px;"
                 class="form-control"
-                id="descriptionInput"
+
                 placeholder="تاكيد كلمة المرور"
                 required
             />
@@ -170,7 +163,7 @@
 
         <div class="mb-3">
             <p
-                for="descriptionInput"
+
                 class="form-label"
                 style="text-align: right; font-size: 12px;"
             >
@@ -257,7 +250,7 @@
 @enderror
 
                     "
-                id="descriptionInput"
+
                 value="{{old('address')}}"
                 placeholder="العنوان التفصيلي"
                 required
@@ -279,7 +272,7 @@
                 name="code"
                 style="text-align: right; font-size: 12px;"
                 class="form-control"
-                id="descriptionInput"
+
                 placeholder=" كود الإحالة"
                 type="text"
 
