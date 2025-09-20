@@ -44,31 +44,31 @@ class UserObserve
                 $smsJob = new SMsJob($phone, $message);
                 dispatch($smsJob);
             }
+            $plan = Plan::where('duration', PlansDurationEnum::FREE->value)->first();
+            if ($plan) {
+                $user->plans()->syncWithPivotValues([$plan->id], ['subscription_date' => now(), 'expired_date' => now()->addYear()]);
+            }
+            $groups = Community::where('is_global', true)->pluck('id')->toArray();
+            $user->communities()->syncWithoutDetaching($groups);
+            if ($user->user_id != null) {
+                $setting = Setting::first();
+                if ($setting->active_points) {
+                    /**
+                     * @var $delegate User
+                     */
+                    $delegate = $user->user;
 
+                    Point::create([
+                        'user_id' => $delegate->id,
+                        'credit' => $setting->num_point_for_register,
+                        'debit' => 0,
+                        'info' => 'ربح من تسجيل المستخدم ' . $user->name,
+                    ]);
+                }
+            }
         } catch (\Exception|\Error $e) {
         }
-        $plan = Plan::where('duration', PlansDurationEnum::FREE->value)->first();
-        if ($plan) {
-            $user->plans()->syncWithPivotValues([$plan->id], ['subscription_date' => now(), 'expired_date' => now()->addYear()]);
-        }
-        $groups = Community::where('is_global', true)->pluck('id')->toArray();
-        $user->communities()->syncWithoutDetaching($groups);
-        if ($user->user_id != null) {
-            $setting = Setting::first();
-            if ($setting->active_points) {
-                /**
-                 * @var $delegate User
-                 */
-                $delegate = $user->user;
 
-                Point::create([
-                    'user_id' => $delegate->id,
-                    'credit' => $setting->num_point_for_register,
-                    'debit' => 0,
-                    'info' => 'ربح من تسجيل المستخدم ' . $user->name,
-                ]);
-            }
-        }
     }
 
 
