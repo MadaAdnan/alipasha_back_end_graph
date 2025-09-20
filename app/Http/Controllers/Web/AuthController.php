@@ -48,7 +48,7 @@ class AuthController extends Controller
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:8',
             'confiermPassword' => 'same:password',
-            'phone' => 'required|min:10',
+            'phone' => 'required',
             'phone_code'=>'required|exists:countries,code',
             'city' => 'required|exists:cities,id',
             'address' => 'required|string',
@@ -58,11 +58,14 @@ class AuthController extends Controller
             'email.unique' => 'البريد الإلكتروني موجود بالفعل',
             'password.*' => 'يرجى إدخال كلمة مرور من 8 احرف على الأقل',
             'confiermPassword.*' => 'كلمة المرور غير متطابقة',
-            'phone.*' => 'يرجى إدخال رقم هاتف صالح مع رمز الدولة',
+            'phone.*' => 'يرجى إدخال رقم هاتف',
             'phone_code.*' => 'يرجى تحديد الدولة',
             'city' => 'يرجى تحديد المدينة',
             'address' => 'يرجى إدخال عنوانك التفصيلي'
         ]);
+        if(\Str::startsWith($request->phone, '0')){
+            $request->phone = \Str::substr($request->phone, 1);
+        }
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
