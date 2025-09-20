@@ -94,7 +94,7 @@
 
         <div class="mb-3">
             <p
-                for="descriptionInput"
+
                 class="form-label"
                 style="text-align: right; font-size: 12px;"
             >
@@ -119,7 +119,7 @@
 
         <div class="mb-3">
             <p
-                for="descriptionInput"
+
                 class="form-label"
                 style="text-align: right; font-size: 12px;"
             >
