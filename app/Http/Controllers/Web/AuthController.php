@@ -82,7 +82,7 @@ class AuthController extends Controller
             'is_special' => false,
             'seller_name'=>$request->name
         ]);
-
+        session()->forget('errors');
       \Auth::login($user);
         return to_route('login');
     }

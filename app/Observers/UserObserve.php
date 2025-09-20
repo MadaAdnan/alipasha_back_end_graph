@@ -70,7 +70,7 @@ class UserObserve
             \Log::error("UserObserver error: " . $e->getMessage(), [
                 'trace' => $e->getTraceAsString()
             ]);
-            dd($e->getMessage(), $e->getTraceAsString());
+
         }
 
     }
