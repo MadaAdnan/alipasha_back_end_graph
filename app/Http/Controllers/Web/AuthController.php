@@ -82,6 +82,7 @@ class AuthController extends Controller
             'is_special' => false,
             'seller_name'=>$request->name
         ]);
+        dd('test');
        // \Auth::login($user);
         return to_route('login');
     }
