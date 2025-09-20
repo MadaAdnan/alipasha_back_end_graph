@@ -72,20 +72,18 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'phone' => $request->phone,
+            'phone_code' => $request->phone_code,
             'city_id' => $request->city,
             'address' => $request->address,
-            'phone_code' => $request->phone_code,
             'code_verified' =>StrHelper::generateDigits(6),
-
-
             'level' => 'user',
             'is_active' => true,
             'user_id' => $affiliate_id,
             'is_special' => false,
             'seller_name'=>$request->name
         ]);
-        \Auth::login($user);
-        return to_route('index');
+       // \Auth::login($user);
+        return to_route('login');
     }
 
     public function forgetPasswordUi()
