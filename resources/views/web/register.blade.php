@@ -269,7 +269,7 @@
                 كود الإحالة
             </p>
             <input
-                name="code"
+                name="affiliate"
                 style="text-align: right; font-size: 12px;"
                 class="form-control"
 
