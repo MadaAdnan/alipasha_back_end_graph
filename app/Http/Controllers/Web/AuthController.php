@@ -52,7 +52,7 @@ class AuthController extends Controller
             'phone_code'=>'required|exists:countries,code',
             'city' => 'required|exists:cities,id',
             'address' => 'required|string',
-        ], [
+        ]/*, [
             'name.*' => 'يرجى إدخال اسم صالح',
             'email.required' => 'يرجى إدخال بريد إلكتروني صالح',
             'email.unique' => 'البريد الإلكتروني موجود بالفعل',
@@ -62,7 +62,7 @@ class AuthController extends Controller
             'phone_code.*' => 'يرجى تحديد الدولة',
             'city' => 'يرجى تحديد المدينة',
             'address' => 'يرجى إدخال عنوانك التفصيلي'
-        ]);
+        ]*/);
         if(\Str::startsWith($request->phone, '0')){
             $request->phone = \Str::substr($request->phone, 1);
         }
