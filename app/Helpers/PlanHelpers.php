@@ -17,6 +17,7 @@ class PlanHelpers
                 $user->plans()->syncWithPivotValues([$plan->id], ['subscription_date' => now(), 'expired_date' => now()->addYear()]);
             }
         } catch (\Exception|\Error $e) {
+            \Log::error("ERROR PLAN REGISTAER: {$e->getMessage()}");
         }
     }
 
@@ -26,6 +27,7 @@ class PlanHelpers
             $groups = Community::where('is_global', true)->pluck('id')->toArray();
             $user->communities()->syncWithoutDetaching($groups);
         } catch (\Exception|\Error $e) {
+            \Log::error("ERROR Community REGISTAER: {$e->getMessage()}");
         }
 
     }
