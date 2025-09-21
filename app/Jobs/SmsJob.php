@@ -26,7 +26,11 @@ class SmsJob implements ShouldQueue
      */
     public function handle(): void
     {
-        $sms = new SmsService();
-        $sms->sendSms([$this->phones], $this->message);
+        try {
+            $sms = new SmsService();
+            $sms->sendSms([$this->phones], $this->message);
+        }catch (\Exception | \Error $exception){
+            \Log::error("Error Send SMS");
+        }
     }
 }

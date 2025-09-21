@@ -35,7 +35,9 @@ class SendEmailJob implements ShouldQueue
         try{
             Mail::to($this->users)->send($this->emailable);
 
-        }catch(\Exception | \Error $e){}
+        }catch(\Exception | \Error $e){
+            \Log::error("Error Send Email");
+        }
 
     }
 }
