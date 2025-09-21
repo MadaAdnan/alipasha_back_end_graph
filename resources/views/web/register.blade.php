@@ -69,7 +69,6 @@
         @method('post')
         <div class="mb-3">
             <p
-                for="descriptionInput"
                 class="form-label"
                 style="text-align: right; font-size: 12px;"
             >
@@ -305,11 +304,12 @@
         </a>
     </div>
 </div>
-
+{{--
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
 <!-- Content goes here -->
 <!-- Bootstrap JS and Popper.js -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>--}}
+</body>
+
 </html>

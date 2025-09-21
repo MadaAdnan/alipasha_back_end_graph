@@ -10,6 +10,7 @@ use App\Mail\ForgetPasswordEmail;
 use App\Mail\ResetPasswordForgetEmail;
 use App\Models\City;
 use App\Models\User;
+use Auth;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
@@ -82,13 +83,13 @@ class AuthController extends Controller
             'is_special' => false,
             'seller_name'=>$request->name
         ]);
-       sleep(1);
-        if($user){
-            session()->forget('errors');
-            \Auth::login($user);
-            return to_route('index');
+
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            $request->session()->regenerate(); // أمان ضد CSRF
+            return redirect()->route('index');
         }
-     return redirect()->back();
+
+
     }
 
     public function forgetPasswordUi()
