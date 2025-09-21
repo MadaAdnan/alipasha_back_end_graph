@@ -84,9 +84,13 @@ class AuthController extends Controller
             'seller_name'=>$request->name
         ]);
 
-        Auth::login($user);
-        $request->session()->regenerate();
-        return redirect()->route('index');
+        try {
+            Auth::login($user);
+            $request->session()->regenerate();
+            return redirect()->route('index');
+        }catch (\Exception | \Error $e){
+            dd($e->getMessage());
+        }
 
 
     }
