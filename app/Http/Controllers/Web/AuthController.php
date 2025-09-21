@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Exceptions\GraphQLExceptionHandler;
 use App\Helpers\StrHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RegisterRequest;
 use App\Jobs\SendEmailJob;
 use App\Mail\ForgetPasswordEmail;
 use App\Mail\ResetPasswordForgetEmail;
@@ -42,9 +43,9 @@ class AuthController extends Controller
         return redirect('/');
     }
 
-    public function register(Request $request)
+    public function register(RegisterRequest $request)
     {
-        $this->validate($request, [
+      /*  $this->validate($request, [
             'name' => 'required|string|min:3',
             'email' => 'required|unique:users,email',
             'password' => 'required|min:8',
@@ -63,7 +64,7 @@ class AuthController extends Controller
             'phone_code.*' => 'يرجى تحديد الدولة',
             'city' => 'يرجى تحديد المدينة',
             'address' => 'يرجى إدخال عنوانك التفصيلي'
-        ]);
+        ]);*/
         if(\Str::startsWith($request->phone, '0')){
             $request->phone = \Str::substr($request->phone, 1);
         }
