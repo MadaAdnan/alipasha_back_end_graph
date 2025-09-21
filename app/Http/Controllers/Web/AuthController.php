@@ -45,26 +45,6 @@ class AuthController extends Controller
 
     public function register(RegisterRequest $request)
     {
-      /*  $this->validate($request, [
-            'name' => 'required|string|min:3',
-            'email' => 'required|unique:users,email',
-            'password' => 'required|min:8',
-            'confirmPassword' => 'same:password',
-            'phone' => 'required',
-            'phone_code'=>'required|exists:countries,code',
-            'city' => 'required|exists:cities,id',
-            'address' => 'required|string',
-        ], [
-            'name.*' => 'يرجى إدخال اسم صالح',
-            'email.required' => 'يرجى إدخال بريد إلكتروني صالح',
-            'email.unique' => 'البريد الإلكتروني موجود بالفعل',
-            'password.*' => 'يرجى إدخال كلمة مرور من 8 احرف على الأقل',
-            'confirmPassword.*' => 'كلمة المرور غير متطابقة',
-            'phone.*' => 'يرجى إدخال رقم هاتف',
-            'phone_code.*' => 'يرجى تحديد الدولة',
-            'city' => 'يرجى تحديد المدينة',
-            'address' => 'يرجى إدخال عنوانك التفصيلي'
-        ]);*/
         if(\Str::startsWith($request->phone, '0')){
             $request->phone = \Str::substr($request->phone, 1);
         }
