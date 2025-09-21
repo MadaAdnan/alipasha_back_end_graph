@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Enums\PlansDurationEnum;
+use App\Helpers\PlanHelpers;
 use App\Helpers\StrHelper;
 use App\Jobs\SendEmailJob;
 use App\Jobs\SmsJob;
@@ -30,6 +31,8 @@ class UserObserve
      */
     public function created(User $user): void
     {
+        PlanHelpers::RegisterToPlanFree($user);
+        PlanHelpers::RegisterToGlobalCommunity($user);
         try {
             $setting = Setting::first();
             if ($setting->send_via_email) {
@@ -44,14 +47,10 @@ class UserObserve
                 $smsJob = new SMsJob($phone, $message);
                 dispatch($smsJob);
             }
-            $plan = Plan::where('duration', PlansDurationEnum::FREE->value)->first();
-            if ($plan) {
-                $user->plans()->syncWithPivotValues([$plan->id], ['subscription_date' => now(), 'expired_date' => now()->addYear()]);
-            }
-            $groups = Community::where('is_global', true)->pluck('id')->toArray();
-            $user->communities()->syncWithoutDetaching($groups);
+
+
             if ($user->user_id != null) {
-                $setting = Setting::first();
+
                 if ($setting->active_points) {
                     /**
                      * @var $delegate User
