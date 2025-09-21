@@ -65,6 +65,7 @@ class AuthController extends Controller
             'city' => 'يرجى تحديد المدينة',
             'address' => 'يرجى إدخال عنوانك التفصيلي'
         ]);*/
+        dd($request->all());
         if(\Str::startsWith($request->phone, '0')){
             $request->phone = \Str::substr($request->phone, 1);
         }
