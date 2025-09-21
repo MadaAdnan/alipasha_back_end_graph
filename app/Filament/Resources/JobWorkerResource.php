@@ -43,7 +43,7 @@ public static function canCreate(): bool
                 //
             ])
             ->actions([
-               
+
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
