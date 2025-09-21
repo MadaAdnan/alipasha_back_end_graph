@@ -84,10 +84,9 @@ class AuthController extends Controller
             'seller_name'=>$request->name
         ]);
 
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            $request->session()->regenerate(); // أمان ضد CSRF
-            return redirect()->route('index');
-        }
+        Auth::login($user);
+        $request->session()->regenerate();
+        return redirect()->route('index');
 
 
     }
