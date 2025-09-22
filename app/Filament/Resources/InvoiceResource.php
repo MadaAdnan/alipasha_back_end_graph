@@ -87,7 +87,7 @@ $users=User::query()
             ->columns([
 
                 Tables\Columns\TextColumn::make('id')->label('#'),
-                Tables\Columns\TextColumn::make('seller.seller_name')->label('المتجر')->url(fn($record) => UserResource::getUrl('edit', [$record->seller?->id]), true),
+                Tables\Columns\TextColumn::make('seller.seller_name')->label('المتجر')->url(fn($record) => $record->seller? UserResource::getUrl('edit', [$record->seller?->id]):null, true),
                 Tables\Columns\TextColumn::make('seller.phone')->formatStateUsing(fn($record)=>"{$record->seller?->phone_code}{$record->seller?->phone}")->label('هاتف المتجر')->url(fn($record) =>$record->seller ? "https://wa.me{$record->seller?->phone_code}{$record->seller?->phone}":null, true),
 
                 Tables\Columns\TextColumn::make('user.name')->label('الزبون')->url(fn($record) => $record->user?UserResource::getUrl('edit', [$record->user?->id]):null, true),
