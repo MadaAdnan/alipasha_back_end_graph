@@ -75,7 +75,8 @@ class OrderController extends Controller
         }
         $far = $pricingWeight > $pricingSize ? $pricingWeight : $pricingSize;
         $far = $far + (($far / 3) * $steps);
-        if (auth()->user()->getTotalBalance() < $far) {
+
+        if ((auth()->user()->getTotalBalance() + (double)auth()->user()->register_win_amount) < $far) {
             return back()->with('error', 'لا تملك رصيد كافي لإتمام العملية');
         }
 

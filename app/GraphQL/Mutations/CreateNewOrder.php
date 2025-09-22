@@ -45,7 +45,7 @@ final class CreateNewOrder
 
 
         $total_balance = \DB::table('balances')->where('user_id', auth()->id())->selectRaw('SUM(credit) - SUM(debit) as total')->first()?->total ?? 0;
-        if ($total_balance <= 0 || $total_balance < $price) {
+        if ( ($total_balance + (double)auth()->user()->register_win_amount) < $price) {
             throw new GraphQLExceptionHandler('لا تملك رصيد كاف لطلب الشحن');
         }
         \DB::beginTransaction();

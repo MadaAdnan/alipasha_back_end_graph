@@ -30,10 +30,10 @@ final class SubscribePlan
                 throw new \Exception('test');
             }
 
-            $balance = $user->getTotalBalance();
+            $balance = $user->getTotalBalance() + (double)$user->register_win_amount;
             $planPrice = $plan->is_discount ? $plan->discount : $plan->price;
 
-            switch ($plan->duration ){
+            switch ($plan->duration) {
                 case PlansDurationEnum::MONTH->value:
                     $expiredDate = now()->addMonth();
                     break;
@@ -59,7 +59,7 @@ final class SubscribePlan
             try {
                 $user->plans()->syncWithPivotValues($planId, ['expired_date' => $expiredDate, 'subscription_date' => $subscription_date], false);
                 if ($plan->is_validate) {
-                    $user->update(['is_verified' => true,'verified_account_date'=>$expiredDate]);
+                    $user->update(['is_verified' => true, 'verified_account_date' => $expiredDate]);
                 }
                 if ($plan->special_store) {
                     $user->update(['is_special' => true]);
@@ -68,15 +68,15 @@ final class SubscribePlan
                     'debit' => $planPrice,
                     'credit' => 0,
                     'user_id' => $user->id,
-                    'info'=>"إشتراك بخطة {$plan->name} حتى تاريخ  {$expiredDate->format('Y-m-d')}"
+                    'info' => "إشتراك بخطة {$plan->name} حتى تاريخ  {$expiredDate->format('Y-m-d')}"
                 ]);
                 \DB::commit();
-            } catch (\Exception | \Error $e) {
+            } catch (\Exception|\Error $e) {
                 \DB::rollBack();
                 throw new GraphQLExceptionHandler($e->getMessage());
             }
 
-        } catch (\Exception | Error $e) {
+        } catch (\Exception|Error $e) {
             throw new GraphQLExceptionHandler($e->getMessage());
         }
         return $user;
