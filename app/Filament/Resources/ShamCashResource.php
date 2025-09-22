@@ -42,7 +42,10 @@ class ShamCashResource extends Resource
                 Forms\Components\Section::make('معلومات شام كاش')->schema([
                     Forms\Components\TextInput::make('wallet')->nullable()->label('رقم الحساب في شام كاش'),
                     Forms\Components\SpatieMediaLibraryFileUpload::make('sham-cash')->collection('sham-cash')->conversion('webp')->label('QR شام كاش')->image()->imageCropAspectRatio('1:1')->imageEditor(),
-
+Forms\Components\Fieldset::make('مكافأة التسجيل')->schema([
+    Forms\Components\Toggle::make('is_active_register_win')->label('تفعيل مكافأة التسجيل'),
+    Forms\Components\TextInput::make('register_win_amount')->numeric()->required()->label('قيمة المكافأة')
+])
                 ]),
 
             ]);

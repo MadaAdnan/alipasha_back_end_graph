@@ -25,6 +25,10 @@ class UserObserve
     {
         $user->affiliate = StrHelper::getAfflieate();
         $user->is_sync_webhok = false;
+        $setting = Setting::first();
+        if ($setting->is_active_register_win) {
+            $user->register_win_amount = $setting->register_win_amount;
+        }
     }
 
     /**

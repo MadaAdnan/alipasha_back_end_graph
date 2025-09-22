@@ -28,18 +28,20 @@ class CompleteCreatedUserListener
      */
     public function handle(CreatedUserEvent $event): void
     {
-       $user=$event->user;
+        $user = $event->user;
         PlanHelpers::RegisterToPlanFree($user);
         PlanHelpers::RegisterToGlobalCommunity($user);
+        $setting = Setting::first();
+
         try {
-            $setting = Setting::first();
+
             if ($setting->send_via_email) {
                 $job = new SendEmailJob([$user], new RegisteredEmail($user));
                 dispatch($job);
             }
 
 
-            $message="أهلا بك في تطبيق علي باشا\nكود التحقق الخاص بك\n{$user->code_verified}";
+            $message = "أهلا بك في تطبيق علي باشا\nكود التحقق الخاص بك\n{$user->code_verified}";
             $phone = $user->phone_code . $user->phone;
             if (!empty($phone) && $setting->send_via_whatsapp) {
                 $smsJob = new SMsJob($phone, $message);
