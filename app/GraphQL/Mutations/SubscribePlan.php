@@ -30,7 +30,7 @@ final class SubscribePlan
                 throw new \Exception('test');
             }
 
-            $balance = $user->getTotalBalance() + (double)$user->register_win_amount;
+            $balance = $user->getTotalBalance();
             $planPrice = $plan->is_discount ? $plan->discount : $plan->price;
 
             switch ($plan->duration) {

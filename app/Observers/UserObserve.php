@@ -4,7 +4,7 @@ namespace App\Observers;
 
 use App\Enums\PlansDurationEnum;
 use App\Events\CreatedUserEvent;
-use App\Helpers\PlanHelpers;
+use App\Helpers\GlobalHelper;
 use App\Helpers\StrHelper;
 use App\Jobs\SendEmailJob;
 use App\Jobs\SmsJob;

@@ -3,11 +3,12 @@
 namespace App\Helpers;
 
 use App\Enums\PlansDurationEnum;
+use App\Models\Balance;
 use App\Models\Community;
 use App\Models\Plan;
 use App\Models\User;
 
-class PlanHelpers
+class GlobalHelper
 {
     public static function RegisterToPlanFree(User $user)
     {
@@ -30,5 +31,14 @@ class PlanHelpers
             \Log::error("ERROR Community REGISTAER: {$e->getMessage()}");
         }
 
+    }
+
+    public static function addRegisterWinToUser(User $user,$amount){
+        Balance::create([
+            'user_id' => $user->id,
+            'info' => 'كافئة فتح حساب جديد غير قابل للسحب ومخصص لشراء الإعلانات او الشحن فقط',
+            'debit' => 0,
+            'credit' => $amount,
+        ]);
     }
 }

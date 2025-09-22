@@ -46,7 +46,7 @@ class PricingController extends Controller
     {
         $plan = Plan::findOrFail($request->plan_id);
         $price = $plan->is_discount ? $plan->discount : $plan->price;
-        if ((auth()->user()->getTotalBalance() + (double)auth()->user()->register_win_amount) < $price) {
+        if ((auth()->user()->getTotalBalance()) < $price) {
             return back()->with('error', 'لا تملك رصيد كافي للإشتراك بالخطة');
         }
         \DB::beginTransaction();

@@ -3,7 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\CreatedUserEvent;
-use App\Helpers\PlanHelpers;
+use App\Helpers\GlobalHelper;
 use App\Jobs\SendEmailJob;
 use App\Jobs\SmsJob;
 use App\Mail\RegisteredEmail;
@@ -29,10 +29,13 @@ class CompleteCreatedUserListener
     public function handle(CreatedUserEvent $event): void
     {
         $user = $event->user;
-        PlanHelpers::RegisterToPlanFree($user);
-        PlanHelpers::RegisterToGlobalCommunity($user);
-        $setting = Setting::first();
+        GlobalHelper::RegisterToPlanFree($user);
+        GlobalHelper::RegisterToGlobalCommunity($user);
 
+        $setting = Setting::first();
+        if ($setting->is_active_register_win && $setting->register_win_amount > 0) {
+            GlobalHelper::addRegisterWinToUser($user, $setting->register_win_amount);
+        }
         try {
 
             if ($setting->send_via_email) {
