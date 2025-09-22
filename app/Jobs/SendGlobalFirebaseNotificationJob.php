@@ -36,10 +36,14 @@ class SendGlobalFirebaseNotificationJob implements ShouldQueue
     public function handle(): void
     {
         // Process users in chunks of 500 with 10 second delays between each chunk
-        User::whereNotNull('device_token')->chunk(500, function ($users, $index) {
+        User::whereNotNull('device_token')->chunk(300, function ($users, $index) {
             // Extract device tokens
             $tokens = $users->pluck('device_token')->toArray();
-
+            $tokens = collect($tokens ?? [])
+                ->filter(fn($t) => is_string($t))                         // لازم سترنغ
+                ->map(fn($t) => trim($t))
+                ->filter(fn($t) => strtolower($t) !== 'null')             // شيل "null"
+                ->filter(fn($t) => preg_match('/^[A-Za-z0-9:_-]{100,200}$/', $t));
             // Dispatch notification job for this chunk with delay based on chunk index
             SendFirebaseNotificationJob::dispatch($tokens, [
                 'title' => $this->title,

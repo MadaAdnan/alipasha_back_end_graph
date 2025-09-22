@@ -35,7 +35,12 @@ class SendFirebaseNotificationJob implements ShouldQueue
 
         $firebaseService=new \App\Service\FirebaseService();
         try{
-         $firebaseService->sendNotificationToMultipleTokens($this->ids, $this->data);
+            $tokens = collect($this->ids ?? [])
+                ->filter(fn($t) => is_string($t))                         // لازم سترنغ
+                ->map(fn($t) => trim($t))
+                ->filter(fn($t) => strtolower($t) !== 'null')             // شيل "null"
+                ->filter(fn($t) => preg_match('/^[A-Za-z0-9:_-]{100,200}$/', $t));
+         $firebaseService->sendNotificationToMultipleTokens($tokens, $this->data);
 
 
         }catch (Exception | Error $e){
