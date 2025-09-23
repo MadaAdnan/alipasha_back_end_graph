@@ -35,51 +35,70 @@ final class Products
         // throw new GraphQLExceptionHandler($userId);
 
         return Product::active()
-            ->where(function($query)use($colors, $type, $userId, $sub1Id, $cityId, $categoryId, $search,$args){
+            ->where(function($query)use($colors, $type, $userId, $sub1Id, $cityId, $categoryId, $search){
 
-                if($cityId != null){
-                    $query->where(function ($q) use ($cityId) {
-                        $q->where('city_id', $cityId)
-                            ->orWhereHas('city', fn($q2) => $q2->where('cities.city_id', $cityId));
-                    });
-                }
-                if($type == null && $userId == null && $sub1Id == null){
-                    $query->whereNot('type', CategoryTypeEnum::NEWS->value)
-                        ->whereNot('type', CategoryTypeEnum::SERVICE->value);
-                }
+
+            })
+            ->when($cityId != null, fn($query) =>
+            $query->where(function ($q) use ($cityId) {
+                $q->where('city_id', $cityId)
+                    ->orWhereHas('city', fn($q2) => $q2->where('cities.city_id', $cityId));
+            })
+            )
+
+            ->when($type == null && $userId == null && $sub1Id == null, fn($query) => $query->whereNot('type', CategoryTypeEnum::NEWS->value)
+                ->whereNot('type', CategoryTypeEnum::SERVICE->value))
+            ->where(function ($query) {
                 $query->whereNull('end_date')->orWhere('end_date', '>=', now());
-                if($type != null){
-                    if (isset($args['sub_type']) && !empty($args['sub_type'])) {
-                        $query->where('type', $args['sub_type'])->where('end_date', '>', now());
-                    } elseif ($type === 'job' || $type === 'search_job') {
-                        $query->where(fn($q)=>$q->where('type', 'job')->orWhere('type', 'search_job'))->where('end_date', '>', now());
-                    } else {
-                        $query->where('type', $type);
-                    }
+            })
+            ->when($type != null, function ($query) use ($type, $args) {
+                if (isset($args['sub_type']) && !empty($args['sub_type'])) {
+                    $query->where('type', $args['sub_type'])->where('end_date', '>', now());
+                } elseif ($type === 'job' || $type === 'search_job') {
+                    $query->where(fn($q)=>$q->where('type', 'job')->orWhere('type', 'search_job'))->where('end_date', '>', now());
+                } /*elseif ($type === 'seller') {
+                    $query->whereHas('user', fn($query) => $query->where('seller_name', 'like', "%" . $args['search'] . "%"));
 
-                    if ($userId != null) {
-                        $query->where('user_id', '=', $userId);
-                    }
-                    if($type === 'product' && isset($args['max_price']) && $args['max_price'] > 0){
-                        $query->where('price', '>=', [$args['min_price'] ?? 0])->where('price', "<=", $args['max_price'] ?? 10000);
-                    }
-                    if(collect($colors ?? [])->count() > 0){
-                        $query->whereHas('colors', fn($q) => $q->whereIn('colors.id', $colors));
-                    }
-                }
-                if($categoryId != null){
-                    $query->where('category_id', $categoryId);
-                }
-                if($sub1Id != null){
-                    $query->where('sub1_id', $sub1Id);
-                }
-                if(  !empty($search) && $type !== 'seller'){
-                    $query->where('name', 'LIKE', "%" . $args['search'] . "%")
-                        ->orWhere('expert', 'LIKE', "%" . $args['search'] . "%")
-                        ->orWhere('info', 'LIKE', "%" . $args['search'] . "%");
+                }*/ else {
+                    $query->where('type', $type);
                 }
             })
-            ->orderBy($orderBy['column'], $orderBy['orderBy']);
+            ->where(function ($query) use ($userId) {
+                if ($userId != null) {
+                    $query->where('user_id', '=', $userId);
+                }
+            })
+
+            //->when($userId!='', fn($query) => $query->where('user_id', $userId))
+            ->when($type === 'product' && isset($args['max_price']) && $args['max_price'] > 0, fn($query) => $query->where('price', '>=', [$args['min_price'] ?? 0])->where('price', "<=", $args['max_price'] ?? 10000))
+            ->when(collect($colors ?? [])->count() > 0, fn($query) => $query->whereHas('colors', fn($q) => $q->whereIn('colors.id', $colors)))
+
+            ->when($categoryId != null, fn($query) => $query->where('category_id', $categoryId))
+            ->when($sub1Id != null, fn($query) => $query->where('sub1_id', $sub1Id))
+
+            ->when(isset($args['search']) && !empty($args['search']) && $type !== 'seller', fn($query) => $query->where(function ($query) use ($args) {
+
+                /**
+                 * @var $searchTerms array<string>
+                 */
+                $searchTerms = explode(' ', $args['search']); // تحويل البحث إلى مصفوفة كلمات
+                /**
+                 * @var $term string
+                 */
+                $query->where('name', 'LIKE', "%" . $args['search'] . "%")
+                    ->orWhere('expert', 'LIKE', "%" . $args['search'] . "%")
+                    ->orWhere('info', 'LIKE', "%" . $args['search'] . "%");
+                /* $term = '';
+                 foreach ($searchTerms as $term) {
+                     $query->orWhere(function ($query) use ($term) {
+
+                     });
+                 }*/
+
+            }))
+            // ->whereNotNull('sub1_id')
+            ->orderBy($orderBy['column'], $orderBy['orderBy'])
+        ;
 
 
         return $products;
