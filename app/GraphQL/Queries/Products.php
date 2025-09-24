@@ -38,7 +38,7 @@ final class Products
         // throw new GraphQLExceptionHandler($userId);
 
         $products= Product::active()
-            ->whereBetween(\DB::raw('CAST(price AS DECIMAL(10,2))'), [$minPrice??0, $maxPrice<10000?$maxPrice:1000000])
+
             ->when($cityId != null, fn($query) =>
             $query->where(function ($q) use ($cityId) {
                 $q->where('city_id', $cityId)
