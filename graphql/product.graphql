@@ -28,7 +28,7 @@ input OrderBy{
     orderBy:String
 }
 input Sort{
-    createdAt:String
+    created_at:String
     price:String
 }
 type ProductDetails{
