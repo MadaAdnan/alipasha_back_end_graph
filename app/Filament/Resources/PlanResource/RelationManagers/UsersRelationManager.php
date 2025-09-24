@@ -30,7 +30,7 @@ class UsersRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('name')
             ->columns([
-                Tables\Columns\TextColumn::make('name')->label('الاسم')->searchable()->url(fn($record) => UserResource::getUrl('edit', ['record' => $record->id]), true),
+                Tables\Columns\TextColumn::make('id')->label('الاسم')->searchable()->url(fn($record) => UserResource::getUrl('edit', ['record' => $record->id]), true),
                 Tables\Columns\TextColumn::make('email')->label('البريد')->searchable()->url(fn($record) => UserResource::getUrl('edit', ['record' => $record->id]), true),
                 Tables\Columns\TextColumn::make('phone')->label('الهاتف')->searchable()->url(fn($record) => 'https://wa.me/'.$record->phone_code . $record->phone, true),
                 Tables\Columns\TextColumn::make('seller_name')->label('المتجر')->searchable()->url(fn($record) => UserResource::getUrl('edit', ['record' => $record->id]), true),
