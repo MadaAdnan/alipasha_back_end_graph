@@ -44,7 +44,7 @@ final class Products
                     ->orWhereHas('city', fn($q2) => $q2->where('cities.city_id', $cityId));
             })
             )
-->whereBetween('price', [$minPrice,  $maxPrice])
+            ->whereBetween('price', [$minPrice,  $maxPrice])
             ->when($type == null && $userId == null && $sub1Id == null, fn($query) => $query->whereNot('type', CategoryTypeEnum::NEWS->value)
                 ->whereNot('type', CategoryTypeEnum::SERVICE->value))
             ->where(function ($query) {

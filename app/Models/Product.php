@@ -23,7 +23,8 @@ class Product extends Model implements HasMedia
     protected $casts = [
         'tags' => 'array',
         'start_date' => 'datetime',
-        'end_date' => 'datetime'
+        'end_date' => 'datetime',
+        'price' => 'double'
     ];
     protected $withCount = [
         'likes',
