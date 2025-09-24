@@ -97,13 +97,7 @@ final class Products
                  }*/
 
             }))
-            ->orderBy(function ($query) use ($sort, $orderBy) {
-            if($sort!=null){
-                $query->orderBy('created_at', $sort['created_at'])->orderBy('price', $sort['price']);
-            }else{
-                $query->orderBy($orderBy['column'], $orderBy['orderBy']);
-            }
-            });
+           ;
 
 
 
