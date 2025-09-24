@@ -34,11 +34,11 @@ final class Products
         $categoryId = isset($args['category_id']) ?$args['category_id']: null;
         $search = isset($args['search']) ?$args['search']: null;
         $minPrice = $args['min_price']??0;
-        $maxPrice = $args['max_price']??0;
+        $maxPrice = $args['max_price']??1000000;
         // throw new GraphQLExceptionHandler($userId);
 
         $products= Product::active()
-
+            ->whereBetween(\DB::raw('CAST(price AS DECIMAL(10,2))'), [$minPrice??0, $maxPrice<10000?$maxPrice:1000000])
             ->when($cityId != null, fn($query) =>
             $query->where(function ($q) use ($cityId) {
                 $q->where('city_id', $cityId)
