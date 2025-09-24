@@ -23,8 +23,9 @@ final class Products
     public function __invoke($_, array $args)
 
     {
-        $orderBy = isset($args['order_by']) ?$args['order_by']: ['column' => 'created_at', 'orderBy' => 'desc'];
-
+        $orderBy = isset($args['order_by']) ?$args['order_by']: ['created_at' => 'asc', 'price' => 'down'];
+info("OrderBy");
+info($orderBy);
         $colors = isset($args['colors']) ?$args['colors']: [];
         $type = isset($args['type']) ?$args['type']: null;
         $userId = isset($args['user_id']) ?$args['user_id']: null;
@@ -34,7 +35,7 @@ final class Products
         $search = isset($args['search']) ?$args['search']: null;
         // throw new GraphQLExceptionHandler($userId);
 
-        return Product::active()
+        $products= Product::active()
             ->where(function($query)use($colors, $type, $userId, $sub1Id, $cityId, $categoryId, $search){
 
 
@@ -95,10 +96,14 @@ final class Products
                      });
                  }*/
 
-            }))
+            }));
             // ->whereNotNull('sub1_id')
-            ->orderBy($orderBy['column'], $orderBy['orderBy'])
-        ;
+            if(isset($orderBy['column']))
+            {
+               $products= $products->orderBy($orderBy['column'], $orderBy['orderBy']);
+            }  else{
+                $products= $products->orderBy('created_at', 'desc');
+            }
 
 
         return $products;
