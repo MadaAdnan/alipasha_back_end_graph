@@ -37,14 +37,15 @@ final class Products
         $maxPrice = $args['max_price']??0;
         // throw new GraphQLExceptionHandler($userId);
 
-        $products= Product::active()
+       /* $products= Product::active()
+            ->whereBetween('price', [$minPrice,  $maxPrice])
             ->when($cityId != null, fn($query) =>
             $query->where(function ($q) use ($cityId) {
                 $q->where('city_id', $cityId)
                     ->orWhereHas('city', fn($q2) => $q2->where('cities.city_id', $cityId));
             })
             )
-            ->whereBetween('price', [$minPrice,  $maxPrice])
+
             ->when($type == null && $userId == null && $sub1Id == null, fn($query) => $query->whereNot('type', CategoryTypeEnum::NEWS->value)
                 ->whereNot('type', CategoryTypeEnum::SERVICE->value))
             ->where(function ($query) {
@@ -65,8 +66,6 @@ final class Products
                     $query->where('user_id', '=', $userId);
                 }
             })
-
-            //->when($userId!='', fn($query) => $query->where('user_id', $userId))
             ->when(collect($colors ?? [])->count() > 0, fn($query) => $query->whereHas('colors', fn($q) => $q->whereIn('colors.id', $colors)))
 
             ->when($categoryId != null, fn($query) => $query->where('category_id', $categoryId))
@@ -85,8 +84,68 @@ final class Products
                 ->orderBy('price', $sort['price']);
         } else {
             $products->orderBy($orderBy['column'], $orderBy['orderBy']);
-        }
+        }*/
+        $products = Product::active()
+            ->whereBetween('price', [$minPrice, $maxPrice])
 
+            // 🔹 فلترة حسب المدينة
+            ->when($cityId, function ($query) use ($cityId) {
+                $query->where(fn($q) =>
+                $q->where('city_id', $cityId)
+                    ->orWhereHas('city', fn($q2) => $q2->where('cities.city_id', $cityId))
+                );
+            })
+
+            // 🔹 استبعاد بعض الأنواع عند عدم وجود type/userId/sub1Id
+            ->when(!$type && !$userId && !$sub1Id, function ($query) {
+                $query->whereNotIn('type', [
+                    CategoryTypeEnum::NEWS->value,
+                    CategoryTypeEnum::SERVICE->value
+                ]);
+            })
+
+            // 🔹 صلاحية تاريخ الانتهاء
+            ->where(fn($q) => $q->whereNull('end_date')->orWhere('end_date', '>=', now()))
+
+            // 🔹 فلترة حسب النوع
+            ->when($type, function ($query) use ($type, $args) {
+                if (!empty($args['sub_type'])) {
+                    $query->where('type', $args['sub_type'])->where('end_date', '>', now());
+                } elseif (in_array($type, ['job', 'search_job'])) {
+                    $query->where(fn($q) => $q->where('type', 'job')->orWhere('type', 'search_job'))
+                        ->where('end_date', '>', now());
+                } else {
+                    $query->where('type', $type);
+                }
+            })
+
+            // 🔹 فلترة حسب المستخدم
+            ->when($userId, fn($q) => $q->where('user_id', $userId))
+
+            // 🔹 فلترة حسب الألوان
+            ->when(!empty($colors), fn($q) => $q->whereHas('colors', fn($sub) => $sub->whereIn('colors.id', $colors)))
+
+            // 🔹 فلترة حسب التصنيفات
+            ->when($categoryId, fn($q) => $q->where('category_id', $categoryId))
+            ->when($sub1Id, fn($q) => $q->where('sub1_id', $sub1Id))
+
+            // 🔹 البحث النصي
+            ->when(!empty($args['search']) && $type !== 'seller', function ($q) use ($args) {
+                $q->where(fn($sub) =>
+                $sub->where('name', 'LIKE', "%{$args['search']}%")
+                    ->orWhere('expert', 'LIKE', "%{$args['search']}%")
+                    ->orWhere('info', 'LIKE', "%{$args['search']}%")
+                );
+            });
+
+// 🔹 الترتيب
+        if ($sort) {
+            foreach ($sort as $column => $direction) {
+                $products->orderBy($column, $direction);
+            }
+        } else {
+            $products->orderBy($orderBy['column'], $orderBy['orderBy']);
+        }
 
 
         return $products;
