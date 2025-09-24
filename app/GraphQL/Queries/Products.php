@@ -33,20 +33,18 @@ final class Products
         $cityId = isset($args['city_id']) ?$args['city_id']: null;
         $categoryId = isset($args['category_id']) ?$args['category_id']: null;
         $search = isset($args['search']) ?$args['search']: null;
+        $minPrice = $args['min_price']??0;
+        $maxPrice = $args['max_price']??0;
         // throw new GraphQLExceptionHandler($userId);
 
         $products= Product::active()
-            ->where(function($query)use($colors, $type, $userId, $sub1Id, $cityId, $categoryId, $search){
-
-
-            })
             ->when($cityId != null, fn($query) =>
             $query->where(function ($q) use ($cityId) {
                 $q->where('city_id', $cityId)
                     ->orWhereHas('city', fn($q2) => $q2->where('cities.city_id', $cityId));
             })
             )
-
+->whereBetween('price', [$minPrice,  $maxPrice])
             ->when($type == null && $userId == null && $sub1Id == null, fn($query) => $query->whereNot('type', CategoryTypeEnum::NEWS->value)
                 ->whereNot('type', CategoryTypeEnum::SERVICE->value))
             ->where(function ($query) {
@@ -57,14 +55,9 @@ final class Products
                     $query->where('type', $args['sub_type'])->where('end_date', '>', now());
                 } elseif ($type === 'job' || $type === 'search_job') {
                     $query->where(fn($q)=>$q->where('type', 'job')->orWhere('type', 'search_job'))->where('end_date', '>', now());
-                } /*elseif ($type === 'seller') {
-                    $query->whereHas('user', fn($query) => $query->where('seller_name', 'like', "%" . $args['search'] . "%"));
-
-                }*/ else {
+                } else {
                     $query->where('type', $type);
-                    if($type === 'product' &&( isset($args['min_price']) || isset($args['min_price']))){
-                        $query->whereBetween('price', [$args['min_price']??0,  $args['max_price']??100000]);
-                    }
+
                 }
             })
             ->where(function ($query) use ($userId) {
