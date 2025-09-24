@@ -86,7 +86,7 @@ final class Products
             $products->orderBy($orderBy['column'], $orderBy['orderBy']);
         }*/
         $products = Product::active()
-            ->whereBetween(\DB::raw('CAST(price AS DECIMAL(10,2))'), [$minPrice, $maxPrice])
+            ->whereBetween(\DB::raw('CAST(price AS DECIMAL(10,2))'), [$minPrice, $maxPrice<10000?$maxPrice:1000000])
 
             // 🔹 فلترة حسب المدينة
             ->when($cityId, function ($query) use ($cityId) {
