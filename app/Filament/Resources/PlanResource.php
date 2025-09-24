@@ -118,7 +118,7 @@ class PlanResource extends Resource
     public static function getRelations(): array
     {
         return [
-//            RelationManagers\UsersRelationManager::class
+            RelationManagers\UsersRelationManager::class
         ];
     }
 
