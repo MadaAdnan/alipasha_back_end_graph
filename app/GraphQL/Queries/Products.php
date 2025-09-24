@@ -37,8 +37,8 @@ final class Products
         $maxPrice = $args['max_price']??0;
         // throw new GraphQLExceptionHandler($userId);
 
-       /* $products= Product::active()
-            ->whereBetween('price', [$minPrice,  $maxPrice])
+        $products= Product::active()
+            ->whereBetween(\DB::raw('CAST(price AS DECIMAL(10,2))'), [$minPrice, $maxPrice<10000?$maxPrice:1000000])
             ->when($cityId != null, fn($query) =>
             $query->where(function ($q) use ($cityId) {
                 $q->where('city_id', $cityId)
@@ -84,8 +84,8 @@ final class Products
                 ->orderBy('price', $sort['price']);
         } else {
             $products->orderBy($orderBy['column'], $orderBy['orderBy']);
-        }*/
-        $products = Product::active()
+        }
+        /*$products = Product::active()
             ->whereBetween(\DB::raw('CAST(price AS DECIMAL(10,2))'), [$minPrice, $maxPrice<10000?$maxPrice:1000000])
 
             // 🔹 فلترة حسب المدينة
@@ -146,7 +146,7 @@ final class Products
         } else {
             $products->orderBy($orderBy['column'], $orderBy['orderBy']);
         }
-
+        */
 
         return $products;
     }
