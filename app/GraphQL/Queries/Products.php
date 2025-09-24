@@ -24,7 +24,8 @@ final class Products
 
     {
         $orderBy = isset($args['order_by']) ?$args['order_by']: ['column' => 'created_at', 'orderBy' => 'desc'];
-info($orderBy);
+        $sort= $args['sort'] ?? null;
+info($sort);
         $colors = isset($args['colors']) ?$args['colors']: [];
         $type = isset($args['type']) ?$args['type']: null;
         $userId = isset($args['user_id']) ?$args['user_id']: null;
