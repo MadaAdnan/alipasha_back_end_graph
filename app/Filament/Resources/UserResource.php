@@ -212,6 +212,7 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('points')->formatStateUsing(fn($record) => $record->getTotalPoint())->label('النقاط')->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('balances')->formatStateUsing(fn($record) => $record->getTotalBalance())->label('الرصيد')->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')->date('Y-m-d')->label('تاريخ التسجيل')->toggleable(isToggledHiddenByDefault: false)->sortable(),
+                Tables\Columns\TextColumn::make('trust')->label('مميز')->toggleable(isToggledHiddenByDefault: false)->sortable(),
 
             ])
             ->filters([
