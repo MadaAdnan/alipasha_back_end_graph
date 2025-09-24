@@ -34,7 +34,7 @@ final class Products
         $categoryId = isset($args['category_id']) ?$args['category_id']: null;
         $search = isset($args['search']) ?$args['search']: null;
         $minPrice = $args['min_price']??0;
-        $maxPrice = $args['max_price']??1000000;
+        $maxPrice = $args['max_price']??10000;
         // throw new GraphQLExceptionHandler($userId);
 
         $products= Product::active()
