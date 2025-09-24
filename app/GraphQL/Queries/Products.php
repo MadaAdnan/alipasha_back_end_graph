@@ -35,7 +35,7 @@ final class Products
         $search = isset($args['search']) ?$args['search']: null;
         // throw new GraphQLExceptionHandler($userId);
 
-        return Product::active()
+        $products= Product::active()
             ->where(function($query)use($colors, $type, $userId, $sub1Id, $cityId, $categoryId, $search){
 
 
@@ -89,16 +89,15 @@ final class Products
                 $query->where('name', 'LIKE', "%" . $args['search'] . "%")
                     ->orWhere('expert', 'LIKE', "%" . $args['search'] . "%")
                     ->orWhere('info', 'LIKE', "%" . $args['search'] . "%");
-                /* $term = '';
-                 foreach ($searchTerms as $term) {
-                     $query->orWhere(function ($query) use ($term) {
+            })
+            );
 
-                     });
-                 }*/
-
-            }))
-           ;
-
+        if ($sort != null) {
+            $products->orderBy('created_at', $sort['created_at'])
+                ->orderBy('price', $sort['price']);
+        } else {
+            $products->orderBy($orderBy['column'], $orderBy['orderBy']);
+        }
 
 
 
