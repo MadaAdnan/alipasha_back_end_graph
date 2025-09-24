@@ -1,5 +1,5 @@
 extend type Query{
-    products(order_by:OrderBy type:String,sub_type:String ,city_id:Int ,user_id:Int ,category_id:Int ,sub1_id:Int,colors:[Int],min_price:Float,max_price:Float,search:String,first:Int,page:Int):[Product] @paginate(builder:"App\\GraphQL\\Queries\\Products")
+    products(sort:Sort,order_by:OrderBy ,type:String,sub_type:String ,city_id:Int ,user_id:Int ,category_id:Int ,sub1_id:Int,colors:[Int],min_price:Float,max_price:Float,search:String,first:Int,page:Int):[Product] @paginate(builder:"App\\GraphQL\\Queries\\Products")
     product(id:ID!) : ProductDetails @field(resolver: "App\\GraphQL\\Queries\\Product@__invoke")
     myProducts(search:String):[Product] @paginate(builder:"App\\GraphQL\\Queries\\MyProducts") @guard
     mySpecialProducts(search:String):[Product]  @guard
@@ -26,6 +26,10 @@ type PaginatedProduct {
 input OrderBy{
     column:String
     orderBy:String
+}
+input Sort{
+    createdAt:String
+    price:String
 }
 type ProductDetails{
     product:Product
