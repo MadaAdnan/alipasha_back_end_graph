@@ -48,6 +48,12 @@ class AuthController extends Controller
         if(\Str::startsWith($request->phone, '0')){
             $request->phone = \Str::substr($request->phone, 1);
         }
+        $is_exists=User::where('email',$request->email)->exists();
+        if($is_exists){
+            return back()->withErrors([
+                'email' => 'هذا البريد الإلكتروني مسجل بالفعل.',
+            ])->withInput(); // حتى يرجع القيم القديمة
+        }
         $affiliate_id = User::where('affiliate',$request->affiliate)->first()?->id;
         $user = User::create([
             'name' => $request->name,
