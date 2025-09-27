@@ -175,14 +175,14 @@
 {{--TOAST --}}
 <div id="snackbar">{{session()->get('error')}}</div>
 {{--// TOAST--}}
-@auth
+{{--@auth
     <div class="balance-card d-flex flex-column">
         <a class="text-white" href="{{route('balances.index')}}"> <span class="title">رصيدك الحالي</span></a>
         <a class="text-white" href="{{route('balances.index')}}"><span class="balance">{{auth()->user()->getTotalBalance()}} $</span></a>
         <span class="divider"></span>
         <span class="footer"><a class="text-white" href="{{route('charges.index')}}">شحن الرصيد</a></span>
     </div>
-@endauth
+@endauth--}}
 <!-- nav bar  -->
 <button id="goUpButton" class="btn btn-primary">
     <i class="bi bi-arrow-up"></i>
