@@ -197,7 +197,11 @@
                 class="d-inline-block align-text-top"
             />
         </a>
+        @auth
+            <a class="d-none d-sm-inline-block" href="{{route('charges.index')}}"><i class="bi bi-cash-stack text-red"></i></a>
+            <a class="d-none d-sm-inline-block" href="{{route('balances.index')}}"><kbd class="badge badge-pill">{{auth()->user()->getTotalBalance()}} $</kbd></a>
 
+        @endauth
         <!-- Search Bar for Large Screens -->
 @section('search')
             <form method="get"
