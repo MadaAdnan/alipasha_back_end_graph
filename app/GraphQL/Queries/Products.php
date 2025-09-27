@@ -33,12 +33,12 @@ final class Products
         $cityId = isset($args['city_id']) ?$args['city_id']: null;
         $categoryId = isset($args['category_id']) ?$args['category_id']: null;
         $search = isset($args['search']) ?$args['search']: null;
-        $minPrice = $args['min_price']??0;
-        $maxPrice = $args['max_price']??10000;
+        $minPrice = $args['min_price']??null;
+        $maxPrice = $args['max_price']??null;
         // throw new GraphQLExceptionHandler($userId);
 
         $products= Product::active()
-            ->whereBetween(\DB::raw('CAST(price AS DECIMAL(10,2))'), [$minPrice??0, $maxPrice<10000?$maxPrice:1000000])
+            ->when((int)$maxPrice>0 ,fn($query)=>$query->whereBetween(\DB::raw('CAST(price AS DECIMAL(10,2))'), [$minPrice??0, $maxPrice<10000?$maxPrice:1000000]))
             ->when($cityId != null, fn($query) =>
             $query->where(function ($q) use ($cityId) {
                 $q->where('city_id', $cityId)
@@ -53,9 +53,12 @@ final class Products
             })
             ->when($type != null, function ($query) use ($type, $args) {
                 if (isset($args['sub_type']) && !empty($args['sub_type'])) {
-                    $query->where('type', $args['sub_type'])->where('end_date', '>', now());
+                    $query->where('type', $args['sub_type'])
+                        ->where('end_date', '>', now());
                 } elseif ($type === 'job' || $type === 'search_job') {
-                    $query->where(fn($q)=>$q->where('type', 'job')->orWhere('type', 'search_job'))->where('end_date', '>', now());
+                    $query->where(fn($q)=>$q->where('type', 'job')
+                        ->orWhere('type', 'search_job'))
+                        ->where('end_date', '>', now());
                 } else {
                     $query->where('type', $type);
 
