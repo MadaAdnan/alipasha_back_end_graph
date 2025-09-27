@@ -358,9 +358,9 @@
                     <span class="position-absolute top-0 badge badge-danger cart-badge">{{$cartsCount}}</span>
                     <img src="{{asset('assets/market.svg')}}" alt=""/>
                     @auth
+                        <a class="d-none d-md-inline-block" href="{{route('charges.index')}}"><i class="bi bi-cash-stack text-red"></i></a>
+                        <a class="d-none d-md-inline-block" href="{{route('balances.index')}}"><kbd class="badge badge-pill">{{auth()->user()->getTotalBalance()}} $</kbd></a>
 
-                        <a href="{{route('balances.index')}}"><kbd class="badge badge-pill">{{auth()->user()->getTotalBalance()}} $</kbd></a>
-                        <a href="{{route('charges.index')}}"><i class="bi bi-wallet text-red"></i></a>
                     @endauth
                 </a>
             @endauth
