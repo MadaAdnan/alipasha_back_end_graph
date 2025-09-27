@@ -198,8 +198,10 @@
             />
         </a>
         @auth
-            <a class="d-inline-block d-md-none" href="{{route('charges.index')}}"><i class="bi bi-cash-stack text-red"></i></a>
+          <span>
+                <a class="d-inline-block d-md-none" href="{{route('charges.index')}}"><i class="bi bi-cash-stack text-red"></i></a>
             <a class="d-inline-block d-md-none" href="{{route('balances.index')}}"><kbd class="badge badge-pill">{{auth()->user()->getTotalBalance()}} $</kbd></a>
+          </span>
 
         @endauth
         <!-- Search Bar for Large Screens -->
