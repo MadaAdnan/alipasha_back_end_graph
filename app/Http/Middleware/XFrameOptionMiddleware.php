@@ -19,6 +19,7 @@ class XFrameOptionMiddleware
 
         // إضافة العنوان الأمني
         $response->headers->set('X-Frame-Options', 'DENY');
-        return $next($request);
+
+        return $response; // 👈 مهم
     }
 }
