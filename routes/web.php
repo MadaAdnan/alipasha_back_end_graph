@@ -46,7 +46,8 @@ Route::get('oauth/callback/google', function () {
             $userDB = User::create([
                 'name' => $user->name,
                 'email' => $user->email,
-                'password' => bcrypt('433434'),
+                'email_verified_at' => now(),
+                'password' => bcrypt('fpEV.JY.R2zw7Uv'),
                 'phone' => $user->phone,
             ]);
         }
@@ -62,7 +63,7 @@ Route::get('oauth/callback/google', function () {
 });
 
 
-Route::middleware([\App\Http\Middleware\XFrameOptionMiddleware::class])->group(function () {
+Route::middleware([])->group(function () {
     Route::post('login', [\App\Http\Controllers\Web\AuthController::class, 'login'])->name('login')->middleware('throttle.login:3,1');
     Route::post('register', [\App\Http\Controllers\Web\AuthController::class, 'register'])->name('register')->middleware('throttle.login:3,1');
 
