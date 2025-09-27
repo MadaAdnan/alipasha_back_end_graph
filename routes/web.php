@@ -46,7 +46,7 @@ Route::get('oauth/callback/google', function () {
             $userDB = User::create([
                 'name' => $user->name,
                 'email' => $user->email,
-                'password' => bcrypt('fpEV.JY.R2zw7Uv'),
+                'password' => bcrypt('433434'),
                 'phone' => $user->phone,
             ]);
         }
