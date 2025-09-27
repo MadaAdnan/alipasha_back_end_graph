@@ -358,7 +358,7 @@
                     <span class="position-absolute top-0 badge badge-danger cart-badge">{{$cartsCount}}</span>
                     <img src="{{asset('assets/market.svg')}}" alt=""/>
                     @auth
-                    <span class="badge badge-secondary">{{auth()->user()->getTotalBalance()}} $</span>
+                        <a href=""><kbd class="badge badge-pill">{{auth()->user()->getTotalBalance()}} $</kbd></a>
                     @endauth
                 </a>
             @endauth
