@@ -200,7 +200,7 @@
         @auth
           <span clas="d-flex justify-content-center align-items-center">
                 <a class="d-inline-block d-md-none" href="{{route('charges.index')}}"><i class="bi bi-cash-stack text-red"></i></a>
-            <a class="d-inline-block d-md-none" href="{{route('balances.index')}}"><kbd class="badge badge-pill">{{auth()->user()->getTotalBalance()}} $</kbd></a>
+            <a class="d-inline-block d-md-none" href="{{route('balances.index')}}"><kbd class="badge badge-pill fs-4">{{auth()->user()->getTotalBalance()}} $</kbd></a>
           </span>
 
         @endauth
