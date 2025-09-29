@@ -24,6 +24,8 @@ final class RecommendedSpecialProducts
                 'active' => ProductActiveEnum::ACTIVE->value,
                 'level' => LevelProductEnum::SPECIAL->value
             ])
+            ->whereHas('user',fn($q)=>$q->where('users.is_active', 1))
+
             ->where(fn($query) => $query->whereDoesntHave('category', fn($query) => $query->where('type', CategoryTypeEnum::RESTAURANT->value)))
             ->where(function ($query) {
                 $query->where('end_date', '>', now());

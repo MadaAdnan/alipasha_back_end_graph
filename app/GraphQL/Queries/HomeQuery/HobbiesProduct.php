@@ -42,6 +42,8 @@ final class HobbiesProduct
             ->where('created_at', '>=', now()->subDays($setting->options['recommended_month'] ?? 30))->inRandomOrder();*/
         $now=now();
         $products = Product::active()
+            ->whereHas('user',fn($q)=>$q->where('users.is_active', 1))
+
             ->where('power', '>', 20)
             ->whereDoesntHave('category', fn($query) =>
             $query->where('type', CategoryTypeEnum::RESTAURANT->value)

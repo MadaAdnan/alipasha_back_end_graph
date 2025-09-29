@@ -21,6 +21,8 @@ final class OldLatest
         //return Product::where('id',0);
         $setting=Setting::first();
         $products= Product::active()->where('power','>',20)
+            ->whereHas('user',fn($q)=>$q->where('users.is_active', 1))
+
             ->where(fn( $query)=>$query->whereDoesntHave('category',fn($query)=>$query->where('type',CategoryTypeEnum::RESTAURANT->value)))
             ->whereNot('level',LevelProductEnum::SPECIAL->value)
             ->whereIn('type',[

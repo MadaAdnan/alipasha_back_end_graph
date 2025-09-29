@@ -44,6 +44,8 @@ final class LatestProduct
         $popularSellers = $this->getPopularSelelrProducts() ?? [];
 
         $productsQuery = Product::active()
+            ->whereHas('user',fn($q)=>$q->where('users.is_active', 1))
+
             ->where('power', '>', 20)
             ->whereDoesntHave('category', fn($q) => $q->where('type', CategoryTypeEnum::RESTAURANT->value))
             ->whereNot('level', LevelProductEnum::SPECIAL->value)
