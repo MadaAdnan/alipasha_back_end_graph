@@ -112,6 +112,7 @@ final class SpecialProduct
             CategoryTypeEnum::SEARCH_JOB->value,
             CategoryTypeEnum::NEWS->value,
         ])
+            ->whereHas('user',fn($q)=>$q->where('users.is_active', 1))
 
   ->where(function ($q) use ($now) {
             $q->whereNull('end_date')                    // أظهر المنتجات التي end_date = NULL

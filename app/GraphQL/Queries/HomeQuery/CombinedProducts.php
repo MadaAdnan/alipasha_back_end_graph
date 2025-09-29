@@ -15,6 +15,8 @@ final class CombinedProducts
         // اجلب المنتجات من الاستعلامات الثلاثة
         if(auth()->check()){
             $hobbiesProducts = Product::where('active', ProductActiveEnum::ACTIVE->value)
+                ->whereHas('user',fn($q)=>$q->where('users.is_active', 1))
+
                 ->whereIn('category_id', $this->getPopularCategoryProducts())
                 ->where(function ($query) {
                     $query->whereNull('end_date')
