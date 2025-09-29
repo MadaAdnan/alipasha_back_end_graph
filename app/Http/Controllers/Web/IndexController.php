@@ -38,6 +38,7 @@ class IndexController extends Controller
         // getSpecialProduct
         $special_ids=Product::where(['active'=>ProductActiveEnum::ACTIVE->value,
         'level'=>LevelProductEnum::SPECIAL->value])
+            ->whereHas('user',fn($q)=>$q->where('users.is_active', 1))
 
         ->where(fn( $query)=>$query->whereDoesntHave('category',fn($query)=>$query->where('type',CategoryTypeEnum::RESTAURANT->value)))
 
@@ -52,6 +53,7 @@ class IndexController extends Controller
             'level'=>LevelProductEnum::SPECIAL->value])
 
             ->where(fn( $query)=>$query->whereDoesntHave('category',fn($query)=>$query->where('type',CategoryTypeEnum::RESTAURANT->value)))
+            ->whereHas('user',fn($q)=>$q->where('users.is_active', 1))
 
             ->where(fn($query)=> $query
                 ->where('type',CategoryTypeEnum::PRODUCT->value)
@@ -78,6 +80,8 @@ class IndexController extends Controller
         $hobbies = Product::when($categoryId, fn($query) => $query->where('category_id', $categoryId))
             ->whereNotIn('id',$special_ids)
             ->where('active', ProductActiveEnum::ACTIVE->value)
+            ->whereHas('user',fn($q)=>$q->where('users.is_active', 1))
+
             ->where(function ($query) {
                 $query->where('type', CategoryTypeEnum::PRODUCT->value)
                     ->orWhere('type', CategoryTypeEnum::JOB->value)

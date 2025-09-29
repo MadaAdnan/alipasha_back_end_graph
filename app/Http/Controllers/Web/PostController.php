@@ -43,7 +43,10 @@ class PostController extends Controller
     public function show(string $id)
     {
 
-        $post=Product::whereActive(ProductActiveEnum::ACTIVE->value)->with('comments')->findOrFail($id);
+        $post=Product::whereActive(ProductActiveEnum::ACTIVE->value)
+            ->whereHas('user',fn($q)=>$q->where('users.is_active', 1))
+
+            ->with('comments')->findOrFail($id);
         if($post->type=='tender'){
             return to_route('tenders.show',$post->id);
         }elseif($post->type=='job' || $post->type=='search_job'){

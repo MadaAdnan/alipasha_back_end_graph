@@ -31,6 +31,8 @@ class JobController extends Controller
         $views = ProductView::whereHas('product', fn($query) => $query->job())->sum('count');
         $sellers = User::whereHas('products',fn($query)=>$query->where('products.type','job')->orWhere('products.type','search_job'))->count();
         $jobs=Product::job()
+            ->whereHas('user',fn($q)=>$q->where('users.is_active', 1))
+
             ->when(!empty($q),fn($query)=>$query->where('info','like',"%{$q}%"))
             ->where('active',ProductActiveEnum::ACTIVE->value)
             ->when(!empty($city),fn($query)=>$query->where('city_id',$city))
