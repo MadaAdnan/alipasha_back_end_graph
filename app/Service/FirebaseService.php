@@ -114,7 +114,7 @@ class FirebaseService
             /**
              * @var $response \Kreait\Firebase\Messaging\MulticastSendReport
              */
-            $response = $this->messaging->send($message, $tokens);
+            $response = $this->messaging->sendMulticast($message, $tokens);
             \Log::info("تم إرسال إشعارات", [
                 'total' => count($tokens),
                 'success' => $response->successes()->count(),
