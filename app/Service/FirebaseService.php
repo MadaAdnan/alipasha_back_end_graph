@@ -82,7 +82,7 @@ class FirebaseService
         // تصفية التوكينات: إزالة الفارغ والمكرر
         $tokens = collect($deviceTokens)
             ->filter(fn($t) => !empty($t) && is_string($t))
-            ->map(fn($t) => trim($t))
+
             ->unique()
             ->values()
             ->toArray();
