@@ -9,6 +9,8 @@ use Kreait\Firebase\Messaging\AndroidConfig;
 use Kreait\Firebase\Messaging\CloudMessage;
 use Kreait\Firebase\Messaging\MessageTarget;
 use Kreait\Firebase\Messaging\Notification;
+use LaravelFcmNotifications\Facades\Fcm;
+use LaravelFcmNotifications\Services\FcmMessage;
 
 
 class FirebaseService
@@ -126,37 +128,25 @@ class FirebaseService
     }*/
     public function sendNotificationToMultipleTokens(array $deviceTokens, array $data)
     {
-        // ... your existing token filtering logic ...
-
-        // 1. Split tokens into chunks to avoid timeout and quota issues
 
 
-        $allReports = [];
-        $message = CloudMessage::new();
+        $message = FcmMessage::create(
+            title: $data['title'] ?? 'علي باشا',
+            body: $data['body'] ?? 'إشعار جديد'
+        );
 
-        // 3. Use withNotification for background/system tray handling
-        $message = $message->withNotification(Notification::create(
-            $data['title'] ?? 'بدون عنوان',
-            $data['body'] ?? ''
-        ));
+        $result = Fcm::sendToMultipleDevices($deviceTokens, $message);
 
-        // 4. Use withData for custom key-value pairs for your app
-        $message = $message->withData([
-            'click_action' => 'FLUTTER_NOTIFICATION_CLICK',
-            'tag' => 'grouped_notification',
-            // Add any other custom data your app needs
-        ]);
+// Check results
+        echo "Successfully sent to: {$result['summary']['success']} devices\n";
+        echo "Failed to send to: {$result['summary']['failure']} devices\n";
 
-        // 5. Send multicast to this chunk of tokens
-        $report = $this->messaging->sendMulticast($message, $deviceTokens);
+// Handle individual failures
+        foreach ($result['details'] as $detail) {
+            if (!$detail['success']) {
+                echo "Failed for token: {$detail['token']}, Error: {$detail['error']}\n";
+            }
+        }
 
-        \Log::info("Partial send report", [
-            'chunk_size' => count($deviceTokens),
-            'successes' => $report->successes()->count(),
-            'failures' => $report->failures()->count(),
-        ]);
-
-        return $report;
     }
-
 }
