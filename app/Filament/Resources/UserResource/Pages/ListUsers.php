@@ -30,6 +30,9 @@ class ListUsers extends ListRecords
                         ->rows(4),
                 ])
                 ->action(function (array $data) {
+                    \Artisan::call('optimize:clear');
+                    \Artisan::call('cache:clear');
+                    \Artisan::call('config:clear');
                     // Dispatch the global notification job
                     SendGlobalFirebaseNotificationJob::dispatch($data['title'], $data['body']);
 
