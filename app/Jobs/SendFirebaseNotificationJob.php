@@ -38,7 +38,7 @@ class SendFirebaseNotificationJob implements ShouldQueue
             $tokens = collect($this->ids ?? [])
                 ->filter(fn($t) => is_string($t) && !empty($t) &&  strtolower($t) !== 'null') ;                        // لازم سترنغ
 
-         $firebaseService->sendNotificationToMultipleTokens($tokens, $this->data);
+         $firebaseService->sendNotificationToMultipleTokens($tokens->toArray(), $this->data);
 
 
         }catch (Exception | Error $e){
