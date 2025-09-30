@@ -77,7 +77,7 @@ class FirebaseService
     }*/
     public function sendNotificationToMultipleTokens(array $deviceTokens, array $data)
     {
-        $logger = new FirebaseNotificationLogger();
+//        $logger = new FirebaseNotificationLogger();
 
         // تصفية التوكينات: إزالة الفارغ والمكرر
         $tokens = collect($deviceTokens)
@@ -117,8 +117,6 @@ class FirebaseService
              * @var $response \Kreait\Firebase\Messaging\MulticastSendReport
              */
             $response = $this->messaging->sendMulticast($message, $tokens);
-
-
             \Log::info("تم إرسال إشعارات", [
                 'total' => count($tokens),
                 'success' => $response->successes()->count(),

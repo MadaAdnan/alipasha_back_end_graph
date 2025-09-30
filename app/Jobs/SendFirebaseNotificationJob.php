@@ -42,6 +42,7 @@ class SendFirebaseNotificationJob implements ShouldQueue
 
 
         }catch (Exception | Error $e){
+
             \Log::info('SendFirebaseNotificationJob'.$e->getMessage());
 
         }
