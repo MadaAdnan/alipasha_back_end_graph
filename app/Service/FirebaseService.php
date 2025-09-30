@@ -21,7 +21,6 @@ class FirebaseService
 
 
         $factory = (new Factory)
-
             ->withServiceAccount([
                 "type" => "service_account",
                 "project_id" => "peaceful-nature-376111",
@@ -39,42 +38,42 @@ class FirebaseService
         $this->messaging = $factory->createMessaging();
     }
 
-   /* public function sendNotificationToMultipleTokens($deviceTokens, $data)
-    {
-        $logger = new FirebaseNotificationLogger();
-        $config = AndroidConfig::fromArray([
-            'ttl' => '3600s',
-            'priority' => 'high',
-            'notification' => [
-                'title' => $data['title'],
-                'body' => $data['body'],
-                'icon' => 'stock_ticker_update',
-                'color' => '#f45342',
-                'sound' => 'default',
-                'tag' => 'grouped_notification',
-                'click_action' => 'FLUTTER_NOTIFICATION_CLICK'
-            ],
+    /* public function sendNotificationToMultipleTokens($deviceTokens, $data)
+     {
+         $logger = new FirebaseNotificationLogger();
+         $config = AndroidConfig::fromArray([
+             'ttl' => '3600s',
+             'priority' => 'high',
+             'notification' => [
+                 'title' => $data['title'],
+                 'body' => $data['body'],
+                 'icon' => 'stock_ticker_update',
+                 'color' => '#f45342',
+                 'sound' => 'default',
+                 'tag' => 'grouped_notification',
+                 'click_action' => 'FLUTTER_NOTIFICATION_CLICK'
+             ],
 
-        ]);
-        $message = CloudMessage::new()
-            ->withAndroidConfig($config)
-            ->withNotification(Notification::create($data['title'], $data['body']));
+         ]);
+         $message = CloudMessage::new()
+             ->withAndroidConfig($config)
+             ->withNotification(Notification::create($data['title'], $data['body']));
 
-        $responses = [];
+         $responses = [];
 
-        foreach ($deviceTokens as $token) {
-            try {
-                $response = $this->messaging->send($message->withChangedTarget(MessageTarget::TOKEN, $token));
-                $logger->logSuccess($token, $data);
-            } catch (\Kreait\Firebase\Exception\Messaging\NotFound $e) {
-                User::where('device_token', $token)->update(['device_token' => null]);
-                $logger->logFailure($token, $e->getMessage());
-            }
-            $responses[] = $response;
-        }
+         foreach ($deviceTokens as $token) {
+             try {
+                 $response = $this->messaging->send($message->withChangedTarget(MessageTarget::TOKEN, $token));
+                 $logger->logSuccess($token, $data);
+             } catch (\Kreait\Firebase\Exception\Messaging\NotFound $e) {
+                 User::where('device_token', $token)->update(['device_token' => null]);
+                 $logger->logFailure($token, $e->getMessage());
+             }
+             $responses[] = $response;
+         }
 
-        return $responses;
-    }*/
+         return $responses;
+     }*/
     public function sendNotificationToMultipleTokens(array $deviceTokens, array $data)
     {
 //        $logger = new FirebaseNotificationLogger();
@@ -82,11 +81,10 @@ class FirebaseService
         // تصفية التوكينات: إزالة الفارغ والمكرر
         $tokens = collect($deviceTokens)
             ->filter(fn($t) => !empty($t) && is_string($t))
-
             ->unique()
             ->values()
             ->toArray();
-
+        \Log::warning("tokens " . count($tokens));
         if (empty($tokens)) {
             \Log::warning('لم يتم العثور على توكينات صالحة للإرسال');
             return [];
@@ -98,11 +96,11 @@ class FirebaseService
             'priority' => 'high',
             'notification' => [
                 'title' => $data['title'] ?? 'بدون عنوان',
-                'body'  => $data['body'] ?? '',
-                'icon'  => 'stock_ticker_update',
+                'body' => $data['body'] ?? '',
+                'icon' => 'stock_ticker_update',
                 'color' => '#f45342',
                 'sound' => 'default',
-                'tag'   => 'grouped_notification',
+                'tag' => 'grouped_notification',
                 'click_action' => 'FLUTTER_NOTIFICATION_CLICK'
             ],
         ]);
