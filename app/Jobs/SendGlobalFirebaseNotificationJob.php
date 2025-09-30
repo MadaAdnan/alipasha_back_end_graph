@@ -42,7 +42,7 @@ class SendGlobalFirebaseNotificationJob implements ShouldQueue
             $tokens = collect($tokens ?? [])
                 ->filter(fn($t) => !empty($t) && \Str::lower($t)!='null');
             // Dispatch notification job for this chunk with delay based on chunk index
-            SendFirebaseNotificationJob::dispatch($tokens, [
+            SendFirebaseNotificationJob::dispatch($tokens->toArray(), [
                 'title' => $this->title,
                 'body' => $this->body,
             ])->delay(now()->addSeconds($index * 10));
