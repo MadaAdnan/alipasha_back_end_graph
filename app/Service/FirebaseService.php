@@ -74,7 +74,7 @@ class FirebaseService
 
          return $responses;
      }*/
-    public function sendNotificationToMultipleTokens(array $deviceTokens, array $data)
+    /*public function sendNotificationToMultipleTokens(array $deviceTokens, array $data)
     {
 //        $logger = new FirebaseNotificationLogger();
 
@@ -110,10 +110,7 @@ class FirebaseService
             ->withNotification(Notification::create($data['title'] ?? '', $data['body'] ?? ''));
 
         try {
-            // إرسال متعدد
-            /**
-             * @var $response \Kreait\Firebase\Messaging\MulticastSendReport
-             */
+
             $response = $this->messaging->sendMulticast($message, $tokens);
             \Log::info("تم إرسال إشعارات", [
                 'total' => count($tokens),
@@ -126,6 +123,40 @@ class FirebaseService
             \Log::error('فشل إرسال الإشعارات: ' . $e->getMessage(), ['trace' => $e->getTraceAsString()]);
             return [];
         }
+    }*/
+    public function sendNotificationToMultipleTokens(array $deviceTokens, array $data)
+    {
+        // ... your existing token filtering logic ...
+
+        // 1. Split tokens into chunks to avoid timeout and quota issues
+
+
+        $allReports = [];
+        $message = CloudMessage::new();
+
+        // 3. Use withNotification for background/system tray handling
+        $message = $message->withNotification(Notification::create(
+            $data['title'] ?? 'بدون عنوان',
+            $data['body'] ?? ''
+        ));
+
+        // 4. Use withData for custom key-value pairs for your app
+        $message = $message->withData([
+            'click_action' => 'FLUTTER_NOTIFICATION_CLICK',
+            'tag' => 'grouped_notification',
+            // Add any other custom data your app needs
+        ]);
+
+        // 5. Send multicast to this chunk of tokens
+        $report = $this->messaging->sendMulticast($message, $deviceTokens);
+
+        \Log::info("Partial send report", [
+            'chunk_size' => count($deviceTokens),
+            'successes' => $report->successes()->count(),
+            'failures' => $report->failures()->count(),
+        ]);
+
+        return $report;
     }
 
 }
