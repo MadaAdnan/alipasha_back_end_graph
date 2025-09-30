@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ca53674c28ba438e6c3f8e6b1b5ddca5",
+    "content-hash": "e8bbe47439ad9194c9769fb73202cd80",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -6283,6 +6283,66 @@
                 }
             ],
             "time": "2024-12-27T09:28:11+00:00"
+        },
+        {
+            "name": "netosts/laravel-fcm-notifications",
+            "version": "1.0.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/netosts/laravel-fcm-notifications.git",
+                "reference": "aafc8c908f44e8b71178a54f7f16baf99cb6fd4b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/netosts/laravel-fcm-notifications/zipball/aafc8c908f44e8b71178a54f7f16baf99cb6fd4b",
+                "reference": "aafc8c908f44e8b71178a54f7f16baf99cb6fd4b",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "^10.0|^11.0|^12.0",
+                "php": "^8.1"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "Fcm": "LaravelFcmNotifications\\Facades\\Fcm"
+                    },
+                    "providers": [
+                        "LaravelFcmNotifications\\Providers\\FcmNotificationsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "LaravelFcmNotifications\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "netosts",
+                    "email": "netostt91@gmail.com"
+                }
+            ],
+            "description": "A robust and secure Firebase Cloud Messaging (FCM) notification system for Laravel applications",
+            "keywords": [
+                "FCM",
+                "firebase",
+                "laravel",
+                "messaging",
+                "mobile",
+                "notifications",
+                "push-notifications"
+            ],
+            "support": {
+                "issues": "https://github.com/netosts/laravel-fcm-notifications/issues",
+                "source": "https://github.com/netosts/laravel-fcm-notifications/tree/1.0.9"
+            },
+            "time": "2025-09-15T20:54:53+00:00"
         },
         {
             "name": "nette/schema",
