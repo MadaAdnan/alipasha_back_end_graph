@@ -39,7 +39,7 @@ class FirebaseService
         $this->messaging = $factory->createMessaging();
     }
 
-    public function sendNotificationToMultipleTokens($deviceTokens, $data)
+   /* public function sendNotificationToMultipleTokens($deviceTokens, $data)
     {
         $logger = new FirebaseNotificationLogger();
         $config = AndroidConfig::fromArray([
@@ -74,5 +74,62 @@ class FirebaseService
         }
 
         return $responses;
+    }*/
+    public function sendNotificationToMultipleTokens(array $deviceTokens, array $data)
+    {
+        $logger = new FirebaseNotificationLogger();
+
+        // تصفية التوكينات: إزالة الفارغ والمكرر
+        $tokens = collect($deviceTokens)
+            ->filter(fn($t) => !empty($t) && is_string($t))
+            ->map(fn($t) => trim($t))
+            ->unique()
+            ->values()
+            ->toArray();
+
+        if (empty($tokens)) {
+            \Log::warning('لم يتم العثور على توكينات صالحة للإرسال');
+            return [];
+        }
+
+        // إعداد الرسالة
+        $config = AndroidConfig::fromArray([
+            'ttl' => '3600s',
+            'priority' => 'high',
+            'notification' => [
+                'title' => $data['title'] ?? 'بدون عنوان',
+                'body'  => $data['body'] ?? '',
+                'icon'  => 'stock_ticker_update',
+                'color' => '#f45342',
+                'sound' => 'default',
+                'tag'   => 'grouped_notification',
+                'click_action' => 'FLUTTER_NOTIFICATION_CLICK'
+            ],
+        ]);
+
+        $message = CloudMessage::new()
+            ->withAndroidConfig($config)
+            ->withNotification(Notification::create($data['title'] ?? '', $data['body'] ?? ''));
+
+        try {
+            // إرسال متعدد
+            /**
+             * @var $response \Kreait\Firebase\Messaging\MulticastSendReport
+             */
+            $response = $this->messaging->sendMulticast($message, $tokens);
+
+
+            \Log::info("تم إرسال إشعارات", [
+                'total' => count($tokens),
+                'success' => $response->successes()->count(),
+                'failure' => $response->failures()->count(),
+            ]);
+
+            return $response;
+        } catch (\Throwable $e) {
+            \Log::error('فشل إرسال الإشعارات: ' . $e->getMessage(), ['trace' => $e->getTraceAsString()]);
+            return [];
+        }
     }
+
 }
