@@ -40,6 +40,8 @@ type User{
     invoices_count:Int
     invoices_seller_count:Int
     info:String
+    special_product_count:Int
+    advices_count:Int
     following_count:Int
     products:[Product]  @hasMany
     plans:[Plan] @belongsToMany(relation:"plans")
