@@ -12,6 +12,7 @@ final class MyProducts
     {
         return \App\Models\Product::where('user_id', auth()->id())
            ->when(isset($args['search']) && !empty($args['search']),fn($query)=>$query ->where(fn($query) => $query->where('name', 'LIKE', "%{$args['search']}%")->orWhere('expert', 'LIKE', "%{$args['search']}%")))
+           ->when(isset($args['categoryId']),fn($query)=>$query ->where('category_id', $args['categoryId']))
             ->orderBy('created_at','desc');
     }
 }
