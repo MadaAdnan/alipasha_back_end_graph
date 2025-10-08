@@ -25,7 +25,7 @@ final class AddSpecialProduct
                     'level' => 'special'
                 ]);
             }else{
-                throw new GraphQLExceptionHandler('لا يمكنك اضافة منتج خاص');
+                throw new GraphQLExceptionHandler('قم بترقية الخطة لإضافة المزيد');
             }
 
         }else{
