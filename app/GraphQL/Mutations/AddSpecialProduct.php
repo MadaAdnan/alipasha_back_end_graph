@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations;
 
 use App\Exceptions\GraphQLExceptionHandler;
+use App\Helpers\ProductsHelper;
 use App\Models\Product;
 
 final class AddSpecialProduct
@@ -18,9 +19,21 @@ final class AddSpecialProduct
         if (!$product) {
             throw new GraphQLExceptionHandler('المنتج غير موجود');
         }
-        $product->update([
-            'level' => $args['level']
-        ]);
+        if($args['level']=='special' ){
+            if( ProductsHelper::canAddSpecial()){
+                $product->update([
+                    'level' => 'special'
+                ]);
+            }else{
+                throw new GraphQLExceptionHandler('لا يمكنك اضافة منتج خاص');
+            }
+
+        }else{
+            $product->update([
+                'level' => 'normal'
+            ]);
+        }
+
         return $product;
     }
 }
