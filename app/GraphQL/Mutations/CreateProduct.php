@@ -33,9 +33,9 @@ final class CreateProduct
         if (!$isAvailableCreate) {
             throw new GraphQLExceptionHandler('لا يمكنك نشر المزيد خلال هذا الشهر يرجى ترقية الخطة لنشر المزيد');
         }
-        $is_special = $data['is_special'] ?? false;
-        if ($is_special==true && !ProductsHelper::canAddSpecial()) {
-            $is_special = false;
+        $is_special =  false;
+        if ($data['is_special']==true && ProductsHelper::canAddSpecial()) {
+            $is_special = true;
         }
         try {
             $product = \App\Models\Product::create([

@@ -22,9 +22,9 @@ final class UpdateProduct
             if (!$product) {
                 throw new \Exception('المنتج رقم ' . $productId . ' غير موجود');
             }
-            $is_special = $data['is_special'] ?? false;
-            if ($is_special == true && !ProductsHelper::canAddSpecial()) {
-                $is_special = false;
+            $is_special =   false;
+            if ($data['is_special'] == true && ProductsHelper::canAddSpecial()) {
+                $is_special = true;
             }
 // New Values
             $incoming = [
