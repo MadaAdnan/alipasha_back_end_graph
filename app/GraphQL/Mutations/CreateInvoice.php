@@ -28,6 +28,9 @@ final  class CreateInvoice
                 throw new GraphQLExceptionHandler('خطأ في الطلب يرجى المحاولة من جديد');
             }
             $seller=User::find($data['seller_id']);
+            if(!$seller || !$seller->is_active){
+                throw new GraphQLExceptionHandler('البائع غير موجود');
+            }
             if(auth()->user()->city?->is_delivery!=true || $seller?->city?->is_delivery!=true ){
                 throw new GraphQLExceptionHandler('الشحن غير متوفر في المدينة المحددة');
             }
