@@ -94,7 +94,7 @@ class InvoiceChart extends ChartWidget
                 [
                     'label' => 'طلبات الشحن تم الموافقة',
                     'data' => $invoiceAgree->map(fn (TrendValue $value) => $value->aggregate),
-                    'backgroundColor' => '#99FF00',
+                    'backgroundColor' => '#99FFDD',
                     'borderColor' => '#99FF00',
                 ],
                 [
