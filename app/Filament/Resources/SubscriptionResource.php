@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\PlansDurationEnum;
 use App\Filament\Resources\SubscriptionResource\Pages;
 use App\Filament\Resources\SubscriptionResource\RelationManagers;
 use App\Models\PlanUser;
@@ -31,6 +32,11 @@ class SubscriptionResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(function ($query) {
+                return $query->whereHas('plan', function ($q) {
+                    $q->whereNot('duration', PlansDurationEnum::FREE->value); // أو أي شرط يدل على أنها ليست مجانية
+                });
+            })
             ->columns([
                 Tables\Columns\TextColumn::make('user.name'),
                 Tables\Columns\TextColumn::make('plan.name'),
