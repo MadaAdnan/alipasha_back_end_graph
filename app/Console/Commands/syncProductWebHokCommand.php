@@ -37,7 +37,7 @@ class syncProductWebHokCommand extends Command
                     ->chunk(30, function ($products) use ($user) {
                         try {
                             dispatch(new WebhokProductsJob($products, $user->url_webhok));
-                            \Log::info('Job dispatched for user: ' . $user->id . ' count: ' . $products->count());
+
                         } catch (\Throwable $e) {
                             \Log::error("Error dispatching job: " . $e->getMessage());
                         }
