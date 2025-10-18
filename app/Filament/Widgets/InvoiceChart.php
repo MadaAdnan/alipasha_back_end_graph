@@ -89,13 +89,26 @@ class InvoiceChart extends ChartWidget
             )
             ->$per()
             ->count();
+        $invoicePending = Trend::query(Invoice::where('status',OrderStatusEnum::PENDING->value))
+            ->between(
+                start:$start ,
+                end: $end,
+            )
+            ->$per()
+            ->count();
         return [
             'datasets' => [
+                [
+                    'label' => 'طلبات الشحن بالإنتظار',
+                    'data' => $invoicePending->map(fn (TrendValue $value) => $value->aggregate),
+                    'backgroundColor' => '#99CDDD',
+                    'borderColor' => '#99CDDD',
+                ],
                 [
                     'label' => 'طلبات الشحن تم الموافقة',
                     'data' => $invoiceAgree->map(fn (TrendValue $value) => $value->aggregate),
                     'backgroundColor' => '#99FFDD',
-                    'borderColor' => '#99FF00',
+                    'borderColor' => '#99FFDD',
                 ],
                 [
                     'label' => 'طلبات الشحن  المكتملة',
