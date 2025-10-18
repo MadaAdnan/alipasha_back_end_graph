@@ -37,6 +37,8 @@ class syncProductWebHokCommand extends Command
 
             $user->products->chunk(50)->each(function ($chunkedProducts) use ($user) {
                 // نمرر كل دفعة إلى Job
+                \Log::error('Products');
+                \Log::error($chunkedProducts->count());
                 $job = new WebhokProductsJob($chunkedProducts, $user->url_webhok);
                 dispatch($job);
             });
