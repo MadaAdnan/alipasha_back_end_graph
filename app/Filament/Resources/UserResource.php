@@ -265,13 +265,27 @@ class UserResource extends Resource
                 Tables\Actions\ActionGroup::make([
                     // sync products
                     Tables\Actions\Action::make('sync_products')->action(function ($record) {
-                        $products = Product::where([
+                        /*$products = Product::where([
                             'user_id' => $record->id,
                             'is_sync_webhok' => false,
                         ])->get();
 
                         $job = new WebhokProductsJob($products, $record->url_webhok);
-                        dispatch($job);
+                        dispatch($job);*/
+                        User::where('id',$record->id)->whereNotNull('url_webhok')
+                            ->whereHas('products', fn($q) => $q->where('is_sync_webhok', false))
+                            ->each(function ($user) {
+                                Product::where('user_id', $user->id)
+                                    ->where('is_sync_webhok', false)
+                                    ->chunk(30, function ($products) use ($user) {
+                                        try {
+                                            dispatch(new WebhokProductsJob($products, $user->url_webhok));
+                                            \Log::info('Job dispatched for user: ' . $user->id . ' count: ' . $products->count());
+                                        } catch (\Throwable $e) {
+                                            \Log::error("Error dispatching job: " . $e->getMessage());
+                                        }
+                                    });
+                            });
                     })->visible(fn($record) => \Str::isUrl($record->url_webhok) && $record->products()->where('products.is_sync_webhok', false)->count() > 0)->label('مزامنة المنتجات'),
 
 
