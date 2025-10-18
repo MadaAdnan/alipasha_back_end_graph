@@ -12,7 +12,7 @@ use Filament\Widgets\ChartWidget;
 use Flowframe\Trend\Trend;
 use Flowframe\Trend\TrendValue;
 
-class OrdersChart extends ChartWidget
+class InvoiceChart extends ChartWidget
 {
    // protected static ?string $heading = 'طلبات الشحن';
     public static function canView(): bool
@@ -66,15 +66,8 @@ class OrdersChart extends ChartWidget
             $end = now()->startOfYear()->subYear()->endOfYear();
             $per = "perMonth";
         }
-        $ordersComplete = Trend::query(Order::where('status',OrderStatusEnum::COMPLETE->value))
- ->between(
-                start:$start ,
-                end: $end,
-            )
-            ->perMonth()
-            ->count();
 
-        $ordersCanceled = Trend::query(Order::where('status',OrderStatusEnum::CANCELED->value))
+        $invoiceComplete = Trend::query(Invoice::where('status',OrderStatusEnum::COMPLETE->value))
             ->between(
                 start:$start ,
                 end: $end,
@@ -82,24 +75,43 @@ class OrdersChart extends ChartWidget
             ->$per()
             ->count();
 
+        $invoiceCanceled = Trend::query(Invoice::where('status',OrderStatusEnum::CANCELED->value))
+            ->between(
+                start:$start ,
+                end: $end,
+            )
+            ->$per()
+            ->count();
+        $invoiceAgree = Trend::query(Invoice::where('status',OrderStatusEnum::AGREE->value))
+            ->between(
+                start:$start ,
+                end: $end,
+            )
+            ->$per()
+            ->count();
         return [
             'datasets' => [
                 [
-                    'label' => 'طلبات الشحن الخاصة المكتملة',
-                    'data' => $ordersComplete->map(fn (TrendValue $value) => $value->aggregate),
-                    'backgroundColor' => '#00FF00',
-                    'borderColor' => '#00FF00',
+                    'label' => 'طلبات الشحن تم الموافقة',
+                    'data' => $invoiceAgree->map(fn (TrendValue $value) => $value->aggregate),
+                    'backgroundColor' => '#99FF00',
+                    'borderColor' => '#99FF00',
                 ],
                 [
-                    'label' => 'طلبات الشحن الخاصة الملغية',
-                    'data' => $ordersCanceled->map(fn (TrendValue $value) => $value->aggregate),
-                    'backgroundColor' => '#FF0000',
-                    'borderColor' => '#FF0000',
+                    'label' => 'طلبات الشحن  المكتملة',
+                    'data' => $invoiceComplete->map(fn (TrendValue $value) => $value->aggregate),
+                    'backgroundColor' => '#99FF00',
+                    'borderColor' => '#99FF00',
+                ],
+                [
+                    'label' => 'طلبات الشحن  الملغية',
+                    'data' => $invoiceCanceled->map(fn (TrendValue $value) => $value->aggregate),
+                    'backgroundColor' => '#FF9900',
+                    'borderColor' => '#FF9900',
                 ],
 
-
             ],
-            'labels' =>  $ordersCanceled->map(fn (TrendValue $value) => $value->date),
+            'labels' =>  $invoiceComplete->map(fn (TrendValue $value) => $value->date),
         ];
     }
 
