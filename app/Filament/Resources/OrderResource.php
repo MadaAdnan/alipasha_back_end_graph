@@ -22,11 +22,11 @@ class OrderResource extends Resource
     protected static ?string $model = Order::class;
 
   //  protected static ?string $navigationIcon = 'fas-truck';
-    protected static ?string $navigationGroup='الخدمات المدفوعة';
+    protected static ?string $navigationGroup='الشحن';
     protected static ?string $label='طلبات الشحن';
     protected static ?string $navigationLabel='طلبات الشحن';
     protected static ?string $pluralLabel='طلبات الشحن';
-protected static ?int $navigationSort=-14;
+
 
     public static function getNavigationBadge(): ?string
     {
