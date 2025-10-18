@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Jobs\WebhokProductsJob;
 use App\Jobs\WebhokUserJob;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Console\Command;
 
@@ -28,8 +29,20 @@ class syncProductWebHokCommand extends Command
      */
     public function handle()
     {
+        User::whereNotNull('url_webhok')
+            ->whereHas('products', fn($q) => $q->where('is_sync_webhok', false))
+            ->each(function ($user) {
+                Product::where('user_id', $user->id)
+                    ->where('is_sync_webhok', false)
+                    ->chunk(30, function ($products) use ($user) {
+                        dispatch(new WebhokProductsJob($products, $user->url_webhok));
+                    });
 
-        $users = User::whereNotNull('url_webhok')->whereHas('products', fn($query) => $query->where('products.is_sync_webhok', false))
+                if ($user->is_sync_webhok == false) {
+                    dispatch(new WebhokUserJob($user));
+                }
+            });
+      /*  $users = User::whereNotNull('url_webhok')->whereHas('products', fn($query) => $query->where('products.is_sync_webhok', false))
             ->with([
                 'products' => fn($query) => $query->where('products.is_sync_webhok', false),
             ])->get();
@@ -41,17 +54,17 @@ class syncProductWebHokCommand extends Command
                 \Log::error($chunkedProducts->count());
                 $job = new WebhokProductsJob($chunkedProducts, $user->url_webhok);
                 dispatch($job);
-            });
+            });*/
 
 
 
 
-         /*   $job = new WebhokProductsJob($user->products, $user->url_webhok);
-            dispatch($job);*/
-            if ($user->is_sync_webhok == false) {
-                $job2 = new WebhokUserJob($user);
-                dispatch($job2);
-            }
-        }
+       //   $job = new WebhokProductsJob($user->products, $user->url_webhok);
+          //  dispatch($job);
+//            if ($user->is_sync_webhok == false) {
+//                $job2 = new WebhokUserJob($user);
+//                dispatch($job2);
+//            }
+//        }
     }
 }
