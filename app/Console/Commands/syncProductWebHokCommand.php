@@ -34,8 +34,18 @@ class syncProductWebHokCommand extends Command
                 'products' => fn($query) => $query->where('products.is_sync_webhok', false),
             ])->get();
         foreach ($users as $user) {
-            $job = new WebhokProductsJob($user->products, $user->url_webhok);
-            dispatch($job);
+
+            $user->products->chunk(50)->each(function ($chunkedProducts) use ($user) {
+                // نمرر كل دفعة إلى Job
+                $job = new WebhokProductsJob($chunkedProducts, $user->url_webhok);
+                dispatch($job);
+            });
+
+
+
+
+         /*   $job = new WebhokProductsJob($user->products, $user->url_webhok);
+            dispatch($job);*/
             if ($user->is_sync_webhok == false) {
                 $job2 = new WebhokUserJob($user);
                 dispatch($job2);
