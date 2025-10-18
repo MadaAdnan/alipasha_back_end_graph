@@ -130,6 +130,6 @@ class InvoiceChart extends ChartWidget
 
     protected function getType(): string
     {
-        return 'Line';
+        return 'bar';
     }
 }
