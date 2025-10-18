@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Enums\PlansDurationEnum;
 use App\Filament\Resources\SubscriptionResource\Pages;
 use App\Filament\Resources\SubscriptionResource\RelationManagers;
+use App\Models\Plan;
 use App\Models\PlanUser;
 use App\Models\Subscription;
 use Filament\Forms;
@@ -32,16 +33,17 @@ class SubscriptionResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->defaultSort('subscription_date')
             ->modifyQueryUsing(function ($query) {
                 return $query->whereHas('plan', function ($q) {
                     $q->whereNot('duration', PlansDurationEnum::FREE->value); // أو أي شرط يدل على أنها ليست مجانية
                 });
             })
             ->columns([
-                Tables\Columns\TextColumn::make('user.name'),
-                Tables\Columns\TextColumn::make('plan.name'),
-                Tables\Columns\TextColumn::make('subscription_date'),
-                Tables\Columns\TextColumn::make('expired_date'),
+                Tables\Columns\TextColumn::make('user.name')->label('المستخدم')->url(fn($record)=>UserResource::getUrl('edit',['record'=>$record->user->id])),
+                Tables\Columns\TextColumn::make('plan.name')->label('الخطة')->url(fn($record)=>Plan::getUrl('edit',['record'=>$record->plan->id])),
+                Tables\Columns\TextColumn::make('subscription_date')->label('بداية الإشتراك')->date('Y-m-d'),
+                Tables\Columns\TextColumn::make('expired_date')->label('نهاية الإشتراك')->date('Y-m-d'),
             ])
             ->filters([
                 //
