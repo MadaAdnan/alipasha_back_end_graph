@@ -33,7 +33,7 @@ class SubscriptionResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->defaultSort('subscription_date')
+            ->defaultSort('subscription_date','desc')
             ->modifyQueryUsing(function ($query) {
                 return $query->whereHas('plan', function ($q) {
                     $q->whereNot('duration', PlansDurationEnum::FREE->value); // أو أي شرط يدل على أنها ليست مجانية
