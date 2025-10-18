@@ -33,7 +33,7 @@ class WebhokProductsJob implements ShouldQueue
             $url=$this->url_webhok;
             $domain= parse_url($url, PHP_URL_HOST);
 
-            $response = \Http::asForm()->post($url,[
+            $response = \Http::asForm()->timeout(120)->post($url,[
                 'action' =>'create',
                 'type' => 'products',
                 'domain'=>$domain,
