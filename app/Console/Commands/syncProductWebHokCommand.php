@@ -35,7 +35,12 @@ class syncProductWebHokCommand extends Command
                 Product::where('user_id', $user->id)
                     ->where('is_sync_webhok', false)
                     ->chunk(30, function ($products) use ($user) {
-                        dispatch(new WebhokProductsJob($products, $user->url_webhok));
+                        try {
+                            dispatch(new WebhokProductsJob($products, $user->url_webhok));
+                            \Log::info('Job dispatched for user: ' . $user->id . ' count: ' . $products->count());
+                        } catch (\Throwable $e) {
+                            \Log::error("Error dispatching job: " . $e->getMessage());
+                        }
                     });
 
                 if ($user->is_sync_webhok == false) {
