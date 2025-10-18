@@ -26,7 +26,7 @@ class OrderResource extends Resource
     protected static ?string $label='طلبات الشحن';
     protected static ?string $navigationLabel='طلبات الشحن';
     protected static ?string $pluralLabel='طلبات الشحن';
-protected static ?int $navigationSort=2;
+protected static ?int $navigationSort=1;
 
     public static function getNavigationBadge(): ?string
     {
