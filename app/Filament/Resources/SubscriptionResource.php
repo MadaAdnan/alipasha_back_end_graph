@@ -41,7 +41,7 @@ class SubscriptionResource extends Resource
             })
             ->columns([
                 Tables\Columns\TextColumn::make('user.name')->label('المستخدم')->url(fn($record)=>UserResource::getUrl('edit',['record'=>$record->user->id])),
-                Tables\Columns\TextColumn::make('plan.name')->label('الخطة')->url(fn($record)=>Plan::getUrl('edit',['record'=>$record->plan->id])),
+                Tables\Columns\TextColumn::make('plan.name')->label('الخطة')->url(fn($record)=>PlanResource::getUrl('edit',['record'=>$record->plan->id])),
                 Tables\Columns\TextColumn::make('subscription_date')->label('بداية الإشتراك')->date('Y-m-d'),
                 Tables\Columns\TextColumn::make('expired_date')->label('نهاية الإشتراك')->date('Y-m-d'),
             ])
