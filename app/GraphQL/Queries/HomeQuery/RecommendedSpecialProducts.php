@@ -18,13 +18,13 @@ final class RecommendedSpecialProducts
     public function __invoke($_, array $args)
     {
         $setting = Setting::first();
-
+        $popularCategoryIds = $this->getPopularCategoryProducts();
         // Get products that are special and active
-        $products = Product::where([
+        $products = Product::/*where([
                 'active' => ProductActiveEnum::ACTIVE->value,
                 'level' => LevelProductEnum::SPECIAL->value
             ])
-            ->whereHas('user',fn($q)=>$q->where('users.is_active', 1))
+            ->*/whereHas('user',fn($q)=>$q->where('users.is_active', 1))
 
             ->where(fn($query) => $query->whereDoesntHave('category', fn($query) => $query->where('type', CategoryTypeEnum::RESTAURANT->value)))
             ->where(function ($query) {
@@ -40,15 +40,26 @@ final class RecommendedSpecialProducts
 
             ->where('created_at', '>=', now()->subDays($setting->options['recommended_month'] ?? 30))
             ->inRandomOrder()
-            ->when(auth()->check(), function ($query) {
-                // For authenticated users, prioritize products from categories they interacted with
-                $popularCategoryIds = $this->getPopularCategoryProducts();
-                if (!empty($popularCategoryIds)) {
+            ->when(count($popularCategoryIds)>0, function ($query)use($popularCategoryIds) {
+
+                $query->orderByRaw("
+            CASE
+                WHEN type = 'special' AND category_id IN (" . implode(',', $popularCategoryIds) . ") THEN 0
+                ELSE 1
+            END
+        ");
                     // First, try to get special products from user's popular categories
-                    $query->orderByRaw("FIELD(category_id, " . implode(',', $popularCategoryIds) . ") DESC")
+                   /* $query->orderByRaw("FIELD(category_id, " . implode(',', $popularCategoryIds) . ") DESC")
                         ->orderByRaw("category_id NOT IN (" . implode(',', $popularCategoryIds) . ")");
-                }
-                return $query;
+
+                return $query;*/
+            },  function ($query) {
+                $query->orderByRaw("
+            CASE
+                WHEN type = 'special' THEN 0
+                ELSE 1
+            END
+        ");
             });
 
         // Update product views
@@ -87,12 +98,16 @@ final class RecommendedSpecialProducts
 
     private function getPopularCategoryProducts()
     {
-        return Interaction::where('user_id', auth()->id())
-            ->whereNotNull('category_id')
-            ->latest()
-            ->groupBy('category_id')
-            ->orderByRaw('SUM(visited) DESC')
-            ->pluck('category_id')
-            ->toArray();
+        if(auth()->check()){
+            return Interaction::where('user_id', auth()->id())
+                ->whereNotNull('category_id')
+                ->latest()
+                ->groupBy('category_id')
+                ->orderByRaw('SUM(visited) DESC')
+                ->pluck('category_id')
+                ->toArray();
+        }
+        return [];
+
     }
 }
