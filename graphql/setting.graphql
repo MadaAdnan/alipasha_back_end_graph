@@ -28,6 +28,7 @@ type Setting{
     sham_cash:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getQrWallet")
     wallet:String
     footer_order:String
+    active_points:Boolean
 }
 type UrlDownload{
     up_down:String

@@ -31,6 +31,7 @@ class SettingResource extends JsonResource
             'live_id' => $this->live_id,
            // 'social' => $this->social,
             'less_amount_point_pull' => $this->less_amount_point_pull,
+            'active_points'=>(bool)$this->active_points,
         ];
     }
 }
