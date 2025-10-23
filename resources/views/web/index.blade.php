@@ -123,9 +123,9 @@
                                             @php
                                                 if($community->type==\App\Enums\CommunityTypeEnum::CHAT->value){
         $user=$community->users()->whereNot('users.id',auth()->id())->first();
-        $name=$user->seller_name ?? $user->name;
+        $name=$user?->seller_name ?? $user?->name;
     }else{
-        $name=$community->name;
+        $name=$community?->name;
     }
                                             @endphp
                                             <a href="{{route('communities.show',$community->id)}}">
