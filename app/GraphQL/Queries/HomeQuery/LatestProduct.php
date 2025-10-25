@@ -78,7 +78,7 @@ final class LatestProduct
         }
 
         $products = $productsQuery->inRandomOrder();
-      //  $ids = $products->pluck('id')->toArray();
+       $ids = $products->pluck('id')->toArray();
         $ids=[];
         $today = today();
 
