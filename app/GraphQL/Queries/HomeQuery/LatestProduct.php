@@ -79,7 +79,7 @@ final class LatestProduct
 
         $products = $productsQuery->inRandomOrder();
        $ids = $products->pluck('id')->toArray();
-        $ids=[];
+
         $today = today();
 
         \DB::transaction(function () use ($ids, $today) {
