@@ -12,6 +12,7 @@ type Comment{
     user: User @belongsTo
     comments:[Comment] @hasMany
     product_id:Int
+    comment_id:ID
 }
 
 
