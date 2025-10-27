@@ -29,21 +29,30 @@ final class CreateComment
                 'visited' => \DB::raw('visited + 1'),
             ]);
         }
-        try {
-            $user = $product->user;
-            $data['title'] = 'تعليق جديد بواسطة ' . $user->name;
-            $data['body'] = 'تم التعليق على منتجك  ' . $product->name ?? $product->expert;
-            $data['url'] = 'https://ali-pasha.com/comments?id=' . $product->id;
 
-            SendNotifyHelper::sendNotify($user, $data);
-        } catch (\Exception | \Error $e) {
-        }
-        return Comment::create([
+        $comment= Comment::create([
             'comment' => $args['comment'],
             'product_id' => $args['product_id'],
             'user_id' => auth()->id(),
             'comment_id'=>$args['comment_id']??null
         ]);
 
+        try {
+            if($comment->comment_id==null){
+                $user = $product->user;
+                $data['title'] = 'تعليق جديد بواسطة ' . $user->name;
+                $data['body'] = 'تم التعليق على منتجك  ' . $product->name ?? $product->expert;
+
+            }else{
+                $data['title'] = 'تم الرد على تعليقك' ;
+                $data['body'] = 'المنتج: ' . $product->name ?? $product->expert;
+                $user=$comment->user;
+            }
+
+            $data['url'] = 'https://ali-pasha.com/comments?id=' . $product->id;
+            SendNotifyHelper::sendNotify($user, $data);
+        } catch (\Exception | \Error $e) {
+        }
+return $comment;
     }
 }
