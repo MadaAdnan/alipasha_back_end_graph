@@ -370,7 +370,7 @@ class ProductResource extends Resource
                             ]);
                             Notification::make('success')->title('نجاح العملية')->body('تم تخصيص الأقسام بنجاح')->success()->send();
                         }),
-                    Tables\Actions\BulkAction::make('weight')->label('احسب الوزن')->action(function ($records) {
+                  /*  Tables\Actions\BulkAction::make('weight')->label('احسب الوزن')->action(function ($records) {
                         foreach ($records as $record) {
                             $res = \Http::post('http://85.215.154.88:5000/calculate-weight', [
                                 'input_text' => $record->name . "  عدد 1 \n"
@@ -381,7 +381,7 @@ class ProductResource extends Resource
                                 ]);
                             }
                         }
-                    })
+                    })*/
                 ]),
             ]);
     }
