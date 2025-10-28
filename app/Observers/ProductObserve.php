@@ -6,6 +6,7 @@ use App\Enums\CategoryTypeEnum;
 use App\Enums\LevelUserEnum;
 use App\Enums\ProductActiveEnum;
 use App\Jobs\SendFirebaseNotificationJob;
+use App\Jobs\WebhokProductAi;
 use App\Jobs\WebhokProductJob;
 use App\Models\Product;
 use App\Models\User;
@@ -49,6 +50,9 @@ class ProductObserve
             $dataInfo['body'] = "قام متجر {$product->user?->seller_name} بإضافة منتج جديد";
             $dataInfo['url'] = 'https://ali-pasha.com/product?id=' . $product->id;
             $job = new SendFirebaseNotificationJob($users, $dataInfo);
+            dispatch($job);
+        }else{
+            $job=new WebhokProductAi($product);
             dispatch($job);
         }
 
@@ -106,6 +110,10 @@ class ProductObserve
                 $data['url'] = 'https://ali-pasha.com/product?id=' . $product->id;
 
                 SendNotifyHelper::sendNotify($user, $data);
+            }
+            if($product->active==ProductActiveEnum::PENDING->value){
+                $job=new WebhokProductAi($product);
+                dispatch($job);
             }
         }
 
