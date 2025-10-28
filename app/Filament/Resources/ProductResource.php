@@ -230,7 +230,7 @@ class ProductResource extends Resource
             ->searchDebounce(750)
             ->columns([
 
-                Tables\Columns\SpatieMediaLibraryImageColumn::make('image')->collection('images')->conversion('webp')->label('الصورة')->size(100),
+                Tables\Columns\SpatieMediaLibraryImageColumn::make('image')->wrap()->alignCenter()->collection('images')->conversion('webp')->label('الصورة')->size(100),
                 Tables\Columns\TextColumn::make('id')->label('رقم المنتج')->searchable(),
                 Tables\Columns\TextInputColumn::make('weight')->label('وزن المنتج')->searchable(),
                 Tables\Columns\TextInputColumn::make('power')->label('جودة المنتج')->searchable(),
