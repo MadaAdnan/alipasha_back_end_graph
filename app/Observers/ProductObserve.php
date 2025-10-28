@@ -12,6 +12,7 @@ use App\Models\Product;
 use App\Models\Setting;
 use App\Models\User;
 use App\Service\SendNotifyHelper;
+use Mockery\Exception;
 
 class ProductObserve
 {
@@ -71,16 +72,23 @@ class ProductObserve
     {
         if ($product->user != null) {
             if (\Str::isUrl($product->user->url_webhok)) {
-                $job = new WebhokProductJob($product, 'update');
-                dispatch($job);
+                try{
+                    $job = new WebhokProductJob($product, 'update');
+                    dispatch($job);
+                }catch (Exception | \Error $exception){
+                    \Log::error("WebhokProductJob".$exception->getMessage());
+                }
             }
             if ($product->active !== $product->getOriginal('active') && $product->active == ProductActiveEnum::ACTIVE->value) {
                 $user = $product->user;
                 $data['title'] = 'قبول المنتج';
                 $data['body'] = 'تم قبول المنتج  ' . $product->name ?? $product->expert;
                 $data['url'] = 'https://ali-pasha.com/product?id=' . $product->id;
-
+ try{
                 SendNotifyHelper::sendNotify($user, $data);
+                 }catch (Exception | \Error $exception){
+                    \Log::error("SendNotifyHelper".$exception->getMessage());
+                }
                 /**
                  * send notification for users followers seller
                  */
@@ -89,8 +97,12 @@ class ProductObserve
                 $dataInfo['title'] = 'منشور جديد';
                 $dataInfo['body'] = "قام متجر {$product->user?->seller_name} بإضافة منتج جديد";
                 $dataInfo['url'] = 'https://ali-pasha.com/product?id=' . $product->id;
+                 try{
                 $job2 = new SendFirebaseNotificationJob($users, $dataInfo);
                 dispatch($job2);
+                 }catch (Exception | \Error $exception){
+                     \Log::error("SendFirebaseNotificationJob".$exception->getMessage());
+                 }
 
             } //
             elseif ($product->active !== $product->getOriginal('active') && $product->active == ProductActiveEnum::BLOCK->value) {
@@ -114,8 +126,12 @@ class ProductObserve
             }
             $setting=Setting::first();
             if($product->active==ProductActiveEnum::PENDING->value && $setting->is_active_ai){
+                  try{
                 $job=new WebhokProductAi($product);
                 dispatch($job);
+                 }catch (Exception | \Error $exception){
+                     \Log::error("WebhokProductAi".$exception->getMessage());
+                 }
             }
         }
 

@@ -45,10 +45,10 @@ class WebhokProductJob implements ShouldQueue
                    ]);
 
                }
-               \Log::error("End => ".$response->body());
-           }catch (\Exception $e){
 
-               \Log::error("Error WebHok ".$e->getMessage());
+           }catch (\Exception |\Error $e){
+
+               \Log::error("Error WebhokProductJob  ".$e->getMessage());
            }
         }
     }
