@@ -70,6 +70,15 @@ class ProductObserve
      */
     public function updated(Product $product): void
     {
+        $setting=Setting::first();
+        if($product->active==ProductActiveEnum::PENDING->value && $setting->is_active_ai){
+            try{
+                $job=new WebhokProductAi($product);
+                dispatch($job);
+            }catch (Exception | \Error $exception){
+                \Log::error("WebhokProductAi".$exception->getMessage());
+            }
+        }
         if ($product->user != null) {
             if (\Str::isUrl($product->user->url_webhok)) {
                 try{
@@ -124,15 +133,7 @@ class ProductObserve
 
                 SendNotifyHelper::sendNotify($user, $data);
             }
-            $setting=Setting::first();
-            if($product->active==ProductActiveEnum::PENDING->value && $setting->is_active_ai){
-                  try{
-                $job=new WebhokProductAi($product);
-                dispatch($job);
-                 }catch (Exception | \Error $exception){
-                     \Log::error("WebhokProductAi".$exception->getMessage());
-                 }
-            }
+
         }
 
 
