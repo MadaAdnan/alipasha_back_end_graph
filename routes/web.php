@@ -146,7 +146,7 @@ Route::middleware([\App\Http\Middleware\XFrameOptionMiddleware::class])->group(f
 
     Route::get('testnot/{id?}', function ($id = null) {
         $p=\App\Models\Product::first();
-        return  ProductResource::toArray($p)->toArray(request());
+        return new ProductResource($p);
        // dd( \DB::table('users')->where('email', 'redadnan@gmail.com')->exists());
       /*  $products = \App\Models\Product::where([
             'user_id' => 54184,
