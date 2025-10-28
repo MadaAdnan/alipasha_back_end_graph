@@ -9,6 +9,7 @@ use App\Jobs\SendFirebaseNotificationJob;
 use App\Jobs\WebhokProductAi;
 use App\Jobs\WebhokProductJob;
 use App\Models\Product;
+use App\Models\Setting;
 use App\Models\User;
 use App\Service\SendNotifyHelper;
 
@@ -111,7 +112,8 @@ class ProductObserve
 
                 SendNotifyHelper::sendNotify($user, $data);
             }
-            if($product->active==ProductActiveEnum::PENDING->value){
+            $setting=Setting::first();
+            if($product->active==ProductActiveEnum::PENDING->value && $setting->is_active_ai){
                 $job=new WebhokProductAi($product);
                 dispatch($job);
             }
