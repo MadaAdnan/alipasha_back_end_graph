@@ -34,7 +34,7 @@ class WebhokProductAi implements ShouldQueue
         \Log::warning("OK AI TRUE START");
         $product=new ProductResource($this->product);
         try{
-            $res = \Http::asJson()->post('http://85.215.154.88:5000/calculate-weight',$product);
+            $res = \Http::post('http://85.215.154.88:5000/calculate-weight',$product);
             if ($res->successful() && (double)$res->json('ratio') > 0) {
                 info($res->json());
                 $this->product->update([
