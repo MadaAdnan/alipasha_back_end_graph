@@ -231,6 +231,10 @@ class ProductResource extends Resource
             ->columns([
 
                 Tables\Columns\SpatieMediaLibraryImageColumn::make('image')->wrap()->alignCenter()->collection('images')->conversion('webp')->label('الصورة')->size(100),
+                Tables\Columns\TextColumn::make('active')->formatStateUsing(fn($state) => ProductActiveEnum::tryFrom($state)?->getLabel())->color(fn($state) => ProductActiveEnum::tryFrom($state)?->getColor())->icon(fn($state) => ProductActiveEnum::tryFrom($state)?->getIcon())->label('الحالة'),
+
+                Tables\Columns\TextColumn::make('block_msg')->label('السبب')
+                    ->wrap()->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('id')->label('رقم المنتج')->searchable(),
                 Tables\Columns\TextInputColumn::make('weight')->label('وزن المنتج')->extraAttributes(['style'=>'width:75px'])->extraCellAttributes(['style'=>'width:75px'])->extraInputAttributes(['style'=>'width:75px'])->searchable(),
                 Tables\Columns\TextInputColumn::make('power')->label('جودة المنتج')->searchable(),
@@ -240,13 +244,11 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('city.name')->wrap()->label('المدينة'),
                 Tables\Columns\TextColumn::make('user.name')->wrap()->label('المتجر')->url(fn($record) => UserResource::getUrl('edit', ['record' => $record->user_id]))->searchable(),
                 Tables\Columns\TextColumn::make('views_count')->label('عدد المشاهدات'),
-                Tables\Columns\TextColumn::make('active')->formatStateUsing(fn($state) => ProductActiveEnum::tryFrom($state)?->getLabel())->color(fn($state) => ProductActiveEnum::tryFrom($state)?->getColor())->icon(fn($state) => ProductActiveEnum::tryFrom($state)?->getIcon())->label('الحالة'),
                 Tables\Columns\TextColumn::make('level')->formatStateUsing(fn($state) => LevelProductEnum::tryFrom($state)?->getLabel())->color(fn($state) => LevelProductEnum::tryFrom($state)?->getColor())->icon(fn($state) => LevelProductEnum::tryFrom($state)?->getIcon())->label('تمييز المنتج'),
                 Tables\Columns\TextColumn::make('created_at')->since()->label('أضيف منذ'),
                 Tables\Columns\TextColumn::make('user.phone')->url(fn($state) => 'https://wa.me/' . $state, shouldOpenInNewTab: true)->label('الهاتف'),
                 Tables\Columns\TextColumn::make('video')->url(fn($state) => $state, shouldOpenInNewTab: true)->label('الفيديو')->toggleable(isToggledHiddenByDefault: false),
-                Tables\Columns\TextColumn::make('block_msg')->label('السبب')
-                    ->wrap()->toggleable(isToggledHiddenByDefault: false),
+
             ])
             ->filters([
         Tables\Filters\SelectFilter::make('user_id')->options(User::seller()->pluck('seller_name', 'id')->toArray())->label('المتجر')->searchable(),
