@@ -31,7 +31,7 @@ class WebhokProductJob implements ShouldQueue
         if (\Str::isUrl($this->product->user?->url_webhok)) {
             $url=$this->product->user?->url_webhok;
             $domain= parse_url($url, PHP_URL_HOST);
-            \Log::error("START");
+
            try{
                $response = \Http::post($url, [
                    'action' => $this->action,
