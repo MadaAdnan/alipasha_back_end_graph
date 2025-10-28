@@ -10,6 +10,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Event;
+use Throwable;
 
 class WebhokProductJob implements ShouldQueue
 {
@@ -33,7 +34,8 @@ class WebhokProductJob implements ShouldQueue
             $domain= parse_url($url, PHP_URL_HOST);
 
            try{
-               $response = \Http::post($url, [
+
+               $response = \Http::timeout(10)->post($url, [
                    'action' => $this->action,
                    'type'=>'product',
                    'domain'=>$domain,
@@ -46,7 +48,7 @@ class WebhokProductJob implements ShouldQueue
 
                }
 
-           }catch (\Exception |\Error $e){
+           }catch (Throwable  $e){
 
                \Log::error("Error WebhokProductJob  ".$e->getMessage());
            }
