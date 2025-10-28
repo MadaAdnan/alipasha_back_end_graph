@@ -32,14 +32,20 @@ class WebhokProductAi implements ShouldQueue
     public function handle(): void
     {
         $product=new ProductResource($this->product);
-        $res = \Http::asJson()->post('http://85.215.154.88:5000/calculate-weight',$product);
-        if ($res->successful() && (double)$res->json('ratio') > 0) {
-            $this->product->update([
-                'weight' => $res->json('weight'),
-                'power'=>$res->json('ratio'),
-                'active'=> $res->json('status') == 'success' ? ProductActiveEnum::ACTIVE->value : ($res->json('status') == 'block' ? ProductActiveEnum::BLOCK->value : ProductActiveEnum::PENDING->value),
-                'block_msg' => $res->json('description')
-            ]);
+        try{
+            $res = \Http::asJson()->post('http://85.215.154.88:5000/calculate-weight',$product);
+            if ($res->successful() && (double)$res->json('ratio') > 0) {
+                info($res->json());
+                $this->product->update([
+                    'weight' => $res->json('weight'),
+                    'power'=>$res->json('ratio'),
+                    'active'=> $res->json('status') == 'success' ? ProductActiveEnum::ACTIVE->value : ($res->json('status') == 'block' ? ProductActiveEnum::BLOCK->value : ProductActiveEnum::PENDING->value),
+                    'block_msg' => $res->json('description')
+                ]);
+            }
+        }catch (\Exception | \Error $exception){
+            \Log::error("AI ERROR: {$exception->getMessage()}");
         }
+
     }
 }
