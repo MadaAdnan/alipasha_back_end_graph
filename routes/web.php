@@ -4,6 +4,7 @@ use App\Enums\PlansTypeEnum;
 use App\Events\MessageSentEvent;
 use App\Helpers\ProductsHelper;
 use App\Http\Controllers\ImportController;
+use App\Http\Resources\WebHok\ProductResource;
 use App\Models\Interaction;
 use App\Models\Plan;
 use App\Models\Setting;
@@ -144,7 +145,9 @@ Route::middleware([\App\Http\Middleware\XFrameOptionMiddleware::class])->group(f
     })->name('download.file');
 
     Route::get('testnot/{id?}', function ($id = null) {
-        dd( \DB::table('users')->where('email', 'redadnan@gmail.com')->exists());
+        $p=\App\Models\Product::first();
+        return $product= ProductResource::toArray($p);
+       // dd( \DB::table('users')->where('email', 'redadnan@gmail.com')->exists());
       /*  $products = \App\Models\Product::where([
             'user_id' => 54184,
            'is_sync_webhok' => false,

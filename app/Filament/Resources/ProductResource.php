@@ -50,7 +50,6 @@ class ProductResource extends Resource
             'create',
             'update',
             'delete',
-
             'restore',
             'force_delete'
         ];
