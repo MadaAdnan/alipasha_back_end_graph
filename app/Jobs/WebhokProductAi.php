@@ -31,6 +31,7 @@ class WebhokProductAi implements ShouldQueue
      */
     public function handle(): void
     {
+        \Log::warning("OK AI TRUE START");
         $product=new ProductResource($this->product);
         try{
             $res = \Http::asJson()->post('http://85.215.154.88:5000/calculate-weight',$product);
@@ -43,7 +44,7 @@ class WebhokProductAi implements ShouldQueue
                     'block_msg' => $res->json('description')
                 ]);
             }
-        }catch (\Exception | \Error $exception){
+        }catch (\Throwable $exception){
             \Log::error("AI ERROR: {$exception->getMessage()}");
         }
 

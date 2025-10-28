@@ -72,6 +72,7 @@ class ProductObserve
     {
         $setting=Setting::first();
         if($product->active==ProductActiveEnum::PENDING->value && $setting->is_active_ai){
+            \Log::warning("OK AI TRUE");
             try{
                 $job=new WebhokProductAi($product);
                 dispatch($job);
