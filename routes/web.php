@@ -145,16 +145,9 @@ Route::middleware([\App\Http\Middleware\XFrameOptionMiddleware::class])->group(f
     })->name('download.file');
 
     Route::get('testnot/{id?}', function ($id = null) {
-        $p=\App\Models\Product::first();
+        $p=\App\Models\Product::inRandomOrder()->first();
         return new ProductResource($p);
-       // dd( \DB::table('users')->where('email', 'redadnan@gmail.com')->exists());
-      /*  $products = \App\Models\Product::where([
-            'user_id' => 54184,
-           'is_sync_webhok' => false,
-        ])->get();
-        $user = User::find(54184);
-        $job = new \App\Jobs\WebhokProductsJob($products, $user->url_webhok);
-        dispatch($job);*/
+
 
         return "Success ";
     });
