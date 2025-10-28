@@ -89,7 +89,7 @@ class ProductObserve
                     \Log::error("WebhokProductJob".$exception->getMessage());
                 }
             }
-            if ($product->active !== $product->getOriginal('active') && $product->active == ProductActiveEnum::ACTIVE->value) {
+            if ($product->active != $product->getOriginal('active') && $product->active == ProductActiveEnum::ACTIVE->value) {
                 $user = $product->user;
                 $data['title'] = 'قبول المنتج';
                 $data['body'] = 'تم قبول المنتج  ' . $product->name ?? $product->expert;
