@@ -245,7 +245,8 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('created_at')->since()->label('أضيف منذ'),
                 Tables\Columns\TextColumn::make('user.phone')->url(fn($state) => 'https://wa.me/' . $state, shouldOpenInNewTab: true)->label('الهاتف'),
                 Tables\Columns\TextColumn::make('video')->url(fn($state) => $state, shouldOpenInNewTab: true)->label('الفيديو')->toggleable(isToggledHiddenByDefault: false),
-                Tables\Columns\TextColumn::make('block_msg')->label('السبب')->toggleable(isToggledHiddenByDefault: false),
+                Tables\Columns\TextColumn::make('block_msg')->label('السبب')
+                    ->wrap()->toggleable(isToggledHiddenByDefault: false),
             ])
             ->filters([
         Tables\Filters\SelectFilter::make('user_id')->options(User::seller()->pluck('seller_name', 'id')->toArray())->label('المتجر')->searchable(),
