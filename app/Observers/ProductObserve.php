@@ -53,8 +53,8 @@ class ProductObserve
             $dataInfo['url'] = 'https://ali-pasha.com/product?id=' . $product->id;
             $job = new SendFirebaseNotificationJob($users, $dataInfo);
             dispatch($job);
-        }else{
-            $job=new WebhokProductAi($product);
+        } else {
+            $job = new WebhokProductAi($product);
             dispatch($job);
         }
 
@@ -70,23 +70,23 @@ class ProductObserve
      */
     public function updated(Product $product): void
     {
-        $setting=Setting::first();
-        if($product->active==ProductActiveEnum::PENDING->value && $setting->is_active_ai){
+        $setting = Setting::first();
+        if ($product->active == ProductActiveEnum::PENDING->value && $setting->is_active_ai) {
             \Log::warning("OK AI TRUE");
-            try{
-                $job=new WebhokProductAi($product);
+            try {
+                $job = new WebhokProductAi($product);
                 dispatch($job);
-            }catch (Exception | \Error $exception){
-                \Log::error("WebhokProductAi".$exception->getMessage());
+            } catch (Exception|\Error $exception) {
+                \Log::error("WebhokProductAi" . $exception->getMessage());
             }
         }
         if ($product->user != null) {
             if (\Str::isUrl($product->user->url_webhok)) {
-                try{
+                try {
                     $job = new WebhokProductJob($product, 'update');
                     dispatch($job);
-                }catch (Exception | \Error $exception){
-                    \Log::error("WebhokProductJob".$exception->getMessage());
+                } catch (Exception|\Error $exception) {
+                    \Log::error("WebhokProductJob" . $exception->getMessage());
                 }
             }
             if ($product->active != $product->getOriginal('active') && $product->active == ProductActiveEnum::ACTIVE->value) {
@@ -94,10 +94,10 @@ class ProductObserve
                 $data['title'] = 'قبول المنتج';
                 $data['body'] = 'تم قبول المنتج  ' . $product->name ?? $product->expert;
                 $data['url'] = 'https://ali-pasha.com/product?id=' . $product->id;
- try{
-                SendNotifyHelper::sendNotify($user, $data);
-                 }catch (Exception | \Error $exception){
-                    \Log::error("SendNotifyHelper".$exception->getMessage());
+                try {
+                    SendNotifyHelper::sendNotify($user, $data);
+                } catch (Exception|\Error $exception) {
+                    \Log::error("SendNotifyHelper" . $exception->getMessage());
                 }
                 /**
                  * send notification for users followers seller
@@ -107,12 +107,12 @@ class ProductObserve
                 $dataInfo['title'] = 'منشور جديد';
                 $dataInfo['body'] = "قام متجر {$product->user?->seller_name} بإضافة منتج جديد";
                 $dataInfo['url'] = 'https://ali-pasha.com/product?id=' . $product->id;
-                 try{
-                $job2 = new SendFirebaseNotificationJob($users, $dataInfo);
-                dispatch($job2);
-                 }catch (Exception | \Error $exception){
-                     \Log::error("SendFirebaseNotificationJob".$exception->getMessage());
-                 }
+                try {
+                    $job2 = new SendFirebaseNotificationJob($users, $dataInfo);
+                    dispatch($job2);
+                } catch (Exception|\Error $exception) {
+                    \Log::error("SendFirebaseNotificationJob" . $exception->getMessage());
+                }
 
             } //
             elseif ($product->active !== $product->getOriginal('active') && $product->active == ProductActiveEnum::BLOCK->value) {
