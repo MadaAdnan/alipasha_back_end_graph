@@ -37,7 +37,8 @@ class WebhokProductAi implements ShouldQueue
             $this->product->update([
                 'weight' => $res->json('weight'),
                 'power'=>$res->json('ratio'),
-                'active'=> $res->json('status') == 'success' ? ProductActiveEnum::ACTIVE->value : ($res->json('status') == 'block' ? ProductActiveEnum::BLOCK->value : ProductActiveEnum::PENDING->value)
+                'active'=> $res->json('status') == 'success' ? ProductActiveEnum::ACTIVE->value : ($res->json('status') == 'block' ? ProductActiveEnum::BLOCK->value : ProductActiveEnum::PENDING->value),
+                'block_msg' => $res->json('description')
             ]);
         }
     }
