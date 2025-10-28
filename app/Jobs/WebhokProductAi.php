@@ -31,7 +31,7 @@ class WebhokProductAi implements ShouldQueue
      */
     public function handle(): void
     {
-        $product=new ProductResource($this->product);
+        $product=(new ProductResource($this->product))->resolve();
         $res = \Http::asJson()->post('http://85.215.154.88:5000/calculate-weight',$product);
         if ($res->successful() && (double)$res->json('ratio') > 0) {
             $this->product->update([
