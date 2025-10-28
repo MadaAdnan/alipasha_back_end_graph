@@ -22,19 +22,26 @@ class SettingObserve
     {
 
         //dollar.idlib.usd.bay
-        $setting->dollar_value=$setting->dollar['idlib']['usd']['bay']??$setting->dollar_value;
-        $setting->dollar_syr=$setting->dollar['idlib']['syr']['bay']??$setting->dollar_syr;
-
+        $setting->dollar_value = $setting->dollar['idlib']['usd']['bay'] ?? $setting->dollar_value;
+        $setting->dollar_syr = $setting->dollar['idlib']['syr']['bay'] ?? $setting->dollar_syr;
+        $social = $setting->getOriginal('social');
+        if ($setting->social['name'] == '') {
+            $setting->social['name'] = $social['name'];
+        }
+        if ($setting->social['email'] == '') {
+            $setting->social['email'] = $social['email'];
+        }
     }
+
     /**
      * Handle the Setting "updated" event.
      */
     public function updated(Setting $setting): void
     {
-        try{
+        try {
             broadcast(new ChangeSettingEvent());
-        }catch (\Exception | \Error $e){
-            info('Error Event Setting'.$e->getMessage());
+        } catch (\Exception|\Error $e) {
+            info('Error Event Setting' . $e->getMessage());
         }
     }
 
