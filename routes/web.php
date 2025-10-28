@@ -145,7 +145,12 @@ Route::middleware([\App\Http\Middleware\XFrameOptionMiddleware::class])->group(f
     })->name('download.file');
 
     Route::get('testnot/{id?}', function ($id = null) {
-        $p=\App\Models\Product::product()->block()->inRandomOrder()->first();
+        if($id==null){
+            $p=\App\Models\Product::product()->block()->inRandomOrder()->first();
+        }else{
+            $p=\App\Models\Product::product()->where('id',$id)->inRandomOrder()->first();
+        }
+      
         return new ProductResource($p);
 
 
