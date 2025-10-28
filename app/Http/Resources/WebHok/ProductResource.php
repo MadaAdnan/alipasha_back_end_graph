@@ -33,7 +33,8 @@ class ProductResource extends JsonResource
             'is_available' =>(bool) $this->is_available,
             'video'=>$this->video,
             'category_name'=>$this->sub1?->name,
-            'created_at'=>$this->created_at
+            'created_at'=>$this->created_at,
+            'active'=>$this->active,
         ];
     }
 }
