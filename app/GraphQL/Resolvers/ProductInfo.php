@@ -17,7 +17,7 @@ class ProductInfo
     {
 
            if($root->type==CategoryTypeEnum::SERVICE->value){
-             return   "{$root->info} <br/> <b>العنوان :</b> {$root->address}<br/> {$root->phone}";
+             return   "{$root->info}";
            }
            return $root->name .' '.$root->info;
        }
