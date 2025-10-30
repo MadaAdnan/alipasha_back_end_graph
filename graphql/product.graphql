@@ -13,7 +13,7 @@ extend type Query{
     SpecialProduct:[Product] @paginate(builder:"App\\GraphQL\\Queries\\HomeQuery\\SpecialProduct")
     #homeProduct:[Product] @paginate(builder:"App\\GraphQL\\Queries\\HomeQuery\\HomeProduct")
     homeProduct(page: Int = 1, perPage: Int = 50): PaginatedProduct!
-    groupsliders:SliderGroup
+    latest:[Product]
 
 }
 
@@ -37,15 +37,7 @@ type ProductDetails{
     products:[Product]
 }
 
-type SliderGroup{
-    latest:[Product] @field(resolver: "App\\GraphQL\\Resolvers\\ProductInfo@getAddressWithInfo"),
-    sellers:[User] @field(resolver: "App\\GraphQL\\Resolvers\\ProductInfo@getAddressWithInfo"),
-    sellersActivity:[User] @field(resolver: "App\\GraphQL\\Resolvers\\ProductInfo@getAddressWithInfo"),
-    near:[Product] @field(resolver: "App\\GraphQL\\Resolvers\\ProductInfo@getAddressWithInfo"),
-    videos:[Product] @field(resolver: "App\\GraphQL\\Resolvers\\ProductInfo@getAddressWithInfo"),
-    activity:[Product] @field(resolver: "App\\GraphQL\\Resolvers\\ProductInfo@getAddressWithInfo"),
-    specials:[Product] @field(resolver: "App\\GraphQL\\Resolvers\\ProductInfo@getAddressWithInfo"),
-}
+
 
 
 type Product{

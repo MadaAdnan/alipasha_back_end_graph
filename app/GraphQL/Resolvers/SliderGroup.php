@@ -17,10 +17,7 @@ class SliderGroup
      */
     public static function latest($root): mixed
     {
-        $setting = Setting::first();
-        $days = $setting?->options['recommended_month'] ?? 30;
-        $products = Product::active()->product()->upTo20()->whereBetween('created_at', [now()->subDays($days), now()])->inRandomOrder()->take(5);
-        return $products;
+
 
     }
 
