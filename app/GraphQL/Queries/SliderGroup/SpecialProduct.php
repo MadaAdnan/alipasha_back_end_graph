@@ -12,7 +12,7 @@ final  class SpecialProduct
     {
         $setting = Setting::first();
         $days = $setting?->options['recommended_month'] ?? 30;
-        return Product::active()->product()->where('power', 100)->whereBetween('created_at', [now()->subDays($days), now()])->inRandomOrder()->orderByDesc(DB::raw('likes_count + comments_count'))->take(5)->get();
+        return Product::active()->product()->where('power', 100)->whereBetween('created_at', [now()->subDays($days), now()])->inRandomOrder()->take(5)->get();
 
     }
 }
