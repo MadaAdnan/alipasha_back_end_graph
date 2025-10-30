@@ -51,6 +51,10 @@ class Product extends Model implements HasMedia
             'tags' => $this->tags,
         ];
     }
+    public function scopeUpTo20($query)
+    {
+       return $query->where('power','>=',20);
+    }
 
     public function searchableAs()
     {
