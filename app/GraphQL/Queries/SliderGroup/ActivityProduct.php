@@ -4,6 +4,7 @@ namespace App\GraphQL\Queries\SliderGroup;
 
 use App\Models\Product;
 use App\Models\Setting;
+use DB;
 
 final  class ActivityProduct
 {
