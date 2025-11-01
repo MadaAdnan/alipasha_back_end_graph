@@ -14,6 +14,6 @@ final  class VideoProduct
         $days = $setting?->options['recommended_month'] ?? 30;
         return Product::active()->product()->upTo20()->whereNotNull('video')
             ->where('video', 'REGEXP', '^(https?:\/\/[^\s]+)$')
-            ->whereBetween('created_at', [now()->subDays($days), now()])->inRandomOrder()->take(5)->get();
+            ->inRandomOrder()->take(5)->get();
     }
 }
