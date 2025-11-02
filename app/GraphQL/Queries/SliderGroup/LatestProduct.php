@@ -12,7 +12,7 @@ final  class LatestProduct
     {
         $setting = Setting::first();
         $days = $setting?->options['recommended_month'] ?? 30;
-        $products = Product::active()->product()->upTo20()->take(5)->get();
+        $products = Product::active()->product()->upTo20()->latest()->take(5)->get();
         return $products;
     }
 }
