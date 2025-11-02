@@ -27,7 +27,7 @@ final  class ActivitySeller
             })
             // الذين لديهم منتجات أُنشئت خلال آخر شهر
             ->whereHas('products', function ($query) {
-                $query->where('created_at', '>=', now()->subMonth());
+                $query->active()->where('created_at', '>=', now()->subMonth());
             })
             // لديهم صور (وسائط من نوع image)
             ->whereHas('media', function ($query) {
