@@ -10,9 +10,9 @@ final  class LatestProduct
     /** @param  array{}  $args */
     public function __invoke( $_, array $args)
     {
-        $setting = Setting::first();
-        $days = $setting?->options['recommended_month'] ?? 30;
-        $products = Product::active()->product()->upTo20()->latest()->take(5)->get();
-        return $products;
+        /*$setting = Setting::first();
+        $days = $setting?->options['recommended_month'] ?? 30;*/
+        return  Product::active()->product()->upTo20()->latest()->take(5)->get();
+
     }
 }
