@@ -25,7 +25,7 @@ final  class NearSeller
                 ->whereDoesntHave('products', function ($query) use ($excludedTypes) {
                     $query->whereIn('type', $excludedTypes);
                 })
-                ->having('products_count', '>', 50)
+                ->having('products_count', '>', 5)
                 ->where('city_id', auth()->user()->city_id)
                 ->inRandomOrder()->take(5)->get();
         }
