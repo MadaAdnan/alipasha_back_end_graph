@@ -12,7 +12,11 @@ final  class NearSeller
     public function __invoke($_, array $args)
     {
         if (auth()->check()) {
-            return User::seller()->whereHas('media', fn($query) => $query->where('collection_name', 'image'))->where('city_id', auth()->user()->city_id)->inRandomOrder()->take(5)->get();
+            return User::seller()
+                ->whereHas('media', fn($query) => $query->where('collection_name', 'image'))
+                ->having('products_count', '>', 50)
+                ->where('city_id', auth()->user()->city_id)
+                ->inRandomOrder()->take(5)->get();
         }
         return [];
     }
