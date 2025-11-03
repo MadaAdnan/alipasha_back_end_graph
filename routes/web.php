@@ -145,14 +145,15 @@ Route::middleware([\App\Http\Middleware\XFrameOptionMiddleware::class])->group(f
     })->name('download.file');
 
     Route::get('testnot/{id?}', function ($id = null) {
-        if($id==null){
+        return User::where('email','mh.shamey@gmail.com')->first()->unread_notifications_count;
+       /* if($id==null){
             $p=\App\Models\Product::product()->block()->inRandomOrder()->first();
         }else{
             $p=\App\Models\Product::product()->where('id',$id)->inRandomOrder()->first();
         }
-      
-        return new ProductResource($p);
 
+        return new ProductResource($p);
+*/
 
         return "Success ";
     });
