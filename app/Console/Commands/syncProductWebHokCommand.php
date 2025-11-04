@@ -29,7 +29,7 @@ class syncProductWebHokCommand extends Command
      */
     public function handle()
     {
-        User::whereNotNull('url_webhok')
+      /*  User::whereNotNull('url_webhok')
             ->whereHas('products', fn($q) => $q->where('is_sync_webhok', false))
             ->each(function ($user) {
                 Product::where('user_id', $user->id)
@@ -46,30 +46,24 @@ class syncProductWebHokCommand extends Command
                 if ($user->is_sync_webhok == false) {
                     dispatch(new WebhokUserJob($user));
                 }
-            });
-      /*  $users = User::whereNotNull('url_webhok')->whereHas('products', fn($query) => $query->where('products.is_sync_webhok', false))
-            ->with([
-                'products' => fn($query) => $query->where('products.is_sync_webhok', false),
-            ])->get();
-        foreach ($users as $user) {
-
-            $user->products->chunk(50)->each(function ($chunkedProducts) use ($user) {
-                // نمرر كل دفعة إلى Job
-                \Log::error('Products');
-                \Log::error($chunkedProducts->count());
-                $job = new WebhokProductsJob($chunkedProducts, $user->url_webhok);
-                dispatch($job);
             });*/
+        User::whereNotNull('url_webhok')
+            ->whereHas('products', fn($q) => $q->where('is_sync_webhok', false))
+            ->each(function ($user) {
+                Product::where('user_id', $user->id)
+                    ->where('is_sync_webhok', false)
+                    ->orderBy('id')
+                    ->chunkById(30, function ($products) use ($user) {
+                        try {
+                            dispatch(new WebhokProductsJob($products, $user->url_webhok));
+                        } catch (\Throwable $e) {
+                            \Log::error("Error dispatching job Sync: " . $e->getMessage());
+                        }
+                    });
 
-
-
-
-       //   $job = new WebhokProductsJob($user->products, $user->url_webhok);
-          //  dispatch($job);
-//            if ($user->is_sync_webhok == false) {
-//                $job2 = new WebhokUserJob($user);
-//                dispatch($job2);
-//            }
-//        }
+                if ($user->is_sync_webhok == false) {
+                    dispatch(new WebhokUserJob($user));
+                }
+            });
     }
 }
