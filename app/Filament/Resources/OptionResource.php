@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\IsActiveEnum;
 use App\Filament\Resources\OptionResource\Pages;
 use App\Filament\Resources\OptionResource\RelationManagers;
 use App\Models\Option;
@@ -101,8 +102,8 @@ class OptionResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('options.recommended_month')->label('عدد الأيام لجلب المنتجات'),
                 Tables\Columns\TextColumn::make('options.recommended_delete')->label('حذف الإهتمامات الأقدم من عدد الأيام'),
-                Tables\Columns\TextColumn::make('is_active_ai')->badge()->label('قبول المنتجات بإستخدام AI'),
-                Tables\Columns\TextColumn::make('is_add_likes')->badge()->label('حساب لايكات وهمية'),
+                Tables\Columns\TextColumn::make('is_active_ai')->badge()->formatStateUsing(fn($state)=>IsActiveEnum::tryFrom($state)->getLabel())->label('قبول المنتجات بإستخدام AI'),
+                Tables\Columns\TextColumn::make('is_add_likes')->badge()->formatStateUsing(fn($state)=>IsActiveEnum::tryFrom($state)->getLabel())->label('حساب لايكات وهمية'),
             ])
             ->filters([
                 //
