@@ -237,7 +237,7 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('block_msg')->label('السبب')
                     ->wrap()->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('id')->label('رقم المنتج')->searchable(),
-                Tables\Columns\TextInputColumn::make('weight')->label('وزن المنتج')->extraAttributes(['style'=>'width:75px'])->extraCellAttributes(['style'=>'width:75px'])->extraInputAttributes(['style'=>'width:75px'])->searchable(),
+                Tables\Columns\TextInputColumn::make('weight')->label('وزن المنتج')->extraAttributes(['style' => 'width:75px'])->extraCellAttributes(['style' => 'width:75px'])->extraInputAttributes(['style' => 'width:75px'])->searchable(),
                 Tables\Columns\TextInputColumn::make('power')->label('جودة المنتج')->searchable(),
                 Tables\Columns\ToggleColumn::make('is_delivery')->label('قابل للتوصيل')->searchable(),
                 Tables\Columns\TextColumn::make('category.name')->wrap()->label('اسم القسم')->description(fn($record) => $record->sub1?->name),
@@ -252,142 +252,150 @@ class ProductResource extends Resource
 
             ])
             ->filters([
-        Tables\Filters\SelectFilter::make('user_id')->options(User::seller()->pluck('seller_name', 'id')->toArray())->label('المتجر')->searchable(),
-        Tables\Filters\Filter::make('level')->form([
-            Forms\Components\Select::make('level')->options([
-                LevelProductEnum::NORMAL->value => LevelProductEnum::NORMAL->getLabel(),
-                LevelProductEnum::SPECIAL->value => LevelProductEnum::SPECIAL->getLabel(),
-            ])->label('نوع المنتج')
-        ])->query(fn($query, $data) => $query->when($data['level'] != null, fn($q) => $q->where('level', $data['level']))),
-        Tables\Filters\Filter::make('category')->modifyQueryUsing(fn($query) => $query->whereNull('category_id')),
-        Tables\Filters\Filter::make('category_filter')->form([
-            Forms\Components\Select::make('category_id')->options(Category::where('categories.is_main', true)->pluck('name', 'id'))->label('القسم الرئيسي')->live(),
-            Forms\Components\Select::make('sub1_id')->options(function ($get) {
-                if ($get('category_id') != null) {
-                    return Category::find($get('category_id'))->children->pluck('name', 'id');
-                }
-            })->label('القسم الرئيسي')->live(),
-            Forms\Components\Select::make('sub2_id')->options(function ($get) {
-                if ($get('sub1_id') != null) {
-                    return Category::find($get('sub1_id'))->children->pluck('name', 'id');
-                }
-            })->label('القسم الرئيسي')->live(),
-
-        ])->query(function ($query, $data) {
-            $query->when(
-                $data['category_id'],
-                fn(Builder $query, $date): Builder => $query->where('category_id', $date),
-            )
-                ->when(
-                    $data['sub1_id'],
-                    fn(Builder $query, $date): Builder => $query->where('sub1_id', $date),
-                )
-                ->when(
-                    $data['sub2_id'],
-                    fn(Builder $query, $date): Builder => $query->where('sub2_id', $date),
-                );
-        }),
-        Tables\Filters\TernaryFilter::make('has_video')->queries(
-            true: fn($query) => $query->whereNotNull('video'),
-            false: fn($query) => $query->whereNull('video'),
-            blank: fn($query) => $query,
-        )->label('فلتر فيديو')
-            ->trueLabel('يحتوي فيديو')->falseLabel('لا يحوي فيديو')
-
-    ])
-        ->headerActions([
-            Tables\Actions\Action::make('delivery')->form([
-                Forms\Components\Select::make('categories')->options(Category::where('is_main', true)
-                    ->where(fn($query) => $query->where('type', 'product')->orWhere('type', 'restaurant'))->pluck('name', 'id'))
-                    ->multiple()->label('الأقسام')->required(),
-                Forms\Components\Toggle::make('is_delivery')->label('حالة التوصيل'),
-            ])->action(fn($data) => Product::whereIn('category_id', $data['categories'])->update([
-                'is_delivery' => $data['is_delivery']
-            ]))->label('حالة التوصيل للأقسام')
-        ])
-        ->actions([
-            Tables\Actions\EditAction::make()->mutateFormDataUsing(function ($data) {
-                $data['expert'] = \Str::words(strip_tags(html_entity_decode($data['info'])), 15);
-                return $data;
-            }),
-            Tables\Actions\DeleteAction::make(),
-            Tables\Actions\RestoreAction::make(),
-            Tables\Actions\ActionGroup::make([
-                /* send msg chat */
-                Tables\Actions\Action::make('send_msg_chat')->form([
-                    Forms\Components\Textarea::make('msg')->label('الرسالة')->required(),
-                ])
-                    ->action(function ($record, $data) {
-                        \DB::beginTransaction();
-                        try {
-                            $community = Community::where('type', CommunityTypeEnum::CHAT->value)
-                                ->whereHas('users', fn($query) => $query->where('users.id', auth()->id()))
-                                ->whereHas('users', fn($query) => $query->where('users.id', $record->user_id))
-                                ->first();
-                            if (!$community) {
-                                $community = Community::create([
-                                    'name' => auth()->user()->name . ' - ' . $record->user?->name,
-                                    'manager_id' => auth()->id(),
-                                    'type' => CommunityTypeEnum::CHAT->value,
-                                    'last_update' => now(),
-                                    'is_global' => false,
-                                ]);
-                                $community->users()->sync([auth()->id(), $record->user_id]);
-                            }
-                            Message::create([
-                                'community_id' => $community->id,
-                                'user_id' => auth()->id(),
-                                'body' => $data['msg'],
-                                'type' => 'text',
-                            ]);
-                            \DB::commit();
-                            Notification::make('success')->title('نجاح العملية')->body('تم إرسال الرسالة بنجاح')->success()->send();
-
-                        } catch (\Exception|\Error $e) {
-                            \DB::rollBack();
-                            Notification::make('error')->title('فشل العملية')->body($e->getMessage())->danger()->send();
-
+                Tables\Filters\SelectFilter::make('user_id')->options(User::seller()->pluck('seller_name', 'id')->toArray())->label('المتجر')->searchable(),
+                Tables\Filters\Filter::make('power')->form([
+                    Forms\Components\Select::make('op')->options([
+                        '>' => 'أكبر من',
+                        '<' => 'أقل من',
+                        '=' => 'يساوي',
+                    ])->label('العملية')->default('>'),
+                    Forms\Components\TextInput::make('power')->label('التقييم')
+                ])->query(fn($query, $data) => $query->when($data['op'] != null && $data['op'] > 0, fn($q) => $q->where('powwer', $data['op'], $data['power'])))->label('تقييم المنتج'),
+                Tables\Filters\Filter::make('level')->form([
+                    Forms\Components\Select::make('level')->options([
+                        LevelProductEnum::NORMAL->value => LevelProductEnum::NORMAL->getLabel(),
+                        LevelProductEnum::SPECIAL->value => LevelProductEnum::SPECIAL->getLabel(),
+                    ])->label('نوع المنتج')
+                ])->query(fn($query, $data) => $query->when($data['level'] != null, fn($q) => $q->where('level', $data['level']))),
+                Tables\Filters\Filter::make('category')->modifyQueryUsing(fn($query) => $query->whereNull('category_id')),
+                Tables\Filters\Filter::make('category_filter')->form([
+                    Forms\Components\Select::make('category_id')->options(Category::where('categories.is_main', true)->pluck('name', 'id'))->label('القسم الرئيسي')->live(),
+                    Forms\Components\Select::make('sub1_id')->options(function ($get) {
+                        if ($get('category_id') != null) {
+                            return Category::find($get('category_id'))->children->pluck('name', 'id');
                         }
-                    })->label('مراسلة التاجر')->icon('fas-envelope'),
+                    })->label('القسم الرئيسي')->live(),
+                    Forms\Components\Select::make('sub2_id')->options(function ($get) {
+                        if ($get('sub1_id') != null) {
+                            return Category::find($get('sub1_id'))->children->pluck('name', 'id');
+                        }
+                    })->label('القسم الرئيسي')->live(),
+
+                ])->query(function ($query, $data) {
+                    $query->when(
+                        $data['category_id'],
+                        fn(Builder $query, $date): Builder => $query->where('category_id', $date),
+                    )
+                        ->when(
+                            $data['sub1_id'],
+                            fn(Builder $query, $date): Builder => $query->where('sub1_id', $date),
+                        )
+                        ->when(
+                            $data['sub2_id'],
+                            fn(Builder $query, $date): Builder => $query->where('sub2_id', $date),
+                        );
+                }),
+                Tables\Filters\TernaryFilter::make('has_video')->queries(
+                    true: fn($query) => $query->whereNotNull('video'),
+                    false: fn($query) => $query->whereNull('video'),
+                    blank: fn($query) => $query,
+                )->label('فلتر فيديو')
+                    ->trueLabel('يحتوي فيديو')->falseLabel('لا يحوي فيديو')
+
             ])
-        ])
-        ->bulkActions([
-            Tables\Actions\BulkActionGroup::make([
-                Tables\Actions\DeleteBulkAction::make()->label('نقل إلى سلة المحذوفات'),
-                Tables\Actions\ForceDeleteBulkAction::make(),
-                Tables\Actions\BulkAction::make('category')->form([
-                    Forms\Components\Fieldset::make('التصنيف')->schema([
-                        Forms\Components\Select::make('category_id')->options(Category::product()->pluck('name', 'id'))->label('يتبع القسم')->searchable()->live()->required(),
-                        Forms\Components\Select::make('sub1_id')->options(fn($get) => Category::find($get('category_id'))?->children?->pluck('name', 'id'))->label('يتبع القسم')->searchable()->live(),
-                        Forms\Components\Select::make('sub2_id')->options(fn($get) => Category::find($get('sub1_id'))?->children?->pluck('name', 'id'))->label('يتبع القسم')->searchable()->reactive(),
-                        Forms\Components\Select::make('sub3_id')->options(fn($get) => Category::find($get('sub2_id'))?->children?->pluck('name', 'id'))->label('يتبع القسم')->searchable()->live(),
-                        Forms\Components\Select::make('sub4_id')->options(fn($get) => Category::find($get('sub3_id'))?->children?->pluck('name', 'id'))->label('يتبع القسم')->searchable()->live(),
-                    ]),
+            ->headerActions([
+                Tables\Actions\Action::make('delivery')->form([
+                    Forms\Components\Select::make('categories')->options(Category::where('is_main', true)
+                        ->where(fn($query) => $query->where('type', 'product')->orWhere('type', 'restaurant'))->pluck('name', 'id'))
+                        ->multiple()->label('الأقسام')->required(),
+                    Forms\Components\Toggle::make('is_delivery')->label('حالة التوصيل'),
+                ])->action(fn($data) => Product::whereIn('category_id', $data['categories'])->update([
+                    'is_delivery' => $data['is_delivery']
+                ]))->label('حالة التوصيل للأقسام')
+            ])
+            ->actions([
+                Tables\Actions\EditAction::make()->mutateFormDataUsing(function ($data) {
+                    $data['expert'] = \Str::words(strip_tags(html_entity_decode($data['info'])), 15);
+                    return $data;
+                }),
+                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\RestoreAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    /* send msg chat */
+                    Tables\Actions\Action::make('send_msg_chat')->form([
+                        Forms\Components\Textarea::make('msg')->label('الرسالة')->required(),
+                    ])
+                        ->action(function ($record, $data) {
+                            \DB::beginTransaction();
+                            try {
+                                $community = Community::where('type', CommunityTypeEnum::CHAT->value)
+                                    ->whereHas('users', fn($query) => $query->where('users.id', auth()->id()))
+                                    ->whereHas('users', fn($query) => $query->where('users.id', $record->user_id))
+                                    ->first();
+                                if (!$community) {
+                                    $community = Community::create([
+                                        'name' => auth()->user()->name . ' - ' . $record->user?->name,
+                                        'manager_id' => auth()->id(),
+                                        'type' => CommunityTypeEnum::CHAT->value,
+                                        'last_update' => now(),
+                                        'is_global' => false,
+                                    ]);
+                                    $community->users()->sync([auth()->id(), $record->user_id]);
+                                }
+                                Message::create([
+                                    'community_id' => $community->id,
+                                    'user_id' => auth()->id(),
+                                    'body' => $data['msg'],
+                                    'type' => 'text',
+                                ]);
+                                \DB::commit();
+                                Notification::make('success')->title('نجاح العملية')->body('تم إرسال الرسالة بنجاح')->success()->send();
+
+                            } catch (\Exception|\Error $e) {
+                                \DB::rollBack();
+                                Notification::make('error')->title('فشل العملية')->body($e->getMessage())->danger()->send();
+
+                            }
+                        })->label('مراسلة التاجر')->icon('fas-envelope'),
                 ])
-                    ->action(function ($data, $records) {
-                        $ids = $records->pluck('id')->toArray();
-                        Product::whereIn('id', $ids)->update([
-                            'category_id' => $data['category_id'],
-                            'sub1_id' => $data['sub1_id'],
-                            'sub2_id' => $data['sub2_id'],
-                            'sub3_id' => $data['sub3_id'],
-                        ]);
-                        Notification::make('success')->title('نجاح العملية')->body('تم تخصيص الأقسام بنجاح')->success()->send();
-                    }),
-                /*  Tables\Actions\BulkAction::make('weight')->label('احسب الوزن')->action(function ($records) {
-                      foreach ($records as $record) {
-                          $res = \Http::post('http://85.215.154.88:5000/calculate-weight', [
-                              'input_text' => $record->name . "  عدد 1 \n"
-                          ]);
-                          if ($res->successful() && (double)$res->json('total_weight') > 0) {
-                              Product::where('id', $record->id)->update([
-                                  'weight' => $res->json('total_weight')
+            ])
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make()->label('نقل إلى سلة المحذوفات'),
+                    Tables\Actions\ForceDeleteBulkAction::make(),
+                    Tables\Actions\BulkAction::make('category')->form([
+                        Forms\Components\Fieldset::make('التصنيف')->schema([
+                            Forms\Components\Select::make('category_id')->options(Category::product()->pluck('name', 'id'))->label('يتبع القسم')->searchable()->live()->required(),
+                            Forms\Components\Select::make('sub1_id')->options(fn($get) => Category::find($get('category_id'))?->children?->pluck('name', 'id'))->label('يتبع القسم')->searchable()->live(),
+                            Forms\Components\Select::make('sub2_id')->options(fn($get) => Category::find($get('sub1_id'))?->children?->pluck('name', 'id'))->label('يتبع القسم')->searchable()->reactive(),
+                            Forms\Components\Select::make('sub3_id')->options(fn($get) => Category::find($get('sub2_id'))?->children?->pluck('name', 'id'))->label('يتبع القسم')->searchable()->live(),
+                            Forms\Components\Select::make('sub4_id')->options(fn($get) => Category::find($get('sub3_id'))?->children?->pluck('name', 'id'))->label('يتبع القسم')->searchable()->live(),
+                        ]),
+                    ])
+                        ->action(function ($data, $records) {
+                            $ids = $records->pluck('id')->toArray();
+                            Product::whereIn('id', $ids)->update([
+                                'category_id' => $data['category_id'],
+                                'sub1_id' => $data['sub1_id'],
+                                'sub2_id' => $data['sub2_id'],
+                                'sub3_id' => $data['sub3_id'],
+                            ]);
+                            Notification::make('success')->title('نجاح العملية')->body('تم تخصيص الأقسام بنجاح')->success()->send();
+                        }),
+                    /*  Tables\Actions\BulkAction::make('weight')->label('احسب الوزن')->action(function ($records) {
+                          foreach ($records as $record) {
+                              $res = \Http::post('http://85.215.154.88:5000/calculate-weight', [
+                                  'input_text' => $record->name . "  عدد 1 \n"
                               ]);
+                              if ($res->successful() && (double)$res->json('total_weight') > 0) {
+                                  Product::where('id', $record->id)->update([
+                                      'weight' => $res->json('total_weight')
+                                  ]);
+                              }
                           }
-                      }
-                  })*/
-            ]),
-        ]);
+                      })*/
+                ]),
+            ]);
     }
 
     public static function getRelations(): array
