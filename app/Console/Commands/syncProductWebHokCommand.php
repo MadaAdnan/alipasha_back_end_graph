@@ -53,6 +53,7 @@ class syncProductWebHokCommand extends Command
                 Product::where('user_id', $user->id)
                     ->where('is_sync_webhok', false)
                     ->orderBy('id')
+                    ->lazyById(30)
                     ->chunkById(30, function ($products) use ($user) {
                         try {
                             dispatch(new WebhokProductsJob($products, $user->url_webhok));
