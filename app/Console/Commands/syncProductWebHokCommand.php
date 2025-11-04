@@ -54,17 +54,18 @@ class syncProductWebHokCommand extends Command
                     ->where('is_sync_webhok', false)
                     ->orderBy('id')
                     ->lazyById(30)
-                    ->chunkById(30, function ($products) use ($user) {
+                    ->chunk(30)->each( function ($products) use ($user) {
                         try {
                             dispatch(new WebhokProductsJob($products, $user->url_webhok));
+
                         } catch (\Throwable $e) {
                             \Log::error("Error dispatching job Sync: " . $e->getMessage());
                         }
                     });
-
                 if ($user->is_sync_webhok == false) {
                     dispatch(new WebhokUserJob($user));
                 }
+
             });
     }
 }
