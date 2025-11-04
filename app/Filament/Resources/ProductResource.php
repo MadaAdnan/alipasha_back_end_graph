@@ -263,7 +263,7 @@ class ProductResource extends Resource
                        Forms\Components\TextInput::make('power')->label('التقييم')
                    ])
                 ])
-                    ->query(fn($query, $data) => $query->when($data['power'] != null && $data['power'] > 0, fn($q) => $q->where('powwer', $data['op'], $data['power'])))
+                    ->query(fn($query, $data) => $query->when($data['power'] != null && $data['power'] > 0, fn($q) => $q->where('power', $data['op'], $data['power'])))
                     ->label('تقييم المنتج'),
                 Tables\Filters\Filter::make('level')->form([
                     Forms\Components\Select::make('level')->options([
