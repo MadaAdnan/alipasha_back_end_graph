@@ -138,6 +138,7 @@ class ProductResource extends Resource
                     Forms\Components\TextInput::make('name')->label('اسم المنتج'),
                     Forms\Components\Textarea::make('info')->label('وصف المنتج'),
                     Forms\Components\TextInput::make('phone')->label('رقم الهاتف')->required()->rules(['numeric']),
+                    Forms\Components\TextInput::make('num_likes')->numeric()->label('عدد اللايكات الوهمية')->rules(['numeric']),
                     /* Forms\Components\Fieldset::make('هاتف المتجر')->schema([
 
                          Forms\Components\Grid::make()->schema([
