@@ -67,7 +67,14 @@ class ProductInfo
         return $phone;
     }
 
+public function getLikes($root)
+{
+    /**
+     * @var $root Product
+     */
+   return $root->likes_count + $root->num_likes;
 
+}
 
 
 

@@ -56,7 +56,7 @@ type Product{
     sub4:Category @belongsTo
     colors:[Color] @belongsToMany
     comments:[Comment] @hasMany(defaultCount:10,type:PAGINATOR)
-    likes_count:Int
+    likes_count:Int @field(resolver: "App\\GraphQL\\Resolvers\\ProductInfo@getLikes")
     comments_count:Int
     weight:Float
     # Fields
