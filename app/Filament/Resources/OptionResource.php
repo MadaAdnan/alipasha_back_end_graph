@@ -89,7 +89,8 @@ class OptionResource extends Resource
                 Forms\Components\Section::make('الإهتمامات')->schema([
                     Forms\Components\TextInput::make('options.recommended_month')->numeric()->required()->default(30)->label('عدد الأيام لجلب المنتجات'),
                     Forms\Components\TextInput::make('options.recommended_delete')->numeric()->required()->default(10)->label('حذف الإهتمامات الأقدم من عدد الأيام'),
-                    Forms\Components\Toggle::make('is_active_ai')->label('قبول المنتجات بإستخدام AI')
+                    Forms\Components\Toggle::make('is_active_ai')->label('قبول المنتجات بإستخدام AI'),
+                    Forms\Components\Toggle::make('is_add_likes')->label('حساب لايكات وهمية')
                 ]),
             ]);
     }
@@ -98,7 +99,10 @@ class OptionResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('options.recommended_month')->label('عدد الأيام لجلب المنتجات'),
+                Tables\Columns\TextColumn::make('options.recommended_delete')->label('حذف الإهتمامات الأقدم من عدد الأيام'),
+                Tables\Columns\TextColumn::make('is_active_ai')->label('قبول المنتجات بإستخدام AI'),
+                Tables\Columns\TextColumn::make('is_add_likes')->label('حساب لايكات وهمية'),
             ])
             ->filters([
                 //
