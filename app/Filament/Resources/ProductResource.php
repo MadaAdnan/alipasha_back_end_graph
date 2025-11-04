@@ -253,15 +253,15 @@ class ProductResource extends Resource
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('user_id')->options(User::seller()->pluck('seller_name', 'id')->toArray())->label('المتجر')->searchable(),
-               Forms\Components\Fieldset::make('تقييم المنتج')->schema([
-                   Tables\Filters\Filter::make('power')->form([
+                Tables\Filters\Filter::make('power')->form([
+                   Forms\Components\Fieldset::make('الجودة')->schema([
                        Forms\Components\Select::make('op')->options([
                            '>' => 'أكبر من',
                            '<' => 'أقل من',
                            '=' => 'يساوي',
                        ])->label('العملية')->default('>'),
                        Forms\Components\TextInput::make('power')->label('التقييم')
-               ])
+                   ])
                 ])
                     ->query(fn($query, $data) => $query->when($data['power'] != null && $data['power'] > 0, fn($q) => $q->where('powwer', $data['op'], $data['power'])))
                     ->label('تقييم المنتج'),
