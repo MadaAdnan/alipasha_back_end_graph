@@ -260,7 +260,9 @@ class ProductResource extends Resource
                         '=' => 'يساوي',
                     ])->label('العملية')->default('>'),
                     Forms\Components\TextInput::make('power')->label('التقييم')
-                ])->query(fn($query, $data) => $query->when($data['op'] != null && $data['op'] > 0, fn($q) => $q->where('powwer', $data['op'], $data['power'])))->label('تقييم المنتج'),
+                ])
+                    ->query(fn($query, $data) => $query->when($data['op'] != null && $data['op'] > 0, fn($q) => $q->where('powwer', $data['op'], $data['power'])))
+                    ->label('تقييم المنتج'),
                 Tables\Filters\Filter::make('level')->form([
                     Forms\Components\Select::make('level')->options([
                         LevelProductEnum::NORMAL->value => LevelProductEnum::NORMAL->getLabel(),
