@@ -238,7 +238,7 @@ class ProductResource extends Resource
                     ->wrap()->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('id')->label('رقم المنتج')->searchable(),
                 Tables\Columns\TextInputColumn::make('weight')->label('وزن المنتج')->extraAttributes(['style' => 'width:75px'])->extraCellAttributes(['style' => 'width:75px'])->extraInputAttributes(['style' => 'width:75px'])->searchable(),
-                Tables\Columns\TextInputColumn::make('power')->label('جودة المنتج')->searchable(),
+                Tables\Columns\TextInputColumn::make('power')->label('جودة المنتج')->searchable()->sortable(),
                 Tables\Columns\ToggleColumn::make('is_delivery')->label('قابل للتوصيل')->searchable(),
                 Tables\Columns\TextColumn::make('category.name')->wrap()->label('اسم القسم')->description(fn($record) => $record->sub1?->name),
                 Tables\Columns\TextColumn::make('name')->wrap()->label('اسم المنتج')->description(fn($record) => $record->expert)->searchable(),
