@@ -146,19 +146,7 @@ Route::middleware([\App\Http\Middleware\XFrameOptionMiddleware::class])->group(f
 
     Route::get('testnot/{id?}', function ($id = null) {
 
-        try {
-            \DB::statement("
-    UPDATE products p
-    JOIN (
-        SELECT product_id, SUM(count) AS total_views
-        FROM product_views
-        GROUP BY product_id
-    ) v ON p.id = v.product_id
-    SET p.num_likes = FLOOR(v.total_views / 2350)
-");
-        } catch (\Exception|\Error $e) {
 
-        }
 
         return "Success ";
     });
