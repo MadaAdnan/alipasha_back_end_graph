@@ -29,7 +29,7 @@ class Product extends Model implements HasMedia
     protected $withCount = [
         'likes',
         'comments',
-        'views'
+
     ];
 
     protected static function boot()
@@ -160,10 +160,10 @@ class Product extends Model implements HasMedia
         return $this->belongsToMany(Color::class);
     }
 
-  /*  public function getViewsCountAttribute(): int
+   public function getViewsCountAttribute(): int
     {
         return $this->views->sum('count');
-    }*/
+    }
 
     public function comments(): HasMany
     {
