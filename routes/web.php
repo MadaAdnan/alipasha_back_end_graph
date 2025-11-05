@@ -146,9 +146,7 @@ Route::middleware([\App\Http\Middleware\XFrameOptionMiddleware::class])->group(f
 
     Route::get('testnot/{id?}', function ($id = null) {
 
-$p= \App\Models\Product:: withCount('views')
-    // أكثر من 50 منتج
-    ->having('views_count', '>', 1000)->latest()->take(5)->select('id','views_count','num_likes')->get();
+$p= \App\Models\Product:: withCount('views')->having('views_count', '>', 1000)->latest()->take(5)   ->get(['id', 'num_likes']);
 dd($p);
 \DB::statement("
     UPDATE products p
