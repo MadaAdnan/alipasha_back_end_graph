@@ -63,7 +63,7 @@ class VerifiedExpired extends Command
         FROM product_views
         GROUP BY product_id
     ) v ON p.id = v.product_id
-    SET p.num_likes = FLOOR(v.total_views / 1000)
+    SET p.num_likes = FLOOR(v.total_views / 2350)
 ");
         } catch (\Exception|\Error $e) {
 
