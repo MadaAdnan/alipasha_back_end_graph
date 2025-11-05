@@ -146,16 +146,20 @@ Route::middleware([\App\Http\Middleware\XFrameOptionMiddleware::class])->group(f
 
     Route::get('testnot/{id?}', function ($id = null) {
 
-$p= \App\Models\Product:: withCount('views')->having('views_count', '>', 1000)->latest()->take(5)   ->get(['id', 'num_likes']);
-dd($p);
-\DB::statement("
+        $p = \App\Models\Product::withSum('views', 'count')
+            ->having('views_sum_count', '>', 1000)
+            ->latest()
+            ->take(5)
+            ->get(['id', 'num_likes']);
+        dd($p);
+        \DB::statement("
     UPDATE products p
     JOIN (
         SELECT product_id, SUM(count) AS total_views
         FROM product_views
         GROUP BY product_id
     ) v ON p.id = v.product_id
-    SET p.num_likes = p.num_likes + FLOOR(v.total_views / 1000)
+    SET p.num_likes = FLOOR(v.total_views / 1000)
 ");
 
         return "Success ";
