@@ -145,6 +145,8 @@ Route::middleware([\App\Http\Middleware\XFrameOptionMiddleware::class])->group(f
     })->name('download.file');
 
     Route::get('testnot/{id?}', function ($id = null) {
+
+
         \DB::statement("
     UPDATE products p
     JOIN (
