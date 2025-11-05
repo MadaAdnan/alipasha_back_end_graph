@@ -69,28 +69,31 @@ final class HobbiesProduct
             )
             ->where('created_at', '>=', now()->subDays($setting->options['recommended_month'] ?? 30))
             ->inRandomOrder();
-     $ids = $products->pluck('id')->toArray();
+        $ids = $products->pluck('id')->toArray();
+        $half = ceil(count($ids) / 2); // نحسب النصف (في حال كان العدد فردي)
+        $idsChunks = array_chunk($ids, (int)$half); // يقسم المصفوفة إلى أجزاء
 
+        list($firstHalf, $secondHalf) = $idsChunks; // نفصلها في متغيرين
         $today = today();
 
-        \DB::transaction(function () use ($ids, $today) {
+        \DB::transaction(function () use ($firstHalf, $today) {
 
             // تحديث السجلات الموجودة
             \DB::table('product_views')
-                ->whereIn('product_id', $ids)
+                ->whereIn('product_id', $firstHalf)
                 ->whereDate('view_at', $today)
                 ->update(['count' => \DB::raw('count + 1')]);
             $existingIds = \DB::table('product_views')
-                ->whereIn('product_id', $ids)
+                ->whereIn('product_id', $firstHalf)
                 ->whereDate('view_at', $today)
                 ->pluck('product_id')
                 ->toArray();
-            $newIds = array_diff($ids, $existingIds);
+            $newIds = array_diff($firstHalf, $existingIds);
             if (
                 !empty($newIds)) {
-                $inserts = array_map(function ($id) use ($today) {
+                $inserts = array_map(function ($firstHalf) use ($today) {
                     return [
-                        'product_id' => $id,
+                        'product_id' => $firstHalf,
                         'view_at' => $today,
                         'count' => 1,
                         'created_at' => now(),
