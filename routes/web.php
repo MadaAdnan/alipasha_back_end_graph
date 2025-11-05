@@ -146,11 +146,11 @@ Route::middleware([\App\Http\Middleware\XFrameOptionMiddleware::class])->group(f
 
     Route::get('testnot/{id?}', function ($id = null) {
 
-        $p = \App\Models\Product::withSum('views', 'count')
-            ->having('views_sum_count', '>', 1000)
-            ->latest()
-            ->take(5)
-            ->get(['id', 'num_likes']);
+        $p = \App\Models\Product::
+            latest()->first();
+            /*->take(5)
+            ->get(['id', 'num_likes']);*/
+       return $p->views_sum_count;
         dd($p);
         \DB::statement("
     UPDATE products p

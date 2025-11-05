@@ -31,6 +31,7 @@ class Product extends Model implements HasMedia
         'comments',
 
     ];
+    protected $withSum = ['views' => 'count'];
 
     protected static function boot()
     {
