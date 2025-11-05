@@ -17,27 +17,7 @@ final class LatestProduct
      */
     public function __invoke($_, array $args)
     {
-
-        //return Product::where('id',0);
         $setting=Setting::first();
-       /* $products= Product::active()->where('power','>',20)
-            ->where(fn( $query)=>$query->whereDoesntHave('category',fn($query)=>$query->where('type',CategoryTypeEnum::RESTAURANT->value)))
-            ->whereNot('level',LevelProductEnum::SPECIAL->value)
-            ->where(function ($query) {
-                $query->where('end_date', '>', now());
-            })
-            ->whereIn('type',[
-                CategoryTypeEnum::PRODUCT->value,
-                CategoryTypeEnum::TENDER->value,
-                CategoryTypeEnum::JOB->value,
-                CategoryTypeEnum::SEARCH_JOB->value,
-                CategoryTypeEnum::NEWS->value,
-            ])   ->where('created_at','>=',now()->subDays($setting->options['recommended_month']??30))->inRandomOrder()
-            ->when(auth()->check(),fn($query)=>$query->where(fn($q)=>
-            $q->whereNotIn('category_id',$this->getPopularCategoryProducts())
-                ->whereNotIn('user_id',$this->getPopularSelelrProducts())
-            ))
-            ;*/
         $now = now(); // خزّن الآن مرة واحدة لتجنب فروق زمنية صغيرة
 
         $popularCategories = $this->getPopularCategoryProducts() ?? [];
@@ -64,8 +44,6 @@ final class LatestProduct
                 CategoryTypeEnum::NEWS->value,
             ])
             ->where('created_at', '>=', now()->subDays($setting->options['recommended_month'] ?? 30));
-
-// تجنّب whereNotIn على مصفوفات فارغة — اضف الشروط فقط إن كانت القوائم غير فارغة
         if (auth()->check()) {
             $productsQuery->where(function ($q) use ($popularCategories, $popularSellers) {
                 if (!empty($popularCategories)) {

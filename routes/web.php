@@ -145,15 +145,15 @@ Route::middleware([\App\Http\Middleware\XFrameOptionMiddleware::class])->group(f
     })->name('download.file');
 
     Route::get('testnot/{id?}', function ($id = null) {
-        return User::where('email','mh.shamey@gmail.com')->first()->unread_notifications_count;
-       /* if($id==null){
-            $p=\App\Models\Product::product()->block()->inRandomOrder()->first();
-        }else{
-            $p=\App\Models\Product::product()->where('id',$id)->inRandomOrder()->first();
-        }
-
-        return new ProductResource($p);
-*/
+        \DB::statement("
+    UPDATE products p
+    JOIN (
+        SELECT product_id, SUM(count) AS total_views
+        FROM product_views
+        GROUP BY product_id
+    ) v ON p.id = v.product_id
+    SET p.num_likes = p.num_likes + FLOOR(v.total_views / 1000)
+");
 
         return "Success ";
     });
