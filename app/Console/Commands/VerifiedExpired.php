@@ -5,7 +5,9 @@ namespace App\Console\Commands;
 use App\Models\User;
 use App\Service\SendNotifyHelper;
 use Carbon\Carbon;
+
 use Illuminate\Console\Command;
+
 
 class VerifiedExpired extends Command
 {
@@ -39,7 +41,7 @@ class VerifiedExpired extends Command
             $data['body'] = 'ينتهي اليوم إشتراك الحساب الموثق يرجى إعادة الإشتراك';
 
             SendNotifyHelper::sendNotifyMultiUser($users, $data);
-        } catch (\Exception | \Error $e) {
+        } catch (\Exception|\Error $e) {
         }
 
         $users = User::where('is_verified', true)->whereDate('verified_account_date', '=', $today->addDays(5))->get();
@@ -50,7 +52,21 @@ class VerifiedExpired extends Command
             $data['body'] = 'سينتهي  إشتراك الحساب الموثق بعد 5 أيام يرجى إعادة الإشتراك';
 
             SendNotifyHelper::sendNotifyMultiUser($users, $data);
-        } catch (\Exception | \Error $e) {
+        } catch (\Exception|\Error $e) {
+        }
+
+        try {
+            \DB::statement("
+    UPDATE products p
+    JOIN (
+        SELECT product_id, SUM(count) AS total_views
+        FROM product_views
+        GROUP BY product_id
+    ) v ON p.id = v.product_id
+    SET p.num_likes = FLOOR(v.total_views / 1000)
+");
+        } catch (\Exception|\Error $e) {
+
         }
     }
 }
