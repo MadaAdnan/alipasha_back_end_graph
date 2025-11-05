@@ -244,7 +244,7 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('name')->wrap()->label('اسم المنتج')->description(fn($record) => $record->expert)->searchable(),
                 Tables\Columns\TextColumn::make('city.name')->wrap()->label('المدينة'),
                 Tables\Columns\TextColumn::make('user.name')->wrap()->label('المتجر')->url(fn($record) => UserResource::getUrl('edit', ['record' => $record->user_id]))->searchable(),
-                Tables\Columns\TextColumn::make('views_count')->label('عدد المشاهدات')->sortable()->toggleable(isToggledHiddenByDefault: false),
+                Tables\Columns\TextColumn::make('views_count')->label('عدد المشاهدات')->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('num_likes')->label('عدد الإعجابات الوهمية')->sortable()->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('level')->formatStateUsing(fn($state) => LevelProductEnum::tryFrom($state)?->getLabel())->color(fn($state) => LevelProductEnum::tryFrom($state)?->getColor())->icon(fn($state) => LevelProductEnum::tryFrom($state)?->getIcon())->label('تمييز المنتج'),
                 Tables\Columns\TextColumn::make('created_at')->since()->label('أضيف منذ'),
