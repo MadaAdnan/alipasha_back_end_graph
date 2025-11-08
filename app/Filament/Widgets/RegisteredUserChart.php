@@ -71,6 +71,7 @@ class RegisteredUserChart extends ChartWidget
             )
             ->$per()
             ->count();
+        dd($per);
         return [
             'datasets' => [
                 [
