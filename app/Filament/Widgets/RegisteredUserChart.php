@@ -38,6 +38,7 @@ class RegisteredUserChart extends ChartWidget
         $start = now()->subDays(28);
         $end = now();
         $per = "perMonth";
+        dd($activeFilter);
         if ($activeFilter == 'week') {
             $start = now()->subDays(7);
             $per = "perDay";
@@ -71,7 +72,7 @@ class RegisteredUserChart extends ChartWidget
             )
             ->$per()
             ->count();
-        dd($per);
+
         return [
             'datasets' => [
                 [
