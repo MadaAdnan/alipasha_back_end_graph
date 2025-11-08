@@ -159,7 +159,7 @@ class InvoiceChart extends ChartWidget
 
     protected function getData(): array
     {
-        $activeFilter = $this->filter;
+        $activeFilter = $this->filter??'28';
         $start = now()->subDays(28);
         $end = now();
 
