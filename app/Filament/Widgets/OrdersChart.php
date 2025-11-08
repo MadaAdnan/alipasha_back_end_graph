@@ -85,13 +85,13 @@ class OrdersChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'طلبات الشحن الخاصة المكتملة',
+                    'label' => 'طلبات الشراء الخاصة المكتملة',
                     'data' => $ordersComplete->map(fn (TrendValue $value) => $value->aggregate),
                     'backgroundColor' => '#00FF00',
                     'borderColor' => '#00FF00',
                 ],
                 [
-                    'label' => 'طلبات الشحن الخاصة الملغية',
+                    'label' => 'طلبات الشراء الخاصة الملغية',
                     'data' => $ordersCanceled->map(fn (TrendValue $value) => $value->aggregate),
                     'backgroundColor' => '#FF0000',
                     'borderColor' => '#FF0000',

@@ -135,7 +135,7 @@ use Flowframe\Trend\TrendValue;
 }*/
 class InvoiceChart extends ChartWidget
 {
-    protected static ?string $heading = 'نسبة حالات الشحن';
+    protected static ?string $heading = 'نسبة حالات الشراء';
 
     public static function canView(): bool
     {
@@ -202,7 +202,7 @@ class InvoiceChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'حالات الشحن',
+                    'label' => 'حالات الشراء',
                     'data' => [
                         $invoicePending,
                         $invoiceAgree,
