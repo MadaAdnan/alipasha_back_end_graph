@@ -19,7 +19,7 @@ class StateOverView extends BaseWidget
 
     protected function getStats(): array
     {
-        $start=now()->subDays(7);
+        $start = now()->subDays(28);
         $end=now();
         $users=User::select(['id','is_seller','email_verified_at'])/*->whereBetween('created_at',[$start,$end])*/->get();
         $products=Product::select(['id','type'])->where('active',ProductActiveEnum::ACTIVE->value)/*->whereBetween('created_at',[$start,$end])*/->get();
