@@ -34,11 +34,11 @@ class RegisteredUserChart extends ChartWidget
 
     protected function getData(): array
     {
-        $activeFilter = $this->filter;
+        $activeFilter = $this->filter??'28';
         $start = now()->subDays(28);
         $end = now();
         $per = "perMonth";
-        dd($activeFilter);
+
         if ($activeFilter == 'week') {
             $start = now()->subDays(7);
             $per = "perDay";
