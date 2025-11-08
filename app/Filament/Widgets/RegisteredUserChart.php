@@ -87,6 +87,6 @@ class RegisteredUserChart extends ChartWidget
 
     protected function getType(): string
     {
-        return 'line';
+        return 'bar';
     }
 }

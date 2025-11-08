@@ -130,6 +130,6 @@ class SeeProductChart extends ChartWidget
 
     protected function getType(): string
     {
-        return 'line';
+        return 'bar';
     }
 }
