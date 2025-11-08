@@ -22,13 +22,14 @@ class OrdersChart extends ChartWidget
     protected function getFilters(): ?array
     {
         return [
+            '28' => 'آخر 28 يوم',
             'year' => 'هذه السنة',
             'back' => 'السنة السابقة',
             '360' => 'آخر 360 يوم',
             'today' => 'اليوم',
             'week' => 'آخر 7 أيام',
             'month' => 'هذا الشهر',
-            '28' => 'آخر 28 يوم',
+
             '60' => 'آخر 60 يوم',
 
         ];
