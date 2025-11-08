@@ -12,7 +12,7 @@ use Filament\Widgets\ChartWidget;
 use Flowframe\Trend\Trend;
 use Flowframe\Trend\TrendValue;
 
-class InvoiceChart extends ChartWidget
+/*class InvoiceChart extends ChartWidget
 {
    // protected static ?string $heading = 'طلبات الشحن';
     public static function canView(): bool
@@ -131,5 +131,104 @@ class InvoiceChart extends ChartWidget
     protected function getType(): string
     {
         return 'bar';
+    }
+}*/
+class InvoiceChart extends ChartWidget
+{
+    protected static ?string $heading = 'نسبة حالات الشحن';
+
+    public static function canView(): bool
+    {
+        return auth()->user()->hasAllPermissions('widget_OrdersChart');
+    }
+
+    protected function getFilters(): ?array
+    {
+        return [
+            'year' => 'هذه السنة',
+            'back' => 'السنة السابقة',
+            '360' => 'آخر 360 يوم',
+            'today' => 'اليوم',
+            'week' => 'آخر 7 أيام',
+            'month' => 'هذا الشهر',
+            '28' => 'آخر 28 يوم',
+            '60' => 'آخر 60 يوم',
+        ];
+    }
+
+    protected function getData(): array
+    {
+        $activeFilter = $this->filter;
+        $start = now()->startOfYear();
+        $end = now();
+
+        if ($activeFilter == 'week') {
+            $start = now()->subDays(7);
+        } elseif ($activeFilter == '28') {
+            $start = now()->subDays(28);
+        } elseif ($activeFilter == '60') {
+            $start = now()->subDays(60);
+        } elseif ($activeFilter == 'month') {
+            $start = now()->startOfMonth();
+        } elseif ($activeFilter == 'year') {
+            $start = now()->startOfYear();
+        } elseif ($activeFilter == 'today') {
+            $start = now()->startOfDay();
+        } elseif ($activeFilter == '360') {
+            $start = now()->subYear();
+        } elseif ($activeFilter == 'back') {
+            $start = now()->startOfYear()->subYear();
+            $end = now()->startOfYear()->subYear()->endOfYear();
+        }
+
+        // حساب المجموع لكل حالة
+        $invoicePending = Invoice::where('status', OrderStatusEnum::PENDING->value)
+            ->whereBetween('created_at', [$start, $end])
+            ->count();
+
+        $invoiceAgree = Invoice::where('status', OrderStatusEnum::AGREE->value)
+            ->whereBetween('created_at', [$start, $end])
+            ->count();
+
+        $invoiceComplete = Invoice::where('status', OrderStatusEnum::COMPLETE->value)
+            ->whereBetween('created_at', [$start, $end])
+            ->count();
+
+        $invoiceCanceled = Invoice::where('status', OrderStatusEnum::CANCELED->value)
+            ->whereBetween('created_at', [$start, $end])
+            ->count();
+
+        // تجهيز البيانات لمخطط Pie
+        return [
+            'datasets' => [
+                [
+                    'label' => 'حالات الشحن',
+                    'data' => [
+                        $invoicePending,
+                        $invoiceAgree,
+                        $invoiceComplete,
+                        $invoiceCanceled,
+                    ],
+                    'backgroundColor' => [
+                        '#99CDDD', // انتظار
+                        '#99FFDD', // موافقة
+                        '#99FF00', // مكتملة
+                        '#FF9900', // ملغاة
+                    ],
+                    'hoverOffset' => 15,
+                ],
+            ],
+            'labels' => [
+                'بالإنتظار',
+                'تمت الموافقة',
+                'مكتملة',
+                'ملغاة',
+            ],
+        ];
+    }
+
+    protected function getType(): string
+    {
+        return 'pie';
     }
 }
