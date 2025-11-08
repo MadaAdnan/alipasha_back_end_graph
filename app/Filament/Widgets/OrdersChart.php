@@ -72,7 +72,7 @@ class OrdersChart extends ChartWidget
                 start:$start ,
                 end: $end,
             )
-            ->perMonth()
+            ->$per()
             ->count();
 
         $ordersCanceled = Trend::query(Order::where('status',OrderStatusEnum::CANCELED->value))

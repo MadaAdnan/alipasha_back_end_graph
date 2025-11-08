@@ -64,7 +64,7 @@ class RegisteredUserChart extends ChartWidget
             $end = now()->startOfYear()->subYear()->endOfYear();
             $per = "perMonth";
         }
-        $users = Trend::model(User::class)
+        $users = Trend::query(User::whereBetween('created_at',[$start,$end]))
  ->between(
                 start:$start ,
                 end: $end,
