@@ -19,9 +19,13 @@ final class CreateNewOrder
      */
     public function __invoke($_, array $args)
     {
+        if(!auth()->check()){
+            throw new GraphQLExceptionHandler('خطأ في الطلب يرجى المحاولة لاحقاً');
+        }
         if (!auth()->user()->is_active) {
             throw new GraphQLExceptionHandler('تم حظر حسابك يرجى مراجعة الإدارة');
         }
+        $user=auth()->id();
         $data = $args['input'];
         $size = ($data['length'] *0.01) * ($data['height']*0.01) * ($data['width']*0.01) ;
         $maxWeight = ShippingPrice::where('weight', '>=', $data['weight'])
@@ -53,7 +57,7 @@ final class CreateNewOrder
 
 
             $order = Order::create([
-                'user_id' => auth()->id(),
+                'user_id' => $user->id,
                 'from_id' => $data['from_id'],
                 'size' => $size,
                 'to_id' => $data['to_id'],
