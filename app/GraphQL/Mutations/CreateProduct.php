@@ -9,6 +9,8 @@ use App\Enums\ProductActiveEnum;
 use App\Exceptions\GraphQLExceptionHandler;
 use App\GraphQL\Queries\Product;
 use App\Helpers\ProductsHelper;
+use App\Jobs\SendFirebaseNotificationJob;
+use App\Jobs\SendNotificationJob;
 use App\Models\User;
 
 final class CreateProduct
@@ -27,6 +29,12 @@ final class CreateProduct
         $plan = ProductsHelper::getPresentPlanActive();
 
         if ($plan == null) {
+            $data=[
+                'title'=>'تنبيه',
+                'body'=>'لا يمكنك نشر المزيد خلال هذا الشهر يرجى ترقية الخطة لنشر المزيد'
+            ];
+            $job=new SendFirebaseNotificationJob([$user->device_token], $data);
+                dispatch($job);
             throw new GraphQLExceptionHandler('يرجى الإشتراك بخطة للنشر');
         }
         $isAvailableCreate = ProductsHelper::isAvailableCreateProduct($plan);
