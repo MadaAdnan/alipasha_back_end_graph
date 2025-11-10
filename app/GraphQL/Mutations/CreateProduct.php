@@ -31,7 +31,7 @@ final class CreateProduct
         if ($plan == null) {
             $data=[
                 'title'=>'تنبيه',
-                'body'=>'لا يمكنك نشر المزيد خلال هذا الشهر يرجى ترقية الخطة لنشر المزيد'
+                'body'=>'وصلت لحد النشر المسموح لك شهريا انتظر للشهر القادم او قم بترقية حسابك لتحصل على النشر المفتوح'
             ];
             $job=new SendFirebaseNotificationJob([$user->device_token], $data);
                 dispatch($job);
