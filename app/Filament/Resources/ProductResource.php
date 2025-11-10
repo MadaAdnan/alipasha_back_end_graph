@@ -301,7 +301,7 @@ class ProductResource extends Resource
                         );
                 }),
                 Tables\Filters\TernaryFilter::make('has_video')->queries(
-                    true: fn($query) => $query->whereNotNull('video'),
+                    true: fn($query) => $query->whereNotNull('video')->where('video', 'REGEXP', '^(https?:\/\/[^\s]+)$'),
                     false: fn($query) => $query->whereNull('video'),
                     blank: fn($query) => $query,
                 )->label('فلتر فيديو')
