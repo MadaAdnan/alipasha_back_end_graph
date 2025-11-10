@@ -146,7 +146,7 @@ Route::middleware([\App\Http\Middleware\XFrameOptionMiddleware::class])->group(f
 
     Route::get('testnot/{id?}', function ($id = null) {
 
-
+return new ProductResource(\App\Models\Product::active()->product()->inRandomOrder()->first());
 
         return "Success ";
     });
