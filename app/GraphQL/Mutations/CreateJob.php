@@ -6,6 +6,7 @@ use App\Enums\PlansTypeEnum;
 use App\Enums\ProductActiveEnum;
 use App\Exceptions\GraphQLExceptionHandler;
 use App\Helpers\ProductsHelper;
+use App\Jobs\SendFirebaseNotificationJob;
 use App\Models\Product;
 use App\Models\User;
 use Carbon\Carbon;
@@ -31,6 +32,13 @@ final class CreateJob
         }
         $isAvailableCreate=ProductsHelper::isAvailableCreateProduct($plan);
         if(!$isAvailableCreate){
+            $user=auth()->user();
+            $data=[
+                'title'=>'تنبيه',
+                'body'=>'وصلت لحد النشر المسموح لك شهريا انتظر للشهر القادم او قم بترقية حسابك لتحصل على النشر المفتوح'
+            ];
+            $job=new SendFirebaseNotificationJob([$user->device_token], $data);
+            dispatch($job);
             throw new GraphQLExceptionHandler('لا يمكنك نشر المزيد خلال هذا الشهر يرجى ترقية الخطة لنشر المزيد');
         }
        try{

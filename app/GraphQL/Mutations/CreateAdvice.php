@@ -4,6 +4,7 @@ namespace App\GraphQL\Mutations;
 
 use App\Enums\ProductActiveEnum;
 use App\Exceptions\GraphQLExceptionHandler;
+use App\Jobs\SendFirebaseNotificationJob;
 use App\Models\Advice;
 use App\Models\Plan;
 use App\Models\Product;
@@ -22,6 +23,7 @@ final class CreateAdvice
         $myAdvices = Advice::where(['status' => ProductActiveEnum::ACTIVE->value, 'user_id' => auth()->id()])->count();
         $currentPlan = null;
         $expiredDate = now();
+        $user=auth()->user();
         if(!auth()->user()->is_active){
             throw new GraphQLExceptionHandler('تم حظر حسابك يرجى مراجعة الإدارة');
         }
@@ -37,6 +39,12 @@ final class CreateAdvice
             break;
         }
         if (now()->greaterThan($expiredDate) || $currentPlan?->ads_count >= $myAdvices) {
+            $data=[
+                'title'=>'تنبيه',
+                'body'=>'وصلت لحد النشر المسموح لك شهريا انتظر للشهر القادم او قم بترقية حسابك لتحصل على النشر المفتوح'
+            ];
+            $job=new SendFirebaseNotificationJob([$user->device_token], $data);
+            dispatch($job);
             throw new GraphQLExceptionHandler('خطتك لا تدعم المزيد من الإعلانات يرجى ترقية الحساب للمزيد');
         }
         $data = $args['input'];
