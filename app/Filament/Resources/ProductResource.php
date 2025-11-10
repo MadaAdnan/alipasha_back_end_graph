@@ -279,12 +279,12 @@ class ProductResource extends Resource
                         if ($get('category_id') != null) {
                             return Category::find($get('category_id'))->children->pluck('name', 'id');
                         }
-                    })->label('القسم الرئيسي')->live(),
+                    })->label('القسم الفرعي 1')->live(),
                     Forms\Components\Select::make('sub2_id')->options(function ($get) {
                         if ($get('sub1_id') != null) {
                             return Category::find($get('sub1_id'))->children->pluck('name', 'id');
                         }
-                    })->label('القسم الرئيسي')->live(),
+                    })->label('القسم الفرعي 2')->live(),
 
                 ])->query(function ($query, $data) {
                     $query->when(
