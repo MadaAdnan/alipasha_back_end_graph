@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Setting;
 use App\Models\User;
 use App\Service\SendNotifyHelper;
 use Carbon\Carbon;
@@ -56,15 +57,19 @@ class VerifiedExpired extends Command
         }
 
         try {
-            \DB::statement("
+            $setting = Setting::first();
+            if ($setting->is_add_likes) {
+                \DB::statement("
     UPDATE products p
     JOIN (
         SELECT product_id, SUM(count) AS total_views
         FROM product_views
         GROUP BY product_id
     ) v ON p.id = v.product_id
-    SET p.num_likes = FLOOR(v.total_views / 2350)
+    SET p.num_likes = FLOOR(v.total_views / {$setting->num_view_as_like})
 ");
+            }
+
         } catch (\Exception|\Error $e) {
 
         }

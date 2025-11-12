@@ -91,7 +91,12 @@ class OptionResource extends Resource
                     Forms\Components\TextInput::make('options.recommended_month')->numeric()->required()->default(30)->label('عدد الأيام لجلب المنتجات'),
                     Forms\Components\TextInput::make('options.recommended_delete')->numeric()->required()->default(10)->label('حذف الإهتمامات الأقدم من عدد الأيام'),
                     Forms\Components\Toggle::make('is_active_ai')->label('قبول المنتجات بإستخدام AI'),
-                    Forms\Components\Toggle::make('is_add_likes')->label('حساب لايكات وهمية')
+                    Forms\Components\Toggle::make('is_add_likes')->label('حساب لايكات وهمية'),
+//                    Forms\Components\Toggle::make('active_bot_like')->label('تشغيل بوت الإعجاب'),
+                    Forms\Components\TextInput::make('num_view_as_like')
+                        ->integer()->numeric()->minValue(1)
+                        ->label('عدد المشاهدات لحساب لايك واحد'),
+                    Forms\Components\TextInput::make('ratio_view_home')->numeric()->minValue(0)->maxValue(1)->step(0.1)->label('نسبة حساب مشاهدات الرئيسية')
                 ]),
             ]);
     }

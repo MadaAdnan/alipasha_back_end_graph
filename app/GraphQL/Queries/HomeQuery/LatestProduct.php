@@ -12,20 +12,19 @@ use App\Models\Setting;
 final class LatestProduct
 {
     /**
-     * @param  null  $_
-     * @param  array{}  $args
+     * @param null $_
+     * @param array{} $args
      */
     public function __invoke($_, array $args)
     {
-        $setting=Setting::first();
+        $setting = Setting::first();
         $now = now(); // خزّن الآن مرة واحدة لتجنب فروق زمنية صغيرة
 
         $popularCategories = $this->getPopularCategoryProducts() ?? [];
         $popularSellers = $this->getPopularSelelrProducts() ?? [];
 
         $productsQuery = Product::active()
-            ->whereHas('user',fn($q)=>$q->where('users.is_active', 1))
-
+            ->whereHas('user', fn($q) => $q->where('users.is_active', 1))
             ->where('power', '>', 20)
             ->whereDoesntHave('category', fn($q) => $q->where('type', CategoryTypeEnum::RESTAURANT->value))
             ->whereNot('level', LevelProductEnum::SPECIAL->value)
@@ -57,7 +56,8 @@ final class LatestProduct
 
         $products = $productsQuery->inRandomOrder();
         $ids = $products->pluck('id')->toArray();
-        $half = ceil(count($ids) / 2); // نحسب النصف (في حال كان العدد فردي)
+        $ratio = $setting->ratio_view_home;
+        $half = ceil(count($ids) * $ratio ?? 0.5); // نحسب النصف (في حال كان العدد فردي)
         $idsChunks = array_chunk($ids, (int)$half); // يقسم المصفوفة إلى أجزاء
 
         list($firstHalf, $secondHalf) = $idsChunks; // نفصلها في متغيرين
@@ -93,6 +93,7 @@ final class LatestProduct
         });
         return $products;
     }
+
     private function getPopularCategoryProducts()
     {
         return Interaction::where('user_id', auth()->id())->whereNotNull('category_id')
@@ -101,11 +102,11 @@ final class LatestProduct
             ->orderByRaw('SUM(visited) DESC')
             ->pluck('category_id')->toArray();
     }
+
     private function getPopularSelelrProducts()
     {
         return Interaction::where('user_id', auth()->id())->whereNotNull('seller_id')
             ->groupBy('seller_id')
-
             ->pluck('seller_id')->toArray();
     }
 }

@@ -70,7 +70,8 @@ final class HobbiesProduct
             ->where('created_at', '>=', now()->subDays($setting->options['recommended_month'] ?? 30))
             ->inRandomOrder();
         $ids = $products->pluck('id')->toArray();
-        $half = ceil(count($ids) / 2); // نحسب النصف (في حال كان العدد فردي)
+        $ratio = $setting->ratio_view_home;
+        $half = ceil(count($ids) * $ratio ?? 0.5);
         $idsChunks = array_chunk($ids, (int)$half); // يقسم المصفوفة إلى أجزاء
 
         list($firstHalf, $secondHalf) = $idsChunks; // نفصلها في متغيرين
