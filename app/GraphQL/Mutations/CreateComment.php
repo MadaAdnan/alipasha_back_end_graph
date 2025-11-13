@@ -37,25 +37,7 @@ final class CreateComment
             'comment_id'=>$args['comment_id']??null
         ]);
 
-        try {
-            if($comment->comment_id==null){
-                $user = $product->user;
-                $data['title'] = 'تعليق جديد بواسطة ' . $user->name;
-                $data['body'] = 'تم التعليق على منتجك  ' . $product->name ?? $product->expert;
 
-            }else{
-                $data['title'] = 'تم الرد على تعليقك' ;
-                $data['body'] = 'المنتج: ' . $product->name ?? $product->expert;
-                $user=$comment->comment?->user;
-            }
-
-            $data['url'] = 'https://ali-pasha.com/comments?id=' . $product->id;
-            if($user){
-                SendNotifyHelper::sendNotify($user, $data);
-            }
-
-        } catch (\Exception | \Error $e) {
-        }
 return $comment;
     }
 }
