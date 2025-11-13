@@ -38,7 +38,7 @@ class CommentsRelationManager extends RelationManager
             ->recordTitleAttribute('comment')
             ->columns([
                 Tables\Columns\TextColumn::make('comment')->searchable()->label('التعليق'),
-                Tables\Columns\TextColumn::make('user.name')->label('المستخدم'),
+                Tables\Columns\TextColumn::make('user.name')->label('تعليق المستخدم'),
                 Tables\Columns\TextColumn::make('replay.user.name')->label('رد على'),
                 Tables\Columns\TextColumn::make('created_at')->since()->label('أضيف منذ')->sortable(),
             ])
