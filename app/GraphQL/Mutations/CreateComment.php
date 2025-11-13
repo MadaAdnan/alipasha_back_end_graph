@@ -46,11 +46,14 @@ final class CreateComment
             }else{
                 $data['title'] = 'تم الرد على تعليقك' ;
                 $data['body'] = 'المنتج: ' . $product->name ?? $product->expert;
-                $user=$comment->comment->user;
+                $user=$comment->comment?->user;
             }
 
             $data['url'] = 'https://ali-pasha.com/comments?id=' . $product->id;
-            SendNotifyHelper::sendNotify($user, $data);
+            if($user){
+                SendNotifyHelper::sendNotify($user, $data);
+            }
+           
         } catch (\Exception | \Error $e) {
         }
 return $comment;
