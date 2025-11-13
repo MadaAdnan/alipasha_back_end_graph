@@ -145,11 +145,24 @@ Route::middleware([\App\Http\Middleware\XFrameOptionMiddleware::class])->group(f
     })->name('download.file');
 
     Route::get('testnot/{id?}', function ($id = null) {
-if($id!=null){
-    return new ProductResource(\App\Models\Product::product()->find($id));
-}
+        $data = [
+            'syria' => [
+                'dollar' => [
+                    'bay' => 40,
+                    'sale' => 20
+                ],
+                'syr' => [
+                    'bay' => 50,
+                    'sale' => 60
+                ],
+            ],
+        ];
+        dd(data_get($data, 'syria.dollar.bay'),  data_get($data, 'syria.syr.bay'));
+        if ($id != null) {
+            return new ProductResource(\App\Models\Product::product()->find($id));
+        }
 
-return new ProductResource(\App\Models\Product::active()->product()->inRandomOrder()->first());
+        return new ProductResource(\App\Models\Product::active()->product()->inRandomOrder()->first());
 
         return "Success ";
     });
