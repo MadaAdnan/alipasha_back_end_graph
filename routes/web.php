@@ -157,7 +157,7 @@ Route::middleware([\App\Http\Middleware\XFrameOptionMiddleware::class])->group(f
                 ],
             ],
         ];
-        dd(data_get($data, 'syria.dollar.bay'),  data_get($data, 'syria.syr.bay'));
+
         if ($id != null) {
             return new ProductResource(\App\Models\Product::product()->find($id));
         }
