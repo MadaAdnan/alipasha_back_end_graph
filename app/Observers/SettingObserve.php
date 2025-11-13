@@ -22,13 +22,15 @@ class SettingObserve
     {
 
         //dollar.idlib.usd.bay
-        $setting->dollar_value = $setting->dollar['idlib']['usd']['bay'] ?? $setting->dollar_value;
-        $setting->dollar_syr = $setting->dollar['idlib']['syr']['bay'] ?? $setting->dollar_syr;
+        $setting->dollar_value = data_get($setting->dollar, 'idlib.usd.bay', $setting->dollar_value);
+        $setting->dollar_syr = data_get($setting->dollar, 'idlib.syr.bay', $setting->dollar_syr);
         $social = $setting->getOriginal('social');
-        if ($setting->social['name'] == '') {
+
+        if (empty($setting->social['name'])) {
             $setting->social['name'] = $social['name'];
         }
-        if ($setting->social['email'] == '') {
+
+        if (empty($setting->social['email'])) {
             $setting->social['email'] = $social['email'];
         }
     }
