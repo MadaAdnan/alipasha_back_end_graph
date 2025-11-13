@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Observers\CommentObserver;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Comment extends Model
@@ -30,6 +31,11 @@ protected static function boot()
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class)->take(7)->latest();
+    }
+
+    public function replay():BelongsTo
+    {
+        return $this->belongsTo(Comment::class,'comment_id');
     }
 
 }
