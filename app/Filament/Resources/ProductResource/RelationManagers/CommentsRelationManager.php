@@ -23,7 +23,7 @@ protected static ?string $pluralLabel='التعليقات';
                 Forms\Components\Textarea::make('comment')
                     ->required()
                     ->maxLength(255)->label('التعليق')->columnSpan(2),
-                Forms\Components\Placeholder::make('user_id')->content(fn($record) => $record->user?->name)->label('المستخدم'),
+                Forms\Components\TextInput::make('user_id')->default(fn($record) => $record->user?->name)->label('المستخدم')->visible(fn($context)=>$context=='view'),
                 Forms\Components\Placeholder::make('created_at')->content(fn($record) => $record->created_at?->format('Y-m-d'))->label('تاريخ كتابة التعليق')
             ]);
     }
