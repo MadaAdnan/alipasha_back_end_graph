@@ -61,7 +61,7 @@ class CommentsRelationManager extends RelationManager
 
                     ]);
                     Notification::make('success')->title('نجاح العملية')->body('تم إضافة الرد')->success()->send();
-                })
+                })->label('الرد')
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
