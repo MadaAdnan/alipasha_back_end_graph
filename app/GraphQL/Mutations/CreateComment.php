@@ -53,7 +53,7 @@ final class CreateComment
             if($user){
                 SendNotifyHelper::sendNotify($user, $data);
             }
-           
+
         } catch (\Exception | \Error $e) {
         }
 return $comment;
