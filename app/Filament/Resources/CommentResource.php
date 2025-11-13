@@ -49,7 +49,7 @@ class CommentResource extends Resource
                             case CategoryTypeEnum::NEWS->value:
                               return   NewsResource::getUrl('edit',['record'=>$record->product->id]);
 
-                            case CategoryTypeEnum::PRODUCT->value:
+                            default:
                                 return   ProductResource::getUrl('edit',['record'=>$record->product->id]);
 
                         }
