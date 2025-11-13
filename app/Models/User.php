@@ -35,6 +35,11 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         return auth()->user();
     }
 
+    public function clicks(): HasMany
+    {
+        return $this->hasMany(ClickWhats::class,'seller_id');
+    }
+
     /**
      * The attributes that are mass assignable.
      *
@@ -81,7 +86,8 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         'invoicesSeller',
         'invoices',
         'followers',
-        'specialProduct'
+        'specialProduct',
+        'clicks'
 
     ];
 

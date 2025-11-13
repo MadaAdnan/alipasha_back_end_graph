@@ -4,6 +4,7 @@ namespace App\GraphQL\Mutations;
 
 use App\Exceptions\GraphQLExceptionHandler;
 use App\Jobs\SendFirebaseNotificationJob;
+use App\Models\ClickWhats;
 use App\Models\Interaction;
 use App\Models\Like;
 use App\Models\Product;
@@ -16,7 +17,7 @@ final  class ClickWhatsapp
     {
         $productId = $args['productId'];
         $product = Product::find($productId);
-        if(!$product){
+        if (!$product) {
             throw new GraphQLExceptionHandler('Product not found', 404);
         }
         $user = auth()->user()->name;
@@ -24,8 +25,14 @@ final  class ClickWhatsapp
         $data['title'] = 'مراسلة جديدة';
         $data['body'] = "قد يتواصل الزبون {$user} عبر واتسأب للإستفسار عن المنتج {$name}";
         try {
+
             $job = new SendFirebaseNotificationJob([$product->user->device_token], $data);
             dispatch($job);
+            ClickWhats::create([
+                'product_id' => $productId,
+                'user_id' => $user->id,
+                'seller_id' => $product->user_id
+            ]);
         } catch (Exception|\Error $e) {
 
         }
