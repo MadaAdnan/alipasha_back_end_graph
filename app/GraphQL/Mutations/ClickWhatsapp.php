@@ -9,6 +9,7 @@ use App\Models\Interaction;
 use App\Models\Like;
 use App\Models\Product;
 use Exception;
+use Illuminate\Support\Facades\Log;
 
 final  class ClickWhatsapp
 {
@@ -17,6 +18,7 @@ final  class ClickWhatsapp
     {
         $productId = $args['productId'];
         $product = Product::find($productId);
+        Log::error("SUccess Contact {$product->id}");
         if (!$product) {
             throw new GraphQLExceptionHandler('Product not found', 404);
         }
