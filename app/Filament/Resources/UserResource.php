@@ -205,6 +205,7 @@ class UserResource extends Resource
                     ->color(fn($state) => HelpersEnum::getEmailVerified($state, 'color'))
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('is_special')->label('متجر مميز')->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('clicks_count')->label('عدد التواصلات')->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('level_seller')->label('نوع الإشتراك')
                     ->formatStateUsing(fn($state) => LevelSellerEnum::tryFrom($state)->getLabel())
                     ->color(fn($state) => LevelSellerEnum::tryFrom($state)->getColor())
