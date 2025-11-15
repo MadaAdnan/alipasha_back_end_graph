@@ -22,10 +22,10 @@ final  class ClickWhatsapp
         if (!$product) {
             throw new GraphQLExceptionHandler('Product not found', 404);
         }
-        $user = auth()->user()->name;
+        $user = auth()->user();
         $name = $product->name ?? \Str::substr($product->expert, 0, 20);
         $data['title'] = 'مراسلة جديدة';
-        $data['body'] = "قد يتواصل الزبون {$user} عبر واتسأب للإستفسار عن المنتج {$name}";
+        $data['body'] = "قد يتواصل الزبون {$user->name} عبر واتسأب للإستفسار عن المنتج {$name}";
         try {
 
             $job = new SendFirebaseNotificationJob([$product->user->device_token], $data);
