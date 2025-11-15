@@ -401,7 +401,7 @@ class UserResource extends Resource
                 ExportAction::make()->exports([
                     ExcelExport::make()->fromTable()->withChunkSize(200)->askForFilename()
                         ->withFilename(fn($filename) => 'ali-pasha-' . $filename),
-                ]),
+                ])->visible(auth()->user()->can('export_users')),
                 Tables\Actions\Action::make('send_msg_phone')->form([
                     Forms\Components\TextInput::make('title')->label('العنوان')->required(),
                     Forms\Components\Textarea::make('msg')->label('الرسالة')->required(),
