@@ -18,7 +18,7 @@ final  class ClickWhatsapp
     {
         $productId = $args['productId'];
         $product = Product::find($productId);
-        Log::error("SUccess Contact {$product->id}");
+
         if (!$product) {
             throw new GraphQLExceptionHandler('Product not found', 404);
         }
@@ -36,7 +36,7 @@ final  class ClickWhatsapp
                 'seller_id' => $product->user_id
             ]);
         } catch (Exception|\Error $e) {
-
+Log::error($e->getMessage());
         }
 
         return $product->refresh();
