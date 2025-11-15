@@ -38,9 +38,9 @@ public static function canCreate(): bool
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('user.name')->label('سجل إعجابه'),
-                Tables\Columns\TextColumn::make('seller.name')->label('المتجر'),
-                Tables\Columns\TextColumn::make('product.name')->label('المنتجات'),
+                Tables\Columns\TextColumn::make('user.name')->label('سجل إعجابه')->url(fn($record)=>UserResource::getUrl('edit',['record'=>$record->user_id])),
+                Tables\Columns\TextColumn::make('seller.name')->label('المتجر')->url(fn($record)=>UserResource::getUrl('edit',['record'=>$record->seller_id])),
+                Tables\Columns\TextColumn::make('product.name')->label('المنتجات')->url(fn($record)=>ProductResource::getUrl('edit',['record'=>$record->product_id])),
             ])
             ->filters([
                 //
