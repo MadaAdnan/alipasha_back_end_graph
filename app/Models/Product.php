@@ -30,6 +30,7 @@ class Product extends Model implements HasMedia
     protected $withCount = [
         'likes',
         'comments',
+        'clicks'
 
     ];
 
@@ -48,6 +49,10 @@ class Product extends Model implements HasMedia
         });
     }
 
+    public function clicks(): HasMany
+    {
+        return $this->hasMany(ClickWhats::class,'product_id');
+    }
     /**
      * Get the indexable data array for the model.
      *

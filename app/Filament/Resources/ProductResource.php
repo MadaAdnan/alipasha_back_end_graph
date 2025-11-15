@@ -248,6 +248,7 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('num_likes')->label('إعجابات البوت')->sortable()->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('level')->formatStateUsing(fn($state) => LevelProductEnum::tryFrom($state)?->getLabel())->color(fn($state) => LevelProductEnum::tryFrom($state)?->getColor())->icon(fn($state) => LevelProductEnum::tryFrom($state)?->getIcon())->label('تمييز المنتج'),
                 Tables\Columns\TextColumn::make('created_at')->since()->label('أضيف منذ'),
+                Tables\Columns\TextColumn::make('clicks_count')->label('نقرات التواصل')->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('user.phone')->url(fn($state) => 'https://wa.me/' . $state, shouldOpenInNewTab: true)->label('الهاتف'),
                 Tables\Columns\TextColumn::make('video')->url(fn($state) => $state, shouldOpenInNewTab: true)->label('الفيديو')->toggleable(isToggledHiddenByDefault: false),
 
