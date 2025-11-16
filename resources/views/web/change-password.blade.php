@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>تغيير كلمة المرور</title>
+    <title>نسيت كلمة المرور</title>
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
         rel="stylesheet"
@@ -52,7 +52,7 @@
 </head>
 <body>
 <div class="login-box">
-    <h3>نسيت كلمة المرور</h3>
+    <h3>تغيير كلمة المرور</h3>
     <form action="{{route('change-password')}}" method="post">
         @csrf
         @method('post')
@@ -61,7 +61,7 @@
         <span class="text-danger my-2 d-inline-block">{{$message}}</span>
         @enderror
         <div class="mb-3">
-            <label for="password" class="form-label">كلمة السر</label>
+            <label for="password" class="form-label">كلمة المرور الجديدة</label>
             <input
                 type="password"
                 class="form-control @error('password') is-invalid @enderror"
@@ -75,7 +75,7 @@
         </div>
         <div class="mb-3">
             <label for="confiemPassword" class="form-label"
-            >تاكيد كلمة السر</label
+            >تاكيد كلمة المرور</label
             >
             <input
                 type="confiemPassword"
@@ -86,7 +86,7 @@
             />
 
         </div>
-        <button type="submit" class="btn btn-primary w-100">تاكيد الكود</button>
+        <button type="submit" class="btn btn-primary w-100">تاكيد</button>
     </form>
 </div>
 
