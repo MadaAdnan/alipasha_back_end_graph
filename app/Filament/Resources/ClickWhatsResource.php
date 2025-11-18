@@ -38,8 +38,8 @@ public static function canCreate(): bool
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('user.name')->label('اسم المتواصل')->url(fn($record)=>UserResource::getUrl('edit',['record'=>$record->user_id])),
-                Tables\Columns\TextColumn::make('seller.seller_name')->label('المتجر')->url(fn($record)=>UserResource::getUrl('edit',['record'=>$record->seller_id])),
+                Tables\Columns\TextColumn::make('user.name')->label('اسم المتواصل')->url(fn($record)=>UserResource::getUrl('edit',['record'=>$record->user_id]))->searchable(),
+                Tables\Columns\TextColumn::make('seller.seller_name')->label('المتجر')->url(fn($record)=>UserResource::getUrl('edit',['record'=>$record->seller_id]))->searchable(),
                 Tables\Columns\TextColumn::make('product.name')->label('المنتجات')->url(fn($record)=>ProductResource::getUrl('edit',['record'=>$record->product_id])),
                 Tables\Columns\TextColumn::make('created_at')->since()->label('تاريخ التواصل'),
             ])
