@@ -20,8 +20,8 @@ final class LatestProduct
         $setting = Setting::first();
         $now = now(); // خزّن الآن مرة واحدة لتجنب فروق زمنية صغيرة
 
-        $popularCategories = $this->getPopularCategoryProducts() ?? [];
-        $popularSellers = $this->getPopularSelelrProducts() ?? [];
+        $popularCategories = [];//$this->getPopularCategoryProducts() ?? [];
+        $popularSellers =[];// $this->getPopularSelelrProducts() ?? [];
 
         $productsQuery = Product::active()
             ->whereHas('user', fn($q) => $q->where('users.is_active', 1))
