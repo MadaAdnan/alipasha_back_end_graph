@@ -37,6 +37,7 @@ public static function canCreate(): bool
     public static function table(Table $table): Table
     {
         return $table
+            ->defaultSort('created_at','desc')
             ->columns([
                 Tables\Columns\TextColumn::make('user.name')->label('اسم المتواصل')->url(fn($record)=>UserResource::getUrl('edit',['record'=>$record->user_id]))->searchable(),
                 Tables\Columns\TextColumn::make('seller.seller_name')->label('المتجر')->url(fn($record)=>UserResource::getUrl('edit',['record'=>$record->seller_id]))->searchable(),
