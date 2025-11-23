@@ -27,7 +27,7 @@ trait MediaTrait
         if (in_array($media?->mime_type, $mims)) {
             $this
                 ->addMediaConversion('webp')
-                ->quality(80)
+                ->quality(95)
 //            ->fit(Manipulations::FIT_STRETCH, 600,0)
                 ->format('webp')
                 ->nonQueued();
