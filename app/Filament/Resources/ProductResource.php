@@ -128,7 +128,7 @@ class ProductResource extends Resource
                             $set('city_id', $user?->city_id);
                             $set('user.city_id', $user?->city_id);
                             $set('user.area_id', $user?->area_id);
-                        }),
+                        })->required(),
                     Forms\Components\Select::make('city_id')->options(City::selectRaw('id,name')->pluck('name', 'id'))->searchable()->label('المدينة'),
                     SpatieMediaLibraryFileUpload::make('image')->collection('image')->conversion('webp')->label('الصورة الرئيسية')->image()->imageEditor()->imageCropAspectRatio("1:1")->openable()->downloadable()->deletable(),
                     SpatieMediaLibraryFileUpload::make('images')->collection('images')->conversion('webp')->label('صور إضافية')->multiple()->image()->imageEditor()->imageCropAspectRatio("1:1")->openable()->downloadable()->deletable(),
