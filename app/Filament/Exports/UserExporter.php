@@ -7,8 +7,11 @@ use Filament\Actions\Exports\ExportColumn;
 use Filament\Actions\Exports\Exporter;
 use Filament\Actions\Exports\Models\Export;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
+use Maatwebsite\Excel\Concerns\WithCustomQuerySize;
+use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Events\BeforeWriting;
 
-class UserExporter extends Exporter implements WithChunkReading
+class UserExporter extends Exporter implements WithChunkReading,WithEvents,WithCustomQuerySize
 {
     protected static ?string $model = User::class;
 
@@ -76,4 +79,21 @@ class UserExporter extends Exporter implements WithChunkReading
     {
         return 500;
     }
+
+    public function registerEvents(): array
+    {
+        return [
+            BeforeWriting::class => function(BeforeWriting $event) {
+                // Increase memory limit and execution time for large exports
+                ini_set('memory_limit', '2G');
+                set_time_limit(0); // Unlimited execution time
+            },
+        ];
+    }
+
+    public function querySize(): int
+    {
+        return 500;
+    }
+
 }

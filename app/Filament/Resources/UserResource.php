@@ -500,7 +500,8 @@ class UserResource extends Resource
                             }
                         })->label('رسالة FirBase ')->icon('fas-comment')
                 ]),
-                Tables\Actions\ExportBulkAction::make("ExportAction")->exporter(UserExporter::class)->label('تصدير')
+                Tables\Actions\ExportBulkAction::make("ExportAction")
+                    ->exporter(UserExporter::class)->label('تصدير')
             ]);
     }
 
