@@ -57,9 +57,7 @@ class UserObserve
      */
     public function updated(User $user): void
     {
-        if (\Str::isUrl($user->url_webhok)) {
-            dispatch(new WebhokUserJob($user));
-        }
+
         if ($user->email_verified_at != null && $user->getOriginal('email_verified_at') == null && $user->user_id != null) {
             $setting = Setting::first();
             if ($setting->active_points) {
@@ -82,6 +80,9 @@ class UserObserve
         if ($oldType == false && $newType == true) {
             $community = \App\Models\Community::where('is_global_seller', true)->first();
             $community->users()->syncWithoutDetaching([$user->id]);
+        }
+        if (\Str::isUrl($user->url_webhok)) {
+            dispatch(new WebhokUserJob($user));
         }
     }
 

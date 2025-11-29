@@ -35,7 +35,7 @@ class WebhokUserJob implements ShouldQueue
                 'action' => 'update',
                 'type' => 'user',
                 'domain'=>$domain,
-                'data' => (new UserResource($this->user))->toArray(request()),
+                'data' => (new UserResource($this->user))->jsonSerialize(),
             ]);
             if ($response->successful() && $response->json('status') == 'success') {
                 \DB::table('users')->where('id', $this->user->id)->update([
