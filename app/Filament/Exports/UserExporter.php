@@ -6,8 +6,9 @@ use App\Models\User;
 use Filament\Actions\Exports\ExportColumn;
 use Filament\Actions\Exports\Exporter;
 use Filament\Actions\Exports\Models\Export;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
 
-class UserExporter extends Exporter
+class UserExporter extends Exporter implements WithChunkReading
 {
     protected static ?string $model = User::class;
 
@@ -69,5 +70,10 @@ class UserExporter extends Exporter
         }
 
         return $body;
+    }
+
+    public function chunkSize(): int
+    {
+        return 500;
     }
 }
