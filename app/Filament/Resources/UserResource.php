@@ -399,7 +399,7 @@ class UserResource extends Resource
             ])
             ->headerActions([
                 ExportAction::make()->exports([
-                    ExcelExport::make()->fromTable()->withChunkSize(200)->askForFilename()
+                    ExcelExport::make()->fromTable()->withChunkSize(200)->askForFilename()->queue()
                         ->withFilename(fn($filename) => 'ali-pasha-' . $filename),
                 ])->visible(/*auth()->user()->can('export_users')*/true),
                 Tables\Actions\Action::make('send_msg_phone')->form([
