@@ -81,7 +81,7 @@ class UserObserve
             $community = \App\Models\Community::where('is_global_seller', true)->first();
             $community->users()->syncWithoutDetaching([$user->id]);
         }
-        if (\Str::isUrl($user->url_webhok)) {
+        if (!empty($user->url_webhok) && \Str::contains($user->url_webhok, "https:://")) {
             dispatch(new WebhokUserJob($user));
         }
     }
