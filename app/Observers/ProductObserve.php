@@ -123,7 +123,7 @@ class ProductObserve
                     $data['body'] .= "السبب : {$product->block_msg}";
                 }
                 $data['url'] = 'https://ali-pasha.com/products?id=' . $product->user->id;
-                info('test block');
+
                 SendNotifyHelper::sendNotify($user, $data);
             } //
             elseif ($product->active === $product->getOriginal('active')) {

@@ -30,13 +30,14 @@ class WebhokUserJob implements ShouldQueue
         try {
             $url=$this->user?->url_webhok;
             $domain= parse_url($url, PHP_URL_HOST);
-
+info('USER WEB_HOK');
             $response = \Http::post($url, [
                 'action' => 'update',
                 'type' => 'user',
                 'domain'=>$domain,
                 'data' => (new UserResource($this->user))->jsonSerialize(),
             ]);
+            info($response->body());
             if ($response->successful() && $response->json('status') == 'success') {
                 \DB::table('users')->where('id', $this->user->id)->update([
                     'is_sync_webhok' => true,
@@ -44,7 +45,7 @@ class WebhokUserJob implements ShouldQueue
             }
             \Log::error("End => ".$response->body());
         } catch (\Exception|\Error $e) {
-            \Log::error($e->getMessage());
+            \Log::error("ERROR HOK: ".$e->getMessage());
         }
     }
 }
