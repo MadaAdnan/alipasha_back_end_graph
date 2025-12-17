@@ -28,7 +28,7 @@ final class LatestProduct
 
         $products = Product::active()
             ->when($categoryId, fn($q) => $q->where('category_id', $categoryId))
-            ->when($cityId, fn($q) => $q->whereHas('user', fn($q) => $q->where('users.city_id', $cityId)))
+            ->when($cityId, fn($q) => $q->where('city_id', $cityId)/*$q->whereHas('user', fn($q) => $q->where('users.city_id', $cityId))*/)
             ->whereHas('user', fn($q) => $q->where('users.is_active', 1))
             ->where('power', '>', 20)
             ->whereDoesntHave('category', fn($q) => $q->where('type', CategoryTypeEnum::RESTAURANT->value))
