@@ -49,7 +49,7 @@ final class LatestProduct
             ->where('created_at', '>=', now()->subDays($setting->options['recommended_month'] ?? 30))->inRandomOrder();
 
         $ids = $products->pluck('id')?->toArray()??[];
-        if($ids==0){
+        if (empty($ids)) {
             return $products;
         }
         $ratio = $setting->ratio_view_home;
