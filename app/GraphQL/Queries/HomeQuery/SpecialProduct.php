@@ -37,11 +37,25 @@ final class SpecialProduct
                 CategoryTypeEnum::JOB->value,
                 CategoryTypeEnum::SEARCH_JOB->value,
                 CategoryTypeEnum::NEWS->value,
-            ])->inRandomOrder()->where('created_at', '>=', now()->subDays($setting->options['recommended_month'] ?? 30))
+            ])->where('created_at', '>=', now()->subDays($setting->options['recommended_month'] ?? 30))
             ->when(auth()->check(), fn($query) => $query->where(fn($q) => $q->whereNotIn('category_id', $this->getPopularCategoryProducts())
                 ->whereNotIn('user_id', $this->getPopularSelelrProducts())
-            ));
-        $products = $this->newQuery();
+            )) ->orderByRaw(
+                "
+        CASE
+            WHEN ? IS NOT NULL AND category_id = ? THEN 0
+            ELSE 1
+        END,
+        CASE
+            WHEN ? IS NOT NULL AND city_id = ? THEN 0
+            ELSE 1
+        END,
+        RAND()
+        ",
+                [$categoryId, $categoryId, $cityId, $cityId]
+            )
+        ;;
+
         $ids = $products->pluck('id')->toArray();
         $ratio = $setting->ratio_view_home;
         $half = ceil(count($ids) * $ratio ?? 0.5);
