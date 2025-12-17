@@ -19,8 +19,8 @@ final class LatestProduct
     {
         $setting = Setting::first();
         $now = now(); // خزّن الآن مرة واحدة لتجنب فروق زمنية صغيرة
-$city=$args['city_id'];
-$category=$args['category_id'];
+$city=$args['city_id']??null;
+$category=$args['category_id']??null;
         $popularCategories = [];//$this->getPopularCategoryProducts() ?? [];
         $popularSellers =[];// $this->getPopularSelelrProducts() ?? [];
 
