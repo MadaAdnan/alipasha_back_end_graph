@@ -57,6 +57,9 @@ final class SpecialProduct
         $ids = $products->pluck('id')->toArray();
         $ratio = $setting->ratio_view_home;
         $half = ceil(count($ids) * $ratio ?? 0.5);
+        if($half<=0){
+            return $products;
+        }
         $idsChunks = array_chunk($ids, (int)$half); // يقسم المصفوفة إلى أجزاء
 
         list($firstHalf, $secondHalf) = $idsChunks; // نفصلها في متغيرين
