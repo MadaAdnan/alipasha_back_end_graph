@@ -27,8 +27,7 @@ final class LatestProduct
 
 
         $products = Product::active()
-            ->when($categoryId, fn($q) => $q->where('category_id', $categoryId))
-            ->when($cityId, fn($q) => $q->where('city_id', $cityId)/*$q->whereHas('user', fn($q) => $q->where('users.city_id', $cityId))*/)
+
             ->whereHas('user', fn($q) => $q->where('users.is_active', 1))
             ->where('power', '>', 20)
             ->whereDoesntHave('category', fn($q) => $q->where('type', CategoryTypeEnum::RESTAURANT->value))
@@ -46,19 +45,23 @@ final class LatestProduct
                 CategoryTypeEnum::SEARCH_JOB->value,
                 CategoryTypeEnum::NEWS->value,
             ])
-            ->where('created_at', '>=', now()->subDays($setting->options['recommended_month'] ?? 30))->inRandomOrder();
+            ->where('created_at', '>=', now()->subDays($setting->options['recommended_month'] ?? 30))
+            ->orderByRaw(
+                "
+        CASE WHEN category_id = ? THEN 0 ELSE 1 END,
+             CASE WHEN city_id = ? THEN 0 ELSE 1 END
+        ",
+                [$categoryId, $cityId]
+            )
+            ->inRandomOrder();
 
         $ids = $products->pluck('id')?->toArray()??[];
-        if (empty($ids)) {
-            return $products;
-        }
+
         $ratio = $setting->ratio_view_home;
         $half = ceil(count($ids) * $ratio ?? 0.5); // نحسب النصف (في حال كان العدد فردي)
-        if($half<=0){
-            return $products;
-        }
+
         $idsChunks = array_chunk($ids, (int)$half); // يقسم المصفوفة إلى أجزاء
-if(count($idsChunks)>0){
+
     list($firstHalf, $secondHalf) = $idsChunks; // نفصلها في متغيرين
     $today = today();
 
@@ -90,7 +93,7 @@ if(count($idsChunks)>0){
             \DB::table('product_views')->insert($inserts);
         }
     });
-}
+
 
         return $products;
     }
