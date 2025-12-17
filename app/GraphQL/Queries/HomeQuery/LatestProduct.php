@@ -68,7 +68,7 @@ $category=$args['category_id']??null;
         }
 
         $products = $productsQuery->inRandomOrder();
-        $ids = $products->pluck('id')->toArray();
+      /*  $ids = $products->pluck('id')->toArray();
         $ratio = $setting->ratio_view_home;
         $half = ceil(count($ids) * $ratio ?? 0.5); // نحسب النصف (في حال كان العدد فردي)
         $idsChunks = array_chunk($ids, (int)$half); // يقسم المصفوفة إلى أجزاء
@@ -103,7 +103,7 @@ $category=$args['category_id']??null;
 
                 \DB::table('product_views')->insert($inserts);
             }
-        });
+        });*/
         return $products;
     }
 
