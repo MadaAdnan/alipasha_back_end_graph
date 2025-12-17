@@ -13,11 +13,11 @@ extend type Query{
     SpecialProduct:[Product] @paginate(builder:"App\\GraphQL\\Queries\\HomeQuery\\SpecialProduct")
     #homeProduct:[Product] @paginate(builder:"App\\GraphQL\\Queries\\HomeQuery\\HomeProduct")
     homeProduct(page: Int = 1, perPage: Int = 50): PaginatedProduct!
-    latest:[Product]  @field(resolver: "App\\GraphQL\\Queries\\SliderGroup\\LatestProduct@__invoke")
+    latest(city_id:Int,category_id:Int):[Product]  @field(resolver: "App\\GraphQL\\Queries\\SliderGroup\\LatestProduct@__invoke")
     near:[Product]  @field(resolver: "App\\GraphQL\\Queries\\SliderGroup\\NearProduct@__invoke")
     videos:[Product]  @field(resolver: "App\\GraphQL\\Queries\\SliderGroup\\VideoProduct@__invoke")
     activity:[Product]  @field(resolver: "App\\GraphQL\\Queries\\SliderGroup\\ActivityProduct@__invoke")
-    specials:[Product]  @field(resolver: "App\\GraphQL\\Queries\\SliderGroup\\SpecialProduct@__invoke")
+    specials(city_id:Int,category_id:Int):[Product]  @field(resolver: "App\\GraphQL\\Queries\\SliderGroup\\SpecialProduct@__invoke")
 
 }
 

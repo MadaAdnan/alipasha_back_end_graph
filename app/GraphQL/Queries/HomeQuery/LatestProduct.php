@@ -19,7 +19,8 @@ final class LatestProduct
     {
         $setting = Setting::first();
         $now = now(); // خزّن الآن مرة واحدة لتجنب فروق زمنية صغيرة
-
+$city=$args['city_id'];
+$category=$args['category_id'];
         $popularCategories = [];//$this->getPopularCategoryProducts() ?? [];
         $popularSellers =[];// $this->getPopularSelelrProducts() ?? [];
 
@@ -28,7 +29,16 @@ final class LatestProduct
             ->where('power', '>', 20)
             ->whereDoesntHave('category', fn($q) => $q->where('type', CategoryTypeEnum::RESTAURANT->value))
             ->whereNot('level', LevelProductEnum::SPECIAL->value)
-            // ===== هنا: الشرط الخاص بـ end_date (NULL أو صالح) =====
+            ->where(function($query)use($city,$category){
+                if(!empty($city)){
+                    $query->where('city_id',$city);
+                }
+                if(!empty($category)){
+                    $query->where('category_id',$category);
+                }
+
+            })
+
             ->where(function ($q) use ($now) {
                 $q->whereNull('end_date')                    // أظهر المنتجات التي end_date = NULL
                 ->orWhere('end_date', '>', $now)           // أو التي تاريخها في المستقبل
