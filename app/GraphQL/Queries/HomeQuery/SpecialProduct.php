@@ -21,8 +21,8 @@ final class SpecialProduct
 //return Product::where('id',0);
         $setting = Setting::first();
         $now = now();
-        $city = $args['city_id'];
-        $category = $args['category_id'];
+        $city = $args['city_id']??null;
+        $category = $args['category_id']??null;
 
         $products = Product::where(['active' => ProductActiveEnum::ACTIVE->value,
             'level' => LevelProductEnum::SPECIAL->value])
