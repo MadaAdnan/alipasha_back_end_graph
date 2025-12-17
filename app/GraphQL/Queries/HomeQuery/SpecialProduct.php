@@ -38,9 +38,7 @@ final class SpecialProduct
                 CategoryTypeEnum::SEARCH_JOB->value,
                 CategoryTypeEnum::NEWS->value,
             ])->where('created_at', '>=', now()->subDays($setting->options['recommended_month'] ?? 30))
-            ->when(auth()->check(), fn($query) => $query->where(fn($q) => $q->whereNotIn('category_id', $this->getPopularCategoryProducts())
-                ->whereNotIn('user_id', $this->getPopularSelelrProducts())
-            )) ->orderByRaw(
+             ->orderByRaw(
                 "
         CASE
             WHEN ? IS NOT NULL AND category_id = ? THEN 0
@@ -54,7 +52,7 @@ final class SpecialProduct
         ",
                 [$categoryId, $categoryId, $cityId, $cityId]
             )
-        ;;
+        ;
 
         $ids = $products->pluck('id')->toArray();
         $ratio = $setting->ratio_view_home;
