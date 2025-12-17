@@ -26,12 +26,15 @@ final class SpecialProduct
 
         $products = Product::where(['active' => ProductActiveEnum::ACTIVE->value,
             'level' => LevelProductEnum::SPECIAL->value])
-            ->whereHas('user', fn($q) => $q->where('users.is_active', 1))
-            ->where(function ($query) use ($city, $category) {
-                if(!empty($city)){
-                    $query->whereHas('user',fn($query)=>$query->where('users.city_id',$city));
+            ->whereHas('user', function($q) use($city){
+                $q->where('users.is_active', 1);
+                if($city!=null){
+                    $q->where('users.city_id', $city);
                 }
-                if (!empty($category)) {
+            } )
+            ->where(function ($query) use ( $category) {
+
+                if ($category!=null) {
                     $query->where('category_id', $category);
                 }
 

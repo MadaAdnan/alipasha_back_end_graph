@@ -25,15 +25,18 @@ $category=$args['category_id']??null;
         $popularSellers =[];// $this->getPopularSelelrProducts() ?? [];
 
         $productsQuery = Product::active()
-            ->whereHas('user', fn($q) => $q->where('users.is_active', 1))
+            ->whereHas('user', function($q) use($city){
+                $q->where('users.is_active', 1);
+                if($city!=null){
+                    $q->where('users.city_id', $city);
+                }
+            } )
             ->where('power', '>', 20)
             ->whereDoesntHave('category', fn($q) => $q->where('type', CategoryTypeEnum::RESTAURANT->value))
             ->whereNot('level', LevelProductEnum::SPECIAL->value)
-            ->where(function($query)use($city,$category){
-                if(!empty($city)){
-                    $query->whereHas('user',fn($query)=>$query->where('users.city_id',$city));
-                }
-                if(!empty($category)){
+            ->where(function($query)use($category){
+
+                if($category!=null){
                     $query->where('category_id',$category);
                 }
 
