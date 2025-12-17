@@ -58,38 +58,40 @@ final class LatestProduct
             return $products;
         }
         $idsChunks = array_chunk($ids, (int)$half); // يقسم المصفوفة إلى أجزاء
+if(!empty($idsChunks)){
+    list($firstHalf, $secondHalf) = $idsChunks; // نفصلها في متغيرين
+    $today = today();
 
-        list($firstHalf, $secondHalf) = $idsChunks; // نفصلها في متغيرين
-        $today = today();
+    \DB::transaction(function () use ($firstHalf, $today) {
 
-        \DB::transaction(function () use ($firstHalf, $today) {
+        // تحديث السجلات الموجودة
+        \DB::table('product_views')
+            ->whereIn('product_id', $firstHalf)
+            ->whereDate('view_at', $today)
+            ->update(['count' => \DB::raw('count + 1')]);
+        $existingIds = \DB::table('product_views')
+            ->whereIn('product_id', $firstHalf)
+            ->whereDate('view_at', $today)
+            ->pluck('product_id')
+            ->toArray();
+        $newIds = array_diff($firstHalf, $existingIds);
+        if (
+            !empty($newIds)) {
+            $inserts = array_map(function ($firstHalf) use ($today) {
+                return [
+                    'product_id' => $firstHalf,
+                    'view_at' => $today,
+                    'count' => 1,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ];
+            }, $newIds);
 
-            // تحديث السجلات الموجودة
-            \DB::table('product_views')
-                ->whereIn('product_id', $firstHalf)
-                ->whereDate('view_at', $today)
-                ->update(['count' => \DB::raw('count + 1')]);
-            $existingIds = \DB::table('product_views')
-                ->whereIn('product_id', $firstHalf)
-                ->whereDate('view_at', $today)
-                ->pluck('product_id')
-                ->toArray();
-            $newIds = array_diff($firstHalf, $existingIds);
-            if (
-                !empty($newIds)) {
-                $inserts = array_map(function ($firstHalf) use ($today) {
-                    return [
-                        'product_id' => $firstHalf,
-                        'view_at' => $today,
-                        'count' => 1,
-                        'created_at' => now(),
-                        'updated_at' => now(),
-                    ];
-                }, $newIds);
+            \DB::table('product_views')->insert($inserts);
+        }
+    });
+}
 
-                \DB::table('product_views')->insert($inserts);
-            }
-        });
         return $products;
     }
 
