@@ -58,7 +58,7 @@ final class LatestProduct
             return $products;
         }
         $idsChunks = array_chunk($ids, (int)$half); // يقسم المصفوفة إلى أجزاء
-if(!empty($idsChunks)){
+if(count($idsChunks)>0){
     list($firstHalf, $secondHalf) = $idsChunks; // نفصلها في متغيرين
     $today = today();
 
