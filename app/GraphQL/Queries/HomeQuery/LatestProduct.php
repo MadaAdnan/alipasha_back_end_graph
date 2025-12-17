@@ -22,12 +22,16 @@ final class LatestProduct
 
         $popularCategories = [];//$this->getPopularCategoryProducts() ?? [];
         $popularSellers =[];// $this->getPopularSelelrProducts() ?? [];
-
+        $category=$args['category_id']??null;
         $productsQuery = Product::active()
             ->whereHas('user', fn($q) => $q->where('users.is_active', 1))
-            ->where('power', '>', 20)
-            ->whereDoesntHave('category', fn($q) => $q->where('type', CategoryTypeEnum::RESTAURANT->value))
-            ->whereNot('level', LevelProductEnum::SPECIAL->value)
+            ->where('power', '>', 20);
+           if($category!=null){
+               $productsQuery ->whereDoesntHave('category', fn($q) => $q->where('type', CategoryTypeEnum::RESTAURANT->value)->where('category_id','!=',$category));
+           }else{
+               $productsQuery  ->whereDoesntHave('category', fn($q) => $q->where('type', CategoryTypeEnum::RESTAURANT->value));
+           }
+          $productsQuery  ->whereNot('level', LevelProductEnum::SPECIAL->value)
             // ===== هنا: الشرط الخاص بـ end_date (NULL أو صالح) =====
             ->where(function ($q) use ($now) {
                 $q->whereNull('end_date')                    // أظهر المنتجات التي end_date = NULL
