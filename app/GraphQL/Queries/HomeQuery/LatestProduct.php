@@ -19,28 +19,16 @@ final class LatestProduct
     {
         $setting = Setting::first();
         $now = now(); // خزّن الآن مرة واحدة لتجنب فروق زمنية صغيرة
-        $city = $args['city_id'] ?? null;
-        $category = $args['category_id'] ?? null;
+
         $popularCategories = [];//$this->getPopularCategoryProducts() ?? [];
-        $popularSellers = [];// $this->getPopularSelelrProducts() ?? [];
+        $popularSellers =[];// $this->getPopularSelelrProducts() ?? [];
 
         $productsQuery = Product::active()
-          /*  ->whereHas('user', function ($q) use ($city) {
-                $q->where('users.is_active', 1);
-                if ($city != null) {
-                    $q->where('users.city_id', $city);
-                }
-            })*/
+            ->whereHas('user', fn($q) => $q->where('users.is_active', 1))
             ->where('power', '>', 20)
             ->whereDoesntHave('category', fn($q) => $q->where('type', CategoryTypeEnum::RESTAURANT->value))
             ->whereNot('level', LevelProductEnum::SPECIAL->value)
-           /* ->where(function ($query) use ($category) {
-
-                if ($category != null) {
-                    $query->where('category_id', $category);
-                }
-
-            })*/
+            // ===== هنا: الشرط الخاص بـ end_date (NULL أو صالح) =====
             ->where(function ($q) use ($now) {
                 $q->whereNull('end_date')                    // أظهر المنتجات التي end_date = NULL
                 ->orWhere('end_date', '>', $now)           // أو التي تاريخها في المستقبل
@@ -55,20 +43,6 @@ final class LatestProduct
                 CategoryTypeEnum::NEWS->value,
             ])
             ->where('created_at', '>=', now()->subDays($setting->options['recommended_month'] ?? 30));
-        if (!is_null($city)) {
-            $productsQuery->whereHas('user', function ($q) use ($city) {
-                $q->where('users.is_active', 1)->where('users.city_id', $city);
-            });
-        } else {
-            $productsQuery->whereHas('user', function ($q) {
-                $q->where('users.is_active', 1);
-            });
-        }
-
-// تطبيق فلترة الفئة
-        if (!is_null($category)) {
-            $productsQuery->where('category_id', $category);
-        }
         if (auth()->check()) {
             $productsQuery->where(function ($q) use ($popularCategories, $popularSellers) {
                 if (!empty($popularCategories)) {
@@ -82,14 +56,8 @@ final class LatestProduct
 
         $products = $productsQuery->inRandomOrder();
         $ids = $products->pluck('id')->toArray();
-        if (empty($ids)) {
-            return $products;
-        }
         $ratio = $setting->ratio_view_home;
         $half = ceil(count($ids) * $ratio ?? 0.5); // نحسب النصف (في حال كان العدد فردي)
-        if ($half <= 0) {
-            return $products;
-        }
         $idsChunks = array_chunk($ids, (int)$half); // يقسم المصفوفة إلى أجزاء
 
         list($firstHalf, $secondHalf) = $idsChunks; // نفصلها في متغيرين
