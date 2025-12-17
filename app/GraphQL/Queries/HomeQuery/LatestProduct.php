@@ -119,41 +119,44 @@ $cityId=$args['city_id']??null;
            ;
         $ids = $products->pluck('id')->toArray();
         $ratio = $setting->ratio_view_home;
-        $half = ceil(count($ids) * $ratio ?? 0.5); // نحسب النصف (في حال كان العدد فردي)
-        if(count($ids)>0 && $half>0){
-            $idsChunks = array_chunk($ids, (int)$half); // يقسم المصفوفة إلى أجزاء
+         // نحسب النصف (في حال كان العدد فردي)
+        if(count($ids)>0) {
+            $half = ceil(count($ids) * $ratio ?? 0.5);
+            if ($half > 0) {
+                $idsChunks = array_chunk($ids, (int)$half); // يقسم المصفوفة إلى أجزاء
 
-            list($firstHalf, $secondHalf) = $idsChunks; // نفصلها في متغيرين
-            $today = today();
+                list($firstHalf, $secondHalf) = $idsChunks; // نفصلها في متغيرين
+                $today = today();
 
-            \DB::transaction(function () use ($firstHalf, $today) {
+                \DB::transaction(function () use ($firstHalf, $today) {
 
-                // تحديث السجلات الموجودة
-                \DB::table('product_views')
-                    ->whereIn('product_id', $firstHalf)
-                    ->whereDate('view_at', $today)
-                    ->update(['count' => \DB::raw('count + 1')]);
-                $existingIds = \DB::table('product_views')
-                    ->whereIn('product_id', $firstHalf)
-                    ->whereDate('view_at', $today)
-                    ->pluck('product_id')
-                    ->toArray();
-                $newIds = array_diff($firstHalf, $existingIds);
-                if (
-                    !empty($newIds)) {
-                    $inserts = array_map(function ($firstHalf) use ($today) {
-                        return [
-                            'product_id' => $firstHalf,
-                            'view_at' => $today,
-                            'count' => 1,
-                            'created_at' => now(),
-                            'updated_at' => now(),
-                        ];
-                    }, $newIds);
+                    // تحديث السجلات الموجودة
+                    \DB::table('product_views')
+                        ->whereIn('product_id', $firstHalf)
+                        ->whereDate('view_at', $today)
+                        ->update(['count' => \DB::raw('count + 1')]);
+                    $existingIds = \DB::table('product_views')
+                        ->whereIn('product_id', $firstHalf)
+                        ->whereDate('view_at', $today)
+                        ->pluck('product_id')
+                        ->toArray();
+                    $newIds = array_diff($firstHalf, $existingIds);
+                    if (
+                        !empty($newIds)) {
+                        $inserts = array_map(function ($firstHalf) use ($today) {
+                            return [
+                                'product_id' => $firstHalf,
+                                'view_at' => $today,
+                                'count' => 1,
+                                'created_at' => now(),
+                                'updated_at' => now(),
+                            ];
+                        }, $newIds);
 
-                    \DB::table('product_views')->insert($inserts);
-                }
-            });
+                        \DB::table('product_views')->insert($inserts);
+                    }
+                });
+            }
         }
         return $products;
     }
