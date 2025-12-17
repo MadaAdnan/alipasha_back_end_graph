@@ -26,19 +26,19 @@ final class SpecialProduct
 
         $products = Product::where(['active' => ProductActiveEnum::ACTIVE->value,
             'level' => LevelProductEnum::SPECIAL->value])
-            ->whereHas('user', function($q) use($city){
+           /* ->whereHas('user', function($q) use($city){
                 $q->where('users.is_active', 1);
                 if($city!=null){
                     $q->where('users.city_id', $city);
                 }
-            } )
-            ->where(function ($query) use ( $category) {
+            } )*/
+           /* ->where(function ($query) use ( $category) {
 
                 if ($category!=null) {
                     $query->where('category_id', $category);
                 }
 
-            })
+            })*/
 
             ->where(fn($query) => $query->whereDoesntHave('category', fn($query) => $query->where('type', CategoryTypeEnum::RESTAURANT->value)))
             ->where(function ($q) use ($now) {
@@ -57,6 +57,20 @@ final class SpecialProduct
             ->when(auth()->check(), fn($query) => $query->where(fn($q) => $q->whereNotIn('category_id', $this->getPopularCategoryProducts())
                 ->whereNotIn('user_id', $this->getPopularSelelrProducts())
             ));
+        if (!is_null($city)) {
+            $products->whereHas('user', function ($q) use ($city) {
+                $q->where('users.is_active', 1)->where('users.city_id', $city);
+            });
+        } else {
+            $products->whereHas('user', function ($q) {
+                $q->where('users.is_active', 1);
+            });
+        }
+
+// تطبيق فلترة الفئة
+        if (!is_null($category)) {
+            $products->where('category_id', $category);
+        }
         $products = $this->newQuery();
         $ids = $products->pluck('id')->toArray();
         if (empty($ids)) {

@@ -25,22 +25,22 @@ final class LatestProduct
         $popularSellers = [];// $this->getPopularSelelrProducts() ?? [];
 
         $productsQuery = Product::active()
-            ->whereHas('user', function ($q) use ($city) {
+          /*  ->whereHas('user', function ($q) use ($city) {
                 $q->where('users.is_active', 1);
                 if ($city != null) {
                     $q->where('users.city_id', $city);
                 }
-            })
+            })*/
             ->where('power', '>', 20)
             ->whereDoesntHave('category', fn($q) => $q->where('type', CategoryTypeEnum::RESTAURANT->value))
             ->whereNot('level', LevelProductEnum::SPECIAL->value)
-            ->where(function ($query) use ($category) {
+           /* ->where(function ($query) use ($category) {
 
                 if ($category != null) {
                     $query->where('category_id', $category);
                 }
 
-            })
+            })*/
             ->where(function ($q) use ($now) {
                 $q->whereNull('end_date')                    // أظهر المنتجات التي end_date = NULL
                 ->orWhere('end_date', '>', $now)           // أو التي تاريخها في المستقبل
@@ -55,6 +55,20 @@ final class LatestProduct
                 CategoryTypeEnum::NEWS->value,
             ])
             ->where('created_at', '>=', now()->subDays($setting->options['recommended_month'] ?? 30));
+        if (!is_null($city)) {
+            $productsQuery->whereHas('user', function ($q) use ($city) {
+                $q->where('users.is_active', 1)->where('users.city_id', $city);
+            });
+        } else {
+            $productsQuery->whereHas('user', function ($q) {
+                $q->where('users.is_active', 1);
+            });
+        }
+
+// تطبيق فلترة الفئة
+        if (!is_null($category)) {
+            $productsQuery->where('category_id', $category);
+        }
         if (auth()->check()) {
             $productsQuery->where(function ($q) use ($popularCategories, $popularSellers) {
                 if (!empty($popularCategories)) {
