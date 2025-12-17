@@ -19,29 +19,28 @@ final class LatestProduct
     {
         $setting = Setting::first();
         $now = now(); // خزّن الآن مرة واحدة لتجنب فروق زمنية صغيرة
-$city=$args['city_id']??null;
-$category=$args['category_id']??null;
+        $city = $args['city_id'] ?? null;
+        $category = $args['category_id'] ?? null;
         $popularCategories = [];//$this->getPopularCategoryProducts() ?? [];
-        $popularSellers =[];// $this->getPopularSelelrProducts() ?? [];
+        $popularSellers = [];// $this->getPopularSelelrProducts() ?? [];
 
         $productsQuery = Product::active()
-            ->whereHas('user', function($q) use($city){
+            ->whereHas('user', function ($q) use ($city) {
                 $q->where('users.is_active', 1);
-                if($city!=null){
+                if ($city != null) {
                     $q->where('users.city_id', $city);
                 }
-            } )
+            })
             ->where('power', '>', 20)
             ->whereDoesntHave('category', fn($q) => $q->where('type', CategoryTypeEnum::RESTAURANT->value))
             ->whereNot('level', LevelProductEnum::SPECIAL->value)
-            ->where(function($query)use($category){
+            ->where(function ($query) use ($category) {
 
-                if($category!=null){
-                    $query->where('category_id',$category);
+                if ($category != null) {
+                    $query->where('category_id', $category);
                 }
 
             })
-
             ->where(function ($q) use ($now) {
                 $q->whereNull('end_date')                    // أظهر المنتجات التي end_date = NULL
                 ->orWhere('end_date', '>', $now)           // أو التي تاريخها في المستقبل
@@ -68,9 +67,15 @@ $category=$args['category_id']??null;
         }
 
         $products = $productsQuery->inRandomOrder();
-      /*  $ids = $products->pluck('id')->toArray();
+        $ids = $products->pluck('id')->toArray();
+        if (empty($ids)) {
+            return $products;
+        }
         $ratio = $setting->ratio_view_home;
         $half = ceil(count($ids) * $ratio ?? 0.5); // نحسب النصف (في حال كان العدد فردي)
+        if ($half <= 0) {
+            return $products;
+        }
         $idsChunks = array_chunk($ids, (int)$half); // يقسم المصفوفة إلى أجزاء
 
         list($firstHalf, $secondHalf) = $idsChunks; // نفصلها في متغيرين
@@ -103,7 +108,7 @@ $category=$args['category_id']??null;
 
                 \DB::table('product_views')->insert($inserts);
             }
-        });*/
+        });
         return $products;
     }
 
