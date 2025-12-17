@@ -17,7 +17,7 @@ extend type Query{
     near:[Product]  @field(resolver: "App\\GraphQL\\Queries\\SliderGroup\\NearProduct@__invoke")
     videos:[Product]  @field(resolver: "App\\GraphQL\\Queries\\SliderGroup\\VideoProduct@__invoke")
     activity:[Product]  @field(resolver: "App\\GraphQL\\Queries\\SliderGroup\\ActivityProduct@__invoke")
-    specials(city_id:Int,category_id:Int):[Product]  @field(resolver: "App\\GraphQL\\Queries\\SliderGroup\\SpecialProduct@__invoke")
+    specials:[Product]  @field(resolver: "App\\GraphQL\\Queries\\SliderGroup\\SpecialProduct@__invoke")
 
 }
 
