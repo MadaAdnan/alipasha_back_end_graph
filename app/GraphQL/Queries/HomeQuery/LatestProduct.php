@@ -27,6 +27,8 @@ final class LatestProduct
 
 
         $products = Product::active()
+            ->when($categoryId, fn($q) => $q->where('category_id', $categoryId))
+            ->when($cityId, fn($q) => $q->whereHas('users', fn($q) => $q->where('users.city_id', $cityId)))
             ->whereHas('user', fn($q) => $q->where('users.is_active', 1))
             ->where('power', '>', 20)
             ->whereDoesntHave('category', fn($q) => $q->where('type', CategoryTypeEnum::RESTAURANT->value))
@@ -46,7 +48,7 @@ final class LatestProduct
             ])
             ->where('created_at', '>=', now()->subDays($setting->options['recommended_month'] ?? 30))->inRandomOrder();
 
-        $ids = $products->pluck('id')->toArray();
+        $ids = $products->pluck('id')?->toArray()??[];
         $ratio = $setting->ratio_view_home;
         $half = ceil(count($ids) * $ratio ?? 0.5); // نحسب النصف (في حال كان العدد فردي)
         $idsChunks = array_chunk($ids, (int)$half); // يقسم المصفوفة إلى أجزاء
