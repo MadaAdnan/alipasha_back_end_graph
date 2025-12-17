@@ -28,8 +28,8 @@ final class SpecialProduct
             'level' => LevelProductEnum::SPECIAL->value])
             ->whereHas('user', fn($q) => $q->where('users.is_active', 1))
             ->where(function ($query) use ($city, $category) {
-                if (!empty($city)) {
-                    $query->where('city_id', $city);
+                if(!empty($city)){
+                    $query->whereHas('user',fn($query)=>$query->where('users.city_id',$city));
                 }
                 if (!empty($category)) {
                     $query->where('category_id', $category);

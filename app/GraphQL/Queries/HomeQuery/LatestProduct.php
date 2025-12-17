@@ -31,7 +31,7 @@ $category=$args['category_id']??null;
             ->whereNot('level', LevelProductEnum::SPECIAL->value)
             ->where(function($query)use($city,$category){
                 if(!empty($city)){
-                    $query->where('city_id',$city);
+                    $query->whereHas('user',fn($query)=>$query->where('users.city_id',$city));
                 }
                 if(!empty($category)){
                     $query->where('category_id',$category);
