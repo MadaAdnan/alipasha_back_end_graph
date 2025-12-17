@@ -48,12 +48,19 @@ final class LatestProduct
             ->where('created_at', '>=', now()->subDays($setting->options['recommended_month'] ?? 30))
             ->orderByRaw(
                 "
-        CASE WHEN category_id = ? THEN 0 ELSE 1 END,
-             CASE WHEN city_id = ? THEN 0 ELSE 1 END
+        CASE
+            WHEN ? IS NOT NULL AND category_id = ? THEN 0
+            ELSE 1
+        END,
+        CASE
+            WHEN ? IS NOT NULL AND city_id = ? THEN 0
+            ELSE 1
+        END,
+        RAND()
         ",
-                [$categoryId, $cityId]
+                [$categoryId, $categoryId, $cityId, $cityId]
             )
-            ->inRandomOrder();
+           ;
 
         $ids = $products->pluck('id')?->toArray()??[];
 
