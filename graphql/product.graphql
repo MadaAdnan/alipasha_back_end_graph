@@ -18,7 +18,7 @@ extend type Query{
     videos:[Product]  @field(resolver: "App\\GraphQL\\Queries\\SliderGroup\\VideoProduct@__invoke")
     activity:[Product]  @field(resolver: "App\\GraphQL\\Queries\\SliderGroup\\ActivityProduct@__invoke")
     specials:[Product]  @field(resolver: "App\\GraphQL\\Queries\\SliderGroup\\SpecialProduct@__invoke")
-suggestions(search:String):[String]
+suggestions(search:String,type:String):[String]
 }
 
 type PaginatedProduct {
