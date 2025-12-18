@@ -10,7 +10,7 @@ final  class Suggestions
         $search=  $args['search']??null;
         return \App\Models\Product::active()->whereNotNull('name')->where(function ($query)use($search){
             $query->where('name', 'like', "%$search%");
-            $query->orWher('expert', 'like', "%$search%");
-        })->pluck('name')->toArray();
+            $query->orWhere('expert', 'like', "%$search%");
+        })->take(10)->pluck('name')->toArray();
     }
 }
