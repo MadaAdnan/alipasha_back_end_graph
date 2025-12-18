@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Queries;
 
-final readonly class Suggestions
+final  class Suggestions
 {
     /** @param  array{}  $args */
     public function __invoke(null $_, array $args)
