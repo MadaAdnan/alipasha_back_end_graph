@@ -21,7 +21,7 @@ final class SpecialProduct
         $cityId= $args['city_id'] ?? null;
         $setting = Setting::first();
         $now = now();
-        $products = Product::where(['active' => ProductActiveEnum::ACTIVE->value,
+       /* $products = Product::where(['active' => ProductActiveEnum::ACTIVE->value,
             'level' => LevelProductEnum::SPECIAL->value])
             ->whereHas('user', fn($q) => $q->where('users.is_active', 1))
             ->where(fn($query) => $query->whereDoesntHave('category', fn($query) => $query->where('type', CategoryTypeEnum::RESTAURANT->value)))
@@ -38,7 +38,7 @@ final class SpecialProduct
                 CategoryTypeEnum::SEARCH_JOB->value,
                 CategoryTypeEnum::NEWS->value,
             ])->where('created_at', '>=', now()->subDays($setting->options['recommended_month'] ?? 30))
-            /* ->orderByRaw(
+             ->orderByRaw(
                 "
         CASE
             WHEN ? IS NOT NULL AND category_id = ? THEN 0
@@ -51,8 +51,9 @@ final class SpecialProduct
         RAND()
         ",
                 [$categoryId, $categoryId, $cityId, $cityId]
-            )*/
-        ;
+            )
+        ;*/
+        $products=$this->newQuery();
 
         $ids = $products->pluck('id')->toArray();
         $ratio = $setting->ratio_view_home;
