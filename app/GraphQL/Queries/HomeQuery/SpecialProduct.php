@@ -38,7 +38,7 @@ final class SpecialProduct
                 CategoryTypeEnum::SEARCH_JOB->value,
                 CategoryTypeEnum::NEWS->value,
             ])->where('created_at', '>=', now()->subDays($setting->options['recommended_month'] ?? 30))
-             ->orderByRaw(
+            /* ->orderByRaw(
                 "
         CASE
             WHEN ? IS NOT NULL AND category_id = ? THEN 0
@@ -51,7 +51,7 @@ final class SpecialProduct
         RAND()
         ",
                 [$categoryId, $categoryId, $cityId, $cityId]
-            )
+            )*/
         ;
 
         $ids = $products->pluck('id')->toArray();
