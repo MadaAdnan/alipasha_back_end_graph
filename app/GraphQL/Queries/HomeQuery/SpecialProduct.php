@@ -45,7 +45,7 @@ final class SpecialProduct
             })
             //  ->where('created_at', '>=', now()->subDays($setting->options['recommended_month'] ?? 30))->inRandomOrder()
             ->where('power', '>=', 20)
-            ->where('level','special')
+            ->where('level','=',$specialLevel)
             ->orderByRaw("
         (level = ?) DESC,
         (user_id IN (" . ($sellers ? implode(',', $sellers) : 0) . ")) DESC,
