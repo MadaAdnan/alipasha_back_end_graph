@@ -97,17 +97,33 @@ final class SpecialProduct
         return $products;
     }
 
+    private function getPopularCategoryProducts()
+    {
+
+        return Interaction::where('user_id', auth()->id())->whereNotNull('category_id')
+            ->latest()
+            ->groupBy('category_id')
+            ->orderByRaw('SUM(visited) DESC')
+            ->pluck('category_id')->toArray();
+    }
+
+    private function getPopularSelelrProducts()
+    {
+        return Interaction::where('user_id', auth()->id())->whereNotNull('seller_id')
+            ->groupBy('seller_id')
+            ->pluck('seller_id')->toArray();
+    }
 
     private function newQuery()
     {
         $sellers = [];
         //$setting = Setting::first();
-       /* if (auth()->check()) {
+        if (auth()->check()) {
             $sellers = auth()->user()->followers->pluck('seller_id')->toArray();
-        }*/
+        }
         $specialLevel = LevelProductEnum::SPECIAL->value;
         $now = now();
-        $products = Product::active()->where('level',$specialLevel)->whereIn('type', [
+        $products = Product::active()->whereIn('type', [
             CategoryTypeEnum::PRODUCT->value,
             CategoryTypeEnum::TENDER->value,
             CategoryTypeEnum::JOB->value,
@@ -125,6 +141,8 @@ final class SpecialProduct
             ->where('power', '>=', 20)
             ->orderByRaw("
         (level = ?) DESC,
+        (user_id IN (" . ($sellers ? implode(',', $sellers) : 0) . ")) DESC,
+        RAND()
     ", [$specialLevel]);
         return $products;
     }
