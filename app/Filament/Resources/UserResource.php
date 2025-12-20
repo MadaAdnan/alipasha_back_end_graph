@@ -74,8 +74,10 @@ class UserResource extends Resource
                                     ->dehydrated(false)->password()
                                     ->label('تأكيد كلمة المرور'),
 
-                                Forms\Components\Toggle::make('is_verified')->label('توثيق المتجر'),
-                                Forms\Components\DatePicker::make('verified_account_date')->label('تاريخ إنتهاء التوثيق'),
+                              Forms\Components\Fieldset::make('توثيق الحساب')->schema([
+                                  Forms\Components\Toggle::make('is_verified')->label('توثيق المتجر'),
+                                  Forms\Components\DatePicker::make('verified_account_date')->label('تاريخ إنتهاء التوثيق'),
+                              ]),
                                 Forms\Components\Grid::make(5)->schema([
                                     Forms\Components\Select::make('phone_code')->options(Country::all()->mapWithKeys(fn($el) => [
                                         $el->code => "{$el->name} - {$el->code}"
