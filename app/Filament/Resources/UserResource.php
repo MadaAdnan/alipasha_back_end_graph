@@ -74,14 +74,8 @@ class UserResource extends Resource
                                     ->dehydrated(false)->password()
                                     ->label('تأكيد كلمة المرور'),
 
-                                /*  PhoneInput::make('phone')
-                                      ->countryStatePath('country_code')
-                                      ->validateFor(
-
-                                          type: PhoneNumberType::MOBILE , // default: null
-                                          lenient: true, // default: false
-                                      )->displayNumberFormat(PhoneInputNumberType::E164)->formatOnDisplay(false)->formatAsYouType(true)->label('رقم الهاتف'),
-                                 */
+                                Forms\Components\Toggle::make('is_verified')->label('توثيق المتجر'),
+                                Forms\Components\DatePicker::make('verified_account_date')->label('تاريخ إنتهاء التوثيق'),
                                 Forms\Components\Grid::make(5)->schema([
                                     Forms\Components\Select::make('phone_code')->options(Country::all()->mapWithKeys(fn($el) => [
                                         $el->code => "{$el->name} - {$el->code}"
@@ -136,8 +130,7 @@ class UserResource extends Resource
 
                                     ])
                                 ]),
-                                Forms\Components\Toggle::make('is_verified')->label('توثيق المتجر'),
-                                Forms\Components\DatePicker::make('verified_account_date')->label('تاريخ إنتهاء التوثيق'),
+
                                 Forms\Components\ColorPicker::make('id_color')->label('هوية المتجر')->default("#FF3B30FF"),
                                 Forms\Components\Group::make()->schema([
                                     Forms\Components\TextInput::make('url_webhok')->url()->label('رابط ويب هوك الخاص بالمتجر')
