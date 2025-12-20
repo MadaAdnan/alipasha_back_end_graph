@@ -74,10 +74,7 @@ class UserResource extends Resource
                                     ->dehydrated(false)->password()
                                     ->label('تأكيد كلمة المرور'),
 
-                              Forms\Components\Fieldset::make('توثيق الحساب')->schema([
-                                  Forms\Components\Toggle::make('is_verified')->label('توثيق المتجر'),
-                                  Forms\Components\DatePicker::make('verified_account_date')->label('تاريخ إنتهاء التوثيق'),
-                              ]),
+
                                 Forms\Components\Grid::make(5)->schema([
                                     Forms\Components\Select::make('phone_code')->options(Country::all()->mapWithKeys(fn($el) => [
                                         $el->code => "{$el->name} - {$el->code}"
@@ -96,6 +93,10 @@ class UserResource extends Resource
                                     LevelUserEnum::SELLER->value => LevelUserEnum::SELLER->getLabel(),
                                     LevelUserEnum::USER->value => LevelUserEnum::USER->getLabel(),
                                     LevelUserEnum::STAFF->value => LevelUserEnum::STAFF->getLabel(),
+                                ]),
+                                Forms\Components\Fieldset::make('توثيق الحساب')->schema([
+                                    Forms\Components\Toggle::make('is_verified')->label('توثيق المتجر'),
+                                    Forms\Components\DatePicker::make('verified_account_date')->label('تاريخ إنتهاء التوثيق'),
                                 ]),
                                 Forms\Components\Select::make('roles')->relationship('roles', 'name')->multiple()->label('الأدوار')->visible(auth()->user()->hasRole('super_admin')),
                                 Forms\Components\Toggle::make('is_active')->label('حالة المستخدم'),
