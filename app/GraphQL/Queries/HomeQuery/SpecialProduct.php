@@ -21,39 +21,36 @@ final class SpecialProduct
         $cityId= $args['city_id'] ?? null;
         $setting = Setting::first();
         $now = now();
-       /* $products = Product::where(['active' => ProductActiveEnum::ACTIVE->value,
-            'level' => LevelProductEnum::SPECIAL->value])
+
+        $sellers = [];
+        //$setting = Setting::first();
+        if (auth()->check()) {
+            $sellers = auth()->user()->followers->pluck('seller_id')->toArray();
+        }
+        $specialLevel = LevelProductEnum::SPECIAL->value;
+        $now = now();
+        $products = Product::active()->whereIn('type', [
+            CategoryTypeEnum::PRODUCT->value,
+            CategoryTypeEnum::TENDER->value,
+            CategoryTypeEnum::JOB->value,
+            CategoryTypeEnum::SEARCH_JOB->value,
+            CategoryTypeEnum::NEWS->value,
+        ])
             ->whereHas('user', fn($q) => $q->where('users.is_active', 1))
-            ->where(fn($query) => $query->whereDoesntHave('category', fn($query) => $query->where('type', CategoryTypeEnum::RESTAURANT->value)))
             ->where(function ($q) use ($now) {
                 $q->whereNull('end_date')                    // أظهر المنتجات التي end_date = NULL
                 ->orWhere('end_date', '>', $now)           // أو التي تاريخها في المستقبل
                 ->orWhere('end_date', '')                  // أو حقل فارغ '' (إذا كان لديك مثل هذه القيم)
                 ->orWhereRaw("end_date = '0000-00-00' OR end_date = '0000-00-00 00:00:00'"); // تعامل مع الـ zero-date إن وجد
             })
-            ->whereIn('type', [
-                CategoryTypeEnum::PRODUCT->value,
-                CategoryTypeEnum::TENDER->value,
-                CategoryTypeEnum::JOB->value,
-                CategoryTypeEnum::SEARCH_JOB->value,
-                CategoryTypeEnum::NEWS->value,
-            ])->where('created_at', '>=', now()->subDays($setting->options['recommended_month'] ?? 30))
-             ->orderByRaw(
-                "
-        CASE
-            WHEN ? IS NOT NULL AND category_id = ? THEN 0
-            ELSE 1
-        END,
-        CASE
-            WHEN ? IS NOT NULL AND city_id = ? THEN 0
-            ELSE 1
-        END,
+            //  ->where('created_at', '>=', now()->subDays($setting->options['recommended_month'] ?? 30))->inRandomOrder()
+            ->where('power', '>=', 20)
+            ->where('level','special')
+            ->orderByRaw("
+        (level = ?) DESC,
+        (user_id IN (" . ($sellers ? implode(',', $sellers) : 0) . ")) DESC,
         RAND()
-        ",
-                [$categoryId, $categoryId, $cityId, $cityId]
-            )
-        ;*/
-        $products=$this->newQuery();
+    ", [$specialLevel]);
 
         $ids = $products->pluck('id')->toArray();
         $ratio = $setting->ratio_view_home;
