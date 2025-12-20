@@ -17,11 +17,8 @@ final class SpecialProduct
      */
     public function __invoke($_, array $args)
     {
-        $categoryId= $args['category_id'] ?? null;
-        $cityId= $args['city_id'] ?? null;
-        $setting = Setting::first();
-        $now = now();
 
+        $setting = Setting::first();
         $sellers = [];
         //$setting = Setting::first();
         if (auth()->check()) {
@@ -38,10 +35,10 @@ final class SpecialProduct
         ])
             ->whereHas('user', fn($q) => $q->where('users.is_active', 1))
             ->where(function ($q) use ($now) {
-                $q->whereNull('end_date')                    // أظهر المنتجات التي end_date = NULL
-                ->orWhere('end_date', '>', $now)           // أو التي تاريخها في المستقبل
-                ->orWhere('end_date', '')                  // أو حقل فارغ '' (إذا كان لديك مثل هذه القيم)
-                ->orWhereRaw("end_date = '0000-00-00' OR end_date = '0000-00-00 00:00:00'"); // تعامل مع الـ zero-date إن وجد
+                $q->whereNull('end_date')
+                ->orWhere('end_date', '>', $now)
+                ->orWhere('end_date', '')
+                ->orWhereRaw("end_date = '0000-00-00' OR end_date = '0000-00-00 00:00:00'");
             })
             //  ->where('created_at', '>=', now()->subDays($setting->options['recommended_month'] ?? 30))->inRandomOrder()
             ->where('power', '>=', 20)
@@ -52,13 +49,10 @@ final class SpecialProduct
         RAND()
     ", [$specialLevel]);
 
-      if($products->count()>0){
+      if($products->count()>1){
           $ids = $products->pluck('id')->toArray();
           $ratio = $setting->ratio_view_home;
           $half = ceil(count($ids) * $ratio ?? 0.5);
-          if($half<=0){
-              return $products;
-          }
           $idsChunks = array_chunk($ids, (int)$half); // يقسم المصفوفة إلى أجزاء
 
           list($firstHalf, $secondHalf) = $idsChunks; // نفصلها في متغيرين
