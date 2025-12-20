@@ -117,7 +117,7 @@ final class SpecialProduct
     private function newQuery()
     {
         $sellers = [];
-        $setting = Setting::first();
+        //$setting = Setting::first();
         if (auth()->check()) {
             $sellers = auth()->user()->followers->pluck('seller_id')->toArray();
         }

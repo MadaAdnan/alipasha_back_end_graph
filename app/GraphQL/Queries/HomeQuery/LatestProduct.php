@@ -17,8 +17,6 @@ final class LatestProduct
      */
     public function __invoke($_, array $args)
     {
-        $popularCategories = [];
-        $popularSellers =[];
         $categoryId= $args['category_id'] ?? null;
         $cityId= $args['city_id'] ?? null;
         $setting = Setting::first();
@@ -105,19 +103,7 @@ final class LatestProduct
         return $products;
     }
 
-    private function getPopularCategoryProducts()
-    {
-        return Interaction::where('user_id', auth()->id())->whereNotNull('category_id')
-            ->latest()
-            ->groupBy('category_id')
-            ->orderByRaw('SUM(visited) DESC')
-            ->pluck('category_id')->toArray();
-    }
 
-    private function getPopularSelelrProducts()
-    {
-        return Interaction::where('user_id', auth()->id())->whereNotNull('seller_id')
-            ->groupBy('seller_id')
-            ->pluck('seller_id')->toArray();
-    }
+
+
 }
