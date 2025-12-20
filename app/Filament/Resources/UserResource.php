@@ -99,7 +99,7 @@ class UserResource extends Resource
                                     Forms\Components\DatePicker::make('verified_account_date')->label('تاريخ إنتهاء التوثيق'),
                                 ]),
                                 Forms\Components\Select::make('roles')->relationship('roles', 'name')->multiple()->label('الأدوار')->visible(auth()->user()->hasRole('super_admin')),
-                                Forms\Components\Toggle::make('is_active')->label('حالة المستخدم'),
+                                Forms\Components\Toggle::make('is_active')->label('حالة المستخدم')->inlineLabel(false)->inline(false),
                                 Forms\Components\Toggle::make('is_seller')->label('تفعيل المتجر')->live()->visible(auth()->user()->hasRole('super_admin')),
                             ]),
                         ]),
