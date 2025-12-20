@@ -123,7 +123,7 @@ final class SpecialProduct
         }
         $specialLevel = LevelProductEnum::SPECIAL->value;
         $now = now();
-        $products = Product::active()->whereIn('type', [
+        $products = Product::active()->where('products.level',$specialLevel)->whereIn('type', [
             CategoryTypeEnum::PRODUCT->value,
             CategoryTypeEnum::TENDER->value,
             CategoryTypeEnum::JOB->value,
