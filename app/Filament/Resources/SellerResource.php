@@ -233,7 +233,7 @@ class SellerResource extends Resource implements HasShieldPermissions
     public static function table(Table $table): Table
     {
         return $table
-            ->defaultSort('last_product_date','desc')
+
             ->columns([
               Tables\Columns\TextColumn::make('id')->label('ID')->searchable(),
               Tables\Columns\TextColumn::make('name')->label('اسم المستخدم')->searchable()->wrap(),
