@@ -397,14 +397,13 @@ class UserResource extends Resource
                 ExportAction::make()->exports([
                     ExcelExport::make()->modifyQueryUsing(fn (Builder $query) => User::query()
                         ->select('id', 'name', 'full_phone','email','seller_name','email_verified_at', 'created_at') // إختر فقط الحقول اللازمة
-                        ->orderBy('id'))
-                ])->exports([
-                    ExcelExport::make()
-                        ->fromTable()            // يبقى fromTable لكن سيأخذ الـ query المعدّل أعلاه
-                        ->withChunkSize(500)     // حجم الـ chunk لمعالجة أقل ذاكرة
-                        ->queue()                // ضع التصدير في queue لأن العملية ثقيلة
-                        ->askForFilename()
-                        ->withFilename(fn($filename) => 'ali-pasha-' . $filename),
+                        ->orderBy('id')),
+                     ExcelExport::make()
+                         ->fromTable()            // يبقى fromTable لكن سيأخذ الـ query المعدّل أعلاه
+                         ->withChunkSize(500)     // حجم الـ chunk لمعالجة أقل ذاكرة
+                         ->queue()                // ضع التصدير في queue لأن العملية ثقيلة
+                         ->askForFilename()
+                         ->withFilename(fn($filename) => 'ali-pasha-' . $filename),
                 ])->visible(/*auth()->user()->can('export_users')*/true),
                 Tables\Actions\Action::make('send_msg_phone')->form([
                     Forms\Components\TextInput::make('title')->label('العنوان')->required(),

@@ -299,14 +299,13 @@ class SellerResource extends Resource implements HasShieldPermissions
                 ]),
             ])
             ->headerActions([
-                ExportAction::make()->exports([
-                    ExcelExport::make()
-                        ->fromTable()            // يبقى fromTable لكن سيأخذ الـ query المعدّل أعلاه
-                        ->withChunkSize(500)     // حجم الـ chunk لمعالجة أقل ذاكرة
-                        ->queue()                // ضع التصدير في queue لأن العملية ثقيلة
-                        ->askForFilename()
-                        ->withFilename(fn($filename) => 'ali-pasha-' . $filename),
-                ])->visible(/*auth()->user()->can('export_users')*/true),
+                ExportAction::make()
+                    ->label('تصدير Excel')
+                    ->exports([
+                        ExcelExport::make()
+                            ->fromTable() // يصدر نفس بيانات الجدول + الفلاتر
+                            ->withFilename('users-' . now()->format('Y-m-d')),
+                    ]),
             ]);
     }
 
