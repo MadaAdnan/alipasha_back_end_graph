@@ -12,7 +12,7 @@ final  class Suggestions
         $search=  $args['search']??null;
         $type=  $args['type']??'product';
         if($type=='seller'){
-            return User::seller()->take(10)->whereNotNull('seller_name')->pluck('seller_name')->toArray();
+            return User::seller()->take(10)->whereNotNull('seller_name')->where('seller_name','like','%'.$search.'%')->pluck('seller_name')->toArray();
         }else{
             return \App\Models\Product::active()
                 ->whereNotNull('name')->where(function ($query)use($search){
