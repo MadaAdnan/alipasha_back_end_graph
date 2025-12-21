@@ -249,7 +249,9 @@ class SellerResource extends Resource implements HasShieldPermissions
                             ->when(
                                 $data['from'],
                                 fn (Builder $query, $date) =>
-                                $query->having('last_product_date', '>=', $date)
+                                $query->whereHas('products', function (Builder $q) use ($date) {
+                                    $q->whereDate('created_at', '>=', $date);
+                                })
                             );
                     }),
             ])
