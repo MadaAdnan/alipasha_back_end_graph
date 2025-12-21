@@ -37,7 +37,11 @@ public static function canCreate(): bool
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('queue')->label('الدور'),
-                Tables\Columns\TextColumn::make('payload')->label('العمل')->wrap(),
+                Tables\Columns\TextColumn::make('payload')
+                    ->label('العمل')
+                    ->limit(50)
+                    ->tooltip(fn ($record) => $record->payload)
+                    ->wrap(),
             ])
             ->filters([
                 //
