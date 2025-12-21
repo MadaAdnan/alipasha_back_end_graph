@@ -255,7 +255,7 @@ class SellerResource extends Resource implements HasShieldPermissions
                                     $q->whereDate('created_at', '>=', $date);
                                 })
                             );
-                    }),
+                    })->label('نشر بعد تاريخ'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
