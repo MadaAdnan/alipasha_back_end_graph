@@ -2,13 +2,20 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\LevelUserEnum;
 use App\Enums\PartnerTypeEnum;
 use App\Filament\Resources\SellerResource\Pages;
 
+use App\Helpers\HelperMedia;
+use App\Jobs\WebhokProductsJob;
+use App\Jobs\WebhokUserJob;
 use App\Models\Category;
 use App\Models\City;
+use App\Models\Country;
 use App\Models\Partner;
 
+use App\Models\Product;
+use App\Models\User;
 use BezhanSalleh\FilamentShield\Contracts\HasShieldPermissions;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -21,7 +28,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class SellerResource extends Resource implements HasShieldPermissions
 {
-    protected static ?string $model = Partner::class;
+    protected static ?string $model = User::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $slug = 'sellers';
@@ -102,17 +109,118 @@ class SellerResource extends Resource implements HasShieldPermissions
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('التجار')->schema([
-                    Forms\Components\SpatieMediaLibraryFileUpload::make('image')->collection('image')->conversion('webp')->imageCropAspectRatio('1:1')
-                        ->image()->label('لوغو المتجر'),
-                    Forms\Components\Select::make('city_id')->options(City::orderBy('name')->pluck('name', 'id'))->searchable()->label('المدينة'),
-                    Forms\Components\Select::make('category_id')->options(Category::where('categories.is_main',true)->orderBy('name')->pluck('name', 'id'))->searchable()->label('القسم'),
-                    Forms\Components\TextInput::make('name')->label('اسم التاجر'),
-                    Forms\Components\Textarea::make('info')->label('وصف التاجر'),
-                    Forms\Components\TextInput::make('address')->label('عنوان التاجر'),
-                    Forms\Components\TextInput::make('phone')->label('رقم التاجر'),
-                ])
+                Forms\Components\Grid::make()->schema([
+                    Forms\Components\Wizard::make([
+                        Forms\Components\Wizard\Step::make('بيانات المستخدم')->schema([
+                            Forms\Components\Fieldset::make('بيانات المستخدم')->schema([
+                                Forms\Components\SpatieMediaLibraryFileUpload::make('image')->collection('image')->conversion('webp')
+                                    ->openable()
+                                    ->label('صورة')->imageEditor()->imageCropAspectRatio('1:1'),
 
+                                Forms\Components\TextInput::make('name')->required()->label('الاسم'),
+                                Forms\Components\TextInput::make('email')->required()->email()->unique(ignoreRecord: true)->label('البريد الإلكتروني'),
+                                Forms\Components\TextInput::make('password')->required(fn($context) => $context === 'create')
+                                    ->dehydrateStateUsing(fn($state) => \Hash::make($state))->dehydrated(fn($state) => filled($state))->password()
+                                    ->same('passwordConfirmation')
+                                    ->label('كلمة المرور'),
+                                Forms\Components\TextInput::make('passwordConfirmation')->required(fn($context) => $context === 'create')
+                                    ->dehydrated(false)->password()
+                                    ->label('تأكيد كلمة المرور'),
+
+
+                                Forms\Components\Grid::make(5)->schema([
+                                    Forms\Components\Select::make('phone_code')->options(Country::all()->mapWithKeys(fn($el) => [
+                                        $el->code => "{$el->name} - {$el->code}"
+                                    ])->toArray()
+                                    )->label('الدولة')->searchable(),
+                                    Forms\Components\TextInput::make('phone')->label('رقم الهاتف')->required()->columnSpan(4)
+                                ]),
+                                Forms\Components\TextInput::make('affiliate')->label('كود الإحالة')->readOnly()->visible(fn($context) => $context != 'create'),
+
+//                        Forms\Components\DatePicker::make('upgrade_date')/*->required(fn($get) => $get('plan') != null)*/ ->label('تاريخ آخر ترقية'),
+                                Forms\Components\DatePicker::make('email_verified_at')->label('حدد تاريخ لتأكيد الحساب'),
+                                Forms\Components\Select::make('city_id')->options(City::where('is_main', true)->pluck('name', 'id'))->label('المحافظة')->reactive()->searchable()->searchDebounce(750),
+                                Forms\Components\Select::make('area_id')->options(fn($get) => City::where('city_id', $get('city_id'))->pluck('name', 'id'))->label('المنطقة')->searchable()->searchDebounce(750),
+                                Forms\Components\Select::make('level')->options([
+                                    LevelUserEnum::ADMIN->value => LevelUserEnum::ADMIN->getLabel(),
+                                    LevelUserEnum::SELLER->value => LevelUserEnum::SELLER->getLabel(),
+                                    LevelUserEnum::USER->value => LevelUserEnum::USER->getLabel(),
+                                    LevelUserEnum::STAFF->value => LevelUserEnum::STAFF->getLabel(),
+                                ]),
+                                Forms\Components\Fieldset::make('توثيق الحساب')->schema([
+                                    Forms\Components\Toggle::make('is_verified')->label('توثيق المتجر'),
+                                    Forms\Components\DatePicker::make('verified_account_date')->label('تاريخ إنتهاء التوثيق'),
+                                ]),
+                                Forms\Components\Select::make('roles')->relationship('roles', 'name')->multiple()->label('الأدوار')->visible(auth()->user()->hasRole('super_admin')),
+                                Forms\Components\Toggle::make('is_active')->label('حالة المستخدم')->inlineLabel(false)->inline(false),
+                                Forms\Components\Toggle::make('is_seller')->label('تفعيل المتجر')->live()->visible(auth()->user()->hasRole('super_admin')),
+                            ]),
+                        ]),
+                        Forms\Components\Wizard\Step::make('بيانات المتجر')->schema([
+
+                            Forms\Components\Fieldset::make('بيانات المتجر')->schema([
+                                Forms\Components\TextInput::make('seller_name')->label('اسم المتجر'),
+                                Forms\Components\TextInput::make('address')->label('عنوان المتجر'),
+                                Forms\Components\Textarea::make('info')->label('وصف مختصر')->columnSpan(2),
+                                Forms\Components\SpatieMediaLibraryFileUpload::make('logo')->collection('logo')->conversion('webp')->label('صورة Cover')->imageEditor()->imageCropAspectRatio('2:1')
+                                    ->openable()->columnSpan(2),
+                                Forms\Components\Grid::make(3)->schema([
+                                    Forms\Components\Toggle::make('is_default_active')->label('تفعيل المنتجات تلقائيا'),
+                                    Forms\Components\Toggle::make('is_delivery')->label('خدمة التوصيل'),
+                                    Forms\Components\Grid::make()->schema([
+                                        Forms\Components\Toggle::make('can_create_channel')->label('إنشاء قناة'),
+                                        Forms\Components\TextInput::make('count_channel')->label('عدد القنوات'),
+                                    ]),
+                                    Forms\Components\Grid::make()->schema([
+                                        Forms\Components\Toggle::make('can_create_group')->label('إنشاء مجموعات'),
+                                        Forms\Components\TextInput::make('count_group')->label('عدد المجموعات'),
+                                    ])
+                                ]),
+                                Forms\Components\TimePicker::make('open_time')->label('يفتح من الساعة'),
+                                Forms\Components\TimePicker::make('close_time')->label('يغلق في الساعة'),
+                                Forms\Components\Fieldset::make('متجر مميز')->schema([
+                                    Forms\Components\Grid::make(3)->schema([
+                                        Forms\Components\Toggle::make('is_special')->label('تمييز المتجر')->inline(false)->live()->hint('عند تفعيل هذا الخيار سيظهر المتجر في الصفحة الرئيسية'),
+                                        HelperMedia::getFileUpload('صورة مميزة', 'custom', 'custom', false, ['2:1'])->required(fn($get) => $get('is_special')),
+                                        Forms\Components\Select::make('category_id')->relationship('category', 'name')->label('القسم')->searchable(),
+
+                                    ])
+                                ]),
+
+                                Forms\Components\ColorPicker::make('id_color')->label('هوية المتجر')->default("#FF3B30FF"),
+                                Forms\Components\Group::make()->schema([
+                                    Forms\Components\TextInput::make('url_webhok')->url()->label('رابط ويب هوك الخاص بالمتجر')
+                                        ->suffixAction(Forms\Components\Actions\Action::make('sync')->action(function ($record) {
+                                            $job = new WebhokUserJob($record);
+                                            dispatch($job);
+                                            $products = Product::where([
+                                                'user_id' => $record->id,
+                                                'is_sync_webhok' => false,
+                                            ])->get();
+
+                                            $job2 = new WebhokProductsJob($products, $record->url_webhok);
+                                            dispatch($job2);
+                                        }
+                                        )->icon('heroicon-o-link'))
+                                    ,
+                                    Forms\Components\TextInput::make('business_email')->email()->label('البريد الإلكتروني الخاص بمتجرك'),
+                                ]),
+                            ]),
+
+                        ])->visible(fn($get) => $get('is_seller')),
+                        Forms\Components\Wizard\Step::make('معلومات مواقع التواصل')->schema([
+                            Forms\Components\TextInput::make('social.instagram')->label('رابط إنستغرام')->nullable()->url()->placeholder('https://'),
+                            Forms\Components\TextInput::make('social.face')->label('رابط فيسبوك')->nullable()->url()->placeholder('https://'),
+                            Forms\Components\TextInput::make('social.linkedin')->label('رابط لينكدن')->nullable()->url()->placeholder('https://'),
+                            Forms\Components\TextInput::make('social.tiktok')->label('رابط تيك توك')->nullable()->url()->placeholder('https://'),
+                            Forms\Components\TextInput::make('social.twitter')->label('رابط تويتر')->nullable()->url()->placeholder('https://'),
+                            //Forms\Components\TextInput::make('social.telegram')->label('رابط تلغرام')->nullable()->url()->placeholder('https://'),
+                        ])->visible(fn($get) => $get('is_seller')),
+                        Forms\Components\Wizard\Step::make('معرض الصور')->schema([
+                            Forms\Components\SpatieMediaLibraryFileUpload::make('gallery')->collection('gallery')->image()->imageCropAspectRatio('1:1')->imageEditor()->multiple()->label('صور المعرض')
+                        ])->visible(fn($get) => $get('is_seller')),
+                    ])->skippable()->columnSpan(2)
+                ])
             ]);
     }
 
@@ -121,10 +229,11 @@ class SellerResource extends Resource implements HasShieldPermissions
         return $table
             ->modifyQueryUsing(fn($query) => $query->where('type', PartnerTypeEnum::SELLER->value))
             ->columns([
-                Tables\Columns\SpatieMediaLibraryImageColumn::make('image')->collection('image')->conversion('webp')->label('صورة لمتجر')->circular(),
-                Tables\Columns\TextColumn::make('name')->label('اسم التاجر')->searchable(),
-                Tables\Columns\TextColumn::make('phone')->label('رقم التاجر'),
-                Tables\Columns\TextColumn::make('city.name')->label('المدينة'),
+              Tables\Columns\TextColumn::make('id')->label('ID'),
+              Tables\Columns\TextColumn::make('name')->label('ID'),
+              Tables\Columns\TextColumn::make('seller_name')->label('ID'),
+              Tables\Columns\TextColumn::make('followers_count')->label('ID'),
+              Tables\Columns\TextColumn::make('last_product_date')->label('ID'),
             ])
             ->filters([
                 //
