@@ -233,10 +233,10 @@ class SellerResource extends Resource implements HasShieldPermissions
         return $table
             ->columns([
               Tables\Columns\TextColumn::make('id')->label('ID')->searchable(),
-              Tables\Columns\TextColumn::make('name')->label('اسم المستخدم')->searchable(),
-              Tables\Columns\TextColumn::make('seller_name')->label('اسم المتجر')->searchable(),
-              Tables\Columns\TextColumn::make('city.name')->label('المحافظة'),
-              Tables\Columns\TextColumn::make('area.name')->label('المدينة'),
+              Tables\Columns\TextColumn::make('name')->label('اسم المستخدم')->searchable()->wrap(),
+              Tables\Columns\TextColumn::make('seller_name')->label('اسم المتجر')->searchable()->wrap(),
+              Tables\Columns\TextColumn::make('city.name')->label('المحافظة')->wrap(),
+              Tables\Columns\TextColumn::make('area.name')->label('المدينة')->wrap(),
               Tables\Columns\TextColumn::make('full_phone')->label('الهاتف')->url(fn($state)=>'https://wa.me/'.$state),
               Tables\Columns\TextColumn::make('products_count')->label('عدد المنتجات')->sortable(),
               Tables\Columns\TextColumn::make('followers_count')->label('عدد المتابعين')->sortable(),
@@ -262,7 +262,7 @@ class SellerResource extends Resource implements HasShieldPermissions
                             )
                             ->when($data['city_id'], fn (Builder $query, $city_id)=>$query->where('city_id',$city_id) )
                             ->when($data['area_id'], fn (Builder $query, $area_id)=>$query->where('area_id',$area_id) );
-                    })->label('نشر منذ'),
+                    }),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
