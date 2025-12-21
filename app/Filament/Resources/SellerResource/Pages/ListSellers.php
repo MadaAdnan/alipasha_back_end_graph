@@ -26,7 +26,7 @@ class ListSellers extends ListRecords
             ->select('users.*')
             ->leftJoin('products', function($join) {
                 $join->on('products.user_id', '=', 'users.id')
-                    ->where('products.status', 'active'); // إذا أردت فقط المنتجات النشطة
+                   ; // إذا أردت فقط المنتجات النشطة
             })
             ->leftJoin('cities', 'users.city_id', '=', 'cities.id')
             ->leftJoin('cities as areas', 'users.area_id', '=', 'areas.id')
