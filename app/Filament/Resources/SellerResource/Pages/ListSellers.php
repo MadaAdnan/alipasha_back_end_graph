@@ -33,6 +33,7 @@ class ListSellers extends ListRecords
             ->leftJoin('categories', 'users.category_id', '=', 'categories.id')
             ->groupBy('users.id') // مهم عند استخدام aggregate مثل MAX
             ->selectRaw('MAX(products.created_at) as last_product_date')
-            ->withCount(['products', 'followers']);
+            ->withCount(['products', 'followers'])
+            ->orderByDesc('last_product_date');
     }
 }
