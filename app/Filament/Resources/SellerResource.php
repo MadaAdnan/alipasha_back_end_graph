@@ -229,7 +229,7 @@ class SellerResource extends Resource implements HasShieldPermissions
         return $table
             ->columns([
               Tables\Columns\TextColumn::make('id')->label('ID'),
-              Tables\Columns\TextColumn::make('name')->label('اسم المستخدم'),
+              Tables\Columns\TextColumn::make('name')->label('اسم المستخدم')->searchable(),
               Tables\Columns\TextColumn::make('seller_name')->label('اسم المتجر'),
               Tables\Columns\TextColumn::make('products_count')->label('عدد المنتجات'),
               Tables\Columns\TextColumn::make('followers_count')->label('عدد المتابعين')->sortable(),
