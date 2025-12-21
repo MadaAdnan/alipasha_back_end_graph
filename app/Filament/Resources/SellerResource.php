@@ -264,6 +264,7 @@ class SellerResource extends Resource implements HasShieldPermissions
                             ->label('المدينة'),
                     ])
                     ->query(function (Builder $query, array $data) {
+                        dd($query->get());
                         return $query
                                 ->when($data['from'], function (Builder $query, $date) {
                                     $query->havingRaw(
