@@ -315,7 +315,7 @@ class SellerResource extends Resource implements HasShieldPermissions
                     ->exports([
                         ExcelExport::make()
                             ->fromTable() // يصدر نفس بيانات الجدول + الفلاتر
-                            ->withWriterType(\Maatwebsite\Excel\Excel::CSV)
+                           /* ->withWriterType(\Maatwebsite\Excel\Excel::CSV)*/
                             ->withFilename('users-' . now()->format('Y-m-d')),
                     ]),
             ]);
