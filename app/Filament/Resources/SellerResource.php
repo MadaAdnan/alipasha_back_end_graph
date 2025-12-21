@@ -259,7 +259,9 @@ class SellerResource extends Resource implements HasShieldPermissions
                                 $query->whereHas('products', function (Builder $q) use ($date) {
                                     $q->whereDate('created_at', '>=', $date);
                                 })
-                            );
+                            )
+                            ->when($data['city_id'], fn (Builder $query, $city_id)=>$query->where('city_id',$city_id) )
+                            ->when($data['area_id'], fn (Builder $query, $area_id)=>$query->where('area_id',$area_id) );
                     })->label('نشر منذ'),
             ])
             ->actions([
