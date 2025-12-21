@@ -231,6 +231,7 @@ class SellerResource extends Resource implements HasShieldPermissions
               Tables\Columns\TextColumn::make('id')->label('ID'),
               Tables\Columns\TextColumn::make('name')->label('ID'),
               Tables\Columns\TextColumn::make('seller_name')->label('ID'),
+              Tables\Columns\TextColumn::make('products_count')->label('ID'),
               Tables\Columns\TextColumn::make('followers_count')->label('ID'),
               Tables\Columns\TextColumn::make('last_product_date')->label('ID')->sortable(),
             ])
