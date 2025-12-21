@@ -243,8 +243,6 @@ class SellerResource extends Resource implements HasShieldPermissions
                     ->form([
                         DatePicker::make('from')
                             ->label('من تاريخ'),
-                        DatePicker::make('until')
-                            ->label('إلى تاريخ'),
                     ])
                     ->query(function (Builder $query, array $data) {
                         return $query
@@ -252,11 +250,6 @@ class SellerResource extends Resource implements HasShieldPermissions
                                 $data['from'],
                                 fn (Builder $query, $date) =>
                                 $query->having('last_product_date', '>=', $date)
-                            )
-                            ->when(
-                                $data['until'],
-                                fn (Builder $query, $date) =>
-                                $query->having('last_product_date', '<=', $date)
                             );
                     }),
             ])
