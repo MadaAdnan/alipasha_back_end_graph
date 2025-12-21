@@ -235,6 +235,8 @@ class SellerResource extends Resource implements HasShieldPermissions
               Tables\Columns\TextColumn::make('id')->label('ID')->searchable(),
               Tables\Columns\TextColumn::make('name')->label('اسم المستخدم')->searchable(),
               Tables\Columns\TextColumn::make('seller_name')->label('اسم المتجر')->searchable(),
+              Tables\Columns\TextColumn::make('city.name')->label('المحافظة'),
+              Tables\Columns\TextColumn::make('area.name')->label('المدينة'),
               Tables\Columns\TextColumn::make('full_phone')->label('الهاتف')->url(fn($state)=>'https://wa.me/'.$state),
               Tables\Columns\TextColumn::make('products_count')->label('عدد المنتجات')->sortable(),
               Tables\Columns\TextColumn::make('followers_count')->label('عدد المتابعين')->sortable(),
@@ -246,6 +248,8 @@ class SellerResource extends Resource implements HasShieldPermissions
                     ->form([
                         DatePicker::make('from')
                             ->label('من تاريخ'),
+                        Forms\Components\Select::make('city_id')->options(City::whereIsMain(true)->pluck('name','id')->toArray())->label('المحافظة')->live(),
+                        Forms\Components\Select::make('area_id')->options(fn($get)=>City::whereCityId($get('city_id'))->pluck('name','id')->toArray())->label('المدينة'),
                     ])
                     ->query(function (Builder $query, array $data) {
                         return $query
