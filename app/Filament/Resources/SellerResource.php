@@ -233,7 +233,7 @@ class SellerResource extends Resource implements HasShieldPermissions
               Tables\Columns\TextColumn::make('seller_name')->label('اسم المتجر'),
               Tables\Columns\TextColumn::make('products_count')->label('عدد المنتجات'),
               Tables\Columns\TextColumn::make('followers_count')->label('عدد المتابعين')->sortable(),
-              Tables\Columns\TextColumn::make('last_product_date')->label('تاريخ آخر نشر')->sortable(),
+              Tables\Columns\TextColumn::make('last_product_date')->since()->label('تاريخ آخر نشر')->sortable(),
             ])
             ->filters([
                 //
