@@ -483,7 +483,7 @@ class UserResource extends Resource
                                 $dataMsg['title'] = $data['title'];
                                 $dataMsg['body'] = $data['msg'];
                                 $dataMsg['url'] = 'https://v3.ali-pasha.com';
-//$users=User::whereIn('id',$records->pluck('id')->toArray())->pluck();
+
                                 SendNotifyHelper::sendNotifyMultiUser($records, $dataMsg);
 
 

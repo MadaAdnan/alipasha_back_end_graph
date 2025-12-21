@@ -16,10 +16,12 @@ use App\Models\Partner;
 
 use App\Models\Product;
 use App\Models\User;
+use App\Service\SendNotifyHelper;
 use BezhanSalleh\FilamentShield\Contracts\HasShieldPermissions;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Filters\Filter;
@@ -234,7 +236,7 @@ class SellerResource extends Resource implements HasShieldPermissions
               Tables\Columns\TextColumn::make('name')->label('اسم المستخدم')->searchable(),
               Tables\Columns\TextColumn::make('seller_name')->label('اسم المتجر')->searchable(),
               Tables\Columns\TextColumn::make('full_phone')->label('الهاتف')->url(fn($state)=>'https://wa.me/'.$state),
-              Tables\Columns\TextColumn::make('products_count')->label('عدد المنتجات'),
+              Tables\Columns\TextColumn::make('products_count')->label('عدد المنتجات')->sortable(),
               Tables\Columns\TextColumn::make('followers_count')->label('عدد المتابعين')->sortable(),
               Tables\Columns\TextColumn::make('last_product_date')->since()->label('تاريخ آخر نشر')->sortable(),
             ])
@@ -261,6 +263,28 @@ class SellerResource extends Resource implements HasShieldPermissions
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\BulkAction::make('send_notification')
+                        ->form([
+                            Forms\Components\TextInput::make('title')->label('العنوان')->required(),
+                            Forms\Components\Textarea::make('body')->label('الرسالة')->required(),
+                        ])
+                        ->action(function ($records,$data){
+                            try {
+                                $dataMsg['title'] = $data['title'];
+                                $dataMsg['body'] = $data['msg'];
+                                $dataMsg['url'] = 'https://v3.ali-pasha.com';
+
+                                SendNotifyHelper::sendNotifyMultiUser($records, $dataMsg);
+
+
+                                Notification::make('success')->title('نجاح العملية')->body('تم إرسال الرسالة بنجاح')->success()->send();
+
+                            } catch (\Exception|\Error $e) {
+
+                                Notification::make('error')->title('فشل العملية')->body($e->getMessage())->danger()->send();
+
+                            }
+                        })->requiresConfirmation()->label('إرسال رسالة')
                 ]),
             ]);
     }
