@@ -23,7 +23,7 @@ class ListSellers extends ListRecords
     protected function getTableQuery(): ?Builder
     {
         return User::seller()
-            ->select('users.*')
+
             ->selectSub(
                 Product::selectRaw('MAX(created_at)')
                     ->whereColumn('products.user_id', 'users.id'),
