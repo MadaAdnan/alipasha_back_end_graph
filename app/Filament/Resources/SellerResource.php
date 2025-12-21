@@ -251,24 +251,31 @@ class SellerResource extends Resource implements HasShieldPermissions
             ->filters([
                 Filter::make('last_product_date')
                     ->form([
-                        DatePicker::make('from')
-                            ->label('من تاريخ'),
-                        Forms\Components\Select::make('city_id')->options(City::whereIsMain(true)->pluck('name','id')->toArray())->label('المحافظة')->live(),
-                        Forms\Components\Select::make('area_id')->options(fn($get)=>City::whereCityId($get('city_id'))->pluck('name','id')->toArray())->label('المدينة'),
+                        DatePicker::make('from')->label('من تاريخ'),
+                        Forms\Components\Select::make('city_id')
+                            ->options(City::whereIsMain(true)->pluck('name','id'))
+                            ->label('المحافظة')
+                            ->live(),
+
+                        Forms\Components\Select::make('area_id')
+                            ->options(fn ($get) =>
+                            City::whereCityId($get('city_id'))->pluck('name','id')
+                            )
+                            ->label('المدينة'),
                     ])
                     ->query(function (Builder $query, array $data) {
                         return $query
-                            ->when(
-                                $data['from'],
-                                fn (Builder $query, $date) =>
-                                $query->whereHas('products', function (Builder $q) use ($date) {
-                                    $q->where('products.created_at', '<=', $date);
-                                })
-                            )
-                            ->when($data['city_id'], fn (Builder $query, $city_id)=>$query->where('city_id',$city_id) )
-                            ->when($data['area_id'], fn (Builder $query, $area_id)=>$query->where('area_id',$area_id) );
-                    }),
-            ])
+                            ->when($data['from'], function (Builder $query, $date) {
+                                $query->whereRaw(
+                                    '(SELECT MAX(created_at) FROM products WHERE products.user_id = users.id) >= ?',
+                                    [$date]
+                                );
+                            })
+                            ->when($data['city_id'], fn ($q, $city) => $q->where('city_id', $city))
+                            ->when($data['area_id'], fn ($q, $area) => $q->where('area_id', $area));
+                    })
+
+        ])
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
