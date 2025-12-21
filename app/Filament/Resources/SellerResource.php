@@ -264,10 +264,13 @@ class SellerResource extends Resource implements HasShieldPermissions
                             ->label('المدينة'),
                     ])
                     ->query(function (Builder $query, array $data) {
-dd($query->first());
+
                         return $query
                                 ->when($data['from'], function (Builder $query, $date) {
-                                    $query->having('last_product_date', '>=', $date);
+                                    $query->havingRaw(
+                                        'DATE(last_product_date) >= ?',
+                                        [$date]
+                                    );
 
                             })
                             ->when($data['city_id'], fn ($q, $city) => $q->where('city_id', $city))
