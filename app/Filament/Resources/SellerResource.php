@@ -29,6 +29,8 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportAction;
+use pxlrbt\FilamentExcel\Exports\ExcelExport;
 
 class SellerResource extends Resource implements HasShieldPermissions
 {
@@ -295,6 +297,16 @@ class SellerResource extends Resource implements HasShieldPermissions
                             }
                         })->requiresConfirmation()->label('إرسال رسالة')
                 ]),
+            ])
+            ->headerActions([
+                ExportAction::make()->exports([
+                    ExcelExport::make()
+                        ->fromTable()            // يبقى fromTable لكن سيأخذ الـ query المعدّل أعلاه
+                        ->withChunkSize(500)     // حجم الـ chunk لمعالجة أقل ذاكرة
+                        ->queue()                // ضع التصدير في queue لأن العملية ثقيلة
+                        ->askForFilename()
+                        ->withFilename(fn($filename) => 'ali-pasha-' . $filename),
+                ])->visible(/*auth()->user()->can('export_users')*/true),
             ]);
     }
 
