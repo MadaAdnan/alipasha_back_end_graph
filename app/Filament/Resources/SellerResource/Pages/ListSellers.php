@@ -29,7 +29,7 @@ class ListSellers extends ListRecords
                     ->where('products.status', 'active'); // إذا أردت فقط المنتجات النشطة
             })
             ->leftJoin('cities', 'users.city_id', '=', 'cities.id')
-            ->leftJoin('cities', 'users.area_id', '=', 'areas.id')
+            ->leftJoin('cities as areas', 'users.area_id', '=', 'areas.id')
             ->leftJoin('categories', 'users.category_id', '=', 'categories.id')
             ->groupBy('users.id') // مهم عند استخدام aggregate مثل MAX
             ->selectRaw('MAX(products.created_at) as last_product_date')
