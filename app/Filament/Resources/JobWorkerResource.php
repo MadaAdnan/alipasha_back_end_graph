@@ -37,7 +37,7 @@ public static function canCreate(): bool
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('queue')->label('الدور'),
-                Tables\Columns\TextColumn::make('payload')->label('العمل'),
+                Tables\Columns\TextColumn::make('payload')->label('العمل')->wrap(),
             ])
             ->filters([
                 //
