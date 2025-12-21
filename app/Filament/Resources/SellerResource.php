@@ -18,9 +18,11 @@ use App\Models\Product;
 use App\Models\User;
 use BezhanSalleh\FilamentShield\Contracts\HasShieldPermissions;
 use Filament\Forms;
+use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -237,7 +239,26 @@ class SellerResource extends Resource implements HasShieldPermissions
               Tables\Columns\TextColumn::make('last_product_date')->since()->label('تاريخ آخر نشر')->sortable(),
             ])
             ->filters([
-                //
+                Filter::make('last_product_date')
+                    ->form([
+                        DatePicker::make('from')
+                            ->label('من تاريخ'),
+                        DatePicker::make('until')
+                            ->label('إلى تاريخ'),
+                    ])
+                    ->query(function (Builder $query, array $data) {
+                        return $query
+                            ->when(
+                                $data['from'],
+                                fn (Builder $query, $date) =>
+                                $query->having('last_product_date', '>=', $date)
+                            )
+                            ->when(
+                                $data['until'],
+                                fn (Builder $query, $date) =>
+                                $query->having('last_product_date', '<=', $date)
+                            );
+                    }),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
