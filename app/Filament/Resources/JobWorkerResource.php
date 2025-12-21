@@ -40,9 +40,7 @@ public static function canCreate(): bool
                 Tables\Columns\TextColumn::make('payload')
                     ->label('العمل')
                     ->limit(50)
-                    ->extraAttributes([
-                        'class' => 'cursor-pointer max-h-20 overflow-auto resize-y'
-                    ])
+                    ->tooltip(fn ($record) => $record->payload)
                     ->wrap(),
             ])
             ->filters([
