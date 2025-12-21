@@ -227,7 +227,6 @@ class SellerResource extends Resource implements HasShieldPermissions
     public static function table(Table $table): Table
     {
         return $table
-            ->modifyQueryUsing(fn($query) => $query->where('type', PartnerTypeEnum::SELLER->value))
             ->columns([
               Tables\Columns\TextColumn::make('id')->label('ID'),
               Tables\Columns\TextColumn::make('name')->label('ID'),
