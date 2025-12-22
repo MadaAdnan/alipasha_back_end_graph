@@ -58,25 +58,26 @@ class ProductsHelper
 
     public static function isAvailableCreateProduct(Plan $plan, ?User $user = null)
     {
-        if ($user == null) {
-            $user = auth()->user();
-        }
+        $user ??= auth()->user();
 
-     $planFree=Plan::where(['type' => PlansTypeEnum::PRESENT->value,'duration' => PlansDurationEnum::FREE->value])->first();
-        $productsCountAllow=$planFree?->products_count??20;
-        foreach ($user->plans as $plan){
-            if ($plan->type != PlansTypeEnum::PRESENT->value){
-                if ($plan->duration != PlansDurationEnum::FREE->value &&  $plan->products_count > $productsCountAllow){
-                    $productsCountAllow=$plan->products_count;
-                }
+        $productsCountAllow=Plan::where(['type' => PlansTypeEnum::PRESENT->value,'duration' => PlansDurationEnum::FREE->value])->value('products_count')??20;
+
+        foreach ($user->plans as $userPlan) {
+            if (
+                $userPlan->type == PlansTypeEnum::PRESENT->value &&
+                $userPlan->duration !== PlansDurationEnum::FREE->value
+            ) {
+                $productsCountAllow = max(
+                    $productsCountAllow,
+                    $userPlan->products_count
+                );
             }
-
         }
         if($user->email=='mh.shamey@gmail.com'){
             $productsCountAllow=1;
         }
 
         $productsCount = Product::where('user_id', $user?->id)->whereBetween('created_at', [now()->startOfMonth(), now()->endOfMonth()])->count();
-        return $productsCountAllow > $productsCount;
+        return $productsCount < $productsCountAllow;
     }
 }
