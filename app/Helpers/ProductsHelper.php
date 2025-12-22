@@ -67,15 +67,16 @@ class ProductsHelper
                 $userPlan->type == PlansTypeEnum::PRESENT->value &&
                 $userPlan->duration !== PlansDurationEnum::FREE->value
             ) {
-                $productsCountAllow = max(
-                    $productsCountAllow,
-                    $userPlan->products_count
-                );
+                if($user->email!=='mh.shamey@gmail.com'){
+                    $productsCountAllow = max(
+                        $productsCountAllow,
+                        $userPlan->products_count
+                    );
+                }
+
             }
         }
-        if($user->email=='mh.shamey@gmail.com'){
-            $productsCountAllow=1;
-        }
+
 
         $productsCount = Product::where('user_id', $user?->id)->whereBetween('created_at', [now()->startOfMonth(), now()->endOfMonth()])->count();
         return $productsCount < $productsCountAllow;
