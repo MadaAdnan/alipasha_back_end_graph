@@ -293,7 +293,7 @@ class SellerResource extends Resource implements HasShieldPermissions
                         ->action(function ($records,$data){
                             try {
                                 $dataMsg['title'] = $data['title'];
-                                $dataMsg['body'] = $data['msg'];
+                                $dataMsg['body'] = $data['body'];
                                 $dataMsg['url'] = 'https://v3.ali-pasha.com';
 
                                 SendNotifyHelper::sendNotifyMultiUser($records, $dataMsg);
