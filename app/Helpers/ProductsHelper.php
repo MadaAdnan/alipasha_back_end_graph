@@ -67,12 +67,12 @@ class ProductsHelper
                 $userPlan->type == PlansTypeEnum::PRESENT->value &&
                 $userPlan->duration !== PlansDurationEnum::FREE->value
             ) {
-                if($user->email!=='mh.shamey@gmail.com'){
+
                     $productsCountAllow = max(
                         $productsCountAllow,
                         $userPlan->products_count
                     );
-                }
+
 
             }
         }
