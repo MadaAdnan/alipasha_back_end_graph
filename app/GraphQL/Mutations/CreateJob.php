@@ -9,6 +9,7 @@ use App\Helpers\ProductsHelper;
 use App\Jobs\SendFirebaseNotificationJob;
 use App\Models\Product;
 use App\Models\User;
+use App\Notifications\UserNotification;
 use Carbon\Carbon;
 
 final class CreateJob
@@ -39,6 +40,7 @@ final class CreateJob
             ];
             $job=new SendFirebaseNotificationJob([$user->device_token], $data);
             dispatch($job);
+            auth()->user()->notify(new UserNotification($data));
             throw new GraphQLExceptionHandler('وصلت لحد النشر المسموح لك شهريا انتظر للشهر القادم او قم بترقية حسابك لتحصل على النشر المفتوح');
         }
        try{

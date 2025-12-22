@@ -6,10 +6,12 @@ use App\Enums\CategoryTypeEnum;
 use App\Enums\PlansTypeEnum;
 use App\Enums\ProductActiveEnum;
 use App\Exceptions\GraphQLExceptionHandler;
+use App\Filament\Resources\NewsResource;
 use App\Helpers\ProductsHelper;
 use App\Jobs\SendFirebaseNotificationJob;
 use App\Models\Product;
 use App\Models\User;
+use App\Notifications\UserNotification;
 use Carbon\Carbon;
 
 final class CreateTender
@@ -37,6 +39,7 @@ final class CreateTender
                 'body'=>'وصلت لحد النشر المسموح لك شهريا انتظر للشهر القادم او قم بترقية حسابك لتحصل على النشر المفتوح'
             ];
             $job=new SendFirebaseNotificationJob([$user->device_token], $data);
+            auth()->user()->notify(new UserNotification($data));
             dispatch($job);
             throw new GraphQLExceptionHandler('وصلت لحد النشر المسموح لك شهريا انتظر للشهر القادم او قم بترقية حسابك لتحصل على النشر المفتوح');
         }
