@@ -36,6 +36,8 @@ public static function canCreate(): bool
     {
         return $table
             ->columns([
+
+                Tables\Columns\TextColumn::make('id')->label('#'),
                 Tables\Columns\TextColumn::make('queue')->label('الدور'),
                 Tables\Columns\TextColumn::make('payload')
                     ->label('العمل')
