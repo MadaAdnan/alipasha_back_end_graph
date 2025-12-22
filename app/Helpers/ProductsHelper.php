@@ -56,7 +56,7 @@ class ProductsHelper
         return $plan != null && $user->special_product_count < $plan->special_count;
     }
 
-    public static function isAvailableCreateProduct(?Plan $plan, ?User $user = null)
+    public static function isAvailableCreateProduct(Plan $plan, ?User $user = null)
     {
         if ($user == null) {
             $user = auth()->user();
