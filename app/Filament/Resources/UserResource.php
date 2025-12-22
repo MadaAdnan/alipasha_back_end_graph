@@ -351,7 +351,7 @@ class UserResource extends Resource
                                 Notification::make('error')->title('فشل العملية')->body($e->getMessage())->danger()->send();
 
                             }
-                        })->label('إرسال رسالة')->icon('fas-envelope'),
+                        })->label('إرسال رسالة إلى الشات')->icon('fas-envelope'),
                     /*send firebase*/
                     Tables\Actions\Action::make('send_msg_chat_firebase')->form([
                         Forms\Components\Textarea::make('msg')->label('الرسالة')->required(),
@@ -362,7 +362,7 @@ class UserResource extends Resource
                                 $data['body'] = $data['msg'];
                                 $data['url'] = 'https://v3.ali-pasha.com';
 
-                                SendNotifyHelper::sendNotify($record, $data);
+                                SendNotifyHelper::sendNotifyMultiUser(collect($record), $data);
 
                                 Notification::make('success')->title('نجاح العملية')->body('تم إرسال الرسالة بنجاح')->success()->send();
 
@@ -428,7 +428,7 @@ class UserResource extends Resource
                             Notification::make('error')->title('فشل العملية')->body($e->getMessage())->danger()->send();
 
                         }
-                    })->label('تنبيه رقم الهاتف')->icon('fas-comment'),
+                    })->label('رسالة SMS للجميع')->icon('fas-comment'),
                 Tables\Actions\Action::make('send_msg_verified')->form([
                     Forms\Components\TextInput::make('title')->label('العنوان')->required(),
                     Forms\Components\Textarea::make('msg')->label('الرسالة')->required(),
@@ -451,7 +451,7 @@ class UserResource extends Resource
                             Notification::make('error')->title('فشل العملية')->body($e->getMessage())->danger()->send();
 
                         }
-                    })->label('تنبيه تأكيد البريد ')->icon('fas-comment'),
+                    })->label('رسالة لجميع امستخدمين المؤكدين')->icon('fas-comment'),
                 Tables\Actions\Action::make('delete_recommended')
                     ->action(fn() => Interaction::where('id', '!=', 0)->delete())
                     ->label('حذف الإهتمامات')->requiresConfirmation()
@@ -474,6 +474,7 @@ class UserResource extends Resource
 
                             Notification::make('success')->success()->title('نجاح العملية')->body('تم إضافة المستخدم إلى المجتمعات')->send();
                         })->label('إضافة إلى مجتمع'),
+
                     Tables\Actions\BulkAction::make('send_msg')->form([
                         Forms\Components\TextInput::make('title')->label('العنوان')->required(),
                         Forms\Components\Textarea::make('msg')->label('الرسالة')->required(),
