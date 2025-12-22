@@ -39,7 +39,8 @@ final class CreateTender
                 'body'=>'وصلت لحد النشر المسموح لك شهريا انتظر للشهر القادم او قم بترقية حسابك لتحصل على النشر المفتوح'
             ];
             $job=new SendFirebaseNotificationJob([$user->device_token], $data);
-            auth()->user()->notify(new UserNotification($data));
+            \Notification::send($user, new UserNotification($data));
+
             dispatch($job);
             throw new GraphQLExceptionHandler('وصلت لحد النشر المسموح لك شهريا انتظر للشهر القادم او قم بترقية حسابك لتحصل على النشر المفتوح');
         }

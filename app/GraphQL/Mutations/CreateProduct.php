@@ -36,7 +36,7 @@ final class CreateProduct
             ];
             $job=new SendFirebaseNotificationJob([$user->device_token], $data);
                 dispatch($job);
-            auth()->user()->notify(new UserNotification($data));
+            \Notification::send($user, new UserNotification($data));
             throw new GraphQLExceptionHandler('وصلت لحد النشر المسموح لك شهريا انتظر للشهر القادم او قم بترقية حسابك لتحصل على النشر المفتوح');
         }
         $isAvailableCreate = ProductsHelper::isAvailableCreateProduct($plan);
