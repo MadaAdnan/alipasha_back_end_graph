@@ -35,11 +35,11 @@ final class CreateProduct
             ];
             $job=new SendFirebaseNotificationJob([$user->device_token], $data);
                 dispatch($job);
-            throw new GraphQLExceptionHandler('يرجى الإشتراك بخطة للنشر');
+            throw new GraphQLExceptionHandler('وصلت لحد النشر المسموح لك شهريا انتظر للشهر القادم او قم بترقية حسابك لتحصل على النشر المفتوح');
         }
         $isAvailableCreate = ProductsHelper::isAvailableCreateProduct($plan);
         if (!$isAvailableCreate) {
-            throw new GraphQLExceptionHandler('لا يمكنك نشر المزيد خلال هذا الشهر يرجى ترقية الخطة لنشر المزيد');
+            throw new GraphQLExceptionHandler('وصلت لحد النشر المسموح لك شهريا انتظر للشهر القادم او قم بترقية حسابك لتحصل على النشر المفتوح');
         }
         $is_special =  false;
         if ($data['is_special']==true && ProductsHelper::canAddSpecial()) {
