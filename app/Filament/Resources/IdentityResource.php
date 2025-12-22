@@ -1,0 +1,81 @@
+<?php
+
+namespace App\Filament\Resources;
+
+use App\Enums\OrderStatusEnum;
+use App\Filament\Resources\IdentityResource\Pages;
+use App\Filament\Resources\IdentityResource\RelationManagers;
+use App\Models\Identity;
+use Filament\Forms;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
+
+class IdentityResource extends Resource
+{
+    protected static ?string $model = Identity::class;
+
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $label = 'التوثيق';
+    protected static ?string $modelLabel = 'التوثيق';
+    protected static ?string $navigationLabel = 'طلبات التوثيق';
+    protected static ?string $pluralLabel = 'طلبات التوثيق';
+    protected static ?int $navigationSort = -13;
+    protected static ?string $navigationGroup = 'المستخدمين';
+    public static function form(Form $form): Form
+    {
+        return $form
+            ->schema([
+                Forms\Components\Select::make('user_id')->relationship('user','name')->label('المستخدم')->required(),
+                Forms\Components\SpatieMediaLibraryFileUpload::make('front')->label('الوجه الأمامي')->required(),
+                Forms\Components\SpatieMediaLibraryFileUpload::make('back')->label('الوجه الخلفي')->required(),
+                Forms\Components\Select::make('status')->options([
+                    OrderStatusEnum::PENDING->value=>OrderStatusEnum::PENDING->getLabel(),
+                    OrderStatusEnum::COMPLETE->value=>OrderStatusEnum::COMPLETE->getLabel(),
+                    OrderStatusEnum::CANCELED->value=>OrderStatusEnum::CANCELED->getLabel(),
+                ])
+            ]);
+    }
+
+    public static function table(Table $table): Table
+    {
+        return $table
+            ->columns([
+                Tables\Columns\TextColumn::make('id')->label('#'),
+                Tables\Columns\TextColumn::make('user.name')->label('المستخدم')
+
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('id')->label('#'),
+            ])
+            ->filters([
+                //
+            ])
+            ->actions([
+                Tables\Actions\EditAction::make(),
+            ])
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
+            ]);
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            //
+        ];
+    }
+
+    public static function getPages(): array
+    {
+        return [
+            'index' => Pages\ListIdentities::route('/'),
+            'create' => Pages\CreateIdentity::route('/create'),
+            'edit' => Pages\EditIdentity::route('/{record}/edit'),
+        ];
+    }
+}
