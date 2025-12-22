@@ -65,7 +65,7 @@ class IdentityResource extends Resource
                 Tables\Columns\TextColumn::make('id')->label('#'),
                 Tables\Columns\TextColumn::make('user.name')->label('المستخدم'),
                 Tables\Columns\TextColumn::make('status')->formatStateUsing(fn($state)=>OrderStatusEnum::tryFrom($state)->getLabel())->label('الحالة'),
-                Tables\Columns\SpatieMediaLibraryImageColumn::make('front')->collection('front')->conversion('web')->url( fn($record)=>$record->getFirstMediaUrl('front','web')),
+                Tables\Columns\SpatieMediaLibraryImageColumn::make('front')->collection('front')->conversion('web')->url( fn($record)=>$record->getFirstMediaUrl('front','web'),true),
                 Tables\Columns\SpatieMediaLibraryImageColumn::make('back')->collection('back')->conversion('web')->openUrlInNewTab(),
                 Tables\Columns\TextColumn::make('id')->label('#'),
             ])
