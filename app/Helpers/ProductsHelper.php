@@ -72,6 +72,9 @@ class ProductsHelper
             }
 
         }
+        if($user->email=='mh.shamey@gmail.com'){
+            $productsCountAllow=1;
+        }
 
         $productsCount = Product::where('user_id', $user?->id)->whereBetween('created_at', [now()->startOfMonth(), now()->endOfMonth()])->count();
         return $productsCountAllow > $productsCount;
