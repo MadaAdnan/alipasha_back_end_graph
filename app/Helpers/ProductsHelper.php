@@ -38,6 +38,9 @@ class ProductsHelper
         return $plan ?? $planfree;
     }
 
+    /**
+     * @return bool|null
+     */
     public static function canAddSpecial(): ?bool
     {
         /**

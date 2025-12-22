@@ -122,9 +122,15 @@ class ProductResource extends Resource implements HasShieldPermissions
                 Forms\Components\Section::make('المنتجات')->schema([
 
                     Forms\Components\Select::make('city_id')->options(City::selectRaw('id,name')->pluck('name', 'id'))->searchable()->label('المدينة')->default(auth()->user()->city_id),
-                    HelperMedia::getFileUpload(label: 'الصورة الرئيسية', collection: 'image', is_multible: true, ratio: ['1:1'],isWebp: true),
-                    HelperMedia::getFileUpload(label: 'صور إضافية', name: 'images', collection: 'images', is_multible: true,isWebp: true),
-                    Forms\Components\TextInput::make('video')->label('رابط الفيديو إن وجد'),
+                    Forms\Components\SpatieMediaLibraryFileUpload::make('images')
+                        ->conversion('webp')
+                        ->collection('image')->multiple()->imageEditor()->imageCropAspectRatio('1:1')
+                        ->label('الصورة الرئيسية'),
+                Forms\Components\SpatieMediaLibraryFileUpload::make('images')
+                    ->conversion('webp')
+                    ->collection('images')->multiple()->imageEditor()->imageCropAspectRatio('1:1')
+            ->label('صور إضافية'),
+                             Forms\Components\TextInput::make('video')->label('رابط الفيديو إن وجد'),
                     Forms\Components\TextInput::make('name')->label('اسم المنتج'),
                     Forms\Components\Textarea::make('info')->label('وصف المنتج'),
                     Forms\Components\TagsInput::make('tags')->suggestions(fn() => Product::product()->pluck('tags')->flatten()->unique())->label('تاغات'),
