@@ -53,7 +53,7 @@ public static function canCreate(): bool
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-
+Tables\Actions\DeleteBulkAction::make()
                 ]),
             ]);
     }
