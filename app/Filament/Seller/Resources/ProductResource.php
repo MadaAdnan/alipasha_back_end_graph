@@ -129,7 +129,7 @@ class ProductResource extends Resource implements HasShieldPermissions
                 Forms\Components\SpatieMediaLibraryFileUpload::make('images')
                     ->conversion('webp')
                     ->collection('images')->multiple()->imageEditor()->imageCropAspectRatio('1:1')
-            ->label('صور إضافية'),
+            ->label('صور '),
                              Forms\Components\TextInput::make('video')->label('رابط الفيديو إن وجد'),
                     Forms\Components\TextInput::make('name')->label('اسم المنتج'),
                     Forms\Components\Textarea::make('info')->label('وصف المنتج'),
