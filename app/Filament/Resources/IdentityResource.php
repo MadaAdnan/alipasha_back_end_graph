@@ -48,8 +48,8 @@ class IdentityResource extends Resource
                     ->getOptionLabelUsing(fn ($value): ?string =>
                     User::find($value)?->name
                     ),
-                Forms\Components\SpatieMediaLibraryFileUpload::make('front')->label('الوجه الأمامي')->required()->openable(),
-                Forms\Components\SpatieMediaLibraryFileUpload::make('back')->label('الوجه الخلفي')->required()->openable(),
+                Forms\Components\SpatieMediaLibraryFileUpload::make('front')->collection('front')->conversion('webp')->label('الوجه الأمامي')->required()->openable(),
+                Forms\Components\SpatieMediaLibraryFileUpload::make('back')->collection('back')->conversion('webp')->label('الوجه الخلفي')->required()->openable(),
                 Forms\Components\Select::make('status')->options([
                     OrderStatusEnum::PENDING->value=>OrderStatusEnum::PENDING->getLabel(),
                     OrderStatusEnum::COMPLETE->value=>OrderStatusEnum::COMPLETE->getLabel(),
