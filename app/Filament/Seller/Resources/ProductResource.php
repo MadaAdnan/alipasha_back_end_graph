@@ -122,10 +122,10 @@ class ProductResource extends Resource implements HasShieldPermissions
                 Forms\Components\Section::make('المنتجات')->schema([
 
                     Forms\Components\Select::make('city_id')->options(City::selectRaw('id,name')->pluck('name', 'id'))->searchable()->label('المدينة')->default(auth()->user()->city_id),
-                    Forms\Components\SpatieMediaLibraryFileUpload::make('image')
+                    /*Forms\Components\SpatieMediaLibraryFileUpload::make('image')
                         ->conversion('webp')
                         ->collection('image')->multiple()->imageEditor()->imageCropAspectRatio('1:1')
-                        ->label('الصورة الرئيسية'),
+                        ->label('الصورة الرئيسية'),*/
                 Forms\Components\SpatieMediaLibraryFileUpload::make('images')
                     ->conversion('webp')
                     ->collection('images')->multiple()->imageEditor()->imageCropAspectRatio('1:1')
