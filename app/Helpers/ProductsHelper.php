@@ -73,7 +73,7 @@ class ProductsHelper
         }
 
         $productsCount = Product::where('user_id', $user?->id)->whereBetween('created_at', [now()->startOfMonth(), now()->endOfMonth()])->count();
-
+        throw new   GraphQLExceptionHandler($productsCount.'--'.$productsCountAllow);
         return $productsCountAllow > $productsCount;
     }
 }
