@@ -61,14 +61,16 @@ class ProductsHelper
         if ($user == null) {
             $user = auth()->user();
         }
-     /*   if ($user?->is_verified == true) {
-            return true;
-        }*/
-
-        $productsCount = Product::whereBetween('created_at', [now()->startOfMonth(), now()->endOfMonth()])->where('user_id', $user?->id)->count();
-        if ($productsCount >= $plan->products_count) {
-            return false;
+     $planFree=Plan::where(['type' => PlansTypeEnum::PRESENT->value,'duration' => PlansDurationEnum::FREE->value])->firat();
+        $productsCountAllow=$planFree->products_count;
+        foreach ($user->plans as $plan){
+            if ($plan->duration != PlansDurationEnum::FREE->value &&  $plan->products_count > $productsCountAllow){
+                $productsCountAllow=$plan->products_count;
+            }
         }
-        return true;
+
+        $productsCount = Product::where('user_id', $user?->id)->whereBetween('created_at', [now()->startOfMonth(), now()->endOfMonth()])->count();
+
+        return $productsCountAllow > $productsCount;
     }
 }
