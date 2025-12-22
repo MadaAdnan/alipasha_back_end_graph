@@ -61,7 +61,7 @@ class ProductsHelper
         if ($user == null) {
             $user = auth()->user();
         }
-     $planFree=Plan::where(['type' => PlansTypeEnum::PRESENT->value,'duration' => PlansDurationEnum::FREE->value])->firat();
+     $planFree=Plan::where(['type' => PlansTypeEnum::PRESENT->value,'duration' => PlansDurationEnum::FREE->value])->first();
         $productsCountAllow=$planFree?->products_count??20;
         foreach ($user->plans as $plan){
             if ($plan->type != PlansTypeEnum::PRESENT->value){
