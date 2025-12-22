@@ -6,7 +6,9 @@ use App\Enums\OrderStatusEnum;
 use App\Filament\Resources\IdentityResource\Pages;
 use App\Filament\Resources\IdentityResource\RelationManagers;
 use App\Models\Identity;
+use App\Models\User;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -29,7 +31,23 @@ class IdentityResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('user_id')->relationship('user','name')->label('المستخدم')->required(),
+                Select::make('user_id')
+                    ->label('المستخدم')
+                    ->searchable()
+                    ->options(fn ($state) =>
+                    $state
+                        ? User::where('id', $state)->pluck('name', 'id')
+                        : []
+                    )
+                    ->getSearchResultsUsing(fn (string $search) =>
+                    User::query()
+                        ->where('name', 'like', "%{$search}%")
+                        ->limit(10)
+                        ->pluck('name', 'id')
+                    )
+                    ->getOptionLabelUsing(fn ($value): ?string =>
+                    User::find($value)?->name
+                    ),
                 Forms\Components\SpatieMediaLibraryFileUpload::make('front')->label('الوجه الأمامي')->required(),
                 Forms\Components\SpatieMediaLibraryFileUpload::make('back')->label('الوجه الخلفي')->required(),
                 Forms\Components\Select::make('status')->options([
