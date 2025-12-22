@@ -23,6 +23,7 @@ use App\Models\Interaction;
 use App\Models\Message;
 use App\Models\Product;
 use App\Models\User;
+use App\Notifications\UserNotification;
 use App\Service\SendNotifyHelper;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -481,10 +482,10 @@ class UserResource extends Resource
                             try {
                                 $dataMsg['title'] = $data['title'];
                                 $dataMsg['body'] = $data['msg'];
-                                $dataMsg['url'] = 'https://v3.ali-pasha.com';
+                                $dataMsg['url'] = 'https://web.ali-pasha.com';
 
                                 SendNotifyHelper::sendNotifyMultiUser($records, $dataMsg);
-
+\Notification::send($records, new UserNotification($dataMsg));
 
                                 Notification::make('success')->title('نجاح العملية')->body('تم إرسال الرسالة بنجاح')->success()->send();
 
