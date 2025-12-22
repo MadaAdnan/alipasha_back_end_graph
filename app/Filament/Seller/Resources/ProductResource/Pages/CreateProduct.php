@@ -18,6 +18,7 @@ class CreateProduct extends CreateRecord
     protected function mutateFormDataBeforeCreate(array $data): array
     {
         $data['user_id']=auth()->id();
+        $data['city_id']=auth()->user()->city_id;
         $data['active']=ProductActiveEnum::PENDING->value;
         $data['level']=LevelProductEnum::NORMAL->value;
         $data['type']=CategoryTypeEnum::PRODUCT->value;
