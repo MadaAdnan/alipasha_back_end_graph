@@ -54,7 +54,7 @@ class IdentityResource extends Resource
                     OrderStatusEnum::PENDING->value=>OrderStatusEnum::PENDING->getLabel(),
                     OrderStatusEnum::COMPLETE->value=>OrderStatusEnum::COMPLETE->getLabel(),
                     OrderStatusEnum::CANCELED->value=>OrderStatusEnum::CANCELED->getLabel(),
-                ])
+                ])->default(OrderStatusEnum::PENDING->value)->required()->label('الحالة')
             ]);
     }
 
@@ -63,9 +63,10 @@ class IdentityResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('id')->label('#'),
-                Tables\Columns\TextColumn::make('user.name')->label('المستخدم')
-
-                    ->searchable(),
+                Tables\Columns\TextColumn::make('user.name')->label('المستخدم'),
+                Tables\Columns\TextColumn::make('status')->formatStateUsing(fn($state)=>OrderStatusEnum::tryFrom($state)->getLabel())->label('الحالة'),
+                Tables\Columns\SpatieMediaLibraryImageColumn::make('front')->url(fn($record)=>$record->getFirstMediaUrl('front')),
+                Tables\Columns\SpatieMediaLibraryImageColumn::make('back')->url(fn($record)=>$record->getFirstMediaUrl('back')),
                 Tables\Columns\TextColumn::make('id')->label('#'),
             ])
             ->filters([
