@@ -353,7 +353,7 @@ class UserResource extends Resource
                             }
                         })->label('إرسال رسالة إلى الشات')->icon('fas-envelope'),
                     /*send firebase*/
-                    Tables\Actions\Action::make('send_msg_chat_firebase')->form([
+                    /*Tables\Actions\Action::make('send_msg_chat_firebase')->form([
                         Forms\Components\Textarea::make('msg')->label('الرسالة')->required(),
                     ])
                         ->action(function ($record, $data) {
@@ -371,7 +371,7 @@ class UserResource extends Resource
                                 Notification::make('error')->title('فشل العملية')->body($e->getMessage())->danger()->send();
 
                             }
-                        })->label('رسالة FireBase')->icon('fas-comment'),
+                        })->label('رسالة FireBase')->icon('fas-comment'),*/
                     /* email verified */
                     Tables\Actions\Action::make('email_verified_at')
                         ->action(fn($record) => $record->update(['email_verified_at' => now()]))
