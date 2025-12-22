@@ -56,13 +56,13 @@ class ProductsHelper
         return $plan != null && $user->special_product_count < $plan->special_count;
     }
 
-    public static function isAvailableCreateProduct(Plan $plan, ?User $user = null)
+    public static function isAvailableCreateProduct(?Plan $plan, ?User $user = null)
     {
         if ($user == null) {
             $user = auth()->user();
         }
      $planFree=Plan::where(['type' => PlansTypeEnum::PRESENT->value,'duration' => PlansDurationEnum::FREE->value])->firat();
-        $productsCountAllow=$planFree?->products_count??1;
+        $productsCountAllow=$planFree?->products_count??20;
         foreach ($user->plans as $plan){
             if ($plan->type != PlansTypeEnum::PRESENT->value){
                 if ($plan->duration != PlansDurationEnum::FREE->value &&  $plan->products_count > $productsCountAllow){
@@ -73,7 +73,6 @@ class ProductsHelper
         }
 
         $productsCount = Product::where('user_id', $user?->id)->whereBetween('created_at', [now()->startOfMonth(), now()->endOfMonth()])->count();
-        throw new   GraphQLExceptionHandler($productsCount.'--'.$productsCountAllow);
         return $productsCountAllow > $productsCount;
     }
 }

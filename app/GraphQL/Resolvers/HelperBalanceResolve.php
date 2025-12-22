@@ -19,8 +19,8 @@ final class HelperBalanceResolve
 
     public function getIsAvailableCreate($root): bool
     {
-        $plan = ProductsHelper::getPresentPlanActive($root);
-        return ProductsHelper::isAvailableCreateProduct($plan);
+
+        return ProductsHelper::isAvailableCreateProduct(user: $root);
     }
 
 }
