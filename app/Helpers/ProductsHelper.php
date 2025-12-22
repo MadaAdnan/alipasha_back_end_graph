@@ -62,7 +62,7 @@ class ProductsHelper
             $user = auth()->user();
         }
      $planFree=Plan::where(['type' => PlansTypeEnum::PRESENT->value,'duration' => PlansDurationEnum::FREE->value])->firat();
-        $productsCountAllow=$planFree->products_count;
+        $productsCountAllow=$planFree?->products_count??1;
         foreach ($user->plans as $plan){
             if ($plan->duration != PlansDurationEnum::FREE->value &&  $plan->products_count > $productsCountAllow){
                 $productsCountAllow=$plan->products_count;
