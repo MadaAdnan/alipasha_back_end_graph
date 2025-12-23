@@ -85,12 +85,12 @@ class IdentityResource extends Resource
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\Action::make('status')->label('توثيق الحساب')->requiresConfirmation()->action(function ($record) {
                     $record->update([
-                        'status' => OrderStatusEnum::COMPLETE->value,
+                        'status' => IdentityEnum::COMPLETE->value,
                     ]);
                 })->visible(fn($record) => $record->status == 'pending'),
                 Tables\Actions\Action::make('status_cancel')->label('رفض الطلب')->requiresConfirmation()->action(function ($record) {
                     $record->update([
-                        'status' => OrderStatusEnum::CANCELED->value,
+                        'status' => IdentityEnum::CANCELE->value,
                     ]);
                 })->visible(fn($record) => $record->status == 'pending'),
             ])
