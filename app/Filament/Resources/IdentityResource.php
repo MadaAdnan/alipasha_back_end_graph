@@ -73,8 +73,8 @@ class IdentityResource extends Resource
                 Tables\Columns\TextColumn::make('status')->formatStateUsing(fn($state) => IdentityEnum::tryFrom($state)->getLabel())->label('الحالة'),
                 Tables\Columns\SpatieMediaLibraryImageColumn::make('front')->label('الوجه الأمامي')->collection('front')->conversion('web')->url(fn($record) => $record->getFirstMediaUrl('front', 'web'), true),
                 Tables\Columns\SpatieMediaLibraryImageColumn::make('back')->label('الوجه الخلفي')->collection('back')->conversion('web')->url(fn($record) => $record->getFirstMediaUrl('back', 'web'), true),
-                Tables\Columns\SpatieMediaLibraryImageColumn::make('passport')->label('جواز سفر')->collection('passport')->conversion('web')->url(fn($record) => $record->getFirstMediaUrl('back', 'web'), true),
-                Tables\Columns\SpatieMediaLibraryImageColumn::make('record')->label('سجل تجاري')->collection('record')->conversion('web')->url(fn($record) => $record->getFirstMediaUrl('back', 'web'), true),
+                Tables\Columns\SpatieMediaLibraryImageColumn::make('passport')->label('جواز سفر')->collection('passport')->conversion('web')->url(fn($record) => $record->getFirstMediaUrl('passport', 'web'), true),
+                Tables\Columns\SpatieMediaLibraryImageColumn::make('record')->label('سجل تجاري')->collection('record')->conversion('web')->url(fn($record) => $record->getFirstMediaUrl('record', 'web'), true),
                 Tables\Columns\TextColumn::make('type')
                     ->formatStateUsing(fn($state)=>IdentityEnum::tryFrom($state)->getLabel())->label('نوع'),
             ])
