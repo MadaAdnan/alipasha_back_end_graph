@@ -27,6 +27,7 @@ class IdentityResource extends Resource
     protected static ?string $pluralLabel = 'طلبات التوثيق';
     protected static ?int $navigationSort = -13;
     protected static ?string $navigationGroup = 'المستخدمين';
+
     public static function form(Form $form): Form
     {
         return $form
@@ -34,26 +35,23 @@ class IdentityResource extends Resource
                 Select::make('user_id')
                     ->label('المستخدم')
                     ->searchable()
-                    ->options(fn ($state) =>
-                    $state
+                    ->options(fn($state) => $state
                         ? User::where('id', $state)->pluck('name', 'id')
                         : []
                     )
-                    ->getSearchResultsUsing(fn (string $search) =>
-                    User::query()
+                    ->getSearchResultsUsing(fn(string $search) => User::query()
                         ->where('name', 'like', "%{$search}%")
                         ->limit(10)
                         ->pluck('name', 'id')
                     )
-                    ->getOptionLabelUsing(fn ($value): ?string =>
-                    User::find($value)?->name
+                    ->getOptionLabelUsing(fn($value): ?string => User::find($value)?->name
                     ),
                 Forms\Components\SpatieMediaLibraryFileUpload::make('front')->collection('front')->conversion('webp')->label('الوجه الأمامي')->required()->openable(),
                 Forms\Components\SpatieMediaLibraryFileUpload::make('back')->collection('back')->conversion('webp')->label('الوجه الخلفي')->required()->openable(),
                 Forms\Components\Select::make('status')->options([
-                    OrderStatusEnum::PENDING->value=>OrderStatusEnum::PENDING->getLabel(),
-                    OrderStatusEnum::COMPLETE->value=>OrderStatusEnum::COMPLETE->getLabel(),
-                    OrderStatusEnum::CANCELED->value=>OrderStatusEnum::CANCELED->getLabel(),
+                    OrderStatusEnum::PENDING->value => OrderStatusEnum::PENDING->getLabel(),
+                    OrderStatusEnum::COMPLETE->value => OrderStatusEnum::COMPLETE->getLabel(),
+                    OrderStatusEnum::CANCELED->value => OrderStatusEnum::CANCELED->getLabel(),
                 ])->default(OrderStatusEnum::PENDING->value)->required()->label('الحالة')
             ]);
     }
@@ -64,16 +62,26 @@ class IdentityResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('id')->label('#'),
                 Tables\Columns\TextColumn::make('user.name')->label('المستخدم'),
-                Tables\Columns\TextColumn::make('status')->formatStateUsing(fn($state)=>OrderStatusEnum::tryFrom($state)->getLabel())->label('الحالة'),
-                Tables\Columns\SpatieMediaLibraryImageColumn::make('front')->collection('front')->conversion('web')->url( fn($record)=>$record->getFirstMediaUrl('front','web'),true),
-                Tables\Columns\SpatieMediaLibraryImageColumn::make('back')->collection('back')->conversion('web')->url( fn($record)=>$record->getFirstMediaUrl('back','web'),true),
+                Tables\Columns\TextColumn::make('status')->formatStateUsing(fn($state) => OrderStatusEnum::tryFrom($state)->getLabel())->label('الحالة'),
+                Tables\Columns\SpatieMediaLibraryImageColumn::make('front')->collection('front')->conversion('web')->url(fn($record) => $record->getFirstMediaUrl('front', 'web'), true),
+                Tables\Columns\SpatieMediaLibraryImageColumn::make('back')->collection('back')->conversion('web')->url(fn($record) => $record->getFirstMediaUrl('back', 'web'), true),
                 Tables\Columns\TextColumn::make('id')->label('#'),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
+                Tables\Actions\Action::make('status')->label('توثيق الحساب')->requiresConfirmation()->action(function ($record) {
+                    $record->update([
+                        'status' => OrderStatusEnum::COMPLETE->value,
+                    ]);
+                })->visible(fn($record) => $record->status == 'pending'),
+                Tables\Actions\Action::make('status_cancel')->label('رفض الطلب')->requiresConfirmation()->action(function ($record) {
+                    $record->update([
+                        'status' => OrderStatusEnum::CANCELED->value,
+                    ]);
+                })->visible(fn($record) => $record->status == 'pending'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
