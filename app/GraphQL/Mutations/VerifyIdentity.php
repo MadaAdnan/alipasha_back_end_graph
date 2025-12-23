@@ -18,6 +18,7 @@ final  class VerifyIdentity
             throw new GraphQLExceptionHandler('لديك طلب توثيق سابق وهو قيد المراجعة');
         }
         try{
+            throw new GraphQLExceptionHandler(json_encode($input));
             \DB::beginTransaction();
             $identity= Identity::create([
                 'user_id' => auth()->id(),
