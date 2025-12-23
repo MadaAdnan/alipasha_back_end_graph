@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Enums\IdentityEnum;
 use App\Enums\OrderStatusEnum;
 use App\Models\Identity;
 use App\Service\SendNotifyHelper;
@@ -23,7 +24,7 @@ class IdentityObserver
     {
         $oldStatus = $identity->getOriginal('status');
         $newStatus = $identity->status;
-        if ($oldStatus == 'pending' && $newStatus == OrderStatusEnum::COMPLETE->value) {
+        if ($oldStatus == IdentityEnum::PENDING->value && $newStatus == IdentityEnum::COMPLETE->value) {
             $identity->user->update([
                 'is_verified' => true
             ]);
@@ -32,7 +33,7 @@ class IdentityObserver
                 'body' => 'تم توثيق حسابك بنجاح'
             ];
             SendNotifyHelper::sendNotifyMultiUser(collect([$identity->user]), $data);
-        } else if ($oldStatus != OrderStatusEnum::CANCELED->value && $newStatus == OrderStatusEnum::CANCELED->value) {
+        } else if ($oldStatus != IdentityEnum::CANCELE->value && $newStatus == IdentityEnum::CANCELE->value) {
             $identity->user->update([
                 'is_verified' => false
             ]);

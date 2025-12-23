@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Enums\IdentityEnum;
 use App\Exceptions\GraphQLExceptionHandler;
 use App\Models\Identity;
 
@@ -28,7 +29,7 @@ final  class VerifyIdentity
             \DB::beginTransaction();
             $identity= Identity::create([
                 'user_id' => auth()->id(),
-                'status' => 'pending'
+                'status' => IdentityEnum::PENDING->value,
             ]);
             if(!empty($input['imageFront'])){
                 $identity->addMedia($input['imageFront'])->toMediaCollection('front');

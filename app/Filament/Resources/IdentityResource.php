@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\IdentityEnum;
 use App\Enums\OrderStatusEnum;
 use App\Filament\Resources\IdentityResource\Pages;
 use App\Filament\Resources\IdentityResource\RelationManagers;
@@ -56,10 +57,10 @@ class IdentityResource extends Resource
                 Forms\Components\SpatieMediaLibraryFileUpload::make('passport')->collection('passport')->conversion('webp')->label('جواز سفر')->required()->openable(),
                 Forms\Components\SpatieMediaLibraryFileUpload::make('record')->collection('record')->conversion('webp')->label('سجل تجاري')->required()->openable(),
                 Forms\Components\Select::make('status')->options([
-                    OrderStatusEnum::PENDING->value => OrderStatusEnum::PENDING->getLabel(),
-                    OrderStatusEnum::COMPLETE->value => OrderStatusEnum::COMPLETE->getLabel(),
-                    OrderStatusEnum::CANCELED->value => OrderStatusEnum::CANCELED->getLabel(),
-                ])->default(OrderStatusEnum::PENDING->value)->required()->label('الحالة')
+                    IdentityEnum::PENDING->value => IdentityEnum::PENDING->getLabel(),
+                    IdentityEnum::COMPLETE->value => IdentityEnum::COMPLETE->getLabel(),
+                    IdentityEnum::CANCELE->value => IdentityEnum::CANCELE->getLabel(),
+                ])->default(IdentityEnum::PENDING->value)->required()->label('الحالة')
             ]);
     }
 
@@ -69,12 +70,13 @@ class IdentityResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('id')->label('#'),
                 Tables\Columns\TextColumn::make('user.name')->label('المستخدم'),
-                Tables\Columns\TextColumn::make('status')->formatStateUsing(fn($state) => OrderStatusEnum::tryFrom($state)->getLabel())->label('الحالة'),
+                Tables\Columns\TextColumn::make('status')->formatStateUsing(fn($state) => IdentityEnum::tryFrom($state)->getLabel())->label('الحالة'),
                 Tables\Columns\SpatieMediaLibraryImageColumn::make('front')->label('الوجه الأمامي')->collection('front')->conversion('web')->url(fn($record) => $record->getFirstMediaUrl('front', 'web'), true),
                 Tables\Columns\SpatieMediaLibraryImageColumn::make('back')->label('الوجه الخلفي')->collection('back')->conversion('web')->url(fn($record) => $record->getFirstMediaUrl('back', 'web'), true),
                 Tables\Columns\SpatieMediaLibraryImageColumn::make('passport')->label('جواز سفر')->collection('passport')->conversion('web')->url(fn($record) => $record->getFirstMediaUrl('back', 'web'), true),
                 Tables\Columns\SpatieMediaLibraryImageColumn::make('record')->label('سجل تجاري')->collection('record')->conversion('web')->url(fn($record) => $record->getFirstMediaUrl('back', 'web'), true),
-                Tables\Columns\TextColumn::make('type')->label('نوع'),
+                Tables\Columns\TextColumn::make('type')
+                    ->formatStateUsing(fn($state)=>IdentityEnum::tryFrom($state)->getLabel())->label('نوع'),
             ])
             ->filters([
                 //
