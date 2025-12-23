@@ -17,10 +17,18 @@ final  class VerifyIdentity
         ])->exists()) {
             throw new GraphQLExceptionHandler('لديك طلب توثيق سابق وهو قيد المراجعة');
         }
-       $identity= Identity::create([
-            'user_id' => auth()->id(),
-            'status' => 'pending'
-        ]);
-        return $identity;
+        try{
+            $identity= Identity::create([
+                'user_id' => auth()->id(),
+                'status' => 'pending'
+            ]);
+            $identity->addMedia($input['front'])->toMediaCollection('front');
+            $identity->addMedia($input['back'])->toMediaCollection('back');
+            return $identity;
+        }catch (\Exception | \Error $e){
+            throw new GraphQLExceptionHandler($e->getMessage());
+        }
+
+
     }
 }
