@@ -77,6 +77,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
 
     protected $appends = [
         'total_views',
+        'is_social'
 
     ];
     protected $withCount = [
@@ -271,5 +272,10 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
     public function users(): HasMany
     {
         return $this->hasMany(User::class,'user_id')->whereNotNull('email_verified_at');
+    }
+
+    public function getIsSocialAttribute(): bool
+    {
+     return $this->plans->where('social',true)->first()!=null;
     }
 }
