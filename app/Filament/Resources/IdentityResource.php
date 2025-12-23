@@ -70,7 +70,7 @@ class IdentityResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('id')->label('#'),
                 Tables\Columns\TextColumn::make('user.name')->label('المستخدم'),
-                Tables\Columns\TextColumn::make('status')->formatStateUsing(fn($state) => IdentityEnum::tryFrom($state)->getLabel())->label('الحالة'),
+                Tables\Columns\TextColumn::make('status')->formatStateUsing(fn($state) =>$state==null ? IdentityEnum::tryFrom($state)?->getLabel():null)->label('الحالة'),
                 Tables\Columns\SpatieMediaLibraryImageColumn::make('front')->label('الوجه الأمامي')->collection('front')->conversion('web')->url(fn($record) => $record->getFirstMediaUrl('front', 'web'), true),
                 Tables\Columns\SpatieMediaLibraryImageColumn::make('back')->label('الوجه الخلفي')->collection('back')->conversion('web')->url(fn($record) => $record->getFirstMediaUrl('back', 'web'), true),
                 Tables\Columns\SpatieMediaLibraryImageColumn::make('passport')->label('جواز سفر')->collection('passport')->conversion('web')->url(fn($record) => $record->getFirstMediaUrl('passport', 'web'), true),
