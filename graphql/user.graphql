@@ -7,7 +7,7 @@ extend type Query{
     getMyFollowers:[Follower] @guard @paginate(builder:"App\\GraphQL\\Queries\\GetMyFollowers")
     getMyFollowing:[Follower] @guard @paginate(builder:"App\\GraphQL\\Queries\\GetMyFollowing")
     usersByCategory(category_id:Int!,first:Int,page:Int):[User] @paginate(builder:"App\\GraphQL\\Queries\\UserByCategory")
-
+    identities: [VerifiedIdentity] @guard
 }
 
 
@@ -96,7 +96,7 @@ input VerifyIdentityInput{
 extend type Mutation{
 
     verifyEmail(code:String!):User @guard
-    verifyIdentity(input:VerifyIdentityInput!):VerifiedIdentity
+    verifyIdentity(input:VerifyIdentityInput!):VerifiedIdentity @guard
     updateUser(input:UpdateUserInput) : User  @guard
 
     createSeller(input:CreateSellerInput): User @guard
