@@ -18,14 +18,14 @@ final  class VerifyIdentity
             throw new GraphQLExceptionHandler('لديك طلب توثيق سابق وهو قيد المراجعة');
         }
         try{
-            throw new GraphQLExceptionHandler(json_encode($input));
+
             \DB::beginTransaction();
             $identity= Identity::create([
                 'user_id' => auth()->id(),
                 'status' => 'pending'
             ]);
-            $identity->addMedia($input['front'])->toMediaCollection('front');
-            $identity->addMedia($input['back'])->toMediaCollection('back');
+            $identity->addMedia($input['imageFront'])->toMediaCollection('front');
+            $identity->addMedia($input['imageBack'])->toMediaCollection('back');
             \DB::commit();
             return $identity;
         }catch (\Exception | \Error $e){
