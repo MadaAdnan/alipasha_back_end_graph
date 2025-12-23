@@ -76,7 +76,7 @@ class IdentityResource extends Resource
                 Tables\Columns\SpatieMediaLibraryImageColumn::make('passport')->label('جواز سفر')->collection('passport')->conversion('web')->url(fn($record) => $record->getFirstMediaUrl('passport', 'web'), true),
                 Tables\Columns\SpatieMediaLibraryImageColumn::make('record')->label('سجل تجاري')->collection('record')->conversion('web')->url(fn($record) => $record->getFirstMediaUrl('record', 'web'), true),
                 Tables\Columns\TextColumn::make('type')
-                    ->formatStateUsing(fn($state)=>IdentityEnum::tryFrom($state)?->getLabel())->label('نوع'),
+                    ->formatStateUsing(fn($state)=>$state==null ? IdentityEnum::tryFrom($state)?->getLabel():null)->label('نوع'),
             ])
             ->filters([
                 //

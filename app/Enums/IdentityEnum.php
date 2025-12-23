@@ -20,6 +20,7 @@ enum IdentityEnum:string
             self::IDENTITY => 'هوية',
             self::PASSPORT => 'جواز سفر',
             self::RECORD => 'سجل تجاري',
+            default  => 'غير معروف',
 
         };
     }
