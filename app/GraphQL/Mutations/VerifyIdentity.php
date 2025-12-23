@@ -23,13 +23,20 @@ final  class VerifyIdentity
             (empty($input['imageFront']) || empty($input['imageBack']))) {
             throw new GraphQLExceptionHandler('الرجاء إدخال صور');
         }
-
+$type=IdentityEnum::IDENTITY->value;
+        if (!empty($input['passport'])) {
+            $type=IdentityEnum::PASSPORT->value;
+        }
+        if (!empty($input['record'])) {
+            $type=IdentityEnum::RECORD->value;
+        }
         try{
 
             \DB::beginTransaction();
             $identity= Identity::create([
                 'user_id' => auth()->id(),
                 'status' => IdentityEnum::PENDING->value,
+                'type' => $type
             ]);
             if(!empty($input['imageFront'])){
                 $identity->addMedia($input['imageFront'])->toMediaCollection('front');
