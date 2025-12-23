@@ -74,7 +74,7 @@ class IdentityResource extends Resource
                 Tables\Columns\SpatieMediaLibraryImageColumn::make('back')->label('الوجه الخلفي')->collection('back')->conversion('web')->url(fn($record) => $record->getFirstMediaUrl('back', 'web'), true),
                 Tables\Columns\SpatieMediaLibraryImageColumn::make('passport')->label('جواز سفر')->collection('passport')->conversion('web')->url(fn($record) => $record->getFirstMediaUrl('back', 'web'), true),
                 Tables\Columns\SpatieMediaLibraryImageColumn::make('record')->label('سجل تجاري')->collection('record')->conversion('web')->url(fn($record) => $record->getFirstMediaUrl('back', 'web'), true),
-                Tables\Columns\TextColumn::make('id')->label('#'),
+                Tables\Columns\TextColumn::make('type')->label('نوع'),
             ])
             ->filters([
                 //
