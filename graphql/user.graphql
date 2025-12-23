@@ -75,26 +75,26 @@ type Identity{
 }
 
 input VerifyIdentityInput{
-    imageBack:Upload! @rules(apply:["image"],messages:[
+    imageBack:Upload @rules(apply:["image"],messages:[
 
         {
             rule:"image"
             message:"صيغة الملف غير مدعومة"
         }
     ])
-    imageFront:Upload! @rules(apply:["image"],messages:[
+    imageFront:Upload @rules(apply:["image"],messages:[
         {
             rule:"image"
             message:"صيغة الملف غير مدعومة"
         }
     ])
-    passport:Upload! @rules(apply:["image"],messages:[
+    passport:Upload @rules(apply:["image"],messages:[
         {
             rule:"image"
             message:"صيغة الملف غير مدعومة"
         }
     ])
-    record:Upload! @rules(apply:["image"],messages:[
+    record:Upload @rules(apply:["image"],messages:[
         {
             rule:"image"
             message:"صيغة الملف غير مدعومة"
