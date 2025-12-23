@@ -59,8 +59,10 @@ class PlanResource extends Resource
                         Forms\Components\TextInput::make('ads_count')->numeric()->required()->label('عدد الإعلانات'),
                         Forms\Components\Toggle::make('special_store')->label('متجر مميز'),
 
+
                     ])->visible(fn($get)=>$get('type')===PlansTypeEnum::PRESENT->value),
                     Forms\Components\Toggle::make('is_validate')->label('متجر موثق'),
+                    Forms\Components\Toggle::make('social')->label('روابط سوشال ميديا'),
                     Forms\Components\Textarea::make('info')->label('وصف الخطة'),
                     Forms\Components\Toggle::make('is_active')->label('الحالة'),
 

@@ -53,6 +53,8 @@ class IdentityResource extends Resource
                     ),
                 Forms\Components\SpatieMediaLibraryFileUpload::make('front')->collection('front')->conversion('webp')->label('الوجه الأمامي')->required()->openable(),
                 Forms\Components\SpatieMediaLibraryFileUpload::make('back')->collection('back')->conversion('webp')->label('الوجه الخلفي')->required()->openable(),
+                Forms\Components\SpatieMediaLibraryFileUpload::make('passport')->collection('passport')->conversion('webp')->label('جواز سفر')->required()->openable(),
+                Forms\Components\SpatieMediaLibraryFileUpload::make('record')->collection('record')->conversion('webp')->label('سجل تجاري')->required()->openable(),
                 Forms\Components\Select::make('status')->options([
                     OrderStatusEnum::PENDING->value => OrderStatusEnum::PENDING->getLabel(),
                     OrderStatusEnum::COMPLETE->value => OrderStatusEnum::COMPLETE->getLabel(),
