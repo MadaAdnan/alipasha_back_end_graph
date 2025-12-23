@@ -27,7 +27,10 @@ final  class VerifyIdentity
             $identity->addMedia($input['imageFront'])->toMediaCollection('front');
             $identity->addMedia($input['imageBack'])->toMediaCollection('back');
             \DB::commit();
-            return $identity;
+            return [
+                'user'=>auth()->user(),
+                'identity'=>$identity
+            ];
         }catch (\Exception | \Error $e){
             \DB::rollBack();
             throw new GraphQLExceptionHandler($e->getMessage());

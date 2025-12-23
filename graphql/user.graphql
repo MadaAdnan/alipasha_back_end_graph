@@ -99,7 +99,7 @@ input VerifyIdentityInput{
 extend type Mutation{
 
     verifyEmail(code:String!):User @guard
-    verifyIdentity(input:VerifyIdentityInput!):Identity @guard
+    verifyIdentity(input:VerifyIdentityInput!):IdentityWithUser @guard
     updateUser(input:UpdateUserInput) : User  @guard
 
     createSeller(input:CreateSellerInput): User @guard
