@@ -66,10 +66,37 @@ type Follower{
     seller:User @belongsTo
 }
 
+type VerifiedIdentity{
+    status:String
+    id:ID!
+}
 
+input VerifyIdentityInput{
+    imageBack:Upload! @rules(apply:["required","image"],messages:[
+        {
+            rule:"required"
+            message:"يرجى تحديد صورة"
+        }
+        {
+            rule:"image"
+            message:"صيغة الملف غير مدعومة"
+        }
+    ])
+    imageFront:Upload! @rules(apply:["required","image"],messages:[
+        {
+            rule:"required"
+            message:"يرجى تحديد صورة"
+        }
+        {
+            rule:"image"
+            message:"صيغة الملف غير مدعومة"
+        }
+    ])
+}
 extend type Mutation{
 
     verifyEmail(code:String!):User @guard
+    verifyIdentity(input:VerifyIdentityInput!):VerifiedIdentity
     updateUser(input:UpdateUserInput) : User  @guard
 
     createSeller(input:CreateSellerInput): User @guard

@@ -67,13 +67,10 @@ class ProductsHelper
                 $userPlan->type == PlansTypeEnum::PRESENT->value &&
                 $userPlan->duration !== PlansDurationEnum::FREE->value
             ) {
-
                     $productsCountAllow = max(
                         $productsCountAllow,
                         $userPlan->products_count
                     );
-
-
             }
         }
 
