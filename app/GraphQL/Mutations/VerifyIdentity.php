@@ -11,7 +11,7 @@ final  class VerifyIdentity
     public function __invoke($_, array $args)
     {
         $input = $args['input'];
-        if (!Identity::where([
+        if (Identity::where([
             'user_id' => auth()->id(),
             'status' => 'pending'
         ])->exists()) {
