@@ -332,6 +332,7 @@
                                 class="form-control"
                                 id="descriptionInput"
                                 placeholder="الإسم"
+                                @if(auth()->user()->is_social) disabled="" @endif
                                 required
                             />
                         </div>

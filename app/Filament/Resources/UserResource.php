@@ -68,6 +68,7 @@ class UserResource extends Resource
                                 Forms\Components\TextInput::make('name')->required()->label('الاسم'),
                                 Forms\Components\TextInput::make('email')->required()->email()->unique(ignoreRecord: true)->label('البريد الإلكتروني'),
                                 Forms\Components\TextInput::make('password')->required(fn($context) => $context === 'create')
+                                    ->autocomplete('new-password')
                                     ->dehydrateStateUsing(fn($state) => \Hash::make($state))->dehydrated(fn($state) => filled($state))->password()
                                     ->same('passwordConfirmation')
                                     ->label('كلمة المرور'),
