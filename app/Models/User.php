@@ -91,6 +91,9 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         'clicks'
 
     ];
+    protected $with=[
+        'plans'
+    ];
 
     protected static function boot()
     {
