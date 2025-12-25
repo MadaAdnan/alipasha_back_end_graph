@@ -69,7 +69,8 @@ class IdentityResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('id')->label('#'),
-                Tables\Columns\TextColumn::make('user.name')->label('المستخدم'),
+                Tables\Columns\TextColumn::make('user.name')->label('المستخدم')->url(fn($record)=>UserResource::getUrl('edit',['record'=>$record->user->id]),true),
+                Tables\Columns\TextColumn::make('user.full_phone')->label('الهاتف')->url(fn($record)=>'https://wa.me/'.$record->user->full_phone,true),
                 Tables\Columns\TextColumn::make('status')->formatStateUsing(fn($state) =>$state!=null ? IdentityEnum::tryFrom($state)?->getLabel():null)->label('الحالة'),
                 Tables\Columns\SpatieMediaLibraryImageColumn::make('front')->label('الوجه الأمامي')->collection('front')->conversion('web')->url(fn($record) => $record->getFirstMediaUrl('front', 'web'), true),
                 Tables\Columns\SpatieMediaLibraryImageColumn::make('back')->label('الوجه الخلفي')->collection('back')->conversion('web')->url(fn($record) => $record->getFirstMediaUrl('back', 'web'), true),
