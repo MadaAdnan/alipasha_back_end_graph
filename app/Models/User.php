@@ -37,7 +37,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
 
     public function clicks(): HasMany
     {
-        return $this->hasMany(ClickWhats::class,'seller_id');
+        return $this->hasMany(ClickWhats::class, 'seller_id');
     }
 
     /**
@@ -91,7 +91,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         'clicks'
 
     ];
-    protected $with=[
+    protected $with = [
         'plans'
     ];
 
@@ -235,7 +235,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
             $this->attributes['phone'] = \Str::substr($value, 1);
         } elseif (\Str::startsWith($value, '00')) {
             $this->attributes['phone'] = \Str::substr($value, 2);
-        }else{
+        } else {
             $this->attributes['phone'] = $value;
         }
 
@@ -248,7 +248,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class,'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function carts(): HasMany
@@ -274,11 +274,16 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
 
     public function users(): HasMany
     {
-        return $this->hasMany(User::class,'user_id')->whereNotNull('email_verified_at');
+        return $this->hasMany(User::class, 'user_id')->whereNotNull('email_verified_at');
     }
 
     public function getIsSocialAttribute(): bool
     {
-     return $this->plans->where('social',true)->first()!=null;
+        return $this->plans->where('social', true)->first() != null;
+    }
+
+    public function identities(): HasMany
+    {
+        return $this->hasMany(Identity::class);
     }
 }
