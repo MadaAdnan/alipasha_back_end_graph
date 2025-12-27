@@ -24,7 +24,7 @@ class StateOverView extends BaseWidget
         $users=User::select(['id','is_seller','email_verified_at'])/*->whereBetween('created_at',[$start,$end])*/->get();
         $products=Product::select(['id','type'])->where('active',ProductActiveEnum::ACTIVE->value)/*->whereBetween('created_at',[$start,$end])*/->get();
         return [
-            Stat::make('عدد المستخدمين الموثقين', $users->where('is_verified','=',1)->orWhereHas('identities',fn($q)=>$q->where('status','complete'))->count()),
+            Stat::make('عدد المستخدمين الموثقين', $users->where('is_verified','=',1)->where('identities',fn($q)=>$q->where('status','complete'))->count()),
             Stat::make('عدد المستخدمين المؤكدين', $users->where('is_seller','=',0)->whereNotNull('email_verified_at')->count()),
             Stat::make('عدد المستخدمين غير المؤكدين', $users->where('is_seller','=',0)->whereNull('email_verified_at')->count()),
             Stat::make('عدد المتاجر ', $users->where('is_seller','=',1)->count()),
