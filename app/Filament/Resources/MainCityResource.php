@@ -129,8 +129,7 @@ class MainCityResource extends Resource implements HasShieldPermissions
                 Tables\Columns\TextColumn::make('city.name')->label('المدينة الرئيسية')->sortable(),
                 Tables\Columns\TextColumn::make('is_active')->formatStateUsing(fn($state)=>IsActiveEnum::tryFrom($state)?->getLabel())->icon(fn($state)=>IsActiveEnum::tryFrom($state)?->getIcon())->color(fn($state)=>IsActiveEnum::tryFrom($state)?->getColor())->label('الحالة'),
                 Tables\Columns\TextColumn::make('code')->label('الكود'),
-Tables\Columns\TextInputColumn::make('latitude')->label('Latitude'),
-            Tables\Columns\TextInputColumn::make('longitude')->label('Longitude'),
+
             Tables\Columns\ToggleColumn::make('is_delivery')->label('حالة التوصيل')
                 ])->defaultSort('sortable')
             ->reorderable('sortable')
