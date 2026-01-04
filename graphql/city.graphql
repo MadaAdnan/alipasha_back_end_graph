@@ -18,6 +18,8 @@ type City{
     children:[City] @hasMany
     level:Int
     code_city:String
+    latitude:Float
+    longitude:Float
 }
 
 type Country{

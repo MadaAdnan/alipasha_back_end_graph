@@ -113,6 +113,8 @@ class MainCityResource extends Resource implements HasShieldPermissions
                     Forms\Components\Toggle::make('is_delivery')->label('تفعيل التوصيل'),
                     Forms\Components\Toggle::make('is_active')->label('حالة المدينة'),
                     Forms\Components\TextInput::make('code')->label('كود المدينة')->required(),
+                    Forms\Components\TextInput::make('latitude')->label('Latitude')->required(),
+                    Forms\Components\TextInput::make('longitude')->label('Longitude')->required(),
                     Forms\Components\TextInput::make('info')->label('ملاحظات'),
                 ])
             ]);
