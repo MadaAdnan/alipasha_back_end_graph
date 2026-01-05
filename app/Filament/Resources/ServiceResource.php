@@ -139,6 +139,7 @@ class ServiceResource extends Resource implements HasShieldPermissions
     public static function table(Table $table): Table
     {
         return $table
+            ->defaultSort('id','desc')
             ->modifyQueryUsing(fn($query) => $query->service())
             ->columns([
                 Tables\Columns\TextColumn::make('id')->label('رقم المنتج')->searchable(),
