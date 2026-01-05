@@ -89,6 +89,7 @@ class IdentityResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
+                Tables\Actions\EditAction::make(),
                 Tables\Actions\Action::make('status')->label('توثيق الحساب')->requiresConfirmation()->action(function ($record) {
                     $record->update([
                         'status' => IdentityEnum::COMPLETE->value,
