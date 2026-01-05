@@ -60,7 +60,12 @@ class IdentityResource extends Resource
                     IdentityEnum::PENDING->value => IdentityEnum::PENDING->getLabel(),
                     IdentityEnum::COMPLETE->value => IdentityEnum::COMPLETE->getLabel(),
                     IdentityEnum::CANCELE->value => IdentityEnum::CANCELE->getLabel(),
-                ])->default(IdentityEnum::PENDING->value)->required()->label('الحالة')
+                ])->default(IdentityEnum::PENDING->value)->required()->label('الحالة'),
+                Forms\Components\Select::make('type')->options([
+                    IdentityEnum::IDENTITY->value => IdentityEnum::IDENTITY->getLabel(),
+                    IdentityEnum::PASSPORT->value => IdentityEnum::PASSPORT->getLabel(),
+                    IdentityEnum::RECORD->value => IdentityEnum::RECORD->getLabel(),
+                ])->default(IdentityEnum::IDENTITY->value)->required()->label('نوع'),
             ]);
     }
 
