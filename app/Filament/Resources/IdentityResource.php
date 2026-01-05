@@ -72,6 +72,7 @@ class IdentityResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->defaultSort('id', 'desc')
             ->columns([
                 Tables\Columns\TextColumn::make('id')->label('#'),
                 Tables\Columns\TextColumn::make('user.name')->label('المستخدم')->url(fn($record)=>UserResource::getUrl('edit',['record'=>$record->user->id]),true),
