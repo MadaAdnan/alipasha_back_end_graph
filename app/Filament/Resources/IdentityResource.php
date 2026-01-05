@@ -52,10 +52,10 @@ class IdentityResource extends Resource
                     )
                     ->getOptionLabelUsing(fn($value): ?string => User::find($value)?->name
                     ),
-                Forms\Components\SpatieMediaLibraryFileUpload::make('front')->collection('front')->conversion('webp')->label('الوجه الأمامي')->required()->openable(),
-                Forms\Components\SpatieMediaLibraryFileUpload::make('back')->collection('back')->conversion('webp')->label('الوجه الخلفي')->required()->openable(),
-                Forms\Components\SpatieMediaLibraryFileUpload::make('passport')->collection('passport')->conversion('webp')->label('جواز سفر')->required()->openable(),
-                Forms\Components\SpatieMediaLibraryFileUpload::make('record')->collection('record')->conversion('webp')->label('سجل تجاري')->required()->openable(),
+                Forms\Components\SpatieMediaLibraryFileUpload::make('front')->collection('front')->conversion('webp')->label('الوجه الأمامي')->openable(),
+                Forms\Components\SpatieMediaLibraryFileUpload::make('back')->collection('back')->conversion('webp')->label('الوجه الخلفي')->openable(),
+                Forms\Components\SpatieMediaLibraryFileUpload::make('passport')->collection('passport')->conversion('webp')->label('جواز سفر')->openable(),
+                Forms\Components\SpatieMediaLibraryFileUpload::make('record')->collection('record')->conversion('webp')->label('سجل تجاري')->openable(),
                 Forms\Components\Select::make('status')->options([
                     IdentityEnum::PENDING->value => IdentityEnum::PENDING->getLabel(),
                     IdentityEnum::COMPLETE->value => IdentityEnum::COMPLETE->getLabel(),
