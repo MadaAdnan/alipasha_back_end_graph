@@ -328,10 +328,11 @@ class UserResource extends Resource
                             $user=auth()->user();
                             $to=$record;
                             $community = Community::where('type', CommunityTypeEnum::CHAT->value)->whereHas('users', fn($query) => $query->whereIn('users.id', [$user->id, $to->id]))->first();
-                          dd($community->users);
+
                             \DB::beginTransaction();
                             try {
                                 if ($community == null) {
+                                    dd($community->users);
                                     $community = Community::create([
                                         'name' => $user->name . ' - ' . $to->name,
                                         'manager_id' => $user->id,
