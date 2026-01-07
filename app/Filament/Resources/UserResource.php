@@ -326,7 +326,7 @@ class UserResource extends Resource
                     ])
                         ->action(function ($record, $data) {
                             $community = Community::where('type', CommunityTypeEnum::CHAT->value)->whereHas('users', fn($query) => $query->whereIn('users.id', [auth()->id(), $record->id]))->first();
-                            dd(auth()->id(), $record);
+                            dd(auth()->user(), $record);
                             \DB::beginTransaction();
                             try {
                                 if ($community == null) {
