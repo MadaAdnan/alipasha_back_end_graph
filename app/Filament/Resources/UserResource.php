@@ -325,9 +325,10 @@ class UserResource extends Resource
                         Forms\Components\Textarea::make('msg')->label('الرسالة')->required(),
                     ])
                         ->action(function ($record, $data) {
+                            $community = Community::where('type', CommunityTypeEnum::CHAT->value)->whereHas('users', fn($query) => $query->whereIn('users.id', [auth()->id(), $record->id]))->first();
+
                             \DB::beginTransaction();
                             try {
-                                $community = Community::where('type', CommunityTypeEnum::CHAT->value)->whereHas('users', fn($query) => $query->whereIn('users.id', [auth()->id(), $record->id]))->first();
                                 if ($community == null) {
                                     $community = Community::create([
                                         'name' => auth()->user()->name . ' - ' . $record->name,
@@ -345,6 +346,7 @@ class UserResource extends Resource
                                     'type' => 'text',
                                 ]);
                                 \DB::commit();
+                                dd($community);
                                 Notification::make('success')->title('نجاح العملية')->body('تم إرسال الرسالة بنجاح')->success()->send();
 
                             } catch (\Exception|\Error $e) {
