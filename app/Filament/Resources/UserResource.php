@@ -325,19 +325,21 @@ class UserResource extends Resource
                         Forms\Components\Textarea::make('msg')->label('الرسالة')->required(),
                     ])
                         ->action(function ($record, $data) {
-                            $community = Community::where('type', CommunityTypeEnum::CHAT->value)->whereHas('users', fn($query) => $query->whereIn('users.id', [auth()->id(), $record->id]))->first();
-                            dd(auth()->user(), $record);
+                            $user=auth()->user();
+                            $to=$record;
+                            $community = Community::where('type', CommunityTypeEnum::CHAT->value)->whereHas('users', fn($query) => $query->whereIn('users.id', [$user->id, $to->id]))->first();
+                          dd($community->users);
                             \DB::beginTransaction();
                             try {
                                 if ($community == null) {
                                     $community = Community::create([
-                                        'name' => auth()->user()->name . ' - ' . $record->name,
-                                        'manager_id' => auth()->id(),
+                                        'name' => $user->name . ' - ' . $to->name,
+                                        'manager_id' => $user->id,
                                         'type' => CommunityTypeEnum::CHAT->value,
                                         'last_update' => now(),
                                         'is_global' => false,
                                     ]);
-                                    $community->users()->sync([auth()->id(), $record->id]);
+                                    $community->users()->sync([$user->id, $to->id]);
                                 }
                                 Message::create([
                                     'community_id' => $community->id,
