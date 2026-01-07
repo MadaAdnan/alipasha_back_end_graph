@@ -323,11 +323,11 @@ class UserResource extends Resource
                     /* send msg chat */
                     Tables\Actions\Action::make('send_msg_chat')->form([
                         Forms\Components\Textarea::make('msg')->label('الرسالة')->required(),
-                    ])
+                    ])->record(fn($record)=>User::find($record->id))
                         ->action(function ($record, $data,$livewire) {
                             $user=auth()->user();
-                            $recordKey = $livewire->getTable()->getSelectedRecord();
-                            $to = \App\Models\User::find($recordKey);
+
+                            $to =$record;
                            dd($to);
                             $community = Community::where('type', CommunityTypeEnum::CHAT->value)->whereHas('users', fn($query) => $query->whereIn('users.id', [$user->id, $to->id]))->first();
 
