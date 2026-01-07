@@ -332,7 +332,7 @@ class UserResource extends Resource
                             \DB::beginTransaction();
                             try {
                                 if ($community == null) {
-                                    dd($community->users);
+                                    dd($user,$to);
                                     $community = Community::create([
                                         'name' => $user->name . ' - ' . $to->name,
                                         'manager_id' => $user->id,
@@ -342,6 +342,7 @@ class UserResource extends Resource
                                     ]);
                                     $community->users()->sync([$user->id, $to->id]);
                                 }
+                                dd($community->users);
                                 Message::create([
                                     'community_id' => $community->id,
                                     'user_id' => auth()->id(),
