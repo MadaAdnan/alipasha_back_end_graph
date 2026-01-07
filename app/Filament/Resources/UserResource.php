@@ -328,13 +328,16 @@ class UserResource extends Resource
                             $user=auth()->user();
 
                             $to =$record;
-                           dd($to);
-                            $community = Community::where('type', CommunityTypeEnum::CHAT->value)->whereHas('users', fn($query) => $query->whereIn('users.id', [$user->id, $to->id]))->first();
+
+                            $community = Community::where('type', CommunityTypeEnum::CHAT->value)
+                                ->whereHas('users', fn($query) => $query->where('users.id', $user->id))
+                                ->whereHas('users', fn($query) => $query->where('users.id', $to->id))
+                                ->first();
 
                             \DB::beginTransaction();
                             try {
                                 if ($community == null) {
-                                    dd($user,$to);
+
                                     $community = Community::create([
                                         'name' => $user->name . ' - ' . $to->name,
                                         'manager_id' => $user->id,
@@ -344,7 +347,7 @@ class UserResource extends Resource
                                     ]);
                                     $community->users()->sync([$user->id, $to->id]);
                                 }
-                                dd($community->users);
+
                                 Message::create([
                                     'community_id' => $community->id,
                                     'user_id' => auth()->id(),
