@@ -11,11 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
+
         Schema::table('interactions', function (Blueprint $table) {
-            $table->dropConstrainedForeignId('comment_id');
+           /* if (Schema::hasColumn('interactions', 'point')) {
+                $table->dropColumn('point');
+            }
+
+            if (Schema::hasColumn('interactions', 'type')) {
+                $table->dropColumn('type');
+            }*/
+           /* $table->dropConstrainedForeignId('comment_id');
             $table->dropConstrainedForeignId('product_id');
             $table->dropColumn('point');
-            $table->dropColumn('type');
+            $table->dropColumn('type');*/
         });
     }
 

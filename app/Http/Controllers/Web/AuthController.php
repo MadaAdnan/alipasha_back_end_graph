@@ -10,6 +10,7 @@ use App\Jobs\SendEmailJob;
 use App\Mail\ForgetPasswordEmail;
 use App\Mail\ResetPasswordForgetEmail;
 use App\Models\City;
+use App\Models\Country;
 use App\Models\User;
 use Auth;
 use Illuminate\Http\Request;
@@ -18,7 +19,8 @@ class AuthController extends Controller
 {
     public function loginUi()
     {
-        return view('web.login');
+
+        return view('theme2.auth');
     }
 
     public function registerUi()
@@ -29,6 +31,16 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+        $this->validate($request, [
+            'email'=>'required|email|exists:users,email',
+            'password'=>'required|min:8'
+        ],[
+            'email.required' => 'يرجى إدخال بريدك الإلكتروني',
+            'email.email' => 'يرجى إدخال بريدك الإلكتروني',
+            'email.exists' => 'لم يتم العثور على بريدك الإلكتروني',
+            'password.required' => 'يرجى إدخال كلمة المرور',
+            'password.min' => 'كلمة المرور يجب ان لا تقل عن 8 أحرف',
+        ]);
         $email = $request->email;
         $password = $request->password;
 
@@ -45,15 +57,38 @@ class AuthController extends Controller
 
     public function register(RegisterRequest $request)
     {
+        $this->validate($request, [
+            'name'=>'required|min:3',
+            'email'=>'required|email|unique:users,email',
+            'password'=>'required|min:8',
+            'confirmPassword'=>'required|same:password',
+            'phone'=>'required|min:8|unique:users,phone',
+            'phone_code'=>'required|exists:countries,code',
+            'city'=>'required|exists:cities,id',
+            'address'=>'required'
+            ],[
+                'name.required' => 'يرجى إدخال اسمك',
+                'name.min' => 'اسمك يجب ان لا يقل عن 3 أحرف',
+                'email.required' => 'يرجى إدخال بريدك الإلكتروني',
+                'email.email' => 'يرجى إدخال بريدك الإلكتروني',
+                'email.unique' => 'البريد الإلكتروني موجود بالفعل',
+                'password.required' => 'يرجى إدخال كلمة المر',
+                'password.min' => 'كلمة المرور يجب ان لا تقل عن 8 أحرف',
+                'confirmPassword.required' => 'يرجى إدخال كلمة المرور',
+                'confirmPassword.same' => 'الكلمة غير متطابقة',
+                'phone.required' => 'يرجى إدخال رقم الهاتف',
+                'phone.min' => 'رقم الهاتف يجب ان لا يقل عن 8 أرقام',
+                'phone.unique' => 'رقم الهاتف مُسجل بالفعل',
+                'phone_code.required' => 'يرجى إدخال كود',
+                'phone_code.exists' => 'يرجى إدخال كود',
+                'city.required' => 'يرجى إدخال المدينة',
+                'address.required' => 'يرجى إدخال العنوان',
+            ]);
+
         if(\Str::startsWith($request->phone, '0')){
             $request->phone = \Str::substr($request->phone, 1);
         }
-        $is_exists=User::where('email',$request->email)->exists();
-        if($is_exists){
-            return back()->withErrors([
-                'email' => 'هذا البريد الإلكتروني مسجل بالفعل.',
-            ])->withInput(); // حتى يرجع القيم القديمة
-        }
+
         $affiliate_id = User::where('affiliate',$request->affiliate)->first()?->id;
         $user = User::create([
             'name' => $request->name,

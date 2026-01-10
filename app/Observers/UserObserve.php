@@ -26,7 +26,7 @@ class UserObserve
         $user->affiliate = StrHelper::getAfflieate();
         $user->is_sync_webhok = false;
         $setting = Setting::first();
-        if ($setting->is_active_register_win) {
+        if ($setting->is_active_register_win ?? false) {
             $user->register_win_amount = $setting->register_win_amount;
         }
     }
@@ -37,7 +37,6 @@ class UserObserve
     public function created(User $user): void
     {
         event(new CreatedUserEvent($user));
-
 
 
     }
@@ -81,7 +80,7 @@ class UserObserve
             $community = \App\Models\Community::where('is_global_seller', true)->first();
             $community->users()->syncWithoutDetaching([$user->id]);
         }
-        info('CONDITION: '.(!empty($user->url_webhok) && \Str::contains($user->url_webhok, "https:://")));
+        info('CONDITION: ' . (!empty($user->url_webhok) && \Str::contains($user->url_webhok, "https:://")));
         if (!empty($user->url_webhok) && \Str::contains($user->url_webhok, "https:://")) {
             info('HOK OK');
             dispatch(new WebhokUserJob($user));

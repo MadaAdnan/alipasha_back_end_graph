@@ -1,0 +1,68 @@
+*{
+    font-family: almarai, serif;
+}
+option>img{
+    width: 30px;
+    aspect-ratio: 3/1;
+}
+:root{
+    --gray-bg:#F5F6FA;
+    --gray-text:#4E5468;
+    --white:#FFFFFF;
+    --red:#e30613
+}
+.bg-gray {
+    background-color: var(--gray-bg);
+}
+.text-gray{
+    color: var(--gray-text)!important;
+}
+.bg-red{
+    background-color: var(--red);
+    color: var(--white);
+}
+.bg-red:hover{
+    background-color: var(--white);
+    color:  var(--red);
+    border: var(--red) 1px solid;
+}
+/*NavBar Component*/
+.transparent,.transparent:hover, .transparent:active{
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
+.search-icon-navbar {
+    top: 5px;
+    left: 5px;
+}
+
+/*Auth Component*/
+.nav-tabs {
+    border: none;
+}
+
+.nav-tabs .nav-item, .nav-tabs .nav-item .nav-link {
+    background-color: var(--gray-bg);
+    border-radius: 0;
+    border: none !important;
+}
+
+.nav-tabs .nav-item:hover, .nav-tabs .nav-item .nav-link:hover {
+    background-color: var(--gray-bg);
+    border: none !important;
+    color: var(--gray-text);
+}
+
+.nav-tabs .nav-item .nav-link.active {
+    background-color: var(--white);
+}
+/*Phone Component*/
+.input-group.ltr > :not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
+    margin-left: calc(-1 * var(--bs-border-width));
+    border-radius: 10px 0 0 10px;
+}
+.input-group:not(.has-validation) > :not(:last-child):not(.dropdown-toggle):not(.dropdown-menu):not(.form-floating) {
+    border-radius: 0 10px 10px 0;
+}
