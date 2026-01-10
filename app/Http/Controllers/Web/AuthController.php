@@ -25,6 +25,7 @@ class AuthController extends Controller
 
     public function registerUi()
     {
+        return to_route('login.ui')->withFragment('register');
         $cities = City::where('is_main', true)->orderBy('name')->get();
         return view('web.register', compact('cities'));
     }
