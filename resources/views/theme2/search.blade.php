@@ -13,7 +13,7 @@
             </div>
 
             <div class="col-md-9">
-                @if($products)
+                @if($products->count()>0)
                     @foreach($products as $product)
                         <x-components.estate-card-component :product="$product"/>
                     @endforeach
