@@ -1,8 +1,9 @@
+@php use Illuminate\Pagination\UrlWindow; @endphp
 @props(['paginator'])
 
 @if ($paginator && $paginator->hasPages())
     @php
-        use Illuminate\Pagination\UrlWindow;
+
         $elements = UrlWindow::make($paginator)->elements;
     @endphp
 
