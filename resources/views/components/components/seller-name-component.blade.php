@@ -3,7 +3,7 @@
 ])
 @if($seller)
 <a class="cursor-pointer d-flex justify-content-start  align-items-center gap-1" href="{{route('seller.profile',$seller->id)}}">
-    <i class="fa fa-market"></i>
+    <i class="fa fa-shop"></i>
   <span class="seller-name d-inline-block fs-6">  {{$seller->seller_name ?? $seller->name}}</span>
     @if($seller->is_verified==true)
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="var(--blue-accent)" class="bi bi-patch-check-fill" viewBox="0 0 16 16">
