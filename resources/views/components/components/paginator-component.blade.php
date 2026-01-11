@@ -5,10 +5,10 @@
 
     <nav class="bg-white rounded p-2">
 
-            <div class="d-flex justify-content-center">
+            <div class="d-flex justify-content-center align-items-center">
 
                 {{-- السابق --}}
-                <span class=" {{ $paginator->onFirstPage() ? 'disabled' : '' }}">
+                <span class=" {{ $paginator->onFirstPage() ? 'disabled' : 'text-red-accent' }}">
                     <a class=""
                        href="{{ $paginator->previousPageUrl() ?? '#' }}">
                         <i class="fa fa-angle-right"></i>
@@ -25,7 +25,7 @@
                 @endforeach
 
                 {{-- التالي --}}
-                <span class=" {{ $paginator->hasMorePages() ? '' : 'disabled' }}">
+                <span class=" {{ $paginator->hasMorePages() ? 'text-red-accent' : 'disabled' }}">
                     <a class=""
                        href="{{ $paginator->nextPageUrl() ?? '#' }}">
 
