@@ -17,7 +17,7 @@
 
                 {{-- الأرقام --}}
                 @foreach ($paginator->links()->elements[0] ?? [] as $page => $url)
-                    <span class="mx-1 rounded py-1 px-2 border border-secondary {{ $paginator->currentPage() == $page ? 'bg-gold' : 'bg-white' }}">
+                    <span class="mx-1 btn rounded py-1 px-2 border border-secondary {{ $paginator->currentPage() == $page ? 'btn-red-accent' : 'bg-white' }}">
                         <a class="" href="{{ $url }}">
                             {{ $page }}
                         </a>
