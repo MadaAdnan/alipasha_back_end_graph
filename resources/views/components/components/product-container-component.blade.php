@@ -21,7 +21,7 @@
     @if($products)
         <div class="row justify-content-center">
             @foreach($dataProducts as $product)
-                <div class="col-md-3">
+                <div class="col-md-3 p-1">
                 <x-components.product-container-item-component :product="$product"/>
                 </div>
             @endforeach
