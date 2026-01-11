@@ -119,7 +119,10 @@ option>img{
     text-overflow: ellipsis;
 }
 .seller-name{
-    max-lines: 1;
+
     overflow: hidden;
-    text-overflow: ellipsis;
+
+
+    max-height: 25px;
+    height: 25px;
 }
