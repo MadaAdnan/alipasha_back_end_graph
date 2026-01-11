@@ -16,7 +16,7 @@
                 <a href="{{route('category.show',['id'=>$categoryId])}}" class="fs-6">مشاهدة المزيد</a>
             @endif
         </div>
-        <div class="divider"></div>
+
     @endif
     @if($products)
         <div class="row justify-content-center">

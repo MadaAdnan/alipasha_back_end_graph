@@ -61,7 +61,7 @@ option>img{
     border: var(--gold) 1px solid;
 }
 .divider{
-    border-top:1px solid var(--gray-bg);
+    border-top:1px solid var(--gray-text);
 
 }
 .cursor-pointer{
