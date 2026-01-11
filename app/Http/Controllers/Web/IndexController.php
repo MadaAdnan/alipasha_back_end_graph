@@ -28,8 +28,8 @@ class IndexController extends Controller
                 CategoryTypeEnum::PRODUCT->value,
                 CategoryTypeEnum::JOB->value,
                 CategoryTypeEnum::SEARCH_JOB->value,
-                CategoryTypeEnum::TENDER->value,
-                CategoryTypeEnum::NEWS->value,
+//                CategoryTypeEnum::TENDER->value,
+//                CategoryTypeEnum::NEWS->value,
             ])
             ->orderBy('sortable')
             ->orderByRaw("FIELD(type, 'product', 'job', 'search_job','tender','service','news')")
