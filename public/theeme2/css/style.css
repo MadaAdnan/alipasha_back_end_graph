@@ -162,6 +162,6 @@ option>img{
     border-radius: 50%;
 }
 .estate-card .carousel-inner .carousel-item>.img{
-    width: 275px;
-    aspect-ratio: 2/1;
+    width: 275px !important;
+    aspect-ratio: 2/1 !important;
 }
