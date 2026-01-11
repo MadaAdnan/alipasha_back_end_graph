@@ -1,4 +1,4 @@
-*{
+**:not(.bi):not(.fa){
     font-family: almarai, serif;
 }
 a{
