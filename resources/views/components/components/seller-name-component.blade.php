@@ -5,7 +5,7 @@
 <a class="cursor-pointer" href="{{route('seller.profile',$seller->id)}}">
 @if($seller->hasMedia('logo'))
 
-    <img src="{{$seller->logo->getImage('logo')}}" class="rounded-circle" style="width: 30px; height: 30px;">
+    <img src="{{$seller->getImage('logo')}}" class="rounded-circle" style="width: 30px; height: 30px;">
 @endif
   <span>  {{$seller->seller_name ?? $seller->name}}</span>
     @if($seller->is_verified==true)
