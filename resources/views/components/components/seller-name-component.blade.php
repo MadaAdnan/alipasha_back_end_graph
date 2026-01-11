@@ -3,7 +3,10 @@
 ])
 @if($seller)
 <a class="cursor-pointer" href="{{route('seller.profile',$seller->id)}}">
+@if($seller->hasMedia('logo'))
 
+    <img src="{{$seller->logo->getImage('logo')}}" class="rounded-circle" style="width: 30px; height: 30px;">
+@endif
   <span>  {{$seller->seller_name ?? $seller->name}}</span>
     @if($seller->is_verified==true)
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="var(--blue-accent)" class="bi bi-patch-check-fill" viewBox="0 0 16 16">
