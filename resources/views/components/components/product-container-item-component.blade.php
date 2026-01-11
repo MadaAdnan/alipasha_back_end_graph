@@ -2,7 +2,7 @@
     'product'=>null,
 ])
 @if($product)
-<div class="card shadow-sm rounded-4 overflow-hidden" style="max-width: 350px;">
+<div class="card shadow-sm rounded-4 overflow-hidden" >
 
     <!-- Image -->
     <div class="position-relative">
