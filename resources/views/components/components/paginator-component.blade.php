@@ -5,7 +5,7 @@
 
     <nav class="bg-white rounded p-2">
 
-            <div class=" justify-content-center">
+            <div class="d-flex justify-content-center">
 
                 {{-- السابق --}}
                 <span class=" {{ $paginator->onFirstPage() ? 'disabled' : '' }}">
