@@ -1,6 +1,9 @@
 @php use Illuminate\Pagination\UrlWindow; @endphp
 @props(['paginator'])
 
+@php
+dd(typeOf($paginator))
+ @endphp
 @if ($paginator && ($paginator instanceof \Illuminate\Pagination\Paginator || $paginator instanceof \Illuminate\Pagination\LengthAwarePaginator)&& $paginator->hasPages())
     @php
 
