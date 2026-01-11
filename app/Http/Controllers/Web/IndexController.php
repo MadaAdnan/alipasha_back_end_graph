@@ -36,19 +36,17 @@ class IndexController extends Controller
             ->get();
         $categoriesWithProducts = Category::where('is_active', true)
             ->where('is_main', true)
-            ->whereIn('type', [
-                CategoryTypeEnum::PRODUCT->value,
-            ])
+            ->where('type', CategoryTypeEnum::PRODUCT->value)
 
-            // عدّ المنتجات بنفس شروط الجلب
             ->withCount([
                 'products as products_count' => function ($query) {
                     $query->active()
-                        ->upTo20();
+                        ->upTo20()
+                        ->orderByRaw("CASE WHEN level = 'special' THEN 1 ELSE 2 END")
+                        ->orderBy('created_at', 'DESC');
                 }
             ])
 
-            // إلزام 8 منتجات على الأقل
             ->having('products_count', '>=', 8)
 
             ->inRandomOrder()
@@ -58,17 +56,17 @@ class IndexController extends Controller
                 'products' => function ($query) {
                     $query->active()
                         ->upTo20()
-                        ->orderByRaw("
-                    CASE
-                        WHEN level = 'special' THEN 1
-                        ELSE 2
-                    END
-                ")
-                        ->orderBy('created_at', 'DESC')
-                        ->take(8);
+                        ->orderByRaw("CASE WHEN level = 'special' THEN 1 ELSE 2 END")
+                        ->orderBy('created_at', 'DESC');
                 }
             ])
+
             ->get();
+
+        $categoriesWithProducts->each(function ($cat) {
+            $cat->setRelation('products', $cat->products->take(8));
+        });
+
 
 
         /* $products = Product::active()->upTo20()->whereIn('type', [
