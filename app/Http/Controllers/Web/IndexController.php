@@ -37,6 +37,7 @@ class IndexController extends Controller
         $categoriesWithProducts = Category::where('is_active', true)
             ->where('is_main', true)
             ->where('type', CategoryTypeEnum::PRODUCT->value)
+            ->whereHas('media')
 
             ->withCount([
                 'products as products_count' => function ($query) {
