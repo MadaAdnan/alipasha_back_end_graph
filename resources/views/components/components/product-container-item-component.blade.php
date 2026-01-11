@@ -31,7 +31,7 @@
 
         <!-- Price -->
         <div class="fw-bold text-success fs-5 mb-3">
-            {{$product->price}}
+            <x-components.price-component  :price="$product->price" :discount="$product->discount" :isDiscount="$product->is_discount" />
         </div>
 
         <!-- Info -->
