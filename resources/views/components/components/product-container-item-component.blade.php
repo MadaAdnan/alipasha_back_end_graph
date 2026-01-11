@@ -28,13 +28,13 @@
             <x-components.seller-name-component :seller="$product->user"/>
             <!-- Title -->
             <a href="{{route('posts.show',$product->id)}}">
-                <h6 class="card-title fw-bold text-dark mt-1 mb-2 card-address">
+                <h6 class="card-title fw-bold text-dark my-1 card-address">
                     {{$product->name ?? $product->expert}}
                 </h6>
             </a>
 
             <!-- Price -->
-            <div class="fw-bold text-success fs-5 mb-3">
+            <div class="fw-bold text-success fs-5 ">
                 <x-components.price-component :price="$product->price" :discount="$product->discount"
                                               :isDiscount="$product->is_discount"/>
             </div>
