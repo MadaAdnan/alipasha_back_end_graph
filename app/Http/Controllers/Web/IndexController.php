@@ -35,35 +35,56 @@ class IndexController extends Controller
             ->orderByRaw("FIELD(type, 'product', 'job', 'search_job','tender','service','news')")
             ->get();
         $categoriesWithProducts = Category::where('is_active', true)
-            ->where(['is_active' => true, 'is_main' => true])
+            ->where('is_main', true)
             ->whereIn('type', [
                 CategoryTypeEnum::PRODUCT->value,
-            ])->inRandomOrder()
-            ->whereHas('products', function ($query) {
-                $query->active();
-            })
-             ->having('products_count', '>', 8)
-            ->take(5)->with(['products' => fn($query) => $query->active()->upTo20()->take(8)->orderByRaw("
-    CASE
-        WHEN level = 'special' THEN 1
-        ELSE 2
-    END
-")])->get();
-       /* $products = Product::active()->upTo20()->whereIn('type', [
-            CategoryTypeEnum::PRODUCT->value,
-            CategoryTypeEnum::JOB->value,
-            CategoryTypeEnum::SEARCH_JOB->value,
-            CategoryTypeEnum::TENDER->value,
-            CategoryTypeEnum::NEWS->value,
-        ])->orderByRaw("
-        CASE
-            WHEN level = 'special' AND created_at >= ? THEN 1
-            WHEN level = 'special' THEN 2
-            WHEN created_at >= ? THEN 3
-            ELSE 4
-        END
-    ", [now()->subDays(20), now()->subDays(20)])
-            ->latest()->paginate();*/
+            ])
+
+            // حساب عدد المنتجات الفعالة
+            ->withCount([
+                'products as products_count' => function ($query) {
+                    $query->active();
+                }
+            ])
+
+            // شرط: 8 منتجات على الأقل
+            ->having('products_count', '>=', 8)
+
+            ->inRandomOrder()
+            ->take(5)
+
+            // تحميل المنتجات
+            ->with([
+                'products' => function ($query) {
+                    $query->active()
+                        ->upTo20()
+                        ->orderByRaw("
+                    CASE
+                        WHEN level = 'special' THEN 1
+                        ELSE 2
+                    END
+                ")
+                        ->orderBy('created_at', 'DESC')
+                        ->take(8);
+                }
+            ])
+            ->get();
+
+        /* $products = Product::active()->upTo20()->whereIn('type', [
+             CategoryTypeEnum::PRODUCT->value,
+             CategoryTypeEnum::JOB->value,
+             CategoryTypeEnum::SEARCH_JOB->value,
+             CategoryTypeEnum::TENDER->value,
+             CategoryTypeEnum::NEWS->value,
+         ])->orderByRaw("
+         CASE
+             WHEN level = 'special' AND created_at >= ? THEN 1
+             WHEN level = 'special' THEN 2
+             WHEN created_at >= ? THEN 3
+             ELSE 4
+         END
+     ", [now()->subDays(20), now()->subDays(20)])
+             ->latest()->paginate();*/
         return view('theme2.index', compact('categories', 'categoriesWithProducts'));
     }
 
