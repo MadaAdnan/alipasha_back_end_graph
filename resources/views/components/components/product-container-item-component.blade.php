@@ -43,22 +43,22 @@
             <div class="d-flex flex-wrap gap-3 text-muted small">
 
                 <div class="d-flex align-items-center gap-1">
-                    <i class="fa fa-calendar"></i> <span>{{$product->created_at?->format('Y-m')}}</span>
+                    <i class="fa fa-calendar"></i> <span class="fs-7">{{$product->created_at?->format('Y-m')}}</span>
                 </div>
 
                 <div class="d-flex align-items-center gap-1">
-                    <i class="fa fa-heart"></i> <span>{{\App\Helpers\GlobalHelper::formatNumber($product->likes_count)}}</span>
+                    <i class="fa fa-heart"></i> <span class="fs-7">{{\App\Helpers\GlobalHelper::formatNumber($product->likes_count)}}</span>
                 </div>
 
                 <div class="d-flex align-items-center gap-1">
-                    <i class="fa fa-eye"></i> <span>{{\App\Helpers\GlobalHelper::formatNumber($product->views_count)}}</span>
+                    <i class="fa fa-eye"></i> <span class="fs-7">{{\App\Helpers\GlobalHelper::formatNumber($product->views_count)}}</span>
                 </div>
 
             </div>
 
             <!-- Location -->
             <div class="d-flex align-items-center gap-1 text-muted small mt-2 card-address">
-                <i class="fa fa-map-pin"></i> <span>{{$product->user?->address}}</span>
+                <i class="fa fa-map-pin"></i> <span class="fs-7">{{$product->user?->address}}</span>
             </div>
 
         </div>
