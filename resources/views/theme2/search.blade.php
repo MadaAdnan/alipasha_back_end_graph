@@ -15,8 +15,8 @@
             <div class="col-md-9 my-2">
                 @if($products->count()>0)
                     @foreach($products as $product)
-                        <x-components.estate-card-component :product="$product" class="d-none d-md-flex"/>
-                        <x-components.product-container-item-component :product="$product" class="d-block d-md-none"/>
+                        <x-components.estate-card-component :product="$product" class="d-none d-md-flex mt-2"/>
+                        <x-components.product-container-item-component :product="$product" class="d-block d-md-none mt-2"/>
                     @endforeach
                 @else
 <div class="bg-white p-2 rounded">لا يوجد اى نتائج</div>
