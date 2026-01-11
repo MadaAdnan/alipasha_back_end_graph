@@ -2,7 +2,7 @@
     'product'=>null,
 ])
 @if($product)
-<div class="card shadow-sm rounded-4 overflow-hidden" >
+<div class="card shadow-sm rounded-4 overflow-hidden mt-1" >
 
     <!-- Image -->
     <div class="position-relative">
