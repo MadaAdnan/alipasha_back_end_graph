@@ -3,9 +3,9 @@
     <div class="container my-2">
         <div class="row">
             <div class="col-md-12">
-                <x-components.side-bar-category-component :categories="[]"/>
+                <x-components.bread-crumb-component/>
             </div>
-
+            <x-components.side-bar-category-component :categories="[]"/>
             <div class="col-md-9">
 
             @if($categoriesWithProducts)
