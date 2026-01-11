@@ -49,8 +49,9 @@ option>img{
 .btn-red-accent{
     background-color: var(--red-accent);
     border: 1px solid var(--red-accent);
+    color: var(--white);
 }
-.bg-red-accent:hover{
+.bg-red-accent:hover,.btn-red-accent:hover{
     background-color: var(--white);
     color:  var(--red-accent);
     border: var(--red-accent) 1px solid;
