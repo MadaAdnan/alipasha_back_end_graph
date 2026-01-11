@@ -69,6 +69,7 @@ option>img{
     left: 5px;
 }
 .logo{
+    max-height: 45px;
     aspect-ratio: 25/35;
 }
 /*Auth Component*/
