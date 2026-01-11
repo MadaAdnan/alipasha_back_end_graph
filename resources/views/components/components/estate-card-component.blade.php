@@ -40,7 +40,7 @@
     {{-- التفاصيل --}}
     <div class="estate-info p-3 flex-fill">
 
-        <h5 class="estate-title mb-2">{{ $product->title }}</h5>
+        <h5 class="estate-title mb-2">{{ $product->expert }}</h5>
 
         <div class="estate-price text-success fw-bold mb-2">
             <x-components.price-component  :price="$product->price" :discount="$product->discount" :isDiscount="$product->is_discount" />
@@ -48,14 +48,14 @@
         </div>
 
         <div class="estate-meta d-flex align-items-center gap-3 text-secondary small mb-3">
-            <span><i class="fa fa-ruler"></i> {{ $product->area }} م²</span>
+            <span><i class="fa fa-ruler"></i> {{ $product->city?->name }} م²</span>
             <span><i class="fa fa-seedling"></i> {{ $product->type }}</span>
-            <span><i class="fa fa-calendar"></i> {{ $product->date }}</span>
-            <span><i class="fa fa-map-marker-alt"></i> {{ $product->location }}</span>
+            <span><i class="fa fa-calendar"></i> {{ $product->created_at?->format('Y-m') }}</span>
+            <span><i class="fa fa-map-marker-alt"></i> {{ $product->user?->address }}</span>
         </div>
 
         <div class="estate-actions d-flex gap-4 align-items-center">
-            <a href="{{ $product->call_url }}" class="text-danger text-decoration-none fw-bold">
+            <a href="{{ $product->user?->full_phone }}" class="text-danger text-decoration-none fw-bold">
                 <i class="fa fa-phone"></i> الاتصال
             </a>
 
