@@ -1,4 +1,4 @@
-@props(['paginator'])
+
 
 @if($paginator!=null)
 

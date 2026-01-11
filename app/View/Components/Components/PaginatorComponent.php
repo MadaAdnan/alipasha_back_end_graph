@@ -8,12 +8,13 @@ use Illuminate\View\Component;
 
 class PaginatorComponent extends Component
 {
+    public $paginator;
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public function __construct($paginator)
     {
-        //
+        $this->paginator = $paginator;
     }
 
     /**
