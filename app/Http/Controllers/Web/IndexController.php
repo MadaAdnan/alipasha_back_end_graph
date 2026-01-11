@@ -67,7 +67,7 @@ class IndexController extends Controller
             ->get();
 
         $categoriesWithProducts->each(function ($cat) {
-            $cat->setRelation('products', $cat->products->take(9));
+            $cat->setRelation('products', $cat->products->take(8));
         });
 
 
