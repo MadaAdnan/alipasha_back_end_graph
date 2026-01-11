@@ -10,7 +10,7 @@
         <div class="carousel-inner">
             @foreach($product->getMedia('images') as $index => $img)
                 <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-                    <img src="{{ $img->getUrl('webp') }}" class="d-block w-100 slider-img" alt="image">
+                    <img src="{{ $img->getUrl('webp') }}" class="d-block slider-img" alt="image">
                 </div>
             @endforeach
         </div>
