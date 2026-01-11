@@ -150,11 +150,7 @@ option>img{
     position: relative;
 }
 
-.slider-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
+
 
 .carousel-indicators button {
     width: 8px !important;
@@ -164,4 +160,5 @@ option>img{
 .slider-img{
     width: 275px !important;
     aspect-ratio: 2/1 !important;
+    object-fit: cover;
 }
