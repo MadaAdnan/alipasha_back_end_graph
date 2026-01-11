@@ -28,7 +28,7 @@
             <x-components.seller-name-component :seller="$product->user"/>
             <!-- Title -->
             <a href="{{route('posts.show',$product->id)}}">
-                <h6 class="card-title fw-bold text-dark mt-1 mb-2">
+                <h6 class="card-title fw-bold text-dark mt-1 mb-2 card-address">
                     {{$product->name ?? $product->expert}}
                 </h6>
             </a>
