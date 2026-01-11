@@ -11,7 +11,7 @@
                 <span class=" {{ $paginator->onFirstPage() ? 'disabled' : 'text-red-accent' }}">
                     <a class=""
                        href="{{ $paginator->previousPageUrl() ?? '#' }}">
-                        <i class="fa fa-angle-right"></i>
+                        <i class=" {{ $paginator->onFirstPage() ? 'disabled' : 'text-red-accent' }} fa fa-angle-right"></i>
                     </a>
                 </span>
 
@@ -29,7 +29,7 @@
                     <a class=""
                        href="{{ $paginator->nextPageUrl() ?? '#' }}">
 
-                          <i class="fa fa-angle-left"></i>
+                          <i class=" {{ $paginator->hasMorePages() ? 'text-red-accent' : 'disabled' }} fa fa-angle-left"></i>
                     </a>
                 </span>
 
