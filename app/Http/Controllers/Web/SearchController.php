@@ -47,7 +47,7 @@ class SearchController extends Controller
             ->when(!empty($priceTo), fn($query) => $query->where('price', '<=', $priceTo))
             ->latest()
             ->simplePaginate();
-
+        $productsForPagination = clone $products;
         $categories = Category::where('is_active', true)
             ->where(['is_active' => true, 'is_main' => true])
             ->whereIn('type', [
@@ -60,7 +60,7 @@ class SearchController extends Controller
             ->orderBy('sortable')
             ->orderByRaw("FIELD(type, 'product', 'job', 'search_job','tender','service','news')")
             ->get();
-        return view('theme2.search', compact('products',  'categories'));
+        return view('theme2.search', compact('products',  'categories','productsForPagination'));
     }
 
     /**
