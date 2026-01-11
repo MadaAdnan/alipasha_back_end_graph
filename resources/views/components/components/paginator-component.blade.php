@@ -11,10 +11,10 @@
                 <span class=" {{ $paginator->onFirstPage() ? 'disabled' : '' }}">
                     <a class=""
                        href="{{ $paginator->previousPageUrl() ?? '#' }}">
-                        <i class="fa fa-angle-left"></i>
+                        <i class="fa fa-angle-right"></i>
                     </a>
                 </span>
-
+{{dd($paginator)}}
                 {{-- الأرقام --}}
                 @foreach ($paginator->links()->elements[0] ?? [] as $page => $url)
                     <span class=" {{ $paginator->currentPage() == $page ? 'active' : '' }}">
@@ -28,7 +28,8 @@
                 <span class=" {{ $paginator->hasMorePages() ? '' : 'disabled' }}">
                     <a class=""
                        href="{{ $paginator->nextPageUrl() ?? '#' }}">
-                        <i class="fa fa-angle-right"></i>
+
+                          <i class="fa fa-angle-left"></i>
                     </a>
                 </span>
 
