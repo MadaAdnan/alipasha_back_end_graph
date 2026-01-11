@@ -5,7 +5,7 @@
 ])
 <div class="d-flex gap-1">
     @if($isDiscount)
-        <del class="text-gray fs-6">{{$price}} $</del>
+        <sup><del class="text-gray fs-6">{{$price}} $</del></sup>
         <span class="text-red-accent fw-bold fs-5">{{$discount}} $</span>
     @else
         <span class="text-red-accent fw-bold fs-5">{{$price}} $</span>
