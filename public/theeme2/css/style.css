@@ -16,7 +16,7 @@ option>img{
     --red:#e30613;
     --red-accent:#ff5f57;
     --gold:#FFCC00;
-    --blue:#0000FF
+    --blue-accent: #0080ff
 }
 .bg-gray {
     background-color: var(--gray-bg);
