@@ -11,7 +11,7 @@
                     src="{{$product->getImage()}}"
                     class="card-img-top img-card-product"
                     alt="property"
-                    style="height: 220px; object-fit: cover;"
+                    style=" object-fit: cover;"
                 >
                 @if($product->level=='special')
                     <!-- Badge -->
