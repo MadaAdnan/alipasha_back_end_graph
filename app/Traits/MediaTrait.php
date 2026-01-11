@@ -51,7 +51,9 @@ trait MediaTrait
         }
         if ($this->hasMedia($collection)) {
             return $this->getFirstMediaUrl($collection, $conversation);
-        } elseif ($collection == 'logo') {
+        }else if ($this->hasMedia('images')) {
+        return $this->getFirstMediaUrl('images', $conversation);
+    } elseif ($collection == 'logo') {
             return asset('images/bg.jpg');
         } elseif ($this instanceof User && $collection == 'image') {
             return asset('images/user-profile.png');
