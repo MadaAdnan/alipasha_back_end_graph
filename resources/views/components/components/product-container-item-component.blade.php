@@ -23,6 +23,7 @@
     <!-- Body -->
     <div class="card-body">
 
+        <x-components.seller-name-component :seller="$product->user"/>
         <!-- Title -->
         <h6 class="card-title fw-bold text-dark mb-2">
            {{$product->name ?? $product->expert}}
