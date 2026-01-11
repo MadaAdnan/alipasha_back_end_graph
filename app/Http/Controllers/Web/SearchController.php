@@ -46,7 +46,7 @@ class SearchController extends Controller
             ->where('price', '>=', $priceFrom)
             ->when(!empty($priceTo), fn($query) => $query->where('price', '<=', $priceTo))
             ->latest()
-            ->simplePaginate();
+            ->paginate();
         $productsForPagination = clone $products;
         $categories = Category::where('is_active', true)
             ->where(['is_active' => true, 'is_main' => true])

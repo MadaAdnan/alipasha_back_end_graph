@@ -14,7 +14,7 @@
                         <i class="fa fa-angle-right"></i>
                     </a>
                 </span>
-{{dd($paginator->links()->elements)}}
+
                 {{-- الأرقام --}}
                 @foreach ($paginator->links()->elements[0] ?? [] as $page => $url)
                     <span class=" {{ $paginator->currentPage() == $page ? 'active' : '' }}">
