@@ -18,7 +18,7 @@
                         <x-components.estate-card-component :product="$product"/>
                     @endforeach
                 @else
-
+<div class="col-9"><div class="bg-white p-2 rounded">لا يوجد اى نتائج</div>
                 @endif
             </div>
         </div>
