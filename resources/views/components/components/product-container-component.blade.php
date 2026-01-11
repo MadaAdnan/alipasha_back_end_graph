@@ -11,7 +11,7 @@
 <div class="card card-body">
     @if($categoryName!=null)
         <div class="d-flex justify-content-between">
-            <h3 class="fs-6">{{$categoryName}}</h3>
+            <h3 class="fs-6 text-red">{{$categoryName}}</h3>
             @if($categoryId!=null)
                 <a href="{{route('category.show',['id'=>$categoryId])}}" class="fs-6">مشاهدة المزيد</a>
             @endif

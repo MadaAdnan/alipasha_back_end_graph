@@ -27,6 +27,9 @@ option>img{
     background-color: var(--red);
     color: var(--white);
 }
+.text-red{
+    color: var(--red);
+}
 .bg-red:hover{
     background-color: var(--white);
     color:  var(--red);
@@ -36,6 +39,9 @@ option>img{
     background-color: var(--red-accent);
     color: var(--white);
 }
+.text-red-accent{
+    color: var(--red-accent);
+}
 .bg-red-accent:hover{
     background-color: var(--white);
     color:  var(--red-accent);
@@ -44,6 +50,9 @@ option>img{
 .bg-gold{
     background-color: var(--gold);
     color: var(--white);
+}
+.text-gold{
+    color: var(--gold);
 }
 .bg-gold:hover{
     background-color: var(--white);
