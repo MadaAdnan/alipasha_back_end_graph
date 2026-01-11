@@ -3,7 +3,7 @@
 @if($paginator!=null)
 
 
-    <nav>
+    <nav class="bg-white rounded p-2">
 
             <ul class="pagination justify-content-center">
 
@@ -11,7 +11,7 @@
                 <li class="page-item {{ $paginator->onFirstPage() ? 'disabled' : '' }}">
                     <a class="page-link"
                        href="{{ $paginator->previousPageUrl() ?? '#' }}">
-                        السابق
+                        <i class="fa fa-angle-left"></i>
                     </a>
                 </li>
 
@@ -28,7 +28,7 @@
                 <li class="page-item {{ $paginator->hasMorePages() ? '' : 'disabled' }}">
                     <a class="page-link"
                        href="{{ $paginator->nextPageUrl() ?? '#' }}">
-                        التالي
+                        <i class="fa fa-angle-right"></i>
                     </a>
                 </li>
 
