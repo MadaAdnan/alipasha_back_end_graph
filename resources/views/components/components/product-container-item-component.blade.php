@@ -9,7 +9,7 @@
             <div class="position-relative">
                 <img
                     src="{{$product->getImage()}}"
-                    class="card-img-top"
+                    class="card-img-top img-card-product"
                     alt="property"
                     style="height: 220px; object-fit: cover;"
                 >
