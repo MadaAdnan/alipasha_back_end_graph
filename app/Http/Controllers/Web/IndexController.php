@@ -40,20 +40,20 @@ class IndexController extends Controller
                 CategoryTypeEnum::PRODUCT->value,
             ])
 
-            // حساب عدد المنتجات الفعالة
+            // عدّ المنتجات بنفس شروط الجلب
             ->withCount([
                 'products as products_count' => function ($query) {
-                    $query->active();
+                    $query->active()
+                        ->upTo20();
                 }
             ])
 
-            // شرط: 8 منتجات على الأقل
+            // إلزام 8 منتجات على الأقل
             ->having('products_count', '>=', 8)
 
             ->inRandomOrder()
             ->take(5)
 
-            // تحميل المنتجات
             ->with([
                 'products' => function ($query) {
                     $query->active()
@@ -69,6 +69,7 @@ class IndexController extends Controller
                 }
             ])
             ->get();
+
 
         /* $products = Product::active()->upTo20()->whereIn('type', [
              CategoryTypeEnum::PRODUCT->value,
