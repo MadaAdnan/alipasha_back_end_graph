@@ -4,7 +4,7 @@
 
 
     <nav>
-        
+
             <ul class="pagination justify-content-center">
 
                 {{-- السابق --}}
@@ -34,4 +34,6 @@
 
             </ul>
     </nav>
+@else
+    <h2>ERROR</h2>
 @endif
