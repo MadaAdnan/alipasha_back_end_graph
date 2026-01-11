@@ -2,7 +2,7 @@
 @props(['paginator'])
 
 @php
-dd(typeOf($paginator))
+dd(get_class($paginator))
  @endphp
 @if ($paginator && ($paginator instanceof \Illuminate\Pagination\Paginator || $paginator instanceof \Illuminate\Pagination\LengthAwarePaginator)&& $paginator->hasPages())
     @php
