@@ -47,7 +47,7 @@ class SearchController extends Controller
             ->when(!empty($priceTo), fn($query) => $query->where('price', '<=', $priceTo))
             ->latest()
             ->simplePaginate();
-
+        dd(get_class($products));
         $categories = Category::where('is_active', true)
             ->where(['is_active' => true, 'is_main' => true])
             ->whereIn('type', [
