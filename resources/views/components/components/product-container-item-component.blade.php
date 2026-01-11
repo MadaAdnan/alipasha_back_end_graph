@@ -25,7 +25,7 @@
         <!-- Body -->
         <div class="card-body">
 
-            <x-components.seller-name-component :seller="$product->user" class="fs-7"/>
+            <x-components.seller-name-component :seller="$product->user" class="fs-7" iconSize="fs-7"/>
             <!-- Title -->
             <a href="{{route('posts.show',$product->id)}}">
                 <h6 class=" fw-bold text-dark my-1 card-address w-100  overflow-hidden">
