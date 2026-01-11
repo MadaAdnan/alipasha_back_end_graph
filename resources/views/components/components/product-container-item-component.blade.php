@@ -47,7 +47,7 @@
                 </div>
 
                 <div class="d-flex align-items-center gap-1">
-                    <i class="fa fa-heart"></i> <span>{{\App\Helpers\GlobalHelper::formatNumber($product->likkes_count)}}</span>
+                    <i class="fa fa-heart"></i> <span>{{\App\Helpers\GlobalHelper::formatNumber($product->likes_count)}}</span>
                 </div>
 
                 <div class="d-flex align-items-center gap-1">
