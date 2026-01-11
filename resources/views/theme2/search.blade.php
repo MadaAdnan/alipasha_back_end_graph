@@ -18,7 +18,7 @@
                         <x-components.estate-card-component :product="$product" class="d-none d-md-flex mt-2"/>
                         <x-components.product-container-item-component :product="$product" class="d-block d-md-none mt-2"/>
                     @endforeach
-                    <x-components.paginator-component :paginator="$products"/>
+                    <x-components.paginator-component paginator="{{$products}}"/>
                 @else
 <div class="bg-white p-2 rounded">لا يوجد اى نتائج</div>
                 @endif
