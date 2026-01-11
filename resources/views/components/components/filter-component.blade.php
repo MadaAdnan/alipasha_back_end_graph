@@ -1,7 +1,7 @@
 @props([
     'route'=>null
 ])
-<form class="bg-white p-2 mt-2 rounded" action="{{$route}}" method="get">
+<form class="bg-white p-2 mt-2 rounded" action="{{$route??route('search.index')}}" method="get">
     <div class="row  ">
         {{-- المحافظة --}}
         <div class="col-md-12">
