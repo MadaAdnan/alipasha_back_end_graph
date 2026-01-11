@@ -1,6 +1,6 @@
 @props(['paginator'])
 
-@if($paginator instanceof \Illuminate\Pagination\Paginator || $paginator instanceof \Illuminate\Pagination\LengthAwarePaginator)
+@if($paginator!=null)
 
 
     <nav>
