@@ -5,7 +5,7 @@
             <div class="col-md-12">
                 <x-components.bread-crumb-component/>
             </div>
-            <x-components.side-bar-category-component :categories="[]"/>
+            <x-components.side-bar-category-component :categories="$categories"/>
             <div class="col-md-9">
 
             @if($categoriesWithProducts)
