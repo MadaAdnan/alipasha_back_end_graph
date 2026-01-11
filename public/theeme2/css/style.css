@@ -148,7 +148,9 @@ option>img{
 
     position: relative;
 }
-
+.estate-card .carousel-inner{
+    height: 138px;
+}
 
 
 .carousel-indicators button {
