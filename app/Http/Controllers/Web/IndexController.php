@@ -42,7 +42,7 @@ class IndexController extends Controller
             ->whereHas('products', function ($query) {
                 $query->active();
             }, '>', 8)
-            ->take(5)->without(['products' => fn($query) => $query->active()->upTo20()->take(8)->orderByRaw("
+            ->take(5)->with(['products' => fn($query) => $query->active()->upTo20()->take(8)->orderByRaw("
     CASE
         WHEN level = 'special' THEN 1
         ELSE 2
