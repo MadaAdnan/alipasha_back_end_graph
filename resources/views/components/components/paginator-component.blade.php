@@ -1,7 +1,7 @@
 @props([
     'paginator'=>null,
 ])
-@if ($paginator?->hasPages())
+@if ($paginator!=null && $paginator->hasPages())
     <nav>
         <ul class="pagination justify-content-center">
 
