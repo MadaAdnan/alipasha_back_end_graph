@@ -2,7 +2,7 @@
     'seller'=>null
 ])
 @if($seller)
-<a class="cursor-pointer d-flex  align-items-center" href="{{route('seller.profile',$seller->id)}}">
+<a class="cursor-pointer d-flex  align-items-center gap-1" href="{{route('seller.profile',$seller->id)}}">
     <img src="{{$seller->getImage('logo')}}" class="rounded-circle" style="width: 30px; height: 30px;">
   <span class="seller-name d-inline-block">  {{$seller->seller_name ?? $seller->name}}</span>
     @if($seller->is_verified==true)
