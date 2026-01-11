@@ -37,12 +37,13 @@ class IndexController extends Controller
         $categoriesWithProducts = Category::where('is_active', true)
             ->where('is_main', true)
             ->where('type', CategoryTypeEnum::PRODUCT->value)
-            ->whereHas('media')
+
 
             ->withCount([
                 'products as products_count' => function ($query) {
                     $query->active()
                         ->upTo20()
+                        ->whereHas('media')
                         ->orderByRaw("CASE WHEN level = 'special' THEN 1 ELSE 2 END")
                         ->orderBy('created_at', 'DESC');
                 }
@@ -57,6 +58,7 @@ class IndexController extends Controller
                 'products' => function ($query) {
                     $query->active()
                         ->upTo20()
+                        ->whereHas('media')
                         ->orderByRaw("CASE WHEN level = 'special' THEN 1 ELSE 2 END")
                         ->orderBy('created_at', 'DESC');
                 }
