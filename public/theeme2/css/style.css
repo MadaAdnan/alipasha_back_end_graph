@@ -115,9 +115,9 @@ option>img{
 }
 /*ProductCard*/
 .card-address{
-    height: 42px;
-    max-height: 42px;
-    max-lines: 2;
+    height: 25px;
+    max-height: 25px;
+   max-width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
 }
