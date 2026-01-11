@@ -17,36 +17,49 @@ class SearchController extends Controller
      */
     public function index()
     {
-        $type=\request()->get('type');
-        $text=\request()->get('q');
-        $city=\request()->get('city');
+        $type = \request()->get('type') ?? 'product';
+        $text = \request()->get('q');
+        $city = \request()->get('city_id') ?? \request()->get('city');
+        $area = \request()->get('area_id');
 
-        $category=\request()->get('category');
-        $section=\request()->get('section');
-        $price=\request()->get('price');
+        $category = \request()->get('category');
+        $section = \request()->get('section');
+        $priceFrom = \request()->get('price_from') ?? 0;
+        $priceTo = \request()->get('price_to');
 
-        $products=Product::where('active',ProductActiveEnum::ACTIVE->value)
-            ->when(!empty($type),function($query)use($type){
-                if($type==CategoryTypeEnum::SEARCH_JOB->value || $type==CategoryTypeEnum::JOB->value ){
-                    $query->whereIn('type',[
+        $products = Product::where('active', ProductActiveEnum::ACTIVE->value)
+            ->when(!empty($type), function ($query) use ($type) {
+                if ($type == CategoryTypeEnum::SEARCH_JOB->value || $type == CategoryTypeEnum::JOB->value) {
+                    $query->whereIn('type', [
                         CategoryTypeEnum::SEARCH_JOB->value,
                         CategoryTypeEnum::JOB->value,
                     ]);
-                }else{
-                   $query->where('type',$type);
+                } else {
+                    $query->where('type', $type);
                 }
             })
-            ->when(!empty($text),fn($query)=>$query->where(fn($q)=>$q->where('name','like',"%{$text}%")->orWhere('info','like',"%{$text}%")))
-            ->when(!empty($city),fn($query)=>$query->where('city_id',$city))
-            ->when(!empty($category),fn($query)=>$query->where('sub1_id',$category))
-            ->when(!empty($section),fn($query)=>$query->where('category_id',$section))
-            ->when(!empty($price) && $type==CategoryTypeEnum::PRODUCT->value,fn($query)=>$query->whereBetween('price',[0,$price]))
+            ->when(!empty($text), fn($query) => $query->where(fn($q) => $q->where('name', 'like', "%{$text}%")->orWhere('info', 'like', "%{$text}%")))
+            ->when(!empty($city), fn($query) => $query->where('city_id', $city))
+            ->when(!empty($area), fn($query) => $query->whereHas('user', fn($query) => $query->where('area_id', $area)))
+            ->when(!empty($category), fn($query) => $query->where('sub1_id', $category))
+            ->when(!empty($section), fn($query) => $query->where('category_id', $section))
+            ->where('price', '>=', $priceFrom)
+            ->when(!empty($priceTo), fn($query) => $query->where('price', '<=', $priceTo))
             ->latest()
-        ->paginate();
-        $cities=City::where('is_active',true)->where('is_main',true)->orderBy('city_id')->get();
-        $categories=Category::where('is_active',true)
-            ->where(fn($query)=>$query->where('type',CategoryTypeEnum::PRODUCT->value)->orWhere('type',CategoryTypeEnum::RESTAURANT->value))->orderBy('sortable')->with('children')->get();
-        return view('web.search',compact('products','cities','categories'));
+            ->paginate();
+        $categories = Category::where('is_active', true)
+            ->where(['is_active' => true, 'is_main' => true])
+            ->whereIn('type', [
+                CategoryTypeEnum::PRODUCT->value,
+                CategoryTypeEnum::JOB->value,
+                CategoryTypeEnum::SEARCH_JOB->value,
+//                CategoryTypeEnum::TENDER->value,
+//                CategoryTypeEnum::NEWS->value,
+            ])
+            ->orderBy('sortable')
+            ->orderByRaw("FIELD(type, 'product', 'job', 'search_job','tender','service','news')")
+            ->get();
+        return view('theme2.search', compact('products',  'categories'));
     }
 
     /**
