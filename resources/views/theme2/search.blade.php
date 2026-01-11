@@ -12,7 +12,7 @@
                 <x-components.filter-component/>
             </div>
 
-            <div class="col-md-9">
+            <div class="col-md-9 my-2">
                 @if($products->count()>0)
                     @foreach($products as $product)
                         <x-components.estate-card-component :product="$product"/>
