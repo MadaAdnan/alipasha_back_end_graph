@@ -1,18 +1,23 @@
+@props([
+    'product'=>null,
+])
+@if($product)
 <div class="card shadow-sm rounded-4 overflow-hidden" style="max-width: 350px;">
 
     <!-- Image -->
     <div class="position-relative">
         <img
-            src="https://via.placeholder.com/400x250"
+            src="{{$product->getImage()}}"
             class="card-img-top"
             alt="property"
             style="height: 220px; object-fit: cover;"
         >
-
+@if($product->level=='special')
         <!-- Badge -->
-        <span class="badge bg-success position-absolute top-0 end-0 m-3 px-3 py-2">
-            معروض
+        <span class="badge bg-gold position-absolute top-0 end-0 m-3 px-3 py-2">
+            ممول
         </span>
+    @endif
     </div>
 
     <!-- Body -->
@@ -20,35 +25,38 @@
 
         <!-- Title -->
         <h6 class="card-title fw-bold text-dark mb-2">
-            شقة 1+4 دوبلكس بحديقة بشش
+           {{$product->name ?? $product->expert}}
         </h6>
 
         <!-- Price -->
         <div class="fw-bold text-success fs-5 mb-3">
-            TL 0
+            {{$product->price}}
         </div>
 
         <!-- Info -->
         <div class="d-flex flex-wrap gap-3 text-muted small">
 
             <div class="d-flex align-items-center gap-1">
-                📅 <span>2026/3</span>
+                <i class="fa fa-calendar"></i> <span>{{$product->created_at?->format('Y-m')}}</span>
             </div>
 
             <div class="d-flex align-items-center gap-1">
-                🏠 <span>38</span>
+                <i class="fa fa-comments"></i> <span>{{$product->comments_count}}</span>
             </div>
 
             <div class="d-flex align-items-center gap-1">
-                🛏 <span>1899 م²</span>
+                <i class="fa fa-eye"></i> <span>{{$product->views_count}}</span>
             </div>
 
         </div>
 
         <!-- Location -->
         <div class="d-flex align-items-center gap-1 text-muted small mt-2">
-            📍 <span>Üsküdar, Istanbul</span>
+            <i class="fa fa-map-pin"></i> <span>{{$product->user?->address}}</span>
         </div>
 
     </div>
 </div>
+@else
+<div></div>
+@endif
