@@ -40,9 +40,9 @@
     {{-- التفاصيل --}}
     <div class="estate-info p-3 flex-fill">
 
-        <h5 class="estate-title mb-2">{{ $product->expert }}</h5>
+        <h6 class="estate-title ">{{ $product->expert }}</h6>
 
-        <div class="estate-price text-success fw-bold mb-2">
+        <div class="estate-price text-success fw-bold ">
             <x-components.price-component  :price="$product->price" :discount="$product->discount" :isDiscount="$product->is_discount" />
 
         </div>
