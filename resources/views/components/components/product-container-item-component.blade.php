@@ -2,7 +2,7 @@
     'product'=>null,
 ])
 @if($product)
-    <div class="card shadow-sm rounded-4 overflow-hidden my-1">
+    <div class="card shadow-sm radius-10 overflow-hidden my-1">
 
         <!-- Image -->
         <a href="{{route('posts.show',$product->id)}}">
