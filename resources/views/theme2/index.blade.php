@@ -5,12 +5,14 @@
             <div class="col-md-12">
             </div>
             <x-components.side-bar-category-component :categories="$categories"/>
+            <div class="col-md-9">
             @if($categoriesWithProducts)
                 @foreach($categoriesWithProducts as $category)
                     <x-components.product-container-component :products="$category->products" :category="$category"/>
                 @endforeach
 
                 @endif
+            </div>
         </div>
     </div>
 
