@@ -113,7 +113,7 @@ class AuthController extends Controller
 
     public function forgetPasswordUi()
     {
-        return view('web.forget-password');
+        return view('theme2.reset_password');
     }
 
     public function forgetPassword(Request $request)

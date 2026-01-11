@@ -1,6 +1,10 @@
 *{
     font-family: almarai, serif;
 }
+a{
+    color: var(--gray-text);
+    text-decoration: none;
+}
 option>img{
     width: 30px;
     aspect-ratio: 3/1;
@@ -9,7 +13,9 @@ option>img{
     --gray-bg:#F5F6FA;
     --gray-text:#4E5468;
     --white:#FFFFFF;
-    --red:#e30613
+    --red:#e30613;
+    --red-accent:#ff5f57;
+    --gold:#FFCC00
 }
 .bg-gray {
     background-color: var(--gray-bg);
@@ -25,6 +31,28 @@ option>img{
     background-color: var(--white);
     color:  var(--red);
     border: var(--red) 1px solid;
+}
+.bg-red-accent{
+    background-color: var(--red-accent);
+    color: var(--white);
+}
+.bg-red-accent:hover{
+    background-color: var(--white);
+    color:  var(--red-accent);
+    border: var(--red-accent) 1px solid;
+}
+.bg-gold{
+    background-color: var(--gold);
+    color: var(--white);
+}
+.bg-gold:hover{
+    background-color: var(--white);
+    color:  var(--gold);
+    border: var(--gold) 1px solid;
+}
+.divider{
+    border-top:1px solid var(--gray-text);
+
 }
 /*NavBar Component*/
 .transparent,.transparent:hover, .transparent:active{

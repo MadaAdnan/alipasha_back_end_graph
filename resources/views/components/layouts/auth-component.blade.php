@@ -44,13 +44,23 @@
                                                 label="البريد الإلكتروني" placeholder="example@domain.com" required/>
                         <x-form.input-password-component type="password" class="form-control" id="loginPassword"
                                                          label="كلمة المرور" required/>
-                        <button type="submit" class="btn btn-primary w-100">تسجيل الدخول</button>
+                        <div class="d-flex justify-content-end">
+                            <a href="{{route('forget-password.ui')}}" class="my-1">نسيت كلمة المرور؟</a>
+                        </div>
+                        <button type="submit" class="btn bg-gold w-100">تسجيل الدخول</button>
+
                     </form>
+                    <div class="d-flex justify-content-between align-items-center my-1">
+                        <div class="divider flex-grow-1"></div>
+                        <span class="flex-grow-1 text-center">أو </span>
+                        <div class="divider flex-grow-1"></div>
+                    </div>
                     <a href="{{route('google.auth.site')}}" class="btn bg-red w-100 my-1">سجل عن طريق <i
                             class="fa-brands fa-google"></i></a>
                     <div class="d-flex justify-content-between">
 
                         <a href="{{route('index')}}" class="my-1">عودة للصفحة الرئيسية</a>
+
                     </div>
                 </div>
 
@@ -89,8 +99,13 @@
                                                 id="registerAddress" name="affiliate"
                                                 label="كود الإحالة" placeholder="أدخل كود الإحالة"/>
 
-                        <button type="submit" class="btn btn-success w-100">إنشاء حساب جديد</button>
+                        <button type="submit" class="btn bg-gold w-100">إنشاء حساب جديد</button>
                     </form>
+                    <div class="d-flex justify-content-between align-items-center my-1">
+                        <div class="divider flex-grow-1"></div>
+                        <span class="flex-grow-1 text-center">أو </span>
+                        <div class="divider flex-grow-1"></div>
+                    </div>
                     <a href="{{route('google.auth.site')}}" class="btn bg-red w-100 my-1">سجل عن طريق <i
                             class="fa-brands fa-google"></i></a>
                     <div class="d-flex justify-content-between">
