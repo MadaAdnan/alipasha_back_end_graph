@@ -152,7 +152,11 @@ option>img{
 .estate-card .carousel-inner{
     width: 275px ;
 }
-
+.estate-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
 .carousel-indicators button {
     width: 8px !important;
