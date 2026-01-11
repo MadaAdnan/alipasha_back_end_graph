@@ -1,7 +1,7 @@
 @php use Illuminate\Pagination\UrlWindow; @endphp
 @props(['paginator'])
 
-@if ($paginator && $paginator->hasPages())
+@if ($paginator && ($paginator instanceof \Illuminate\Pagination\Paginator || $paginator instanceof \Illuminate\Pagination\LengthAwarePaginator)&& $paginator->hasPages())
     @php
 
         $elements = UrlWindow::make($paginator)->elements;
