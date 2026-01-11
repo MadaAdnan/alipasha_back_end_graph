@@ -60,6 +60,9 @@ option>img{
     color:  var(--gold);
     border: var(--gold) 1px solid;
 }
+.text-blue-accent{
+    color: var(--blue-accent);
+}
 .divider{
     border-top:1px solid var(--gray-text);
 
