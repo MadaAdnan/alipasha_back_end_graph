@@ -54,6 +54,9 @@ option>img{
     border-top:1px solid var(--gray-text);
 
 }
+.cursor-pointer{
+    cursor: pointer;
+}
 /*NavBar Component*/
 .transparent,.transparent:hover, .transparent:active{
     background-color: transparent;
@@ -65,7 +68,9 @@ option>img{
     top: 5px;
     left: 5px;
 }
-
+.logo{
+    aspect-ratio: 25/35;
+}
 /*Auth Component*/
 .nav-tabs {
     border: none;

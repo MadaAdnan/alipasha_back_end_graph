@@ -1,21 +1,19 @@
 <?php
 
-namespace App\View\Components\Layouts;
+namespace App\View\Components\Components;
 
-use App\Models\Setting;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class NavBarComponent extends Component
+class MoreCategoryBadgeComponent extends Component
 {
-    public $setting;
     /**
      * Create a new component instance.
      */
     public function __construct()
     {
-        $this->setting=Setting::first();
+        //
     }
 
     /**
@@ -23,8 +21,6 @@ class NavBarComponent extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.layouts.nav-bar-component',[
-            'setting'=>$this->setting
-        ]);
+        return view('components.components.more-category-badge-component');
     }
 }
