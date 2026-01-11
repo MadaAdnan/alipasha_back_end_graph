@@ -118,3 +118,8 @@ option>img{
     overflow: hidden;
     text-overflow: ellipsis;
 }
+.seller-name{
+    max-lines: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
