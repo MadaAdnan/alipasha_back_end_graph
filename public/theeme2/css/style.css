@@ -18,6 +18,9 @@ option>img{
     --gold:#FFCC00;
     --blue-accent: #0080ff
 }
+.fs-7{
+    font-size: 0.7rem;
+}
 .bg-gray {
     background-color: var(--gray-bg);
 }
