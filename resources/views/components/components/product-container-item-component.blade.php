@@ -52,7 +52,7 @@
         </div>
 
         <!-- Location -->
-        <div class="d-flex align-items-center gap-1 text-muted small mt-2">
+        <div class="d-flex align-items-center gap-1 text-muted small mt-2 card-address">
             <i class="fa fa-map-pin"></i> <span>{{$product->user?->address}}</span>
         </div>
 
