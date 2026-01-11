@@ -38,7 +38,7 @@
     </div>
 
     {{-- التفاصيل --}}
-    <div class="estate-info p-3 flex-fill">
+    <div class="estate-info p-2 flex-fill">
 
         <h6 class="estate-title pe-2 ">{{ $product->expert }}</h6>
 
