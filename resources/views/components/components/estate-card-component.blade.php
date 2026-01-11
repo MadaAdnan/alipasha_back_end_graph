@@ -1,7 +1,8 @@
 @props([
-    'product'=>null
+    'product'=>null,
+    'class'=>null
 ])
-<div class="estate-card d-flex border rounded overflow-hidden">
+<div class="estate-card d-flex border rounded overflow-hidden {{$class}}">
 
     {{-- السلايدر --}}
     <div id="estateCarousel{{ $product->id }}" class="carousel slide estate-image" data-bs-ride="carousel">
