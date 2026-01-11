@@ -136,3 +136,6 @@ option>img{
 .img-card-product{
     height: 130px;
 }
+.radius-10{
+    border-radius: 10px;
+}

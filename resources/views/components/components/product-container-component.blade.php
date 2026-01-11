@@ -8,7 +8,7 @@
     $categoryId=$category?->id;
 @endphp
 
-<div class="card card-body my-2">
+<div class="card card-body my-2 radius-10">
     @if($categoryName!=null)
         <div class="d-flex justify-content-between">
             <h3 class="fs-6 text-red">{{$categoryName}}</h3>
