@@ -5,7 +5,10 @@
             <div class="col-md-12">
                 <x-components.bread-crumb-component :categories="[]"/>
             </div>
-            <x-components.side-bar-category-component :categories="$categories" :categoryId="$category->id"/>
+            <div class="col-md-3">
+                <x-components.side-bar-category-component :categories="$categories" :categoryId="$category->id"/>
+            </div>
+
             <div class="col-md-9">
                         <x-components.product-container-component :products="$category->products" :category="$category"/>
 
