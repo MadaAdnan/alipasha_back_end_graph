@@ -20,6 +20,7 @@ option>img{
 }
 .breadcrumb-item + .breadcrumb-item::before {
     float: right;
+    padding-left: 8px;
 }
 .fs-7{
     font-size: 0.7rem;
