@@ -4,8 +4,9 @@
 ])
 @php
 $dataCategory=$category;
+$category_id=$categoryId??null;
  @endphp
-@if($categoryId!=null)
+@if($category_id!=null && $dataCategory?->id==$category_id)
     <dl>
         <dt>
             <a class="cursor-pointer " href="{{route('category.show',$dataCategory?->id)}}">
