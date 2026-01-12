@@ -18,9 +18,16 @@ option>img{
     --gold:#FFCC00;
     --blue-accent: #0080ff
 }
+/*BreadCrumb*/
 .breadcrumb-item + .breadcrumb-item::before {
     float: right;
     padding-left: 8px;
+}
+.breadcrumb-item{
+    color: var(--gray-text);
+}
+.breadcrumb-item.active{
+    color: var(--red-accent);
 }
 .fs-7{
     font-size: 0.7rem;
