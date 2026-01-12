@@ -7,13 +7,8 @@
             </div>
             <x-components.side-bar-category-component :categories="$categories" :categoryId="$category->id"/>
             <div class="col-md-9">
-
-                @if($categoriesWithProducts)
-                    @foreach($categoriesWithProducts as $category)
                         <x-components.product-container-component :products="$category->products" :category="$category"/>
-                    @endforeach
 
-                @endif
                 <x-components.paginator-component :paginator="$cloneProducts"/>
             </div>
         </div>
