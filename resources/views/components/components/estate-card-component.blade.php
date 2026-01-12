@@ -60,7 +60,7 @@
             </a>
 
             <a href="{{ $product->whatsapp_url }}" class="text-success fw-bold text-decoration-none">
-                <i class="fa-brands fa-whatsapp fa-1x"></i>
+                <i class="fa-brands fa-whatsapp fs-6"></i>
             </a>
         </div>
 
