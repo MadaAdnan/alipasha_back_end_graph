@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Enums\CategoryTypeEnum;
 use App\Enums\ProductActiveEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
@@ -41,17 +42,29 @@ class CategoryController extends Controller
      */
     public function show(string $id)
     {
-        $cities=City::whereIsActive(true)->whereIsMain(true)->get();
-        $cityId=\request()->get('city_id');
-        $search=\request()->get('q');
+
         $category=Category::findOrFail($id);
-        $categories=$category->children;
-        $category_id=\request()->get('category_id');
-        $products=Product::where(['category_id'=>$id,'active' => ProductActiveEnum::ACTIVE->value])
-            ->when(!empty($search),fn($query)=>$query->where('name','Like',"%{$search}%")->orWhere('expert','Like',"%{$search}%"))
-            ->when(!empty($cityId),fn($query)=>$query->whereHas('city',fn($q)=>$q->where('city_id',$cityId)))
-            ->when($category_id!=null,fn($query)=>$query->where('sub1_id',$category_id))->latest()->paginate(28);
-        return view('web.section_show',compact('category','products','categories','cities'));
+        $categories = Category::where('is_active', true)
+            ->where(['is_active' => true, 'is_main' => true])
+            ->whereIn('type', [
+                CategoryTypeEnum::PRODUCT->value,
+                CategoryTypeEnum::JOB->value,
+                CategoryTypeEnum::SEARCH_JOB->value,
+//                CategoryTypeEnum::TENDER->value,
+//                CategoryTypeEnum::NEWS->value,
+            ])
+            ->orderBy('sortable')
+            ->orderByRaw("FIELD(type, 'product', 'job', 'search_job','tender','service','news')")
+            ->get();
+        $products=Product::active()->upTo20()->where(function($query)use($id){
+            $query->where('category_id',$id);
+            $query->orWhere('sub1_id',$id);
+            $query->orWhere('sub2_id',$id);
+            $query->orWhere('sub3_id',$id);
+            $query->orWhere('sub4_id',$id);
+        })  ->latest()
+            ->paginate();
+        return view('theme2.category',compact('category','products','categories'));
     }
 
     /**
