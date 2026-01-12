@@ -5,7 +5,7 @@
             <div class="col-md-12">
                 <x-components.bread-crumb-component :categories="[
     ['id'=>null,'name'=>'الفلتر','class'=>'active']
-]"/>
+]" :firstUrl="route('index')"/>
             </div>
             <div class="col-md-3  my-2">
                 <x-components.side-bar-category-component :categories="$categories"/>

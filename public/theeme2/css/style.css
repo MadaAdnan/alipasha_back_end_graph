@@ -24,10 +24,11 @@ option>img{
     padding-left: 8px;
 }
 .breadcrumb-item a{
-    color: var(--gray-text);
+    color: var(--red-accent);
 }
 .breadcrumb-item.active a{
-    color: var(--red-accent);
+    color: var(--gray-text);
+
 }
 .fs-7{
     font-size: 0.7rem;
