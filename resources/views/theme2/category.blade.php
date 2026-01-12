@@ -14,6 +14,7 @@
                     @endforeach
 
                 @endif
+                <x-components.paginator-component :paginator="$cloneProducts"/>
             </div>
         </div>
     </div>
