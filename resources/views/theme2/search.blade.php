@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-md-12">
                 <x-components.bread-crumb-component :categories="[
-    ['id'=>null,'name'=>'الفلتر']
+    ['id'=>null,'name'=>'الفلتر','class'=>'active']
 ]"/>
             </div>
             <div class="col-md-3  my-2">

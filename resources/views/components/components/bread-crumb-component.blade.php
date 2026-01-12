@@ -8,7 +8,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"> <a href="{{$urlFirst}}"><i class="{{$iconFirst}}"></i> {{$first}}</a></li>
             @foreach($categories as $category)
-                <li class="breadcrumb-item"><a href="{{$category['url']??'#'}}">@if(isset($category['icon'])) <i class="{{$category['icon']}}"></i> @endif {{$category['name']}}</a></li>
+                <li class="breadcrumb-item {{$category['class']??''}}" @if(isset($category['class']) && $category['class']=='active') aria-current="page" @endif><a href="{{$category['url']??'#'}}">@if(isset($category['icon'])) <i class="{{$category['icon']}}"></i> @endif {{$category['name']}}</a></li>
             @endforeach
         </ol>
 
