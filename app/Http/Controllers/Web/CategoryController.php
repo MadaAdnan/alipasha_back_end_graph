@@ -44,8 +44,7 @@ class CategoryController extends Controller
     {
 
         $category=Category::findOrFail($id);
-        $categories = Category::where('is_active', true)
-            ->where(['is_active' => true, 'is_main' => true])
+        $categories = Category::where(['is_active' => true, 'is_main' => true])
             ->whereIn('type', [
                 CategoryTypeEnum::PRODUCT->value,
                 CategoryTypeEnum::JOB->value,
