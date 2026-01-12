@@ -8,7 +8,7 @@
 
     <div class="bg-white p-1 rounded">
         @foreach($dataCategories as $category)
-            <x-components.side-bar-category-item-component @if($categoryId==$category->id) :categoryId="$categoryId"  @endif :category="$category" />
+            <x-components.side-bar-category-item-component @if($categoryId != null && $categoryId==$category->id) :categoryId="$categoryId"  @endif :category="$category" />
         @endforeach
     </div>
 

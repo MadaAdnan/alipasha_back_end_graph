@@ -5,7 +5,7 @@
 @php
 $dataCategory=$category;
  @endphp
-@if($categoryId)
+@if($categoryId!=null)
     <dl>
         <dt>
             <a class="cursor-pointer " href="{{route('category.show',$dataCategory?->id)}}">
