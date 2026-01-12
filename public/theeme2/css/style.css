@@ -23,10 +23,10 @@ option>img{
     float: right;
     padding-left: 8px;
 }
-.breadcrumb-item{
+.breadcrumb-item a{
     color: var(--gray-text);
 }
-.breadcrumb-item.active{
+.breadcrumb-item.active a{
     color: var(--red-accent);
 }
 .fs-7{
