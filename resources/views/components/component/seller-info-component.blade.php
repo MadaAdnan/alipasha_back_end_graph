@@ -9,7 +9,7 @@
     <div class="d-flex justify-content-center">
         <form action="{{route('communities.store')}}">
             @csrf
-            <button class="btn btn-sm btn-outline-primary">
+            <button class="btn-green rounded bg-transparent">
                 <i class="fa fa-chat"></i>
                 <span class="small d-none d-md-inline-block mx-1">
                    تحدث معه
