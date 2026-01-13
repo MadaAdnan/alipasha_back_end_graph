@@ -8,7 +8,7 @@
     <a class="cursor-pointer d-flex justify-content-start  align-items-center gap-1"
        href="{{route('seller.profile',$seller->id)}}">
         @if($image)
-            <img src="{{$image}}" class="rounded-circle" alt="">
+            <img src="{{$image}}" class="rounded-circle img-fluid" alt="">
         @else
             <i class="fa fa-shop {{$iconSize}}"></i>
         @endif
