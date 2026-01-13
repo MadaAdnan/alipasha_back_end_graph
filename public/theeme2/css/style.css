@@ -103,8 +103,8 @@ option>img{
 }
 
 .scroll-col {
-    max-height: calc(100vh - 100px); /* ارتفاع الشاشة ناقص الهيدر */
-    overflow-y: auto; /* تفعيل التمرير */
+
+
     padding-right: 10px;
 }
 .divider{
