@@ -11,9 +11,9 @@ $category_id=$categoryId??null;
         <dt>
             <a class="cursor-pointer " href="{{route('category.show',$dataCategory?->id)}}">
                 <div class="d-flex justify-content-between py-1">
-                    <div class="side-bar-category-item-icon">
+                    <div class="side-bar-category-item-icon flex-grow-1">
                         <i class="fa-regular fa-circle-dot"></i>
-                        <span>  {{ $dataCategory?->name }}</span>
+                        <span class="text-ellipsis">  {{ $dataCategory?->name }}</span>
                     </div>
                     <div class="side-bar-category-item-title">
                         <i class="fa fa-angle-left"></i>
@@ -26,9 +26,9 @@ $category_id=$categoryId??null;
             <dd>
                 <a class="cursor-pointer " href="{{route('category.show',$child?->id)}}">
                     <div class="d-flex justify-content-between py-1">
-                        <div class="side-bar-category-item-icon">
+                        <div class="side-bar-category-item-icon flex-grow-1">
                             <i class="fa-regular fa-circle-dot"></i>
-                            <span>  {{ $child?->name }}</span>
+                            <span class="text-ellipsis">  {{ $child?->name }}</span>
                         </div>
                         <div class="side-bar-category-item-title">
                             <i class="fa fa-angle-left"></i>

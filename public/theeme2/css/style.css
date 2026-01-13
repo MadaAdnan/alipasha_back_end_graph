@@ -9,6 +9,11 @@ option>img{
     width: 30px;
     aspect-ratio: 3/1;
 }
+.text-ellipsis{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 :root{
     --gray-bg:#F5F6FA;
     --gray-text:#4E5468;
