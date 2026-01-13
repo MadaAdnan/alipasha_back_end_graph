@@ -22,7 +22,7 @@
     ['name'=>$post->sub3?->name],
     ['name'=>$post->sub4?->name],
 ]"/>
-                   <x-components.price-component class="bg-white rounded px-4" :price="$post->price" :discount="$post->discount" :isDiscount="$post->is_discount"/>
+                   <x-components.price-component class="bg-white " :price="$post->price" :discount="$post->discount" :isDiscount="$post->is_discount"/>
                </div>
             </div>
             <div class="col-md-3"></div>
