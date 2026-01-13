@@ -15,7 +15,17 @@
 
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) and (max-width: 767.98px) {
-    /* Add responsive styles here */
+    .sticky-col {
+        position: relative;
+
+
+    }
+
+    .scroll-col {
+        max-height: none; /* ارتفاع الشاشة ناقص الهيدر */
+        overflow-y: auto; /* تفعيل التمرير */
+        padding-right: 10px;
+    }
 }
 
 
