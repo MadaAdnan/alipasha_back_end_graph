@@ -24,6 +24,10 @@
 ]"/>
                    <x-components.price-component class="bg-white " :price="$post->price" :discount="$post->discount" :isDiscount="$post->is_discount"/>
                </div>
+                <div class="bg-white p-3">
+                    <h4 class="text-black fw-bold">التفاصيل</h4>
+                    <p class="lead text-justify">{!! $post->info !!}</p>
+                </div>
             </div>
             <div class="col-md-3"></div>
         </div>
