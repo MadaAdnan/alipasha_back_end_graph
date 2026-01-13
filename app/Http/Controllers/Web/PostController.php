@@ -101,7 +101,7 @@ class PostController extends Controller
         $message.=\App\Models\Setting::first()->footer_order;
         $user=$post->user;
         $phone=$user?->phone_code.$user?->phone;
-        return view('web.post-info',compact('post','categories','message','phone'));
+        return view('theme2.product',compact('post','categories','message','phone'));
     }
 
     /**

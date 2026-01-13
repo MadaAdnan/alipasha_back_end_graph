@@ -232,3 +232,9 @@ option>img{
     aspect-ratio: 2/1 !important;
     object-fit: cover;
 }
+/*Slider-Component*/
+.slider-component .carousel-img {
+    width: 100%;
+    height: auto; /* تجعل الصورة تتكيّف مع عرض الكاروسيل */
+    object-fit: cover; /* يمنع تشوه الصورة */
+}
