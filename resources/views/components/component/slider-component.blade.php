@@ -6,7 +6,7 @@
     <div class="carousel-inner">
         @foreach($items as $item)
             <div class="carousel-item @if($loop->first) active @endif">
-                <img src="{{ $item }}" class="d-block w-100 carousel-img" alt="...">
+                <img src="{{ $item }}" class="d-block w-100 carousel-img rounded" alt="...">
             </div>
         @endforeach
     </div>
