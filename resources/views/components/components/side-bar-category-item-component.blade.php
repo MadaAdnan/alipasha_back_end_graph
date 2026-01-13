@@ -6,8 +6,8 @@
 $dataCategory=$category;
 $category_id=$categoryId??null;
  @endphp
-@if($category_id!=null && $dataCategory?->id==$category_id)
-    <dl>
+
+
         <dt>
             <a class="cursor-pointer " href="{{route('category.show',$dataCategory?->id)}}">
                 <div class="d-flex justify-content-between py-1">
@@ -21,6 +21,7 @@ $category_id=$categoryId??null;
                 </div>
             </a>
         </dt>
+       @if($categoryId==$dataCategory->id)
         @foreach($dataCategory->children as $child)
             <dd>
                 <a class="cursor-pointer " href="{{route('category.show',$child?->id)}}">
@@ -36,18 +37,7 @@ $category_id=$categoryId??null;
                 </a>
             </dd>
         @endforeach
-    </dl>
-    @else
-    <a class="cursor-pointer " href="{{route('category.show',$dataCategory?->id)}}">
-        <div class="d-flex justify-content-between py-1">
-            <div class="side-bar-category-item-icon">
-                <i class="fa-regular fa-circle-dot"></i>
-                <span>  {{ $dataCategory?->name }}</span>
-            </div>
-            <div class="side-bar-category-item-title">
-                <i class="fa fa-angle-left"></i>
-            </div>
-        </div>
-    </a>
-@endif
+           @endif
+
+
 
