@@ -12,9 +12,9 @@
 <div class="card card-body my-2 ">
     @if($categoryName!=null)
         <div class="d-flex justify-content-between">
-            <h3 class="fs-6 text-red">{{$categoryName}} @if($count>0) ({{$count}}) @endif</h3>
+            <h3 class="fs-4 text-gray">{{$categoryName}} @if($count>0) ({{$count}}) @endif</h3>
             @if($categoryId!=null)
-                <a href="{{route('category.show',['id'=>$categoryId])}}" class="fs-6">مشاهدة المزيد</a>
+                <a href="{{route('category.show',['id'=>$categoryId])}}" class="fs-4 text-gray">مشاهدة المزيد</a>
             @endif
         </div>
 
