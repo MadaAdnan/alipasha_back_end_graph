@@ -16,7 +16,7 @@
                 </span>
             </button>
         </form>
-        <form action="{{route('/')}}">
+        <form action="">
             @csrf
             <button class="btn-green rounded">
                 <i class="fa-brands fa-whatsapp"></i>
