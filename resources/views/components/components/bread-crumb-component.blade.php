@@ -6,7 +6,7 @@
     'class'=>null
 ])
     <nav class="breadcrumb bg-white rounded p-2 @if($class) {{$class}} @endif">
-        <ol class="breadcrumb">
+        <ol class="breadcrumb align-items-center">
             <li class="breadcrumb-item"> <a href="{{$urlFirst}}"><i class="{{$iconFirst}}"></i> {{$first}}</a></li>
             @foreach($categories as $category)
                 @if(!isset($category['name']) || (isset($category['name']) && $category['name']==''))
