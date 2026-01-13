@@ -18,7 +18,7 @@
         </form>
         <form action="{{route('/')}}">
             @csrf
-            <button class="btn btn-sm btn-outline-primary">
+            <button class="btn-green rounded">
                 <i class="fa-brands fa-whatsapp"></i>
                 <span class="small d-none d-md-inline-block mx-1">
                    واتس آب
