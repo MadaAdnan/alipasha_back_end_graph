@@ -22,14 +22,14 @@
                         <form action="{{route('communities.store')}}" method="post">
                             @csrf
                             @method('post')
-                            <button class=" btn-contact-us rounded"><i class="fa fa-comments"></i> تواصل عن طريق الموقع </button>
+                            <button class=" btn-contact-us rounded"><i class="fa fa-comments"></i> <span class="d-none d-md-inline">تواصل عن طريق الموقع</span> </button>
                         </form>
                         <form action="{{route('communities.store')}}" method="post">
                             @csrf
                             @method('post')
-                            <button class=" btn-green"><i class="fa-brands fa-whatsapp"></i> تواصل عن طريق واتسآب </button>
+                            <button class=" btn-green"><i class="fa-brands fa-whatsapp"></i> <span class="d-none d-md-inline">تواصل عن طريق واتسآب</span> </button>
                         </form>
-                        <button type="button" class="btn-red-accent rounded px-2 py-1" data-bs-dismiss="modal" ><i class="fa fa-close"></i> إغلاق</button>
+                        <button type="button" class="btn-red-accent rounded px-2 py-1" data-bs-dismiss="modal" ><i class="fa fa-close"></i> <span class="d-none d-md-inline">إغلاق</span></button>
 
                     </div>
                 </div>
