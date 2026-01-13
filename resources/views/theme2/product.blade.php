@@ -14,7 +14,7 @@
         <div class="row justify-content-center">
             <div class="col-md-9">
                 <h2 class="fw-bold">{{$post->name??$post->expert}}</h2>
-               <div class="d-flex">
+               <div class="d-flex bg-white align-items-center">
                    <x-components.bread-crumb-component class="flex-grow-1" :first="$post->category?->name" urlFirst=" "
                                                        iconFirst=" " :categories="[
     ['name'=>$post->sub1?->name],
