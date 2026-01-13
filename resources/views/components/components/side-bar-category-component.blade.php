@@ -10,7 +10,7 @@
         <dl>
         @foreach($dataCategories as $category)
 
-            <x-components.side-bar-category-item-component :categoryId="$category->id"    :category="$category" />
+            <x-components.side-bar-category-item-component :categoryId="request()->route('id')"    :category="$category" />
         @endforeach
         </dl>
     </div>
