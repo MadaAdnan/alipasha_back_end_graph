@@ -5,8 +5,8 @@
     'categories'=>[],
     'class'=>null
 ])
-    <nav class="breadcrumb bg-white rounded p-2 @if($class) {{$class}} @endif">
-        <ol class="breadcrumb align-items-center">
+    <nav class="breadcrumb bg-white rounded  @if($class) {{$class}} @else p-2 @endif">
+        <ol class="breadcrumb ">
             <li class="breadcrumb-item"> <a href="{{$urlFirst}}"><i class="{{$iconFirst}}"></i> {{$first}}</a></li>
             @foreach($categories as $category)
                 @if(!isset($category['name']) || (isset($category['name']) && $category['name']==''))
