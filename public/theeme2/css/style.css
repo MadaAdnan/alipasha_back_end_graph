@@ -87,6 +87,17 @@ option>img{
 .text-green{
     color: var(--green);
 }
+.sticky-col {
+    position: sticky;
+    top: 10px; /* المسافة من الأعلى */
+    height: fit-content;
+}
+
+.scroll-col {
+    max-height: calc(100vh - 100px); /* ارتفاع الشاشة ناقص الهيدر */
+    overflow-y: auto; /* تفعيل التمرير */
+    padding-right: 10px;
+}
 .divider{
     border-top:1px solid var(--gray-text);
 

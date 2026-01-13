@@ -5,12 +5,12 @@
             <div class="col-md-12">
                 <x-components.bread-crumb-component/>
             </div>
-            <div class="col-md-3  my-2">
+            <div class="col-md-3  my-2 sticky-col">
                 <x-components.side-bar-category-component :categories="$categories"/>
                 <x-components.filter-component/>
             </div>
 
-            <div class="col-md-9">
+            <div class="col-md-9 scroll-col">
 
             @if($categoriesWithProducts)
                 @foreach($categoriesWithProducts as $category)
