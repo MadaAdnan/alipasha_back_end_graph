@@ -70,23 +70,6 @@ class IndexController extends Controller
             $cat->setRelation('products', $cat->products->take(8));
         });
 
-
-
-        /* $products = Product::active()->upTo20()->whereIn('type', [
-             CategoryTypeEnum::PRODUCT->value,
-             CategoryTypeEnum::JOB->value,
-             CategoryTypeEnum::SEARCH_JOB->value,
-             CategoryTypeEnum::TENDER->value,
-             CategoryTypeEnum::NEWS->value,
-         ])->orderByRaw("
-         CASE
-             WHEN level = 'special' AND created_at >= ? THEN 1
-             WHEN level = 'special' THEN 2
-             WHEN created_at >= ? THEN 3
-             ELSE 4
-         END
-     ", [now()->subDays(20), now()->subDays(20)])
-             ->latest()->paginate();*/
         return view('theme2.index', compact('categories', 'categoriesWithProducts'));
     }
 

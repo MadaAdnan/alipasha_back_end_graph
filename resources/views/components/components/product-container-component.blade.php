@@ -1,6 +1,7 @@
 @props([
     'products'=>null,
     'category'=>null,
+    'count'=>0
 ])
 @php
     $dataProducts=$products??[];
@@ -11,7 +12,7 @@
 <div class="card card-body my-2 ">
     @if($categoryName!=null)
         <div class="d-flex justify-content-between">
-            <h3 class="fs-6 text-red">{{$categoryName}}</h3>
+            <h3 class="fs-6 text-red">{{$categoryName}} @if($count>0) ({{$count}}) @endif</h3>
             @if($categoryId!=null)
                 <a href="{{route('category.show',['id'=>$categoryId])}}" class="fs-6">مشاهدة المزيد</a>
             @endif
