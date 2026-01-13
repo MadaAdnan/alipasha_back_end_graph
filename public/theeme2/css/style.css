@@ -15,7 +15,7 @@ option>img{
     text-overflow: ellipsis;
 }
 .img-seller{
-    width: 100px;
+    width: 40px;
     aspect-ratio: 1/1;
 }
 :root{
