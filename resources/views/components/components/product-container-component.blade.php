@@ -14,7 +14,7 @@
         <div class="d-flex justify-content-between">
             <h3 class="fs-4 text-gray">{{$categoryName}} @if($count>0) <span class="fs-6 text-muted">({{$count}})</span> @endif</h3>
             @if($categoryId!=null)
-                <a href="{{route('category.show',['id'=>$categoryId])}}" class="fs-4 text-green">مشاهدة المزيد</a>
+                <a href="{{route('category.show',['id'=>$categoryId])}}" class="fs-6 text-green">مشاهدة المزيد</a>
             @endif
         </div>
 
