@@ -6,7 +6,7 @@
     <x-components.seller-name-component :seller="$seller" :image="$seller->getImage()"/>
     <span class="small text-muted"><i class="fa fa-location-dot"></i> {{$seller->address}}</span>
     <div class="divider my-1 "></div>
-    <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center gap-1">
         <form action="{{route('communities.store')}}">
             @csrf
             <button class="btn-green rounded bg-transparent">
