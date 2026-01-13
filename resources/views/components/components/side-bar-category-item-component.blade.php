@@ -26,9 +26,9 @@ $category_id=$categoryId??null;
             <dd>
                 <a class="cursor-pointer " href="{{route('category.show',$child?->id)}}">
                     <div class="d-flex justify-content-between py-1">
-                        <div class="side-bar-category-item-icon flex-grow-1">
+                        <div class="side-bar-category-item-icon text-ellipsis">
                             <i class="fa-regular fa-circle-dot"></i>
-                            <span class="text-ellipsis">  {{ $child?->name }}</span>
+                            <span class="">  {{ $child?->name }}</span>
                         </div>
                         <div class="side-bar-category-item-title">
                             <i class="fa fa-angle-left"></i>
