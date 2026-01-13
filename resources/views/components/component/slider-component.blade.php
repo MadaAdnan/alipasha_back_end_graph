@@ -2,7 +2,7 @@
     'id'=>'main-slider',
     'items'=>[],
 ])
-<div id="carousel-{{ $id ?? uniqid() }}" class="carousel slide slider-component" data-bs-ride="carousel">
+<div id="carousel-{{ $id ?? uniqid() }}" class="carousel slide slider-component rounded" data-bs-ride="carousel">
     <div class="carousel-inner">
         @foreach($items as $item)
             <div class="carousel-item @if($loop->first) active @endif">
