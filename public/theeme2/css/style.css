@@ -16,7 +16,8 @@ option>img{
     --red:#e30613;
     --red-accent:#ff5f57;
     --gold:#FFCC00;
-    --blue-accent: #0080ff
+    --blue-accent: #0080ff;
+    --green: #12A058FF;
 }
 /*BreadCrumb*/
 .breadcrumb-item + .breadcrumb-item::before {
@@ -82,6 +83,9 @@ option>img{
 }
 .text-blue-accent{
     color: var(--blue-accent);
+}
+.text-green{
+    color: var(--green);
 }
 .divider{
     border-top:1px solid var(--gray-text);
