@@ -11,7 +11,7 @@
             </div>
 
             <div class="col-md-9 scroll-col">
-
+<x-component.top-add-post-component />
             @if($categoriesWithProducts)
                 @foreach($categoriesWithProducts as $category)
                     <x-components.product-container-component :products="$category->products" :category="$category" count="{{$categories->find($category->id)?->products_count}}"/>

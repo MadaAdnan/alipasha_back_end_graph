@@ -18,6 +18,7 @@ option>img{
     --gold:#FFCC00;
     --blue-accent: #0080ff;
     --green: #12A058FF;
+    --black:#000000;
 }
 /*BreadCrumb*/
 .breadcrumb-item + .breadcrumb-item::before {
@@ -87,6 +88,14 @@ option>img{
 .text-green{
     color: var(--green);
 }
+.btn-green{
+    background-color: var(--green);
+    border: 1px solid var(--green);
+    color: var(--white);
+    border-radius: 10px;
+    padding-block: 10px;
+    padding-inline: 20px;
+}
 .sticky-col {
     position: sticky;
     top: 10px; /* المسافة من الأعلى */
@@ -104,6 +113,24 @@ option>img{
 }
 .cursor-pointer{
     cursor: pointer;
+}
+.btn-add-post{
+    background-color: var(--red-accent);
+    color: var(--white);
+    border: 1px solid var(--red-accent);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding-block: 10px;
+    padding-inline: 20px;
+}
+.btn-contact-us{
+    background-color: transparent;
+    color: var(--black);
+    border: 1px solid var(--gold);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding-block: 10px;
+    padding-inline: 20px;
 }
 /*NavBar Component*/
 .transparent,.transparent:hover, .transparent:active{
