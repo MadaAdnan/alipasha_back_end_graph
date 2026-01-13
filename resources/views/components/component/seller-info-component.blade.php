@@ -11,7 +11,7 @@
             @csrf
             <button class="btn-green rounded bg-transparent">
                 <i class="fa fa-chat"></i>
-                <span class="small d-none d-md-inline-block mx-1">
+                <span class="small d-none d-md-inline-block mx-1 text-black">
                    تحدث معه
                 </span>
             </button>
