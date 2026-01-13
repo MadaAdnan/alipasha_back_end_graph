@@ -15,7 +15,7 @@
             <div class="col-md-9">
                 <h2 class="fw-bold">{{$post->name??$post->expert}}</h2>
                <div class="d-flex">
-                   <x-components.bread-crumb-component :first="$post->category?->name" urlFirst=" "
+                   <x-components.bread-crumb-component class="flex-grow-1" :first="$post->category?->name" urlFirst=" "
                                                        iconFirst=" " :categories="[
     ['name'=>$post->sub1?->name],
     ['name'=>$post->sub2?->name],
