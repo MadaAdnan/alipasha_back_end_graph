@@ -13,7 +13,7 @@
                 <x-component.top-add-post-component />
                         <x-components.product-container-component :products="$category->products" :category="$category" :showMore="false"/>
 
-                <x-components.paginator-component :paginator="$cloneProducts"/>
+{{--                <x-components.paginator-component :paginator="$cloneProducts"/>--}}
             </div>
         </div>
     </div>
