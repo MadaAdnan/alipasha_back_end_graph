@@ -21,7 +21,7 @@
                             }
                             $breadCrumbs[]= [
                                     'name' => $category->name,
-                                    'url' => route('category.show', $category->id)
+
                                 ];
                         @endphp
                         <x-components.bread-crumb-component :categories="$breadCrumbs" class="bg-transparent"/>
