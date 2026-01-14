@@ -14,16 +14,14 @@
                         <i class=" {{ $paginator->onFirstPage() ? 'disabled' : 'text-red-accent' }} fa fa-angle-right"></i>
                     </a>
                 </span>
-{{dd($paginator->toArray())}}
+
                 {{-- الأرقام --}}
-                @foreach ($paginator->toArray()['links'] as $link)
-                    @if ($link['url'])
-                        <span class="mx-1 btn rounded py-1 px-2 {{ $link['active'] ? 'btn-red-accent' : 'bg-white' }}">
-            <a href="{{ $link['url'] }}">
-                {!! $link['label'] !!}
-            </a>
-        </span>
-                    @endif
+                @foreach ($paginator->links()->elements[0] ?? [] as $page => $url)
+                    <span class="mx-1 btn rounded py-1 px-2  {{ $paginator->currentPage() == $page ? 'btn-red-accent' : 'bg-white' }}">
+                        <a class="" href="{{ $url }}">
+                            {{ $page }}
+                        </a>
+                    </span>
                 @endforeach
 
                 {{-- التالي --}}
