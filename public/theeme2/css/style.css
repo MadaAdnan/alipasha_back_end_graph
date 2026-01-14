@@ -550,7 +550,7 @@ option>img{
 .slider-component .carousel-img{
     width: 100%;
     aspect-ratio: 3/1;
-    object-fit: cover;
+    object-fit: fill;
 }
 
 /* ===== SIDEBAR CATEGORY COMPONENT STYLES ===== */
