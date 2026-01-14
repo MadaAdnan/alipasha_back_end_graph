@@ -11,7 +11,7 @@
 
             <div class="col-md-9">
                 <x-component.top-add-post-component />
-                        <x-components.product-container-component :products="$category->products" :category="$category"/>
+                        <x-components.product-container-component :products="$category->products" :category="$category" :showMore="false"/>
 
                 <x-components.paginator-component :paginator="$cloneProducts"/>
             </div>

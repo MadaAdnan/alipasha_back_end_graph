@@ -1,7 +1,8 @@
 @props([
     'products'=>null,
     'category'=>null,
-    'count'=>0
+    'count'=>0,
+    'showMore'=>true,
 ])
 @php
     $dataProducts=$products??[];
@@ -13,7 +14,7 @@
     @if($categoryName!=null)
         <div class="d-flex justify-content-between">
             <h3 class="fs-4 text-gray">{{$categoryName}} @if($count>0) <span class="fs-6 text-muted">({{$count}})</span> @endif</h3>
-            @if($categoryId!=null)
+            @if($showMore)
                 <a href="{{route('category.show',['id'=>$categoryId])}}" class="fs-6 text-green">مشاهدة المزيد</a>
             @endif
         </div>
