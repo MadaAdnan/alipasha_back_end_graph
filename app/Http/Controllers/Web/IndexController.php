@@ -71,9 +71,9 @@ class IndexController extends Controller
 ->orderBy('sortable')
             ->get();*/
 
-        $categoriesWithProducts->each(function ($cat) {
+      /*  $categoriesWithProducts->each(function ($cat) {
             $cat->setRelation('products', $cat->products->take(8));
-        });
+        });*/
 
         return view('theme2.index', compact('categories', 'categoriesWithProducts'));
     }
