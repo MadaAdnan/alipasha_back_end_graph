@@ -63,7 +63,7 @@ class CategoryController extends Controller
             $query->orWhere('sub4_id',$id);
         })  ->latest()
             ->paginate(24);
-        $cloneProducts=clone $products;
+        $cloneProducts= $products;
         return view('theme2.category',compact('category','products','categories','cloneProducts'));
     }
 
