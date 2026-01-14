@@ -13,9 +13,10 @@
                         @php
                             $breadCrumbs = [];
                             if($category->parent){
+                                $parent=$category->parents->first();
                                 $breadCrumbs[]= [
-                                    'name' => $category->parent->name,
-                                    'url' => route('category.show', $category->parent->id)
+                                    'name' => $parent->name,
+                                    'url' => route('category.show', $parent->id)
                                 ];
                             }
                             $breadCrumbs[]= [
