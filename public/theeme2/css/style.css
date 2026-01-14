@@ -821,7 +821,15 @@ option>img{
 .filter-submit-btn:active {
     transform: translateY(0);
 }
-
+.breadcrumb-ol{
+    list-style: none;
+}
+.breadcrumb-ol>li.breadcrumb-item{
+    display: inline-block;
+}
+.breadcrumb-ol>li.breadcrumb-item:last-child{
+    color: var(--gray-text);
+}
 /* ===== RESPONSIVE ADJUSTMENTS ===== */
 @media (max-width: 768px) {
     .filter-row {
