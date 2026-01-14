@@ -35,7 +35,7 @@ option>img{
     padding-left: 8px;
 }
 .breadcrumb-item a{
-    color: var(--red-accent);
+    color: var(--gray-text);
 }
 .breadcrumb-item.active a{
     color: var(--gray-text);
@@ -828,7 +828,7 @@ option>img{
     display: inline-block;
 }
 .breadcrumb-ol .breadcrumb-item:last-child a{
-    color: var(--gray-text);
+    color: var(--red-accent);
 }
 /* ===== RESPONSIVE ADJUSTMENTS ===== */
 @media (max-width: 768px) {
