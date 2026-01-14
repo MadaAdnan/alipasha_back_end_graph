@@ -12,7 +12,7 @@
                    <div class="flex-grow-1">
                        <x-components.bread-crumb-component :categories="[
     ['name'=>$category->name]
-]"/>
+]" class="bg-transparent"/>
                    </div>
                     <x-component.top-add-post-component />
                 </div>
