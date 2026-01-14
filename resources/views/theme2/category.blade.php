@@ -9,17 +9,29 @@
 
             <div class="col-md-9">
                 <div class="d-flex align-items-center">
-                   <div class="flex-grow-1">
-                       <x-components.bread-crumb-component :categories="[
-    ['name'=>$category->name]
-]" class="bg-transparent"/>
-                   </div>
-                    <x-component.top-add-post-component />
+                    <div class="flex-grow-1">
+                        @php
+                            $breadCrumbs = [];
+                            if($category->parent){
+                                $breadCrumbs[]= [
+                                    'name' => $category->parent->name,
+                                    'url' => route('category.show', $category->parent->id)
+                                ];
+                            }
+                            $breadCrumbs[]= [
+                                    'name' => $category->name,
+                                    'url' => route('category.show', $category->id)
+                                ];
+                        @endphp
+                        <x-components.bread-crumb-component :categories="" class="bg-transparent"/>
+                    </div>
+                    <x-component.top-add-post-component/>
                 </div>
 
-                        <x-components.product-container-component :products="$products->items()" :category="$category" :showMore="false"/>
+                <x-components.product-container-component :products="$products->items()" :category="$category"
+                                                          :showMore="false"/>
 
-            <x-components.paginator-component :paginator="$cloneProducts"/>
+                <x-components.paginator-component :paginator="$cloneProducts"/>
             </div>
         </div>
     </div>
