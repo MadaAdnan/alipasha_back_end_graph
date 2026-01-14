@@ -10,7 +10,9 @@
 
             <div class="col-md-9 scroll-col">
                 <div class="d-flex w-100 align-items-center gap-2">
-                    <x-components.bread-crumb-component class="bg-transparent flex-grow-1"/>
+                   <div class="flex-grow-1">
+                       <x-components.bread-crumb-component class="bg-transparent "/>
+                   </div>
                     <x-component.top-add-post-component />
 
                 </div>
