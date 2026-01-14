@@ -64,7 +64,7 @@ class CategoryController extends Controller
         })  ->latest()
             ->paginate(24);
 
-        $cloneProducts= $products;
+        $cloneProducts= clone $products;
         return view('theme2.category',compact('category','products','categories','cloneProducts'));
     }
 
