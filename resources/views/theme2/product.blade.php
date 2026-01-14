@@ -24,11 +24,13 @@
 ]"/>
                    <x-components.price-component class="bg-transparent " :price="$post->price" :discount="$post->discount" :isDiscount="$post->is_discount"/>
                </div>
+                @if($post->video!=null && Str::startsWith($post->video ,"https://"))
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <x-components.play-video-component :product="$post"/>
                     </div>
                 </div>
+                @endif
                 <div class="bg-white p-3">
                     <h4 class="text-black fw-bold">التفاصيل</h4>
                     <p class="lead text-justify">{!! $post->info !!}</p>
