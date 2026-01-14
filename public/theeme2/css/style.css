@@ -827,7 +827,7 @@ option>img{
 .breadcrumb-ol>li.breadcrumb-item{
     display: inline-block;
 }
-.breadcrumb-ol:nth-last-child(.breadcrumb-item a){
+.breadcrumb-ol .breadcrumb-item:last-child a{
     color: var(--gray-text);
 }
 /* ===== RESPONSIVE ADJUSTMENTS ===== */
