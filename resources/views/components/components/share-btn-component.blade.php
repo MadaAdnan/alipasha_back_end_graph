@@ -1,5 +1,4 @@
 
-
 @props([
     'url' => request()->url(),
     'title' => '',
@@ -32,6 +31,9 @@
         'linkedin' => ['name' => 'LinkedIn', 'icon' => 'fab fa-linkedin-in', 'color' => '#0A66C2'],
         'email' => ['name' => 'Email', 'icon' => 'fas fa-envelope', 'color' => '#EA4335']
     ];
+
+    // إنشاء ID فريد لكل زر
+    $uniqueId = 'shareBtn_' . uniqid() . '_' . rand(1000, 9999);
 @endphp
 
 <div {{ $attributes->merge(['class' => 'd-inline-block']) }}>
@@ -39,7 +41,7 @@
         <button
             class="btn btn-success btn-share d-flex align-items-center gap-2 shadow-sm"
             type="button"
-            id="shareDropdown{{ uniqid() }}"
+            id="{{ $uniqueId }}"
             data-bs-toggle="dropdown"
             aria-expanded="false"
         >
@@ -49,7 +51,7 @@
             @endif
         </button>
 
-        <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 share-menu" aria-labelledby="shareDropdown{{ uniqid() }}">
+        <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 share-menu" aria-labelledby="{{ $uniqueId }}">
             <li class="dropdown-header bg-light">
                 <i class="fas fa-share-nodes me-2"></i>
                 <strong>مشاركة عبر</strong>
@@ -80,8 +82,8 @@
             <li>
                 <button
                     type="button"
-                    class="dropdown-item d-flex align-items-center py-2 share-item"
-                    onclick="copyToClipboard('{{ $url }}', this)"
+                    class="dropdown-item d-flex align-items-center py-2 share-item border-0 bg-transparent w-100 text-start"
+                    onclick="copyShareLink('{{ $url }}', this)"
                 >
                     <span class="share-icon me-3 d-flex align-items-center justify-content-center rounded-circle bg-light">
                         <i class="fas fa-copy text-secondary"></i>
@@ -93,103 +95,149 @@
     </div>
 </div>
 
-<style>
-    .btn-share {
-        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-        border: none;
-        border-radius: 8px;
-        padding: 10px 20px;
-        font-weight: 600;
-        transition: all 0.3s ease;
-    }
+@once
+    @push('styles')
+        <style>
+            .btn-share {
+                background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+                border: none;
+                border-radius: 8px;
+                padding: 10px 20px;
+                font-weight: 600;
+                transition: all 0.3s ease;
+            }
 
-    .btn-share:hover {
-        background: linear-gradient(135deg, #059669 0%, #047857 100%);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3) !important;
-    }
+            .btn-share:hover {
+                background: linear-gradient(135deg, #059669 0%, #047857 100%);
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3) !important;
+            }
 
-    .btn-share:active {
-        transform: translateY(0);
-    }
+            .btn-share:active {
+                transform: translateY(0);
+            }
 
-    .share-menu {
-        min-width: 280px;
-        border-radius: 12px;
-        padding: 8px 0;
-        animation: slideDown 0.3s ease;
-    }
+            .share-menu {
+                min-width: 280px;
+                border-radius: 12px;
+                padding: 8px 0;
+                animation: slideDown 0.3s ease;
+            }
 
-    @keyframes slideDown {
-        from {
-            opacity: 0;
-            transform: translateY(-10px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
+            @keyframes slideDown {
+                from {
+                    opacity: 0;
+                    transform: translateY(-10px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
 
-    .dropdown-header {
-        padding: 12px 16px;
-        border-radius: 8px 8px 0 0;
-        margin-bottom: 0;
-    }
+            .dropdown-header {
+                padding: 12px 16px;
+                border-radius: 8px 8px 0 0;
+                margin-bottom: 0;
+            }
 
-    .share-item {
-        transition: all 0.2s ease;
-        padding-right: 16px !important;
-        padding-left: 16px !important;
-    }
+            .share-item {
+                transition: all 0.2s ease;
+                padding-right: 16px !important;
+                padding-left: 16px !important;
+            }
 
-    .share-item:hover {
-        background: linear-gradient(90deg, #f0fdf4 0%, #d1fae5 100%);
-        padding-right: 20px !important;
-    }
+            .share-item:hover {
+                background: linear-gradient(90deg, #f0fdf4 0%, #d1fae5 100%);
+                padding-right: 20px !important;
+            }
 
-    .share-icon {
-        width: 40px;
-        height: 40px;
-        font-size: 18px;
-        transition: all 0.3s ease;
-    }
+            .share-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+                transition: all 0.3s ease;
+            }
 
-    .share-item:hover .share-icon {
-        transform: scale(1.1);
-    }
+            .share-item:hover .share-icon {
+                transform: scale(1.1);
+            }
 
-    .dropdown-divider {
-        margin: 8px 0;
-        opacity: 0.1;
-    }
+            .dropdown-divider {
+                margin: 8px 0;
+                opacity: 0.1;
+            }
 
-    .copy-text {
-        transition: color 0.3s ease;
-    }
-</style>
+            .copy-text {
+                transition: color 0.3s ease;
+            }
+        </style>
+    @endpush
 
-<script>
-    function copyToClipboard(text, button) {
-        navigator.clipboard.writeText(text).then(() => {
-            const copyText = button.querySelector('.copy-text');
-            const icon = button.querySelector('i');
-            const originalText = copyText.textContent;
+    @push('js')
+        <script>
+            function copyShareLink(text, button) {
+                // التأكد من أن المتصفح يدعم Clipboard API
+                if (navigator.clipboard && window.isSecureContext) {
+                    // استخدام Clipboard API الحديث
+                    navigator.clipboard.writeText(text).then(() => {
+                        showCopySuccess(button);
+                    }).catch(err => {
+                        console.error('فشل النسخ:', err);
+                        fallbackCopy(text, button);
+                    });
+                } else {
+                    // استخدام الطريقة القديمة
+                    fallbackCopy(text, button);
+                }
+            }
 
-            // تغيير النص والأيقونة
-            copyText.textContent = 'تم النسخ ✓';
-            copyText.classList.add('text-success');
-            icon.className = 'fas fa-check text-success';
+            function fallbackCopy(text, button) {
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                textArea.style.position = "fixed";
+                textArea.style.left = "-999999px";
+                textArea.style.top = "0";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
 
-            // إعادة النص الأصلي بعد ثانيتين
-            setTimeout(() => {
-                copyText.textContent = originalText;
-                copyText.classList.remove('text-success');
-                icon.className = 'fas fa-copy text-secondary';
-            }, 2000);
-        }).catch(err => {
-            console.error('فشل النسخ:', err);
-            alert('حدث خطأ أثناء النسخ');
-        });
-    }
-</script>
+                try {
+                    const successful = document.execCommand('copy');
+                    if (successful) {
+                        showCopySuccess(button);
+                    } else {
+                        alert('حدث خطأ أثناء النسخ. يرجى نسخ الرابط يدوياً: ' + text);
+                    }
+                } catch (err) {
+                    console.error('فشل النسخ:', err);
+                    alert('حدث خطأ أثناء النسخ. يرجى نسخ الرابط يدوياً: ' + text);
+                }
+
+                document.body.removeChild(textArea);
+            }
+
+            function showCopySuccess(button) {
+                const copyText = button.querySelector('.copy-text');
+                const icon = button.querySelector('i');
+
+                if (!copyText || !icon) return;
+
+                const originalText = copyText.textContent;
+                const originalIconClass = icon.className;
+
+                // تغيير النص والأيقونة
+                copyText.textContent = 'تم النسخ ✓';
+                copyText.classList.add('text-success');
+                icon.className = 'fas fa-check text-success';
+
+                // إعادة النص الأصلي بعد ثانيتين
+                setTimeout(() => {
+                    copyText.textContent = originalText;
+                    copyText.classList.remove('text-success');
+                    icon.className = originalIconClass;
+                }, 2000);
+            }
+        </script>
+    @endpush
+@endonce
