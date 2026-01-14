@@ -3,9 +3,9 @@
     'urlFirst'=>route('index'),
     'iconFirst'=>'fas fa-home',
     'categories'=>[],
-    'class'=>null
+    'class'=>'bg-white'
 ])
-    <nav class="breadcrumb bg-white rounded  @if($class) {{$class}} @else p-2 @endif">
+    <nav class="breadcrumb  rounded  @if($class) {{$class}} @else p-2 @endif">
         <ol class="breadcrumb ">
             <li class="breadcrumb-item"> <a href="{{$urlFirst}}"><i class="{{$iconFirst}}"></i> {{$first}}</a></li>
             @foreach($categories as $category)
