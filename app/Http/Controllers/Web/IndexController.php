@@ -34,12 +34,7 @@ class IndexController extends Controller
             ->orderBy('sortable')
             ->orderByRaw("FIELD(type, 'product', 'job', 'search_job','tender','service','news')")
             ->get();
-        $categoriesWithProducts = Category::with(['products' => function($q) {
-            $q->active()
-                ->upTo20()->orderByRaw("CASE WHEN level = 'special' THEN 1 ELSE 2 END")
-                ->orderBy('created_at', 'DESC')
-                ->limit(8);
-        }])
+        $categoriesWithProducts = Category::with('topProducts')
             ->where('is_active', true)
             ->where('is_main', true)
             ->where('type', CategoryTypeEnum::PRODUCT->value)

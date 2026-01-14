@@ -81,6 +81,14 @@ class Category extends Model implements HasMedia
     {
         return $this->hasMany(Product::class, 'category_id');
     }
+    public function topProducts()
+    {
+        return $this->hasMany(Product::class)
+            ->active()
+            ->orderByRaw("CASE WHEN level = 'special' THEN 1 ELSE 2 END")
+            ->orderBy('created_at', 'DESC')
+            ->limit(8); // هنا limit يعمل بشكل صحيح
+    }
 
     public function products2(): HasMany
     {
