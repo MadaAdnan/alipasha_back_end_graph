@@ -34,11 +34,18 @@ class IndexController extends Controller
             ->orderBy('sortable')
             ->orderByRaw("FIELD(type, 'product', 'job', 'search_job','tender','service','news')")
             ->get();
-        $categoriesWithProducts = Category::with('topProducts')
-            ->where('is_active', true)
-            ->where('is_main', true)
-            ->where('type', CategoryTypeEnum::PRODUCT->value)
-            ->get();
+        $categoriesWithProducts = Category::
+            where(['is_active'=> true,'is_main'=> true])
+            ->whereIn('type', [
+                CategoryTypeEnum::PRODUCT->value,
+//                CategoryTypeEnum::JOB->value,
+//                CategoryTypeEnum::SEARCH_JOB->value,
+//                CategoryTypeEnum::TENDER->value,
+//                CategoryTypeEnum::NEWS->value,
+            ])
+
+           ->inRandomOrder()->limit(8)
+            ->with('topProducts')->get();
        /* $categoriesWithProducts = Category::where('is_active', true)
             ->where('is_main', true)
             ->where('type', CategoryTypeEnum::PRODUCT->value)
