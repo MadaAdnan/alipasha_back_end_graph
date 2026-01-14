@@ -20,10 +20,10 @@
 
     @endif
     @if($products)
-        <div class="row justify-content-center">
+        <div class="row g-2">
             @foreach($dataProducts as $product)
-                <div class="col-8 col-sm-6 col-md-6 col-lg-4 col-xl-3 p-1">
-                <x-components.product-container-item-component :product="$product"/>
+                <div class="col-lg-3 col-md-4 col-sm-6 col-6">
+                    <x-components.product-container-item-component :product="$product"/>
                 </div>
             @endforeach
 
