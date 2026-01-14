@@ -34,15 +34,22 @@ class IndexController extends Controller
             ->orderBy('sortable')
             ->orderByRaw("FIELD(type, 'product', 'job', 'search_job','tender','service','news')")
             ->get();
-
-        $categoriesWithProducts = Category::where('is_active', true)
+        $categoriesWithProducts = Category::with(['products' => function($q) {
+            $q->active()
+                ->upTo20()->orderByRaw("CASE WHEN level = 'special' THEN 1 ELSE 2 END")
+                ->orderBy('created_at', 'DESC')
+                ->take(8);
+        }])
+            ->where('is_active', true)
             ->where('is_main', true)
             ->where('type', CategoryTypeEnum::PRODUCT->value)
-->whereHas('products',fn($q)=>$q->orderByRaw("CASE WHEN level = 'special' THEN 1 ELSE 2 END")
-    ->inRandomOrder()
-    ->orderBy('created_at', 'DESC')->take(8))->get();
+            ->get();
+       /* $categoriesWithProducts = Category::where('is_active', true)
+            ->where('is_main', true)
+            ->where('type', CategoryTypeEnum::PRODUCT->value)
 
-           /* ->withCount([
+
+            ->withCount([
                 'products as products_count' => function ($query) {
                     $query->active()
                         ->upTo20()
@@ -69,9 +76,9 @@ class IndexController extends Controller
                 }
             ])
 ->orderBy('sortable')
-            ->get();*/
+            ->get();
 
-      /*  $categoriesWithProducts->each(function ($cat) {
+        $categoriesWithProducts->each(function ($cat) {
             $cat->setRelation('products', $cat->products->take(8));
         });*/
 
