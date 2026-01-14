@@ -45,13 +45,14 @@ class IndexController extends Controller
                         ->upTo20()
                         ->whereHas('media')
                         ->orderByRaw("CASE WHEN level = 'special' THEN 1 ELSE 2 END")
+                        ->inRandomOrder()
                         ->orderBy('created_at', 'DESC');
                 }
             ])
 
             ->having('products_count', '>=', 8)
 
-            ->inRandomOrder()
+
             ->take(5)
 
             ->with([
