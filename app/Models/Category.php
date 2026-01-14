@@ -89,7 +89,7 @@ class Category extends Model implements HasMedia
             ->where('power','>=',20)
             ->orderByRaw("CASE WHEN level = 'special' THEN 1 ELSE 2 END")
             ->orderBy('created_at', 'DESC')
-            ->limit(8);
+            ->take(8);
     }
 
     public function products2(): HasMany

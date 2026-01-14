@@ -13,6 +13,7 @@ use App\Models\Interaction;
 use App\Models\Product;
 use App\Models\Setting;
 use App\Models\User;
+use DB;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
@@ -34,18 +35,15 @@ class IndexController extends Controller
             ->orderBy('sortable')
             ->orderByRaw("FIELD(type, 'product', 'job', 'search_job','tender','service','news')")
             ->get();
-        $categoriesWithProducts = Category::
-            where(['is_active'=> true,'is_main'=> true])
-            ->whereIn('type', [
-                CategoryTypeEnum::PRODUCT->value,
-//                CategoryTypeEnum::JOB->value,
-//                CategoryTypeEnum::SEARCH_JOB->value,
-//                CategoryTypeEnum::TENDER->value,
-//                CategoryTypeEnum::NEWS->value,
-            ])
+        $categoriesWithProducts = Category::with([
+            'topProducts.media',
 
-           ->inRandomOrder()->limit(8)
-            ->with('topProducts')->get();
+
+        ])
+            ->where('active', ProductActiveEnum::ACTIVE->value)
+            ->where('is_main', true)
+            ->where('type', CategoryTypeEnum::PRODUCT->value)
+            ->get();
        /* $categoriesWithProducts = Category::where('is_active', true)
             ->where('is_main', true)
             ->where('type', CategoryTypeEnum::PRODUCT->value)
