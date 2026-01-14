@@ -1,5 +1,5 @@
 @props([
-    'products'=>null,
+    'products'=>[],
     'category'=>null,
     'count'=>0,
     'showMore'=>true,
