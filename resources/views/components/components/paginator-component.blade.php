@@ -14,7 +14,7 @@
                         <i class=" {{ $paginator->onFirstPage() ? 'disabled' : 'text-red-accent' }} fa fa-angle-right"></i>
                     </a>
                 </span>
-
+{{dd($paginator->toArray())}}
                 {{-- الأرقام --}}
                 @foreach ($paginator->toArray()['links'] as $link)
                     @if ($link['url'])
