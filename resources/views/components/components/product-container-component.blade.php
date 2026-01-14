@@ -5,7 +5,7 @@
     'showMore'=>true,
 ])
 @php
-    $dataProducts=$products??[];
+    $dataProducts=$products;
     $categoryName=$category?->name;
     $categoryId=$category?->id;
 @endphp
