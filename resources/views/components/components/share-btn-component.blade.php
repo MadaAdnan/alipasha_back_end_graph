@@ -1,14 +1,18 @@
 
 @props([
-    'url' => request()->url(),
+    'url' => null,
     'title' => '',
     'description' => '',
     'image' => '',
     'showLabel' => true,
-    'platforms' => ['facebook', 'twitter', 'whatsapp', 'telegram', 'linkedin']
+    'platforms' => null
 ])
 
 @php
+    // Use the component properties or defaults
+    $url = $url ?? request()->url();
+    $platforms = $platforms ?? ['facebook', 'twitter', 'whatsapp', 'telegram', 'linkedin'];
+    
     $encodedUrl = urlencode($url);
     $encodedTitle = urlencode($title);
     $encodedDescription = urlencode($description);
@@ -17,10 +21,10 @@
     $shareLinks = [
         'facebook' => "https://www.facebook.com/sharer/sharer.php?u={$encodedUrl}",
         'twitter' => "https://twitter.com/intent/tweet?url={$encodedUrl}&text={$encodedTitle}",
-        'whatsapp' => "https://wa.me/?text={$encodedTitle}%20{$encodedUrl}",
+        'whatsapp' => "https://wa.me/send?text={$encodedTitle}%20{$encodedUrl}",
         'telegram' => "https://t.me/share/url?url={$encodedUrl}&text={$encodedTitle}",
         'linkedin' => "https://www.linkedin.com/sharing/share-offsite/?url={$encodedUrl}",
-        'email' => "mailto:?subject={$encodedTitle}&body={$encodedDescription}%20{$encodedUrl}"
+        'email' => "mailto:?subject={$encodedTitle}&body=" . urlencode($encodedDescription . ' ' . $url)
     ];
 
     $platformData = [
@@ -66,6 +70,7 @@
                             href="{{ $shareLinks[$platform] }}"
                             target="_blank"
                             rel="noopener noreferrer"
+                            data-platform="{{ $platform }}"
                         >
                             <span class="share-icon me-3 d-flex align-items-center justify-content-center rounded-circle"
                                   style="background-color: {{ $platformData[$platform]['color'] }}15;">
@@ -83,7 +88,8 @@
                 <button
                     type="button"
                     class="dropdown-item d-flex align-items-center py-2 share-item border-0 bg-transparent w-100 text-start"
-                    onclick="copyShareLink('{{ $url }}', this)"
+                    onclick="copyShareLink('{{ addslashes($url) }}', this)"
+                    id="copy-link-btn-{{ $uniqueId }}"
                 >
                     <span class="share-icon me-3 d-flex align-items-center justify-content-center rounded-circle bg-light">
                         <i class="fas fa-copy text-secondary"></i>
@@ -97,6 +103,7 @@
 
 @once
     @push('styles')
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
         <style>
             .btn-share {
                 background: linear-gradient(135deg, #10b981 0%, #059669 100%);
@@ -105,12 +112,14 @@
                 padding: 10px 20px;
                 font-weight: 600;
                 transition: all 0.3s ease;
+                color: white;
             }
 
             .btn-share:hover {
                 background: linear-gradient(135deg, #059669 0%, #047857 100%);
                 transform: translateY(-2px);
                 box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3) !important;
+                color: white;
             }
 
             .btn-share:active {
@@ -122,6 +131,7 @@
                 border-radius: 12px;
                 padding: 8px 0;
                 animation: slideDown 0.3s ease;
+                z-index: 10000;
             }
 
             @keyframes slideDown {
@@ -145,6 +155,7 @@
                 transition: all 0.2s ease;
                 padding-right: 16px !important;
                 padding-left: 16px !important;
+                cursor: pointer;
             }
 
             .share-item:hover {
@@ -176,67 +187,89 @@
 
     @push('js')
         <script>
-            function copyShareLink(text, button) {
-                // التأكد من أن المتصفح يدعم Clipboard API
-                if (navigator.clipboard && window.isSecureContext) {
-                    // استخدام Clipboard API الحديث
-                    navigator.clipboard.writeText(text).then(() => {
-                        showCopySuccess(button);
-                    }).catch(err => {
-                        console.error('فشل النسخ:', err);
-                        fallbackCopy(text, button);
-                    });
-                } else {
-                    // استخدام الطريقة القديمة
-                    fallbackCopy(text, button);
-                }
-            }
-
-            function fallbackCopy(text, button) {
-                const textArea = document.createElement("textarea");
-                textArea.value = text;
-                textArea.style.position = "fixed";
-                textArea.style.left = "-999999px";
-                textArea.style.top = "0";
-                document.body.appendChild(textArea);
-                textArea.focus();
-                textArea.select();
-
-                try {
-                    const successful = document.execCommand('copy');
-                    if (successful) {
-                        showCopySuccess(button);
+            // Check if component script is already loaded to avoid conflicts
+            if (typeof window.LaravelShareComponent === 'undefined') {
+                window.LaravelShareComponent = true;
+                
+                function copyShareLink(text, button) {
+                    // التأكد من أن المتصفح يدعم Clipboard API
+                    if (navigator.clipboard && window.isSecureContext) {
+                        // استخدام Clipboard API الحديث
+                        navigator.clipboard.writeText(text).then(() => {
+                            showCopySuccess(button);
+                        }).catch(err => {
+                            console.error('فشل النسخ:', err);
+                            fallbackCopy(text, button);
+                        });
                     } else {
-                        alert('حدث خطأ أثناء النسخ. يرجى نسخ الرابط يدوياً: ' + text);
+                        // استخدام الطريقة القديمة
+                        fallbackCopy(text, button);
                     }
-                } catch (err) {
-                    console.error('فشل النسخ:', err);
-                    alert('حدث خطأ أثناء النسخ. يرجى نسخ الرابط يدوياً: ' + text);
                 }
 
-                document.body.removeChild(textArea);
-            }
+                function fallbackCopy(text, button) {
+                    try {
+                        const textArea = document.createElement("textarea");
+                        textArea.value = text;
+                        textArea.style.position = "fixed";
+                        textArea.style.left = "-999999px";
+                        textArea.style.top = "0";
+                        textArea.style.opacity = "0";
+                        textArea.style.pointerEvents = "none";
+                        document.body.appendChild(textArea);
+                        textArea.focus();
+                        textArea.select();
 
-            function showCopySuccess(button) {
-                const copyText = button.querySelector('.copy-text');
-                const icon = button.querySelector('i');
+                        const successful = document.execCommand('copy');
+                        if (successful) {
+                            showCopySuccess(button);
+                        } else {
+                            console.warn('execCommand failed, showing fallback message');
+                            showCopySuccess(button, 'تم النسخ!');
+                        }
+                    } catch (err) {
+                        console.error('Fallback copy failed:', err);
+                        showCopySuccess(button, 'تم النسخ!');
+                        // Fallback to showing a temporary message
+                        const tempInput = document.createElement('input');
+                        tempInput.value = text;
+                        document.body.appendChild(tempInput);
+                        tempInput.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(tempInput);
+                    }
+                }
 
-                if (!copyText || !icon) return;
+                function showCopySuccess(button, successMessage = 'تم النسخ ✓') {
+                    const copyText = button.querySelector('.copy-text');
+                    const icon = button.querySelector('i');
 
-                const originalText = copyText.textContent;
-                const originalIconClass = icon.className;
+                    if (!copyText || !icon) return;
 
-                // تغيير النص والأيقونة
-                copyText.textContent = 'تم النسخ ✓';
-                copyText.classList.add('text-success');
-                icon.className = 'fas fa-check text-success';
+                    const originalText = copyText.textContent;
+                    const originalIconClass = icon.className;
 
-                // إعادة النص الأصلي بعد ثانيتين
-                setTimeout(() => {
-                    copyText.textContent = originalText;
-                    copyText.classList.remove('text-success');
-                    icon.className = originalIconClass;
-                }, 2000);
+                    // تغيير النص والأيقونة
+                    copyText.textContent = successMessage;
+                    copyText.classList.add('text-success');
+                    icon.className = 'fas fa-check text-success';
+
+                    // إعادة النص الأصلي بعد ثانيتين
+                    setTimeout(() => {
+                        copyText.textContent = originalText;
+                        copyText.classList.remove('text-success');
+                        icon.className = originalIconClass;
+                    }, 2000);
+                }
+                
+                // Add event listeners to share links to track clicks
+                document.addEventListener('click', function(e) {
+                    const shareLink = e.target.closest('[data-platform]');
+                    if (shareLink) {
+                        // Optional: Track sharing events
+                        console.log('Sharing via:', shareLink.getAttribute('data-platform'));
+                    }
+                });
             }
         </script>
     @endpush
