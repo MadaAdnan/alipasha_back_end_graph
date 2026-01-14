@@ -1,41 +1,47 @@
 @props([
     'route'=>null
 ])
-<form class="bg-white p-2 mt-2 rounded" action="{{$route??route('search.index')}}" method="get">
-    <div class="row  ">
-        {{-- المحافظة --}}
-        <div class="col-md-12">
-            <label class="form-label">المحافظة</label>
-            <select class="form-select" id="governorateSelect" name="city_id">
-                <option value="">اختر المحافظة</option>
-                @foreach($governorates as $gov)
-                    <option value="{{ $gov->id }}">{{ $gov->name }}</option>
-                @endforeach
-            </select>
-        </div>
-
-        {{-- المدينة --}}
-        <div class="col-md-12">
-            <label class="form-label">المدينة</label>
-            <select class="form-select" id="citySelect" disabled name="area_id">
-                <option value="">اختر المدينة</option>
-            </select>
-        </div>
-
-        {{-- السعر من --}}
-        <div class="col-md-6 ">
-            <label class="form-label">السعر من</label>
-            <input type="number" class="form-control" id="priceFrom" placeholder="0" name="price_from">
-        </div>
-
-        {{-- السعر إلى --}}
-        <div class="col-md-6">
-            <label class="form-label">السعر إلى</label>
-            <input type="number" class="form-control" id="priceTo" placeholder="0" name="price_to">
-        </div>
-
+<form class="filter-container" action="{{$route??route('search.index')}}" method="get">
+    <div class="filter-header">
+        <i class="fas fa-sliders-h"></i>
+        <span>الفلاتر</span>
     </div>
-    <button class="btn bg-red-accent w-100 my-1">إرسال</button>
+
+    {{-- المحافظة --}}
+    <div class="filter-group">
+        <label class="filter-label" for="governorateSelect">المحافظة</label>
+        <select class="filter-select" id="governorateSelect" name="city_id">
+            <option value="">اختر المحافظة</option>
+            @foreach($governorates as $gov)
+                <option value="{{ $gov->id }}">{{ $gov->name }}</option>
+            @endforeach
+        </select>
+    </div>
+
+    {{-- المدينة --}}
+    <div class="filter-group">
+        <label class="filter-label" for="citySelect">المدينة</label>
+        <select class="filter-select" id="citySelect" disabled name="area_id">
+            <option value="">اختر المدينة</option>
+        </select>
+    </div>
+
+    {{-- السعر من والسعر إلى --}}
+    <div class="filter-row">
+        <div class="filter-group">
+            <label class="filter-label" for="priceFrom">السعر من</label>
+            <input type="number" class="filter-input" id="priceFrom" placeholder="0" name="price_from">
+        </div>
+
+        <div class="filter-group">
+            <label class="filter-label" for="priceTo">السعر إلى</label>
+            <input type="number" class="filter-input" id="priceTo" placeholder="0" name="price_to">
+        </div>
+    </div>
+
+    <button type="submit" class="filter-submit-btn">
+        <i class="fas fa-search"></i> بحث
+    </button>
 </form>
 
 <script>
