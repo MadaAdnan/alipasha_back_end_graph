@@ -8,6 +8,6 @@
     <!-- زر مشاهدة الفيديو -->
     <a href="{{ $product->video }}" target="_blank"
        class="position-absolute top-50 start-50 translate-middle btn btn-danger">
-        <i class="fa fa-play"></i> مشاهدة الفيديو
+        <i class="fa fa-play"></i>
     </a>
 </div>
