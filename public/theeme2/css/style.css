@@ -107,13 +107,13 @@ option>img{
 }
 .sticky-col {
     position: sticky;
-    top: 10px; /* المسافة من الأعلى */
+    top: 10px;
     height: fit-content;
 }
 
 .scroll-col {
-    max-height: calc(100vh - 100px); /* ارتفاع الشاشة ناقص الهيدر */
-    overflow-y: auto; /* تفعيل التمرير */
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
     padding-right: 10px;
 }
 .divider{
@@ -124,13 +124,21 @@ option>img{
     cursor: pointer;
 }
 .btn-add-post{
-    background-color: var(--red-accent);
+    background: linear-gradient(135deg, var(--red-accent) 0%, var(--red) 100%);
     color: var(--white);
-    border: 1px solid var(--red-accent);
+    border: 2px solid var(--red-accent);
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     padding-block: 10px;
     padding-inline: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    overflow: hidden;
 }
 .btn-contact-us{
     background-color: transparent;
