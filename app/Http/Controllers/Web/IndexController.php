@@ -26,8 +26,8 @@ class IndexController extends Controller
             ->where(['is_active' => true, 'is_main' => true])
             ->whereIn('type', [
                 CategoryTypeEnum::PRODUCT->value,
-                CategoryTypeEnum::JOB->value,
-                CategoryTypeEnum::SEARCH_JOB->value,
+//                CategoryTypeEnum::JOB->value,
+//                CategoryTypeEnum::SEARCH_JOB->value,
 //                CategoryTypeEnum::TENDER->value,
 //                CategoryTypeEnum::NEWS->value,
             ])
