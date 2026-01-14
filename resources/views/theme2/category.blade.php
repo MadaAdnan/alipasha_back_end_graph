@@ -9,9 +9,11 @@
 
             <div class="col-md-9">
                 <div class="d-flex align-items-center">
-                    <x-components.bread-crumb-component :categories="[
+                   <div class="flex-grow-1">
+                       <x-components.bread-crumb-component :categories="[
     ['name'=>$category->name]
 ]"/>
+                   </div>
                     <x-component.top-add-post-component />
                 </div>
 
