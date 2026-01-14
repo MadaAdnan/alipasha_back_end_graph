@@ -12,10 +12,10 @@
                     <div class="flex-grow-1">
                         @php
                             $breadCrumbs = [];
-                            if($category->parent){
+                            if($category->parents->count()>0){
                                 $parent=$category->parents->first();
                                 $breadCrumbs[]= [
-                                    'name' => $parent->name,
+                                    'name' => $parent?->name,
                                     'url' => route('category.show', $parent->id)
                                 ];
                             }
