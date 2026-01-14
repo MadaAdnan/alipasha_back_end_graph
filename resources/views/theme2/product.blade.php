@@ -32,7 +32,12 @@
                 </div>
                 @endif
                 <div class="bg-white p-3">
-                    <h4 class="text-black fw-bold">التفاصيل</h4>
+                   <div class="d-flex justify-content-between">
+                       <h4 class="text-black fw-bold">التفاصيل</h4>
+                       <div class="">
+                        <x-components.share-btn-component/>
+                       </div>
+                   </div>
                     <p class="lead text-justify">{!! $post->info !!}</p>
                 </div>
             </div>
