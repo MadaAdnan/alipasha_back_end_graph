@@ -547,6 +547,10 @@ option>img{
     aspect-ratio: 2/1 !important;
     object-fit: cover;
 }
+.slider-component .carousel-img{
+    width: 100%;
+    aspect-ratio: 3/1;
+}
 
 /* ===== SIDEBAR CATEGORY COMPONENT STYLES ===== */
 .sidebar-categories-container {
