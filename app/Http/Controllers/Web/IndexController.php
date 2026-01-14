@@ -38,7 +38,7 @@ class IndexController extends Controller
             $q->active()
                 ->upTo20()->orderByRaw("CASE WHEN level = 'special' THEN 1 ELSE 2 END")
                 ->orderBy('created_at', 'DESC')
-                ->take(8);
+                ->limit(8);
         }])
             ->where('is_active', true)
             ->where('is_main', true)
