@@ -9,9 +9,10 @@
             </div>
 
             <div class="col-md-9 scroll-col">
-                <div class="d-flex w-100">
-                    <x-component.top-add-post-component />
+                <div class="d-flex w-100 align-items-center">
                     <x-components.bread-crumb-component class="bg-transparent"/>
+                    <x-component.top-add-post-component />
+
                 </div>
 
             @if($categoriesWithProducts)
