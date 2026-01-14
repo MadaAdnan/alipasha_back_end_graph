@@ -35,7 +35,7 @@
                    <div class="d-flex justify-content-between">
                        <h4 class="text-black fw-bold">التفاصيل</h4>
                        <div class="">
-                        <x-components.share-btn-component/>
+                        <x-components.share-btn-component :url="route('posts.show', $post->id)"/>
                        </div>
                    </div>
                     <p class="lead text-justify">{!! $post->info !!}</p>
