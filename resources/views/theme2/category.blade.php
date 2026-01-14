@@ -23,7 +23,7 @@
                                     'url' => route('category.show', $category->id)
                                 ];
                         @endphp
-                        <x-components.bread-crumb-component :categories="" class="bg-transparent"/>
+                        <x-components.bread-crumb-component :categories="$breadCrumbs" class="bg-transparent"/>
                     </div>
                     <x-component.top-add-post-component/>
                 </div>
