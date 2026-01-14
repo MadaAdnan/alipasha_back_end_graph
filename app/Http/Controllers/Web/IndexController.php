@@ -53,7 +53,7 @@ class IndexController extends Controller
             ->having('products_count', '>=', 8)
 
 
-            ->take(5)
+
 
             ->with([
                 'products' => function ($query) {
@@ -64,7 +64,7 @@ class IndexController extends Controller
                         ->orderBy('created_at', 'DESC');
                 }
             ])
-
+->orderBy('sortable')
             ->get();
 
         $categoriesWithProducts->each(function ($cat) {
