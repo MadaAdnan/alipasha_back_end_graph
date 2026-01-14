@@ -81,8 +81,14 @@ trait MediaTrait
     public function getImages($collection = 'image', $conversation = 'webp'): array
     {
         $list = [];
-        if ($this instanceof Product && $collection == 'image' && !$this->hasMedia('image')) {
-            $collection = 'images';
+        if ($this instanceof Product && ($collection == 'image' || $collection == 'images')) {
+            foreach ($this->getMedia('image') as $media) {
+                $list[] = $media->getUrl($conversation);
+            }
+            foreach ($this->getMedia('images') as $media) {
+                $list[] = $media->getUrl($conversation);
+            }
+            return $list;
         }
         foreach ($this->getMedia($collection) as $media) {
             $list[] = $media->getUrl($conversation);
