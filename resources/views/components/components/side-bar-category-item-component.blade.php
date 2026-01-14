@@ -3,41 +3,36 @@
     'categoryId'=>null
 ])
 @php
-$dataCategory=$category;
-$category_id=$categoryId??null;
- @endphp
+    $dataCategory=$category;
+    $category_id=$categoryId??null;
+    $isActive = $category_id != null && $dataCategory?->id == $category_id;
+@endphp
 
+<a class="category-item-link {{ $isActive ? 'active' : '' }}" href="{{route('category.show',$dataCategory?->id)}}">
+    <div class="category-item-icon">
+        <i class="fas fa-tag"></i>
+        <span>{{ $dataCategory?->name }}</span>
+    </div>
+    <div class="category-item-title">
+        <i class="fas fa-chevron-left"></i>
+    </div>
+</a>
 
-        <dt>
-            <a class="cursor-pointer " href="{{route('category.show',$dataCategory?->id)}}">
-                <div class="d-flex justify-content-between py-1">
-                    <div class="side-bar-category-item-icon text-ellipsis">
-                        <i class="fa-regular fa-circle-dot"></i>
-                        <span class="">  {{ $dataCategory?->name }}</span>
-                    </div>
-                    <div class="side-bar-category-item-title">
-                        <i class="fa fa-angle-left"></i>
-                    </div>
-                </div>
-            </a>
-        </dt>
-       @if($categoryId==$dataCategory->id)
+@if($isActive && $dataCategory->children->count() > 0)
+    <ul class="subcategories-list">
         @foreach($dataCategory->children as $child)
-            <dd>
-                <a class="cursor-pointer " href="{{route('category.show',$child?->id)}}">
-                    <div class="d-flex justify-content-between py-1">
-                        <div class="side-bar-category-item-icon text-ellipsis">
-                            <i class="fa-regular fa-circle-dot"></i>
-                            <span class="">  {{ $child?->name }}</span>
-                        </div>
-                        <div class="side-bar-category-item-title">
-                            <i class="fa fa-angle-left"></i>
-                        </div>
+            <li class="subcategory-item">
+                <a class="subcategory-item-link" href="{{route('category.show',$child?->id)}}">
+                    <div class="category-item-icon">
+                        <i class="fas fa-circle" style="font-size: 6px;"></i>
+                        <span>{{ $child?->name }}</span>
+                    </div>
+                    <div class="category-item-title">
+                        <i class="fas fa-chevron-left"></i>
                     </div>
                 </a>
-            </dd>
+            </li>
         @endforeach
-           @endif
-
-
+    </ul>
+@endif
 
