@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\CategoryTypeEnum;
+use App\Enums\ProductActiveEnum;
 use App\Observers\CategoryObserve;
 use App\Traits\MediaTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -84,7 +85,8 @@ class Category extends Model implements HasMedia
     public function topProducts()
     {
         return $this->hasMany(Product::class)
-            ->active()
+           ->where(['active'=>ProductActiveEnum::ACTIVE->value])
+            ->where('power','>=',20)
             ->orderByRaw("CASE WHEN level = 'special' THEN 1 ELSE 2 END")
             ->orderBy('created_at', 'DESC')
             ->limit(8); // هنا limit يعمل بشكل صحيح
