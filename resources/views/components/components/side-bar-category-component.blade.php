@@ -1,17 +1,22 @@
 @props([
      'categories'=>null,
-     'categoryId'=>0
+     'categoryId'=>null
 ])
 @php
     $dataCategories=$categories??[];
 @endphp
 
-    <div class="bg-white p-1 rounded">
-        <dl>
-        @foreach($dataCategories as $category)
-
-            <x-components.side-bar-category-item-component :categoryId="request()->route('id')"    :category="$category" />
-        @endforeach
-        </dl>
+<div class="sidebar-categories-container">
+    <div class="categories-header">
+        <i class="fas fa-list"></i>
+        <span>التصنيفات</span>
     </div>
+    <ul class="categories-list">
+        @foreach($dataCategories as $category)
+            <li class="category-item-wrapper">
+                <x-components.side-bar-category-item-component :category="$category" :categoryId="$categoryId" />
+            </li>
+        @endforeach
+    </ul>
+</div>
 
