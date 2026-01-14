@@ -1,7 +1,7 @@
 <div class="border-bottom  border-1 d-flex justify-content-end gap-2">
 
     <button class="btn-contact-us" data-bs-target="#exampleModalToggle" data-bs-toggle="modal"><i
-            class="fa fa-comments"></i> تواصل معنا
+            class="fa fa-comments"></i> <span>تواصل معنا</span>
     </button>
     <a class="btn-add-post" href=""> <i class="fa fa-plus"></i> أضف إعلانك</a>
 
