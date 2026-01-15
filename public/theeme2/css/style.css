@@ -855,6 +855,7 @@ option>img{
 }
 .color{
     width: 30px;
+    margin-inline: 3px;
     aspect-ratio: 1/1;
 }
 
