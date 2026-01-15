@@ -43,7 +43,7 @@
                     <p class="lead text-justify">{!! $post->info !!}</p>
                     @if($post->colors->count()>0)
                     <div class="d-flex justify-content-between info-data">
-                        <span><i class="fas fa-map-marker-alt"></i> الألوان المتوفرة</span>
+                        <span><i class="fas fa-palette"></i> الألوان المتوفرة</span>
                        <div class="d-flex">
                            @foreach($post->colors as $color)
                                <span class="p-2 rounded-circle color" style="background-color: {{$color->code}}"></span>
