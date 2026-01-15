@@ -41,9 +41,33 @@
                        </div>
                    </div>
                     <p class="lead text-justify">{!! $post->info !!}</p>
+                    @if($post->colors->count()>0)
+                    <div class="d-flex justify-content-between info-data">
+                        <span><i class="fas fa-map-marker-alt"></i> الألوان المتوفرة</span>
+                       <div class="d-flex">
+                           @foreach($post->colors as $color)
+                               <span class="p-2 rounded-circle color" style="background-color: {{$color->code}}"></span>
+                           @endforeach
+                       </div>
+                    </div>
+                    @endif
+                    <div class="d-flex justify-content-between info-data">
+                        <span><i class="fas fa-map-marker-alt"></i> المحافظة</span>
+                        <span>{{$post->user?->city?->name}}</span>
+                    </div>
+                    <div class="d-flex justify-content-between info-data">
+                        <span><i class="fas fa-map-pin"></i> العنوان</span>
+                        <span>{{$post->user?->address}}</span>
+                    </div>
+                    <div class="d-flex justify-content-between info-data">
+                        <span><i class="fas fa-phone"></i> الهاتف</span>
+                        <span>{{$post->user?->full_phone}}</span>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-3"></div>
+            <div class="col-md-3">
+                <x-components.same-post-component :category="$post->sub1_id"/>
+            </div>
         </div>
     </div>
 

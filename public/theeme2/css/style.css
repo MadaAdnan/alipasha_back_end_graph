@@ -849,6 +849,15 @@ option>img{
     color: var(--red-accent);
     border:1px solid var(--red-accent);
 }
+.info-data{
+    padding-block: 5px;
+    border-bottom: 1px solid #f0f0f0;
+}
+.color{
+    width: 30px;
+    aspect-ratio: 1/1;
+}
+
 /* ===== RESPONSIVE ADJUSTMENTS ===== */
 @media (max-width: 768px) {
     .filter-row {
