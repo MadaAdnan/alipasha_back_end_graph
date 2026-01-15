@@ -830,6 +830,25 @@ option>img{
 .breadcrumb-ol .breadcrumb-item:last-child a{
     color: var(--red-accent);
 }
+.like-btn{
+    color: var(--gray-text);
+    cursor: pointer;
+    font-size: 20px;
+    transition: all 0.2s ease;
+    outline: var(--red-accent);
+    border:1px solid var(--gray-text);
+    border-radius: 10px;
+
+    &:hover{
+        color: var(--red);
+        border:1px solid var(--red);
+    }
+
+}
+.like-btn.active{
+    color: var(--red-accent);
+    border:1px solid var(--red-accent);
+}
 /* ===== RESPONSIVE ADJUSTMENTS ===== */
 @media (max-width: 768px) {
     .filter-row {
