@@ -42,7 +42,7 @@
                                                 name="email"
                                                 value="{{old('email')}}"
                                                 label="البريد الإلكتروني" placeholder="example@domain.com" required/>
-                        <x-form.input-password-component type="password" class="form-control" id="loginPassword"
+                        <x-form.input-password-component type="password" name="password" class="form-control" id="loginPassword"
                                                          label="كلمة المرور" required/>
                         <div class="d-flex justify-content-end">
                             <a href="{{route('forget-password.ui')}}" class="my-1">نسيت كلمة المرور؟</a>
