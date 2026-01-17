@@ -16,7 +16,7 @@
                 </li>
 @guest()
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fa fa-user"></i> تسجيل الدخول </a>
+                    <a class="nav-link" href="{{route('login')}}"><i class="fa fa-user"></i> تسجيل الدخول </a>
                 </li>
 
                 @endguest

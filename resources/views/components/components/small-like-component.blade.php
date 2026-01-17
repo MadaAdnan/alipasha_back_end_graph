@@ -23,33 +23,33 @@ function toggleLike(userId, productId) {
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
-            'X-Requested-With': 'XMLHttpRequest',
-            'Authorization': 'Bearer ' + localStorage.getItem('token'),
-            // لا حاجة لـ Authorization لأن نقطة النهاية هذه تستخدم مصادقة الجلسة
+            'X-Requested-With': 'XMLHttpRequest'
+            // ملاحظة: لا حاجة لـ Authorization لأن نقطة النهاية هذه تستخدم مصادقة الجلسة
         }
     })
     .then(response => {
         if (response.ok) {
-            return response.text(); // نظرًا لأن نقطة النهاية تُرجع قيمة عددية بسيطة، نستخدم text()
+            return response.json(); // نستخدم json() لأن الاستجابة الآن تكون ككائن JSON
         }
         throw new Error('Network response was not ok');
     })
     .then(data => {
         // التحديث بناءً على الحالة الجديدة
         const likesCountElement = document.getElementById(`likes-count-${productId}`);
-        if (likesCountElement) {
+        if (likesCountElement && data.likes_count !== undefined) {
             // تحديث عدد الإعجابات
-            likesCountElement.textContent = data;
+            likesCountElement.textContent = data.likes_count;
         }
 
-        // تبديل أيقونة الإعجاب (إضافة أو إزالة الفئة)
+        // استخدام الحالة الفعلية من الاستجابة لتحديد فئة الأيقونة
         const likeIcon = document.querySelector(`.like-icon[data-product-id="${productId}"]`);
-        if (likeIcon) {
-            // تحقق مما إذا كانت الأيقونة تحتوي على فئة text-gray وقم بتبديلها
-            if (likeIcon.classList.contains('text-gray')) {
-                likeIcon.classList.remove('text-gray'); // إزالة الفئة عند الإعجاب
+        if (likeIcon && data.is_liked !== undefined) {
+            // إذا كان المستخدم قد أعجب بالفعل، قم بإزالة فئة text-gray
+            // إذا لم يعجب المستخدم، قم بإضافة فئة text-gray
+            if (data.is_liked) {
+                likeIcon.classList.remove('text-gray'); // مستخدم يحب المنتج
             } else {
-                likeIcon.classList.add('text-gray'); // إضافة الفئة عند إلغاء الإعجاب
+                likeIcon.classList.add('text-gray'); // مستخدم لا يحب المنتج
             }
         }
     })
