@@ -23,6 +23,8 @@ class IndexController extends Controller
      */
     public function index()
     {
+
+
         $categories = Category::where('is_active', true)
             ->where(['is_active' => true, 'is_main' => true])
             ->whereIn('type', [

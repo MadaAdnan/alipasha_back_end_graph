@@ -23,12 +23,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::get('like/{userId}/{productId}', function ($userId, $productId) {
+    $product = \App\Models\Product::find($productId);
+    if (!$product) {
+        return response()->json(['error' => 'Product not found'], 404);
+    }
+    
     $like = Like::where(['product_id' => $productId, 'user_id' => $userId])->exists();
     if ($like) {
         Like::where(['product_id' => $productId, 'user_id' => $userId])->delete();
     } else {
         Like::create(['product_id' => $productId, 'user_id' => $userId]);
-        $product = \App\Models\Product::find($productId);
         \App\Models\Interaction::updateOrCreate([
             'user_id' => $userId,
             'seller_id' => $product->user_id,
@@ -38,7 +42,9 @@ Route::get('like/{userId}/{productId}', function ($userId, $productId) {
             'visited' =>1,
         ]);
     }
-    return $product->likes_count??0;
+    
+    // إعادة تحميل العد بعد التحديث
+    return $product->likes()->count();
 })->name('api.like');
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/messages', \App\Http\Controllers\Api\V1\MessageController::class)->only('store');
