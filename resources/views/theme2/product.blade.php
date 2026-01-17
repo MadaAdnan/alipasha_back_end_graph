@@ -24,13 +24,19 @@
 ]"/>
                    <x-components.price-component class="bg-transparent " :price="$post->price" :discount="$post->discount" :isDiscount="$post->is_discount"/>
                </div>
-                @if($post->video!=null && Str::startsWith($post->video ,"https://"))
-                <div class="row">
+                <div class="row justify-content-center align-items-center my-1">
+                    @if($post->video!=null && Str::startsWith($post->video ,"https://"))
+
                     <div class="col-md-2">
                         <x-components.play-video-component :product="$post"/>
                     </div>
-                </div>
+
+
                 @endif
+                        <div class="col-md-2 col-6">
+                            <x-components.small-widget-product-detail-component class="border rounded p-2 bg-white" title="تاريخ النشر" icon="fas fa-calendar d-block fa-2x text-gray" info="{{$post->created_at?->format('Y-m-d')}}"/>
+                        </div>
+                </div>
                 <div class="bg-white p-3">
                    <div class="d-flex justify-content-between">
                        <h4 class="text-black fw-bold">التفاصيل</h4>
