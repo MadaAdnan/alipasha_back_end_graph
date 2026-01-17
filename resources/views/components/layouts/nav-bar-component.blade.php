@@ -25,7 +25,9 @@
                     <a class="nav-link" href="#"><i class="fa fa-user"></i> {{auth()->user()->name}} </a>
                 </li>
                 <li class="nav-item">
-                    <form action="">
+                    <form action="{{route('logout')}}" method="post">
+                        @csrf
+                        @method('POST')
                         <button class="btn btn-danger">تسجيل الخروج</button>
                     </form>
                 </li>
