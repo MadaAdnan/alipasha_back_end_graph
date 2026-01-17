@@ -219,4 +219,11 @@ class Product extends Model implements HasMedia
         return $this->price;
     }
 
+    public function getIsLikeAttribute(){
+        if(!auth()->check()){
+            return false;
+        }
+        return $this->likes()->where('user_id',auth()->id())->exists();
+    }
+
 }

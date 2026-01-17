@@ -59,10 +59,7 @@
 
             <!-- Stats -->
             <div class="product-stats-modern">
-                <div class="stat-item-modern">
-                    <i class="fas fa-heart"></i>
-                    <span>{{\App\Helpers\GlobalHelper::formatNumber($product->likes_count)}}</span>
-                </div>
+               <x-components.small-like-component :product="$product"/>
 
                 <div class="stat-item-modern">
                     <i class="fas fa-eye"></i>
