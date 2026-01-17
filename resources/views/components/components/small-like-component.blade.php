@@ -35,7 +35,7 @@ function toggleLike(userId, productId) {
             throw new Error('Network response was not ok');
         })
         .then(data => {
-            // التحديث بناءً على الحالة الجديدة
+            console.log('Data:', data)
             const likesCountElement = document.getElementById(`likes-count-${productId}`);
             if (likesCountElement && data !== undefined) {
                 // تحديث عدد الإعجابات
@@ -44,10 +44,10 @@ function toggleLike(userId, productId) {
 
             // استخدام الحالة الفعلية من الاستجابة لتحديد فئة الأيقونة
             const likeIcon = document.querySelector(`.like-icon[data-product-id="${productId}"]`);
-            if (likeIcon && data.is_liked !== undefined) {
+            if (likeIcon && data !== undefined) {
                 // إذا كان المستخدم قد أعجب بالفعل، قم بإزالة فئة text-gray
                 // إذا لم يعجب المستخدم، قم بإضافة فئة text-gray
-                if (data.is_liked) {
+                if (data) {
                     likeIcon.classList.remove('text-gray'); // مستخدم يحب المنتج
                 } else {
                     likeIcon.classList.add('text-gray'); // مستخدم لا يحب المنتج
