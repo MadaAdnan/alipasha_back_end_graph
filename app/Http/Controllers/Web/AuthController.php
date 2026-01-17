@@ -32,6 +32,7 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+        dd($request->all());
         $this->validate($request, [
             'email'=>'required|email|exists:users,email',
             'password'=>'required|min:8'

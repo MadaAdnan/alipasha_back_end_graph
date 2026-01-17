@@ -36,7 +36,7 @@
                     <!-- محتوى تسجيل الدخول -->
                     <form method="post" action="{{route('login')}}">
                         @csrf
-                        @method('post')
+                        @method('POST')
                         <x-form.input-component errorKey="email" wrapperClass="mt-1" type="email" class="form-control"
                                                 id="loginEmail"
                                                 name="email"
