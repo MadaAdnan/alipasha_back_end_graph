@@ -79,9 +79,9 @@
                         <x-form.input-component wrapperClass="mt-1" type="email" class="form-control" id="registerEmail"
                                                 name="email"
                                                 label="البريد الإلكتروني" placeholder="example@domain.com" required/>
-                        <x-form.input-password-component type="password" class="form-control" id="registerPassword"
+                        <x-form.input-password-component type="password" class="form-control" id="registerPassword" name="password"
                                                          label="كلمة المرور" required name="password"/>
-                        <x-form.input-password-component type="password" class="form-control"
+                        <x-form.input-password-component type="password" class="form-control" name="confirmPassword"
                                                          id="registerConfirmPassword" label="تأكيد كلمة المرور"
                                                          required name="confirmPassword"/>
 
