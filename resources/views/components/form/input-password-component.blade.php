@@ -43,7 +43,7 @@
         'readonly' => $readonly,
         'autocomplete' => 'new-password',
     ]);
-dd($name);
+
     if ($required) {
         $attributes = $attributes->merge(['required' => 'required']);
     }
