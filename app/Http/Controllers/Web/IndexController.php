@@ -60,7 +60,7 @@ class IndexController extends Controller
                 }
             ])
             ->take(5)
-            ->inRandomOrder()
+            ->orderBy('sortable')
             ->get();
 
         $categoriesWithProducts->each(function ($cat) {
