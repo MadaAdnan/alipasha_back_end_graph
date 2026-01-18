@@ -2,6 +2,12 @@
 
 @section('content')
 <div class="container my-5">
+    <div class="row justify-content-center">
+<div class="col-md-2">
+    <x-components.small-widget-product-detail-component title="متابعين" icon="fa-regular fa-thumbs-up" :info="$store->followers_count"/>
+
+</div>
+    </div>
     <div class="row">
         <div class="col-md-3">
 
