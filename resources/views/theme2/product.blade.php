@@ -34,10 +34,10 @@
 
                 @endif
                         <div class="col-md-2 col-6">
-                            <x-components.small-widget-product-detail-component class="border rounded p-2 bg-white" title="تاريخ النشر" icon="fas fa-calendar d-block fa-2x text-gray" info="{{$post->created_at?->format('Y-m-d')}}"/>
+                            <x-components.small-widget-product-detail-component class="border rounded p-2 bg-white" title="تاريخ النشر" icon="fas fa-calendar d-block fs-4 text-gray" info="{{$post->created_at?->format('Y-m-d')}}"/>
                         </div>
                         <div class="col-md-2 col-6">
-                            <x-components.small-widget-product-detail-component class="border rounded p-2 bg-white" title="عدد المشاهدات" icon="fa fa-eye d-block fa-2x text-gray" info="{{$post->views_count}}"/>
+                            <x-components.small-widget-product-detail-component class="border rounded p-2 bg-white" title="عدد المشاهدات" icon="fa fa-eye d-block fs-4 text-gray" info="{{$post->views_count}}"/>
                         </div>
                 </div>
                 <div class="bg-white p-3">

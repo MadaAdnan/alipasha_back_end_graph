@@ -1,9 +1,9 @@
 @props([
     'title'=>null,
-'classTitle'=>'text-gray fs-4',
+'classTitle'=>'text-gray fs-6',
 'icon'=>null,
 'info'=>null,
-'classInfo'=>'text-gray fs-6',
+'classInfo'=>'text-gray fs-7',
 'class'=>''
 ])
 @php
