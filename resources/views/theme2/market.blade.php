@@ -1,7 +1,7 @@
 @extends('theme2.layouts.master')
 
 @section('content')
-<div class="container">
+<div class="container my-5">
     <div class="row">
         <div class="col-md-3">
 
