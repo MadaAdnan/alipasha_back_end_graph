@@ -1,7 +1,5 @@
 @extends('theme2.layouts.master')
-@php
-dd($products)
-@endphp
+
 @section('content')
 <div class="container">
     <div class="row">
