@@ -41,7 +41,7 @@ class SellerController extends Controller
             ->withCount(['products' => function ($query) use ($store) {
                 $query->where('user_id', $store->id);
             }])->get();
-        return view('web.store',compact('store','products','categories'));
+        return view('theme2.market',compact('store','products','categories'));
     }
 
     /**
