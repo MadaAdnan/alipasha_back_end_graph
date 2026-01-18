@@ -15,6 +15,9 @@
                                                                     :info="$store->products_count"/>
 
             </div>
+            <div class="col-md-3">
+                <x-component.seller-info-component :seller="$store"/>
+            </div>
         </div>
         <div class="row">
             <div class="col-md-3">
