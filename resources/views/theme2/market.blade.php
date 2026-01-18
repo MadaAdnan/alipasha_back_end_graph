@@ -4,7 +4,7 @@
     <div class="container my-5">
         <div class="row justify-content-between align-items-center">
             <div class="col-md-9">
-                <div class="row justify-content-around">
+                <div class="row justify-content-start">
                     <div class="col-md-2">
                         <x-components.small-widget-product-detail-component class="bg-white border rounded p-2" title="متابعين"
                                                                             icon="fa-regular fa-thumbs-up"
