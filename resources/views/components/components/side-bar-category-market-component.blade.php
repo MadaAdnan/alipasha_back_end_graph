@@ -15,7 +15,7 @@
     <ul class="categories-list">
         @foreach($dataCategories as $category)
             <li class="category-item-wrapper">
-                <x-components.side-bar-category-market-item-component :category="$category" :categoryId="$categoryId" :store="$store"/>
+                <x-components.side-bar-category-market-item-component :category="$category" :categoryId="$categoryId" :seller="$store"/>
             </li>
         @endforeach
     </ul>
