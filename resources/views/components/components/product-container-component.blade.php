@@ -20,7 +20,7 @@
         </div>
 
     @endif
-    @if($products)
+    @if($dataProducts)
         <div class="row g-2">
             @foreach($dataProducts as $product)
                 <div class="col-lg-3 col-md-4 col-sm-6 col-6">
