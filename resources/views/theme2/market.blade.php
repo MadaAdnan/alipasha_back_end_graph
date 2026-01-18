@@ -10,7 +10,10 @@ dd($products)
             <x-components.side-bar-category-market-component :categories="$categories" :store="$store"/>
         </div>
         <div class="col-md-9">
-            <x-components.product-container-component :products="$products"/>
+            <x-components.product-container-component :products="$products->items()" :category="$category"
+                                                      :showMore="false"/>
+
+            <x-components.paginator-component :paginator="$products"/>
         </div>
     </div>
 </div>
