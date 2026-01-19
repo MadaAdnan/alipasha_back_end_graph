@@ -26,9 +26,12 @@
     <div class="chat-container">
     </div>
     <div class="">
-        <form action="" class="chat-input">
-            <input type="text" placeholder="اكتب هنا ...">
-            <button class="send-message">
+        <form action="{{route('messages.store')}}" class="chat-input" method="post">
+            @csrf
+            @method('POST')
+            <input type="hidden" name="communityId" value="{{$community->id}}">
+            <input type="text" name="body" placeholder="اكتب هنا ...">
+            <button class="send-message" type="submit">
                 <i class="fas fa-paper-plane"></i>
             </button>
         </form>
