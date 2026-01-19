@@ -5,7 +5,18 @@
 
     <div class="categories-header">
         @if($community)
-        <i class="fas fa-list"></i>
+            @switch($community->type)
+                @case(\App\Enums\CommunityTypeEnum::CHAT->value):
+                <i class="fa-solid fa-comments"></i>
+                @break
+                @case(\App\Enums\CommunityTypeEnum::GROUP->value):
+                <i class="fa-solid fa-users-between-lines"></i>
+                @break
+                @case(\App\Enums\CommunityTypeEnum::CHANNEL->value):
+                <i class="fa-solid fa-bullhorn"></i>
+                @break
+
+            @endswitch
         <span>{{$community->name}}</span>
         @else
             <i class="fas fa-list"></i>
