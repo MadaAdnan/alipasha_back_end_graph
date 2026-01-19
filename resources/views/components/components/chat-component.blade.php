@@ -25,6 +25,12 @@
     </div>
     <div class="chat-container">
     </div>
+    <div class="chat-input">
+        <input type="text" placeholder="اكتب هنا ...">
+        <button>
+            <i class="fas fa-paper-plane"></i>
+        </button>
+    </div>
 
 
 
