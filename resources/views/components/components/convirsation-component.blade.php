@@ -5,6 +5,10 @@
         <span>المحادثات</span>
     </div>
     <ul class="categories-list">
+        @php
+            dd($communities);
+
+        @endphp
         @foreach($communities as $community)
             <li class="category-item-wrapper">
                 <x-components.convirsation-item-component :community="$community"/>
