@@ -1,3 +1,8 @@
+@props([
+    'community'=>null
+])
 <div>
-    Chat
+    @if($community)
+{{$community->name}}
+        @endif
 </div>
