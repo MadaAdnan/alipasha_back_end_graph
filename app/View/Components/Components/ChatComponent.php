@@ -12,7 +12,7 @@ class ChatComponent extends Component
     /**
      * @var null
      */
-    private $community;
+    public $community;
 
     /**
      * Create a new component instance.

@@ -16,11 +16,11 @@ class CommunityController extends Controller
      */
     public function index()
     {
-       $community = Community::whereNot('type', 'live')->whereHas('messages')->whereHas('allUsers', function ($query) {
+       /*$community = Community::whereNot('type', 'live')->whereHas('messages')->whereHas('allUsers', function ($query) {
             $query->where('users.id', auth()->id());  // جلب المجتمعات التي يشارك فيها المستخدم الحالي
         })->latest('last_update')
-            ->first();
-        return view('theme2.conversation',compact('community'));
+            ->first();*/
+        return view('theme2.conversation');
     }
 
     /**
