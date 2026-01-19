@@ -900,7 +900,7 @@ padding-block: 10px;
     border-radius: 50%;
     border: 1px solid var(--primary-color);
     position: absolute;
-    top: anchor(--message bottom);
+    top: calc(anchor(--message top) - 10px);
     left: anchor(--message center);
 }
 .message{
