@@ -10,13 +10,13 @@
 <a class="category-item-link {{ $isActive ? 'active' : '' }}" href="{{route('communities.show',$community?->id)}}">
     <div class="category-item-icon">
         @switch($community->type)
-            @case(\App\Enums\CommunityTypeEnum::CHAT->value):
+            @case(\App\Enums\CommunityTypeEnum::CHAT->value)
             <i class="fa-solid fa-comments"></i>
             @break
-            @case(\App\Enums\CommunityTypeEnum::GROUP->value):
+            @case(\App\Enums\CommunityTypeEnum::GROUP->value)
             <i class="fa-solid fa-users-between-lines"></i>
             @break
-            @case(\App\Enums\CommunityTypeEnum::CHANNEL->value):
+            @case(\App\Enums\CommunityTypeEnum::CHANNEL->value)
             <i class="fa-solid fa-bullhorn"></i>
             @break
 
@@ -24,13 +24,13 @@
         <span>{{ $community?->name }} <small class="text-red">
                 (
              @switch($community->type)
-                    @case(\App\Enums\CommunityTypeEnum::CHAT->value):
+                    @case(\App\Enums\CommunityTypeEnum::CHAT->value)
                     محادثة
                     @break
-                    @case(\App\Enums\CommunityTypeEnum::GROUP->value):
+                    @case(\App\Enums\CommunityTypeEnum::GROUP->value)
                    مجموعة
                     @break
-                    @case(\App\Enums\CommunityTypeEnum::CHANNEL->value):
+                    @case(\App\Enums\CommunityTypeEnum::CHANNEL->value)
                     قناة
                     @break
 
