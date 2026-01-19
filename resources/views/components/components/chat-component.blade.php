@@ -2,7 +2,7 @@
     'community'=>null
 ])
 <div>
-    {{dd($community)}}
+
     @if($community)
 {{$community->name}}
         @endif
