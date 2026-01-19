@@ -4,12 +4,15 @@
         <div class="row">
 
             <div class="col-md-3">
-               <x-components.convirsation-component/>
+                <x-components.convirsation-component/>
             </div>
 
             <div class="col-md-9">
-                <x-components.chat-component :community="$community??null"/>
+
+                    <x-components.chat-component :community="$community??null"/>
+
             </div>
+
         </div>
     </div>
 

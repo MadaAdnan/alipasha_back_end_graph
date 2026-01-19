@@ -3,6 +3,7 @@
 namespace App\View\Components\Components;
 
 use App\Models\Community;
+use App\Models\Message;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
@@ -13,6 +14,7 @@ class ChatComponent extends Component
      * @var null
      */
     public $community;
+    public $messages;
 
     /**
      * Create a new component instance.
@@ -29,7 +31,7 @@ class ChatComponent extends Component
        }else{
            $this->community = $community;
        }
-
+        $this->messages = Message::where('community_id', $this->community->id)->limit(50)->latest()->get()->sortBy(['created_at']);
     }
 
     /**
