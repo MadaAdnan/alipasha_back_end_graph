@@ -7,7 +7,7 @@
     $isActive = $communityId != null && $community?->id == $communityId;
 @endphp
 
-<a class="category-item-link {{ $isActive ? 'active' : '' }}" href="{{route('category.show',$community?->id)}}">
+<a class="category-item-link {{ $isActive ? 'active' : '' }}" href="{{route('communities.show',$community?->id)}}">
     <div class="category-item-icon">
         @switch($community->type)
             @case(\App\Enums\CommunityTypeEnum::CHAT->value):
