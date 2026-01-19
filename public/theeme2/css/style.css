@@ -884,12 +884,13 @@ option>img{
     border-bottom-right-radius: 15px;
 }
 .chat-input .send-message{
-    padding: 8px;
+    padding: 9px;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     background-color: white;
     border: 1px solid black;
     outline: none;
+    border-right: none;
 }
 /* ===== RESPONSIVE ADJUSTMENTS ===== */
 @media (max-width: 768px) {
