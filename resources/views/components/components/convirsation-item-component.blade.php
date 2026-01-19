@@ -9,7 +9,18 @@
 
 <a class="category-item-link {{ $isActive ? 'active' : '' }}" href="{{route('category.show',$community?->id)}}">
     <div class="category-item-icon">
-        <i class="fas fa-tag"></i>
+        @switch($community->type)
+            @case(\App\Enums\CommunityTypeEnum::CHAT->value):
+            <i class="fa-solid fa-comments"></i>
+            @break
+            @case(\App\Enums\CommunityTypeEnum::GROUP->value):
+            <i class="fa-solid fa-users-between-lines"></i>
+            @break
+            @case(\App\Enums\CommunityTypeEnum::CHANNEL->value):
+            <i class="fa-solid fa-bullhorn"></i>
+            @break
+
+        @endswitch
         <span>{{ $community?->name }}</span>
     </div>
     <div class="category-item-title">
