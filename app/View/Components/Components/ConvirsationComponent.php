@@ -20,7 +20,7 @@ class ConvirsationComponent extends Component
         $this->communities =  $communities = Community::whereNot('type', 'live')->whereHas('messages')->whereHas('allUsers', function ($query) {
             $query->where('users.id', auth()->id());  // جلب المجتمعات التي يشارك فيها المستخدم الحالي
         })
-            ->where('last_update','>',now()->subDays(10))
+           /* ->where('last_update','>',now()->subDays(10))*/
             ->latest('last_update')
             ->get();
     }
