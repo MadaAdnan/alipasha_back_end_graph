@@ -8,7 +8,7 @@
             </div>
 
             <div class="col-md-9">
-                <x-components.chat-component :community="isset($community) ?$community:null"/>
+                <x-components.chat-component :community="$community??null"/>
             </div>
         </div>
     </div>
