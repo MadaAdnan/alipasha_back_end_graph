@@ -25,7 +25,7 @@
     </div>
     <div class="chat-container">
         @foreach($messages as $message)
-            {{$message->body}}
+            <x-components.chat-message-component :message="$message"/>
         @endforeach
     </div>
     <div class="">
