@@ -23,6 +23,8 @@
             <span>لا يوجد محادثات لعرضها</span>
         @endif
     </div>
+    <div class="chat-container">
+    </div>
 
 
 
