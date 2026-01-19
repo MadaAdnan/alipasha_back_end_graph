@@ -898,6 +898,9 @@ option>img{
     border-radius: 50%;
     border: 1px solid var(--primary-color);
 }
+.message{
+
+}
 /* ===== RESPONSIVE ADJUSTMENTS ===== */
 @media (max-width: 768px) {
     .filter-row {
