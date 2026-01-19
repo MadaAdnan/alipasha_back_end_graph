@@ -898,11 +898,14 @@ padding-block: 10px;
     aspect-ratio: 1/1;
     border-radius: 50%;
     border: 1px solid var(--primary-color);
+    top: anchor(--message bottom);
+    left: anchor(--message center);
 }
 .message{
     border-radius: 10px;
     padding: 10px;
     box-shadow: 0px 2px 8px black;
+    anchor-name:--message;
 }
 /* ===== RESPONSIVE ADJUSTMENTS ===== */
 @media (max-width: 768px) {
