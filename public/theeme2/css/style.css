@@ -876,6 +876,13 @@ option>img{
     border-bottom-right-radius: 15px;
     gap: 10px;
 }
+.chat-input input{
+    background-color: beige;
+    flex-grow: 1;
+    border-top-right-radius: 15px;
+    padding: 8px;
+    border-bottom-right-radius: 15px;
+}
 /* ===== RESPONSIVE ADJUSTMENTS ===== */
 @media (max-width: 768px) {
     .filter-row {
