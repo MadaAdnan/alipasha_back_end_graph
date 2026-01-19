@@ -26,7 +26,7 @@
     <div class="chat-container">
     </div>
     <div class="">
-        <form action="" lass="chat-input">
+        <form action="" class="chat-input">
             <input type="text" placeholder="اكتب هنا ...">
             <button class="send-message">
                 <i class="fas fa-paper-plane"></i>
