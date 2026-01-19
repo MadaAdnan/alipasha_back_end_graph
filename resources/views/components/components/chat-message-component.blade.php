@@ -22,6 +22,6 @@
             <p class="bg-white rounded text-wrap p-2">{{$message->body}}</p>
 
         </div>
-        <span>{{$message->created_at->diffForHumans()}}</span>
+        <span>{{$message->created_at->format('Y-m-d | H:i')}}</span>
     </div>
 @endif
