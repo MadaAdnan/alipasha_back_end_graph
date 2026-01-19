@@ -3,7 +3,7 @@
     'communityId'=>null
 ])
 @php
-dd($community);
+
     $isActive = $communityId != null && $community?->id == $communityId;
 @endphp
 
