@@ -24,6 +24,9 @@
         @endif
     </div>
     <div class="chat-container">
+        @foreach($messages as $message)
+            {{$message->body}}
+        @endforeach
     </div>
     <div class="">
         <form action="{{route('messages.store')}}" class="chat-input" method="post">
