@@ -858,7 +858,14 @@ option>img{
     margin-inline: 3px;
     aspect-ratio: 1/1;
 }
-
+.chat-container{
+    min-height: 60vh;
+    background-color: white;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
 /* ===== RESPONSIVE ADJUSTMENTS ===== */
 @media (max-width: 768px) {
     .filter-row {
