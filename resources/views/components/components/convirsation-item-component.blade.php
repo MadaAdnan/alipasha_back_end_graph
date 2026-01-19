@@ -21,7 +21,22 @@
             @break
 
         @endswitch
-        <span>{{ $community?->name }}</span>
+        <span>{{ $community?->name }} <small class="text-red">
+                (
+             @switch($community->type)
+                    @case(\App\Enums\CommunityTypeEnum::CHAT->value):
+                    محادثة
+                    @break
+                    @case(\App\Enums\CommunityTypeEnum::GROUP->value):
+                   مجموعة
+                    @break
+                    @case(\App\Enums\CommunityTypeEnum::CHANNEL->value):
+                    قناة
+                    @break
+
+                @endswitch
+                    )
+            </small></span>
     </div>
     <div class="category-item-title">
         <i class="fas fa-chevron-left"></i>
