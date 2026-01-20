@@ -9,7 +9,7 @@ use Illuminate\View\Component;
 
 class CartContainerComponent extends Component
 {
-   public $items=[];
+   public $items;
     /**
      * Create a new component instance.
      */
@@ -20,6 +20,8 @@ class CartContainerComponent extends Component
                'user_id' => auth()->id(),
                'seller_id' => $seller->id,
            ])->get();
+       }else{
+           $this->items=collect();
        }
     }
 
