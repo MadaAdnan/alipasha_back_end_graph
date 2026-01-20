@@ -893,58 +893,154 @@ padding-block: 10px;
     outline: none;
     border-right: none;
 }
-//* فقاعة الرسالة */
-.message p {
-    display: inline-block;   /* العرض حسب المحتوى */
-    max-width: 75%;          /* لا تتجاوز 75% */
-    word-break: break-word;
-    position: relative;
+
+/*Message*/
+/* =========== تنسيقات محادثة WhatsApp =========== */
+/* حاوية الرسائل */
+.messages-container {
+    background-color: #ece5dd;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACoCAMAAABt9SM9AAAAA1BMVEUAAACnej3aAAAAR0lEQVR4nO3BAQEAAACCIP+vbkhAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAO8GxYgAAb0jQ/cAAAAASUVORK5CYII=');
+    padding: 20px;
+    min-height: 100vh;
+}
+
+/* رسائل المرسل (المستخدم الحالي) */
+.d-flex.align-items-end .message {
+    max-width: 70%;
+    margin-left: auto;
+}
+
+/* رسائل المستقبل (المستخدم الآخر) */
+.d-flex.align-items-start .message {
+    max-width: 70%;
 }
 
 /* صورة المستخدم */
 .message img {
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    flex-shrink: 0;
 }
 
-/* رسائل المستخدم */
-.align-items-end .message p {
-    background: #dcf8c6;
-    border-top-right-radius: 0;
+/* فقاعة الرسالة للمرسل (لون أخضر كما في واتساب) */
+.d-flex.align-items-end .message p {
+    background-color: #dcf8c6 !important; /* اللون الأخضر المميز لواتساب */
+    color: #000;
+    border-radius: 18px 18px 5px 18px;
+    padding: 8px 12px !important;
+    margin: 0;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    max-width: 100%;
+    word-break: break-word;
+    position: relative;
 }
 
-/* ذيل الفقاعة (يمين) */
-.align-items-end .message p::after {
-    content: "";
+/* سهم صغير لفقاعة المرسل */
+.d-flex.align-items-end .message p::after {
+    content: '';
     position: absolute;
-    top: 0;
     right: -8px;
-    border-top: 8px solid #dcf8c6;
-    border-right: 8px solid transparent;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-left: 8px solid #dcf8c6;
+    border-top: 8px solid transparent;
 }
 
-/* رسائل الطرف الآخر */
-.align-items-start .message p {
-    background: #fff;
-    border-top-left-radius: 0;
+/* فقاعة الرسالة للمستقبل (لون أبيض) */
+.d-flex.align-items-start .message p {
+    background-color: #fff !important;
+    color: #000;
+    border-radius: 18px 18px 18px 5px;
+    padding: 8px 12px !important;
+    margin: 0;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    max-width: 100%;
+    word-break: break-word;
+    position: relative;
 }
 
-/* ذيل الفقاعة (يسار) */
-.align-items-start .message p::after {
-    content: "";
+/* سهم صغير لفقاعة المستقبل */
+.d-flex.align-items-start .message p::before {
+    content: '';
     position: absolute;
-    top: 0;
     left: -8px;
-    border-top: 8px solid #fff;
-    border-left: 8px solid transparent;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-right: 8px solid #fff;
+    border-top: 8px solid transparent;
 }
 
 /* وقت الرسالة */
-span {
-    font-size: 11px;
-    color: #667781;
+.d-flex span {
+    font-size: 0.75rem;
+    color: #999;
+    margin-top: 2px;
+    padding: 0 8px;
 }
 
+/* وقت رسالة المرسل */
+.d-flex.align-items-end span {
+    text-align: right;
+    margin-right: 40px; /* ليتناسب مع صورة المستخدم */
+}
+
+/* وقت رسالة المستقبل */
+.d-flex.align-items-start span {
+    text-align: left;
+    margin-left: 40px; /* ليتناسب مع صورة المستخدم */
+}
+
+/* تأثير عند تمرير الماوس على الرسائل */
+.message:hover p {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+/* =========== تنسيقات للهواتف المحمولة =========== */
+@media (max-width: 576px) {
+    .message img {
+        width: 28px;
+        height: 28px;
+    }
+
+    .d-flex.align-items-end .message,
+    .d-flex.align-items-start .message {
+        max-width: 85%;
+    }
+
+    .d-flex.align-items-end .message p,
+    .d-flex.align-items-start .message p {
+        font-size: 0.95rem;
+        padding: 7px 10px !important;
+    }
+
+    .d-flex span {
+        font-size: 0.7rem;
+    }
+}
+
+/* =========== تأثيرات للرسائل الجديدة =========== */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.d-flex {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* =========== تنسيقات خاصة لنصوص طويلة =========== */
+.text-wrap {
+    white-space: pre-wrap;
+    line-height: 1.4;
+}
+
+/*Message*/
 
 @media (max-width: 768px) {
     .filter-row {
