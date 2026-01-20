@@ -1147,5 +1147,84 @@ padding-block: 10px;
         box-shadow: 0 4px 15px rgba(227, 6, 19, 0.5);
     }
 }
+/*Carts*/
+/* تنسيقات كارد السلة */
+.cart-card {
+    transition: all 0.3s ease;
+    border: 1px solid #e9ecef;
+}
+
+.cart-card:hover {
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+}
+
+/* أدوات التحكم بالكمية */
+.quantity-control {
+    max-width: 150px;
+    margin: 0 auto;
+}
+
+.quantity-control .btn {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.quantity-control .form-control {
+    width: 60px;
+    height: 36px;
+    border-radius: 20px;
+}
+
+.quantity-control .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* زر الحذف */
+.remove-item {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ملخص السلة */
+.cart-summary {
+    background-color: #f8f9fa;
+    border: 2px solid #dee2e6;
+}
+
+.cart-summary .btn {
+    border-radius: 30px;
+    padding: 12px 24px;
+}
+
+/* السلة الفارغة */
+.empty-cart {
+    opacity: 0.6;
+}
+
+/* تأثيرات للهواتف */
+@media (max-width: 768px) {
+    .cart-card .row > div {
+        margin-bottom: 10px;
+    }
+
+    .cart-card .text-end {
+        text-align: left !important;
+    }
+
+    .quantity-control {
+        max-width: 100%;
+    }
+}
+/*Carts*/
 
 
