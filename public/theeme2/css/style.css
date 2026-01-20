@@ -1079,7 +1079,7 @@ padding-block: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #25D366, #128C7E); /* ألوان واتساب */
+    background: linear-gradient(135deg, var(--primary-color), #E3061388); /* ألوان واتساب */
     color: white;
     text-decoration: none;
     padding: 12px 20px;
@@ -1095,7 +1095,7 @@ padding-block: 10px;
 
 .chat-toggle-link:hover {
     transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+    box-shadow: 0 6px 20px var(--primary-color);
     color: white;
     text-decoration: none;
 }
@@ -1143,7 +1143,7 @@ padding-block: 10px;
 /* تأثيرات خاصة للوضع الليلي */
 @media (prefers-color-scheme: dark) {
     .chat-toggle-link {
-        box-shadow: 0 4px 15px rgba(37, 211, 102, 0.5);
+        box-shadow: 0 4px 15px var(--primary-color);
     }
 }
 
