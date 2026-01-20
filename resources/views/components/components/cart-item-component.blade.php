@@ -21,7 +21,7 @@
                     <div>
                         <h6 class="mb-1">{{ $item->product->name }}</h6>
                         <small class="text-muted d-block">
-                            {{ Str::limit($item->product->description, 50) }}
+                            {{ Str::limit($item->product->info, 50) }}
                         </small>
                     </div>
 
@@ -39,7 +39,8 @@
                 <div class="d-flex justify-content-between align-items-center mt-2">
 
                     <span class="price">
-                        {{ number_format($item->product->price, 2) }} ر.س
+                        <x-components.price-component :price="$item->product->price" :discount="$item->product->discount"
+                                                      :isDiscount="$item->product->is_discount"/>
                     </span>
 
                     <div class="d-flex align-items-center gap-2">
