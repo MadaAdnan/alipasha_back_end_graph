@@ -8,6 +8,7 @@
     </div>
     <ul class="categories-list">
         @foreach($carts as $cart)
+
             <li class="category-item-wrapper">
                 <x-components.seller-cart-item-component :$seller="$cart->seller"/>
 

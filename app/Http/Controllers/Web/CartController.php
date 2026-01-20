@@ -22,6 +22,7 @@ class CartController extends Controller
     public function index()
     {
         $carts = Cart::where('user_id', auth()->id())->groupBy('seller_id')->get();
+        dd($carts);
         $seller=null;
         if($carts->count()>0){
             $seller=$carts[0]->seller;
