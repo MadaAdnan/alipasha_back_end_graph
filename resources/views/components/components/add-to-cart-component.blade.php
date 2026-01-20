@@ -3,7 +3,7 @@
     'class'=>''
 ])
 <div class="like-btn-component d-inline-block {{$class}}">
-    <form @if(auth()->check()) action="{{route('post.like')}}" @endif method="post">
+    <form @if(auth()->check()) action="{{route('carts.store')}}" @endif method="post">
         @csrf
         @method('POST')
         <input type="hidden" name="productId" value="{{$post->id}}">
