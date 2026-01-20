@@ -953,7 +953,7 @@ padding-block: 10px;
 
 /* فقاعة الرسالة للمستقبل (لون أبيض) */
 .d-flex.align-items-start .message p {
-    background-color: #fff !important;
+    background-color: #a4abc4  !important;
     color: #000;
     border-radius: 18px 18px 18px 5px;
     padding: 8px 12px !important;
