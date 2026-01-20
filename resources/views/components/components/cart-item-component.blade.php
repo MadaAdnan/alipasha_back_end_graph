@@ -26,7 +26,7 @@
                     </div>
 
                     <!-- حذف (بدون action) -->
-                    <form method="POST">
+                    <form method="POST" action="{{route('carts.destroy',$item->id)}}">
                         @csrf
                         @method('DELETE')
                         <button class="btn btn-danger btn-sm">
