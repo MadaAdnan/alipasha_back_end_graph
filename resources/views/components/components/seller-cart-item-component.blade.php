@@ -10,11 +10,11 @@
 
 <a class="category-item-link {{ $isActive ? 'active' : '' }}" href="{{route('carts.show',$seller?->id)}}">
     <div class="category-item-icon">
-        <i class="fas fa-tag"></i>
+        <img src="{{$seller->getImage()}}" class="rounded-circle img-seller" alt="">
         <span>{{ $seller?->seller_name??$seller->name }}</span>
     </div>
     <div class="category-item-title">
-        <img src="{{$seller->getImage()}}" class="rounded-circle img-seller" alt="">
+        <i class="fas fa-chevron-left"></i>
     </div>
 </a>
 
