@@ -6,9 +6,9 @@
 
         <div class="row g-2">
             @if($items?->count()>0)
-            @foreach($dataProducts as $product)
+            @foreach($items as $product)
                 <div class="col-lg-3 col-md-4 col-sm-6 col-6">
-                    <x-components.product-container-item-component :product="$product"/>
+                    <x-components.cart-item-component :product="$product"/>
                 </div>
             @endforeach
             @endif
