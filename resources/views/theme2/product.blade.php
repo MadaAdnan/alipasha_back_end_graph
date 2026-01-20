@@ -9,6 +9,7 @@
             </div>
             <div class="col-md-3">
                 <x-component.seller-info-component :seller="$post->user"/>
+                <x-components.social-seller-component/>
             </div>
         </div>
         <div class="row justify-content-center">
