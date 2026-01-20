@@ -1,5 +1,8 @@
+@props([
+    'item'=>null
+])
 <div class="cart-container">
-    @foreach($cartItems as $item)
+
         <div class="cart-card card mb-3" data-product-id="{{ $item->product->id }}">
             <div class="card-body">
                 <div class="row align-items-center">
@@ -58,37 +61,4 @@
                 </div>
             </div>
         </div>
-    @endforeach
-
-    <!-- السعر الإجمالي -->
-    @if(count($cartItems) > 0)
-        <div class="cart-summary card">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-8 text-end">
-                        <h5 class="mb-0">المجموع:</h5>
-                    </div>
-                    <div class="col-md-4">
-                        <h4 class="text-success mb-0" id="cart-total">
-                            {{ number_format($total, 2) }} ر.س
-                        </h4>
-                    </div>
-                </div>
-                <div class="mt-3">
-                    <button class="btn btn-primary btn-lg w-100" onclick="checkout()">
-                        <i class="fas fa-shopping-cart me-2"></i> إتمام الشراء
-                    </button>
-                </div>
-            </div>
-        </div>
-    @else
-        <div class="text-center py-5">
-            <i class="fas fa-shopping-cart fa-3x text-muted mb-3"></i>
-            <h4>سلة المشتريات فارغة</h4>
-            <p class="text-muted">أضف بعض المنتجات إلى سلة مشترياتك</p>
-            <a href="{{ route('products.index') }}" class="btn btn-primary">
-                <i class="fas fa-store me-2"></i> تصفح المنتجات
-            </a>
-        </div>
-    @endif
 </div>

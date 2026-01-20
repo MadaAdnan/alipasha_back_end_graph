@@ -8,7 +8,7 @@
             @if($items?->count()>0)
             @foreach($items as $product)
                 <div class="col-lg-3 col-md-4 col-sm-6 col-6">
-                    <x-components.cart-item-component :product="$product"/>
+                    <x-components.cart-item-component :item="$product"/>
                 </div>
             @endforeach
             @endif
