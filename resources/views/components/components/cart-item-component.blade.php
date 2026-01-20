@@ -8,7 +8,7 @@
 
             <!-- صورة المنتج -->
             <img
-                src="{{ $item->product->image ?? 'https://via.placeholder.com/100' }}"
+                src="{{ $item->product->getImage()}}"
                 alt="{{ $item->product->name }}"
                 class="cart-img"
             >
