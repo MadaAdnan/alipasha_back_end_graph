@@ -47,8 +47,11 @@
                    <div class="d-flex justify-content-between">
                        <h4 class="text-black fw-bold">التفاصيل</h4>
                        <div class="">
+                           @if(auth()->check())
                            <x-components.add-to-cart-component :post="$post"/>
-                           <x-components.like-btn-component class="mx-2" :post="$post"/>
+                               <x-components.like-btn-component class="mx-2" :post="$post"/>
+                           @endif
+
                         <x-components.share-btn-component :url="route('posts.show', $post->id)"/>
 
                        </div>
