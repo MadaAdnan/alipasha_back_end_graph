@@ -46,7 +46,7 @@
                         </span>
 
                         <!-- زيادة -->
-                        <form method="POST" action="{{ route('cart.increase', $item->product->id) }}">
+                        <form method="POST" action="">
                             @csrf
                             <button class="btn btn-outline-secondary btn-sm">
                                 <i class="fas fa-plus"></i>
