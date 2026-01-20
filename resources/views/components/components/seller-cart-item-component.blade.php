@@ -14,7 +14,7 @@
         <span>{{ $seller?->seller_name??$seller->name }}</span>
     </div>
     <div class="category-item-title">
-        <i class="fas fa-chevron-left"></i>
+        <img src="{{$seller->getImage()}}" class="rounded-circle img-seller" alt="">
     </div>
 </a>
 
