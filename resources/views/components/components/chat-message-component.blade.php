@@ -16,7 +16,7 @@
         <span>{{$message->created_at->diffForHumans()}}</span>
     </div>
 @else
-    <div class="d-flex flex-column gap-1 justify-content-start align-items-start ">
+    <div class="d-flex flex-column gap-1 justify-content-start align-items-end ">
         <div class="message d-flex  gap-1 ">
             <img src="{{$user->getImage()}}" alt="{{$user->name}}">
             <p class="bg- rounded text-wrap p-2">{{$message->body}}</p>
