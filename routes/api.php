@@ -27,7 +27,7 @@ Route::get('like/{userId}/{productId}', function ($userId, $productId) {
     if (!$product) {
         return response()->json(['error' => 'Product not found'], 404);
     }
-    
+
     $like = Like::where(['product_id' => $productId, 'user_id' => $userId])->exists();
     if ($like) {
         Like::where(['product_id' => $productId, 'user_id' => $userId])->delete();
@@ -39,19 +39,47 @@ Route::get('like/{userId}/{productId}', function ($userId, $productId) {
             'category_id' => $product->category_id,
 
         ], [
-            'visited' =>1,
+            'visited' => 1,
         ]);
     }
-    
+
     // إعادة تحميل العد بعد التحديث
     return $product->likes()->count();
 })->name('api.like');
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/messages', \App\Http\Controllers\Api\V1\MessageController::class)->only('store');
+    Route::post('/add-to-cart/{id}', function ($id) {
+        $cart = \App\Models\Cart::where([
+            'user_id' => auth()->id(),
+            'product_id' => $id,
+        ])->first();
+        if ($cart) {
+            $cart->update(['qty' => $cart->qty + 1]);
+        } else {
+            $product = \App\Models\Product::find($id);
+            \App\Models\Cart::create([
+                'user_id' => auth()->id(),
+                'product_id' => $id,
+                'seller_id' => $product?->user_id,
+                'qty' => 1,
+            ]);
+        }
+        return true;
+    });
+    Route::post('/sub-from-cart/{id}', function ($id) {
+        $cart = \App\Models\Cart::where([
+            'user_id' => auth()->id(),
+            'product_id' => $id,
+        ])->first();
+        if ($cart && $cart->qty > 1) {
+            $cart->update(['qty' => $cart->qty - 1]);
+        }
+        return true;
+    });
 });
 Route::middleware(\App\Http\Middleware\PassApiStatisticsMiddleware::class)->group(function () {
-    Route::get('users-count',[\App\Http\Controllers\Api\StatisticsController::class,'userCount']);
-    Route::get('users-plans',[\App\Http\Controllers\Api\StatisticsController::class,'userPlans']);
-    Route::get('orders-count',[\App\Http\Controllers\Api\StatisticsController::class,'ordersCount']);
-    Route::get('users-affiliate',[\App\Http\Controllers\Api\StatisticsController::class,'usersAffiliate']);
+    Route::get('users-count', [\App\Http\Controllers\Api\StatisticsController::class, 'userCount']);
+    Route::get('users-plans', [\App\Http\Controllers\Api\StatisticsController::class, 'userPlans']);
+    Route::get('orders-count', [\App\Http\Controllers\Api\StatisticsController::class, 'ordersCount']);
+    Route::get('users-affiliate', [\App\Http\Controllers\Api\StatisticsController::class, 'usersAffiliate']);
 });

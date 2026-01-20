@@ -22,7 +22,11 @@ class CartController extends Controller
     public function index()
     {
         $carts = Cart::where('user_id', auth()->id())->groupBy('seller_id')->get();
-        return view('web.carts', compact('carts'));
+        $seller=null;
+        if($carts->count()>0){
+            $seller=$carts[0]->seller;
+        }
+        return view('theme2.carts', compact('carts','seller'));
     }
 
     /**
