@@ -49,7 +49,7 @@
                        <div class="">
                            <x-components.like-btn-component class="mx-2" :post="$post"/>
                         <x-components.share-btn-component :url="route('posts.show', $post->id)"/>
-<x-components.add-to-cart-component/>
+<x-components.add-to-cart-component :post="$post"/>
                        </div>
                    </div>
                     <p class="lead text-justify">{!! $post->info !!}</p>
