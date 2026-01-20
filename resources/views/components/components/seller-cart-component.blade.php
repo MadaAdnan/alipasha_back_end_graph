@@ -12,8 +12,8 @@
             @foreach($carts as $cart)
 
                 <li class="category-item-wrapper">
-{{dd($cart)}}
-                    <x-components.seller-cart-item-component :$seller="$cart->seller"/>
+
+                    <x-components.seller-cart-item-component :seller="$cart->seller"/>
 
                 </li>
             @endforeach
