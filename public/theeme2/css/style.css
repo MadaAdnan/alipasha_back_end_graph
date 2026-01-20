@@ -119,7 +119,7 @@ option>img{
 /* على الهاتف، إخفاء القائمة الجانبية */
 @media (max-width: 768px) {
     .sticky-col {
-        display: none;
+        /*display: none;*/
     }
 }
 .divider{
