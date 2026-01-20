@@ -9,7 +9,9 @@
             </div>
             <div class="col-md-3">
                 <x-component.seller-info-component :seller="$post->user"/>
+                  @if($post->user->plans()->whereNot('duration','free')->exists())
                 <x-components.social-seller-component :store="$post->user"/>
+                   @endif
             </div>
         </div>
         <div class="row justify-content-center">
