@@ -4,6 +4,7 @@
     <div class="container mt-4">
         <div class="row">
             <div class="col-md-3">
+                {{dd($carts)}}
                 <x-components.seller-cart-component :carts="$carts"/>
             </div>
             <div class="col-md-9">
