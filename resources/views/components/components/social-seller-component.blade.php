@@ -1,13 +1,17 @@
-<div>
-    <!-- روابط وسائل التواصل الاجتماعي -->
+@props([
+    'store'=>null
+])
+{{dd($store->social)}}
     <div class="social-media-section text-center py-4">
         <h5 class="mb-3">تابعنا على</h5>
         <div class="social-links d-flex justify-content-center gap-3 flex-wrap">
-            <a href="https://facebook.com/yourpage" target="_blank"
-               class="social-link facebook rounded-circle d-flex align-items-center justify-content-center"
-               title="Facebook">
-                <i class="fab fa-facebook-f"></i>
-            </a>
+           @if($store->social['face'])
+                <a href="https://facebook.com/yourpage" target="_blank"
+                   class="social-link facebook rounded-circle d-flex align-items-center justify-content-center"
+                   title="Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+               @endif
 
             <a href="https://twitter.com/yourprofile" target="_blank"
                class="social-link twitter rounded-circle d-flex align-items-center justify-content-center"
@@ -34,8 +38,7 @@
             </a>
         </div>
         <p class="text-muted mt-3 mb-0">
-            <!-- If you do not have a consistent goal in life, you can not live it in a consistent way. - Marcus Aurelius -->
-            إذا لم يكن لديك هدف ثابت في الحياة، فلا يمكنك أن تعيشها بطريقة ثابتة. - ماركوس أوريليوس
+
         </p>
     </div>
-</div>
+
