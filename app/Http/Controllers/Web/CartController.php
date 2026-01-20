@@ -72,8 +72,9 @@ class CartController extends Controller
      */
     public function show(string $id)
     {
-        $user = User::findOrFail($id);
-        $items = Cart::where(['user_id' => auth()->id(), 'seller_id' => $id])->get();
+        $carts = Cart::where('user_id', auth()->id())->groupBy('seller_id')->get();
+        $seller = User::findOrFail($id);
+       /* $items = Cart::where(['user_id' => auth()->id(), 'seller_id' => $id])->get();
         $weight = 0;
         $shipping = 0;
         $carts = Cart::where(['user_id' => auth()->id(), 'seller_id' => $id])->get();
@@ -95,9 +96,9 @@ class CartController extends Controller
 
             $shipping = $shipping + ($ratio * $steps);
 
-        }
+        }*/
 
-        return view('web.cart', compact('user', 'items', 'shipping'));
+        return view('theme2.carts', compact('seller', 'carts'));
     }
 
     /**
