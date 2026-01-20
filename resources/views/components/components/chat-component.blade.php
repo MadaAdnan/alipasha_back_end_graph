@@ -47,3 +47,20 @@
 
 
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // اختيار حاوية المحادثة
+        const chatContainer = document.querySelector('.chat-container');
+
+        if (chatContainer) {
+            // تمرير السكرول إلى الأسفل مباشرة
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+
+            // أو مع تأثير سلس (اختياري)
+            // chatContainer.scrollTo({
+            //     top: chatContainer.scrollHeight,
+            //     behavior: 'smooth'
+            // });
+        }
+    });
+</script>
