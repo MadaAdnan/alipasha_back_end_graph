@@ -21,9 +21,10 @@
 @yield('content')
 
 
-<x-components.link-chat-component/>
+
 
 @auth
+    <x-components.link-chat-component/>
 <script>
     const token=localStorage.getItem('token')
     if(token === '' || token == null){
