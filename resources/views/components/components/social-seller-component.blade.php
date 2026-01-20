@@ -1,7 +1,7 @@
 @props([
     'store'=>null
 ])
-{{dd($store->social)}}
+
 <div class="social-media-section text-center py-4">
     <h5 class="mb-3">تابعنا على</h5>
     <div class="social-links d-flex justify-content-center gap-3 flex-wrap">
@@ -42,7 +42,7 @@
         @endif
     </div>
     <p class="text-muted mt-3 mb-0">
-
+{{$store->slogan}}
     </p>
 </div>
 
