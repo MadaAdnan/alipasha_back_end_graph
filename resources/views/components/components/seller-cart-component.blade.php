@@ -1,6 +1,7 @@
 @props([
     'carts'=>null
 ])
+{{dd($carts)}}
 <div class="sidebar-categories-container">
     <div class="categories-header">
         <i class="fas fa-list"></i>
