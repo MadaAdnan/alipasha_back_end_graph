@@ -26,9 +26,10 @@
         </div>
 
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-3  my-2 sticky-col">
 
                 <x-components.side-bar-category-market-component :categories="$categories" :store="$store"/>
+                <x-components.social-seller-component :store="$store"/>
             </div>
             <div class="col-md-9">
                 <x-components.product-container-component :products="$products->items()"
