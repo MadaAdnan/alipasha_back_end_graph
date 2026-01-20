@@ -1,70 +1,79 @@
 @props(['item'=>null])
 
-<div class="card cart-card mb-2" data-product-id="{{ $item->product->id }}">
+<div class="card cart-item mb-2">
     <div class="card-body p-2">
 
-        <div class="d-flex align-items-center gap-2">
+        <div class="d-flex align-items-center gap-3">
 
             <!-- صورة المنتج -->
-            <img
-                src="{{ $item->product->image ?? 'https://via.placeholder.com/100' }}"
-                alt="{{ $item->product->name }}"
-                class="rounded"
-                style="width:60px;height:60px;object-fit:cover"
-            >
+            <div class="cart-image">
+                <img
+                    src="{{ $item->product->image ?? 'https://via.placeholder.com/100' }}"
+                    alt="{{ $item->product->name }}"
+                >
+            </div>
 
-            <!-- معلومات المنتج -->
-            <div class="flex-grow-1">
+            <!-- تفاصيل المنتج -->
+            <div class="cart-details flex-grow-1">
                 <h6 class="mb-1">{{ $item->product->name }}</h6>
+
                 <small class="text-muted d-block">
-                    {{ Str::limit($item->product->description, 40) }}
+                    {{ Str::limit($item->product->description, 45) }}
                 </small>
 
-                <div class="d-flex justify-content-between align-items-center mt-1">
+                <div class="d-flex justify-content-between align-items-center mt-2">
 
                     <!-- السعر -->
-                    <span class="fw-bold text-success">
+                    <span class="price">
                         {{ number_format($item->product->price, 2) }} ر.س
                     </span>
 
                     <!-- التحكم بالكمية -->
-                    <div class="d-flex align-items-center">
-                        <button class="btn btn-outline-secondary btn-sm px-2"
-                                onclick="decreaseQuantity({{ $item->product->id }})"
-                            {{ $item->quantity <= 1 ? 'disabled' : '' }}>
-                            −
-                        </button>
+                    <div class="quantity-box d-flex align-items-center gap-1">
 
-                        <input type="number"
-                               class="form-control form-control-sm text-center mx-1"
-                               style="width:50px"
-                               value="{{ $item->quantity }}"
-                               min="1"
-                               max="99"
-                               id="quantity-{{ $item->product->id }}"
-                               onchange="updateQuantity({{ $item->product->id }}, this.value)">
+                        <!-- تقليل -->
+                        <form method="POST" action="{{ route('cart.decrease', $item->product->id) }}">
+                            @csrf
+                            <button class="btn btn-outline-secondary btn-sm"
+                                {{ $item->quantity <= 1 ? 'disabled' : '' }}>
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </form>
 
-                        <button class="btn btn-outline-secondary btn-sm px-2"
-                                onclick="increaseQuantity({{ $item->product->id }})">
-                            +
-                        </button>
+                        <!-- عرض الكمية -->
+                        <span class="quantity-value">
+                            {{ $item->quantity }}
+                        </span>
+
+                        <!-- زيادة -->
+                        <form method="POST" action="{{ route('cart.increase', $item->product->id) }}">
+                            @csrf
+                            <button class="btn btn-outline-secondary btn-sm">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </form>
+
                     </div>
 
                 </div>
             </div>
 
-            <!-- حذف -->
-            <button class="btn btn-danger btn-sm"
-                    onclick="removeFromCart({{ $item->product->id }})">
-                <i class="fas fa-trash"></i>
-            </button>
+            <!-- حذف المنتج -->
+            <form method="POST" action="{{ route('cart.remove', $item->product->id) }}">
+                @csrf
+                @method('DELETE')
+
+                <button class="btn btn-danger btn-sm">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </form>
 
         </div>
 
         <!-- الإجمالي -->
-        <div class="text-end mt-2">
+        <div class="cart-total text-end mt-2">
             <small class="text-muted">الإجمالي:</small>
-            <strong id="total-{{ $item->product->id }}">
+            <strong>
                 {{ number_format($item->product->price * $item->quantity, 2) }} ر.س
             </strong>
         </div>

@@ -1148,83 +1148,56 @@ padding-block: 10px;
     }
 }
 /*Carts*/
-/* تنسيقات كارد السلة */
-.cart-card {
-    transition: all 0.3s ease;
-    border: 1px solid #e9ecef;
+/* الكرت */
+.cart-item {
+    border-radius: 10px;
+    transition: background-color .2s ease;
 }
 
-.cart-card:hover {
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    transform: translateY(-2px);
+.cart-item:hover {
+    background-color: #f9f9f9;
 }
 
-/* أدوات التحكم بالكمية */
-.quantity-control {
-    max-width: 150px;
-    margin: 0 auto;
-}
-
-.quantity-control .btn {
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-}
-
-.quantity-control .form-control {
+/* صورة المنتج */
+.cart-image img {
     width: 60px;
-    height: 36px;
-    border-radius: 20px;
+    height: 60px;
+    border-radius: 8px;
+    object-fit: cover;
 }
 
-.quantity-control .btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+/* تفاصيل المنتج */
+.cart-details h6 {
+    font-size: 15px;
+    font-weight: 600;
 }
 
-/* زر الحذف */
-.remove-item {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+.cart-details small {
+    font-size: 12px;
 }
 
-/* ملخص السلة */
-.cart-summary {
-    background-color: #f8f9fa;
-    border: 2px solid #dee2e6;
+/* السعر */
+.price {
+    font-weight: 600;
+    color: #198754;
 }
 
-.cart-summary .btn {
-    border-radius: 30px;
-    padding: 12px 24px;
+/* التحكم بالكمية */
+.quantity-box form {
+    margin: 0;
 }
 
-/* السلة الفارغة */
-.empty-cart {
-    opacity: 0.6;
+.quantity-value {
+    min-width: 28px;
+    text-align: center;
+    font-weight: 600;
 }
 
-/* تأثيرات للهواتف */
-@media (max-width: 768px) {
-    .cart-card .row > div {
-        margin-bottom: 10px;
-    }
-
-    .cart-card .text-end {
-        text-align: left !important;
-    }
-
-    .quantity-control {
-        max-width: 100%;
-    }
+/* الإجمالي */
+.cart-total {
+    font-size: 14px;
 }
+
 /*Carts*/
 
 
