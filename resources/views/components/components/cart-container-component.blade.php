@@ -11,10 +11,12 @@
                     <x-components.cart-item-component :item="$product"/>
                 </div>
             @endforeach
+            @else
+                <div class="col-12">
+                    لا يوجد عناصر في السلة
+                </div>
             @endif
-            <div class="col-12">
-                لا يوجد عناصر في السلة
-            </div>
+
         </div>
 
 </div>
