@@ -57,10 +57,10 @@
             chatContainer.scrollTop = chatContainer.scrollHeight;
 
             // أو مع تأثير سلس (اختياري)
-            // chatContainer.scrollTo({
-            //     top: chatContainer.scrollHeight,
-            //     behavior: 'smooth'
-            // });
+            chatContainer.scrollTo({
+                top: chatContainer.scrollHeight,
+                behavior: 'smooth'
+            });
         }
     });
 </script>
