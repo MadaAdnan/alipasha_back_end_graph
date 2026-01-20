@@ -1,7 +1,7 @@
 @props([
     'carts'=>null
 ])
-{{dd($carts)}}
+
 <div class="sidebar-categories-container">
     <div class="categories-header">
         <i class="fas fa-list"></i>
@@ -12,7 +12,7 @@
             @foreach($carts as $cart)
 
                 <li class="category-item-wrapper">
-
+{{dd($cart)}}
                     <x-components.seller-cart-item-component :$seller="$cart->seller"/>
 
                 </li>
