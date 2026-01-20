@@ -32,7 +32,7 @@
                     <div class="quantity-box d-flex align-items-center gap-1">
 
                         <!-- تقليل -->
-                        <form method="POST" action="{{ route('cart.decrease', $item->product->id) }}">
+                        <form method="POST" action="">
                             @csrf
                             <button class="btn btn-outline-secondary btn-sm"
                                 {{ $item->quantity <= 1 ? 'disabled' : '' }}>
@@ -59,7 +59,7 @@
             </div>
 
             <!-- حذف المنتج -->
-            <form method="POST" action="{{ route('cart.remove', $item->product->id) }}">
+            <form method="POST" action="">
                 @csrf
                 @method('DELETE')
 
