@@ -927,8 +927,15 @@ padding-block: 10px;
 }
 
 /* فقاعة الرسالة للمرسل (لون أخضر كما في واتساب) */
+.bg-another{
+
+    background-color: #a4abc4  !important;
+}
+.bg-me{
+    background-color: #dcf8c6 !important;
+}
 .d-flex.align-items-end .message p {
-    background-color: #dcf8c6 !important; /* اللون الأخضر المميز لواتساب */
+    /* اللون الأخضر المميز لواتساب */
     color: #000;
     border-radius: 18px 18px 5px 18px;
     padding: 8px 12px !important;
@@ -953,7 +960,7 @@ padding-block: 10px;
 
 /* فقاعة الرسالة للمستقبل (لون أبيض) */
 .d-flex.align-items-start .message p {
-    background-color: #a4abc4  !important;
+
     color: #000;
     border-radius: 18px 18px 18px 5px;
     padding: 8px 12px !important;
