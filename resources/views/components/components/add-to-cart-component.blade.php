@@ -8,7 +8,7 @@
         @method('POST')
         <input type="hidden" name="productId" value="{{$post->id}}">
         <button type="button" class="btn like-btn text-center @if(auth()->user()) active  @endif ">
-            <i class="fa fa-shipping-car "></i>
+            <i class="fa-solid fa-cart-plus"></i>
         </button>
     </form>
 </div>
