@@ -859,7 +859,7 @@ option>img{
     aspect-ratio: 1/1;
 }
 .chat-container{
-    min-height: 60vh;
+    max-height: 60vh;
     background-color: white;
 padding-block: 10px;
     padding-inline: 5px;
