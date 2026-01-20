@@ -212,7 +212,12 @@ class CartController extends Controller
      */
     public function destroy(string $id)
     {
-        Cart::find($id)?->delete();
+
+        $cart=Cart::find($id);
+
+        $cart->delete();
+
+
         return back();
     }
 }
