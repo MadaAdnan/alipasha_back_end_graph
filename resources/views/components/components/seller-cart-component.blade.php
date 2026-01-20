@@ -1,5 +1,5 @@
 @props([
-    'carts'=>[]
+    'carts'=>null
 ])
 <div class="sidebar-categories-container">
     <div class="categories-header">
@@ -7,12 +7,15 @@
         <span>التجار</span>
     </div>
     <ul class="categories-list">
-        @foreach($carts as $cart)
+        @if($carts!=null)
+            @foreach($carts as $cart)
 
-            <li class="category-item-wrapper">
-                <x-components.seller-cart-item-component :$seller="$cart->seller"/>
+                <li class="category-item-wrapper">
 
-            </li>
-        @endforeach
+                    <x-components.seller-cart-item-component :$seller="$cart->seller"/>
+
+                </li>
+            @endforeach
+        @endif
     </ul>
 </div>

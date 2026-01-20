@@ -3,7 +3,7 @@
     'sellerId'=>null
 ])
 @php
-
+dd($seller);
     $seller_id=$sellerId??null;
     $isActive = $seller_id != null && $seller?->id == $seller_id;
 @endphp
