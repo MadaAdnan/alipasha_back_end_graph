@@ -49,12 +49,12 @@
                         <form method="POST">
                             @csrf
                             <button class="btn btn-outline-secondary btn-sm"
-                                {{ $item->quantity <= 1 ? 'disabled' : '' }}>
+                                {{ $item->qty <= 1 ? 'disabled' : '' }}>
                                 <i class="fas fa-minus"></i>
                             </button>
                         </form>
 
-                        <span class="qty">{{ $item->quantity }}</span>
+                        <span class="qty">{{ $item->qty }}</span>
 
                         <!-- زيادة -->
                         <form method="POST">
@@ -74,7 +74,10 @@
         <div class="text-end mt-2">
             <small class="text-muted">الإجمالي:</small>
             <strong>
-                {{ number_format($item->product->price * $item->quantity, 2) }} ر.س
+                @php
+                    $price=$item->product->is_discount ? $item->product->discount :$item->product->price ;
+ @endphp
+                {{ number_format( $price* $item->qty, 2) }} $
             </strong>
         </div>
 
