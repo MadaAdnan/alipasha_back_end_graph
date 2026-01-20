@@ -1064,3 +1064,87 @@ padding-block: 10px;
         padding-left: 32px;
     }
 }
+
+/*Chat Link*/
+/* زر الانتقال إلى المحادثات */
+.chat-toggle-button {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.chat-toggle-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #25D366, #128C7E); /* ألوان واتساب */
+    color: white;
+    text-decoration: none;
+    padding: 12px 20px;
+    border-radius: 50px;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+    transition: all 0.3s ease;
+    font-weight: 600;
+    font-size: 1rem;
+    gap: 8px;
+    border: none;
+    cursor: pointer;
+}
+
+.chat-toggle-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+    color: white;
+    text-decoration: none;
+}
+
+.chat-toggle-link:active {
+    transform: translateY(0);
+}
+
+.chat-toggle-link i {
+    font-size: 1.2rem;
+}
+
+.chat-toggle-text {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* تأثيرات للهواتف */
+@media (max-width: 768px) {
+    .chat-toggle-button {
+        bottom: 15px;
+        left: 15px;
+    }
+
+    .chat-toggle-link {
+        padding: 10px 16px;
+        font-size: 0.9rem;
+    }
+
+    .chat-toggle-link i {
+        font-size: 1rem;
+    }
+
+    .chat-toggle-text {
+        display: none; /* إخفاء النص في الهواتف */
+    }
+
+    .chat-toggle-link {
+        padding: 12px;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+    }
+}
+
+/* تأثيرات خاصة للوضع الليلي */
+@media (prefers-color-scheme: dark) {
+    .chat-toggle-link {
+        box-shadow: 0 4px 15px rgba(37, 211, 102, 0.5);
+    }
+}
+
+
