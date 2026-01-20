@@ -893,84 +893,58 @@ padding-block: 10px;
     outline: none;
     border-right: none;
 }
-/* الحاوية العامة للرسالة */
-.message {
-    max-width: 75%;
-}
-
-/* فقاعة الرسالة */
+//* فقاعة الرسالة */
 .message p {
+    display: inline-block;   /* العرض حسب المحتوى */
+    max-width: 75%;          /* لا تتجاوز 75% */
+    word-break: break-word;
     position: relative;
-    padding: 10px 14px;
-    border-radius: 10px;
-    font-size: 14px;
-    line-height: 1.5;
-    word-wrap: break-word;
 }
 
 /* صورة المستخدم */
 .message img {
     width: 36px;
     height: 36px;
-    border-radius: 50%;
-    object-fit: cover;
 }
 
-/* ========================= */
-/* رسائل المستخدم الحالي */
-/* ========================= */
-
+/* رسائل المستخدم */
 .align-items-end .message p {
-    background-color: #dcf8c6; /* لون أخضر واتساب */
+    background: #dcf8c6;
     border-top-right-radius: 0;
 }
 
-/* ذيل الفقاعة (السهم) */
+/* ذيل الفقاعة (يمين) */
 .align-items-end .message p::after {
     content: "";
     position: absolute;
     top: 0;
     right: -8px;
-    width: 0;
-    height: 0;
     border-top: 8px solid #dcf8c6;
     border-right: 8px solid transparent;
 }
 
-/* وقت الرسالة */
-.align-items-end span {
-    font-size: 11px;
-    color: #666;
-    margin-right: 40px;
-}
-
-/* ========================= */
 /* رسائل الطرف الآخر */
-/* ========================= */
-
 .align-items-start .message p {
-    background-color: #ffffff;
+    background: #fff;
     border-top-left-radius: 0;
 }
 
-/* ذيل الفقاعة */
+/* ذيل الفقاعة (يسار) */
 .align-items-start .message p::after {
     content: "";
     position: absolute;
     top: 0;
     left: -8px;
-    width: 0;
-    height: 0;
-    border-top: 8px solid #ffffff;
+    border-top: 8px solid #fff;
     border-left: 8px solid transparent;
 }
 
 /* وقت الرسالة */
-.align-items-start span {
+span {
     font-size: 11px;
-    color: #666;
-    margin-left: 40px;
+    color: #667781;
 }
+
 
 @media (max-width: 768px) {
     .filter-row {
