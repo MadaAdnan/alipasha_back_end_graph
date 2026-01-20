@@ -8,20 +8,20 @@
 
 @if($user->id==auth()->id())
     <div class="d-flex flex-column gap-1  justify-content-start align-items-end ">
-    <div class="message d-flex bg-me gap-1 ">
+    <div class="message d-flex  gap-1 ">
         <img src="{{$user->getImage()}}" alt="{{$user->name}}">
-        <p class=" rounded text-wrap p-2">{{$message->body}}</p>
+        <p class="bg-me rounded text-wrap p-2">{{$message->body}}</p>
 
     </div>
         <span>{{$message->created_at->diffForHumans()}}</span>
     </div>
 @else
     <div class="d-flex flex-column gap-1 justify-content-start align-items-start ">
-        <div class="message d-flex bg-another  gap-1 ">
+        <div class="message d-flex  gap-1 ">
             <img src="{{$user->getImage()}}" alt="{{$user->name}}">
-            <p class="bg- rounded text-wrap p-2">{{$message->body}}</p>
+            <p class="bg-another rounded text-wrap p-2">{{$message->body}}</p>
 
         </div>
-        <span>{{$message->created_at->diffForHumans()}}</span>
+        <span>{{$message->created_at->format('Y-m-d | H:i')}}</span>
     </div>
 @endif
