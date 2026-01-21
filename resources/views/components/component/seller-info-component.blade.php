@@ -2,8 +2,18 @@
     'seller'=>null,
     'productId'=>null,
 ])
-<div class="card card-body">
-    <h6 class="text-gray fw-bold my-1">معلومات المعلن</h6>
+<div class="card card-body seller-data">
+    <div class="d-flex">
+        <h6 class="text-gray fw-bold my-1">معلومات المعلن</h6>
+        <form action="">
+            <button class="btn-green rounded bg-transparent">
+                <i class="fa fa-bell"></i>
+                <span class="small d-none d-md-inline-block mx-1 text-black">
+                  متابعة
+                </span>
+            </button>
+        </form>
+    </div>
     <x-components.seller-name-component :seller="$seller" :image="$seller->getImage()"/>
     <span class="small text-muted"><i class="fa fa-location-dot"></i> {{$seller->address}}</span>
     <div class="divider my-1 "></div>
