@@ -22,8 +22,9 @@ class SearchController extends Controller
         $city = \request()->get('city_id') ?? \request()->get('city');
         $area = \request()->get('area_id');
 
-        $category = \request()->get('category');
-        $section = \request()->get('section');
+        $category = \request()->get('category_id');
+        $seller = \request()->get('seller_id');
+
         $priceFrom = \request()->get('price_from') ?? 0;
         $priceTo = \request()->get('price_to');
 
@@ -41,8 +42,14 @@ class SearchController extends Controller
             ->when(!empty($text), fn($query) => $query->where(fn($q) => $q->where('name', 'like', "%{$text}%")->orWhere('info', 'like', "%{$text}%")))
             ->when(!empty($city), fn($query) => $query->where('city_id', $city))
             ->when(!empty($area), fn($query) => $query->whereHas('user', fn($query) => $query->where('area_id', $area)))
-            ->when(!empty($category), fn($query) => $query->where('sub1_id', $category))
-            ->when(!empty($section), fn($query) => $query->where('category_id', $section))
+            ->when(!empty($category),
+                fn($query) => $query->where('category_id', $category)
+                    ->orWhere('sub1_id',$category)
+                    ->orWhere('sub2_id',$category)
+                    ->orWhere('sub3_id',$category)
+                    ->orWhere('sub4_id',$category)
+            )
+
             ->where('price', '>=', $priceFrom)
             ->when(!empty($priceTo), fn($query) => $query->where('price', '<=', $priceTo))
             ->latest()

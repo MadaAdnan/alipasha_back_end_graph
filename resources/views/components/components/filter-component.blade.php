@@ -1,12 +1,15 @@
 @props([
-    'route'=>null
+    'route'=>null,
+    'categoryId'=>null,
+    'sellerId'=>null,
 ])
 <form class="filter-container" action="{{$route??route('search.index')}}" method="get">
     <div class="filter-header">
         <i class="fas fa-sliders-h"></i>
         <span>الفلاتر</span>
     </div>
-
+    <input type="hidden" name="category_id" value="{{$categoryId}}">
+    <input type="hidden" name="seller_id" value="{{$sellerId}}">
     {{-- المحافظة --}}
     <div class="filter-group">
         <label class="filter-label" for="governorateSelect">المحافظة</label>

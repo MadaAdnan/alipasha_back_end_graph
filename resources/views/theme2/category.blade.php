@@ -5,7 +5,7 @@
 
                <div class="col-md-3  my-2 sticky-col">
                 <x-components.side-bar-category-component :categories="$category->children" :categoryId="$category->id"/>
-                <x-components.filter-component/>
+                <x-components.filter-component :categoryId="$category->id"/>
             </div>
 
             <div class="col-md-9">
