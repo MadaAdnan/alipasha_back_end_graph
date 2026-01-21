@@ -62,7 +62,7 @@
                         <form method="POST"  action="{{route('carts.store')}}">
                             @csrf
                              <input type="hidden" name="productId" value="{{$item->product->id}}">
-                            <button class="btn cart-btn btn-sm">
+                            <button class="btn btn-outline-secondary btn-sm">
                                 <i class="fas fa-plus"></i>
                             </button>
                         </form>

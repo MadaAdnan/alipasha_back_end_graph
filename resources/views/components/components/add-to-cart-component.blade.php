@@ -7,7 +7,7 @@
         @csrf
         @method('POST')
         <input type="hidden" name="productId" value="{{$post->id}}">
-        <button type="submit" class="btn like-btn text-center @if(auth()->user()) active  @endif ">
+        <button type="submit" class="btn cart-btn text-center @if(auth()->user()) active  @endif ">
             <i class="fa-solid fa-cart-plus"></i>
         </button>
     </form>
