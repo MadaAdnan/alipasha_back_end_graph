@@ -10,7 +10,7 @@
             @csrf
             @php
 $following=auth()->user()->following->pluck('seller_id')->toArray();
-
+dd($following)
  @endphp
             <button class="btn-follow rounded bg-transparent">
                 <i class="fa fa-bell"></i>
