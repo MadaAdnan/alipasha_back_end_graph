@@ -33,7 +33,7 @@
                         foreach ($items as $item){
                             $product=$item->product;
                              $message.="معرف المنتج : ".$product->id."\n";
-                             $message.="العنصر : ".$product->name."\n";
+                             $message.="المنتج : ".$product->name."\n";
                               $price=$product->is_discount?$product->discount:$product->price;
                               $message.="السعر : ".$price."\n";
                               $message.="الكمية : ".$item->qty."\n";
