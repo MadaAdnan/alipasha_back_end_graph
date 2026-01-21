@@ -6,10 +6,11 @@
     <div class="d-flex justify-content-between align-items-center">
         <h6 class="text-gray fw-bold my-1">معلومات المعلن</h6>
         @auth
-        <form action="">
+        <form action="{{route('following-to-seller',$seller->id)}}" method="POST">
+            @csrf
             @php
 $following=auth()->user()->following->pluck('seller_id')->toArray();
-dd($following);
+
  @endphp
             <button class="btn-follow rounded bg-transparent">
                 <i class="fa fa-bell"></i>

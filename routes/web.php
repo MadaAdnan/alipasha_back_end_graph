@@ -101,6 +101,18 @@ Route::middleware([\App\Http\Middleware\XFrameOptionMiddleware::class])->group(f
                     'index' => 'profile.index',
                     'store' => 'profile.store',
                 ]);
+            Route::post('/follwing/{id}', function ($id) {
+                /** @var User $seller */
+                $seller = User::find($id);
+                if ($seller) {
+                    \App\Models\UserFollow::firstOrCreate([
+                        'seller_id' => $seller->id,
+                        'user_id' => auth()->id(),
+                    ], [
+                    ]);
+                }
+                return back();
+            })->name('following-to-seller');
             Route::resource('/comments', \App\Http\Controllers\Web\CommentController::class)->only(['store']);
             Route::resource('/communities', \App\Http\Controllers\Web\CommunityController::class)->only(['index', 'show', 'store']);
             Route::resource('/messages', \App\Http\Controllers\Web\MessageController::class)->only(['store']);
@@ -166,6 +178,7 @@ Route::middleware([\App\Http\Middleware\XFrameOptionMiddleware::class])->group(f
 
         return "Success ";
     });
+
     Route::get('/server-resources', function () {
         /*  $user=User::find(51491);
           //return $user->plans()->where('type', PlansTypeEnum::PRESENT->value)->get();
