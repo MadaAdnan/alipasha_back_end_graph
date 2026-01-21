@@ -5,7 +5,12 @@
 <div class="card card-body seller-data">
     <div class="d-flex justify-content-between align-items-center">
         <h6 class="text-gray fw-bold my-1">معلومات المعلن</h6>
+        @auth
         <form action="">
+            @php
+$following=auth()->user()->following->pluck('seller_id')->toArray();
+dd($following);
+ @endphp
             <button class="btn-follow rounded bg-transparent">
                 <i class="fa fa-bell"></i>
                 <span class="small d-none d-md-inline-block mx-1 ">
@@ -13,6 +18,7 @@
                 </span>
             </button>
         </form>
+            @endauth
     </div>
     <x-components.seller-name-component :seller="$seller" :image="$seller->getImage()"/>
     <span class="small text-muted"><i class="fa fa-location-dot"></i> {{$seller->address}}</span>
