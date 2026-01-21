@@ -3,7 +3,7 @@
     'productId'=>null,
 ])
 <div class="card card-body seller-data">
-    <div class="d-flex">
+    <div class="d-flex justify-content-between align-items-center">
         <h6 class="text-gray fw-bold my-1">معلومات المعلن</h6>
         <form action="">
             <button class="btn-follow rounded bg-transparent">
