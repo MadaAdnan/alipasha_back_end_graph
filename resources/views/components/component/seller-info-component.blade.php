@@ -63,6 +63,8 @@
                 console.log('Data:', data)
                 if(data!==''){
                     window.open(`https://wa.me/${data}`, '_blank');
+                }else{
+                    throw new Error('خطأ في رقم الهاتف');
                 }
 
             })
