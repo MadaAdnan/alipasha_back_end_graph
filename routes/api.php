@@ -48,34 +48,9 @@ Route::get('like/{userId}/{productId}', function ($userId, $productId) {
 })->name('api.like');
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/messages', \App\Http\Controllers\Api\V1\MessageController::class)->only('store');
-    Route::post('/add-to-cart/{id}', function ($id) {
-        $cart = \App\Models\Cart::where([
-            'user_id' => auth()->id(),
-            'product_id' => $id,
-        ])->first();
-        if ($cart) {
-            $cart->update(['qty' => $cart->qty + 1]);
-        } else {
-            $product = \App\Models\Product::find($id);
-            \App\Models\Cart::create([
-                'user_id' => auth()->id(),
-                'product_id' => $id,
-                'seller_id' => $product?->user_id,
-                'qty' => 1,
-            ]);
-        }
-        return true;
-    });
-    Route::post('/sub-from-cart/{id}', function ($id) {
-        $cart = \App\Models\Cart::where([
-            'user_id' => auth()->id(),
-            'product_id' => $id,
-        ])->first();
-        if ($cart && $cart->qty > 1) {
-            $cart->update(['qty' => $cart->qty - 1]);
-        }
-        return true;
-    });
+  Route::post('click-whats',function(Request $request){
+      return true;
+  });
 });
 Route::middleware(\App\Http\Middleware\PassApiStatisticsMiddleware::class)->group(function () {
     Route::get('users-count', [\App\Http\Controllers\Api\StatisticsController::class, 'userCount']);

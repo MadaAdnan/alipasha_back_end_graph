@@ -16,14 +16,13 @@
                 </span>
             </button>
         </form>
-        <form action="">
-            @csrf
-            <button class="btn-green rounded">
+
+            <button class="btn-green rounded" id="whats">
                 <i class="fa-brands fa-whatsapp"></i>
                 <span class="small d-none d-md-inline-block mx-1">
                    واتس آب
                 </span>
             </button>
-        </form>
+
     </div>
 </div>
