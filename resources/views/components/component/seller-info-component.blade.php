@@ -44,9 +44,9 @@
                 'X-Requested-With': 'XMLHttpRequest',
                 'Authorization': 'Bearer ' + localStorage.getItem('token') || null
             },
-            body: JSON.stringify({
+            body: {
                 user_id: userId,
-            })
+            }
         })
             .then(response => {
                 if (response.ok) {
