@@ -12,17 +12,14 @@
                 </div>
             @endforeach
                 <div class="col-12">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <a href="" class="btn btn-primary">
-                                الدفع
-                            </a>
-                        </div>
-                        <div>
-                            <a href="" class="btn btn-danger">
-                                مسح
-                            </a>
-                        </div>
+                    <div class="d-flex justify-content-between info-data">
+                        <span><i class="fas fa-map-marker-alt"></i> إجمالي السعر</span>
+                        @php
+                            $total = $items->sum(function ($item) {
+                                return $item->price * $item->qty;
+                            });
+                        @endphp
+                        <span>{{$total}}</span>
                     </div>
                 </div>
             @else
