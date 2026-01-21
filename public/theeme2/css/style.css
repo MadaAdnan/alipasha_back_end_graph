@@ -1204,6 +1204,12 @@ padding-block: 10px;
     background-color: transparent;
 
 }
+.btn-follow>span{
+    color: var(--red);
+}
+.btn-follow.active>span{
+    color: white;
+}
 .btn-follow.active,.btn-follow:hover{
     background-color: var(--red) !important;
     color: white !important;
