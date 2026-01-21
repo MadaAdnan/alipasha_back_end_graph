@@ -33,22 +33,22 @@
     <div class="d-flex justify-content-center gap-1">
         <form action="{{route('communities.store')}}">
             @csrf
-            <button class="btn-green rounded bg-transparent d-flex gap-1">
+            <button class="btn-green rounded bg-transparent d-flex justify-content-center">
                 <i class="fa fa-comments text-black"></i>
-                <span class="small d-none d-md-inline-block mx-1 text-black">
+                <span class="small d-none d-md-inline-block  text-black">
                    تحدث معه
                 </span>
             </button>
         </form>
 @if($productId!=null)
-        <button class="btn-green rounded" type="button" onclick="clickWhats()">
+        <button class="btn-green rounded d-flex justify-content-center" type="button" onclick="clickWhats()">
             <i class="fa-brands fa-whatsapp"></i>
-            <span class="small d-none d-md-inline-block mx-1 text-white">
+            <span class="small d-none d-md-inline-block  text-white">
                    واتس آب
                 </span>
         </button>
         @else
-            <a class="btn-green rounded text-center d-inline-block" href="https://wa.me/{{$seller->full_phone}}" target="_blank">
+            <a class="btn-green rounded d-flex justify-content-center" href="https://wa.me/{{$seller->full_phone}}" target="_blank">
                 <i class="fa-brands fa-whatsapp"></i>
                 <span class="small d-none d-md-inline-block mx-1 text-white">
                    واتس آب
