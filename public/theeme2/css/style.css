@@ -845,6 +845,21 @@ option>img{
     }
 
 }
+.cart-btn{
+    color: var(--gray-text);
+    cursor: pointer;
+    font-size: 20px;
+    transition: all 0.2s ease;
+    outline: var(--gray-text);
+    border:1px solid var(--gray-text);
+    border-radius: 10px;
+
+    &:hover{
+        color: var();
+        border:1px solid var(--red-accent);
+    }
+
+}
 .like-btn.active{
     color: var(--red-accent);
     border:1px solid var(--red-accent);
