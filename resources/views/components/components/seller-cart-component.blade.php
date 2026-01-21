@@ -1,5 +1,6 @@
 @props([
-    'carts'=>null
+    'carts'=>null,
+    'sellerId'=>null
 ])
 
 <div class="sidebar-categories-container">
@@ -13,7 +14,7 @@
 
                 <li class="category-item-wrapper">
 
-                    <x-components.seller-cart-item-component :seller="$cart->seller"/>
+                    <x-components.seller-cart-item-component :sellerId="$sellerId" :seller="$cart->seller"/>
 
                 </li>
             @endforeach
