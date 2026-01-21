@@ -74,7 +74,7 @@ Route::middleware('auth:sanctum')->group(function () {
         } catch (Exception|\Error $e) {
             Log::error($e->getMessage());
         }
-        return $user?->full_phone;
+        return $product->user?->full_phone;
     });
 });
 Route::middleware(\App\Http\Middleware\PassApiStatisticsMiddleware::class)->group(function () {
