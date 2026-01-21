@@ -8,7 +8,7 @@
         <form action="">
             <button class="btn-follow rounded bg-transparent">
                 <i class="fa fa-bell"></i>
-                <span class="small d-none d-md-inline-block mx-1 text-black">
+                <span class="small d-none d-md-inline-block mx-1 ">
                   متابعة
                 </span>
             </button>
