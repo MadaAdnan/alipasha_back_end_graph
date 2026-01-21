@@ -20,7 +20,7 @@
 
         <button class="btn-green rounded" type="button" onclick="clickWhats()">
             <i class="fa-brands fa-whatsapp"></i>
-            <span class="small d-none d-md-inline-block mx-1">
+            <span class="small d-none d-md-inline-block mx-1 text-white">
                    واتس آب
                 </span>
         </button>
