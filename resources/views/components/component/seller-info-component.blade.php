@@ -29,7 +29,7 @@
 
 <script>
     function clickWhats(userId) {
-        if (!userId) {
+        if (localStorage.getItem('token')==null) {
             // إذا لم يكن المستخدم قد سجل الدخول، قم بإعادة التوجيه إلى صفحة تسجيل الدخول
             window.location.href = '/login';
             return;
