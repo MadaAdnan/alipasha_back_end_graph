@@ -855,7 +855,7 @@ option>img{
     border-radius: 10px;
 
     &:hover{
-        color: var();
+        color: var(--red-accent);
         border:1px solid var(--red-accent);
     }
 
