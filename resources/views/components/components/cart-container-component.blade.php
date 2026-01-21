@@ -27,7 +27,7 @@
             <div class="col-12">
                 @php
                     $message='';
-                    if($items->count()>1){
+                    if($items->count()>0){
                         $message="السلام عليكم ورحمة الله وبركاته \n";
                         foreach ($items as $item){
                             $product=$item->product;
