@@ -42,11 +42,13 @@
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
                 'X-Requested-With': 'XMLHttpRequest',
-                'Authorization': 'Bearer ' + localStorage.getItem('token') || null
+                ...(localStorage.getItem('token') && {
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                })
             },
-            body: {
-                user_id: userId,
-            }
+            body: JSON.stringify({
+                user_id: userId
+            })
         })
             .then(response => {
                 if (response.ok) {
