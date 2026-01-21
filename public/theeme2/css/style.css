@@ -1206,7 +1206,7 @@ padding-block: 10px;
 }
 .btn-follow.active,.btn-follow:hover{
     background-color: var(--red) !important;
-    color: white;
+    color: white !important;
     border: 1px solid var(--red);
 }
 
