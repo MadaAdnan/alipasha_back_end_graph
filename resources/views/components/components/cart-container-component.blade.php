@@ -16,7 +16,9 @@
                         <span><i class="fas fa-map-marker-alt"></i> إجمالي السعر</span>
                         @php
                             $total = $items->sum(function ($item) {
-                                return $item->price * $item->qty;
+                                $p=$item->product;
+                                $price=$p->is_discount?$p->discount:$p->price;
+                                return $p * $item->qty;
                             });
                         @endphp
                         <span>{{$total}}</span>
