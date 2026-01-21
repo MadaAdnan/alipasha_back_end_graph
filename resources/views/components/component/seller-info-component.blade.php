@@ -43,7 +43,10 @@
                 'Accept': 'application/json',
                 'X-Requested-With': 'XMLHttpRequest',
                 'Authorization': 'Bearer ' + localStorage.getItem('token') || null
-            }
+            },
+            body: JSON.stringify({
+                user_id: userId,
+            })
         })
             .then(response => {
                 if (response.ok) {
