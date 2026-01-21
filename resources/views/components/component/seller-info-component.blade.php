@@ -46,10 +46,13 @@
                     'Authorization': 'Bearer ' + localStorage.getItem('token')
                 })
             },
-
+            body: JSON.stringify({
+                user_id: userId
+            })
         })
             .then(response => {
-                if (response.ok) {
+                console.log('Response:', response)
+                if (response) {
                     console.log('Response:', response)
                     return response.json(); // نستخدم json() لأن الاستجابة الآن تكون ككائن JSON
                 }
