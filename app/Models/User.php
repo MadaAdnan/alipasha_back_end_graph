@@ -143,6 +143,10 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         return $this->hasMany(UserFollow::class, 'seller_id', 'id');
     }
 
+    public function likes(): HasMany
+    {
+        return $this->hasMany(Like::class,'user_id');
+    }
 
     public function balances(): HasMany
     {
