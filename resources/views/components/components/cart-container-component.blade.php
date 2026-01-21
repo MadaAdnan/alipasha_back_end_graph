@@ -14,12 +14,12 @@
                 <div class="col-12">
                     <div class="d-flex justify-content-between">
                         <div>
-                            <a href="{{route('cart.checkout')}}" class="btn btn-primary">
+                            <a href="" class="btn btn-primary">
                                 الدفع
                             </a>
                         </div>
                         <div>
-                            <a href="{{route('cart.clear')}}" class="btn btn-danger">
+                            <a href="" class="btn btn-danger">
                                 مسح
                             </a>
                         </div>
