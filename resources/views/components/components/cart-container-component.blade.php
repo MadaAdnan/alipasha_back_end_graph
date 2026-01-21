@@ -40,10 +40,10 @@
                               $total=$price * $item->qty;
                               $sumTotal+=$total;
                               $message.="الإجمالي : ".$total."\n";
-                              $message.="______________________________________";
+                              $message.="______________________________________\n";
                                }
                     }
-                      $message.="قيمة الطلب : ".$sumTotal."\n";
+                      $message.="قيمة الطلب : ".$sumTotal;
                 @endphp
                 <a href="https://wa.me/{{$seller?->full_phone}}?text={{urlencode($message)}}" class="btn btn-green" target="_blank"><i class="fa-brand fa-whatsapp"></i> طلب من خلال واتس آب</a>
             </div>
