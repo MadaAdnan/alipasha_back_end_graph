@@ -3,7 +3,7 @@
         <a class="navbar-brand" href="{{route('index')}}">
             <img class="logo" src="{{$setting?->getFirstMediaUrl('logo')}}" alt=""></a>
         <!-- Shopping Cart with Badge -->
-        <a href="{{ route('carts.index') }}" class="cart-link ms-1 position-relative">
+        <a href="{{ route('carts.index') }}" style="margin-left: 10px" class="cart-link  position-relative">
             <i class="fa fa-shopping-cart fa-lg"></i>
             @if(auth()->check())
                 @php
