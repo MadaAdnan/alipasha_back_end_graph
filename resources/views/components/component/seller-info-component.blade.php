@@ -6,7 +6,7 @@
     <div class="d-flex">
         <h6 class="text-gray fw-bold my-1">معلومات المعلن</h6>
         <form action="">
-            <button class="btn-green rounded bg-transparent">
+            <button class="btn-follow rounded bg-transparent">
                 <i class="fa fa-bell"></i>
                 <span class="small d-none d-md-inline-block mx-1 text-black">
                   متابعة

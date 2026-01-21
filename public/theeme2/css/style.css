@@ -1195,5 +1195,20 @@ padding-block: 10px;
 }
 
 /*Carts*/
+.btn-follow{
+    border: 1px solid var(--red);
+    color: var(--red);
+    background-color: transparent;
+    &:hover{
+        background-color: var(--red);
+        color: white;
+        border: 1px solid var(--red);
+    }
+}
+.btn-follow.active{
+    background-color: var(--red);
+    color: white;
+    border: 1px solid var(--red);
+}
 
 
