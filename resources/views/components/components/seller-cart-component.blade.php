@@ -12,7 +12,7 @@
         @if($carts!=null)
             @foreach($carts as $cart)
 
-                <li class="category-item-wrapper">
+                <li class="category-item-wrapper ">
 
                     <x-components.seller-cart-item-component :sellerId="$sellerId" :seller="$cart->seller"/>
 
