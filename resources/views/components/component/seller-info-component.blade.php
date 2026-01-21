@@ -33,7 +33,7 @@
     <div class="d-flex justify-content-center gap-1">
         <form action="{{route('communities.store')}}">
             @csrf
-            <button class="btn-green rounded bg-transparent">
+            <button class="btn-green rounded bg-transparent d-flex gap-1">
                 <i class="fa fa-comments text-black"></i>
                 <span class="small d-none d-md-inline-block mx-1 text-black">
                    تحدث معه
