@@ -9,7 +9,7 @@
                         <x-components.small-widget-product-detail-component class="bg-white border rounded p-2"
                                                                             title="متابعين"
                                                                             icon="fa-regular fa-thumbs-up"
-                                                                            :info="$store->followers_count"/>
+                                                                            :info="$store->following_count"/>
 
                     </div>
                     <div class="col-md-2">
