@@ -27,6 +27,7 @@
             <div class="col-12">
                 @php
                     $message='';
+                    $sumTotal=0;
                     if($items->count()>0){
                         $message="السلام عليكم ورحمة الله وبركاته \n";
                         foreach ($items as $item){
@@ -36,10 +37,13 @@
                               $price=$product->is_discount?$product->discount:$product->price;
                               $message.="السعر : ".$price."\n";
                               $message.="الكمية : ".$item->qty."\n";
-                              $message.="السعر الكلي : ".$price * $item->qty."\n";
-                              $message.="------------";
+                              $total=$price * $item->qty;
+                              $sumTotal+=$total;
+                              $message.="الإجمالي : ".$total."\n";
+                              $message.="______________________________________";
                                }
                     }
+                      $message.="قيمة الطلب : ".$sumTotal."\n";
                 @endphp
                 <a href="https://wa.me/{{$seller?->full_phone}}?text={{urlencode($message)}}" class="btn btn-green" target="_blank"><i class="fa-brand fa-whatsapp"></i> طلب من خلال واتس آب</a>
             </div>
