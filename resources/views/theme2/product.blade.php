@@ -90,7 +90,7 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <x-components.social-seller-component :seller="$post->user"/>
+                <x-components.social-seller-component :store="$post->user"/>
             </div>
         </div>
         <div class="row">
