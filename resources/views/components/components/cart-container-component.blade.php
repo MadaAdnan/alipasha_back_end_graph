@@ -13,7 +13,7 @@
             @endforeach
                 <div class="col-12">
                     <div class="d-flex justify-content-between info-data">
-                        <span><i class="fas fa-map-marker-alt"></i> إجمالي السعر</span>
+                        <span><i class="fa-solid fa-money-check-dollar"></i> إجمالي السعر</span>
                         @php
                             $total = $items->sum(function ($item) {
                                 $p=$item->product;
