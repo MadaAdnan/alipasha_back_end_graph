@@ -16,7 +16,12 @@
             <button class="btn-follow rounded @if($isFollowing) active @endif ">
                 <i class="fa fa-bell"></i>
                 <span class="small d-none d-md-inline-block mx-1 ">
-                  متابعة
+                    @if($isFollowing) تتابعه
+                    @else
+                        متابعة
+                    @endif
+
+
                 </span>
             </button>
         </form>
