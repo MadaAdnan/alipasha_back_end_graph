@@ -61,7 +61,10 @@
             })
             .then(data => {
                 console.log('Data:', data)
-                window.open(`https://wa.me/${data}`, '_blank');
+                if(data!==''){
+                    window.open(`https://wa.me/${data}`, '_blank');
+                }
+
             })
             .catch(error => {
                 console.error('Error:', error);
