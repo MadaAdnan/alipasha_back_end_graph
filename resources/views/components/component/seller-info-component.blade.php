@@ -1,5 +1,6 @@
 @props([
-    'seller'=>null
+    'seller'=>null,
+    'productId'=>null,
 ])
 <div class="card card-body">
     <h6 class="text-gray fw-bold my-1">معلومات المعلن</h6>
@@ -17,7 +18,7 @@
             </button>
         </form>
 
-        <button class="btn-green rounded" type="button" onclick="clickWhats('{{$seller->id}}')">
+        <button class="btn-green rounded" type="button" onclick="clickWhats()">
             <i class="fa-brands fa-whatsapp"></i>
             <span class="small d-none d-md-inline-block mx-1">
                    واتس آب
@@ -28,7 +29,7 @@
 </div>
 
 <script>
-    function clickWhats(userId) {
+    function clickWhats() {
         if (localStorage.getItem('token')==null) {
             // إذا لم يكن المستخدم قد سجل الدخول، قم بإعادة التوجيه إلى صفحة تسجيل الدخول
             window.location.href = '/login';
@@ -47,7 +48,7 @@
                 })
             },
             body: JSON.stringify({
-                user_id: userId
+                product_id: {{$productId}}
             })
         })
             .then(response => {

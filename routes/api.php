@@ -1,6 +1,9 @@
 <?php
 
+use App\Jobs\SendFirebaseNotificationJob;
+use App\Models\ClickWhats;
 use App\Models\Like;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
@@ -48,9 +51,31 @@ Route::get('like/{userId}/{productId}', function ($userId, $productId) {
 })->name('api.like');
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/messages', \App\Http\Controllers\Api\V1\MessageController::class)->only('store');
-  Route::post('click-whats',function(Request $request){
-      return \App\Models\User::find($request->user_id)?->full_phone;
-  });
+    Route::post('click-whats', function (Request $request) {
+
+        $productId = $request->product_id;
+        $product = Product::find($productId);
+        if (!$product) {
+            return '';
+        }
+        $user = auth()->user();
+        $name = $product->name ?? \Str::substr($product->expert, 0, 20);
+        $data['title'] = 'مراسلة جديدة';
+        $data['body'] = "قد يتواصل الزبون {$user->name} عبر واتسأب للإستفسار عن المنتج {$name}";
+        try {
+
+            $job = new SendFirebaseNotificationJob([$product->user->device_token], $data);
+            dispatch($job);
+            ClickWhats::create([
+                'product_id' => $productId,
+                'user_id' => $user->id,
+                'seller_id' => $product->user_id
+            ]);
+        } catch (Exception|\Error $e) {
+            Log::error($e->getMessage());
+        }
+        return $user?->full_phone;
+    });
 });
 Route::middleware(\App\Http\Middleware\PassApiStatisticsMiddleware::class)->group(function () {
     Route::get('users-count', [\App\Http\Controllers\Api\StatisticsController::class, 'userCount']);
