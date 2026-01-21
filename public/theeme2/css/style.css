@@ -1207,10 +1207,10 @@ padding-block: 10px;
 .btn-follow span{
     color: var(--red);
 }
-.btn-follow.active span{
+.btn-follow.active span ,.btn-follow:hover span{
     color: white !important;
 }
-.btn-follow.active,.btn-follow:hover{
+.btn-follow.active,.btn-follow:hover {
     background-color: var(--red) !important;
     color: white !important;
     border: 1px solid var(--red);
