@@ -6,13 +6,14 @@
     <div class="d-flex justify-content-between align-items-center">
         <h6 class="text-gray fw-bold my-1">معلومات المعلن</h6>
         @auth
-        <form action="{{route('following-to-seller',$seller->id)}}" method="POST">
-            @csrf
             @php
-$following=auth()->user()->followers()->pluck('seller_id')->toArray();
-dd($following)
- @endphp
-            <button class="btn-follow rounded bg-transparent">
+                $following=auth()->user()->followers()->pluck('seller_id')->toArray();
+                $isFollowing=$following==null?false:in_array($seller->id,$following);
+            @endphp
+        <form @if(!$isFollowing) action="{{route('following-to-seller',$seller->id)}}" @endif method="POST">
+            @csrf
+
+            <button class="btn-follow rounded @if($isFollowing) active @endif ">
                 <i class="fa fa-bell"></i>
                 <span class="small d-none d-md-inline-block mx-1 ">
                   متابعة
