@@ -17,13 +17,21 @@
                 </span>
             </button>
         </form>
-
+@if($productId!=null)
         <button class="btn-green rounded" type="button" onclick="clickWhats()">
             <i class="fa-brands fa-whatsapp"></i>
             <span class="small d-none d-md-inline-block mx-1 text-white">
                    واتس آب
                 </span>
         </button>
+        @else
+            <a class="btn-green rounded" href="https://wa.me/{{$seller->full_phone}}" target="_blank">
+                <i class="fa-brands fa-whatsapp"></i>
+                <span class="small d-none d-md-inline-block mx-1 text-white">
+                   واتس آب
+                </span>
+            </a>
+        @endif
 
     </div>
 </div>
@@ -36,7 +44,7 @@
             return;
         }
 
-       if(parseInt("{{$productId??0}}") >0){
+
            fetch(`/api/click-whats`, {
                method: 'POST',
                headers: {
@@ -72,9 +80,7 @@
                    console.error('Error:', error);
                    alert('حدث خطأ أثناء الإنتقال');
                });
-       }else{
-           window.open(`https://wa.me/{{$seller->full_phone}}`, '_blank');
-       }
+
 
     }
 </script>
