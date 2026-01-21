@@ -1202,13 +1202,13 @@ padding-block: 10px;
     border: 1px solid var(--red);
     color: var(--red);
     background-color: transparent;
-    :hover{
-        background-color: var(--red);
-        color: white;
-        border: 1px solid var(--red);
-    }
+
 }
-.btn-follow.active{
+.btn-follow.active,.btn-follow:hover{
+    background-color: var(--red);
+    color: white;
+    border: 1px solid var(--red);
+}{
     background-color: var(--red);
     color: white;
     border: 1px solid var(--red);
