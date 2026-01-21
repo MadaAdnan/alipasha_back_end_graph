@@ -1202,7 +1202,7 @@ padding-block: 10px;
     border: 1px solid var(--red);
     color: var(--red);
     background-color: transparent;
-    &:hover{
+    :hover{
         background-color: var(--red);
         color: white;
         border: 1px solid var(--red);
