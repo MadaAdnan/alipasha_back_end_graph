@@ -8,7 +8,7 @@
                     <div class="col-md-2">
                         <x-components.small-widget-product-detail-component class="bg-white border rounded p-2"
                                                                             title="متابعين"
-                                                                            icon="fa-regular fa-thumbs-up"
+                                                                            icon="fa fa-bell"
                                                                             :info="$store->following_count"/>
 
                     </div>
