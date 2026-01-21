@@ -2,18 +2,6 @@
     <div class="container">
         <a class="navbar-brand" href="{{route('index')}}">
             <img class="logo" src="{{$setting?->getFirstMediaUrl('logo')}}" alt=""></a>
-        <!-- Shopping Cart with Badge -->
-        <a href="{{ route('carts.index') }}" style="margin-left: 10px" class="cart-link  position-relative">
-            <i class="fa fa-shopping-cart fa-lg"></i>
-            @if(auth()->check())
-                @php
-                    $cartCount = \App\Models\Cart::where('user_id', auth()->id())->count();
-                @endphp
-                @if($cartCount > 0)
-                    <span class="badge badge-danger position-absolute top-0 start-100 translate-middle rounded-pill bg-danger">{{ $cartCount }}</span>
-                @endif
-            @endif
-        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -21,7 +9,7 @@
 
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li>
-                    <form class="d-flex position-absolute" role="search">
+                    <form class="d-flex position-relative" role="search">
                         <input class="form-control me-2" type="search" placeholder="بحث" aria-label="Search"/>
 
                         <button class="transparent position-absolute search-icon-navbar"><i class="fa fa-search"></i></button>
