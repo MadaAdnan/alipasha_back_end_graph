@@ -18,7 +18,7 @@
                             $total = $items->sum(function ($item) {
                                 $p=$item->product;
                                 $price=$p->is_discount?$p->discount:$p->price;
-                                return $p * $item->qty;
+                                return $price * $item->qty;
                             });
                         @endphp
                         <span>{{$total}}</span>
