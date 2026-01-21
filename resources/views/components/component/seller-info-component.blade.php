@@ -36,41 +36,45 @@
             return;
         }
 
-        // إرسال طلب AJAX إلى نقطة النهاية
-        fetch(`/api/click-whats`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'X-Requested-With': 'XMLHttpRequest',
-                ...(localStorage.getItem('token') && {
-                    'Authorization': 'Bearer ' + localStorage.getItem('token')
-                })
-            },
-            body: JSON.stringify({
-                product_id: {{$productId}}
-            })
-        })
-            .then(response => {
-                console.log('Response:', response)
-                if (response) {
-                    console.log('Response:', response)
-                    return response.json(); // نستخدم json() لأن الاستجابة الآن تكون ككائن JSON
-                }
-                throw new Error('Network response was not ok');
-            })
-            .then(data => {
-                console.log('Data:', data)
-                if(data!==''){
-                    window.open(`https://wa.me/${data}`, '_blank');
-                }else{
-                    throw new Error('خطأ في رقم الهاتف');
-                }
+       if(parseInt("{{$productId??0}}") >0){
+           fetch(`/api/click-whats`, {
+               method: 'POST',
+               headers: {
+                   'Content-Type': 'application/json',
+                   'Accept': 'application/json',
+                   'X-Requested-With': 'XMLHttpRequest',
+                   ...(localStorage.getItem('token') && {
+                       'Authorization': 'Bearer ' + localStorage.getItem('token')
+                   })
+               },
+               body: JSON.stringify({
+                   product_id: {{$productId}}
+               })
+           })
+               .then(response => {
+                   console.log('Response:', response)
+                   if (response) {
+                       console.log('Response:', response)
+                       return response.json(); // نستخدم json() لأن الاستجابة الآن تكون ككائن JSON
+                   }
+                   throw new Error('Network response was not ok');
+               })
+               .then(data => {
+                   console.log('Data:', data)
+                   if(data!==''){
+                       window.open(`https://wa.me/${data}`, '_blank');
+                   }else{
+                       throw new Error('خطأ في رقم الهاتف');
+                   }
 
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('حدث خطأ أثناء الإنتقال');
-            });
+               })
+               .catch(error => {
+                   console.error('Error:', error);
+                   alert('حدث خطأ أثناء الإنتقال');
+               });
+       }else{
+           window.open(`https://wa.me/{{$seller->full_phone}}`, '_blank');
+       }
+
     }
 </script>
