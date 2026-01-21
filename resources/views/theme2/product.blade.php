@@ -14,7 +14,7 @@
                 @endif
             </div>
         </div>
-        <div class="row justify-content-center">
+        <div class="row">
             <div class="col-md-9">
                 <h2 class="fw-bold">{{$post->name??$post->expert}}</h2>
                 <div class="d-flex  align-items-center px-1 py-1">
@@ -89,9 +89,11 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <x-components.social-seller-component :store="$post->user"/>
-            </div>
+            @if($post->user?->planes()->whereNot('duration','free')->exists())
+                <div class="col-md-3">
+                    <x-components.social-seller-component :store="$post->user"/>
+                </div>
+            @endif
         </div>
         <div class="row">
             <div class="col-md-9">
