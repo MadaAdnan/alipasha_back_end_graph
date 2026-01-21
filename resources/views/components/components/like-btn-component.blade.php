@@ -10,7 +10,7 @@ $isLike=auth()->check() && auth()->user()?auth()->user()->likes->pluck('product_
         @csrf
         @method('POST')
         <input type="hidden" name="productId" value="{{$post->id}}">
-        <button type="button" class="btn like-btn text-center @if($isLike) active  @endif " style="padding-block: 3px;
+        <button  class="btn like-btn text-center @if($isLike) active  @endif " style="padding-block: 3px;
   padding-inline: 6px;">
             <i class="fa fa-heart"></i>
         </button>
