@@ -10,12 +10,14 @@ use Illuminate\View\Component;
 class CartContainerComponent extends Component
 {
    public $items;
+   public $seller;
     /**
      * Create a new component instance.
      */
     public function __construct($seller=null)
     {
        if($seller!=null){
+           $this->seller=$seller;
            $this->items=Cart::where([
                'user_id' => auth()->id(),
                'seller_id' => $seller->id,
