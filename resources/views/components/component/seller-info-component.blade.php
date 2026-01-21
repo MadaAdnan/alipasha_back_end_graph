@@ -52,7 +52,11 @@
         })
             .then(response => {
                 console.log('Response:', response)
-
+                if (response) {
+                    console.log('Response:', response)
+                    return response.json(); // نستخدم json() لأن الاستجابة الآن تكون ككائن JSON
+                }
+                throw new Error('Network response was not ok');
             })
             .then(data => {
                 console.log('Data:', data)
