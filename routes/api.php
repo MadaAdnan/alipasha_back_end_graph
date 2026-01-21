@@ -49,7 +49,7 @@ Route::get('like/{userId}/{productId}', function ($userId, $productId) {
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/messages', \App\Http\Controllers\Api\V1\MessageController::class)->only('store');
   Route::post('click-whats',function(Request $request){
-      return User::find($request->user_id);
+      return User::find($request->user_id)?->full_phone;
   });
 });
 Route::middleware(\App\Http\Middleware\PassApiStatisticsMiddleware::class)->group(function () {

@@ -52,7 +52,7 @@
         })
             .then(response => {
                 console.log('Response:', response)
-                if (response) {
+                if (response.ok) {
                     console.log('Response:', response)
                     return response.json(); // نستخدم json() لأن الاستجابة الآن تكون ككائن JSON
                 }
@@ -60,7 +60,7 @@
             })
             .then(data => {
                 console.log('Data:', data)
-                window.location.href = `https://wa.me/${data.full_phone}`;
+                window.location.href = `https://wa.me/${data}`;
             })
             .catch(error => {
                 console.error('Error:', error);
