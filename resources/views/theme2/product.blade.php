@@ -81,7 +81,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-9">
+
                 <x-components.same-post-component :category="$post->sub1_id"/>
             </div>
         </div>
