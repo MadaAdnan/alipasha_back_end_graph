@@ -41,7 +41,7 @@
                                }
                     }
                 @endphp
-                <a href="https://wa.me/{{$seller->حاخىث}}?text={{$message}}" class="btn"><i class="fa-brand fa-whatsapp"></i> طلب من خلال واتس آب</a>
+                <a href="https://wa.me/{{$seller?->full_phone}}?text={{$message}}" class="btn"><i class="fa-brand fa-whatsapp"></i> طلب من خلال واتس آب</a>
             </div>
         @else
             <div class="col-12">
