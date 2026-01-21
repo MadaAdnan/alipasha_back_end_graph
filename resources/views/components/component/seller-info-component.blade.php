@@ -9,7 +9,7 @@
         <form action="{{route('following-to-seller',$seller->id)}}" method="POST">
             @csrf
             @php
-$following=auth()->user()->following->pluck('seller_id')->toArray();
+$following=auth()->user()->followers()->pluck('seller_id')->toArray();
 dd($following)
  @endphp
             <button class="btn-follow rounded bg-transparent">
