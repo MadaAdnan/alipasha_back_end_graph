@@ -1196,6 +1196,9 @@ padding-block: 10px;
 
 /*Carts*/
 .btn-follow{
+    padding-inline: 8px;
+    padding-block: 4px;
+    border-radius: 5px;
     border: 1px solid var(--red);
     color: var(--red);
     background-color: transparent;
