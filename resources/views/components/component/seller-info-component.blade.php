@@ -50,7 +50,7 @@
         @else
             <a class="btn-green rounded d-flex justify-content-center" href="https://wa.me/{{$seller->full_phone}}" target="_blank">
                 <i class="fa-brands fa-whatsapp"></i>
-                <span class="small d-none d-md-inline-block mx-1 text-white">
+                <span class="small d-none d-md-inline-block  text-white">
                    واتس آب
                 </span>
             </a>
