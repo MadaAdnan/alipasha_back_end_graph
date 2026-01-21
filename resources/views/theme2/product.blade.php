@@ -89,11 +89,11 @@
                     </div>
                 </div>
             </div>
-            @if($post->user?->planes()->whereNot('duration','free')->exists())
+
                 <div class="col-md-3">
                     <x-components.social-seller-component :store="$post->user"/>
                 </div>
-            @endif
+
         </div>
         <div class="row">
             <div class="col-md-9">
