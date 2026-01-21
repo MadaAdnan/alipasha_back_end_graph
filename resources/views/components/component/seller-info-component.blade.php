@@ -46,9 +46,7 @@
                     'Authorization': 'Bearer ' + localStorage.getItem('token')
                 })
             },
-            body: JSON.stringify({
-                user_id: userId
-            })
+
         })
             .then(response => {
                 if (response.ok) {
