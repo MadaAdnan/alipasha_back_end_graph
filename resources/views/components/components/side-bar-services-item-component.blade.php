@@ -6,6 +6,7 @@
 
 
     $isActive = $serviceId != null && $service?->id == $serviceId;
+    dd($serviceId,$service?->id)
 @endphp
 
 <a class="category-item-link {{ $isActive ? 'active' : '' }}" href="{{route('services.index',['category'=>$service?->id])}}">
