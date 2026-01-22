@@ -5,7 +5,7 @@
 
     @foreach($services as $service)
         <div class="service-card d-flex align-items-center justify-content-between">
-            <div class="d-flex align-items-center gap-3">
+            <div class="d-flex align-items-center gap-2">
                 <div class="icon-box bg-red">
                     <i class="fa-solid fa-briefcase"></i>
                 </div>
