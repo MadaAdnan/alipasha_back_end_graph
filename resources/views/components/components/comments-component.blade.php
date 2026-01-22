@@ -16,7 +16,7 @@
             <img src="{{auth()->user()->getImage()}}" class="avatar">
             <form action="{{route('comments.store')}}" class="d-flex gap-1 w-100">
                 @csrf
-                <input type="hidden" name="productId" value="{{$post->id}}">
+                <input type="hidden" name="productId" value="{{$comment->product?->id}}">
                 {{--<input type="text"
                        class="form-control flex-grow-1"
                        placeholder="اكتب تعليقًا...">--}}
