@@ -1,79 +1,129 @@
 <div class="container mt-4">
-    <div class="card comment-box">
+    <div class="fb-comments card">
         <div class="card-body">
 
-            <!-- تعليق -->
-            <div class="d-flex mb-4 comment-item">
-                <img src="https://i.pravatar.cc/50"
-                     class="rounded-circle me-3 comment-avatar">
+            <!-- تعليق رئيسي -->
+            <div class="comment d-flex">
+                <img src="https://i.pravatar.cc/40" class="avatar">
 
-                <div class="flex-grow-1">
-                    <div class="d-flex justify-content-between">
-                        <h6 class="mb-0 fw-bold">Ahmed Ali</h6>
-                        <small class="text-muted">
-                            <i class="fa-regular fa-clock"></i> قبل 5 دقائق
-                        </small>
+                <div class="comment-body">
+                    <div class="comment-box">
+                        <strong>Ahmed Ali</strong>
+                        <p>هذا تعليق يشبه تصميم فيسبوك مع دعم الردود.</p>
                     </div>
-                    <p class="mb-0 text-muted">
-                        هذا مثال على تعليق المستخدم داخل صندوق التعليقات.
-                    </p>
-                </div>
-            </div>
 
-            <!-- تعليق آخر -->
-            <div class="d-flex mb-4 comment-item">
-                <img src="https://i.pravatar.cc/51"
-                     class="rounded-circle me-3 comment-avatar">
-
-                <div class="flex-grow-1">
-                    <div class="d-flex justify-content-between">
-                        <h6 class="mb-0 fw-bold">Sara Mohamed</h6>
-                        <small class="text-muted">
-                            <i class="fa-regular fa-clock"></i> منذ ساعة
-                        </small>
+                    <div class="comment-actions">
+                        <a href="#">إعجاب</a> ·
+                        <a href="#">رد</a> ·
+                        <span>10 د</span>
                     </div>
-                    <p class="mb-0 text-muted">
-                        تعليق آخر لتجربة التصميم باستخدام Bootstrap.
-                    </p>
+
+                    <!-- الردود -->
+                    <div class="replies">
+                        <div class="comment d-flex">
+                            <img src="https://i.pravatar.cc/35" class="avatar small">
+
+                            <div class="comment-body">
+                                <div class="comment-box">
+                                    <strong>Sara Mohamed</strong>
+                                    <p>تصميم ممتاز 👍</p>
+                                </div>
+
+                                <div class="comment-actions">
+                                    <a href="#">إعجاب</a> ·
+                                    <a href="#">رد</a> ·
+                                    <span>5 د</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
             <!-- إضافة تعليق -->
-            <div class="border-top pt-3">
-                <div class="d-flex">
-                    <img src="https://i.pravatar.cc/52"
-                         class="rounded-circle me-3 comment-avatar">
+            <div class="add-comment d-flex mt-3">
+                <img src="https://i.pravatar.cc/40" class="avatar">
 
-                    <textarea class="form-control"
-                              rows="2"
-                              placeholder="اكتب تعليقك..."></textarea>
-                </div>
-
-                <div class="text-end mt-2">
-                    <button class="btn btn-primary btn-sm">
-                        <i class="fa-solid fa-paper-plane"></i> إرسال
-                    </button>
-                </div>
+                <input type="text"
+                       class="form-control"
+                       placeholder="اكتب تعليقًا...">
             </div>
 
         </div>
     </div>
 </div>
 <style>
-    .comment-box {
+
+
+    .fb-comments {
         max-width: 700px;
         margin: auto;
+        border-radius: 10px;
     }
 
-    .comment-avatar {
-        width: 45px;
-        height: 45px;
+    .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
         object-fit: cover;
+        margin-left: 10px;
     }
 
-    .comment-item:not(:last-child) {
-        border-bottom: 1px solid #eee;
-        padding-bottom: 15px;
+    .avatar.small {
+        width: 32px;
+        height: 32px;
+    }
+
+    .comment {
+        margin-bottom: 15px;
+    }
+
+    .comment-body {
+        width: 100%;
+    }
+
+    .comment-box {
+        background: #f0f2f5;
+        padding: 8px 12px;
+        border-radius: 15px;
+        display: inline-block;
+        max-width: 100%;
+    }
+
+    .comment-box p {
+        margin: 2px 0 0;
+    }
+
+    .comment-actions {
+        font-size: 13px;
+        color: #65676b;
+        margin-right: 10px;
+    }
+
+    .comment-actions a {
+        text-decoration: none;
+        color: #65676b;
+        font-weight: 500;
+    }
+
+    .comment-actions a:hover {
+        text-decoration: underline;
+    }
+
+    .replies {
+        margin-top: 10px;
+        padding-right: 45px;
+    }
+
+    .add-comment input {
+        border-radius: 20px;
+        background: #f0f2f5;
+        border: none;
+    }
+
+    .add-comment input:focus {
+        box-shadow: none;
     }
 
 </style>
