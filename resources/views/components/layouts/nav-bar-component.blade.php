@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-white">
+<nav class="navbar navbar-expand bg-white">
     <div class="container">
         <a class="navbar-brand" href="{{route('index')}}">
             <img class="logo" src="{{$setting?->getFirstMediaUrl('logo')}}" alt=""></a>
