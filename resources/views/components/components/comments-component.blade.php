@@ -21,7 +21,7 @@
 
 
         </div>
-        <div class="card-footer">
+        <div class="card-footer bg-white">
             @auth
                 <!-- إضافة تعليق -->
                 <div class="add-comment d-flex mt-3 ">
