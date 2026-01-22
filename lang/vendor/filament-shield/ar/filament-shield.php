@@ -77,6 +77,6 @@ return [
         'restore_any' => 'استرجاع الكل',
         'replicate' => 'استنساخ',
         'add_balance' => 'إضافة وسحب الرصيد',
-        'SeeProductChart'=>'عرض المخطط البياني للمنتجات'
+        'see_product_chart'=>'عرض المخطط البياني للمنتجات'
     ],
 ];
