@@ -19,7 +19,7 @@ class PageResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 protected static ?string $label='الصفحة';
-protected static ?string $navigationGroup='الصفحات';
+    protected static ?string $navigationGroup = 'الإعدادات';
 protected static ?string $pluralModelLabel='الصفحات';
 protected static ?string $modelLabel='الصفحة';
 protected static ?string $navigationLabel='الصفحات';
