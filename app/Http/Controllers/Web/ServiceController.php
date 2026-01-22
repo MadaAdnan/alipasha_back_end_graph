@@ -19,6 +19,7 @@ class ServiceController extends Controller
      */
     public function index()
     {
+        $theme=\request()->get('theme');
         $city = \request()->get('city');
 
         $category = \request()->get('category');
@@ -38,7 +39,10 @@ class ServiceController extends Controller
 
             ->when(!empty($category), fn($query) => $query->where('sub1_id', $category))
             ->latest()->paginate(10);
+if($theme!=''){
+    return view('theme2.services', compact('cities', 'services', 'services_count', 'views', 'sellers', 'categories'));
 
+}
         return view('web.services', compact('cities', 'services', 'services_count', 'views', 'sellers', 'categories'));
     }
 
