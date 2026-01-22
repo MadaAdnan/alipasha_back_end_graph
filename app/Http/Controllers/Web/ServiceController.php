@@ -39,7 +39,7 @@ area_id*/
         $services = Product::service()->where('active', ProductActiveEnum::ACTIVE->value)
             ->whereHas('category',fn($q)=>$q->where('is_active',1))
             ->whereHas('sub1',fn($q)=>$q->where('is_active',1))
-            ->when(!empty($q), fn($query) => $query->where('info', 'like', "%{$q}%"))
+            ->when(!empty($q), fn($query) => $query->where('info', 'like', "%{$q}%")->orWhere('name', 'like', "%{$q}%"))
             ->when(!empty($city), fn($query) => $query->where('city_id', $city))
 
             ->when(!empty($category), fn($query) => $query->where('sub1_id', $category))
