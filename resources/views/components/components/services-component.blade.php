@@ -3,74 +3,30 @@
 ])
 <div class="container mt-4">
 
-    <!-- عنصر -->
-    <div class="service-card d-flex align-items-center justify-content-between">
-        <div class="d-flex align-items-center gap-3">
-            <div class="icon-box">
-                <i class="fa-solid fa-briefcase"></i>
+    @foreach($services as $service)
+        <div class="service-card d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center gap-3">
+                <div class="icon-box">
+                    <i class="fa-solid fa-briefcase"></i>
+                </div>
+
+                <div>
+                    <h6 class="mb-1 fw-bold">{{$service->name}}</h6>
+                    <p class="mb-1 text-muted small">
+                        {{$service->category?->name}}
+                    </p>
+                    <span class="badge bg-light text-dark">
+                    <i class="fa-solid fa-location-dot"></i> {{$service->city?->name}}
+                </span>
+                </div>
             </div>
 
-            <div>
-                <h6 class="mb-1 fw-bold">خدمات مالية وإدارية</h6>
-                <p class="mb-1 text-muted small">
-                    خدمات مالية وإدارية
-                </p>
-                <span class="badge bg-light text-dark">
-                    <i class="fa-solid fa-location-dot"></i> إعزاز
-                </span>
-            </div>
+            <a href="#" class="btn btn-success btn-sm">
+                استعراض <i class="fa-solid fa-arrow-left"></i>
+            </a>
         </div>
 
-        <a href="#" class="btn btn-success btn-sm">
-            استعراض <i class="fa-solid fa-arrow-left"></i>
-        </a>
-    </div>
-
-    <!-- عنصر -->
-    <div class="service-card d-flex align-items-center justify-content-between">
-        <div class="d-flex align-items-center gap-3">
-            <div class="icon-box bg-primary">
-                <i class="fa-solid fa-building"></i>
-            </div>
-
-            <div>
-                <h6 class="mb-1 fw-bold">أحمد الدقاق</h6>
-                <p class="mb-1 text-muted small">
-                    برج التجارة الطابق الأرضي مكتب رقم IV
-                </p>
-                <span class="badge bg-light text-dark">
-                    <i class="fa-solid fa-location-dot"></i> سرمدا
-                </span>
-            </div>
-        </div>
-
-        <a href="#" class="btn btn-success btn-sm">
-            استعراض <i class="fa-solid fa-arrow-left"></i>
-        </a>
-    </div>
-
-    <!-- عنصر -->
-    <div class="service-card d-flex align-items-center justify-content-between">
-        <div class="d-flex align-items-center gap-3">
-            <div class="icon-box bg-warning">
-                <i class="fa-solid fa-clock"></i>
-            </div>
-
-            <div>
-                <h6 class="mb-1 fw-bold">خدمة 24 ساعة</h6>
-                <p class="mb-1 text-muted small">
-                    استقبال وإرسال من وإلى كافة أنحاء العالم
-                </p>
-                <span class="badge bg-light text-dark">
-                    <i class="fa-solid fa-location-dot"></i> عفرين
-                </span>
-            </div>
-        </div>
-
-        <a href="#" class="btn btn-success btn-sm">
-            استعراض <i class="fa-solid fa-arrow-left"></i>
-        </a>
-    </div>
+    @endforeach
 
 </div>
 <style>
