@@ -45,7 +45,7 @@ area_id*/
             ->when(!empty($category), fn($query) => $query->where('sub1_id', $category))
             ->latest()->paginate(10);
 
-    return view('theme2.services', compact('cities', 'services', 'services_count', 'views', 'sellers', 'categories'));
+    return view('theme2.services', compact('cities', 'services', 'services_count', 'views', 'sellers', 'categories','category'));
 
 
     }
