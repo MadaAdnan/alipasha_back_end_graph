@@ -8,7 +8,8 @@
                 <x-components.filter-component route="{{route('services.index')}}" type="{{\App\Enums\CategoryTypeEnum::SERVICE->value}}"/>
             </div>
             <div class="col-md-9">
-                <x-components.services-component :services="$services"/>
+                <x-components.services-component :services="$services->items()"/>
+                <x-components.paginator-component :paginator="$services"/>
             </div>
         </div>
     </div>
