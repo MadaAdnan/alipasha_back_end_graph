@@ -19,10 +19,15 @@ class ServiceController extends Controller
      */
     public function index()
     {
+        /*category_id
+seller_id
+type
+city_id
+area_id*/
         $theme=\request()->get('theme');
-        $city = \request()->get('city');
+        $city = \request()->get('city_id');
 
-        $category = \request()->get('category');
+        $category = \request()->get('category_id');
         $q = \request()->get('q');
         $cities = City::where('is_active', true)->where('is_main', true)->get();
         $services_count = Product::service()
