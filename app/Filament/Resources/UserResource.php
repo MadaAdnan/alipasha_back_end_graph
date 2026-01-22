@@ -312,6 +312,10 @@ class UserResource extends Resource implements HasShieldPermissions
                         Forms\Components\TextInput::make('info')->label('ملاحظات')
                     ])
                         ->action(function ($record, $data) {
+                            if(!auth()->user()->can('add_balance_user')){
+                                Notification::make('error')->danger()->title('خطأ')->body('ليس لديك صلاحية إضافة رصيد')->send();
+                                return;
+                            }
                             Balance::create([
                                 'credit' => $data['value'],
                                 'debit' => 0,
@@ -319,13 +323,17 @@ class UserResource extends Resource implements HasShieldPermissions
                                 'user_id' => $record->id
                             ]);
                             Notification::make('success')->success()->title('نجاح')->body('تم إضافة الرصيد بنجاح')->send();
-                        })->label('إضافة رصيد')->icon('fas-hand-holding-dollar'),
+                        })->label('إضافة رصيد')->icon('fas-hand-holding-dollar')->visible(auth()->user()->can('add_balance_user')),
                     /* sub balance */
                     Tables\Actions\Action::make('sub_balance')->form([
                         Forms\Components\TextInput::make('value')->label('القيمة')->required()->gt(0),
                         Forms\Components\TextInput::make('info')->label('ملاحظات')
                     ])
                         ->action(function ($record, $data) {
+                            if(!auth()->user()->can('add_balance_user')){
+                                Notification::make('error')->danger()->title('خطأ')->body('ليس لديك صلاحية إضافة رصيد')->send();
+                            return;
+                            }
                             Balance::create([
                                 'credit' => 0,
                                 'debit' => $data['value'],
@@ -333,7 +341,7 @@ class UserResource extends Resource implements HasShieldPermissions
                                 'user_id' => $record->id
                             ]);
                             Notification::make('success')->success()->title('نجاح')->body('تم السحب من الرصيد بنجاح')->send();
-                        })->label('سحب من الرصيد')->icon('fas-cash-register'),
+                        })->label('سحب من الرصيد')->icon('fas-cash-register')->visible(auth()->user()->can('add_balance_user')),
                     /* send msg chat */
                     Tables\Actions\Action::make('send_msg_chat')->form([
                         Forms\Components\Textarea::make('msg')->label('الرسالة')->required(),
