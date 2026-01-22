@@ -47,6 +47,8 @@
         /*max-width: 700px;*/
         margin: auto;
         border-radius: 10px;
+        max-height: 50vh;
+        overflow-y: auto;
     }
 
     .avatar {
