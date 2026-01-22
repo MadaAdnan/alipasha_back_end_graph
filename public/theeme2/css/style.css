@@ -1089,7 +1089,10 @@ padding-block: 10px;
     z-index: 1000;
     transition: all 0.3s ease;
 }
+.bg-gradient{
+    background: linear-gradient(135deg, rgb(227, 6, 19), rgb(196, 77, 83)) !important; /* ألوان واتساب */
 
+}
 .chat-toggle-link {
     display: flex;
     align-items: center;
