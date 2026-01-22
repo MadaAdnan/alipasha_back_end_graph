@@ -21,7 +21,7 @@
                 </div>
             </div>
 
-            <a href="#" class="btn bg-gradient text-white btn-sm">
+            <a href="#" class=" bg-gradient text-white btn-sm">
                 استعراض <i class="fa-solid fa-arrow-left"></i>
             </a>
         </div>
