@@ -31,7 +31,7 @@ class PageResource extends Resource
             ->schema([
                Forms\Components\Section::make('الصفحات')->schema([
                    Forms\Components\TextInput::make('title')->required()->label('اسم الصفحة'),
-                   Forms\Components\TextInput::make('url')->required()->label('رابط الصفحة')->extraInputAttributes(['style'=>'text-direction:ltr']),
+                   Forms\Components\TextInput::make('url')->required()->label('رابط الصفحة')->extraInputAttributes(['style'=>'direction:ltr']),
                    Forms\Components\TextInput::make('icon')->required()->label('الأيقونة')->hint('حصراً كلاس من fontawesome.com'),
                    Forms\Components\Toggle::make('active')->label('فعال / غير فعال')
                ])
