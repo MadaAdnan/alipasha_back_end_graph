@@ -25,6 +25,7 @@ use App\Models\Product;
 use App\Models\User;
 use App\Notifications\UserNotification;
 use App\Service\SendNotifyHelper;
+use BezhanSalleh\FilamentShield\Contracts\HasShieldPermissions;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
@@ -41,7 +42,7 @@ use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
 use Ysfkaya\FilamentPhoneInput\PhoneInputNumberType;
 use Ysfkaya\FilamentPhoneInput\Tables\PhoneColumn;
 
-class UserResource extends Resource
+class UserResource extends Resource implements HasShieldPermissions
 {
     protected static ?string $model = User::class;
 
@@ -52,6 +53,20 @@ class UserResource extends Resource
     protected static ?string $pluralLabel = 'المستخدمين';
     protected static ?int $navigationSort = -13;
     protected static ?string $navigationGroup = 'المستخدمين';
+
+
+    public static function getPermissionPrefixes(): array
+    {
+        return [
+            'view_any',
+            'create',
+            'update',
+            'delete',
+            'add_balance',
+            'restore',
+            'force_delete'
+        ];
+    }
 
     public static function form(Form $form): Form
     {
@@ -139,18 +154,18 @@ class UserResource extends Resource
                                 Forms\Components\ColorPicker::make('id_color')->label('هوية المتجر')->default("#FF3B30FF"),
                                 Forms\Components\Group::make()->schema([
                                     Forms\Components\TextInput::make('url_webhok')->url()->label('رابط ويب هوك الخاص بالمتجر')
-                                    ->suffixAction(Forms\Components\Actions\Action::make('sync')->action(function ($record) {
-                                        $job = new WebhokUserJob($record);
-                                        dispatch($job);
-                                        $products = Product::where([
-                                            'user_id' => $record->id,
-                                            'is_sync_webhok' => false,
-                                        ])->get();
+                                        ->suffixAction(Forms\Components\Actions\Action::make('sync')->action(function ($record) {
+                                            $job = new WebhokUserJob($record);
+                                            dispatch($job);
+                                            $products = Product::where([
+                                                'user_id' => $record->id,
+                                                'is_sync_webhok' => false,
+                                            ])->get();
 
-                                        $job2 = new WebhokProductsJob($products, $record->url_webhok);
-                                        dispatch($job2);
-                                    }
-                                    )->icon('heroicon-o-link'))
+                                            $job2 = new WebhokProductsJob($products, $record->url_webhok);
+                                            dispatch($job2);
+                                        }
+                                        )->icon('heroicon-o-link'))
                                     ,
                                     Forms\Components\TextInput::make('business_email')->email()->label('البريد الإلكتروني الخاص بمتجرك'),
                                 ]),
@@ -187,7 +202,6 @@ class UserResource extends Resource
                      ->countryColumn('country_code')->displayFormat(PhoneInputNumberType::E164)->url(fn($state)=>'https://wa.me/'.\Str::replace(' ','',ltrim($state),'+'),true),
                 */
                 Tables\Columns\TextColumn::make('full_phone')
-
                     ->url(function ($state) {
 
                         return 'https://wa.me/' . "{$state}";
@@ -271,7 +285,7 @@ class UserResource extends Resource
 
                         $job = new WebhokProductsJob($products, $record->url_webhok);
                         dispatch($job);*/
-                        User::where('id',$record->id)->whereNotNull('url_webhok')
+                        User::where('id', $record->id)->whereNotNull('url_webhok')
                             ->whereHas('products', fn($q) => $q->where('is_sync_webhok', false))
                             ->each(function ($user) {
                                 Product::where('user_id', $user->id)
@@ -291,7 +305,7 @@ class UserResource extends Resource
                     Tables\Actions\Action::make('sync_user')->action(function ($record) {
                         $job = new WebhokUserJob($record);
                         dispatch($job);
-                    })->visible(fn($record) => \Str::isUrl($record->url_webhok) && $record->is_sync_webhok==false)->label('مزامنة الإعدادات'),
+                    })->visible(fn($record) => \Str::isUrl($record->url_webhok) && $record->is_sync_webhok == false)->label('مزامنة الإعدادات'),
                     /* add balance */
                     Tables\Actions\Action::make('add_balance')->form([
                         Forms\Components\TextInput::make('value')->label('القيمة')->required()->gt(0),
@@ -324,10 +338,10 @@ class UserResource extends Resource
                     Tables\Actions\Action::make('send_msg_chat')->form([
                         Forms\Components\Textarea::make('msg')->label('الرسالة')->required(),
                     ])
-                        ->action(function ($record, $data,$livewire) {
-                            $user=auth()->user();
+                        ->action(function ($record, $data, $livewire) {
+                            $user = auth()->user();
 
-                            $to =$record;
+                            $to = $record;
 
                             $community = Community::where('type', CommunityTypeEnum::CHAT->value)
                                 ->whereHas('users', fn($query) => $query->where('users.id', $user->id))
@@ -408,16 +422,16 @@ class UserResource extends Resource
             ])
             ->headerActions([
                 ExportAction::make()->exports([
-                    ExcelExport::make()->modifyQueryUsing(fn (Builder $query) => User::query()
-                        ->select('id', 'name', 'full_phone','email','seller_name','email_verified_at', 'created_at') // إختر فقط الحقول اللازمة
+                    ExcelExport::make()->modifyQueryUsing(fn(Builder $query) => User::query()
+                        ->select('id', 'name', 'full_phone', 'email', 'seller_name', 'email_verified_at', 'created_at') // إختر فقط الحقول اللازمة
                         ->orderBy('id')),
-                     ExcelExport::make()
-                         ->fromTable()            // يبقى fromTable لكن سيأخذ الـ query المعدّل أعلاه
-                         ->withChunkSize(500)     // حجم الـ chunk لمعالجة أقل ذاكرة
-                         ->queue()                // ضع التصدير في queue لأن العملية ثقيلة
-                         ->askForFilename()
-                         ->withFilename(fn($filename) => 'ali-pasha-' . $filename),
-                ])->visible(/*auth()->user()->can('export_users')*/true),
+                    ExcelExport::make()
+                        ->fromTable()            // يبقى fromTable لكن سيأخذ الـ query المعدّل أعلاه
+                        ->withChunkSize(500)     // حجم الـ chunk لمعالجة أقل ذاكرة
+                        ->queue()                // ضع التصدير في queue لأن العملية ثقيلة
+                        ->askForFilename()
+                        ->withFilename(fn($filename) => 'ali-pasha-' . $filename),
+                ])->visible(/*auth()->user()->can('export_users')*/ true),
                 Tables\Actions\Action::make('send_msg_phone')->form([
                     Forms\Components\TextInput::make('title')->label('العنوان')->required(),
                     Forms\Components\Textarea::make('msg')->label('الرسالة')->required(),
@@ -498,7 +512,7 @@ class UserResource extends Resource
                                 $dataMsg['url'] = 'https://web.ali-pasha.com';
 
                                 SendNotifyHelper::sendNotifyMultiUser($records, $dataMsg);
-/*\Notification::send($records, new UserNotification($dataMsg));*/
+                                /*\Notification::send($records, new UserNotification($dataMsg));*/
 
                                 Notification::make('success')->title('نجاح العملية')->body('تم إرسال الرسالة بنجاح')->success()->send();
 
