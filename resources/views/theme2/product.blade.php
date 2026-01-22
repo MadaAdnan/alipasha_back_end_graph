@@ -51,8 +51,12 @@
                     </div>
                 </div>
                 <div class="bg-white p-3">
+                    <div class="categories-header">
+                        <i class="fas fa-comments"></i>
+                        <span>التفاصيل</span>
+                    </div>
                     <div class="d-flex justify-content-between">
-                        <h4 class="text-black fw-bold">التفاصيل</h4>
+                        <h4 class="text-black fw-bold"></h4>
                         <div class="">
                             @if(auth()->check())
                                 <x-components.add-to-cart-component :post="$post"/>
