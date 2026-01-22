@@ -1,20 +1,28 @@
+@props([
+    'comment'=>null
+])
+@php
+$user=$comment->user;
+ @endphp
 <div class="comment d-flex">
-    <img src="https://i.pravatar.cc/40" class="avatar">
+    <img src="{{$user?->getImage()}}" class="avatar">
 
     <div class="comment-body">
         <div class="comment-box">
-            <strong>Ahmed Ali</strong>
-            <p>هذا تعليق يشبه تصميم فيسبوك مع دعم الردود.</p>
+            <strong>{{$user->name}}</strong>
+            <p>{{$comment->comment}}</p>
         </div>
 
         <div class="comment-actions">
-            <a href="#">إعجاب</a> ·
-            <a href="#">رد</a> ·
-            <span>10 د</span>
-        </div>
 
-        <!-- الردود -->
-        <x-components.commen-replay-component/>
+            <a href="#">رد</a> ·
+            <span>{{$comment->created_at?->diffForHumans()}}</span>
+        </div>
+@foreach($comment->comments  as $replay)
+            <!-- الردود -->
+            <x-components.commen-replay-component/>
+@endforeach
+
 
     </div>
 </div>

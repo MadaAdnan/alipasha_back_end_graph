@@ -6,6 +6,7 @@ use App\Enums\CategoryTypeEnum;
 use App\Enums\ProductActiveEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Interaction;
 use App\Models\Like;
 use App\Models\Product;
@@ -101,7 +102,8 @@ class PostController extends Controller
         $message.=\App\Models\Setting::first()->footer_order;
         $user=$post->user;
         $phone=$user?->phone_code.$user?->phone;
-        return view('theme2.product',compact('post','categories','message','phone'));
+        $comments=Comment::where('product_id',$post->id)->with('user','comments')->latest()->take(30)->get();
+        return view('theme2.product',compact('post','categories','message','phone','comments'));
     }
 
     /**

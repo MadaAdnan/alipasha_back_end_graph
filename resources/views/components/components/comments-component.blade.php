@@ -1,9 +1,15 @@
+@props([
+    'comments'=>[],
+    'post'=>null,
+])
 <div class="container-fluid mt-4">
     <div class="fb-comments card">
         <div class="card-body">
-
+@foreach($comments as $comment)
+                <x-components.comment-item-component/>
+@endforeach
             <!-- تعليق رئيسي -->
-            <x-components.comment-item-component/>
+
 
             <!-- إضافة تعليق -->
             <div class="add-comment d-flex mt-3">
