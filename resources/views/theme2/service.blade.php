@@ -2,68 +2,75 @@
 
 @section('content')
     <div class="container my-5">
-        <div class="service-view card p-4">
-            <div class="row align-items-center g-4">
-
-                <!-- النص -->
-                <div class="col-lg-7">
-
-                    <x-components.bread-crumb-component  :bread-crumbs="[
+        <div class="row">
+            <div class="col-md-9">
+                <x-components.bread-crumb-component  :bread-crumbs="[
                         ['title' => 'الرئيسية', 'url' => route('index')],
                         ['title' => 'الخدمات', 'url' => route('services.index')],
                         ['title' => $service->category?->name, 'url' => route('services.index', ['category_id'=>$service->category?->id])],
                         ['title' => $service->name, 'url' => null],
                     ]"/>
-
-
-                    <h3 class="fw-bold mb-3">
-                        {{$service->name}}
-                    </h3>
-
-                    <p class="service-description">
-                        {!! $service->info !!}
-                    </p>
-
-                    <div class="service-meta mt-4">
-                        <div>
-                            <i class="fa-solid fa-location-dot"></i>
-                            <span>{{$service->user?->city?->name}} - {{$service->user?->area?->name}}</span>
-                        </div>
-                        <div>
-                            <i class="fa-solid fa-clock"></i>
-                            <span>{{$service->created_at?->diffForHumans()}}</span>
-                        </div>
-                    </div>
-
-                    <div class="contact-box mt-4">
-                        <a href="tel:{{$service->phone}}" class="contact-item">
-                            <i class="fa-solid fa-phone"></i>
-                            {{$service->phone}}
-                        </a>
-
-                        <a href="https://wa.me/{{$service->user?->full_phone}}" class="contact-item whatsapp">
-                            <i class="fa-brands fa-whatsapp"></i>
-                            {{$service->user?->full_phone}}
-                        </a>
-                    </div>
-
-                    <button class="btn btn-outline-danger mt-4 w-100">
-                        <i class="fa-solid fa-flag"></i> إبلاغ عن الخدمة
-                    </button>
-
-                </div>
-
-                <!-- الصورة -->
-                <div class="col-lg-5">
-                    <div class="image-wrapper">
-                        <img src="{{$service->getImage()}}"
-                             class="img-fluid"
-                             alt="service">
-                    </div>
-                </div>
-
             </div>
         </div>
+     <div class="col-md-9">
+         <div class="service-view card p-4">
+             <div class="row align-items-center g-4">
+
+                 <!-- النص -->
+                 <div class="col-lg-7">
+
+
+
+
+                     <h3 class="fw-bold mb-3">
+                         {{$service->name}}
+                     </h3>
+
+                     <p class="service-description">
+                         {!! $service->info !!}
+                     </p>
+
+                     <div class="service-meta mt-4">
+                         <div>
+                             <i class="fa-solid fa-location-dot"></i>
+                             <span>{{$service->user?->city?->name}} - {{$service->user?->area?->name}}</span>
+                         </div>
+                         <div>
+                             <i class="fa-solid fa-clock"></i>
+                             <span>{{$service->created_at?->diffForHumans()}}</span>
+                         </div>
+                     </div>
+
+                     <div class="contact-box mt-4">
+                         <a href="tel:{{$service->phone}}" class="contact-item">
+                             <i class="fa-solid fa-phone"></i>
+                             {{$service->phone}}
+                         </a>
+
+                         <a href="https://wa.me/{{$service->user?->full_phone}}" class="contact-item whatsapp">
+                             <i class="fa-brands fa-whatsapp"></i>
+                             {{$service->user?->full_phone}}
+                         </a>
+                     </div>
+
+                     <button class="btn btn-outline-danger mt-4 w-100">
+                         <i class="fa-solid fa-flag"></i> إبلاغ عن الخدمة
+                     </button>
+
+                 </div>
+
+                 <!-- الصورة -->
+                 <div class="col-lg-5">
+                     <div class="image-wrapper">
+                         <img src="{{$service->getImage()}}"
+                              class="img-fluid"
+                              alt="service">
+                     </div>
+                 </div>
+
+             </div>
+         </div>
+     </div>
     </div>
 
 
