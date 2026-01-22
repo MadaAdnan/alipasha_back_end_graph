@@ -3,6 +3,8 @@
     'categoryId'=>null,
     'sellerId'=>null,
     'type'=>null,
+    'showPrice'=>true,
+    'ShowTextSearch'=>false
 ])
 <form class="filter-container" action="{{$route??route('search.index')}}" method="get">
     <div class="filter-header">
@@ -22,7 +24,12 @@
             @endforeach
         </select>
     </div>
-
+    @if($ShowTextSearch)
+        <div class="filter-group">
+            <label class="filter-label" for="governorateSelect">بحث</label>
+            <input class="filter-input" id="" name="q" placeholder="ابحث عن خدمة"/>
+        </div>
+    @endif
     {{-- المدينة --}}
     <div class="filter-group">
         <label class="filter-label" for="citySelect">المدينة</label>
@@ -30,20 +37,20 @@
             <option value="">اختر المدينة</option>
         </select>
     </div>
+    @if($showPrice)
+        {{-- السعر من والسعر إلى --}}
+        <div class="filter-row">
+            <div class="filter-group">
+                <label class="filter-label" for="priceFrom">السعر من</label>
+                <input type="number" class="filter-input" id="priceFrom" placeholder="0" name="price_from">
+            </div>
 
-    {{-- السعر من والسعر إلى --}}
-    <div class="filter-row">
-        <div class="filter-group">
-            <label class="filter-label" for="priceFrom">السعر من</label>
-            <input type="number" class="filter-input" id="priceFrom" placeholder="0" name="price_from">
+            <div class="filter-group">
+                <label class="filter-label" for="priceTo">السعر إلى</label>
+                <input type="number" class="filter-input" id="priceTo" placeholder="0" name="price_to">
+            </div>
         </div>
-
-        <div class="filter-group">
-            <label class="filter-label" for="priceTo">السعر إلى</label>
-            <input type="number" class="filter-input" id="priceTo" placeholder="0" name="price_to">
-        </div>
-    </div>
-
+    @endif
     <button type="submit" class="filter-submit-btn">
         <i class="fas fa-search"></i> بحث
     </button>
