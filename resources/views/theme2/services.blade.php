@@ -30,8 +30,14 @@
                 <x-components.filter-component :showPrice="false" :showTextSearch="true" route="{{route('services.index')}}" type="{{\App\Enums\CategoryTypeEnum::SERVICE->value}}"/>
             </div>
             <div class="col-md-9">
+                @if($services->count()>0)
                 <x-components.services-component :services="$services->items()"/>
                 <x-components.paginator-component :paginator="$services"/>
+                @else
+                    <div class="alert alert-danger">
+                        لا يوجد خدمات
+                    </div>
+                @endif
             </div>
         </div>
     </div>
