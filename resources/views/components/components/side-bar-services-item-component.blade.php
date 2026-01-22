@@ -8,7 +8,7 @@
     $isActive = $serviceId != null && $service?->id == $serviceId;
 @endphp
 
-<a class="category-item-link {{ $isActive ? 'active' : '' }}" href="{{route('category.show',$service?->id)}}">
+<a class="category-item-link {{ $isActive ? 'active' : '' }}" href="{{route('services.index',['category'=>$service?->id])}}">
     <div class="category-item-icon">
         <i class="fas fa-tag"></i>
         <span>{{ $service?->name }}</span>
