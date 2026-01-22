@@ -4,6 +4,9 @@
 ])
 <div class="container-fluid mt-4">
     <div class="fb-comments card">
+        <div class="card-header">
+            <h4>التعليقات</h4>
+        </div>
         <div class="card-body">
 @foreach($comments as $comment)
                 <!-- تعليق رئيسي -->
