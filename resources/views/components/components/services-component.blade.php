@@ -1,7 +1,7 @@
 @props([
     'services'=>[]
 ])
-<div class="container mt-4">
+
 
     @foreach($services as $service)
         <div class="service-card d-flex align-items-center justify-content-between">
@@ -26,7 +26,7 @@
             </a>
         </div>
 
-    @endforeach
+
 
 </div>
 <style>
