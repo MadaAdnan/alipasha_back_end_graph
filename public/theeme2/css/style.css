@@ -70,7 +70,8 @@ option>img{
     color: var(--red-accent);
 }
 .btn-red-accent{
-    background-color: var(--red-accent);
+    background: linear-gradient(135deg, rgb(227, 6, 19), rgb(196, 77, 83)); /* ألوان واتساب */
+
     border: 1px solid var(--red-accent);
     color: var(--white);
 }
