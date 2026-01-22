@@ -10,15 +10,18 @@
 @endforeach
             <!-- تعليق رئيسي -->
 
+@auth
+        <!-- إضافة تعليق -->
+        <div class="add-comment d-flex mt-3">
+            <img src="{{auth()->user()->getImage()}}" class="auth()->user()->name">
 
-            <!-- إضافة تعليق -->
-            <div class="add-comment d-flex mt-3">
-                <img src="https://i.pravatar.cc/40" class="avatar">
+            <input type="text"
+                   class="form-control"
+                   placeholder="اكتب تعليقًا...">
+        </div>
+@endauth
 
-                <input type="text"
-                       class="form-control"
-                       placeholder="اكتب تعليقًا...">
-            </div>
+
 
         </div>
     </div>
