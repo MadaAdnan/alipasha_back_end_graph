@@ -53,7 +53,7 @@
                 <!-- الصورة -->
                 <div class="col-lg-5">
                     <div class="image-wrapper">
-                        <img src="https://via.placeholder.com/450x550"
+                        <img src="{{$service->getImage()}}"
                              class="img-fluid"
                              alt="service">
                     </div>
