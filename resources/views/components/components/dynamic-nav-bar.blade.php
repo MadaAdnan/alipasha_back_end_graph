@@ -16,8 +16,8 @@
 
                     @endphp
                     <li class="nav-item">
-                        <i class="{{$nav->icon}}"></i>
-                        <a class="nav-link active" aria-current="page" href="{{$url}}">{{$nav->title}}</a>
+
+                        <a class="nav-link active" aria-current="page" href="{{$url}}"> <i class="{{$nav->icon}}"></i>{{$nav->title}}</a>
                     </li>
                 @endforeach
 
