@@ -14,10 +14,13 @@
         <!-- إضافة تعليق -->
         <div class="add-comment d-flex mt-3">
             <img src="{{auth()->user()->getImage()}}" class="avatar">
-            <form action="" class="d-flex gap-1 w-100">
-                <input type="text"
+            <form action="{{route('comments.store')}}" class="d-flex gap-1 w-100">
+                @csrf
+                <input type="hidden" name="productId" value="{{$post->id}}">
+                {{--<input type="text"
                        class="form-control flex-grow-1"
-                       placeholder="اكتب تعليقًا...">
+                       placeholder="اكتب تعليقًا...">--}}
+                <x-form.input-component name="comment" placeholder="اكتب تعليقًا..." required/>
                 <button type="submit" class="btn btn-red-accent rounded-5 px-4 py-1">
                     <i class="fas fa-paper-plane"></i>
                 </button>
