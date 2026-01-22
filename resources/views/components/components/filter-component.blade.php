@@ -2,6 +2,7 @@
     'route'=>null,
     'categoryId'=>null,
     'sellerId'=>null,
+    'type'=>null,
 ])
 <form class="filter-container" action="{{$route??route('search.index')}}" method="get">
     <div class="filter-header">
@@ -10,6 +11,7 @@
     </div>
     <input type="hidden" name="category_id" value="{{$categoryId}}">
     <input type="hidden" name="seller_id" value="{{$sellerId}}">
+    <input type="hidden" name="type" value="{{$type}}">
     {{-- المحافظة --}}
     <div class="filter-group">
         <label class="filter-label" for="governorateSelect">المحافظة</label>

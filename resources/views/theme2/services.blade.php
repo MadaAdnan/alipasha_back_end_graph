@@ -4,7 +4,8 @@
         <div class="row">
 
             <div class="col-md-3  my-2 sticky-col">
-<x-components.side-bar-services-component :services="$categories"/>
+                <x-components.side-bar-services-component :services="$categories"/>
+                <x-components.filter-component type="{{\App\Enums\CategoryTypeEnum::SERVICE->value}}"/>
             </div>
         </div>
     </div>
