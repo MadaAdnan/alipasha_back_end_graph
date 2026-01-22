@@ -18,19 +18,22 @@ class PageResource extends Resource
     protected static ?string $model = Page::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-protected static ?string $label='الصفحة';
+    protected static ?string $label = 'الصفحة';
     protected static ?string $navigationGroup = 'الإعدادات';
-protected static ?string $pluralModelLabel='الصفحات';
-protected static ?string $modelLabel='الصفحة';
-protected static ?string $navigationLabel='الصفحات';
+    protected static ?string $pluralModelLabel = 'الصفحات';
+    protected static ?string $modelLabel = 'الصفحة';
+    protected static ?string $navigationLabel = 'الصفحات';
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('title')->required()->label('اسم الصفحة'),
-                Forms\Components\TextInput::make('url')->required()->label('رابط الصفحة'),
-                Forms\Components\TextInput::make('icon')->required()->label('الأيقونة')->hint('حصراً كلاس من fontawesome.com'),
-                Forms\Components\Toggle::make('active')->label('فعال / غير فعال')
+               Forms\Components\Section::make('الصفحات')->schema([
+                   Forms\Components\TextInput::make('title')->required()->label('اسم الصفحة'),
+                   Forms\Components\TextInput::make('url')->required()->label('رابط الصفحة'),
+                   Forms\Components\TextInput::make('icon')->required()->label('الأيقونة')->hint('حصراً كلاس من fontawesome.com'),
+                   Forms\Components\Toggle::make('active')->label('فعال / غير فعال')
+               ])
             ]);
     }
 
@@ -38,7 +41,14 @@ protected static ?string $navigationLabel='الصفحات';
     {
         return $table
             ->columns([
-                //
+            Tables\Columns\TextColumn::make('title')->label('اسم الصفحة'),
+                Tables\Columns\TextColumn::make('url')->label('رابط الصفحة')->wrap()->url(function($record){
+                    $url=$record->url;
+                    if(!Str::startsWith($record->url,['https://','http://','//'])){
+                        $url=url($record->url);
+                    }
+                    return $url;
+                },true),
             ])
             ->filters([
                 //
