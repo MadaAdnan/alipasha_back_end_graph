@@ -4,11 +4,11 @@
     <div class="container my-5">
         <div class="row justify-content-center">
             <div class="col-md-9">
-                <x-components.bread-crumb-component class="rounded px-3 py-2 rounded bg-white my-2"  :bread-crumbs="[
-                        ['title' => 'الرئيسية', 'url' => route('index')],
-                        ['title' => 'الخدمات', 'url' => route('services.index')],
-                        ['title' => $service->category?->name, 'url' => route('services.index', ['category_id'=>$service->category?->id])],
-                        ['title' => $service->name, 'url' => null],
+                <x-components.bread-crumb-component class="rounded px-3 py-2 rounded bg-white my-2"  :categoris="[
+
+                        ['name' => 'الخدمات', 'url' => route('services.index')],
+                        ['name' => $service->category?->name, 'url' => route('services.index', ['category_id'=>$service->category?->id])],
+                        ['name' => $service->name, 'url' => null],
                     ]"/>
             </div>
 
