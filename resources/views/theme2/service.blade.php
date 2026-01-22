@@ -11,7 +11,7 @@
                         ['title' => $service->name, 'url' => null],
                     ]"/>
             </div>
-        </div>
+
      <div class="col-md-9">
          <div class="service-view card p-4">
              <div class="row align-items-center g-4">
@@ -71,6 +71,7 @@
              </div>
          </div>
      </div>
+    </div>
     </div>
 
 
