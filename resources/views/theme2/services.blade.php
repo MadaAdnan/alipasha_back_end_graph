@@ -2,9 +2,7 @@
 @section('content')
     <div class="container mb-2 mt-5">
         <div class="row justify-content-center">
-            <div class="col-md-3">
-                <x-components.side-bar-services-component :services="$categories"/>
-            </div>
+            <div class="col-md-3"></div>
         <div class="col-md-9">
             <div class="row justify-content-center">
                 <div class="col-md-4 col-6">
@@ -22,7 +20,7 @@
         <div class="row">
 
             <div class="col-md-3  my-2 sticky-col">
-
+                <x-components.side-bar-services-component :services="$categories"/>
                 <x-components.filter-component :showPrice="false" :showTextSearch="true" route="{{route('services.index')}}" type="{{\App\Enums\CategoryTypeEnum::SERVICE->value}}"/>
             </div>
             <div class="col-md-9">
