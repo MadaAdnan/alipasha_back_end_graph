@@ -20,8 +20,8 @@
                 {{--<input type="text"
                        class="form-control flex-grow-1"
                        placeholder="اكتب تعليقًا...">--}}
-                <x-form.input-component name="comment" placeholder="اكتب تعليقًا..." required/>
-                <button type="submit" class="btn btn-red-accent rounded-5 px-4 py-1">
+                <x-form.input-component name="comment" class="flex-grow-1" placeholder="اكتب تعليقًا..." required/>
+                <button type="submit" class="btn btn-red-accent rounded-5 px-4 ">
                     <i class="fas fa-paper-plane"></i>
                 </button>
             </form>
