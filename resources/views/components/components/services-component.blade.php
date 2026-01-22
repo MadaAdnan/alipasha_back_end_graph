@@ -22,7 +22,7 @@
             </div>
 
             <a href="{{route('services.show',$service->id)}}" class=" rounded px-2 py-1 bg-gradient text-white btn-sm">
-                <span class="fs-7 text-white">استعراض</span> <i class="fa-solid fa-arrow-left fs-7"></i>
+                <span class="d-none d-md-inline-block text-white">استعراض</span> <i class="fa-solid fa-arrow-left "></i>
             </a>
         </div>
 
