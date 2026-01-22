@@ -43,7 +43,7 @@
                         @csrf
                         @method('POST')
                         <button class="btn btn-danger d-none d-md-inline-block">تسجيل الخروج</button>
-                        <button class="btn btn-danger d-inline-block d-md-none"><i class="fa fa-logout"></i></button>
+                        <button class="btn btn-danger d-inline-block d-md-none"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
                     </form>
                 </li>
                 @endauth
