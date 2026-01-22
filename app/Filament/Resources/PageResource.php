@@ -24,7 +24,7 @@ class PageResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('title')->required()->label('اسم الصفحة'),
-                Forms\Components\TextInput::make('url')->url()->required()->label('رابط الصفحة'),
+                Forms\Components\TextInput::make('url')->required()->label('رابط الصفحة'),
                 Forms\Components\TextInput::make('icon')->required()->label('الأيقونة')->hint('حصراً كلاس من fontawesome.com'),
                 Forms\Components\Toggle::make('active')->label('فعال / غير فعال')
             ]);
