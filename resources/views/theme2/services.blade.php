@@ -8,15 +8,15 @@
                 <div class="col-md-4 col-6">
                     <x-components.small-widget-product-detail-component classTitle="fs-4"
                                                                         classInfo="fs-4"
-                                                                        class="bg-white rounded my-1 py-2" title="الخدمات المنشورة" icon="fa-solid fa-file-signature fs-4" info="{{\App\Helpers\GlobalHelper::formatNumber($services_count)}}"/>
+                                                                        class="bg-white rounded my-1 py-2" title="المنشورات" icon="fa-solid fa-file-signature fs-4" info="{{\App\Helpers\GlobalHelper::formatNumber($services_count)}}"/>
                 </div>
                 <div class="col-md-4 col-6">
-                    <x-components.small-widget-product-detail-component title="عدد المشاهدات" icon="fa fa-eye fs-4" info="{{\App\Helpers\GlobalHelper::formatNumber($views)}}" classTitle="fs-4"
+                    <x-components.small-widget-product-detail-component title="المشاهدات" icon="fa fa-eye fs-4" info="{{\App\Helpers\GlobalHelper::formatNumber($views)}}" classTitle="fs-4"
                                                                         classInfo="fs-4"
                                                                         class="bg-white rounded my-1 py-2"/>
                 </div>
                 <div class="col-md-4 col-6">
-                    <x-components.small-widget-product-detail-component title="المزودين بالمعلومات" icon="fa fa-users fs-4" info="{{\App\Helpers\GlobalHelper::formatNumber($sellers)}}" classTitle="fs-4"
+                    <x-components.small-widget-product-detail-component title="المزودين" icon="fa fa-users fs-4" info="{{\App\Helpers\GlobalHelper::formatNumber($sellers)}}" classTitle="fs-4"
                                                                         classInfo="fs-4"
                                                                         class="bg-white rounded my-1 py-2"/>
                 </div>
