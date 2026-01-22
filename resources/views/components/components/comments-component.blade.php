@@ -6,7 +6,7 @@
     <div class="fb-comments card">
         <div class="card-body">
 @foreach($comments as $comment)
-                <x-components.comment-item-component/>
+                <x-components.comment-item-component :comment="$comment"/>
 @endforeach
             <!-- تعليق رئيسي -->
 
