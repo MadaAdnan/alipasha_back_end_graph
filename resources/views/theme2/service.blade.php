@@ -17,7 +17,7 @@
 
 
                     <h3 class="fw-bold mb-3">
-                        {{$servic->name}}
+                        {{$service->name}}
                     </h3>
 
                     <p class="service-description">
