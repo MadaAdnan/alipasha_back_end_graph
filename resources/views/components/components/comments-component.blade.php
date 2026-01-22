@@ -18,7 +18,7 @@
                 <input type="text"
                        class="form-control flex-grow-1"
                        placeholder="اكتب تعليقًا...">
-                <button type="submit" class="btn btn-red-accent rounded-4">
+                <button type="submit" class="btn btn-red-accent rounded-5">
                     <i class="fas fa-paper-plane"></i>
                 </button>
             </form>
