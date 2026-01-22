@@ -4,7 +4,7 @@
     'sellerId'=>null,
     'type'=>null,
     'showPrice'=>true,
-    'ShowTextSearch'=>false
+    'showTextSearch'=>false
 ])
 <form class="filter-container" action="{{$route??route('search.index')}}" method="get">
     <div class="filter-header">
@@ -24,7 +24,7 @@
             @endforeach
         </select>
     </div>
-    @if($ShowTextSearch)
+    @if($showTextSearch)
         <div class="filter-group">
             <label class="filter-label" for="governorateSelect">بحث</label>
             <input class="filter-input" id="" name="q" placeholder="ابحث عن خدمة"/>
