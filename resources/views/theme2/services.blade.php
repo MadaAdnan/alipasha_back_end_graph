@@ -6,5 +6,7 @@
             <div class="col-md-3  my-2 sticky-col">
 <x-components.side-bar-services-component :services="$categories"/>
             </div>
+        </div>
+    </div>
 
 @endsection
