@@ -34,7 +34,7 @@
                 <x-components.services-component :services="$services->items()"/>
                 <x-components.paginator-component :paginator="$services"/>
                 @else
-                    <div class="border border-1 rounded w-100 px-2 py-1">
+                    <div class="border border-1 rounded w-100 px-2 py-1 mt-1">
                         لا يوجد خدمات
                     </div>
                 @endif
