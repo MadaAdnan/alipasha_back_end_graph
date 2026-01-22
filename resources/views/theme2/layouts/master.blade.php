@@ -18,6 +18,7 @@
 </head>
 <body class="bg-gray">
 <x-layouts.nav-bar-component/>
+</body><x-components.dynamic-nav-bar/>
 @yield('content')
 
 
