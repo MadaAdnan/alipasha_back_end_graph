@@ -21,7 +21,7 @@
                 </div>
             </div>
 
-            <a href="#" class=" rounded px-2 py-1 bg-gradient text-white btn-sm">
+            <a href="{{route('services.show',$service->id)}}" class=" rounded px-2 py-1 bg-gradient text-white btn-sm">
                 استعراض <i class="fa-solid fa-arrow-left"></i>
             </a>
         </div>
