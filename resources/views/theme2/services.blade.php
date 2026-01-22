@@ -7,6 +7,9 @@
                 <x-components.side-bar-services-component :services="$categories"/>
                 <x-components.filter-component route="{{route('services.index')}}" type="{{\App\Enums\CategoryTypeEnum::SERVICE->value}}"/>
             </div>
+            <div class="col-md-9">
+                <x-components.services-component :services="$services"/>
+            </div>
         </div>
     </div>
 
