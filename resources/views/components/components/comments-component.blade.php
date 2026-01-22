@@ -97,7 +97,7 @@
         padding-right: 45px;
     }
 
-    .add-comment input {
+    .add-comment input  {
         border-radius: 20px;
         background: #f0f2f5;
         border: none;
@@ -105,6 +105,7 @@
 
     .add-comment input:focus {
         box-shadow: none;
+        border: 1px solid #ced4da;
     }
 
 </style>
