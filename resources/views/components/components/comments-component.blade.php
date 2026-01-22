@@ -4,9 +4,11 @@
 ])
 <div class="container-fluid mt-4">
     <div class="fb-comments card">
-        <div class="card-header">
-            <h4>التعليقات</h4>
+        <div class="categories-header">
+            <i class="fas fa-list"></i>
+            <span>التعليقات</span>
         </div>
+
         <div class="card-body">
 @foreach($comments as $comment)
                 <!-- تعليق رئيسي -->
