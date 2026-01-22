@@ -42,7 +42,8 @@
                     <form action="{{route('logout')}}" method="post">
                         @csrf
                         @method('POST')
-                        <button class="btn btn-danger">تسجيل الخروج</button>
+                        <button class="btn btn-danger d-none d-md-inline-block">تسجيل الخروج</button>
+                        <button class="btn btn-danger d-inline-block d-md-none"><i class="fa fa-logout"></i></button>
                     </form>
                 </li>
                 @endauth
