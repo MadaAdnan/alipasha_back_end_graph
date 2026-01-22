@@ -27,7 +27,7 @@
                        class="form-control flex-grow-1"
                        placeholder="اكتب تعليقًا...">--}}
                 <x-form.input-component name="comment" wrapperClass="flex-grow-1 pt-1" placeholder="اكتب تعليقًا..." required="required"/>
-                <button type="submit" class="btn btn-red-accent  rounded-5 px-4 mb-3 ">
+                <button type="submit" class="btn btn-red-accent rounded-5 px-4 mb-3 ">
                     <i class="fas fa-paper-plane"></i>
                 </button>
             </form>
