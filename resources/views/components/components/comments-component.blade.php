@@ -13,7 +13,7 @@
 @auth
         <!-- إضافة تعليق -->
         <div class="add-comment d-flex mt-3">
-            <img src="{{auth()->user()->getImage()}}" class="auth()->user()->name">
+            <img src="{{auth()->user()->getImage()}}" class="avatar">
             <form action="" class="d-flex gap-1">
                 <input type="text"
                        class="form-control flex-grow-1"
