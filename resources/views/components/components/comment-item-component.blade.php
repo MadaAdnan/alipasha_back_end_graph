@@ -15,12 +15,12 @@ $user=$comment->user;
 
         <div class="comment-actions">
 
-            <a href="#">رد</a> ·
+           {{-- <a href="#">رد</a> ·--}}
             <span>{{$comment->created_at?->diffForHumans()}}</span>
         </div>
 @foreach($comment->comments  as $replay)
             <!-- الردود -->
-            <x-components.commen-replay-component/>
+            <x-components.commen-replay-component :replay="$replay"/>
 @endforeach
 
 
