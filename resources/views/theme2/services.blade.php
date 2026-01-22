@@ -16,7 +16,7 @@
                                                                         class="bg-white rounded my-1 py-2"/>
                 </div>
                 <div class="col-md-4 col-6">
-                    <x-components.small-widget-product-detail-component title="المزودين بالمعلومات" icon="" info="{{\App\Helpers\GlobalHelper::formatNumber($sellers)}}" classTitle="fs-4"
+                    <x-components.small-widget-product-detail-component title="المزودين بالمعلومات" icon="fa fa-users fs-4" info="{{\App\Helpers\GlobalHelper::formatNumber($sellers)}}" classTitle="fs-4"
                                                                         classInfo="fs-4"
                                                                         class="bg-white rounded my-1 py-2"/>
                 </div>
