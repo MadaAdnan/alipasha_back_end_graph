@@ -14,7 +14,7 @@
         <!-- إضافة تعليق -->
         <div class="add-comment d-flex mt-3">
             <img src="{{auth()->user()->getImage()}}" class="avatar">
-            <form action="" class="d-flex gap-1">
+            <form action="" class="d-flex gap-1 w-100">
                 <input type="text"
                        class="form-control flex-grow-1"
                        placeholder="اكتب تعليقًا...">
