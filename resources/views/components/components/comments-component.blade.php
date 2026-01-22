@@ -5,7 +5,7 @@
 <div class="container-fluid mt-4">
     <div class="fb-comments card">
         <div class="categories-header">
-            <i class="fas fa-list"></i>
+            <i class="fas fa-comments"></i>
             <span>التعليقات</span>
         </div>
 
