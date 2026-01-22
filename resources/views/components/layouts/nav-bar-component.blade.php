@@ -35,7 +35,8 @@
                 @endguest
                 @auth()
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fa fa-user"></i> {{auth()->user()->name}} </a>
+                    <a class="nav-link d-none d-md-inline-block" href="#"><i class="fa fa-user"></i> {{auth()->user()->name}} </a>
+                    <a class="nav-link d-inline-block d-md-none" href="#"><i class="fa fa-user"></i> {{Str::limit(auth()->user()->name,1)}} </a>
                 </li>
                 <li class="nav-item">
                     <form action="{{route('logout')}}" method="post">
