@@ -23,7 +23,7 @@
             </div>
         </div>
         </div>
-        <div class="row my-2">
+        <div class="row my-4">
 
             <div class="col-md-3  my-2 sticky-col">
                 <x-components.side-bar-services-component :services="$categories" :serviceId="$category"/>
