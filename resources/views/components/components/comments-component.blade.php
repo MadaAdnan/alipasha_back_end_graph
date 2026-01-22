@@ -14,7 +14,7 @@
         <!-- إضافة تعليق -->
         <div class="add-comment d-flex mt-3">
             <img src="{{auth()->user()->getImage()}}" class="avatar">
-            <form action="{{route('comments.store')}}" class="d-flex gap-1 w-100">
+            <form action="{{route('comments.store')}}" class="d-flex gap-1 w-100 align-items-center">
                 @csrf
                 <input type="hidden" name="productId" value="{{$comment->product?->id}}">
                 {{--<input type="text"
