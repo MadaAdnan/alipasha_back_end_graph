@@ -6,9 +6,9 @@
         <div class="col-md-9">
             <div class="row justify-content-center">
                 <div class="col-md-4 col-6">
-                    <x-components.small-widget-product-detail-component classTitle=""
-                                                                        classInfo=""
-                                                                        class="bg-white rounded my-1" title="الخدمات المنشورة" icon="fa-solid fa-file-signature" info="{{$services_count}}"/>
+                    <x-components.small-widget-product-detail-component classTitle="fs-4"
+                                                                        classInfo="lead"
+                                                                        class="bg-white rounded my-1 py-2" title="الخدمات المنشورة" icon="fa-solid fa-file-signature fs-4" info="{{$services_count}}"/>
                 </div>
                 <div class="col-md-4 col-6">
                     <x-components.small-widget-product-detail-component title="عدد المشاهدات" icon="fa fa-eye" info="{{$views}}"/>
