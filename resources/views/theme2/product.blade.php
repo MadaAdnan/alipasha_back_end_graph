@@ -51,7 +51,7 @@
                     </div>
                 </div>
                 <div class="categories-header">
-                    <i class="fas fa-info"></i>
+                    <i class="fa-solid fa-file-lines"></i>
                     <span>التفاصيل</span>
                 </div>
                 <div class="bg-white p-3">
