@@ -2,7 +2,7 @@
     'comments'=>[],
     'post'=>null,
 ])
-<div class="container-fluid mt-4">
+<div class=" mt-4">
     <div class="fb-comments card">
         <div class="categories-header">
             <i class="fas fa-comments"></i>
