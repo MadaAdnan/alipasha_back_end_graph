@@ -81,6 +81,10 @@
                         </div>
                     @endif
                     <div class="d-flex justify-content-between info-data">
+                        <span><i class="fas fa-map-marker-alt"></i> معرف المنشور</span>
+                        <span> #{{$post->id}}</span>
+                    </div>
+                    <div class="d-flex justify-content-between info-data">
                         <span><i class="fas fa-map-marker-alt"></i> المحافظة</span>
                         <span>{{$post->user?->city?->name}}</span>
                     </div>
