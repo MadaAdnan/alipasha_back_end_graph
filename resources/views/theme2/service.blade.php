@@ -8,39 +8,42 @@
                 <!-- النص -->
                 <div class="col-lg-7">
 
-                    <span class="badge bg-primary mb-3">قسم الخدمات الرئيسية</span>
+                    <x-components.bread-crumb-component  :bread-crumbs="[
+                        ['title' => 'الرئيسية', 'url' => route('index')],
+                        ['title' => 'الخدمات', 'url' => route('services.index')],
+                        ['title' => $service->category?->name, 'url' => route('services.index', ['category_id'=>$service->category?->id])],
+                        ['title' => $service->name, 'url' => null],
+                    ]"/>
+
 
                     <h3 class="fw-bold mb-3">
-                        كهرباء منزلية وصناعية
+                        {{$servic->name}}
                     </h3>
 
                     <p class="service-description">
-                        نقدم جميع أعمال الكهرباء المنزلية والصناعية باحترافية عالية،
-                        من التمديدات الحديثة إلى الصيانة الشاملة، بالإضافة إلى
-                        تركيب أنظمة الطاقة الشمسية والتدفئة المركزية،
-                        مع الالتزام بالجودة والأمان.
+                        {!! $service->info !!}
                     </p>
 
                     <div class="service-meta mt-4">
                         <div>
                             <i class="fa-solid fa-location-dot"></i>
-                            <span>حلب – إعزاز</span>
+                            <span>{{$service->user?->city?->name}} - {{$service->user?->area?->name}}</span>
                         </div>
                         <div>
                             <i class="fa-solid fa-clock"></i>
-                            <span>نشر منذ 3 أسابيع</span>
+                            <span>{{$service->created_at?->diffForHumans()}}</span>
                         </div>
                     </div>
 
                     <div class="contact-box mt-4">
-                        <a href="tel:0949291242" class="contact-item">
+                        <a href="tel:{{$service->phone}}" class="contact-item">
                             <i class="fa-solid fa-phone"></i>
-                            0949291242
+                            {{$service->phone}}
                         </a>
 
-                        <a href="#" class="contact-item whatsapp">
+                        <a href="https://wa.me/{{$service->user?->full_phone}}" class="contact-item whatsapp">
                             <i class="fa-brands fa-whatsapp"></i>
-                            00905340327364
+                            {{$service->user?->full_phone}}
                         </a>
                     </div>
 
