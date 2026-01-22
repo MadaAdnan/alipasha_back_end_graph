@@ -1,5 +1,5 @@
 @props([
-     'services'=>null,
+     'services'=>[],
      'serviceId'=>null
 ])
 
@@ -13,7 +13,6 @@
         @foreach($services as $service)
             <li class="category-item-wrapper">
                 <x-components.side-bar-services-item-component :service="$service"/>
-                <x-components.side-bar-category-item-component :category="$category" :categoryId="$categoryId" />
             </li>
         @endforeach
     </ul>
