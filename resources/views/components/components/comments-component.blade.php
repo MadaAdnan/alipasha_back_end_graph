@@ -9,34 +9,37 @@
             <span>التعليقات</span>
         </div>
 
-        <div class="card-body">
+        <div class="card-body comments-box">
 @foreach($comments as $comment)
                 <!-- تعليق رئيسي -->
                 <x-components.comment-item-component :comment="$comment"/>
 @endforeach
 
 
-@auth
-        <!-- إضافة تعليق -->
-        <div class="add-comment d-flex mt-3">
-            <img src="{{auth()->user()->getImage()}}" class="avatar">
-            <form action="{{route('comments.store')}}" class="d-flex gap-1 w-100 align-items-center">
-                @csrf
-                <input type="hidden" name="productId" value="{{$post?->id}}">
-                {{--<input type="text"
-                       class="form-control flex-grow-1"
-                       placeholder="اكتب تعليقًا...">--}}
-                <x-form.input-component name="comment" wrapperClass="flex-grow-1 pt-1" placeholder="اكتب تعليقًا..." required="required"/>
-                <button type="submit" class="btn btn-red-accent rounded-5 px-4 mb-3 ">
-                    <i class="fas fa-paper-plane"></i>
-                </button>
-            </form>
 
-        </div>
-@endauth
 
 
 
+        </div>
+        <div class="card-footer">
+            @auth
+                <!-- إضافة تعليق -->
+                <div class="add-comment d-flex mt-3 ">
+                    <img src="{{auth()->user()->getImage()}}" class="avatar">
+                    <form action="{{route('comments.store')}}" class="d-flex gap-1 w-100 align-items-center">
+                        @csrf
+                        <input type="hidden" name="productId" value="{{$post?->id}}">
+                        {{--<input type="text"
+                               class="form-control flex-grow-1"
+                               placeholder="اكتب تعليقًا...">--}}
+                        <x-form.input-component name="comment" wrapperClass="flex-grow-1 pt-1" placeholder="اكتب تعليقًا..." required="required"/>
+                        <button type="submit" class="btn btn-red-accent rounded-5 px-4 mb-3 ">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+
+                </div>
+            @endauth
         </div>
     </div>
 </div>
@@ -47,10 +50,12 @@
         /*max-width: 700px;*/
         margin: auto;
         border-radius: 10px;
-        max-height: 50vh;
-        overflow-y: auto;
-    }
 
+    }
+.comments-box{
+    max-height: 50vh;
+    overflow-y: auto;
+}
     .avatar {
         width: 40px;
         height: 40px;
