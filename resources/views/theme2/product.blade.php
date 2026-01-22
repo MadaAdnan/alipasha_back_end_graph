@@ -88,6 +88,7 @@
                         <span>{{$post->user?->full_phone}}</span>
                     </div>
                 </div>
+                <x-components.comments-component/>
             </div>
 
             <div class="col-md-3">
