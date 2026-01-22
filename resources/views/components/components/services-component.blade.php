@@ -49,7 +49,7 @@
     .icon-box {
         width: 45px;
         height: 45px;
-        background: #198754;
+
         color: #fff;
         border-radius: 10px;
         display: flex;
