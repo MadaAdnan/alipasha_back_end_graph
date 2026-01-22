@@ -50,11 +50,12 @@
                                                                             info="{{$post->views_count}}"/>
                     </div>
                 </div>
+                <div class="categories-header">
+                    <i class="fas fa-comments"></i>
+                    <span>التفاصيل</span>
+                </div>
                 <div class="bg-white p-3">
-                    <div class="categories-header">
-                        <i class="fas fa-comments"></i>
-                        <span>التفاصيل</span>
-                    </div>
+
                     <div class="d-flex justify-content-between">
                         <h4 class="text-black fw-bold"></h4>
                         <div class="">
