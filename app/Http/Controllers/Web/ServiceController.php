@@ -24,7 +24,7 @@ seller_id
 type
 city_id
 area_id*/
-        $theme=\request()->get('theme');
+
         $city = \request()->get('city_id');
 
         $category = \request()->get('category_id');
@@ -44,11 +44,10 @@ area_id*/
 
             ->when(!empty($category), fn($query) => $query->where('sub1_id', $category))
             ->latest()->paginate(10);
-if($theme!=''){
+
     return view('theme2.services', compact('cities', 'services', 'services_count', 'views', 'sellers', 'categories'));
 
-}
-        return view('web.services', compact('cities', 'services', 'services_count', 'views', 'sellers', 'categories'));
+
     }
 
     /**
