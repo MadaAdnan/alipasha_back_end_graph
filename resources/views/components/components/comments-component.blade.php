@@ -3,43 +3,7 @@
         <div class="card-body">
 
             <!-- تعليق رئيسي -->
-            <div class="comment d-flex">
-                <img src="https://i.pravatar.cc/40" class="avatar">
-
-                <div class="comment-body">
-                    <div class="comment-box">
-                        <strong>Ahmed Ali</strong>
-                        <p>هذا تعليق يشبه تصميم فيسبوك مع دعم الردود.</p>
-                    </div>
-
-                    <div class="comment-actions">
-                        <a href="#">إعجاب</a> ·
-                        <a href="#">رد</a> ·
-                        <span>10 د</span>
-                    </div>
-
-                    <!-- الردود -->
-                    <div class="replies">
-                        <div class="comment d-flex">
-                            <img src="https://i.pravatar.cc/35" class="avatar small">
-
-                            <div class="comment-body">
-                                <div class="comment-box">
-                                    <strong>Sara Mohamed</strong>
-                                    <p>تصميم ممتاز 👍</p>
-                                </div>
-
-                                <div class="comment-actions">
-                                    <a href="#">إعجاب</a> ·
-                                    <a href="#">رد</a> ·
-                                    <span>5 د</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
+            <x-components.comment-item-component/>
 
             <!-- إضافة تعليق -->
             <div class="add-comment d-flex mt-3">
@@ -57,7 +21,7 @@
 
 
     .fb-comments {
-        max-width: 700px;
+        /*max-width: 700px;*/
         margin: auto;
         border-radius: 10px;
     }
