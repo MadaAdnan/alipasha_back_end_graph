@@ -296,7 +296,6 @@ option>img{
 .seller-name{
 
     overflow: hidden;
-
     text-overflow: ellipsis;
     white-space: nowrap;
 
