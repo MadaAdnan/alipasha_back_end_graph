@@ -89,7 +89,7 @@
                                                       name="phone"
                                                       countryName="phone_code" required/>
 
-                        <x-form.input-select-component :options="$cities" label="اختر محافظتك" id="registerGovernorate"
+                        <x-form.input-select-component :options="$governorates" label="اختر محافظتك" id="registerGovernorate"
                                                        name="city" required/>
                         <x-form.input-select-component  label="اختر المدينة" id="registerArea"
                                                        name="area" required/>

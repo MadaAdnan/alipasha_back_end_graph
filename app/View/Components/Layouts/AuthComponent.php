@@ -9,24 +9,15 @@ use Illuminate\View\Component;
 
 class AuthComponent extends Component
 {
-    public  $cities=[];
+    public $governorates;
+    public $cities;
     /**
      * Create a new component instance.
      */
     public function __construct()
     {
-       $this->cities=City::where(['is_active' => 1,'is_main' => 1])->with('children')->get()->map(function ($item) {
-           return [
-               'id' => $item->id,
-               'name' => $item->name,
-               'children'=>$item->children?->map(function ($item) {
-                   return [
-                       'id' => $item->id,
-                       'name' => $item->name,
-                   ];
-               })
-           ];
-       });
+       $this->governorates =City::whereIsMain(true)->get();
+        $this->cities = City::where('is_main',false)->whereNotNull('city_id')->get();
     }
 
     /**
