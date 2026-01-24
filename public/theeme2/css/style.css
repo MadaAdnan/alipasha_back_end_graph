@@ -296,7 +296,9 @@ option>img{
 .seller-name{
 
     overflow: hidden;
-
+flex-grow: 1;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 
     max-height: 25px;
     height: 25px;
