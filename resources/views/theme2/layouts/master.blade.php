@@ -78,7 +78,7 @@
     <script>
         showToast('{{session()->get('success')}}','success')
     </script>
-@else
+@elseif(session()->has('error'))
     <script>
         showToast('{{session()->get('error')}}','error')
     </script>
