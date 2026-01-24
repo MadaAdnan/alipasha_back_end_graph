@@ -26,7 +26,7 @@
             </button>
         </form>
         @else
-            <button class="btn-follow rounded" onclick="showToast('يرجى تسجيل الدخول اولاً')">
+            <button class="btn-follow rounded" onclick="showToast('يرجى تسجيل الدخول اولاً','error')">
                 <i class="fa fa-bell"></i>
                 <span class="small d-none d-md-inline-block mx-1 ">
 
@@ -42,6 +42,7 @@
     <span class="small text-muted"><i class="fa fa-location-dot"></i> {{$seller->address}}</span>
     <div class="divider my-1 "></div>
     <div class="d-flex justify-content-center gap-1">
+        @auth
         <form action="{{route('communities.store')}}">
             @csrf
             <button class="btn-green rounded bg-transparent d-flex justify-content-center align-items-center">
@@ -51,6 +52,14 @@
                 </span>
             </button>
         </form>
+        @else
+            <button class="btn-green rounded bg-transparent d-flex justify-content-center align-items-center" onclick="showToast('يرجى تسجيل الدخول اولاً','error')">
+                <i class="fa fa-comments text-black"></i>
+                <span class="small d-none d-md-inline-block  text-black">
+                   تحدث معه
+                </span>
+            </button>
+        @endauth
 @if($productId!=null)
         <button class="btn-green rounded d-flex justify-content-center align-items-center" type="button" onclick="clickWhats()">
             <i class="fa-brands fa-whatsapp"></i>
@@ -72,10 +81,13 @@
 
 <script>
     function clickWhats() {
-        if (localStorage.getItem('token')==null) {
-            // إذا لم يكن المستخدم قد سجل الدخول، قم بإعادة التوجيه إلى صفحة تسجيل الدخول
-            window.location.href = '/login';
-            return;
+        const auth="{{auth()->check()}}";
+            if (auth==false) {
+            localStorage.removeItem('token');
+                showToast('يرجى تسجيل الدخول اولاً','error')
+            }
+        elseif (localStorage.getItem('token')==null) {
+            localStorage.setItem('token',"{{auth()->user()->createToken('user')->plainTextToken}}")
         }
 
 
@@ -94,15 +106,15 @@
                })
            })
                .then(response => {
-                   console.log('Response:', response)
+
                    if (response) {
-                       console.log('Response:', response)
+
                        return response.json(); // نستخدم json() لأن الاستجابة الآن تكون ككائن JSON
                    }
                    throw new Error('Network response was not ok');
                })
                .then(data => {
-                   console.log('Data:', data)
+
                    if(data!==''){
                        window.open(`https://wa.me/${data}`, '_blank');
                    }else{
@@ -112,7 +124,7 @@
                })
                .catch(error => {
                    console.error('Error:', error);
-                   alert('حدث خطأ أثناء الإنتقال');
+                   showToast(error,'error');
                });
 
 
