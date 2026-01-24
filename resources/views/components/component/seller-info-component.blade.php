@@ -87,7 +87,7 @@
                 showToast('يرجى تسجيل الدخول اولاً','error')
             }
         else if (localStorage.getItem('token')==null  ) {
-            console.log("{{auth()->check()}}")
+            console.log(auth)
 
         }
 
