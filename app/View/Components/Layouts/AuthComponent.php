@@ -15,10 +15,14 @@ class AuthComponent extends Component
      */
     public function __construct()
     {
-       $this->cities=City::where(['is_active' => 1,'is_main' => 1])->get()->map(function ($item) {
+       $this->cities=City::where(['is_active' => 1,'is_main' => 1])->with('city')->get()->map(function ($item) {
            return [
                'id' => $item->id,
                'name' => $item->name,
+               'city'=>[
+                   'id' => $item->city->id,
+                   'name' => $item->city->name,
+               ]
            ];
        });
     }
