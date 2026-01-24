@@ -10,9 +10,9 @@
                                       name="phone"
                                       countryName="phone_code" required/>
         <x-form.input-select-component :options="$governorates" :value="auth()->user()->city_id" key="id" label="اختر محافظتك" id="registerGovernorate"
-                                       name="city" required/>
+                                       name="city_id" required/>
         <x-form.input-select-component  label="اختر المدينة" id="registerArea"
-                                        name="area" required />
+                                        name="area_id" required />
         <x-form.input-component name="address" :value="old('name')??auth()->user()->address" label="العنوان" placeholder="العنوان" required/>
     </form>
 </div>
@@ -33,7 +33,7 @@
         }
 
         let filtered = cities.filter(city => city.city_id == govId);
-const current_area="{{auth()->user()->area_id}}"
+const current_area="{{old('area_id')??auth()->user()->area_id}}"
         filtered.forEach(city => {
             citySelect.innerHTML += `<option ${current_area==city.id?'selected':''} value="${city.id}">${city.name}</option>`;
         });
