@@ -17,7 +17,11 @@
     <link rel="stylesheet" href="{{asset('theeme2/css/style.css?v='.rand(0,100))}}">
     <link rel="stylesheet" href="{{asset('theeme2/css/style-sm.css?v='.rand(0,100))}}">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-
+    <script>
+        window.showHello = function () {
+            alert('مرحبا');
+        };
+    </script>
     <title>علي باشا</title>
     @stack('css')
 </head>
@@ -43,14 +47,10 @@
         }
     </script>
 @endauth
-<script>
-    window.showHello = function () {
-        alert('مرحبا');
-    };
-</script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
+
+{{--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
         integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script>--}}
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
