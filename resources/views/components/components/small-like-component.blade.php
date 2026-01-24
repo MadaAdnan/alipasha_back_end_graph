@@ -1,7 +1,7 @@
 @props([
     'product'=>null
 ])
-<div class="stat-item-modern"   onclick="toggleLike({{auth()->id()}}, {{$product->id}})">
+<div class="stat-item-modern cursor-pointer"   onclick="toggleLike({{auth()->id()}}, {{$product->id}})">
     <i class="fas fa-heart like-icon @if(!auth()->check() || !$product->is_like) text-gray @endif"
        data-user-id="{{auth()->id()}}"
        data-product-id="{{$product->id}}"
@@ -12,7 +12,20 @@
 <script>
 function toggleLike(userId, productId) {
     if (!userId) {
-        // إذا لم يكن المستخدم قد سجل الدخول، قم بإعادة التوجيه إلى صفحة تسجيل الدخول
+        Toastify({
+            text: "This is a toast",
+            duration: 3000,
+            destination: "https://github.com/apvarun/toastify-js",
+            newWindow: true,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: "left", // `left`, `center` or `right`
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+            style: {
+                background: "linear-gradient(to right, #00b09b, #96c93d)",
+            },
+            onClick: function(){} // Callback after click
+        }).showToast();
         window.location.href = '/login';
         return;
     }
