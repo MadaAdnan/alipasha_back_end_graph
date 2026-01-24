@@ -9,10 +9,10 @@
         <x-form.input-phone-component placeholder="9XXXXXXXX" :value="auth()->user()->phone" :countryValue="auth()->user()->phone_code" label="رقم الهاتف" id="registerPhone"
                                       name="phone"
                                       countryName="phone_code" required/>
-        <x-form.input-select-component :options="$governorates" key="id" label="اختر محافظتك" id="registerGovernorate"
+        <x-form.input-select-component :options="$governorates" :value="auth()->user()->city_id" key="id" label="اختر محافظتك" id="registerGovernorate"
                                        name="city" required/>
         <x-form.input-select-component  label="اختر المدينة" id="registerArea"
-                                        name="area" required/>
+                                        name="area" required :value="auth()->user()->area_id"/>
         <x-form.input-component name="address" :value="old('name')??auth()->user()->address" label="العنوان" placeholder="العنوان" required/>
     </form>
 </div>
