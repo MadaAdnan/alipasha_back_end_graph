@@ -86,8 +86,9 @@
             localStorage.removeItem('token');
                 showToast('يرجى تسجيل الدخول اولاً','error')
             }
-        else if (localStorage.getItem('token')==null) {
-            localStorage.setItem('token',"{{auth()->user()->createToken('user')->plainTextToken}}")
+        else if (localStorage.getItem('token')==null  ) {
+            console.log("{{auth()->check()}}")
+         //   localStorage.setItem('token',"{{auth()->user()->createToken('user')->plainTextToken}}")
         }
 
 
