@@ -34,9 +34,9 @@ class AuthController extends Controller
     {
 
         $this->validate($request, [
-            'email'=>'required|email|exists:users,email',
-            'password'=>'required|min:8'
-        ],[
+            'email' => 'required|email|exists:users,email',
+            'password' => 'required|min:8'
+        ], [
             'email.required' => 'يرجى إدخال بريدك الإلكتروني',
             'email.email' => 'يرجى إدخال بريدك الإلكتروني',
             'email.exists' => 'لم يتم العثور على بريدك الإلكتروني',
@@ -60,38 +60,41 @@ class AuthController extends Controller
     public function register(RegisterRequest $request)
     {
         $this->validate($request, [
-            'name'=>'required|min:3',
-            'email'=>'required|email|unique:users,email',
-            'password'=>'required|min:8',
-            'confirmPassword'=>'required|same:password',
-            'phone'=>'required|min:8|unique:users,phone',
-            'phone_code'=>'required|exists:countries,code',
-            'city'=>'required|exists:cities,id',
-            'address'=>'required'
-            ],[
-                'name.required' => 'يرجى إدخال اسمك',
-                'name.min' => 'اسمك يجب ان لا يقل عن 3 أحرف',
-                'email.required' => 'يرجى إدخال بريدك الإلكتروني',
-                'email.email' => 'يرجى إدخال بريدك الإلكتروني',
-                'email.unique' => 'البريد الإلكتروني موجود بالفعل',
-                'password.required' => 'يرجى إدخال كلمة المر',
-                'password.min' => 'كلمة المرور يجب ان لا تقل عن 8 أحرف',
-                'confirmPassword.required' => 'يرجى إدخال كلمة المرور',
-                'confirmPassword.same' => 'الكلمة غير متطابقة',
-                'phone.required' => 'يرجى إدخال رقم الهاتف',
-                'phone.min' => 'رقم الهاتف يجب ان لا يقل عن 8 أرقام',
-                'phone.unique' => 'رقم الهاتف مُسجل بالفعل',
-                'phone_code.required' => 'يرجى إدخال كود',
-                'phone_code.exists' => 'يرجى إدخال كود',
-                'city.required' => 'يرجى إدخال المدينة',
-                'address.required' => 'يرجى إدخال العنوان',
-            ]);
+            'name' => 'required|min:3',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:8',
+            'confirmPassword' => 'required|same:password',
+            'phone' => 'required|min:8|unique:users,phone',
+            'phone_code' => 'required|exists:countries,code',
+            'city' => 'required|exists:cities,id',
+            'address' => 'required',
+            'area' => 'required|exists:cities,id'
+        ], [
+            'name.required' => 'يرجى إدخال اسمك',
+            'name.min' => 'اسمك يجب ان لا يقل عن 3 أحرف',
+            'email.required' => 'يرجى إدخال بريدك الإلكتروني',
+            'email.email' => 'يرجى إدخال بريدك الإلكتروني',
+            'email.unique' => 'البريد الإلكتروني موجود بالفعل',
+            'password.required' => 'يرجى إدخال كلمة المر',
+            'password.min' => 'كلمة المرور يجب ان لا تقل عن 8 أحرف',
+            'confirmPassword.required' => 'يرجى إدخال كلمة المرور',
+            'confirmPassword.same' => 'الكلمة غير متطابقة',
+            'phone.required' => 'يرجى إدخال رقم الهاتف',
+            'phone.min' => 'رقم الهاتف يجب ان لا يقل عن 8 أرقام',
+            'phone.unique' => 'رقم الهاتف مُسجل بالفعل',
+            'phone_code.required' => 'يرجى إدخال كود',
+            'phone_code.exists' => 'يرجى إدخال كود',
+            'city.required' => 'يرجى إدخال المدينة',
+            'address.required' => 'يرجى إدخال العنوان',
+            'area.required' => 'يرجى إدخال المنطقة',
+            'area.exists' => 'يرجى إدخال المنطقة',
+        ]);
 
-        if(\Str::startsWith($request->phone, '0')){
+        if (\Str::startsWith($request->phone, '0')) {
             $request->phone = \Str::substr($request->phone, 1);
         }
 
-        $affiliate_id = User::where('affiliate',$request->affiliate)->first()?->id;
+        $affiliate_id = User::where('affiliate', $request->affiliate)->first()?->id;
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -99,17 +102,18 @@ class AuthController extends Controller
             'phone' => $request->phone,
             'phone_code' => $request->phone_code,
             'city_id' => $request->city,
+            'area_id' => $request->area,
             'address' => $request->address,
-            'code_verified' =>StrHelper::generateDigits(6),
+            'code_verified' => StrHelper::generateDigits(6),
             'level' => 'user',
             'is_active' => true,
             'user_id' => $affiliate_id,
             'is_special' => false,
-            'seller_name'=>$request->name
+            'seller_name' => $request->name
         ]);
-            Auth::login($user);
-            $request->session()->regenerate();
-            return redirect()->route('index');
+        Auth::login($user);
+        $request->session()->regenerate();
+        return redirect()->route('index');
     }
 
     public function forgetPasswordUi()
@@ -164,7 +168,8 @@ class AuthController extends Controller
         return back()->with('error', 'إنتهت مدة الرابط يرجى طلب إستعادة كلمة المرور مرة أخرى');
     }
 
-    public function logout(){
+    public function logout()
+    {
         auth()->logout();
         return redirect('/');
     }

@@ -1,11 +1,11 @@
 @props([
     'product'=>null
 ])
-<div class="stat-item-modern">
+<div class="stat-item-modern"   onclick="toggleLike({{auth()->id()}}, {{$product->id}})">
     <i class="fas fa-heart like-icon @if(!auth()->check() || !$product->is_like) text-gray @endif"
        data-user-id="{{auth()->id()}}"
        data-product-id="{{$product->id}}"
-       onclick="toggleLike({{auth()->id()}}, {{$product->id}})"></i>
+     ></i>
     <span id="likes-count-{{$product->id}}">{{\App\Helpers\GlobalHelper::formatNumber($product->likes_count)}}</span>
 </div>
 
