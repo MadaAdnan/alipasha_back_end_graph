@@ -3,9 +3,11 @@
         <h3 class="fs-4 text-gray">تعديل الملف الشخصي</h3>
 
     </div>
-    <form action="">
+    <form action="{{route('profile.store')}}" method="POST">
+        @csrf
         <x-form.input-component name="name" :value="old('name')??auth()->user()->name" label="الاسم" placeholder="الاسم" required/>
-        <x-form.input-component name="email" :value="old('name')??auth()->user()->email" label="البريد الإلكتروني" disabled placeholder="البريد الإلكتروني" required/>
+        <x-form.input-component name="name" :value="old('seller_name')??auth()->user()->seller_name" label="اسم المتجر" placeholder="اسم المتجر" required/>
+        <x-form.input-component name="email" :value="old('email')??auth()->user()->email" label="البريد الإلكتروني" disabled placeholder="البريد الإلكتروني" required/>
         <x-form.input-phone-component placeholder="9XXXXXXXX" :value="auth()->user()->phone" :countryValue="auth()->user()->phone_code" label="رقم الهاتف" id="registerPhone"
                                       name="phone"
                                       countryName="phone_code" required/>

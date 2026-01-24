@@ -40,6 +40,21 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required',
+            'phone' => 'required',
+            'phone_code' => 'required',
+            'address' => 'required',
+            'city_id' => 'required',
+            'area_id' => 'required',
+        ],[
+            'name.required' => 'الرجاء ادخال الاسم',
+            'phone.required' => 'الرجاء ادخال رقم الهاتف',
+            'phone_code.required' => 'الرجاء ادخال رقم الهاتف',
+            'address.required' => 'الرجاء ادخال العنوان',
+            'city_id.required' => 'الرجاء ادخال المدينة',
+            'area_id.required' => 'الرجاء ادخال المنطقة',
+        ]);
         /**
          * @var $user User
          */
@@ -51,6 +66,7 @@ class ProfileController extends Controller
             'phone_code' => $request->phone_code,
             'address' => $request->address,
             'city_id' => $request->city_id,
+            'area_id'=>$request->area_id,
         ]);
         return back()->with('success', 'نجاح العملية');
     }
