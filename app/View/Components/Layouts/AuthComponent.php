@@ -16,7 +16,7 @@ class AuthComponent extends Component
      */
     public function __construct()
     {
-       $this->governorates =City::whereIsMain(true)->get();
+       $this->governorates =City::whereIsMain(true)->get()->toArray();
         $this->cities = City::where('is_main',false)->whereNotNull('city_id')->get();
     }
 
