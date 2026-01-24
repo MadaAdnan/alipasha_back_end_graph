@@ -134,6 +134,7 @@
     const cities = @json($cities);
 
     function loadCities() {
+        console.log(cities)
         let govSelect = document.getElementById('registerGovernorate');
         let govId = govSelect.value;
         let citySelect = document.getElementById('registerArea');

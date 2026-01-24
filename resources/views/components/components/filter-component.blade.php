@@ -14,6 +14,12 @@
     <input type="hidden" name="category_id" value="{{$categoryId}}">
     <input type="hidden" name="seller_id" value="{{$sellerId}}">
     <input type="hidden" name="type" value="{{$type}}">
+    @if($showTextSearch)
+        <div class="filter-group">
+            <label class="filter-label" for="Search">بحث</label>
+            <input class="filter-input" id="" name="q" placeholder="ابحث عن خدمة"/>
+        </div>
+    @endif
     {{-- المحافظة --}}
     <div class="filter-group">
         <label class="filter-label" for="governorateSelect">المحافظة</label>
@@ -24,12 +30,7 @@
             @endforeach
         </select>
     </div>
-    @if($showTextSearch)
-        <div class="filter-group">
-            <label class="filter-label" for="governorateSelect">بحث</label>
-            <input class="filter-input" id="" name="q" placeholder="ابحث عن خدمة"/>
-        </div>
-    @endif
+
     {{-- المدينة --}}
     <div class="filter-group">
         <label class="filter-label" for="citySelect">المدينة</label>
