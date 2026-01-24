@@ -88,7 +88,7 @@
             }
         else if (localStorage.getItem('token')==null  ) {
             console.log("{{auth()->check()}}")
-         //   localStorage.setItem('token',"{{auth()->user()->createToken('user')->plainTextToken}}")
+
         }
 
 
