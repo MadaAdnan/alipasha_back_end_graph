@@ -34,7 +34,7 @@
     <x-components.link-chat-component/>
 
 @endauth
-</body>
+
 @auth
     <script>
         const token = localStorage.getItem('token')
@@ -61,6 +61,6 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
 @stack('js')
-
+</body>
 
 </html>
