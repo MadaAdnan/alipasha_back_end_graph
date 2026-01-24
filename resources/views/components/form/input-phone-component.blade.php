@@ -15,7 +15,6 @@
     'errorClass' => '',
     'countryName' => 'country_code',
     'countryValue' => 'إختر دولتك',
-
     'showFlag' => true,
 ])
 
