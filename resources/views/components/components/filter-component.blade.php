@@ -17,7 +17,7 @@
     @if($showTextSearch)
         <div class="filter-group">
             <label class="filter-label" for="Search">بحث</label>
-            <input class="filter-input" id="" name="q" placeholder="ابحث عن خدمة"/>
+            <input class="filter-input" id="" name="q" placeholder="ابحث عن "/>
         </div>
     @endif
     {{-- المحافظة --}}
