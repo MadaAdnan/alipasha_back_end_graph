@@ -14,6 +14,11 @@
     <link rel="stylesheet" href="{{asset('theeme2/css/style.css?v='.rand(0,100))}}">
     <link rel="stylesheet" href="{{asset('theeme2/css/style-sm.css?v='.rand(0,100))}}">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script>
+        function showHello(){
+            console.log('hello')
+        }
+    </script>
     <title>علي باشا</title>
     @stack('css')
 </head>
@@ -45,11 +50,7 @@
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
         crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-<script>
-    function showHello(){
-        console.log('hello')
-    }
-</script>
+
 @stack('js')
 
 </body>
