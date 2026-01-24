@@ -29,10 +29,9 @@
             <button class="btn-follow rounded" onclick="showToast('يرجى تسجيل الدخول اولاً')">
                 <i class="fa fa-bell"></i>
                 <span class="small d-none d-md-inline-block mx-1 ">
-                    @if($isFollowing) تتابعه
-                    @else
+
                         متابعة
-                    @endif
+
 
 
                 </span>
