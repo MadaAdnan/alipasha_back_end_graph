@@ -4,7 +4,7 @@
     'sellerId'=>null,
     'type'=>null,
     'showPrice'=>true,
-    'showTextSearch'=>false
+    'showTextSearch'=>true
 ])
 <form class="filter-container" action="{{$route??route('search.index')}}" method="get">
     <div class="filter-header">
