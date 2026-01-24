@@ -15,6 +15,7 @@
     'errorClass' => '',
     'showStrength' => false,
     'toggleVisibility' => true,
+    'isRounded'=>false
 ])
 
 @php
@@ -60,13 +61,13 @@
     @endif
 
     <div class="input-group position-relative">
-        <input {{ $attributes }}>
+        <input {{ $attributes }} style="{{$isRounded?"rounded":''}}">
 
         @if($toggleVisibility)
             <button type="button"
                     id="toggle-{{ $inputId }}"
                     class="btn btn-outline-secondary password-toggle position-absolute  transparent "
-                    style="left:5px;z-index: 100"
+                    style="left:5px;z-index: 100 "
                     data-target="#{{ $inputId }}"
                     aria-label="إظهار/إخفاء كلمة المرور">
                 <i class="fa fa-eye-slash text-gray"></i>
