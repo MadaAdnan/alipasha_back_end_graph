@@ -83,6 +83,7 @@ Route::middleware([\App\Http\Middleware\XFrameOptionMiddleware::class])->group(f
         Route::post('logout', [\App\Http\Controllers\Web\AuthController::class, 'logout'])->name('logout')->middleware('auth:web');
         Route::post('forget-password', [\App\Http\Controllers\Web\AuthController::class, 'forgetPassword'])->name('forget-password');
         Route::post('change-password', [\App\Http\Controllers\Web\AuthController::class, 'changePassword'])->name('change-password');
+        Route::post('rechange-password', [\App\Http\Controllers\Web\AuthController::class, 'rechangePassword'])->name('rechange-password');
         Route::resource('/', \App\Http\Controllers\Web\IndexController::class)->only('index');
         Route::resource('/search', \App\Http\Controllers\Web\SearchController::class)->only('index');
         Route::resource('/jobs', \App\Http\Controllers\Web\JobController::class)->only('index', 'show');

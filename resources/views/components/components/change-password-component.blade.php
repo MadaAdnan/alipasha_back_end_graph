@@ -1,9 +1,10 @@
 <div class="filter-container">
     <div class="filter-header">
-        <i class="fas fa-sliders-h"></i>
+        <i class="fa-solid fa-user-secret"></i>
         <span>تغيير كلمة المرور</span>
     </div>
-    <form action="{{ route('change-password') }}" method="POST">
+    <form action="{{ route('rechange-password') }}" method="POST">
+        @csrf
         <x-form.input-password-component name="old_password" required label="كلمة المرور القديمة"
                                          placeholder="كلمة المرور القديمة" :isRounded="true" id="old_password"/>
         <x-form.input-password-component name="new_password" required label="كلمة المرور الجديدة"
