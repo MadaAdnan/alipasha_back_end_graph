@@ -1,4 +1,4 @@
-<div class="bg-white">
+<div class="filter-container">
     <div class="filter-header">
         <i class="fas fa-sliders-h"></i>
         <span>تغيير كلمة المرور</span>
