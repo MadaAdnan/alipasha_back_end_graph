@@ -91,7 +91,7 @@
 
                         <x-form.input-select-component :options="$cities" label="اختر محافظتك" id="registerGovernorate"
                                                        name="city" required/>
-                        <x-form.input-select-component :options="" label="اختر المدينة" id="registerArea"
+                        <x-form.input-select-component  label="اختر المدينة" id="registerArea"
                                                        name="area" required/>
                         <x-form.input-component wrapperClass="mt-1" type="text" class="form-control"
                                                 id="registerAddress" name="address"
