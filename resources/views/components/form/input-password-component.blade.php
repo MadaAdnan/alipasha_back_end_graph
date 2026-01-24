@@ -30,6 +30,9 @@
     $wrapperClasses = trim("mb-3 password-wrapper {$wrapperClass}");
     $labelClasses = trim("form-label {$labelClass}");
     $inputClasses = trim("form-control password-input" . ($hasError ? ' is-invalid' : '') . " {$inputClass}");
+    if($isRounded){
+        $inputClass.=' rounded';
+    }
     $errorClasses = trim("invalid-feedback {$errorClass}");
 
     // إدارة السمات
@@ -61,7 +64,7 @@
     @endif
 
     <div class="input-group position-relative">
-        <input {{ $attributes }} style="{{$isRounded?"rounded":''}}">
+        <input {{ $attributes }}>
 
         @if($toggleVisibility)
             <button type="button"
