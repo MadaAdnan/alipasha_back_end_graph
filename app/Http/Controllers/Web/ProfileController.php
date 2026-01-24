@@ -61,7 +61,7 @@ class ProfileController extends Controller
         $user = auth()->user();
         $user->update([
             'name' =>$user->is_social? $user->name : $request->name,
-            'seller_name' => $request->store_name,
+            'seller_name' => $request->seller_name,
             'phone' => $request->phone,
             'phone_code' => $request->phone_code,
             'address' => $request->address,
