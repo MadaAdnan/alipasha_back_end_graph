@@ -62,7 +62,7 @@
                <x-components.small-like-component :product="$product"/>
                 <div class="stat-item-modern">
                     <i class="fas fa-calendar"></i>
-                    <span class="">{{$product->created_at->diffForHumans()}}</span>
+                    <span style="font-size: 8px">{{$product->created_at->diffForHumans()}}</span>
                 </div>
                 <div class="stat-item-modern">
                     <i class="fas fa-eye"></i>
