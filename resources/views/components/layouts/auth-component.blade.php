@@ -134,7 +134,7 @@
     const cities = @json($cities);
 
     function loadCities() {
-        console.log(cities)
+
         let govSelect = document.getElementById('registerGovernorate');
         let govId = govSelect.value;
         let citySelect = document.getElementById('registerArea');
@@ -151,7 +151,7 @@
         filtered.forEach(city => {
             citySelect.innerHTML += `<option value="${city.id}">${city.name}</option>`;
         });
-
+        console.log(filtered)
         citySelect.disabled = false;
 
         // في حالة وجود مدينة مختارة مسبقاً
