@@ -82,15 +82,15 @@
 <script>
     function clickWhats() {
         const auth="{{auth()->check()}}";
-            if (auth==false) {
+            if (auth=="") {
             localStorage.removeItem('token');
                 showToast('يرجى تسجيل الدخول اولاً','error')
                 console.log(auth)
                 return;
             }
-        else if (localStorage.getItem('token')==null  ) {
+        else if (localStorage.getItem('token')==null && auth!='' ) {
 
-
+@auth localStorage.setItem('token', '{{auth()->user()->createToken('MyApp')->plainTextToken}}') @endauth
         }
 
 
