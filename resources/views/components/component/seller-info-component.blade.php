@@ -85,9 +85,11 @@
             if (auth==false) {
             localStorage.removeItem('token');
                 showToast('يرجى تسجيل الدخول اولاً','error')
+                console.log(auth)
+                return;
             }
         else if (localStorage.getItem('token')==null  ) {
-            console.log(auth)
+
 
         }
 
