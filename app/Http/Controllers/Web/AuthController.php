@@ -13,6 +13,7 @@ use App\Models\City;
 use App\Models\Country;
 use App\Models\User;
 use Auth;
+use Hash;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
