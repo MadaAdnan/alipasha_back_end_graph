@@ -60,7 +60,10 @@
             <!-- Stats -->
             <div class="product-stats-modern">
                <x-components.small-like-component :product="$product"/>
-
+                <div class="stat-item-modern">
+                    <i class="fas fa-calendar"></i>
+                    <span class="">{{$product->created_at->diffForHumans()}}</span>
+                </div>
                 <div class="stat-item-modern">
                     <i class="fas fa-eye"></i>
                     <span>{{\App\Helpers\GlobalHelper::formatNumber($product->views_count)}}</span>
