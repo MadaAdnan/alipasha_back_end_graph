@@ -161,7 +161,7 @@
     }
 
     // عند تغيير المحافظة يدويًا
-    document.getElementById('governorateSelect').addEventListener('change', loadCities);
+    document.getElementById('registerGovernorate').addEventListener('change', loadCities);
 
     // عند تحميل الصفحة... شغّل نفس الوظيفة تلقائيًا
     window.addEventListener('DOMContentLoaded', loadCities);
