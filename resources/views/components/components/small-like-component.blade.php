@@ -1,7 +1,7 @@
 @props([
     'product'=>null
 ])
-<div class="stat-item-modern cursor-pointer" onclick="toggleLike({{auth()->id()}}, {{$product->id}})">
+<div class="stat-item-modern cursor-pointer" onclick="toggleLike({{auth()->id()??0}}, {{$product->id}})">
     <i class="fas fa-heart like-icon @if(!auth()->check() || !$product->is_like) text-gray @endif"
        data-user-id="{{auth()->id()}}"
        data-product-id="{{$product->id}}"
@@ -11,7 +11,7 @@
 
 <script>
     function toggleLike(userId, productId) {
-        if (!userId) {
+        if (!userId||userId==0) {
             showHello();
             window.location.href = '/login';
             return;
