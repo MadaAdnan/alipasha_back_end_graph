@@ -15,9 +15,9 @@
     <link rel="stylesheet" href="{{asset('theeme2/css/style-sm.css?v='.rand(0,100))}}">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <script>
-        function showHello(){
-            console.log('hello')
-        }
+        window.showHello = function () {
+            alert('مرحبا');
+        };
     </script>
     <title>علي باشا</title>
     @stack('css')
