@@ -16,7 +16,7 @@
         <x-form.input-select-component  label="اختر المدينة" id="registerArea"
                                         name="area_id" required />
         <x-form.input-component name="address" :value="old('name')??auth()->user()->address" label="العنوان" placeholder="العنوان" required/>
-        <button class="btn btn-red-accent">تغيير</button>
+        <button class="btn btn-red-accent">حفظ</button>
     </form>
 </div>
 <script>
