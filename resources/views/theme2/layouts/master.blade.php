@@ -17,11 +17,7 @@
     <link rel="stylesheet" href="{{asset('theeme2/css/style.css?v='.rand(0,100))}}">
     <link rel="stylesheet" href="{{asset('theeme2/css/style-sm.css?v='.rand(0,100))}}">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-    <script>
-        window.showHello = function () {
-            alert('مرحبا');
-        };
-    </script>
+
     <title>علي باشا</title>
     @stack('css')
 </head>
@@ -61,6 +57,23 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
 @stack('js')
+<script>
+    window.showToast = function (text,type='success') {
+        Toastify({
+            text: text,
+            duration: 3000,
+            newWindow: true,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: "left", // `left`, `center` or `right`
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+            style: {
+                background:type==='success'?  "linear-gradient(to right, #00b09b, #96c93d)" : "linear-gradient(to right, #00b09b, #96c93d)",
+            },
+            onClick: function(){} // Callback after click
+        }).showToast();
+    };
+</script>
 </body>
 
 </html>

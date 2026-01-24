@@ -12,8 +12,8 @@
 <script>
     function toggleLike(userId, productId) {
         if (!userId||userId==0) {
-            showHello();
-            window.location.href = '/login';
+            showToast('يرجى تسجيل الدخول','error');
+            // window.location.href = '/login';
             return;
         }
 
