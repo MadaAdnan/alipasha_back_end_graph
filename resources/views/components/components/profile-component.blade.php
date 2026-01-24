@@ -5,7 +5,7 @@
     </div>
     <form action="">
         <x-form.input-component name="name" :value="old('name')??auth()->user()->name" label="الاسم" placeholder="الاسم" required/>
-        <x-form.input-component name="email" :value="old('name')??auth()->user()->email" label="البريد الإلكتروني" placeholder="البريد الإلكتروني" required/>
+        <x-form.input-component name="email" :value="old('name')??auth()->user()->email" label="البريد الإلكتروني" disabled" placeholder="البريد الإلكتروني" required/>
         <x-form.input-component name="address" :value="old('name')??auth()->user()->address" label="العنوان" placeholder="العنوان" required/>
     </form>
 </div>
