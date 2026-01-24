@@ -91,6 +91,8 @@
 
                         <x-form.input-select-component :options="$cities" label="اختر محافظتك" id="registerGovernorate"
                                                        name="city" required/>
+                        <x-form.input-select-component :options="" label="اختر المدينة" id="registerArea"
+                                                       name="area" required/>
                         <x-form.input-component wrapperClass="mt-1" type="text" class="form-control"
                                                 id="registerAddress" name="address"
                                                 label="العنوان التفصيلي" placeholder="أدخل العنوان التفصيلي" required
@@ -129,4 +131,39 @@
             }
         }
     });
+    const cities = @json($cities);
+
+    function loadCities() {
+        let govSelect = document.getElementById('registerGovernorate');
+        let govId = govSelect.value;
+        let citySelect = document.getElementById('registerArea');
+
+        citySelect.innerHTML = '<option value="">اختر المدينة</option>';
+
+        if (!govId) {
+            citySelect.disabled = true;
+            return;
+        }
+
+        let filtered = cities.filter(city => city.city_id == govId);
+
+        filtered.forEach(city => {
+            citySelect.innerHTML += `<option value="${city.id}">${city.name}</option>`;
+        });
+
+        citySelect.disabled = false;
+
+        // في حالة وجود مدينة مختارة مسبقاً
+        if (citySelect.getAttribute('data-selected')) {
+            citySelect.value = citySelect.getAttribute('data-selected');
+        }
+    }
+
+    // عند تغيير المحافظة يدويًا
+    document.getElementById('governorateSelect').addEventListener('change', loadCities);
+
+    // عند تحميل الصفحة... شغّل نفس الوظيفة تلقائيًا
+    window.addEventListener('DOMContentLoaded', loadCities);
 </script>
+
+
