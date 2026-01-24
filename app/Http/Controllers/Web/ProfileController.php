@@ -24,7 +24,7 @@ class ProfileController extends Controller
 
         }
         $products = Product::whereNot('type', 'service')->where('user_id', auth()->id())->latest()->paginate(20);
-        return view('web.profile', compact('cities', 'type', 'ads', 'products'));
+        return view('theme2.profile', compact('cities', 'type', 'ads', 'products'));
     }
 
     /**
