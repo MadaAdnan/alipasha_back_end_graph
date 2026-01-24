@@ -74,6 +74,15 @@
         }).showToast();
     };
 </script>
+@if(session()->has('success'))
+    <script>
+        showToast('{{session()->get('success')}}','success')
+    </script>
+@else
+    <script>
+        showToast('{{session()->get('error')}}','error')
+    </script>
+@endif
 </body>
 
 </html>
