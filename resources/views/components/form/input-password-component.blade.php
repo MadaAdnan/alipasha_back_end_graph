@@ -31,7 +31,7 @@
     $labelClasses = trim("form-label {$labelClass}");
     $inputClasses = trim("form-control password-input" . ($hasError ? ' is-invalid' : '') . " {$inputClass}");
     if($isRounded){
-        $inputClass.=' rounded';
+        $inputClasses.=' rounded';
     }
     $errorClasses = trim("invalid-feedback {$errorClass}");
 
