@@ -5,7 +5,7 @@
         <!-- Store Header Section -->
         <div class="store-header-section">
         <div class="container store-header-content">
-            <div class="store-header-wrapper d-sm-flex flex-sm-column">
+            <div class="store-header-wrapper d-sm-flex flex-sm-column w-100 overflow-hidden">
                 <!-- Store Image -->
                 <div class="store-image-container">
                     <img src="{{ $store->getImage() }}"
@@ -20,7 +20,7 @@
                 </div>
 
                 <!-- Store Info -->
-                <div class="store-info-wrapper">
+                <div class="store-info-wrapper  d-sm-flex flex-sm-column w-100">
                     <div class="store-name-section">
                         <h1 class="store-name">{{ $store->seller_name ?? $store->name }}</h1>
                         @if($store->is_verified)
