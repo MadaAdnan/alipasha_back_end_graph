@@ -28,39 +28,63 @@ class SearchController extends Controller
         $priceFrom = \request()->filled('price_from') ?\request()->get('price_from'):0;
         $priceTo = \request()->get('price_to');
 
-        $products = Product::query()->where('active', ProductActiveEnum::ACTIVE->value);
-        if(!empty($type)){
-            if ($type == CategoryTypeEnum::SEARCH_JOB->value || $type == CategoryTypeEnum::JOB->value) {
-                $products->whereIn('type', [
+        $query = Product::query()
+            ->where('active', ProductActiveEnum::ACTIVE->value);
+
+        if (request()->filled('type')) {
+            $type = request()->type;
+
+            if (
+                $type == CategoryTypeEnum::SEARCH_JOB->value ||
+                $type == CategoryTypeEnum::JOB->value
+            ) {
+                $query->whereIn('type', [
                     CategoryTypeEnum::SEARCH_JOB->value,
                     CategoryTypeEnum::JOB->value,
                 ]);
             } else {
-                $products->where('type', $type);
+                $query->where('type', $type);
             }
         }
-        if(!empty($text)){
-            $products->where(fn($q) => $q->where('name', 'like', "%{$text}%")->orWhere('info', 'like', "%{$text}%"));
-        }
-        if(!empty($city)){
-            $products->where('city_id', $city);
-        }
-        if(!empty($area)){
-            $products->whereHas('user', fn($query) => $query->where('area_id', $area));
-        }
-           if(!empty($category)){
-               $products->where(fn($query)=>$query->where('category_id', $category)->orWhere('sub1_id',$category)
-                   ->orWhere('sub2_id',$category)
-                   ->orWhere('sub3_id',$category)
-                   ->orWhere('sub4_id',$category));
 
-           }
-            $products  ->where('price', '>=', $priceFrom);
-           if(isset($priceTo) && $priceTo != 0){
-               $products->where('price', '<=', $priceTo);
-           }
+        if (request()->filled('q')) {
+            $query->where(function ($q) {
+                $q->where('name', 'like', '%' . request()->q . '%')
+                    ->orWhere('info', 'like', '%' . request()->q . '%');
+            });
+        }
 
-          $products=  $products->latest()->paginate();
+        if (request()->filled('city_id')) {
+            $query->where('city_id', request()->city_id);
+        }
+
+        if (request()->filled('area_id')) {
+            $query->whereHas('user', fn ($q) =>
+            $q->where('area_id', request()->area_id)
+            );
+        }
+
+        if (request()->filled('category_id')) {
+            $query->where(function ($q) {
+                $q->where('category_id', request()->category_id)
+                    ->orWhere('sub1_id', request()->category_id)
+                    ->orWhere('sub2_id', request()->category_id)
+                    ->orWhere('sub3_id', request()->category_id)
+                    ->orWhere('sub4_id', request()->category_id);
+            });
+        }
+
+        $query->when(
+            request()->filled('price_from'),
+            fn ($q) => $q->where('price', '>=', request()->price_from)
+        );
+
+        $query->when(
+            request()->filled('price_to'),
+            fn ($q) => $q->where('price', '<=', request()->price_to)
+        );
+
+        $products = $query->latest()->paginate();
         $productsForPagination = clone $products;
         $categories = Category::where('is_active', true)
             ->where(['is_active' => true, 'is_main' => true])
