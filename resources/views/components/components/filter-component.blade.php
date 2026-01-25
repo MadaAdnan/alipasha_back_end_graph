@@ -18,8 +18,8 @@
         <div class="filter-group position-relative">
             <label class="filter-label" for="Search">بحث</label>
             <input class="filter-input" id="Search" name="q" placeholder="ابحث عن... "/>
-            <div id="suggestions"  class="position-absolute bg-white w-100 z-3">
-                <ul id="suggestionsUl">
+            <div id="suggestions"  class="position-absolute bg-white w-100 z-3 rounded shadow-sm">
+                <ul id="suggestionsUl" class="d-flex justify-content-start">
 
                 </ul>
             </div>
