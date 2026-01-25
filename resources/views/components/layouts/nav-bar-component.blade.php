@@ -36,8 +36,8 @@
                 @endguest
                 @auth()
                 <li class="nav-item">
-                    <a class="nav-link d-none d-md-inline-block" href="{{route('profile.index')}}"><i class="fa fa-user"></i> {{auth()->user()->name}} </a>
-                    <a class="nav-link d-inline-block d-md-none" href="{{route('profile.index')}}"><i class="fa fa-user"></i> {{Str::limit(auth()->user()->name,1)}} </a>
+                    <a class="nav-link d-none d-md-inline-block" href="{{route('seller.profile',auth()->id())}}"><i class="fa fa-user"></i> {{auth()->user()->name}} </a>
+                    <a class="nav-link d-inline-block d-md-none" href="{{route('seller.profile',auth()->id())}}"><i class="fa fa-user"></i> {{Str::limit(auth()->user()->name,1)}} </a>
                 </li>
                 <li class="nav-item">
                     <form action="{{route('logout')}}" method="post">
