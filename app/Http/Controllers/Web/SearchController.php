@@ -55,7 +55,10 @@ class SearchController extends Controller
                    ->orWhere('sub4_id',$category));
 
            }
-            $products  ->whereBetween('price', [$priceFrom,$priceTo]);
+        $products->whereRaw(
+            'CAST(price AS DECIMAL(10,2)) BETWEEN ? AND ?',
+            [(float) $priceFrom, (float) $priceTo]
+        );
 
 
           $products=  $products->latest()->paginate();
