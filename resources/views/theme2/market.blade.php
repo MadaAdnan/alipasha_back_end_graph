@@ -164,8 +164,10 @@
         }
         @media (max-width: 440px) {
             .store-header-section{
-                max-width: 100%;
+                max-width: 98%;
                 overflow: hidden;
+                display: flex;
+                flex-direction: column;
             }
         }
 
