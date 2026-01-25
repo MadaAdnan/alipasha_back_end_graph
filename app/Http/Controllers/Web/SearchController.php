@@ -42,7 +42,7 @@ class SearchController extends Controller
             $products->where(fn($q) => $q->where('name', 'like', "%{$text}%")->orWhere('info', 'like', "%{$text}%"));
         }
         if (!empty($city)) {
-            $products->where('city_id', $city);
+            $products->whereHas('user', fn($query) => $query->where('city_id', $city));
         }
         if (!empty($area)) {
             $products->whereHas('user', fn($query) => $query->where('area_id', $area));
