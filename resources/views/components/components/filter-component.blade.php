@@ -92,6 +92,7 @@
     }
     function getSuggestions() {
         let q = document.getElementById('Search').value;
+        console.log(q);
         if (!q) {
             document.getElementById('suggestions').style.display = 'none';
             return;
