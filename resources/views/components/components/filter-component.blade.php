@@ -19,7 +19,7 @@
             <label class="filter-label" for="Search">بحث</label>
             <input class="filter-input" id="Search" name="q" placeholder="ابحث عن... "/>
             <div id="suggestions" class="position-absolute bg-white w-100">
-                <ul>
+                <ul id="suggestionsUl">
 
                 </ul>
             </div>
@@ -99,7 +99,7 @@
         fetch(`/api/suggestions?q=${q}`)
             .then(res => res.json())
             .then(data => {
-                let suggestions = document.getElementById('suggestions');
+                let suggestions = document.getElementById('suggestionsUl');
                 suggestions.style.display = 'block';
                 suggestions.innerHTML = '';
                 data.forEach(suggestion => {
