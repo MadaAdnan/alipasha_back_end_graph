@@ -17,7 +17,7 @@ class SearchController extends Controller
      */
     public function index()
     {
-        $type = \request()->filled('type')?\request()->get('type') : 'product';
+        $type = \request()->filled('type') ? \request()->get('type') : 'product';
         $text = \request()->get('q');
         $city = \request()->get('city_id') ?? \request()->get('city');
         $area = \request()->get('area_id');
@@ -25,11 +25,10 @@ class SearchController extends Controller
         $category = \request()->get('category_id');
         $seller = \request()->get('seller_id');
 
-        $priceFrom = \request()->filled('price_from') ?(float)\request()->get('price_from'):0;
-        $priceTo = \request()->filled('price_to') ?(float)\request()->get('price_to'):1000000;
-
+        $priceFrom = \request()->filled('price_from') ? (float)\request()->get('price_from') : 0;
+        $priceTo = \request()->filled('price_to') ? (float)\request()->get('price_to') : 1000000;
         $products = Product::query()->where('active', ProductActiveEnum::ACTIVE->value);
-        if(!empty($type)){
+        if (!empty($type)) {
             if ($type == CategoryTypeEnum::SEARCH_JOB->value || $type == CategoryTypeEnum::JOB->value) {
                 $products->whereIn('type', [
                     CategoryTypeEnum::SEARCH_JOB->value,
@@ -39,29 +38,27 @@ class SearchController extends Controller
                 $products->where('type', $type);
             }
         }
-        if(!empty($text)){
+        if (!empty($text)) {
             $products->where(fn($q) => $q->where('name', 'like', "%{$text}%")->orWhere('info', 'like', "%{$text}%"));
         }
-        if(!empty($city)){
+        if (!empty($city)) {
             $products->where('city_id', $city);
         }
-        if(!empty($area)){
+        if (!empty($area)) {
             $products->whereHas('user', fn($query) => $query->where('area_id', $area));
         }
-           if(!empty($category)){
-               $products->where(fn($query)=>$query->where('category_id', $category)->orWhere('sub1_id',$category)
-                   ->orWhere('sub2_id',$category)
-                   ->orWhere('sub3_id',$category)
-                   ->orWhere('sub4_id',$category));
+        if (!empty($category)) {
+            $products->where(fn($query) => $query->where('category_id', $category)->orWhere('sub1_id', $category)
+                ->orWhere('sub2_id', $category)
+                ->orWhere('sub3_id', $category)
+                ->orWhere('sub4_id', $category));
 
-           }
+        }
         $products->whereRaw(
             'CAST(price AS DECIMAL(10,2)) BETWEEN ? AND ?',
-            [(float) $priceFrom, (float) $priceTo]
+            [(float)$priceFrom, (float)$priceTo]
         );
-
-
-          $products=  $products->latest()->paginate();
+        $products = $products->latest()->paginate();
         $productsForPagination = clone $products;
         $categories = Category::where('is_active', true)
             ->where(['is_active' => true, 'is_main' => true])
@@ -75,7 +72,7 @@ class SearchController extends Controller
             ->orderBy('sortable')
             ->orderByRaw("FIELD(type, 'product', 'job', 'search_job','tender','service','news')")
             ->get();
-        return view('theme2.search', compact('products',  'categories','productsForPagination'));
+        return view('theme2.search', compact('products', 'categories', 'productsForPagination'));
     }
 
     /**
