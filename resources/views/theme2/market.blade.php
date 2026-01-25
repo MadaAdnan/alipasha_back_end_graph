@@ -143,6 +143,23 @@
     </div>
 
     <style>
+        @media (max-width: 440px) {
+            .store-header-section{
+                max-width: 98%;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+            }
+            .store-image-container{
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+            }
+        }
+
+
         .store-page-wrapper {
             background: white;
         }
@@ -162,14 +179,7 @@
             margin-top: 0 !important;
             padding-top: 0 !important;
         }
-        @media (max-width: 440px) {
-            .store-header-section{
-                max-width: 98%;
-                overflow: hidden;
-                display: flex;
-                flex-direction: column;
-            }
-        }
+
 
         @media (max-width: 768px) {
             .products-section {
