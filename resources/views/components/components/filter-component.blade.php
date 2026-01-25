@@ -97,7 +97,7 @@
             document.getElementById('suggestionsUl').style.display = 'none';
             return;
         }
-        fetch(`/api/suggestions?q=${q}`)
+        fetch(`/api/suggestions?q=${q}&category_id={{$categoryId}}`)
             .then(res => res.json())
             .then(data => {
                 let suggestions = document.getElementById('suggestionsUl');

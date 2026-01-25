@@ -51,7 +51,15 @@ Route::get('like/{userId}/{productId}', function ($userId, $productId) {
 })->name('api.like');
 Route::get('suggestions', function () {
    $q=\request()->get('q');
-   return \App\Models\Product::active()->product()->where(fn($query)=>$query->where('name', 'like', "%{$q}%")
+   $category=\request()->get('category_id');
+   return \App\Models\Product::active()->product()
+       ->when($category,fn($query)=>$query->where('category_id',$category)
+           ->orWhere('sub1_id',$category)
+           ->orWhere('sub2_id',$category)
+           ->orWhere('sub3_id',$category)
+           ->orWhere('sub4_id',$category)
+       )
+       ->where(fn($query)=>$query->where('name', 'like', "%{$q}%")
  /*  ->orWhere('expert', 'like', "%{$q}%")*/
    )->select('name')->distinct()->limit(7)->pluck('name')->toArray();
 
