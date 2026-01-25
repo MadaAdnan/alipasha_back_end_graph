@@ -59,7 +59,7 @@ Route::get('suggestions', function () {
            ->orWhere('sub3_id',$category)
            ->orWhere('sub4_id',$category)
        )
-       ->where(fn($query)=>$query->where('name', 'like', "%{$q}%")
+       ->where(fn($query)=>$query->where('name', 'like', "%{$q}")
  /*  ->orWhere('expert', 'like', "%{$q}%")*/
    )->select('name')->distinct()->limit(7)->pluck('name')->toArray();
 
