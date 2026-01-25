@@ -11,7 +11,7 @@
             <div class="col-md-9 my-2">
                 <x-components.bread-crumb-component :categories="[
     ['id'=>null,'name'=>'الفلتر','class'=>'active']
-]" :firstUrl="route('index')"/>
+]" :firstUrl="route('index')" class="bg-transparent"/>
                 @if($products->count()>0)
                     @foreach($products as $product)
                         <x-components.estate-card-component :product="$product" class="d-none d-md-flex mt-2"/>
