@@ -1,0 +1,7 @@
+extend type Query{
+    sellers(category_id:ID):[Partner] @paginate(builder:"App\\GraphQL\\Queries\\Sellers")
+    nearSellers:[User]  @field(resolver: "App\\GraphQL\\Queries\\SliderGroup\\NearSeller@__invoke")
+    activitySellers:[User]  @field(resolver: "App\\GraphQL\\Queries\\SliderGroup\\ActivitySeller@__invoke")
+}
+
+

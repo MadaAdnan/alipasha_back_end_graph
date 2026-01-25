@@ -1,0 +1,77 @@
+
+
+
+extend type Query{
+    advices(category_id:Int,user_id:Int ,city_id:Int):[Advice]
+    advice(id:ID!  @eq):Advice @find
+    myAdvice :MyAdvice @guard
+}
+
+type MyAdvice{
+    advices: [Advice]
+    advice_count:Int
+    my_balance:Float
+    my_point:Float
+    my_wins:Float
+    views:Int
+    slider_count:Int
+}
+type Advice{
+    id:ID!
+    name:String
+    url:String
+    expired_date: CustomDate
+    views_count:Int
+    image:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImage")
+    user:User @belongsTo
+}
+
+extend type Mutation{
+    createAdvice(input:CreateAdviceInput!):Advice @guard
+    updateAdvice(id:ID!,input:UpdateAdviceInput!):Advice @guard
+
+    deleteAdvice(id:ID!):Advice @guard
+}
+input CreateAdviceInput{
+    name:String! @rules(apply:["required"],messages:[
+        {
+            rule:"required",
+            message:"حقل اسم الإعلان مطلوب"
+        }
+    ])
+    url:String
+    city_id:Int
+    category_id:Int
+    sub1_id:Int
+
+    image:Upload @rules(apply:["nullable","image"],messages:[
+        {
+            rule:"required",
+            message:"يرجى إدخال الصورة"
+        }
+        {
+            rule:"image",
+            message:"يرجى إدخال صورة صالحة"
+        }
+    ])
+}
+
+input UpdateAdviceInput{
+    name:String
+    url:String
+    city_id:Int
+    category_id:Int
+    sub1_id:Int
+
+    image:Upload @rules(apply:["nullable","image"],messages:[
+        {
+            rule:"required",
+            message:"يرجى إدخال الصورة"
+        }
+        {
+            rule:"image",
+            message:"يرجى إدخال صورة صالحة"
+        }
+    ])
+}
+

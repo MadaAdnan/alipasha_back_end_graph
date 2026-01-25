@@ -1,0 +1,280 @@
+@extends('layouts.master_layouts')
+@section('title')
+   البحث : {{request()->input('q')}}
+@endsection
+@section('content')
+    <div class="container-fluid" style="margin-top: 70px">
+        <div class="row">
+
+
+
+            <div class="col-12 col-xl-9" style="margin-top: 10px">
+                <div class="container">
+
+
+                        <div  class="search-form">
+                            <form action="{{route('search.index')}}" style="background: #fff; padding: 16px; border-radius: 16px;">
+                                <div style="width: 100% ;display: flex; justify-content: center; align-items: center; gap: 8px;" class="mb-3">
+                                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="type" id="products" value="{{\App\Enums\CategoryTypeEnum::PRODUCT->value}}">
+                                            <label class="form-check-label" for="منتج">
+                                                منتج
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="type" id="seller" value="seller" >
+                                            <label class="form-check-label" for="متجر">
+                                                متجر
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="type" id="jobs"  value="{{\App\Enums\CategoryTypeEnum::JOB->value}}" >
+                                            <label class="form-check-label" for="وظائف">
+                                                وظائف
+                                            </label>
+                                        </div>
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="type" id="tenders"  value="{{\App\Enums\CategoryTypeEnum::TENDER->value}}" >
+                                            <label class="form-check-label" for="مناقصات">
+                                                مناقصات
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="type" id="services"  value="{{\App\Enums\CategoryTypeEnum::SERVICE->value}}" >
+                                            <label class="form-check-label" for="خدمات">
+                                                خدمات
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="type" id="news"  value="{{\App\Enums\CategoryTypeEnum::NEWS->value}}" checked>
+                                            <label class="form-check-label" for="اخبار">
+                                                اخبار
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <input
+                                        name="q"
+                                        value="{{request()->get('q')}}"
+                                        style="text-align: right; font-size: 12px;"
+                                        class="form-control"
+                                        id="descriptionInput"
+                                        placeholder="بحث"
+                                        required
+                                    ></input>
+                                </div>
+                                <div class="mb-3">
+                                    <p
+                                        for="city"
+                                        class="form-label"
+                                        style="text-align: right; font-size: 12px;"
+                                    >
+                                        المحافظة
+                                    </p>
+                                    <select
+                                        name="city"
+                                        class="form-select"
+                                        aria-label="Default select example"
+                                        style="text-align: right"
+                                    >
+                                        <option value="" @if(request()->get('city')==null) selected @endif></option>
+                                        @foreach($cities as $city)
+                                            <option value="{{$city->id}}" @if(request()->get('city')==$city->id) selected @endif>{{$city->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <p
+                                        for="sections"
+                                        class="form-label"
+                                        style="text-align: right; font-size: 12px;"
+                                    >
+                                        إختر التصنيف
+                                    </p>
+                                    <select
+                                        name="section"
+                                        class="form-select"
+                                        aria-label="Default select example"
+                                        id="sections"
+                                        style="text-align: right"
+                                    >
+                                        <option value="" @if(request()->get('category')==null) selected @endif></option>
+                                        @foreach($categories as $category)
+                                            <option value="{{$category->id}}" @if(request()->get('category')==$category->id) selected @endif>{{$category->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <p
+                                        for="categories"
+                                        class="form-label"
+                                        style="text-align: right; font-size: 12px;"
+                                    >
+                                        إختر القسم
+                                    </p>
+                                    <select
+                                        name="category"
+                                        class="form-select"
+                                        aria-label="Default select example"
+                                        style="text-align: right"
+                                        id="categories"
+                                    >
+
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+
+                                    <div id="price">
+                                        <label for="rangeInput" class="form-label">اختر قيمة بين 0 و 10,000</label>
+                                        <input
+                                            type="range"
+                                            class="form-range"
+                                            id="rangeInput"
+                                            min="0"
+                                            max="10000"
+                                            step="1"
+                                            value="5000"
+                                            name="price"
+                                            >
+                                        <div class="mt-2">
+                                            <span>القيمة الحالية: </span>
+                                            <span id="rangeValue">0</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn" style="color: #fff; width: 100%; background-color: #e30613;"> بحث </button>
+
+                            </form>
+
+                        </div>
+
+
+                    <div style="background-color: #fff; padding: 16px; border-radius: 16px; margin: 20px 0px; display: flex; flex-wrap: wrap;gap: 16px;">
+                        @forelse($products as $product)
+                            <div class="card" style="width: 18rem; text-align: right;">
+                                <img src="{{$product->hasMedia('images')?$product->getImage('images'):$product->getImage('image')}}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{$product->name}}</h5>
+                                    <p class="card-text">{{$product->expert}}</p>
+                                    <p class="card-text">{{$product->city?->name}} - {{$product->category?->name}} - {{$product->sub1?->name}}</p>
+                                    <a @if($product->type==\App\Enums\CategoryTypeEnum::SEARCH_JOB->value || $product->type==\App\Enums\CategoryTypeEnum::JOB->value )
+
+                                       href="{{route('jobs.show',$product->id)}}"
+                                       @elseif($product->type==\App\Enums\CategoryTypeEnum::TENDER->value )
+                                       href="{{route('tenders.show',$product->id)}}"
+                                       @elseif($product->type==\App\Enums\CategoryTypeEnum::RESTAURANT->value ||  $product->type==\App\Enums\CategoryTypeEnum::PRODUCT->value )
+                                       href="{{route('posts.show',$product->id)}}"
+                                       @endif class="btn btn-primary"> زيارة </a>
+                                </div>
+                            </div>
+                            @empty
+                                <p class="text-muted text-start">لا يوجد عناصر لعرضها</p>
+                                @endforelse
+
+
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div
+                class="floating-left-sidebar-icon d-lg-none"
+                onclick="toggleLeftSidebar()"
+            >
+                التصنيفات
+            </div>
+            <!-- Left Section (2 columns on large screens, 0 on small) -->
+            <div id="left-sidebar" class="col-3 d-none d-xl-block">
+                <div class="media-scroll bg-light p-4 h-100">
+                    <div style="text-align: center">
+                        <button
+                            class="new-post"
+                            data-bs-toggle="modal"
+                            data-bs-target="#addPostModal"
+                        >
+                            منشور جديد
+                        </button>
+                    </div>
+                    <div class="categories">
+                        <p class="category-text">التصنيفات</p>
+                        <div class="divider"></div>
+                        @foreach($categories as $category)
+                            <div class="category-item">
+                                <p>{{$category->name}}</p>
+                                <div class="count">{{$category->products_count}}</div>
+                            </div>
+                        @endforeach
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@section('js')
+    <script>
+        const   rangeInput=document.getElementById('rangeInput')
+        const   rangeValue=document.getElementById('rangeValue')
+
+        rangeValue.innerText=rangeInput.value;
+        rangeInput.addEventListener('input',()=>{
+            rangeValue.innerText=rangeInput.value;
+        })
+        const selectedShipping = document.querySelector('input[name="type"]:checked');
+        const price=document.getElementById('price')
+        if(selectedShipping.value !='{{\App\Enums\CategoryTypeEnum::PRODUCT->value}}'){
+            price.classList.add('d-none')
+        }else{
+            price.classList.remove('d-none')
+        }
+
+
+        const typeInputs = document.querySelectorAll('input[name="type"]');
+
+        typeInputs.forEach(input => {
+            input.addEventListener('change', () => {
+                if (input.checked) {
+                    console.log(input.value)
+                    if(input.value !='{{\App\Enums\CategoryTypeEnum::PRODUCT->value}}'){
+                        price.classList.add('d-none')
+                    }else{
+                        price.classList.remove('d-none')
+                    }
+                }
+            });
+        });
+    </script>
+    <script>
+        const categories = @json($categories);
+        document.getElementById('sections').addEventListener('change', function () {
+            const selectedSectionId = this.value;
+            const districtSelect = document.getElementById('categories');
+
+            // تفريغ القائمة القديمة
+            districtSelect.innerHTML = '<option value="">اختر القسم</option>';
+
+            // البحث عن المدينة المختارة
+            const selectedSection = categories.find(city => city.id == selectedSectionId);
+
+            if (selectedSection && selectedSection.children.length > 0) {
+                selectedSection.children.forEach(function (district) {
+                    const option = document.createElement('option');
+                    option.value = district.id;
+                    option.textContent = district.name;
+                    districtSelect.appendChild(option);
+                });
+            }
+        });
+    </script>
+
+@endsection

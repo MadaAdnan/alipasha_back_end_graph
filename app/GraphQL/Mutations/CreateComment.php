@@ -1,0 +1,43 @@
+<?php declare(strict_types=1);
+
+namespace App\GraphQL\Mutations;
+
+
+use App\Exceptions\GraphQLExceptionHandler;
+use App\Models\Comment;
+use App\Models\Interaction;
+use App\Service\SendNotifyHelper;
+
+final class CreateComment
+{
+    /**
+     * @param null $_
+     * @param array{} $args
+     */
+    public function __invoke($_, array $args)
+    {
+        $product = \App\Models\Product::find($args['product_id']);
+        if(!auth()->user()->is_active){
+            throw new GraphQLExceptionHandler('تم حظر حسابك يرجى مراجعة الإدارة');
+        }
+        if (auth()->check() && $product != null && isset($args['comment_id']) && $args['comment_id']==null) {
+            Interaction::updateOrCreate([
+                'user_id' => auth()->id(),
+                'category_id' => $product->sub1_id,
+
+            ], [
+                'visited' => \DB::raw('visited + 1'),
+            ]);
+        }
+
+        $comment= Comment::create([
+            'comment' => $args['comment'],
+            'product_id' => $args['product_id'],
+            'user_id' => auth()->id(),
+            'comment_id'=>$args['comment_id']??null
+        ]);
+
+
+return $comment;
+    }
+}

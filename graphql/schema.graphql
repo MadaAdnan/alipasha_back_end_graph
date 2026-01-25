@@ -1,41 +1,38 @@
-"A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`."
-scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+#import scalars.graphql
+#import category.graphql
+#import city.graphql
+#import color.graphql
+#import plan.graphql
+#import advice.graphql
+#import slider.graphql
+#import question.graphql
 
-"Indicates what fields are available at the top level of a query operation."
-type Query {
-    "Find a single user by an identifying attribute."
-    user(
-      "Search by primary key."
-      id: ID @eq @rules(apply: ["prohibits:email", "required_without:email"])
 
-      "Search by email address."
-      email: String @eq @rules(apply: ["prohibits:id", "required_without:id", "email"])
-    ): User @find
+#import coupon.graphql
+#import comment.graphql
+#import product.graphql
+#import job.graphql
+#import tender.graphql
 
-    "List multiple users."
-    users(
-      "Filters by name. Accepts SQL LIKE wildcards `%` and `_`."
-      name: String @where(operator: "like")
-    ): [User!]! @paginate(defaultCount: 10)
-}
 
-"Account of a person who utilizes this application."
-type User {
-    "Unique primary key."
-    id: ID!
+#import service.graphql
 
-    "Non-unique name."
-    name: String!
+#import user.graphql
+#import balance.graphql
+#import points.graphql
+#import auth.graphql
+#import shipping_price.graphql
+#import order.graphql
 
-    "Unique email address."
-    email: String!
+#import setting.graphql
+#import partner.graphql
+#import seller.graphql
 
-    "When the email was verified."
-    email_verified_at: DateTime
+#import community.graphql
+#import attribute.graphql
+#import media.graphql
+#import notification.graphql
+#import invoice.graphql
 
-    "When the account was created."
-    created_at: DateTime!
 
-    "When the account was last updated."
-    updated_at: DateTime!
-}
+

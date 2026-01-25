@@ -1,0 +1,10 @@
+type Query{
+    attributes(category_id:Int!):[Attribute]
+}
+
+type Attribute{
+    id:ID!
+    name:String!
+    type:String
+    attributes:[Attribute] @hasMany
+}

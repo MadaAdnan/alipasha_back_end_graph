@@ -1,0 +1,23 @@
+extend type Query{
+    categories:[Category] @all
+    mainCategories(type: String ):[Category]
+    category(id:ID! @eq): Category @find
+
+    categoryBySeller(sellerId:Int!):[Category]
+}
+
+type Category{
+    id:ID!,
+    name:String,
+    color:String,
+    type:String
+    has_color:Boolean
+    products2_count:Int
+    products_count:Int
+    image:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImage")
+    parents:[Category] @belongsToMany
+    children:[Category] @belongsToMany
+    attributes:[Attribute] @hasMany
+
+
+}

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('category_id')->nullable()->constrained()->cascadeOnDelete();
             $table->string('name');
             $table->string('type')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
 

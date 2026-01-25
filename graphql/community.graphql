@@ -1,0 +1,55 @@
+type Community{
+    id:Int
+    name:String
+    manager:User
+    type:String
+    url:String
+    users:[User] @field(resolver: "App\\GraphQL\\Resolvers\\CommunityUserResolve@users")
+    users_count:Int
+    last_update:HumanDate
+    image:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImage")
+     created_at:HumanDate
+    pivot:PivotCommunity @field(resolver: "App\\GraphQL\\Resolvers\\PivotCommunity@getPivot")
+}
+type PivotCommunity{
+    is_manager:Boolean
+    notify:Boolean
+}
+extend type Query{
+    community(id:ID! @eq):Community @find
+    getMyCommunity(search:String,first:Int,page:Int):[Community]  @paginate(builder:"App\\GraphQL\\Queries\\GetMyCommunity") @guard
+    getMessages(communityId:Int!,first:Int,page:Int):[Message]  @paginate(builder:"App\\GraphQL\\Queries\\GetMessages") @guard
+    getLiveMessages(first:Int,page:Int):[Message]  @paginate(builder:"App\\GraphQL\\Queries\\GetLiveMessages")
+    leaveCommunity(communityId:ID!):Boolean @guard
+
+}
+
+extend type Mutation{
+    createChat(memberId:Int!):UserCommunity @guard
+    createGroup(name:String!,image:Upload!):UserCommunity @guard
+    createChannel(name:String!,,image:Upload!):UserCommunity @guard
+    muteCommunity(communityId:ID!):Community @guard
+    accessToCommunity(code:String!):Community @guard
+    exitFromCommunity(communityId:ID!):Community @guard
+
+}
+type UserCommunity{
+    community:Community
+    user:User
+}
+
+type Message{
+    id:Int
+    community:Community @belongsTo
+    user:User @belongsTo
+    body:String
+    type:String
+    created_at:HumanDate
+    attach:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getAttach")
+
+}
+
+extend type Mutation{
+    CreateMessage(communityId:Int,body:String,attach:Upload):Message @guard
+    createLiveMessage(body:String!):Message @guard
+}

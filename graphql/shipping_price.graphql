@@ -1,0 +1,12 @@
+type ShippingPrice{
+    weight:Float
+    size:Float
+    internal_price:Float
+    external_price:Float
+
+}
+
+extend type Query {
+    pricing:[ShippingPrice] @all @orderBy(column:"weight") @orderBy(column:"size")
+    myOrderShipping:[Order]  @paginate(builder:"App\\GraphQL\\Queries\\MyOrderShipping") @guard
+}

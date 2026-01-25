@@ -1,0 +1,34 @@
+<?php declare(strict_types=1);
+
+namespace App\GraphQL\Queries;
+
+use App\Enums\CategoryTypeEnum;
+use App\Models\Category;
+
+final class MainCategories
+{
+    /**
+     * @param null $_
+     * @param array{} $args
+     */
+    public function __invoke($_, array $args)
+    {
+        $type = $args['type']??null;
+        return Category::where('is_active',true)
+        ->when(!empty($type), function ($query) use ($type) {
+            if ($type === 'job' || $type === 'search_job') {
+                $query->where('type', 'job')->orWhere('type', 'search_job');
+            } else {
+                $query->where('type', $type);
+            }
+        })->with(['children'=>fn($q)=>$q->where('is_active',true)])
+
+            ->when($type === 'product',fn($query)=>$query->where('type','product')->orWhere('type',CategoryTypeEnum::RESTAURANT->value))
+            ->where(['is_active' => true, 'is_main' => true/*,'type' => 'product'*/])
+
+            ->orderBy('sortable')
+            ->orderByRaw("FIELD(type, 'product', 'job', 'search_job','tender','service','news')")
+
+            ->get();
+    }
+}

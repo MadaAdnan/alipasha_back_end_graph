@@ -1,0 +1,241 @@
+extend type Query{
+    users: [User] @paginate
+    user (id: ID @eq): User @find
+    specialSeller: [User]
+    resendEmailVerify:User @guard
+    searchSeller(search:String,city_id:Int):[User]
+    getMyFollowers:[Follower] @guard @paginate(builder:"App\\GraphQL\\Queries\\GetMyFollowers")
+    getMyFollowing:[Follower] @guard @paginate(builder:"App\\GraphQL\\Queries\\GetMyFollowing")
+    usersByCategory(category_id:Int!,first:Int,page:Int):[User] @paginate(builder:"App\\GraphQL\\Queries\\UserByCategory")
+    identities:IdentityWithUser  @guard
+}
+type IdentityWithUser{
+  user:User
+    identity:Identity
+}
+
+type User{
+    id: ID
+    name: String
+    seller_name: String
+    email_verified_at:String
+    email:String
+    is_verified:Boolean
+    is_social:Boolean
+    can_create_group:Boolean
+    can_create_channel:Boolean
+    id_color:String
+    level:String
+    phone:String
+    address:String
+    social:Social
+    is_available_create:Boolean @field(resolver: "App\\GraphQL\\Resolvers\\HelperBalanceResolve@getIsAvailableCreate")
+    image:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImage")
+    custom:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getCustomImage")
+    logo:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getLogo")
+    email_verified_at:String
+    open_time:String
+    close_time:String
+    is_delivery:Boolean
+    is_restaurant:Boolean
+    is_active:Boolean
+    is_seller:Boolean
+    affiliate:String
+    invoices_count:Int
+    invoices_seller_count:Int
+    info:String
+    special_product_count:Int
+    advices_count:Int
+    following_count:Int
+    products:[Product]  @hasMany
+    plans:[Plan] @belongsToMany(relation:"plans")
+    city:City @belongsTo
+    area:City @belongsTo
+    is_special:Boolean
+    total_balance:Float @field(resolver: "App\\GraphQL\\Resolvers\\HelperBalanceResolve@getTotalBalance")
+    total_point:Float @field(resolver: "App\\GraphQL\\Resolvers\\HelperBalanceResolve@getTotalPoint")
+    followers: [Follower] @hasMany
+    total_views:Int
+    trust:Boolean
+    gallery:[DataImage] @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImageGallery")
+    unread_notifications_count:Int
+    communities:[Community] @belongsToMany(relation:"communities")
+    category:Category
+    full_phone:String
+    phone_code:String
+
+}
+type Follower{
+    user:User @belongsTo
+    seller:User @belongsTo
+}
+
+type Identity{
+    status:String
+    id:ID!
+}
+
+input VerifyIdentityInput{
+    imageBack:Upload @rules(apply:["nullable","image"],messages:[
+
+        {
+            rule:"image"
+            message:"صيغة الملف غير مدعومة"
+        }
+    ])
+    imageFront:Upload @rules(apply:["nullable","image"],messages:[
+        {
+            rule:"image"
+            message:"صيغة الملف غير مدعومة"
+        }
+    ])
+    passport:Upload @rules(apply:["nullable","image"],messages:[
+        {
+            rule:"image"
+            message:"صيغة الملف غير مدعومة"
+        }
+    ])
+    record:Upload @rules(apply:["nullable","image"],messages:[
+        {
+            rule:"image"
+            message:"صيغة الملف غير مدعومة"
+        }
+    ])
+}
+extend type Mutation{
+
+    verifyEmail(code:String!):User @guard
+    verifyIdentity(input:VerifyIdentityInput!):IdentityWithUser @guard
+    updateUser(input:UpdateUserInput) : User  @guard
+
+    createSeller(input:CreateSellerInput): User @guard
+
+    updateAvatar(input:ImageUpdate) :User @guard
+
+    updateSellerLogo(input:ImageUpdate) :User @guard
+
+    followAccount(id:ID!):User @guard
+    unFollowing(id:ID): User @guard
+    addToGallery(image:Upload!): DataImage @guard
+    #    deleteUser(id:ID!) : User @delete
+    changePassword(password:String!,confirm:String!):Boolean @guard
+}
+
+input ImageUpdate{
+    image:Upload! @rules(apply:["required","image"],messages:[
+        {
+            rule:"required"
+            message:"يرجى تحديد صورة"
+        }
+        {
+            rule:"image"
+            message:"صيغة الملف غير مدعومةة"
+        }
+    ])
+}
+input CreateSellerInput{
+    seller_name:String! @rules(apply:["required","min:3"],messages:[
+        {
+            rule:"required"
+            message:"اسم المتجر مطلوب"
+        }
+        {
+            rule:"min"
+            message:"يجب ان يحوي اسم المتجر 3 أحرف على الأقل"
+        }
+    ])
+    info:String
+    is_delivery:Boolean
+    is_active_seller:Boolean
+    open_time:String
+    close_time:String
+    address:String! @rules(apply:["required"],messages:[
+        {
+            rule:"required"
+            message:"عنوان المتجر مطلوب"
+        }
+
+    ])
+    image:Upload @rules(apply:["nullable","image"],messages:[
+        {
+            rule:"image"
+            message:"صيغة الملف غير مدعومة"
+        }
+    ])
+
+}
+
+
+
+
+input UpdateUserInput{
+    name:String! @rules(apply:["required","min:3"],messages:[
+        {
+            rule:"required"
+            message:"الاسم مطلوب"
+        }
+        {
+            rule:"min"
+            message:"يجب ان يحوي الاسم 3 أحرف على الأقل"
+        }
+    ])
+    email:String!  @rules(apply:["required","email"],messages:[
+        {
+            rule:"required"
+            message:"البريد الإلكتروني مطلوب"
+        }
+        {
+            rule:"email"
+            message:"يرجى إدخال بريد إلكتروني صالح"
+        }
+        {
+            rule:"unique"
+            message:"البريد الإلكتروني مستخدم من قبل"
+        }
+    ])
+    password:String @rules(apply:["nullable","min:8"],messages:[
+
+        {
+            rule:"min"
+            message:"يجب ان تحوي كلمة المرور 8 أحرف على الأقل"
+        }
+    ])
+
+    phone:String
+    phone_code:String
+    city_id:Int
+    area_id:Int
+    seller_name:String
+    address:String
+    is_delivery:Boolean
+    close_time:String
+    open_time:String
+    info:String
+    device_token:String
+    latitude:Float
+    longitude:Float
+    colorId:String
+    social:UserSocial
+
+    image:Upload @rules(apply:["nullable","image"],messages:[
+        {
+            rule:"image"
+            message:"صيغة الملف غير مدعومة"
+        }
+    ])
+    logo:Upload @rules(apply:["nullable","image"],messages:[
+        {
+            rule:"image"
+            message:"صيغة الملف غير مدعومة"
+        }
+    ])
+
+
+}
+input UserSocial{
+    instagram:String
+    face:String
+    linkedin:String
+    tiktok:String
+    twitter:String
+}

@@ -1,0 +1,18 @@
+extend type Mutation{
+    createComment(product_id:Int!,comment:String!,comment_id:ID):Comment! @guard
+    deleteComment(id:ID!):Boolean @guard
+}
+#
+
+
+type Comment{
+    id:ID!
+    comment:String
+    created_at:HumanDate
+    user: User @belongsTo
+    comments:[Comment] @hasMany
+    product_id:Int
+    comment_id:ID
+}
+
+

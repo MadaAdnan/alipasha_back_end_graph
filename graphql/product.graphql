@@ -1,0 +1,445 @@
+extend type Query{
+    products(sort:Sort,order_by:OrderBy ,type:String,sub_type:String ,city_id:Int ,user_id:Int ,category_id:Int ,sub1_id:Int,colors:[Int],min_price:Float,max_price:Float,search:String,first:Int,page:Int):[Product] @paginate(builder:"App\\GraphQL\\Queries\\Products")
+    product(id:ID!) : ProductDetails @field(resolver: "App\\GraphQL\\Queries\\Product@__invoke")
+    myProducts(search:String,categoryId:Int):[Product] @paginate(builder:"App\\GraphQL\\Queries\\MyProducts") @guard
+    mySpecialProducts(search:String):[Product]  @guard
+    tags(type:String!):[String]
+    recomendedProduct(first:Int,page:Int):[Product]  @paginate(builder:"App\\GraphQL\\Queries\\RecommendedProduct")
+    searchProduct(type:String,search:String):[Product] @paginate(builder:"App\\GraphQL\\Queries\\SearchProduct")
+    combinedProducts:[Product] @paginate(builder:"App\\GraphQL\\Queries\\HomeQuery\\CombinedProducts")
+#    HobbiesProduct:[Product] @paginate(builder:"App\\GraphQL\\Queries\\HomeQuery\\HobbiesProduct")
+    HobbiesProduct:[Product] @paginate(builder:"App\\GraphQL\\Queries\\HomeQuery\\RecommendedSpecialProducts")
+    LatestProduct(city_id:Int,category_id:Int):[Product] @paginate(builder:"App\\GraphQL\\Queries\\HomeQuery\\LatestProduct")
+    SpecialProduct(city_id:Int,category_id:Int):[Product] @paginate(builder:"App\\GraphQL\\Queries\\HomeQuery\\SpecialProduct")
+    #homeProduct:[Product] @paginate(builder:"App\\GraphQL\\Queries\\HomeQuery\\HomeProduct")
+    homeProduct(page: Int = 1, perPage: Int = 50): PaginatedProduct!
+    latest:[Product]  @field(resolver: "App\\GraphQL\\Queries\\SliderGroup\\LatestProduct@__invoke")
+    near:[Product]  @field(resolver: "App\\GraphQL\\Queries\\SliderGroup\\NearProduct@__invoke")
+    videos:[Product]  @field(resolver: "App\\GraphQL\\Queries\\SliderGroup\\VideoProduct@__invoke")
+    activity:[Product]  @field(resolver: "App\\GraphQL\\Queries\\SliderGroup\\ActivityProduct@__invoke")
+    specials:[Product]  @field(resolver: "App\\GraphQL\\Queries\\SliderGroup\\SpecialProduct@__invoke")
+suggestions(search:String,type:String):[String]
+}
+
+type PaginatedProduct {
+    data: [Product!]!
+    total: Int!
+    per_page: Int!
+    current_page: Int!
+    last_page: Int!
+}
+input OrderBy{
+    column:String
+    orderBy:String
+}
+input Sort{
+    created_at:String
+    price:String
+}
+type ProductDetails{
+    product:Product
+    products:[Product]
+}
+
+
+
+
+type Product{
+    id:ID!,
+    # Relations
+    user:User @belongsTo
+    city:City @belongsTo
+    category:Category @belongsTo
+    sub1:Category @belongsTo
+    sub2:Category @belongsTo
+    sub3:Category @belongsTo
+    sub4:Category @belongsTo
+    colors:[Color] @belongsToMany
+    comments:[Comment] @hasMany(defaultCount:10,type:PAGINATOR)
+    likes_count:Int @field(resolver: "App\\GraphQL\\Resolvers\\ProductInfo@getLikes")
+    comments_count:Int
+    weight:Float
+    # Fields
+    name:String,
+    active:String
+    info:String @field(resolver: "App\\GraphQL\\Resolvers\\ProductInfo@getAddressWithInfo")
+    expert:String @field(resolver: "App\\GraphQL\\Resolvers\\ProductInfo@getNameWithExpert")
+    tags:[String]
+    is_discount:Boolean
+    is_delivery:Boolean @field(resolver: "App\\GraphQL\\Resolvers\\ProductInfo@isDelivery")
+    is_available:Boolean
+    level:String
+    phone:String @field(resolver: "App\\GraphQL\\Resolvers\\ProductInfo@fullPhone")
+    email:String
+    address:String
+    url:String
+    longitude:String
+    latitude:String
+    price:Float
+    discount:Float
+    start_date:CustomDate
+    end_date:CustomDate
+    code:String
+    type:String,
+    views_count:Int
+    turkey_price:TurkeyPrice  @field(resolver: "App\\GraphQL\\Resolvers\\TurkeyPrice@getTurkeyPrice")
+    syr_price:TurkeyPrice  @field(resolver: "App\\GraphQL\\Resolvers\\TurkeyPrice@getSyrPrice")
+    # Files From Media
+    image:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImage")
+    video:String
+    images:[String] @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImages")
+    docs:[String] @field(resolver: "App\\GraphQL\\Resolvers\\Image@getDocs")
+    listOfImages:[DataImage] @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImagesWithId")
+    listOfDocs:[DataImage] @field(resolver: "App\\GraphQL\\Resolvers\\Image@getDocsWithId")
+    created_at:HumanDate
+    updated_at:HumanDate
+    attributes:[AttributeProducts] @belongsToMany
+    vote_avg:Float @field(resolver: "App\\GraphQL\\Resolvers\\VoteAvg@getAvg")
+    is_rate:Boolean @field(resolver: "App\\GraphQL\\Resolvers\\VoteAvg@isRate")
+    is_like:Boolean @field(resolver: "App\\GraphQL\\Resolvers\\VoteAvg@isLike")
+
+
+}
+type AttributeProducts{
+    attribute_id:Int,
+    product_id:Int
+}
+type TurkeyPrice{
+    price:Float
+    discount:Float
+}
+type DataImage{
+    id:ID!
+    url:String!
+}
+
+extend type Mutation {
+    changeAvilable(id:ID!):Product @guard
+    addVote(productId:Int,vote:Int): Product @guard
+    clickWhatsapp(productId:Int): Product @guard
+    deleteProduct(id:ID!):Product
+    createProduct(input:CreateProductInput) : Product @guard
+    addLike(product_id:ID!):Product @guard
+    updateProduct(id:ID! ,input:UpdateProductInput) : Product @guard
+    addSpecialProduct(id:ID!,level:String! @rules(apply:["required","in:normal,special"],messages:[
+        {
+            rule:"required",
+            message:"حقل الرتبة مطلوب"
+        }
+        {
+            rule:"in",
+            message:"القيم المتاحة فقط [normal,special]"
+        }
+    ])):Product @guard
+    #    deleteProduct(id:ID!) : Boolean @delete
+
+    #    deletProductMedia(id:ID!) : Boolean @delete
+}
+
+input CreateProductInput{
+    name:String @rules(apply: ["nullable","min:3"],messages:[
+        {
+            rule:"min",
+            message:"يرجى إدخال 3 أحرف على الأقل"
+        }
+    ])
+    is_delivery:Boolean
+    is_special:Boolean
+    city_id:Int
+    #    city_id:Int @rules(apply: ["required","integer","exists:cities,id"],messages:[
+    #        {
+    #            rule:"required",
+    #            message:"يرجى إدخال المدينة"
+    #        }
+    #        {
+    #            rule:"integer",
+    #            message:"يرجى إدخال مدينة صالحة"
+    #        }
+    #        {
+    #            rule:"exists",
+    #            message:"يرجى إدخال مدينة صالحة"
+    #        }
+    #    ])
+
+    images: [Upload]
+    # @rulesForArray(apply: ["mimes:png,webp,jpg,jpeg,bmp"], messages: [{ rule: "mimetypes", message: "يرجى إدخال صورة صالحة" }])
+    video:String @rules(apply: ["nullable","string"],messages:[
+        {
+            rule:"string",
+            message:"يرجى إدخال قيمة صالحة"
+        }
+    ])
+    info:String! @rules(apply: ["required","string"],messages:[
+        {
+            rule:"required",
+            message:"يرجى إدخال قيمة صالحة"
+        }
+        {
+            rule:"string",
+            message:"يرجى إدخال قيمة صالحة"
+        }
+    ])
+    tags:[String] @rules(apply: ["nullable"]) @rulesForArray(apply:["min:0"],messages:[
+        {
+            rule:"string",
+            message:"يرجى إدخال قيمة نصية صالحة"
+        }
+    ]
+
+
+    )
+
+    is_available:Boolean @rules(apply: ["boolean"],messages:[
+        {
+            rule:"boolean",
+            message:"يرجى إدخال قيمة صالحة"
+        }
+    ])
+    price:Float @rules(apply: ["required","numeric"],messages:[
+        {
+            rule:"numeric",
+            message:"يرجى إدخال قيمة صالحة"
+        }
+        {
+            rule:"required",
+            message:"يرجى إدخال السعر"
+        }
+    ])
+    #    is_discount:Boolean  @rules(apply: ["boolean"],messages:[
+    #        {
+    #            rule:"boolean",
+    #            message:"يرجى إدخال قيمة صالحة"
+    #        }
+    #    ])
+    discount:Float  @rules(apply: ["nullable","numeric"],messages:[
+
+        {
+            rule:"numeric",
+            message:"يرجى إدخال سعر صحيح"
+        }
+    ])
+    category_id:Int!  @rules(apply: ["required","integer","exists:categories,id"],messages:[
+        {
+            rule:"required",
+            message:"يرجى إدخال التصنيف الرئيسي"
+        }
+        {
+            rule:"integer",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+        {
+            rule:"exists",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+    ])
+    sub1_id:Int! @rules(apply: ["required","integer","exists:categories,id"],messages:[
+        {
+            rule:"required",
+            message:"يرجى إدخال التصنيف الفرعي"
+        }
+        {
+            rule:"integer",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+        {
+            rule:"exists",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+    ])
+    sub2_id:Int @rules(apply: ["nullable","integer","exists:categories,id"],messages:[
+        {
+            rule:"integer",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+        {
+            rule:"exists",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+    ])
+    sub3_id:Int @rules(apply: ["nullable","integer","exists:categories,id"],messages:[
+        {
+            rule:"integer",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+        {
+            rule:"exists",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+    ])
+    sub4_id:Int @rules(apply: ["nullable","integer","exists:categories,id"],messages:[
+        {
+            rule:"integer",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+        {
+            rule:"exists",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+    ])
+    options:[Int]
+    #    write:
+    attribute:[Int]
+    colors:[Int]
+    period:Int
+}
+
+input UpdateProductInput{
+    name:String @rules(apply: ["nullable","min:3"],messages:[
+        {
+            rule:"min",
+            message:"يرجى إدخال 3 أحرف على الأقل"
+        }
+    ])
+    is_special:Boolean
+    city_id:Int @rules(apply: ["nullable","integer","exists:cities,id"],messages:[
+        {
+            rule:"required",
+            message:"يرجى إدخال المدينة"
+        }
+        {
+            rule:"integer",
+            message:"يرجى إدخال مدينة صالحة"
+        }
+        {
+            rule:"exists",
+            message:"يرجى إدخال مدينة صالحة"
+        }
+    ])
+    images:[Upload]
+    #    @rules(apply:["nullable","image"],messages:[
+    #        {
+    #            rule:"required",
+    #            message:"يرجى إدخال الصورة"
+    #        }
+    #        {
+    #            rule:"image",
+    #            message:"يرجى إدخال صورة صالحة"
+    #        }
+    #    ])
+    #    images:[Upload] @rules(apply:["nullable"]) @rulesForArray(apply:["image"],messages:[
+    #        {
+    #            rule:"image",
+    #            message:"يرجى إدخال صورة صالحة"
+    #        }
+    #    ])
+
+    video:String @rules(apply: ["nullable","string"],messages:[
+        {
+            rule:"string",
+            message:"يرجى إدخال قيمة صالحة"
+        }
+    ])
+    info:String! @rules(apply: ["required","string"],messages:[
+        {
+            rule:"required",
+            message:"يرجى إدخال قيمة صالحة"
+        }
+        {
+            rule:"string",
+            message:"يرجى إدخال قيمة صالحة"
+        }
+    ])
+    tags:[String] @rules(apply: ["nullable"]) @rulesForArray(apply:["min:0"],messages:[
+        {
+            rule:"string",
+            message:"يرجى إدخال قيمة نصية صالحة"
+        }
+    ]
+
+
+    )
+
+    is_available:Boolean @rules(apply: ["boolean"],messages:[
+        {
+            rule:"boolean",
+            message:"يرجى إدخال قيمة صالحة"
+        }
+    ])
+    price:Float @rules(apply: ["required","numeric"],messages:[
+        {
+            rule:"numeric",
+            message:"يرجى إدخال قيمة صالحة"
+        }
+        {
+            rule:"required",
+            message:"يرجى إدخال السعر"
+        }
+    ])
+    #    is_discount:Boolean  @rules(apply: ["boolean"],messages:[
+    #        {
+    #            rule:"boolean",
+    #            message:"يرجى إدخال قيمة صالحة"
+    #        }
+    #    ])
+    discount:Float  @rules(apply: ["required_if:is_discount,true","numeric"],messages:[
+
+        {
+            rule:"required_if",
+            message:"يرجى إدخال سعر العرض"
+        }
+    ])
+    category_id:Int!  @rules(apply: ["required","integer","exists:categories,id"],messages:[
+        {
+            rule:"required",
+            message:"يرجى إدخال التصنيف الرئيسي"
+        }
+        {
+            rule:"integer",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+        {
+            rule:"exists",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+    ])
+    sub1_id:Int! @rules(apply: ["required","integer","exists:categories,id"],messages:[
+        {
+            rule:"required",
+            message:"يرجى إدخال التصنيف الفرعي"
+        }
+        {
+            rule:"integer",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+        {
+            rule:"exists",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+    ])
+    sub2_id:Int @rules(apply: ["nullable","integer","exists:categories,id"],messages:[
+        {
+            rule:"integer",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+        {
+            rule:"exists",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+    ])
+    sub3_id:Int @rules(apply: ["nullable","integer","exists:categories,id"],messages:[
+        {
+            rule:"integer",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+        {
+            rule:"exists",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+    ])
+    sub4_id:Int @rules(apply: ["nullable","integer","exists:categories,id"],messages:[
+        {
+            rule:"integer",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+        {
+            rule:"exists",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+    ])
+    options:[Int]
+    #    write:
+    attribute:[Int]
+    period:Int
+    colors:[Int]
+}
+

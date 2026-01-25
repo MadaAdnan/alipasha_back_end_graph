@@ -1,0 +1,610 @@
+@extends('layouts.master_layouts')
+@section('title')
+    الملف الشخصي
+@endsection
+@section('content')
+    <div class="container-fluid" style="margin-top: 70px">
+        <div class="row">
+            <div class="col-12" style="margin-top: 10px">
+                <div
+                    class="container"
+                    style="
+              background-color: #fff;
+              border-radius: 16px;
+              padding: 16px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              flex-direction: column;
+              gap: 16px;
+            "
+                >
+                    <img
+                        src="{{auth()->user()->getImage()}}"
+                        alt="profile-img"
+                        style="width: 120px; height: 120px; border-radius: 120px"
+                    />
+                    <div style="text-align: center">
+                        <p style="color: #e30613; font-size: 22px">{{auth()->user()->name}}</p>
+                        <p style="color: #aaa; font-size: 18px">
+                            {{auth()->user()->address}}
+                        </p>
+                    </div>
+                    <div
+                        style="
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+              "
+                    >
+                        @if(auth()->user()->products_count >0)
+                            <a href="{{route('seller.profile',['id'=>auth()->id()])}}"
+
+                                    {{--data-bs-toggle="modal"
+                                    data-bs-target="#acceptAccount"--}}
+                                    style="
+                    color: #fff;
+                    background-color: #e30613;
+                    font-size: 12px;
+                    padding: 8px;
+                    border-radius: 4px;
+                    "
+                                >
+                                    عرض المتجر
+                                </a>
+
+                        @endif
+
+                        @if(!auth()->user()->is_verified)
+                            <button
+                                data-bs-toggle="modal"
+                                data-bs-target="#acceptAccount"
+                                style="
+                  color: #fff;
+                  background-color: #0f5fc2;
+                  font-size: 12px;
+                  padding: 8px;
+                  border-radius: 4px;
+                "
+                            >
+                                توثيق الحساب
+                            </button>
+                        @else
+                            <button
+                                style="
+                  color: #fff;
+                  background-color: #0f5fc2;
+                  font-size: 12px;
+                  padding: 8px;
+                  border-radius: 4px;
+                "
+                            >
+                                الحساب موثق
+                            </button>
+                        @endif
+                            <form action="{{route('logout')}}" method="post">
+                                @csrf
+                                <button type="submit"
+                                    style="
+                  color: #fff;
+                  background-color: #e82129;
+                  font-size: 12px;
+                  padding: 8px;
+                  border-radius: 4px;
+                "
+                                >
+                                   تسجيل الخروج
+                                </button>
+                            </form>
+                        <button
+                            data-bs-toggle="modal"
+                            data-bs-target="#updateAccountModal"
+                            style="
+                  color:#000000;
+                  background-color: #e4e6eb;
+                  font-size: 12px;
+                  padding: 8px;
+                  border-radius: 4px;
+                "
+                        >
+                            تعديل الملف الشخصي
+                        </button>
+
+                    </div>
+
+                    <div
+                        style="
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 300px;
+                gap: 8px;
+              "
+                    >
+                        <button
+                            data-bs-toggle="modal"
+                            data-bs-target="#statisticAccount"
+                            style="
+                  color: #fff;
+                  background-color: #e30613;
+                  font-size: 12px;
+                  padding: 8px;
+                  border-radius: 4px;
+                "
+                        >
+                            الإحصائيات
+                        </button>
+
+                         <a href="{{route('profile.index',['type'=>'ads'])}}"
+                          style="
+                            color: #000000;
+                            background-color: #e4e6eb;
+                            font-size: 12px;
+                            padding: 8px;
+                            border-radius: 4px;
+                          "
+                        >
+                          الإعلانات الممولة
+                        </a>
+                        <a href="{{route('profile.index',['type'=>'products'])}}"
+                          style="
+                            color: #000000;
+                            background-color: #e4e6eb;
+                            font-size: 12px;
+                            padding: 8px;
+                            border-radius: 4px;
+                          "
+                        >
+                          المنتجات
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Section (2 columns on large screens, 0 on small) -->
+
+        </div>
+    </div>
+
+    <!-- statistic modal  -->
+    <div
+        class="modal fade"
+        id="statisticAccount"
+        tabindex="-1"
+        aria-labelledby="infoModalLabel"
+        aria-hidden="true"
+        dir="ltr"
+    >
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="formModalLabel">توثيق الحساب</h5>
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                    ></button>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-unstyled" dir="rtl">
+                        <h3 class="mb-4 text-center">الرصيد و الإحصاء</h3>
+                        <div class="row">
+                            <div
+                                class="col-6 col-lg-4"
+                                style="
+                    border: 1px solid #ccc;
+                    padding: 16px;
+                    border-radius: 12px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-direction: column;
+                    gap: 4px;
+                  "
+                            >
+                                <p class="sub-title">{{auth()->user()->getTotalPoint()}}</p>
+                                <p class="title">رصيد الننقاط</p>
+                            </div>
+                            <div
+                                class="col-6 col-lg-4"
+                                style="
+                    border: 1px solid #ccc;
+                    padding: 16px;
+                    border-radius: 12px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-direction: column;
+                    gap: 4px;
+                  "
+                            >
+                                <p class="sub-title">{{auth()->user()->advices->count()}}</p>
+                                <p class="title">عدد الإعلانات</p>
+                            </div>
+                            <div
+                                class="col-6 col-lg-4"
+                                style="
+                    border: 1px solid #ccc;
+                    padding: 16px;
+                    border-radius: 12px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-direction: column;
+                    gap: 4px;
+                  "
+                            >
+                                <p class="sub-title">{{auth()->user()->followers_count}}</p>
+                                <p class="title">عدد المتابعين</p>
+                            </div>
+                            <div
+                                class="col-6 col-lg-4"
+                                style="
+                    border: 1px solid #ccc;
+                    padding: 16px;
+                    border-radius: 12px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-direction: column;
+                    gap: 4px;
+                  "
+                            >
+                                <p class="sub-title">{{auth()->user()->total_views}}</p>
+                                <p class="title">المشاهدات</p>
+                            </div>
+                            <div
+                                class="col-6 col-lg-4"
+                                style="
+                    border: 1px solid #ccc;
+                    padding: 16px;
+                    border-radius: 12px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-direction: column;
+                    gap: 4px;
+                  "
+                            >
+                                <p class="sub-title">{{auth()->user()->getTotalBalance()}}</p>
+                                <p class="title">الرصيد الحالي</p>
+                            </div>
+                           {{-- <div
+                                class="col-6 col-lg-4"
+                                style="
+                    border: 1px solid #ccc;
+                    padding: 16px;
+                    border-radius: 12px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-direction: column;
+                    gap: 4px;
+                  "
+                            >
+                                <p class="sub-title">0.0</p>
+                                <p class="title">مسحوبات الارباح</p>
+                            </div>--}}
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- update account modal -->
+    <div
+        class="modal fade"
+        id="updateAccountModal"
+        tabindex="-1"
+        aria-labelledby="formModalLabel"
+        aria-hidden="true"
+        dir="ltr"
+    >
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="formModalLabel">تعديل الحساب</h5>
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                    ></button>
+                </div>
+                <div class="modal-body">
+                    <form id="modalForm" action="{{route('profile.store')}}" method="post">
+                        @csrf
+                        @method('post')
+                        <div class="mb-3">
+                            <p
+                                for="descriptionInput"
+                                class="form-label"
+                                style="text-align: right; font-size: 12px;"
+                            >
+                                <span style="color: #e30613;"> * </span> الإسم
+                            </p>
+                            <input
+                                name="name"
+                                style="text-align: right; font-size: 12px;"
+                                value="{{auth()->user()->name}}"
+                                class="form-control"
+                                id="descriptionInput"
+                                placeholder="الإسم"
+                                @if(auth()->user()->is_social) disabled="" @endif
+                                required
+                            />
+                        </div>
+
+                        <div class="mb-3">
+                            <p
+                                for="descriptionInput"
+                                class="form-label"
+                                style="text-align: right; font-size: 12px;"
+                            >
+                                <span style="color: #e30613;"> * </span> اسم المتجر
+                            </p>
+                            <input
+                                name="store_name"
+                                style="text-align: right; font-size: 12px;"
+                                class="form-control"
+                                id="descriptionInput"
+                                value="{{auth()->user()->seller_name}}"
+                                placeholder="اسم المتجر"
+                                required
+                            />
+                        </div>
+
+                        <div class="mb-3">
+                            <p
+                                for="descriptionInput"
+                                class="form-label"
+                                style="text-align: right; font-size: 12px;"
+                            >
+                                البريد الالكتروني
+                            </p>
+                            <input
+
+                                name="email"
+                                style="text-align: right; font-size: 12px;"
+                                class="form-control"
+                                id="descriptionInput"
+                                placeholder="البريد الاكلتروني"
+                                value="{{auth()->user()->email}}"
+                                disabled
+                            ></input>
+                        </div>
+
+                        {{--<div class="mb-3">
+                            <p
+                                for="descriptionInput"
+                                class="form-label"
+                                style="text-align: right; font-size: 12px; color: #e30613;"
+                            >
+                                <span style="color: #e30613;"> * </span> أدخل رقم الهاتف مع رمز الدولة بدون + أو 00
+                            </p>
+                            <input
+                                name="phone"
+                                style="text-align: right; font-size: 12px;"
+                                class="form-control"
+                                id="descriptionInput"
+                                placeholder="أدخل رقم الهاتف"
+                                type="number"
+                                value="{{auth()->user()->phone}}"
+                                required
+                            ></input>
+                        </div>--}}
+{{--                        New phone--}}
+                        <div class="mb-3">
+                            <p
+                                for="descriptionInput"
+                                class="form-label"
+                                style="text-align: right; font-size: 12px;"
+                            >
+                                رقم الهاتف
+                            </p>
+                            <div class="row g-2">
+                                <div class="col-4">
+                                    <select
+                                        name="phone_code"
+                                        class="form-select @error('phone_code') is-invalid @enderror"
+                                        style="text-align: right; font-size: 12px;"
+                                        required
+                                    >
+                                        <option value="">رمز الدولة</option>
+                                        @foreach(\App\Models\Country::all() as $country)
+                                            <option @if(auth()->user()->phone_code == $country->code) selected @endif value="{{ $country->code }}" {{ old('phone_code') == $country->code ? 'selected' : '' }}>
+                                                {{ $country->name }} ({{ $country->code }})
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('phone_code')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="col-8">
+                                    <input
+                                        name="phone"
+                                        style="text-align: right; font-size: 12px;"
+                                        class="form-control @error('phone') is-invalid @enderror"
+                                        placeholder="رقم الهاتف"
+                                        type="text"
+                                        required
+                                        value="{{ old('phone') ??auth()->user()->phone }}"
+                                    />
+                                    @error('phone')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <p
+                                for="descriptionInput"
+                                class="form-label"
+                                style="text-align: right; font-size: 12px;"
+
+                            >
+                                كود الإحالة
+                            </p>
+                            <input
+                                name="youtube_url"
+                                style="text-align: right; font-size: 12px;"
+                                class="form-control"
+                                id="descriptionInput"
+                                placeholder="كود الإحالة"
+                                value="{{auth()->user()->affiliate}}"
+                                disabled
+
+                            />
+                        </div>
+
+
+                        <div class="mb-3">
+                            <p
+                                for="city_id"
+                                class="form-label"
+                                style="text-align: right; font-size: 12px;"
+                            >
+                                <span style="color: #e30613;"> * </span> المدينة
+                            </p>
+                            <select
+                                name="city_id"
+                                class="form-select"
+                                aria-label="Default select example"
+                                style="text-align: right"
+                                required
+                            >
+                                <option value="">حدد مدينتك</option>
+                                @foreach($cities as $city)
+                                    <option @if($city->id==auth()->user()->city_id) selected
+                                            @endif value="{{$city->id}}">{{$city->name}}</option>
+                                @endforeach
+
+                            </select>
+                        </div>
+
+
+
+                        <div class="mb-3">
+                            <p
+                                for="descriptionInput"
+                                class="form-label"
+                                style="text-align: right; font-size: 12px;"
+
+                            >
+                                <span style="color: #e30613;"> * </span> العنوان التفصيلي
+                            </p>
+                            <input
+                                name="address"
+                                style="text-align: right; font-size: 12px;"
+                                class="form-control"
+                                id="descriptionInput"
+                                placeholder="العنوان التفصيلي"
+                                required
+                                value="{{auth()->user()->address}}"
+                            />
+                        </div>
+
+
+
+
+
+                        <div class="modal-footer">
+                            <button
+                                type="button"
+                                class="btn btn-secondary"
+                                data-bs-dismiss="modal"
+                            >
+                                اغلاق
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                تعديل
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-9">
+            @if($type=='ads')
+<h1  class="text-center">الإعلانات</h1>
+                <div class="table-responsive" dir="rtl">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th class="text-center">صورة الإعلان</th>
+                            <th class="text-center">عدد المشاهدات</th>
+                            <th class="text-center">تاريخ الإنتهاء</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @forelse($ads as $ad)
+                            <tr>
+                                <td class="text-center"><img style="width: 30%;aspect-ratio:1/2" src="{{$ad->getImage()}}" alt="IMAGE"></td>
+                                <td class="text-center">{{$ad->viw_count}}</td>
+                                <td class="text-center">{{$ad->expired_at->format('Y-m-d')}}</td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="3">لا يوجد إعلانات</td>
+                            </tr>
+                        @endforelse
+                        </tbody>
+                    </table>
+                </div>
+
+            @else
+                <h1  class="text-center">المنتجات</h1>
+                <div class="table-responsive" dir="rtl">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th class="text-center">صورة المنتج</th>
+                            <th class="text-center">اسم المنتج</th>
+                            <th class="text-center">عدد المشاهدات</th>
+                            <th class="text-center">حالة المنتج</th>
+                            <th class="text-center">وصف قصير</th>
+                            <th class="text-center">تاريخ النشر</th>
+                            <th class="text-center">تعديل</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @forelse($products as $product)
+
+                            <tr data-id="{{auth()->id()}} - {{$product->user_id}}">
+                                <td class="text-center"><img style="width: 20%;aspect-ratio:1/1" src="{{$product->getImage()}}" alt="IMAGE"></td>
+                                <td class="text-center">{{$product->name}}</td>
+                                <td class="text-center">{{$product->viw_count}}</td>
+                                <td class="text-center">{{\App\Enums\ProductActiveEnum::tryFrom($product->active)?->getLabel()}}</td>
+                                <td class="text-center">{{$product->expert}}</td>
+                                <td class="text-center">{{$product->created_at?->format('Y-m-d')}}</td>
+                                @php
+                                    $url=url("/seller/products/{$product->id}/edit");
+if($product->type=='job' || $product->type=='search_job' ){
+$url=url("/seller/jobs/{$product->id}/edit");
+}elseif($product->type=='tender'){
+    $url=url("/seller/tenders/{$product->id}/edit");
+}
+                                @endphp
+                                <td class="text-center"><a href="{{$url}}" class="btn btn-sm btn-danger">تعديل</a></td>
+
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="3">لا يوجد منتجات</td>
+                            </tr>
+                        @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            @endif
+        </div>
+    </div>
+</div>
+
+@endsection

@@ -1,0 +1,80 @@
+<?php declare(strict_types=1);
+
+namespace App\GraphQL\Mutations;
+
+use App\Enums\CategoryTypeEnum;
+use App\Enums\PlansTypeEnum;
+use App\Enums\ProductActiveEnum;
+use App\Exceptions\GraphQLExceptionHandler;
+use App\Filament\Resources\NewsResource;
+use App\Helpers\ProductsHelper;
+use App\Jobs\SendFirebaseNotificationJob;
+use App\Models\Product;
+use App\Models\User;
+use App\Notifications\UserNotification;
+use Carbon\Carbon;
+
+final class CreateTender
+{
+    /**
+     * @param null $_
+     * @param array{} $args
+     */
+    public function __invoke($_, array $args)
+    {
+        $data = $args['input'];
+        $userId = auth()->id();
+        if(!auth()->user()->is_active){
+            throw new GraphQLExceptionHandler('تم حظر حسابك يرجى مراجعة الإدارة');
+        }
+        $plan = ProductsHelper::getPresentPlanActive();
+        if ($plan == null) {
+            throw new GraphQLExceptionHandler('يرجى الإشتراك بخطة للنشر');
+        }
+        $isAvailableCreate=ProductsHelper::isAvailableCreateProduct($plan);
+        if(!$isAvailableCreate){
+            $user=auth()->user();
+            $data=[
+                'title'=>'تنبيه',
+                'body'=>'وصلت لحد النشر المسموح لك شهريا انتظر للشهر القادم او قم بترقية حسابك لتحصل على النشر المفتوح'
+            ];
+            $job=new SendFirebaseNotificationJob([$user->device_token], $data);
+            \Notification::send($user, new UserNotification($data));
+
+            dispatch($job);
+            throw new GraphQLExceptionHandler('وصلت لحد النشر المسموح لك شهريا انتظر للشهر القادم او قم بترقية حسابك لتحصل على النشر المفتوح');
+        }
+        $product = Product::create([
+            'user_id' => $userId,
+            'name' => $data['name'] ?? \Str::words($data['info'], 10),
+            'info' => $data['info'] ?? null,
+            'city_id' => $data['city_id'] ?? auth()->user()->city_id,
+            'tags' => $data['tags'] ?? null,
+            'type' => CategoryTypeEnum::TENDER->value,
+            'email' => $data['email'] ?? null,
+            'phone' => $data['phone'] ?? null,
+            'start_date' => isset($data['start_date']) ? Carbon::parse($data['start_date']) : null,
+            'end_date' => isset($data['end_date']) ? Carbon::parse($data['end_date']) : null,
+            'code' => $data['code'] ?? null,
+            'url' => $data['url'] ?? null,
+            'active' => auth()->user()->is_default_active === true ? ProductActiveEnum::ACTIVE->value : ProductActiveEnum::PENDING->value,
+
+            'expert' => \Str::words($data['info'], 10),
+            'category_id' => $data['category_id'] ?? null,
+            'sub1_id' => $data['sub1_id'] ?? null,
+            'sub2_id' => $data['sub2_id'] ?? null,
+            'sub3_id' => $data['sub3_id'] ?? null,
+            'sub4_id' => $data['sub4_id'] ?? null,
+        ]);
+        if (isset($data['attach'])) {
+            if (is_array($data['attach'])) {
+                foreach ($data['attach'] as $doc) {
+                    $product->addMedia($doc)->toMediaCollection('docs');
+                }
+            } else {
+                $product->addMedia($data['attach'])->toMediaCollection('docs');
+            }
+        }
+        return $product;
+    }
+}

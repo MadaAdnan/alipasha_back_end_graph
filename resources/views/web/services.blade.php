@@ -1,0 +1,213 @@
+@extends('layouts.master_layouts')
+@section('title')
+    الخدمات
+@endsection
+@section('content')
+    <div class="container-fluid" style="margin-top: 70px">
+        <div class="row">
+
+            <div class="col-12 col-xl-9" style="margin-top: 10px">
+                <div class="container statistic">
+                    <div class="statistic-item">
+                        <div class="statistic-icon">
+                            <img src="{{asset('assets/user-statistic-view.svg')}}" alt="" />
+                        </div>
+                        <div>
+                            <p class="sub-title">المزودين بالمعلومات</p>
+                            <p class="title">{{$sellers}}</p>
+                        </div>
+                    </div>
+                    <div class="statistic-item">
+                        <div class="statistic-icon">
+                            <img src="{{asset('assets/user-statistic-view.svg')}}" alt="" />
+                        </div>
+                        <div>
+                            <p class="sub-title">عدد المشاهدات</p>
+                            <p class="title">{!! \App\Helpers\StrHelper::formatLike($views) !!}</p>
+                        </div>
+                    </div>
+                    <div class="statistic-item">
+                        <div class="statistic-icon">
+                            <img src="{{asset('assets/user-statistic-view.svg')}}" alt="" />
+                        </div>
+                        <div>
+                            <p class="sub-title">الخدمات المنشورة</p>
+                            <p class="title">{{$services_count}}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-wrapper container mt-1">
+
+                    <!-- table filters -->
+                    <div class="container mt-3 mb-3">
+                        <div class="row">
+
+
+                            <div class="col-span-12 col-lg-9">
+
+
+
+                                <form action="">
+                                    <div class="row">
+                                        <div class="col-md-2 col-md-12 col-lg-3">
+                                            <select name="city" class="form-select" aria-label="محافظة" style="
+                        background-color: #f0f2f5;
+                        height: 30px;
+                        border-radius: 40px;
+                        padding: 5px 30px;
+                        font-size: 12px;
+                        margin-bottom: 4px;
+                      ">
+                                                <option  value="" selected>المحافظة : الكل</option>
+                                                @foreach($cities as $city)
+                                                    <option value="{{$city->id}}">{{$city->name}}</option>
+                                                @endforeach
+
+
+                                                <!-- Add more provinces as needed -->
+                                            </select>
+                                        </div>
+
+                                      {{--  <div class="col-md-2 col-md-12 col-lg-3">
+
+                                            <select class="form-select" aria-label="المنطقة" style="
+                        background-color: #f0f2f5;
+                        height: 30px;
+                        border-radius: 40px;
+                        padding: 5px 30px;
+                        font-size: 12px;
+                        margin-bottom: 4px;
+                      ">
+                                                <option value="all" value="1" selected>المنطقة : الكل</option>
+                                                <option value="area1">المنطقة 1</option>
+                                                <option value="area2">المنطقة 2</option>
+                                                <!-- Add more areas as needed -->
+                                            </select>
+                                        </div>--}}
+
+
+                                        <div class="col-md-2 col-md-12 col-lg-3">
+                                            <button type="submit" class="btn" style="background-color: #F2F3F4; color: #000;margin-bottom: 4px;"> تطبيق </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+
+
+                            <div class="col-md-12 col-lg-3">
+                                <form action="{{route('services.index')}}" method="get">
+                                    <div
+                                        class="d-flex align-items-center"
+                                        style="
+                      background-color: #f0f2f5;
+                      height: 30px;
+                      border-radius: 40px;
+                      padding: 5px 10px;
+                      margin-bottom: 4px;
+                    "
+                                    >
+                                        <input
+                                            name="q"
+                                            class="search-nav form-control border-0 shadow-none"
+                                            type="search"
+                                            placeholder="بحث"
+                                            aria-label="Search"
+                                            style="background-color: transparent; box-shadow: none"
+                                        />
+                                        <button type="submit">
+                                            <i class="bi bi-search" style="margin-right: 8px; color: #aaa"></i>
+                                        </button>
+                                    </div>
+
+                                </form>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-borderless">
+                            <thead>
+                            <tr>
+                                <th>استعراض</th>
+                                <th>المنطقة</th>
+                                <th>العنوان</th>
+                                <th>اسم الخدمة</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($services as $service)
+                                <tr>
+                                    <td>
+                                        <a href="{{route('services.show',$service->id)}}">
+                                            <button
+                                                class="btn"
+                                                style="background: #00b087; color: #fff"
+                                            >
+                                                استعراض
+                                            </button>
+                                        </a>
+                                    </td>
+                                    <td>{{$service->city?->name}}</td>
+                                    <td>{{$service->address}}</td>
+                                    <td>{{$service->name}}</td>
+                                </tr>
+                            @endforeach
+
+
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <div class="d-flex justify-content-between">
+                                @if($services->hasMorePages())
+                                <a class="btn btn-sm btn-secondary" href="{{$services->nextPageUrl()}}">التالي</a>
+                                @endif
+                                 @if($services->currentPage()>1)
+                                <a class="btn btn-sm btn-secondary" href="{{$services->previousPageUrl()}}">السابق</a>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div
+                class="floating-left-sidebar-icon d-lg-none"
+                onclick="toggleLeftSidebar()"
+            >
+                التصنيفات
+            </div>
+            <!-- Left Section (2 columns on large screens, 0 on small) -->
+            <div id="left-sidebar" class="col-3 d-none d-xl-block" dir="rtl">
+                <div class="media-scroll bg-light p-4 h-100">
+                    <div style="text-align: center">
+                        <a class="new-post btn btn-md btn-danger"  href="{{url('/seller/services/create')}}">أضف خدمة غير متوفرة</a>
+                    </div>
+                    <div class="categories" dir="rtl">
+                        <p class="category-text">التصنيفات</p>
+                        <div class="divider" dir="rtl"></div>
+                        @foreach($categories as $category)
+                            <div class="category-item">
+                                <p><a class="text-dark" href="{{route('services.index',['category'=>$category->id])}}">{{$category->name}}</a></p>
+                                <div class="count">{{$category->products2_count}}</div>
+                            </div>
+                        @endforeach
+
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+@endsection

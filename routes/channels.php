@@ -12,7 +12,30 @@ use Illuminate\Support\Facades\Broadcast;
 | used to check if an authenticated user can listen to the channel.
 |
 */
+/*Broadcast::channel('change-setting', function ($user) {
+    return true;
+});*/
 
-Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
-    return (int) $user->id === (int) $id;
+
+Broadcast::channel('user.{id}', function ($user, $id) {
+    return (int)$user->id === (int)$id;
 });
+Broadcast::channel('message.{communityId}.{userId}', function (\App\Models\User $user, $communityId,$userId) {
+
+    return in_array($communityId,$user->communities->pluck('id')->toArray()) && $user->id==$userId;
+
+});
+
+Broadcast::channel('community.{communityId}', function (\App\Models\User $user, $communityId) {
+
+    return in_array($communityId,$user->communities->pluck('id')->toArray()) ;
+
+});
+
+Broadcast::channel('message.{communityId}', function (\App\Models\User $user, $communityId) {
+
+    return in_array($communityId,$user->communities->pluck('id')->toArray());
+
+});
+
+

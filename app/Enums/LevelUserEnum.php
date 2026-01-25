@@ -8,6 +8,7 @@ enum LevelUserEnum: string
     case USER = 'user';
     case SELLER = 'seller';
     case RESTAURANT = 'restaurant';
+    case STAFF = 'staff';
 
 
     public function getLabel()
@@ -17,6 +18,7 @@ enum LevelUserEnum: string
             self::SELLER => 'متجر',
             self::RESTAURANT => 'مطعم',
             self::USER => 'مستخدم',
+            self::STAFF => 'مزظف',
         };
     }
 
@@ -27,6 +29,7 @@ enum LevelUserEnum: string
             self::SELLER =>'fas-magnifying-glass',
             self::RESTAURANT =>'fas-magnifying-glass',
             self::USER => 'fas-magnifying-glass',
+            self::STAFF => 'fas-magnifying-glass',
         };
     }
 
@@ -37,6 +40,7 @@ enum LevelUserEnum: string
             self::SELLER =>'fas-magnifying-glass',
             self::RESTAURANT =>'fas-magnifying-glass',
             self::USER => 'fas-magnifying-glass',
+            self::STAFF => 'fas-magnifying-glass',
         };
     }
 }

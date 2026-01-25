@@ -18,8 +18,8 @@ class CityResource extends Resource
 {
     protected static ?string $model = City::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    protected static ?int $navigationSort = 8;
+
+    protected static ?int $navigationSort = 9;
     protected static ?string $label = 'مدينة';
     protected static ?string $modelLabel = 'مدينة';
     protected static ?string $navigationLabel = 'المدن';
@@ -33,8 +33,11 @@ class CityResource extends Resource
                 Forms\Components\Section::make('المدن')->schema([
                     Forms\Components\SpatieMediaLibraryFileUpload::make('image')->collection('image')->conversion('webp')->image()->imageCropAspectRatio('1:1')->label('صورة')->imageEditor(),
                     Forms\Components\TextInput::make('name')->label('اسم المدينة'),
-                    Forms\Components\Toggle::make('is_main')->label('مدينة رئيسية')->reactive(),
-                    Forms\Components\Select::make('city_id')->options(City::where('is_main', true)->pluck('name', 'id'))->required()->label('تتبع لمدينة')->visible(fn($get) => !$get('is_main')),
+
+                    Forms\Components\Select::make('city_id')->options(City::where('is_main', true)->pluck('name', 'id'))
+                        ->required()->label('تتبع لمدينة')->afterStateUpdated(fn($state,$set)=>$set('code',City::find($state)?->code))->reactive(),
+//
+                    Forms\Components\TextInput::make('level')->numeric()->integer()->label('مستوى الصعوبة')->required(),
                     Forms\Components\Toggle::make('is_delivery')->label('تفعيل التوصيل'),
                     Forms\Components\Toggle::make('is_active')->label('حالة المدينة'),
                 ])
@@ -44,14 +47,18 @@ class CityResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+
             ->columns([
-                Tables\Columns\SpatieMediaLibraryImageColumn::make('image')->collection('image')->conversion('webp')->circular()->label('صورة'),
+                Tables\Columns\SpatieMediaLibraryImageColumn::make('image')->collection('image')->circular()->label('صورة'),
                 Tables\Columns\TextColumn::make('name')->label('المدينة')->searchable(),
                 Tables\Columns\TextColumn::make('city.name')->label('المدينة الرئيسية')->sortable(),
+                Tables\Columns\TextColumn::make('city.code')->label('الكود')->sortable(),
+                Tables\Columns\TextColumn::make('level')->label('مستوى الصعوبة'),
                 Tables\Columns\TextColumn::make('is_active')->formatStateUsing(fn($state)=>IsActiveEnum::tryFrom($state)?->getLabel())->icon(fn($state)=>IsActiveEnum::tryFrom($state)?->getIcon())->color(fn($state)=>IsActiveEnum::tryFrom($state)?->getColor())->label('الحالة'),
-            ])->reorderable('sortable')
+                Tables\Columns\ToggleColumn::make('is_delivery')->label('حالة التوصيل')
+                ])->reorderable('sortable')
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('city_id')->options(City::where('is_main',true)->pluck('name','id'))->label('المدينة')->searchable()
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

@@ -17,8 +17,8 @@ class CountryResource extends Resource
 {
     protected static ?string $model = Country::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    protected static ?int $navigationSort = -14;
+
+    protected static ?int $navigationSort = -13;
     protected static ?string $label = 'دولة';
     protected static ?string $modelLabel = 'دولة';
     protected static ?string $navigationLabel = 'الدول';
@@ -30,6 +30,7 @@ class CountryResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Section::make('الدول')->schema([
+                    Forms\Components\SpatieMediaLibraryFileUpload::make('image')->collection('image')->conversion('webp')->imageCropAspectRatio('2:1')->label('علم الدولة'),
                     Forms\Components\TextInput::make('name')->required()->unique(ignoreRecord: true)->label('الاسم'),
                     Forms\Components\TextInput::make('code')->required()->unique(ignoreRecord: true)->label('الكود'),
                     Forms\Components\Toggle::make('is_active')->label('الحالة'),
@@ -41,7 +42,10 @@ class CountryResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\SpatieMediaLibraryImageColumn::make('image')->collection('image')->conversion('webp')->width(50)->height(25)->label('علم الدولة'),
+               Tables\Columns\TextColumn::make('name')->label('الاسم'),
+                Tables\Columns\TextColumn::make('code')->label('الكود'),
+                Tables\Columns\TextColumn::make('is_active')->label('الحالة'),
             ])
             ->filters([
                 //

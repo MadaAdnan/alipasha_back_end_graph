@@ -9,6 +9,8 @@ enum CategoryTypeEnum: string
     case SEARCH_JOB = 'search_job';
     case NEWS = 'news';
     case TENDER = 'tender';
+    case SERVICE = 'service';
+    case RESTAURANT = 'restaurant';
 
 
     public function getLabel()
@@ -19,6 +21,8 @@ enum CategoryTypeEnum: string
             self::SEARCH_JOB => 'شواغر',
             self::NEWS => 'اخبار',
             self::TENDER => 'مناقصات',
+            self::SERVICE => 'خدمات',
+            self::RESTAURANT => 'مطاعم',
         };
     }
 
@@ -35,11 +39,12 @@ enum CategoryTypeEnum: string
     public function getColor()
     {
         return match ($this) {
-            self::PRODUCT => 'danger',
+            self::PRODUCT, self::RESTAURANT => 'danger',
             self::JOB => 'warning',
             self::SEARCH_JOB => 'info',
             self::NEWS => 'primary',
             self::TENDER => 'success',
+            self::SERVICE => 'gold',
         };
     }
 }

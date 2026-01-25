@@ -1,0 +1,50 @@
+extend type Query{
+
+    myInvoice(first:Int!,page:Int!):[Invoice] @guard @paginate(builder:"App\\GraphQL\\Queries\\MyInvoice")
+    sellerInvoice(first:Int!,page:Int!):[Invoice] @guard @paginate(builder:"App\\GraphQL\\Queries\\SellerInvoice")
+}
+
+
+
+input InvoiceInput{
+    seller_id:Int!
+    items:[ItemInvoice]!
+    address:String
+    phone:String
+    weight:Float
+
+}
+input ItemInvoice{
+    product_id:ID!
+    qty:Float!
+}
+
+type Invoice{
+    id:ID!,
+    status:String!
+    user:User @belongsTo
+    seller:User @belongsTo
+    created_at:CustomDate
+    total:Float
+    shipping:Float
+    phone:String
+    address:String
+    items:[Item] @hasMany
+}
+
+type Item{
+    product:Product @belongsTo
+    qty:String
+    price:String
+    total:String
+}
+
+
+
+extend type Mutation{
+    createInvoice(input:InvoiceInput!):Invoice
+    createNewInvoice(input:InvoiceInput!):Invoice
+    changeStatusInvoice(invoiceId:ID!,status:String!,msg:String):Invoice @guard
+}
+
+

@@ -1,0 +1,39 @@
+extend type Query{
+    plans:[Plan] @orderBy(column:"sortable") @all
+    plan(id:ID  @eq):Plan @find
+
+}
+
+
+type Plan{
+    id:ID!
+    price:Float
+    name:String
+    is_discount:Boolean
+    discount:Float
+    type:String
+    duration:String
+    info:String
+    items:[PlanItem]
+    special_count:Int
+    products_count:Int
+    ads_count:Int
+    special_store:Boolean
+
+    pivot:PlanUserPivot
+}
+type PlanItem{
+    active:Boolean
+    item:String
+}
+
+
+
+type PlanUserPivot {
+    expired_date: String!
+    subscription_date: String
+}
+
+extend type Mutation{
+    subscribePlan(id:ID!) : User @guard
+}

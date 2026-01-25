@@ -13,12 +13,16 @@ return new class extends Migration {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
+            $table->string('color')->nullable();
             //$table->foreignId('category_id')->nullable()->constrained()->cascadeOnDelete();
             $table->boolean('is_active')->nullable();
+            $table->boolean('has_color')->nullable()->default(false);
             $table->boolean('is_main')->nullable();
             $table->string('type')->nullable()->default('category');
             $table->integer('sortable')->nullable();
+            $table->softDeletes();
             $table->timestamps();
+
         });
         Schema::create('category_parent', function (Blueprint $table) {
             $table->id();

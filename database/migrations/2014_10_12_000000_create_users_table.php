@@ -33,6 +33,8 @@ return new class extends Migration {
             $table->date('notify_date')->nullable();
             $table->boolean('is_seller')->nullable()->default(false);
 //  seller
+            $table->double('longitude')->nullable();
+            $table->double('latitude')->nullable();
             $table->string('seller_name')->nullable();
             $table->string('address')->nullable();
             $table->string('info')->nullable();
@@ -40,6 +42,7 @@ return new class extends Migration {
             $table->string('level_seller')->nullable()->default(1);
             $table->boolean('is_default_active')->nullable()->default(true);
             $table->boolean('is_restaurant')->nullable()->default(true);
+            $table->boolean('is_special')->nullable()->default(true);
             $table->time('open_time')->nullable();
             $table->time('close_time')->nullable();
             $table->boolean('is_delivery')->nullable()->default(true);

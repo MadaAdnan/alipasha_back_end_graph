@@ -1,0 +1,29 @@
+<?php
+
+namespace App\Http\Resources\Community;
+
+use App\GraphQL\Resolvers\Image;
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class MessageResource extends JsonResource
+{
+    /**
+     * Transform the resource into an array.
+     *
+     * @return array<string, mixed>
+     */
+    public function toArray(Request $request): array
+    {
+        $attachUrl = Image::getAttach($this);
+        return [
+            "id" => $this->id,
+            'body' => $this->body,
+            'user' => new UserResource($this->user),
+            'community' => new CommunityResource($this->community),
+            'created_at' => $this->created_at->diffForHumans(),
+            'attach'=>$attachUrl,
+            'type'=>$this->type,
+        ];
+    }
+}

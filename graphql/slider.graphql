@@ -1,0 +1,67 @@
+extend type Query{
+    sliders(category_id:Int ,user_id:Int,city_id:Int ,type:String):[Slider]
+    slide(id:ID!  @eq):Slider @find
+    mySliders:[Slider] @guard
+
+
+}
+
+
+type Slider{
+    id:ID!
+    url:String
+    image:String @field(resolver: "App\\GraphQL\\Resolvers\\Image@getImage")
+    user:User @belongsTo
+    category:Category @belongsTo
+    expired_date:CustomDate
+    views_count:Int
+}
+
+extend type Mutation{
+
+    createSlider(input:CreateSliderInput):Slider @guard
+    updateSlider(id:ID!,input:CreateSliderInput):Slider @guard
+    deleteSlider(id:ID!):Slider @guard
+}
+
+input CreateSliderInput{
+    url:String
+    city_id:Int @rules(apply: ["required","integer","exists:cities,id"],messages:[
+        {
+            rule:"required",
+            message:"يرجى إدخال المدينة"
+        }
+        {
+            rule:"integer",
+            message:"يرجى إدخال مدينة صالحة"
+        }
+        {
+            rule:"exists",
+            message:"يرجى إدخال مدينة صالحة"
+        }
+    ])
+    category_id:Int!  @rules(apply: ["required","integer","exists:categories,id"],messages:[
+        {
+            rule:"required",
+            message:"يرجى إدخال التصنيف الرئيسي"
+        }
+        {
+            rule:"integer",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+        {
+            rule:"exists",
+            message:"يرجى إدخال تصنيف صالح"
+        }
+    ])
+    image:Upload! @rules(apply:["required","image"],messages:[
+        {
+            rule:"required",
+            message:"يرجى إدخال الصورة"
+        }
+        {
+            rule:"image",
+            message:"يرجى إدخال صورة صالحة"
+        }
+    ])
+}

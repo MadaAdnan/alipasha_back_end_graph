@@ -2,6 +2,9 @@
 
 namespace App\Traits;
 
+use App\Enums\CategoryTypeEnum;
+use App\Models\Product;
+use App\Models\User;
 use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -15,13 +18,21 @@ trait MediaTrait
      * */
     public function registerMediaConversions(Media $media = null): void
     {
-
-        $this
-            ->addMediaConversion('webp')
-            ->quality(60)
+        $mims = [
+            'image/png',
+            'image/jpeg',
+            'image/jpg',
+            'image/webp',
+        ];
+        if (in_array($media?->mime_type, $mims)) {
+            $this
+                ->addMediaConversion('webp')
+                ->quality(95)
 //            ->fit(Manipulations::FIT_STRETCH, 600,0)
-            ->format('webp')
-            ->nonQueued();
+                ->format('webp')
+                ->nonQueued();
+
+        }
 
     }
 
@@ -30,7 +41,38 @@ trait MediaTrait
      * */
     public function getImage($collection = 'image', $conversation = 'webp'): string
     {
-        return $this->getFirstMediaUrl($collection, $conversation);
+        $typeAllow=[
+             CategoryTypeEnum::PRODUCT->value,
+            CategoryTypeEnum::RESTAURANT->value,
+            CategoryTypeEnum::NEWS->value
+        ];
+        if ($this instanceof Product && ! in_array($this->type, $typeAllow)) {
+            return $this->user?->getImage() ?? asset('images/noImage.jpeg');
+        }
+        if ($this->hasMedia($collection)) {
+            return $this->getFirstMediaUrl($collection, $conversation);
+        }else if ($this->hasMedia('images')) {
+        return $this->getFirstMediaUrl('images', $conversation);
+    } elseif ($collection == 'logo') {
+            return asset('images/bg.jpg');
+        } elseif ($this instanceof User && $collection == 'image') {
+            return asset('images/user-profile.png');
+        } else {
+            return asset('images/noImage.jpeg');
+        }
+
+    }
+
+    public function getImageSiteMap(): null|string
+    {
+
+        if ($this->hasMedia('image')) {
+            return $this->getFirstMediaUrl('image', 'webp');
+        } else if ($this->hasMedia('images')) {
+            return $this->getFirstMediaUrl('images', 'webp');
+        }
+        return null;
+
     }
 
     /**
@@ -39,6 +81,15 @@ trait MediaTrait
     public function getImages($collection = 'image', $conversation = 'webp'): array
     {
         $list = [];
+        if ($this instanceof Product && ($collection == 'image' || $collection == 'images')) {
+            foreach ($this->getMedia('image') as $media) {
+                $list[] = $media->getUrl($conversation);
+            }
+            foreach ($this->getMedia('images') as $media) {
+                $list[] = $media->getUrl($conversation);
+            }
+            return $list;
+        }
         foreach ($this->getMedia($collection) as $media) {
             $list[] = $media->getUrl($conversation);
         }
@@ -57,5 +108,28 @@ trait MediaTrait
             }
         }
         return collect($files);
+    }
+
+    public function getImageForce()
+    {
+        if ($this->hasMedia('image')) {
+            return $this->getFirstMediaUrl('image', 'webp');
+        } elseif ($this->hasMedia('images')) {
+            return $this->getFirstMediaUrl('images', 'webp');
+        } else {
+            return asset('images/noImage.jpeg');
+        }
+
+    }
+
+    public function getImageForceSiteMap()
+    {
+        if ($this->hasMedia('image')) {
+            return $this->getFirstMediaUrl('image', 'webp');
+        } elseif ($this->hasMedia('images')) {
+            return $this->getFirstMediaUrl('images', 'webp');
+        }
+        return null;
+
     }
 }

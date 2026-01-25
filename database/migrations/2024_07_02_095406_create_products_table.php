@@ -24,7 +24,7 @@ return new class extends Migration {
             $table->text('expert')->nullable();
             $table->text('tags')->nullable();
             $table->boolean('is_discount')->nullable()->default(false);
-            $table->boolean('is_active')->nullable()->default(false);
+            $table->string('active')->nullable()->default('pending');
             $table->boolean('is_delivery')->nullable()->default(false);
             $table->boolean('is_available')->nullable()->default(false);
             $table->string('level')->nullable()->default('normal');
@@ -33,15 +33,16 @@ return new class extends Migration {
             $table->string('email')->nullable();
             $table->string('address')->nullable();
             $table->string('url')->nullable();
-            $table->string('longitude')->nullable();
-            $table->string('latitude')->nullable();
+
             $table->string('price')->nullable();
             $table->string('discount')->nullable();
             $table->string('start_date')->nullable();
             $table->string('end_date')->nullable();
             $table->string('code')->nullable();
             $table->string('type')->nullable()->default(\App\Enums\CategoryTypeEnum::PRODUCT->value);
+            $table->softDeletes();
             $table->timestamps();
+
         });
     }
 
