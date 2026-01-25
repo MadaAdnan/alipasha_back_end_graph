@@ -145,87 +145,49 @@
     <style>
         @media (max-width: 768px) {
 
-            /* ترتيب عام للهيدر */
+            /* فقط ترتيب الهيدر بدون قلبه عمودياً */
             .store-header-wrapper {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-                gap: 12px;
-                padding: 12px;
+                gap: 15px;
+                padding: 15px;
             }
 
-            /* صورة المتجر */
-            .store-image-container {
-                display: flex;
-                justify-content: center;
-                width: 100%;
-            }
-
+            /* تصغير الصورة لا أكثر */
             .store-image {
-                width: 110px;
-                height: 110px;
+                width: 90px;
+                height: 90px;
             }
 
-            /* معلومات المتجر */
-            .store-info-wrapper {
-                align-items: center;
-                gap: 10px;
-                width: 100%;
-            }
-
-            .store-name-section {
-                justify-content: center;
-                gap: 6px;
-            }
-
-            .store-address {
-                justify-content: center;
-                font-size: 13px;
-            }
-
-            /* الإحصائيات */
-            .store-stats-grid {
-                grid-template-columns: repeat(3, 1fr);
-                width: 100%;
-                padding: 10px 0;
-                text-align: center;
-            }
-
-            .stat-card {
-                flex-direction: column;
-                gap: 4px;
-            }
-
-            .stat-icon {
-                font-size: 16px;
-            }
-
-            .stat-value {
-                font-size: 15px;
-            }
-
-            .stat-label {
-                font-size: 11px;
-            }
-
-            /* أزرار التواصل */
+            /* منع تمدد الأزرار بشكل عشوائي */
             .store-actions {
-                width: 100%;
-                flex-direction: column;
-                gap: 10px;
+                flex-wrap: wrap;
+                gap: 8px;
             }
 
             .store-actions-contact {
-                width: 100%;
-                flex-direction: column;
+                flex-wrap: wrap;
                 gap: 8px;
             }
 
             .btn-action {
-                width: 100%;
-                justify-content: center;
-                padding: 10px;
-                font-size: 13px;
+                padding: 8px 14px;
+                font-size: 12px;
+            }
+
+            /* ضبط الإحصائيات بدون تغيير اتجاهها */
+            .store-stats-grid {
+                gap: 8px;
+            }
+
+            .stat-icon {
+                font-size: 18px;
+            }
+
+            .stat-value {
+                font-size: 16px;
+            }
+
+            .stat-label {
+                font-size: 11px;
             }
         }
 
