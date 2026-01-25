@@ -52,15 +52,28 @@ Route::get('like/{userId}/{productId}', function ($userId, $productId) {
 Route::get('suggestions', function () {
    $q=\request()->get('q');
    $category=\request()->get('category_id');
-   return \App\Models\Product::active()->product()
-       ->when($category,fn($query)=>$query->where('category_id',$category)
-           ->orWhere('sub1_id',$category)
-           ->orWhere('sub2_id',$category)
-           ->orWhere('sub3_id',$category)
-           ->orWhere('sub4_id',$category)
-       )
-       ->where('name', 'like', "%{$q}")
-       ->select('name')->distinct()->limit(7)->pluck('name')->toArray();
+    $products = \App\Models\Product::active()->product()
+        // فلترة حسب الفئة إذا تم تحديدها
+        ->when($category, function($query) use ($category) {
+            $query->where(function($q) use ($category) {
+                $q->where('category_id', $category)
+                    ->orWhere('sub1_id', $category)
+                    ->orWhere('sub2_id', $category)
+                    ->orWhere('sub3_id', $category)
+                    ->orWhere('sub4_id', $category);
+            });
+        })
+
+        ->when($q, function($query) use ($q) {
+            $query->where('name', 'like', "%{$q}%");
+        })
+        ->select('name')
+        ->distinct()
+        ->limit(7)
+        ->pluck('name')
+        ->toArray();
+
+    return $products;
 
 });
 Route::middleware('auth:sanctum')->group(function () {
