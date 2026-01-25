@@ -19,7 +19,7 @@
             <label class="filter-label" for="Search">بحث</label>
             <input class="filter-input" id="Search" name="q" placeholder="ابحث عن... "/>
             <div id="suggestions"  class="position-absolute bg-white w-100 z-3 rounded shadow-sm">
-                <ul id="suggestionsUl" class="text-start">
+                <ul id="suggestionsUl" class="w-100">
 
                 </ul>
             </div>
