@@ -5,7 +5,7 @@
         <!-- Store Header Section -->
         <div class="store-header-section">
         <div class="container store-header-content">
-            <div class="store-header-wrapper d-sm-flex flex-sm-column w-100 overflow-hidden">
+            <div class="store-header-wrapper">
                 <!-- Store Image -->
                 <div class="store-image-container">
                     <img src="{{ $store->getImage() }}"
@@ -20,9 +20,9 @@
                 </div>
 
                 <!-- Store Info -->
-                <div class="store-info-wrapper  d-flex flex-sm-column w-100">
-                    <div class="store-name-section d-flex flex-sm-column w-100">
-                        <h1 class="store-name text-ellipsis">{{ $store->seller_name ?? $store->name }}</h1>
+                <div class="store-info-wrapper">
+                    <div class="store-name-section">
+                        <h1 class="store-name">{{ $store->seller_name ?? $store->name }}</h1>
                         @if($store->is_verified)
                             <span class="verified-badge-small">
                                 <i class="bi bi-patch-check-fill"></i>
@@ -52,7 +52,7 @@
                                 <i class="fa fa-bell"></i>
                             </div>
                             <div class="stat-content">
-                                <span class="stat-value">{{ $store->following_count ?? 0 }}</span>
+                                <span class="stat-value">{{ $store->followers_count ?? 0 }}</span>
                                 <span class="stat-label">متابع</span>
                             </div>
                         </div>
@@ -62,7 +62,7 @@
                                 <i class="fa fa-user-check"></i>
                             </div>
                             <div class="stat-content">
-                                <span class="stat-value">{{ $store->followers_count ?? 0 }}</span>
+                                <span class="stat-value">{{ $store->following_count ?? 0 }}</span>
                                 <span class="stat-label">يتابع</span>
                             </div>
                         </div>
@@ -143,7 +143,91 @@
     </div>
 
     <style>
+        @media (max-width: 768px) {
 
+            /* ترتيب عام للهيدر */
+            .store-header-wrapper {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 12px;
+                padding: 12px;
+            }
+
+            /* صورة المتجر */
+            .store-image-container {
+                display: flex;
+                justify-content: center;
+                width: 100%;
+            }
+
+            .store-image {
+                width: 110px;
+                height: 110px;
+            }
+
+            /* معلومات المتجر */
+            .store-info-wrapper {
+                align-items: center;
+                gap: 10px;
+                width: 100%;
+            }
+
+            .store-name-section {
+                justify-content: center;
+                gap: 6px;
+            }
+
+            .store-address {
+                justify-content: center;
+                font-size: 13px;
+            }
+
+            /* الإحصائيات */
+            .store-stats-grid {
+                grid-template-columns: repeat(3, 1fr);
+                width: 100%;
+                padding: 10px 0;
+                text-align: center;
+            }
+
+            .stat-card {
+                flex-direction: column;
+                gap: 4px;
+            }
+
+            .stat-icon {
+                font-size: 16px;
+            }
+
+            .stat-value {
+                font-size: 15px;
+            }
+
+            .stat-label {
+                font-size: 11px;
+            }
+
+            /* أزرار التواصل */
+            .store-actions {
+                width: 100%;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .store-actions-contact {
+                width: 100%;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .btn-action {
+                width: 100%;
+                justify-content: center;
+                padding: 10px;
+                font-size: 13px;
+            }
+        }
 
         .store-page-wrapper {
             background: white;
@@ -164,7 +248,6 @@
             margin-top: 0 !important;
             padding-top: 0 !important;
         }
-
 
         @media (max-width: 768px) {
             .products-section {
