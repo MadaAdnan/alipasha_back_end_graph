@@ -69,7 +69,7 @@ Route::get('suggestions', function () {
         })
         ->select('name')
         ->distinct()
-        ->limit(7)
+        ->limit(4)
         ->pluck('name')
         ->toArray();
 
