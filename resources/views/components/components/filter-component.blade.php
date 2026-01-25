@@ -104,12 +104,34 @@
                 suggestions.style.display = 'block';
                 suggestions.innerHTML = '';
                 data.forEach(suggestion => {
-                    suggestions.innerHTML += `<li>${suggestion}</li>`;
+                    suggestions.innerHTML += `<li class="sug" data-text="${suggestion}">${suggestion}</li>`;
                 });
             })
     }
+    function setSearch(text) {
+        let search = document.getElementById('Search');
+        search.value = text;
 
-    document.getElementById('Search').addEventListener('change', getSuggestions);
+        // إخفاء الاقتراحات بعد الاختيار
+        document.getElementById('suggestions').style.display = 'none';
+    }
+    function debounce(fn, delay = 300) {
+        let timeout;
+
+        return function (...args) {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => {
+                fn.apply(this, args);
+            }, delay);
+        };
+    }
+    const debouncedGetSuggestions = debounce(getSuggestions, 300);
+    document.getElementById('Search').addEventListener('input', debouncedGetSuggestions);
+    document.getElementById('suggestionsUl').addEventListener('click', function (e) {
+        if (e.target.classList.contains('sug')) {
+            setSearch(e.target.dataset.text);
+        }
+    });
     // عند تغيير المحافظة يدويًا
     document.getElementById('governorateSelect').addEventListener('change', loadCities);
 
