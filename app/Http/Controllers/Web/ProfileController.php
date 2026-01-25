@@ -47,7 +47,7 @@ class ProfileController extends Controller
             'address' => 'required',
             'city_id' => 'required',
             'area_id' => 'required',
-        ],[
+        ], [
             'name.required' => 'الرجاء ادخال الاسم',
             'phone.required' => 'الرجاء ادخال رقم الهاتف',
             'phone_code.required' => 'الرجاء ادخال رقم الهاتف',
@@ -59,15 +59,19 @@ class ProfileController extends Controller
          * @var $user User
          */
         $user = auth()->user();
-        $user->update([
-            'name' =>$user->is_social? $user->name : $request->name,
-            'seller_name' => $request->seller_name,
+        $data = [
+            'name' => $user->is_social ? $user->name : $request->name,
+
             'phone' => $request->phone,
             'phone_code' => $request->phone_code,
             'address' => $request->address,
             'city_id' => $request->city_id,
-            'area_id'=>$request->area_id,
-        ]);
+            'area_id' => $request->area_id,
+        ];
+        if (auth()->user()->is_verified) {
+            $data['seller_name'] = $request->seller_name;
+        }
+        $user->update($data);
         return back()->with('success', 'نجاح العملية');
     }
 
