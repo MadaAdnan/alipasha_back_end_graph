@@ -94,7 +94,7 @@
         let q = document.getElementById('Search').value;
 
         if (q?.length==0) {
-            document.getElementById('suggestions').style.display = 'none';
+            document.getElementById('suggestionsUl').style.display = 'none';
             return;
         }
         fetch(`/api/suggestions?q=${q}`)
@@ -113,7 +113,7 @@
         search.value = text;
 
         // إخفاء الاقتراحات بعد الاختيار
-        document.getElementById('suggestions').style.display = 'none';
+        document.getElementById('suggestionsUl').style.display = 'none';
     }
     function debounce(fn, delay = 300) {
         let timeout;
