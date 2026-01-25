@@ -49,6 +49,13 @@ Route::get('like/{userId}/{productId}', function ($userId, $productId) {
     // إعادة تحميل العد بعد التحديث
     return $product->likes()->count();
 })->name('api.like');
+Route::get('suggestions', function () {
+   $q=\request()->get('q');
+   return \App\Models\Product::active()->product()->where(fn($query)=>$query->where('name', 'like', "%{$q}%")
+ /*  ->orWhere('expert', 'like', "%{$q}%")*/
+   )->pluck('name')->toArray();
+
+});
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/messages', \App\Http\Controllers\Api\V1\MessageController::class)->only('store');
     Route::post('click-whats', function (Request $request) {

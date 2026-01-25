@@ -17,7 +17,7 @@
     @if($showTextSearch)
         <div class="filter-group position-relative">
             <label class="filter-label" for="Search">بحث</label>
-            <input class="filter-input" id="" name="q" placeholder="ابحث عن... "/>
+            <input class="filter-input" id="Search" name="q" placeholder="ابحث عن... "/>
             <div id="suggestions" class="position-absolute bg-white w-100">
                 <ul>
                     <li><a href="#">...</a></li>
@@ -92,11 +92,31 @@
             citySelect.value = citySelect.getAttribute('data-selected');
         }
     }
+    function getSuggestions() {
+        let q = document.getElementById('Search').value;
+        if (!q) {
+            document.getElementById('suggestions').style.display = 'none';
+            return;
+        }
+        fetch(`/api/suggestions?q=${q}`)
+            .then(res => res.json())
+            .then(data => {
+                let suggestions = document.getElementById('suggestions');
+                suggestions.style.display = 'block';
+                suggestions.innerHTML = '';
+                data.forEach(suggestion => {
+                    suggestions.innerHTML += `<li>${suggestion}</li>`;
+                });
+            })
+    }
+
 
     // عند تغيير المحافظة يدويًا
     document.getElementById('governorateSelect').addEventListener('change', loadCities);
 
     // عند تحميل الصفحة... شغّل نفس الوظيفة تلقائيًا
     window.addEventListener('DOMContentLoaded', loadCities);
+
+    document.getElementById('Search').addEventListener('change', loadCities);
 </script>
 
