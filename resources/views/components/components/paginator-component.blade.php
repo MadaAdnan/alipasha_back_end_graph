@@ -2,38 +2,34 @@
 
 @if($paginator!=null)
 
+    <nav class="pagination-nav">
+        <div class="pagination-container">
 
-    <nav class="bg-white rounded p-2">
+            {{-- السابق --}}
+            <a class="pagination-btn pagination-prev {{ $paginator->onFirstPage() ? 'disabled' : '' }}"
+               href="{{ $paginator->withQueryString()->previousPageUrl() ?? '#' }}"
+               {{ $paginator->onFirstPage() ? 'disabled' : '' }}>
+                <i class="fa fa-chevron-right"></i>
+            </a>
 
-            <div class="d-flex justify-content-center align-items-center">
-
-                {{-- السابق --}}
-                <span class=" {{ $paginator->onFirstPage() ? 'disabled' : 'text-red-accent' }}">
-                    <a class=""
-                       href="{{ $paginator->withQueryString()->previousPageUrl() ?? '#' }}">
-                        <i class=" {{ $paginator->onFirstPage() ? 'disabled' : 'text-red-accent' }} fa fa-angle-right"></i>
-                    </a>
-                </span>
-
-                {{-- الأرقام --}}
+            {{-- الأرقام --}}
+            <div class="pagination-numbers">
                 @foreach ($paginator->withQueryString()->links()->elements[0] ?? [] as $page => $url)
-                    <span class="mx-1 btn rounded py-1 px-2  {{ $paginator->currentPage() == $page ? 'btn-red-accent' : 'bg-white' }}">
-                        <a class="" href="{{ $url }}">
-                            {{ $page }}
-                        </a>
-                    </span>
-                @endforeach
-
-                {{-- التالي --}}
-                <span class=" {{ $paginator->hasMorePages() ? 'text-red-accent' : 'disabled' }}">
-                    <a class=""
-                       href="{{ $paginator->withQueryString()->nextPageUrl() ?? '#' }}">
-
-                          <i class=" {{ $paginator->hasMorePages() ? 'text-red-accent' : 'disabled' }} fa fa-angle-left"></i>
+                    <a class="pagination-number {{ $paginator->currentPage() == $page ? 'active' : '' }}"
+                       href="{{ $url }}">
+                        {{ $page }}
                     </a>
-                </span>
-
+                @endforeach
             </div>
+
+            {{-- التالي --}}
+            <a class="pagination-btn pagination-next {{ $paginator->hasMorePages() ? '' : 'disabled' }}"
+               href="{{ $paginator->withQueryString()->nextPageUrl() ?? '#' }}"
+               {{ !$paginator->hasMorePages() ? 'disabled' : '' }}>
+                <i class="fa fa-chevron-left"></i>
+            </a>
+
+        </div>
     </nav>
 
 @endif

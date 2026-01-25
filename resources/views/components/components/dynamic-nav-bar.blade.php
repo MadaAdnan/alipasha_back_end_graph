@@ -15,8 +15,7 @@
                         }
 
                     @endphp
-                    <li class="nav-item">
-
+                    <li class="nav-item nav-divider">
                         <a class="nav-link active text-muted" aria-current="page" href="{{$url}}"> <i class="{{$nav->icon}}"></i><span class="d-inline-block mx-1">{{$nav->title}}</span></a>
                     </li>
                 @endforeach
