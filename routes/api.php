@@ -53,7 +53,7 @@ Route::get('suggestions', function () {
    $q=\request()->get('q');
    return \App\Models\Product::active()->product()->where(fn($query)=>$query->where('name', 'like', "%{$q}%")
  /*  ->orWhere('expert', 'like', "%{$q}%")*/
-   )->limit(7)->pluck('name')->toArray();
+   )->select('name')->distinct()->limit(7)->pluck('name')->toArray();
 
 });
 Route::middleware('auth:sanctum')->group(function () {
