@@ -21,8 +21,8 @@
 
                 <!-- Store Info -->
                 <div class="store-info-wrapper  d-sm-flex flex-sm-column w-100">
-                    <div class="store-name-section">
-                        <h1 class="store-name">{{ $store->seller_name ?? $store->name }}</h1>
+                    <div class="store-name-section d-sm-flex flex-sm-column w-100">
+                        <h1 class="store-name text-ellipsis">{{ $store->seller_name ?? $store->name }}</h1>
                         @if($store->is_verified)
                             <span class="verified-badge-small">
                                 <i class="bi bi-patch-check-fill"></i>
