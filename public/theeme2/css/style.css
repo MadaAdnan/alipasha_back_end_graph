@@ -1240,3 +1240,6 @@ padding-block: 10px;
     background-color: #d4d4d4;
     color: white;
 }
+#suggestions{
+    z-index: 10;
+}
