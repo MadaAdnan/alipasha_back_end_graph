@@ -17,7 +17,7 @@ class SearchController extends Controller
      */
     public function index()
     {
-        $type = \request()->get('type') ?? 'product';
+        $type = \request()->filled('type')?\request()->get('type') : 'product';
         $text = \request()->get('q');
         $city = \request()->get('city_id') ?? \request()->get('city');
         $area = \request()->get('area_id');
