@@ -125,7 +125,7 @@
             }, delay);
         };
     }
-    const debouncedGetSuggestions = debounce(getSuggestions, 300);
+    const debouncedGetSuggestions = debounce(getSuggestions, 750);
     document.getElementById('Search').addEventListener('input', debouncedGetSuggestions);
     document.getElementById('suggestionsUl').addEventListener('click', function (e) {
         if (e.target.classList.contains('sug')) {
