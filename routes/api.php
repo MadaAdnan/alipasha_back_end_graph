@@ -53,7 +53,7 @@ Route::get('suggestions', function () {
    $q=\request()->get('q');
    $category=\request()->get('category_id');
     $products = \App\Models\Product::active()->product()
-        // فلترة حسب الفئة إذا تم تحديدها
+
         ->when($category, function($query) use ($category) {
             $query->where(function($q) use ($category) {
                 $q->where('category_id', $category)
