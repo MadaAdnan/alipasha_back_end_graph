@@ -1224,4 +1224,19 @@ padding-block: 10px;
 .btn-share span{
     color: white;
 }
-
+.sug {
+    list-style: none;
+    padding-block: 7px;
+    padding-inline: 5px;
+    border: 1px solid #d4d4d4;
+    color: #d4d4d4;
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-block: 2px;
+    border-radius: 18px;
+}
+.sug:hover{
+    background-color: #d4d4d4;
+    color: white;
+}
