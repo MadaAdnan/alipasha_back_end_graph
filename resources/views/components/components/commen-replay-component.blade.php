@@ -6,7 +6,10 @@ $user=$replay->user;
  @endphp
 <div class="replies">
     <div class="comment d-flex">
-        <img src="{{$user->getImage()}}" class="avatar small">
+        <img src="{{$user->getImage()}}"
+             class="avatar small"
+             alt="{{$user->name}}"
+             onerror="this.src='{{ asset('images/user-profile.png') }}'; this.classList.add('avatar-no-image');">
 
         <div class="comment-body">
             <div class="comment-box">

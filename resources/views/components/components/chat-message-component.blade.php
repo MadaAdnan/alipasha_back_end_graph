@@ -4,24 +4,27 @@
 @php
     $user=$message->user;
     $type=$message->type;
+    $isCurrentUser = $user->id == auth()->id();
 @endphp
 
-@if($user->id==auth()->id())
-    <div class="d-flex flex-column gap-1  justify-content-start align-items-start mt-1 ">
-    <div class="message d-flex  gap-1 ">
-        <img src="{{$user->getImage()}}" alt="{{$user->name}}">
-        <p class="bg-me rounded text-wrap p-2">{{$message->body}}</p>
+<div class="message-wrapper {{ $isCurrentUser ? 'message-sent' : 'message-received' }}" data-message-id="{{ $message->id }}">
+    <div class="message-content">
+        @if(!$isCurrentUser)
+            <img src="{{$user->getImage()}}" alt="{{$user->name}}" class="message-avatar" title="{{$user->name}}">
+        @endif
 
-    </div>
-        <span>{{$message->created_at->diffForHumans()}}</span>
-    </div>
-@else
-    <div class="d-flex flex-column gap-1 justify-content-start align-items-start mt-1 ">
-        <div class="message d-flex  gap-1 ">
-            <img src="{{$user->getImage()}}" alt="{{$user->name}}">
-            <p class="bg-another rounded text-wrap p-2">{{$message->body}}</p>
-
+        <div class="message-bubble-wrapper">
+            @if(!$isCurrentUser)
+                <span class="message-sender-name">{{$user->name}}</span>
+            @endif
+            <div class="message-bubble {{ $isCurrentUser ? 'message-bubble-sent' : 'message-bubble-received' }}">
+                <p class="message-text">{{$message->body}}</p>
+                <span class="message-time" title="{{ $message->created_at->format('Y-m-d H:i') }}">{{$message->created_at->format('H:i')}}</span>
+            </div>
         </div>
-        <span>{{$message->created_at->diffForHumans()}}</span>
+
+        @if($isCurrentUser)
+            <img src="{{$user->getImage()}}" alt="{{$user->name}}" class="message-avatar" title="{{$user->name}}">
+        @endif
     </div>
-@endif
+</div>

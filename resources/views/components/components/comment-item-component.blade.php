@@ -5,7 +5,10 @@
 $user=$comment->user;
  @endphp
 <div class="comment d-flex">
-    <img src="{{$user?->getImage()}}" class="avatar">
+    <img src="{{$user?->getImage()}}"
+         class="avatar"
+         alt="{{$user->name}}"
+         onerror="this.src='{{ asset('images/user-profile.png') }}'; this.classList.add('avatar-no-image');">
 
     <div class="comment-body">
         <div class="comment-box">

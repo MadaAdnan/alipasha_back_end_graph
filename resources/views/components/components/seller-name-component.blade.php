@@ -8,7 +8,10 @@
     <a class="cursor-pointer d-flex justify-content-start  align-items-center gap-1"
        href="{{route('seller.profile',$seller->id)}}">
         @if($image)
-            <img src="{{$image}}" class="rounded-circle img-seller" alt="">
+            <img src="{{$image}}"
+                 class="rounded-circle img-seller"
+                 alt="{{$seller->seller_name ?? $seller->name}}"
+                 onerror="this.src='{{ asset('images/user-profile.png') }}'; this.classList.add('seller-no-image');">
         @else
             <i class="fa fa-shop {{$iconSize}}"></i>
         @endif
@@ -20,3 +23,11 @@
 @else
     <span></span>
 @endif
+
+<style>
+    .img-seller.seller-no-image {
+        background: linear-gradient(135deg, #f5f6fa 0%, #e9ecef 100%);
+        object-fit: contain;
+        padding: 5px;
+    }
+</style>

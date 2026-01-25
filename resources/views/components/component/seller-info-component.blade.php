@@ -1,6 +1,7 @@
 @props([
     'seller'=>null,
     'productId'=>null,
+    'post'=>null,
 ])
 <div class="card card-body seller-data">
     <div class="d-flex justify-content-between align-items-center">
@@ -40,6 +41,25 @@
     </div>
     <x-components.seller-name-component :seller="$seller" :image="$seller->getImage()"/>
     <span class="small text-muted"><i class="fa fa-location-dot"></i> {{$seller->address}}</span>
+
+    <!-- Product Stats -->
+    @if($post)
+        <div class="seller-stats-container">
+            <div class="stat-row">
+                <div class="stat-item">
+                    <i class="fas fa-calendar"></i>
+                    <span class="stat-label">تاريخ النشر</span>
+                    <span class="stat-value">{{$post->created_at?->format('Y-m-d')}}</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fa fa-eye"></i>
+                    <span class="stat-label">المشاهدات</span>
+                    <span class="stat-value">{{$post->views_count}}</span>
+                </div>
+            </div>
+        </div>
+    @endif
+
     <div class="divider my-1 "></div>
     <div class="d-flex justify-content-center gap-1">
         @auth
@@ -133,3 +153,76 @@
 
     }
 </script>
+
+<style>
+    .seller-stats-container {
+        margin: 12px 0;
+        padding: 12px 0;
+    }
+
+    .stat-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+    .stat-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        background: linear-gradient(135deg, #f8f9fa 0%, #f0f1f3 100%);
+        border-radius: 8px;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+
+    .stat-item:hover {
+        background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+        transform: translateY(-2px);
+    }
+
+    .stat-item i {
+        font-size: 18px;
+        color: #e30613;
+        margin-bottom: 6px;
+    }
+
+    .stat-label {
+        font-size: 11px;
+        color: #6c757d;
+        font-weight: 500;
+        margin-bottom: 4px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .stat-value {
+        font-size: 14px;
+        color: #212529;
+        font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+        .stat-row {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .stat-item {
+            padding: 8px;
+        }
+
+        .stat-item i {
+            font-size: 16px;
+        }
+
+        .stat-label {
+            font-size: 10px;
+        }
+
+        .stat-value {
+            font-size: 13px;
+        }
+    }
+</style>

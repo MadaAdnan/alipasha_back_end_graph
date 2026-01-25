@@ -53,8 +53,14 @@
 
             <!-- Price -->
             <div class="product-price-modern">
-                <x-components.price-component :price="$product->price" :discount="$product->discount"
-                                              :isDiscount="$product->is_discount"/>
+                @if($product->is_discount)
+                    <div class="card-price-wrapper">
+                        <span class="card-price-original">{{$product->price}} $</span>
+                        <span class="card-price-current">{{$product->discount}} $</span>
+                    </div>
+                @else
+                    <span class="card-price-current">{{$product->price}} $</span>
+                @endif
             </div>
 
             <!-- Stats -->
@@ -81,3 +87,24 @@
 @else
     <div></div>
 @endif
+
+<style>
+    .card-price-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .card-price-original {
+        font-size: 12px;
+        color: #6c757d;
+        text-decoration: line-through;
+        font-weight: 500;
+    }
+
+    .card-price-current {
+        font-size: 16px;
+        font-weight: 700;
+        color: #e30613;
+    }
+</style>
