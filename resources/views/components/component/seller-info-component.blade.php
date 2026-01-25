@@ -4,7 +4,7 @@
 ])
 <div class="card card-body seller-data">
     <div class="d-flex justify-content-between align-items-center">
-        <h6 class="text-gray fw-bold my-1">معلومات المعلن</h6>
+        <h6 class="text-gray fw-bold my-1">معلومات المعلن @if($seller->id==auth()->id()) <a href="{{route('profile.index')}}"><i class="fa fa-edit"></i></a> @endif</h6>
         @auth
             @php
                 $following=auth()->user()->followers()->pluck('seller_id')->toArray();
