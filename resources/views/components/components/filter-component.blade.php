@@ -112,7 +112,7 @@
         let search = document.getElementById('Search');
         search.value = text;
 
-        // إخفاء الاقتراحات بعد الاختيار
+
         document.getElementById('suggestionsUl').style.display = 'none';
     }
     function debounce(fn, delay = 300) {
@@ -132,10 +132,10 @@
             setSearch(e.target.dataset.text);
         }
     });
-    // عند تغيير المحافظة يدويًا
+
     document.getElementById('governorateSelect').addEventListener('change', loadCities);
 
-    // عند تحميل الصفحة... شغّل نفس الوظيفة تلقائيًا
+
     window.addEventListener('DOMContentLoaded', loadCities);
 
 
