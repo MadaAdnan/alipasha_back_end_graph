@@ -1,6 +1,12 @@
 *{
     font-family: almarai, serif;
 }
+
+html, body {
+    width: 100%;
+    overflow-x: hidden;
+}
+
 a{
     color: var(--gray-text);
     text-decoration: none;
@@ -1856,3 +1862,9 @@ option>img{
     color: white;
 }
 
+/* Product cards spacing on mobile */
+@media (max-width: 768px) {
+    .product-card-modern {
+        margin: 0 !important;
+    }
+}

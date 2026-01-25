@@ -1,3 +1,41 @@
+/* Global overflow fix for all mobile devices */
+@media (max-width: 768px) {
+    html, body {
+        overflow-x: hidden !important;
+        width: 100% !important;
+    }
+
+    .container,
+    .container-fluid {
+        width: 100% !important;
+        padding-left: 8px !important;
+        padding-right: 8px !important;
+        overflow-x: hidden !important;
+    }
+
+    .row {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    /* استثناء للبطاقات - احتفظ بالمسافة بينها */
+    .row.product-row {
+        --bs-gutter-x: 12px !important;
+        --bs-gutter-y: 12px !important;
+    }
+
+    .row.product-row > [class*="col-"] {
+        padding-left: calc(var(--bs-gutter-x) * 0.5) !important;
+        padding-right: calc(var(--bs-gutter-x) * 0.5) !important;
+    }
+
+    /* باقي الأعمدة بدون padding */
+    .row:not(.product-row) > [class*="col-"] {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+}
+
 /* Extra small devices (phones, less than 576px) */
 @media (max-width: 575.98px) {
     .sticky-col {

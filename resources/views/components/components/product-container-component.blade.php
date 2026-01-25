@@ -29,7 +29,7 @@
         </div>
     @endif
     @if($dataProducts)
-        <div class="row g-2">
+        <div class="row g-2 product-row">
             @foreach($dataProducts as $product)
                 <div class="col-lg-3 col-md-4 col-sm-6 col-6">
                     <x-components.product-container-item-component :product="$product"/>
