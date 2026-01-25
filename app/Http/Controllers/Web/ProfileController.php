@@ -70,6 +70,14 @@ class ProfileController extends Controller
         ];
         if (auth()->user()->is_verified) {
             $data['seller_name'] = $request->seller_name;
+            $data['social'] = [
+                'face' => $request->face,
+                'instagram' => $request->instagram,
+                'tiktok' => $request->tiktok,
+                'twitter' => $request->twitter,
+                'linkedin' => $request->linkedin,
+            ];
+
         }
         $user->update($data);
         return back()->with('success', 'نجاح العملية');
