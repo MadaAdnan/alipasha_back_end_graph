@@ -15,9 +15,16 @@
     <input type="hidden" name="seller_id" value="{{$sellerId}}">
     <input type="hidden" name="type" value="{{$type}}">
     @if($showTextSearch)
-        <div class="filter-group">
+        <div class="filter-group position-relative">
             <label class="filter-label" for="Search">بحث</label>
             <input class="filter-input" id="" name="q" placeholder="ابحث عن... "/>
+            <div id="suggestions" class="position-absolute bg-white w-100">
+                <ul>
+                    <li><a href="#">...</a></li>
+                    <li><a href="#">...</a></li>
+                    <li><a href="#">...</a></li>
+                </ul>
+            </div>
         </div>
     @endif
     {{-- المحافظة --}}
