@@ -20,9 +20,7 @@
             <input class="filter-input" id="Search" name="q" placeholder="ابحث عن... "/>
             <div id="suggestions" class="position-absolute bg-white w-100">
                 <ul>
-                    <li><a href="#">...</a></li>
-                    <li><a href="#">...</a></li>
-                    <li><a href="#">...</a></li>
+
                 </ul>
             </div>
         </div>
