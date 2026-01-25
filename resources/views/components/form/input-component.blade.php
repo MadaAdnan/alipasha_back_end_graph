@@ -70,7 +70,7 @@
     </div>
 
     @if($helpText)
-        <div class="form-text">{{ $helpText }}</div>
+        <div class="form-text text-red-accent">{{ $helpText }}</div>
     @endif
 
     @if($hasError)
