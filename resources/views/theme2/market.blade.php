@@ -5,7 +5,7 @@
         <!-- Store Header Section -->
         <div class="store-header-section">
         <div class="container store-header-content">
-            <div class="store-header-wrapper">
+            <div class="store-header-wrapper d-sm-flex flex-sm-column">
                 <!-- Store Image -->
                 <div class="store-image-container">
                     <img src="{{ $store->getImage() }}"
@@ -143,21 +143,6 @@
     </div>
 
     <style>
-        @media (max-width: 440px) {
-            .store-header-section{
-                max-width: 98%;
-                overflow: hidden;
-                display: flex;
-                flex-direction: column;
-            }
-            .store-image-container{
-                width: 100%;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                flex-direction: column;
-            }
-        }
 
 
         .store-page-wrapper {
