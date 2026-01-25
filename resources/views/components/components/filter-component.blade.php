@@ -115,6 +115,6 @@
     // عند تحميل الصفحة... شغّل نفس الوظيفة تلقائيًا
     window.addEventListener('DOMContentLoaded', loadCities);
 
-    document.getElementById('Search').addEventListener('change', loadCities);
+    document.getElementById('Search').addEventListener('change', getSuggestions);
 </script>
 
