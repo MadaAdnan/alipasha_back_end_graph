@@ -73,7 +73,7 @@
                         <div class="store-actions-contact">
                             <button class="btn-action btn-contact" onclick="window.location.href='https://wa.me/{{ $store->phone_code }}{{ $store->phone }}'">
                                 <i class="fa-brands fa-whatsapp"></i>
-                                <span>تواصل معنا</span>
+                                <span>واتساب</span>
                             </button>
 
                             <form action="{{ route('communities.store') }}" method="POST" style="display: inline;">
@@ -81,7 +81,7 @@
                                 <input type="hidden" name="seller_id" value="{{ $store->id }}">
                                 <button type="submit" class="btn-action btn-chat">
                                     <i class="fa-solid fa-comments"></i>
-                                    <span>تواصل بالدردشة</span>
+                                    <span>محادثة</span>
                                 </button>
                             </form>
                         </div>
@@ -143,8 +143,15 @@
     </div>
 
     <style>
+        /* Fix for sticky positioning */
+        body {
+            overflow-x: hidden !important;
+            overflow-y: auto !important;
+        }
+
         .store-page-wrapper {
             background: white;
+            overflow: visible !important;
         }
 
         .divider-line {
@@ -161,11 +168,30 @@
         .products-section {
             margin-top: 0 !important;
             padding-top: 0 !important;
+            overflow: visible !important;
+        }
+
+        .products-section .row {
+            align-items: flex-start !important;
+            overflow: visible !important;
+        }
+
+        .products-section .sticky-col {
+            position: -webkit-sticky !important;
+            position: sticky !important;
+            top: 80px !important;
+            align-self: flex-start !important;
+            z-index: 10 !important;
         }
 
         @media (max-width: 768px) {
             .products-section {
                 padding: 0 !important;
+            }
+
+            .products-section .sticky-col {
+                position: relative !important;
+                top: 0 !important;
             }
         }
 

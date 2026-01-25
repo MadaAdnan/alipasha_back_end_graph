@@ -1,6 +1,19 @@
 @extends('theme2.layouts.master')
 @section('content')
     <div class="container mb-2 mt-5">
+        <!-- Mobile Categories Scroll -->
+        <div class="mobile-categories-scroll">
+            <a href="{{ route('category.show', $category->id) }}" class="category-btn active">
+                {{ $category->name }}
+            </a>
+            @foreach($category->children as $child)
+                <a href="{{ route('category.show', $child->id) }}"
+                   class="category-btn">
+                    {{ $child->name }}
+                </a>
+            @endforeach
+        </div>
+
         <div class="row">
 
                <div class="col-md-3  my-2 sticky-col">
@@ -37,6 +50,65 @@
             </div>
         </div>
     </div>
+
+    <style>
+        /* Mobile Categories Scroll */
+        .mobile-categories-scroll {
+            display: none;
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 8px 0;
+            margin-bottom: 12px;
+            gap: 8px;
+            flex-wrap: nowrap;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .mobile-categories-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-btn {
+            display: inline-flex;
+            padding: 8px 16px;
+            background: #f0f0f0;
+            color: #212529;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .category-btn:hover {
+            background: #e9ecef;
+        }
+
+        .category-btn.active {
+            background: #e30613;
+            color: white;
+            border-color: #e30613;
+        }
+
+        @media (max-width: 768px) {
+            /* Show categories scroll on mobile */
+            .mobile-categories-scroll {
+                display: flex !important;
+            }
+
+            /* Hide sidebar on mobile */
+            .sticky-col {
+                display: none;
+            }
+
+            .col-md-9 {
+                width: 100%;
+            }
+        }
+    </style>
 
 @endsection
 

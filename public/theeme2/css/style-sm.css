@@ -18,6 +18,11 @@
         margin-right: 0 !important;
     }
 
+    /* Reduce margin-top on mobile devices */
+    .mt-5 {
+        margin-top: 1rem !important;
+    }
+
     /* استثناء للبطاقات - احتفظ بالمسافة بينها */
     .row.product-row {
         --bs-gutter-x: 12px !important;
