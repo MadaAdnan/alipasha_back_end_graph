@@ -27,7 +27,7 @@ class SearchController extends Controller
 
         $priceFrom = \request()->filled('price_from') ?\request()->get('price_from'):0;
         $priceTo = \request()->filled('price_to') ?\request()->get('price_to'):1000000;
-
+dd($priceTo,$priceFrom);
         $products = Product::query()->where('active', ProductActiveEnum::ACTIVE->value);
         if(!empty($type)){
             if ($type == CategoryTypeEnum::SEARCH_JOB->value || $type == CategoryTypeEnum::JOB->value) {
