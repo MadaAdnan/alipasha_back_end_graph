@@ -25,7 +25,7 @@ class SearchController extends Controller
         $category = \request()->get('category_id');
         $seller = \request()->get('seller_id');
 
-        $priceFrom = \request()->get('price_from') ?? 0;
+        $priceFrom = \request()->filled('price_from') ?\request()->get('price_from'):0;
         $priceTo = \request()->get('price_to');
 
         $products = Product::query()->where('active', ProductActiveEnum::ACTIVE->value);
