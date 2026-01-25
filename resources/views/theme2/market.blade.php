@@ -162,6 +162,12 @@
             margin-top: 0 !important;
             padding-top: 0 !important;
         }
+        @media (max-width: 440px) {
+            .store-header-section{
+                max-width: 100%;
+                overflow: hidden;
+            }
+        }
 
         @media (max-width: 768px) {
             .products-section {
