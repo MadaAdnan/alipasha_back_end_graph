@@ -341,6 +341,7 @@
         const carousel = bootstrap.Carousel.getOrCreateInstance(carouselElement, {
             interval: false
         });
+        console.log(carousel)
 
 
         carousel.to(index);
