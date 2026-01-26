@@ -409,14 +409,14 @@ option>img{
 }
 
 .product-image-wrapper::before {
-    content: '\f03e';
+    /*content: '\f03e';
     font-family: 'Font Awesome 6 Free';
     font-weight: 400;
     font-size: 48px;
     color: rgba(0, 0, 0, 0.1);
     position: absolute;
     z-index: 0;
-    pointer-events: none;
+    pointer-events: none;*/
 }
 
 .product-image-modern {
