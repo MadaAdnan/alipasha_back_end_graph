@@ -321,7 +321,7 @@
         document.getElementById('previewImage').src = src;
     }
 
-    function goToSlide(carouselId, index) {
+   /* function goToSlide(carouselId, index) {
         const carousel = new bootstrap.Carousel(document.getElementById(carouselId));
         carousel.to(index);
 
@@ -330,6 +330,15 @@
             console.log(i, index,"ITEM")
             item.classList.toggle('active', i === index);
         });
+    }*/
+    function goToSlide(carouselId, index) {
+        const carouselElement = document.getElementById(carouselId);
+        if (carouselElement) {
+            const carousel = bootstrap.Carousel.getInstance(carouselElement);
+            if (carousel) {
+                carousel.to(index);
+            }
+        }
     }
 
     // Update thumbnail when carousel changes
