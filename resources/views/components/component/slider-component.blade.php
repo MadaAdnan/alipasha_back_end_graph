@@ -8,7 +8,7 @@
         @if(count($items) > 1)
             <div class="slider-thumbnails-vertical">
                 @foreach($items as $index => $item)
-                    <div class="thumbnail-item @if($index === 0) active @endif" onclick="goToSlide('carousel-{{ $id ?? uniqid() }}', {{ $index }})">
+                    <div class="thumbnail-item @if($index === 0) active @endif" onclick="goToSlide('carousel-{{ $id  }}', {{ $index }})">
                         <img src="{{ $item }}" alt="صورة {{ $index + 1 }}"
                              onerror="this.src='{{ asset('images/noImage.jpeg') }}'">
                     </div>
@@ -17,7 +17,7 @@
         @endif
 
         <!-- Main Slider -->
-        <div id="carousel-{{ $id ?? uniqid() }}" class="carousel slide slider-component rounded" data-bs-ride="carousel">
+        <div id="carousel-{{ $id  }}" class="carousel slide slider-component rounded" data-bs-ride="carousel">
             <div class="carousel-inner">
                 @forelse($items as $item)
                     <div class="carousel-item @if($loop->first) active @endif">
@@ -327,6 +327,7 @@
 
         // Update active thumbnail
         document.querySelectorAll('.thumbnail-item').forEach((item, i) => {
+            console.log(i, index,"ITEM")
             item.classList.toggle('active', i === index);
         });
     }
