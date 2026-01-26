@@ -24,7 +24,7 @@
                             @method('post')
                             <button class=" btn-contact-us rounded"><i class="fa fa-comments"></i> <span class="d-none d-md-inline">تواصل عن طريق الموقع</span> </button>
                         </form>
-                        <form action="{{route('communities.store')}}" method="post">
+                        <form class="d-none d-md-inline-block" action="{{route('communities.store')}}" method="post">
                             @csrf
                             @method('post')
                             <button class=" btn-green"><i class="fa-brands fa-whatsapp"></i> <span class="d-none d-md-inline">تواصل عن طريق واتسآب</span> </button>
