@@ -3,7 +3,7 @@
         <a class="navbar-brand" href="{{route('index')}}">
             <img class="logo" src="{{$setting?->getFirstMediaUrl('logo') ?? asset('assets/logo.svg')}}" alt="علي باشا"> <span class="text-red">علي باشا</span></a>
         <!-- Shopping Cart with Badge -->
-        <a href="{{ route('carts.index') }}" style="margin-inline: 15px" class="cart-link  position-relative">
+        <a href="{{ route('carts.index') }}"  class="cart-link  position-relative">
             <i class="fa fa-shopping-cart fa-lg"></i>
             @if(auth()->check())
                 @php
@@ -14,7 +14,7 @@
                 @endif
             @endif
         </a>
-        <a href="{{ route('notifications.index') }}" style="margin-inline: 15px" class="cart-link  position-relative">
+        <a href="{{ route('notifications.index') }}"  class="cart-link  position-relative">
             <i class="fa fa-bell fa-lg"></i>
             @if(auth()->check())
                 @php
