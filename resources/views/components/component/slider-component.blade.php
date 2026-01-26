@@ -333,6 +333,7 @@
     }*/
     function goToSlide(carouselId, index) {
         const carouselElement = document.getElementById(carouselId);
+        console.log(carouselElement, index)
         if (carouselElement) {
             const carousel = bootstrap.Carousel.getInstance(carouselElement);
             if (carousel) {
