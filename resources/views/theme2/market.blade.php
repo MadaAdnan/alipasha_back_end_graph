@@ -110,7 +110,13 @@
             </div>
         </div>
     </div>
-        <div class="divider-line"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="divider-line"></div>
+        </div>
+    </div>
+</div>
 
 
     <div class="container products-section">
