@@ -4,7 +4,16 @@
         <div class="row justify-content-center">
             <div class="col-md-6">
                 @foreach($notifications as $notification)
-
+                    <div class="filter-container">
+                        <div class="filter-header">
+                            <i class="fas fa-sliders-h"></i>
+                            <span>{{$notification->data['title']}}</span>
+                        </div>
+                        <p>{{$notification->data['body']}}</p>
+                        <div class="d-flex">
+                            <span>{{$notification->created_at->diffForHumans()}}</span>
+                        </div>
+                    </div>
                 @endforeach
             </div>
             <div class="col-md-12">

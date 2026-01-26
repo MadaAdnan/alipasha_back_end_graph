@@ -14,7 +14,7 @@ class NotificationController extends Controller
     {
         $notifications=auth()->user()->notifications()->latest()->paginate(10);
         auth()->user()->notifications->markAsRead();
-        return view('web.notifications',compact('notifications'));
+        return view('theme2.notifications',compact('notifications'));
     }
 
     /**
