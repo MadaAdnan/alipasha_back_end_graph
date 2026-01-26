@@ -8,9 +8,7 @@
         @if(count($items) > 1)
             <div class="slider-thumbnails-vertical">
                 @foreach($items as $index => $item)
-                    <div class="thumbnail-item @if($index === 0) active @endif"
-                         data-carousel-id="carousel-{{ $id }}"
-                         onclick="goToSlide('carousel-{{ $id }}', {{ $index }})">
+                    <div class="thumbnail-item @if($index === 0) active @endif" onclick="goToSlide('carousel-{{ $id  }}', {{ $index }})">
                         <img src="{{ $item }}" alt="صورة {{ $index + 1 }}"
                              onerror="this.src='{{ asset('images/noImage.jpeg') }}'">
                     </div>
@@ -19,7 +17,7 @@
         @endif
 
         <!-- Main Slider -->
-        <div id="carousel-{{ $id  }}" class="carousel slide slider-component rounded"{{-- data-bs-ride="carousel"--}}>
+        <div id="carousel-{{ $id ?? uniqid() }}" class="carousel slide slider-component rounded" data-bs-ride="carousel">
             <div class="carousel-inner">
                 @forelse($items as $item)
                     <div class="carousel-item @if($loop->first) active @endif">
@@ -323,33 +321,26 @@
         document.getElementById('previewImage').src = src;
     }
 
-   /* function goToSlide(carouselId, index) {
+    function goToSlide(carouselId, index) {
         const carousel = new bootstrap.Carousel(document.getElementById(carouselId));
         carousel.to(index);
 
         // Update active thumbnail
         document.querySelectorAll('.thumbnail-item').forEach((item, i) => {
-            console.log(i, index,"ITEM")
             item.classList.toggle('active', i === index);
         });
-    }*/
-    function goToSlide(carouselId, index) {
-        const carouselElement = document.getElementById(carouselId);
-        if (!carouselElement) return;
-
-        const carousel = bootstrap.Carousel.getInstance(carouselElement);
-        carousel.to(index);
     }
 
     // Update thumbnail when carousel changes
-    document.addEventListener('DOMContentLoaded', function () {
-        document.querySelectorAll('.carousel').forEach(carouselEl => {
-            new bootstrap.Carousel(carouselEl, {
-                interval: false,
-                ride: false,
-                touch: true
+    document.addEventListener('DOMContentLoaded', function() {
+        const carousels = document.querySelectorAll('.carousel');
+        carousels.forEach(carousel => {
+            carousel.addEventListener('slide.bs.carousel', function(e) {
+                const thumbnails = document.querySelectorAll('.thumbnail-item');
+                thumbnails.forEach((item, i) => {
+                    item.classList.toggle('active', i === e.to);
+                });
             });
         });
     });
-
 </script>
