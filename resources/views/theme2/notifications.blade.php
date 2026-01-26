@@ -4,6 +4,7 @@
         <div class="row justify-content-center">
             <div class="col-md-6">
                 @foreach($notifications as $notification)
+                    {{dd($notification->data)}}
                     <div class="filter-container">
                         <div class="filter-header">
                             <i class="fas fa-comments"></i>
