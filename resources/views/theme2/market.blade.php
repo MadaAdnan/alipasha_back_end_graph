@@ -47,15 +47,7 @@
                             </div>
                         </div>
 
-                        <div class="stat-card">
-                            <div class="stat-icon">
-                                <i class="fa fa-bell"></i>
-                            </div>
-                            <div class="stat-content">
-                                <span class="stat-value">{{ $store->followers_count ?? 0 }}</span>
-                                <span class="stat-label">متابع</span>
-                            </div>
-                        </div>
+
 
                         <div class="stat-card">
                             <div class="stat-icon">
@@ -64,6 +56,15 @@
                             <div class="stat-content">
                                 <span class="stat-value">{{ $store->following_count ?? 0 }}</span>
                                 <span class="stat-label">يتابع</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fa fa-bell"></i>
+                            </div>
+                            <div class="stat-content">
+                                <span class="stat-value">{{ $store->followers_count ?? 0 }}</span>
+                                <span class="stat-label">متابع</span>
                             </div>
                         </div>
                     </div>
@@ -110,7 +111,9 @@
         </div>
     </div>
 
-    <div class="divider-line"></div>
+   <div class="col-12">
+       <div class="divider-line"></div>
+   </div>
 
     <div class="container products-section">
         <!-- Mobile Categories Scroll -->
