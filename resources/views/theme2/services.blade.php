@@ -40,7 +40,7 @@
         <div class="row my-4">
 
             <div class="col-md-3  my-2 sticky-col">
-                <x-components.side-bar-services-component :services="$categories" :serviceId="$category"/>
+                <x-components.side-bar-services-component :services="$categories" :serviceId="$category->id"/>
                 <x-components.filter-component :showPrice="false" :showTextSearch="true" route="{{route('services.index')}}" type="{{\App\Enums\CategoryTypeEnum::SERVICE->value}}"/>
             </div>
             <div class="col-md-9 mt-3">
