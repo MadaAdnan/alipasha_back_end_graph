@@ -43,11 +43,11 @@
             </div>
 
             @if(count($items) > 1)
-                <button class="carousel-control-prev" type="button" data-bs-target="#carousel-{{ $id ?? uniqid() }}" data-bs-slide="prev">
+                <button class="carousel-control-prev" type="button" data-bs-target="#carousel-{{ $id  }}" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon"></span>
                 </button>
 
-                <button class="carousel-control-next" type="button" data-bs-target="#carousel-{{ $id ?? uniqid() }}" data-bs-slide="next">
+                <button class="carousel-control-next" type="button" data-bs-target="#carousel-{{ $id  }}" data-bs-slide="next">
                     <span class="carousel-control-next-icon"></span>
                 </button>
             @endif
@@ -338,10 +338,10 @@
         if (!carouselElement) return;
 
         // إذا لم يكن هناك instance، أنشئ واحد
-        let carousel = bootstrap.Carousel.getInstance(carouselElement);
-        if (!carousel) {
-            carousel = new bootstrap.Carousel(carouselElement);
-        }
+        const carousel = bootstrap.Carousel.getOrCreateInstance(carouselElement, {
+            interval: false
+        });
+
 
         carousel.to(index);
     }
