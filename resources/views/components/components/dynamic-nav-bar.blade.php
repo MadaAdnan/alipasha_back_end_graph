@@ -2,7 +2,7 @@
     'class'=>null
 ])
 <nav class="navbar navbar-expand-lg bg-white  {{$class}}">
-    <div class="container">
+    <div class="container justify-content-start">
 
         <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
