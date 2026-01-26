@@ -6,11 +6,11 @@
                 @foreach($notifications as $notification)
                     <div class="filter-container">
                         <div class="filter-header">
-                            <i class="fas fa-sliders-h"></i>
+                            <i class="fas fa-comments"></i>
                             <span>{{$notification->data['title']}}</span>
                         </div>
                         <p>{{$notification->data['body']}}</p>
-                        <div class="d-flex">
+                        <div class="d-flex justify-content-end">
                             <span>{{$notification->created_at->diffForHumans()}}</span>
                         </div>
                     </div>
