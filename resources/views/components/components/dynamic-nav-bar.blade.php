@@ -3,7 +3,7 @@
 ])
 <nav class="navbar navbar-expand-lg bg-white  {{$class}}">
     <div class="container ">
-        <a class="navbar-brand" href="{{route('index')}}">
+        <a class="navbar-brand d-inline-block d-md-none" href="{{route('index')}}">
             <img class="logo" src="{{ asset('images/logo.png')}}" alt="علي باشا"> </a>
         <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

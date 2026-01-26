@@ -1,6 +1,7 @@
 <nav class="navbar navbar-expand bg-white border-bottom">
     <div class="container">
-
+        <a class="navbar-brand d-none d-md-inline-block" href="{{route('index')}}">
+            <img class="logo" src="{{ asset('images/logo.png')}}" alt="علي باشا"> </a>
         <!-- Shopping Cart with Badge -->
         <a href="{{ route('carts.index') }}"  class="cart-link mx-1 position-relative">
             <i class="fa fa-shopping-cart fa-lg"></i>
