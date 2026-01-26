@@ -19,7 +19,7 @@
         @endif
 
         <!-- Main Slider -->
-        <div id="carousel-{{ $id  }}" class="carousel slide slider-component rounded" data-bs-ride="carousel">
+        <div id="carousel-{{ $id  }}" class="carousel slide slider-component rounded"{{-- data-bs-ride="carousel"--}}>
             <div class="carousel-inner">
                 @forelse($items as $item)
                     <div class="carousel-item @if($loop->first) active @endif">
@@ -337,31 +337,17 @@
         const carouselElement = document.getElementById(carouselId);
         if (!carouselElement) return;
 
-        // إذا لم يكن هناك instance، أنشئ واحد
-        const carousel = bootstrap.Carousel.getOrCreateInstance(carouselElement, {
-            interval: false
-        });
-        console.log(carousel)
-
-
+        const carousel = bootstrap.Carousel.getInstance(carouselElement);
         carousel.to(index);
     }
 
     // Update thumbnail when carousel changes
     document.addEventListener('DOMContentLoaded', function () {
-        document.querySelectorAll('.carousel').forEach(carousel => {
-            carousel.addEventListener('slid.bs.carousel', function (e) {
-
-                const carouselId = this.id;
-
-                // فقط المصغّرات التابعة لهذا السلايدر
-                const thumbnails = document.querySelectorAll(
-                    `.thumbnail-item[data-carousel-id="${carouselId}"]`
-                );
-
-                thumbnails.forEach((thumb, index) => {
-                    thumb.classList.toggle('active', index === e.to);
-                });
+        document.querySelectorAll('.carousel').forEach(carouselEl => {
+            new bootstrap.Carousel(carouselEl, {
+                interval: false,
+                ride: false,
+                touch: true
             });
         });
     });
