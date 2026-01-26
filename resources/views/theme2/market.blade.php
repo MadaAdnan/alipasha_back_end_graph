@@ -110,10 +110,8 @@
             </div>
         </div>
     </div>
+        <div class="divider-line"></div>
 
-   <div class="col-12">
-       <div class="divider-line"></div>
-   </div>
 
     <div class="container products-section">
         <!-- Mobile Categories Scroll -->
