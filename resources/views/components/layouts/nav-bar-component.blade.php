@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand bg-white">
     <div class="container">
         <a class="navbar-brand" href="{{route('index')}}">
-            <img class="logo" src="{{$setting?->getFirstMediaUrl('logo')}}" alt=""></a>
+            <img class="logo" src="{{$setting?->getFirstMediaUrl('logo') ?? asset('assets/logo.svg')}}" alt="علي باشا"></a>
         <!-- Shopping Cart with Badge -->
         <a href="{{ route('carts.index') }}" style="margin-inline: 15px" class="cart-link  position-relative">
             <i class="fa fa-shopping-cart fa-lg"></i>
@@ -14,6 +14,12 @@
                 @endif
             @endif
         </a>
+
+        <!-- Mobile Toggle Button -->
+        <button class="navbar-toggler d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
         {{--<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -37,14 +43,13 @@
                 @auth()
                 <li class="nav-item">
                     <a class="nav-link d-none d-md-inline-block" href="{{route('seller.profile',auth()->id())}}"><i class="fa fa-user"></i> {{auth()->user()->name}} </a>
-                    <a class="nav-link d-inline-block d-md-none" href="{{route('seller.profile',auth()->id())}}"><i class="fa fa-user"></i> {{Str::limit(auth()->user()->name,1)}} </a>
+                    <a class="nav-link d-inline-block d-md-none" href="{{route('seller.profile',auth()->id())}}"><i class="fa fa-user"></i> {{Str::limit(auth()->user()->name,15)}} </a>
                 </li>
                 <li class="nav-item">
                     <form action="{{route('logout')}}" method="post">
                         @csrf
                         @method('POST')
                         <button class="btn btn-danger d-none d-md-inline-block">تسجيل الخروج</button>
-                        <button class="btn btn-danger d-inline-block d-md-none"><i class="fa-solid text-white fa-arrow-right-from-bracket"></i></button>
                     </form>
                 </li>
                 @endauth

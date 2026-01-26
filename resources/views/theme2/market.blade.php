@@ -143,54 +143,6 @@
     </div>
 
     <style>
-        @media (max-width: 768px) {
-
-            /* فقط ترتيب الهيدر بدون قلبه عمودياً */
-            .store-header-wrapper {
-                gap: 15px;
-                padding: 15px;
-            }
-
-            /* تصغير الصورة لا أكثر */
-            .store-image {
-                width: 90px;
-                height: 90px;
-            }
-
-            /* منع تمدد الأزرار بشكل عشوائي */
-            .store-actions {
-                flex-wrap: wrap;
-                gap: 8px;
-            }
-
-            .store-actions-contact {
-                flex-wrap: wrap;
-                gap: 8px;
-            }
-
-            .btn-action {
-                padding: 8px 14px;
-                font-size: 12px;
-            }
-
-            /* ضبط الإحصائيات بدون تغيير اتجاهها */
-            .store-stats-grid {
-                gap: 8px;
-            }
-
-            .stat-icon {
-                font-size: 18px;
-            }
-
-            .stat-value {
-                font-size: 16px;
-            }
-
-            .stat-label {
-                font-size: 11px;
-            }
-        }
-
         .store-page-wrapper {
             background: white;
         }
