@@ -31,10 +31,10 @@
 
 
 
-@auth
+{{--@auth
     <x-components.link-chat-component/>
 
-@endauth
+@endauth--}}
 
 @auth
     <script>
