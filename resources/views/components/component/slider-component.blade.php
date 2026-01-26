@@ -8,7 +8,9 @@
         @if(count($items) > 1)
             <div class="slider-thumbnails-vertical">
                 @foreach($items as $index => $item)
-                    <div class="thumbnail-item @if($index === 0) active @endif" onclick="goToSlide('carousel-{{ $id  }}', {{ $index }})">
+                    <div class="thumbnail-item @if($index === 0) active @endif"
+                         data-carousel-id="carousel-{{ $id }}"
+                         onclick="goToSlide('carousel-{{ $id }}', {{ $index }})">
                         <img src="{{ $item }}" alt="صورة {{ $index + 1 }}"
                              onerror="this.src='{{ asset('images/noImage.jpeg') }}'">
                     </div>
@@ -333,14 +335,15 @@
     }*/
     function goToSlide(carouselId, index) {
         const carouselElement = document.getElementById(carouselId);
+        if (!carouselElement) return;
 
-        if (carouselElement) {
-            const carousel = bootstrap.Carousel.getInstance(carouselElement);
-            console.log(carousel)
-            if (carousel) {
-                carousel.to(index);
-            }
+        // إذا لم يكن هناك instance، أنشئ واحد
+        let carousel = bootstrap.Carousel.getInstance(carouselElement);
+        if (!carousel) {
+            carousel = new bootstrap.Carousel(carouselElement);
         }
+
+        carousel.to(index);
     }
 
     // Update thumbnail when carousel changes
