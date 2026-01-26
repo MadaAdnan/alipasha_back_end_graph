@@ -22,7 +22,7 @@
     @stack('css')
 </head>
 <body class="bg-gray">
-<x-components.dynamic-nav-bar class="d-block d-md-none"/>
+<x-components.dynamic-nav-bar class="d-block d-md-none border-bottom"/>
 <x-layouts.nav-bar-component/>
 
 <x-components.dynamic-nav-bar class="d-none d-md-block"/>
