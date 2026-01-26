@@ -23,7 +23,8 @@
                     <div class="product-title-wrapper">
                         <h1 class="product-title">{{$post->name??$post->expert}}</h1>
                         <div class="product-breadcrumb-price">
-                            <x-components.bread-crumb-component class="product-breadcrumb" :first="$post->category?->name"
+                            <x-components.bread-crumb-component class="product-breadcrumb"
+                                                                :first="$post->category?->name"
                                                                 urlFirst=" "
                                                                 iconFirst=" " :categories="[
                 ['name'=>$post->sub1?->name],
@@ -55,10 +56,12 @@
                             @if(auth()->check())
                                 <x-components.add-to-cart-component :post="$post"/>
                                 <x-components.like-btn-component class="mx-2" :post="$post"/>
-                                <a href="{{url('/admin/products/'.$post->id)}}" class="btn">
-                                    <span>تعديل</span>
-                                    <i class="fa fa-edit"></i>
-                                </a>
+                                @if(auth()->id()==$post->user_id)
+                                    <a href="{{url("/admin/products/{$post->id}/edit")}}" class="btn btn-red-accent">
+                                        <span>تعديل</span>
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                @endif
                             @endif
                             <x-components.share-btn-component :url="route('posts.show', $post->id)"/>
                         </div>
@@ -74,7 +77,8 @@
                                     <span class="info-label"><i class="fas fa-palette"></i> الألوان المتوفرة</span>
                                     <div class="info-value colors-container">
                                         @foreach($post->colors as $color)
-                                            <span class="color-dot" style="background-color: {{$color->code}}" title="{{$color->name ?? 'لون'}}"></span>
+                                            <span class="color-dot" style="background-color: {{$color->code}}"
+                                                  title="{{$color->name ?? 'لون'}}"></span>
                                         @endforeach
                                     </div>
                                 </div>
