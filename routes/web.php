@@ -181,16 +181,6 @@ Route::middleware([\App\Http\Middleware\XFrameOptionMiddleware::class])->group(f
     });
 
     Route::get('/server-resources', function () {
-        /*  $user=User::find(51491);
-          //return $user->plans()->where('type', PlansTypeEnum::PRESENT->value)->get();
-          $plan = ProductsHelper::getPresentPlanActive($user);
-          return $plan;*/
-        /* return [
-             'memory_limit' => ini_get('memory_limit'),
-             'max_execution_time' => ini_get('max_execution_time'),
-             'disk_free_space' => disk_free_space('/'),
-             'disk_total_space' => disk_total_space('/'),
-             'cpu_load' => sys_getloadavg()
-         ];*/
+
     });
 });

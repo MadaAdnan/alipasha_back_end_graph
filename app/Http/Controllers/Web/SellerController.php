@@ -35,7 +35,7 @@ class SellerController extends Controller
         $categoryId=\request()->get('category_id');
         $products=Product::whereActive(ProductActiveEnum::ACTIVE->value)->where('user_id',$id)
             ->when(!empty($categoryId),fn($query)=>$query->where('category_id',$categoryId))
-            ->inRandomOrder()->latest()->paginate(21);
+            ->inRandomOrder()->latest()->paginate(12);
         $categoryIds=$store->products->pluck('category_id')->toArray();
         $categories = Category::whereIn('id', $categoryIds)
             ->withCount(['products' => function ($query) use ($store) {
