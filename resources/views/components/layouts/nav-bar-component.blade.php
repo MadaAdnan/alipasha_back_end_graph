@@ -14,6 +14,17 @@
                 @endif
             @endif
         </a>
+        <a href="{{ route('notifications.index') }}" style="margin-inline: 15px" class="cart-link  position-relative">
+            <i class="fa fa-bell fa-lg"></i>
+            @if(auth()->check())
+                @php
+                    $notificationsCount = auth()->user()->unread_notifications_count;
+                @endphp
+                @if($notificationsCount > 0)
+                    <span class="badge badge-danger position-absolute top-0 start-100 translate-middle rounded-pill bg-danger">{{ $cartCount }}</span>
+                @endif
+            @endif
+        </a>
 
         <!-- Mobile Toggle Button -->
         <button class="navbar-toggler d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
