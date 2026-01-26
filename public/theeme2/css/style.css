@@ -299,6 +299,7 @@ option>img{
 .logo{
     max-height: 45px;
     aspect-ratio: 705/216;
+    margin-left: 15px;
 }
 
 /* Vertical Divider for Nav Items */
