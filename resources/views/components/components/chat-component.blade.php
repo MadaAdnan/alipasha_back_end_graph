@@ -96,6 +96,12 @@
 
 
 </div>
+<style>
+    .chat-messages-container{
+        max-height: 60vh;
+        overflow-y: auto;
+    }
+</style>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // اختيار حاوية المحادثة
