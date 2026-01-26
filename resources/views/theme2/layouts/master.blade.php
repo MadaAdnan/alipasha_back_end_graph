@@ -22,7 +22,6 @@
     @stack('css')
 </head>
 <body class="bg-gray">
-<div class="main w-100 overflow-hidden">
 <x-layouts.nav-bar-component/>
 
 <x-components.dynamic-nav-bar/>
@@ -35,7 +34,7 @@
     <x-components.link-chat-component/>
 
 @endauth
-</div>
+
 @auth
     <script>
         const token = localStorage.getItem('token')
