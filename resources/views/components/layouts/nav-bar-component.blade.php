@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand bg-white">
+<nav class="navbar navbar-expand bg-white border-bottom">
     <div class="container">
         <a class="navbar-brand" href="{{route('index')}}">
             <img class="logo" src="{{$setting?->getFirstMediaUrl('logo') ?? asset('assets/logo.svg')}}" alt="علي باشا"></a>

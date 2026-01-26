@@ -1,7 +1,7 @@
 @props([
     'class'=>null
 ])
-<nav class="navbar navbar-expand-lg bg-white border-top {{$class}}">
+<nav class="navbar navbar-expand-lg bg-white  {{$class}}">
     <div class="container">
 
         <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
