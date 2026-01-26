@@ -347,15 +347,22 @@
     }
 
     // Update thumbnail when carousel changes
-    document.addEventListener('DOMContentLoaded', function() {
-        const carousels = document.querySelectorAll('.carousel');
-        carousels.forEach(carousel => {
-            carousel.addEventListener('slide.bs.carousel', function(e) {
-                const thumbnails = document.querySelectorAll('.thumbnail-item');
-                thumbnails.forEach((item, i) => {
-                    item.classList.toggle('active', i === e.to);
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.carousel').forEach(carousel => {
+            carousel.addEventListener('slid.bs.carousel', function (e) {
+
+                const carouselId = this.id;
+
+                // فقط المصغّرات التابعة لهذا السلايدر
+                const thumbnails = document.querySelectorAll(
+                    `.thumbnail-item[data-carousel-id="${carouselId}"]`
+                );
+
+                thumbnails.forEach((thumb, index) => {
+                    thumb.classList.toggle('active', index === e.to);
                 });
             });
         });
     });
+
 </script>
