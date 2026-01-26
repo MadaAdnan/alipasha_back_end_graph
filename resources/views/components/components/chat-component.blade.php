@@ -35,14 +35,14 @@
                         </span>
                     </div>
                 </div>
-                <div class="chat-header-actions">
+               {{-- <div class="chat-header-actions">
                     <button class="chat-header-btn" title="معلومات">
                         <i class="fa-solid fa-circle-info"></i>
                     </button>
                     <button class="chat-header-btn" title="البحث">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </button>
-                </div>
+                </div>--}}
             </div>
         @else
             <div class="chat-header-empty">
