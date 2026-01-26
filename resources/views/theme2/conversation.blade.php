@@ -1,18 +1,20 @@
 @extends('theme2.layouts.master')
 @section('content')
-    <div class="conversation-page">
-        <div class="conversation-container">
-            <!-- Sidebar with conversations list -->
-            <div class="conversation-sidebar" id="conversation-sidebar">
-                <x-components.convirsation-component/>
-            </div>
+  <div class="container container mb-2 mt-5">
+      <div class="conversation-page">
+          <div class="conversation-container">
+              <!-- Sidebar with conversations list -->
+              <div class="conversation-sidebar" id="conversation-sidebar">
+                  <x-components.convirsation-component/>
+              </div>
 
-            <!-- Main chat area -->
-            <div class="conversation-main" id="conversation-main">
-                <x-components.chat-component :community="$community??null"/>
-            </div>
-        </div>
-    </div>
+              <!-- Main chat area -->
+              <div class="conversation-main" id="conversation-main">
+                  <x-components.chat-component :community="$community??null"/>
+              </div>
+          </div>
+      </div>
+  </div>
 
     <style>
         #chat-toggle-btn {
