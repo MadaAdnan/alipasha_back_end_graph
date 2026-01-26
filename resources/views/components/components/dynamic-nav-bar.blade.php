@@ -9,16 +9,17 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <!-- Shopping Cart with Badge -->
-        <a href="{{ route('carts.index') }}"  class="cart-link mx-1 position-relative">
+        <span>
+            <a href="{{ route('carts.index') }}"  class="cart-link mx-1 position-relative">
             <i class="fa fa-shopping-cart fa-lg"></i>
             @if(auth()->check())
-                @php
-                    $cartCount = \App\Models\Cart::where('user_id', auth()->id())->count();
-                @endphp
-                @if($cartCount > 0)
-                    <span class="badge badge-danger position-absolute top-0 start-100 translate-middle rounded-pill bg-danger">{{ $cartCount }}</span>
+                    @php
+                        $cartCount = \App\Models\Cart::where('user_id', auth()->id())->count();
+                    @endphp
+                    @if($cartCount > 0)
+                        <span class="badge badge-danger position-absolute top-0 start-100 translate-middle rounded-pill bg-danger">{{ $cartCount }}</span>
+                    @endif
                 @endif
-            @endif
         </a>
         <a href="{{ route('notifications.index') }}"  class="cart-link mx-1 position-relative">
             <i class="fa fa-bell fa-lg"></i>
@@ -31,6 +32,7 @@
                 @endif
             @endif
         </a>
+        </span>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 @foreach($navs as $nav)
