@@ -13,4 +13,10 @@
         @endforeach
     </ul>
 </div>
+<style>
+    .categories-list{
+        max-height: 60vh;
+        overflow-y: auto;
+    }
+</style>
 
