@@ -1,6 +1,6 @@
 <div class="border-bottom  border-1 d-flex justify-content-end gap-2">
 
-    <button class="btn-contact-us" data-bs-target="#exampleModalToggle" data-bs-toggle="modal"><i
+    <button class="btn-contact-us d-none d-md-inline-block" data-bs-target="#exampleModalToggle" data-bs-toggle="modal"><i
             class="fa fa-comments"></i> <span>تواصل معنا</span>
     </button>
     <a class="btn-add-post" href="{{url('/seller')}}"> <i class="fa fa-plus"></i> أضف إعلانك</a>
@@ -24,7 +24,7 @@
                             @method('post')
                             <button class=" btn-contact-us rounded"><i class="fa fa-comments"></i> <span class="d-none d-md-inline">تواصل عن طريق الموقع</span> </button>
                         </form>
-                        <form class="d-none d-md-inline-block" action="{{route('communities.store')}}" method="post">
+                        <form  action="{{route('communities.store')}}" method="post">
                             @csrf
                             @method('post')
                             <button class=" btn-green"><i class="fa-brands fa-whatsapp"></i> <span class="d-none d-md-inline">تواصل عن طريق واتسآب</span> </button>
