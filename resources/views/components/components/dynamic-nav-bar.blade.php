@@ -9,7 +9,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <!-- Shopping Cart with Badge -->
-        <span>
+        <span class="d-flex justify-content-end">
             <a href="{{ route('carts.index') }}"  class="cart-link mx-1 position-relative">
             <i class="fa fa-shopping-cart fa-lg"></i>
             @if(auth()->check())
