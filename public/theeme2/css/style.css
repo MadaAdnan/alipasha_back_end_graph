@@ -301,7 +301,9 @@ option>img{
     aspect-ratio: 705/216;
     margin-left: 15px;
 }
-
+.navbar-toggler:focus{
+    box-shadow: none;
+}
 /* Vertical Divider for Nav Items */
 .nav-divider {
     position: relative;
