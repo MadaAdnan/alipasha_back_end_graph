@@ -55,6 +55,10 @@
                             @if(auth()->check())
                                 <x-components.add-to-cart-component :post="$post"/>
                                 <x-components.like-btn-component class="mx-2" :post="$post"/>
+                                <a href="{{url('/admin/products/'.$post->id)}}" class="btn">
+                                    <span>تعديل</span>
+                                    <i class="fa fa-edit"></i>
+                                </a>
                             @endif
                             <x-components.share-btn-component :url="route('posts.show', $post->id)"/>
                         </div>
