@@ -2,7 +2,7 @@
     <div class="container">
 
         <!-- Shopping Cart with Badge -->
-        <a href="{{ route('carts.index') }}"  class="cart-link  position-relative">
+        <a href="{{ route('carts.index') }}"  class="cart-link mx-1 position-relative">
             <i class="fa fa-shopping-cart fa-lg"></i>
             @if(auth()->check())
                 @php
@@ -13,7 +13,7 @@
                 @endif
             @endif
         </a>
-        <a href="{{ route('notifications.index') }}"  class="cart-link  position-relative">
+        <a href="{{ route('notifications.index') }}"  class="cart-link mx-1 position-relative">
             <i class="fa fa-bell fa-lg"></i>
             @if(auth()->check())
                 @php
