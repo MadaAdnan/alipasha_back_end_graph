@@ -3,12 +3,13 @@
 ])
 <nav class="navbar navbar-expand-lg bg-white  {{$class}}">
     <div class="container">
-        <a class="navbar-brand" href="{{route('index')}}">
-            <img class="logo" src="{{ asset('images/logo.png')}}" alt="علي باشا"> </a>
+
         <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+        <a class="navbar-brand" href="{{route('index')}}">
+            <img class="logo" src="{{ asset('images/logo.png')}}" alt="علي باشا"> </a>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 @foreach($navs as $nav)
