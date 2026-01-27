@@ -31,7 +31,11 @@
                             <p class="plan-description mb-3 text-muted" style="min-height:50px;">
                                 {{ $plan->info }}
                             </p>
-
+<ul>
+    @foreach($plan->items as $item)
+        <ol>{{$item}}</ol>
+    @endforeach
+</ul>
 
 
                             <button class="btn btn-outline-primary w-100" disabled>
