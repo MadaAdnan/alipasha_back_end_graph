@@ -9,6 +9,7 @@
     'readonly' => false,
     'placeholder' => '',
     'helpText' => '',
+    'goto' => '',
     'errorKey' => null, // يمكن استخدامه لتجاوز اسم الحقل للرسائل
     'addonBefore' => '',
     'addonAfter' => '',
@@ -45,6 +46,7 @@
       if ($required) {
           $attributes = $attributes->merge(['required' => 'required']);
       }
+
 @endphp
 
 <div class="{{ $wrapperClasses }}">
@@ -70,7 +72,7 @@
     </div>
 
     @if($helpText)
-        <div class="form-text text-red-accent">{{ $helpText }}</div>
+        <div class="form-text text-red-accent"><a href="{{$goto}}">{{$helpText}}</a></div>
     @endif
 
     @if($hasError)
