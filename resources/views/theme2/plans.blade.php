@@ -63,13 +63,10 @@
 @endsection
 @push('css')
     <style>
-        .plans-wrapper{
-            anchor-name: --plan-anchor;
 
-        }
         .plan-card .btn {
-            position: sticky;       /* أو absolute داخل container */
-            bottom: anchor(--plan-anchor 0px); /* يحاول استخدام النقطة المرجعية */
+            position: relative;       /* أو absolute داخل container */
+            bottom: 0px; /* يحاول استخدام النقطة المرجعية */
         }
         .plan-card:hover {
             transform: translateY(-5px);
