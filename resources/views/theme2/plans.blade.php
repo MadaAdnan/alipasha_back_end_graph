@@ -33,7 +33,15 @@
                             </p>
 <ul>
     @foreach($plan->items as $item)
-        <ol>{{print_r($item)}}</ol>
+        <ol>
+            @if($item['active'])
+                <i class="fa fa-check text-success fs-5"></i>
+
+            @else
+                <i class="fa fa-ban text-danger fs-5"></i>
+            @endif
+                <span>{{$item['item']}}</span>
+        </ol>
     @endforeach
 </ul>
 
