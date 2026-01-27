@@ -54,7 +54,7 @@
                                 <i class="fa fa-user-check"></i>
                             </div>
                             <div class="stat-content">
-                                <span class="stat-value">{{ $store->following_count ?? 0 }}</span>
+                                <span class="stat-value">{{ $store->followers_count ?? 0 }}</span>
                                 <span class="stat-label">يتابع</span>
                             </div>
                         </div>
@@ -63,7 +63,7 @@
                                 <i class="fa fa-bell"></i>
                             </div>
                             <div class="stat-content">
-                                <span class="stat-value">{{ $store->followers_count ?? 0 }}</span>
+                                <span class="stat-value">{{ $store->following_count ?? 0 }}</span>
                                 <span class="stat-label">متابع</span>
                             </div>
                         </div>
