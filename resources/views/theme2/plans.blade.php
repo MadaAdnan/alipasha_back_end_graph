@@ -8,7 +8,7 @@
             </div>
 
 
-            <div class="plans-wrapper d-flex flex-wrap justify-content-center gap-4">
+            <div class="plans-wrapper d-flex flex-wrap justify-content-center gap-4 position-relative ">
                 @forelse($plans as $plan)
                     <div class="plan-card border rounded shadow-sm p-3 text-center flex-fill" style="min-width:250px; max-width:300px;">
 
@@ -31,24 +31,25 @@
                             <p class="plan-description mb-3 text-muted" style="min-height:50px;">
                                 {{ $plan->info }}
                             </p>
-                        <div class="d-flex flex-column" style="height: 100%;">
-                            <ul class="list-unstyled w-100 mb-3 ps-0 pe-0 flex-grow-1 overflow-auto">
-                                @foreach($plan->items as $item)
-                                    <li class="d-flex align-items-center mb-1 border border-1 rounded p-1">
-                                        @if($item['active'])
-                                            <i class="fa fa-check text-success fs-5 me-1"></i>
-                                        @else
-                                            <i class="fa fa-ban text-danger fs-5 me-1"></i>
-                                        @endif
-                                        <span class="flex-grow-1">{{ $item['item'] }}</span>
-                                    </li>
-                                @endforeach
-                            </ul>
+                      <div class="d-flex flex-column">
+                          <ul class="list-unstyled w-100 mb-3 ps-0 pe-0 flex-grow-1">
+                              @foreach($plan->items as $item)
+                                  <li class="d-flex align-items-center mb-1 border border-1 rounded p-1">
+                                      @if($item['active'])
+                                          <i class="fa fa-check text-success fs-5 me-1"></i>
+                                      @else
+                                          <i class="fa fa-ban text-danger fs-5 me-1"></i>
+                                      @endif
+                                      <span class="flex-grow-1">{{ $item['item'] }}</span>
+                                  </li>
+                              @endforeach
+                          </ul>
 
-                            <button class="btn btn-outline-primary w-100 mt-auto" disabled>
-                                الاشتراك
-                            </button>
-                        </div>
+
+                          <button class="btn btn-outline-primary w-100" disabled>
+                              الاشتراك
+                          </button>
+                      </div>
 
                     </div>
                 @empty
@@ -56,14 +57,18 @@
                 @endforelse
             </div>
 
-            <style>
-                .plan-card:hover {
-                    transform: translateY(-5px);
-                    transition: all 0.3s ease;
-                    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-                }
-            </style>
 
         </div>
     </div>
 @endsection
+<style>
+    .plans-wrapper{
+        anchor:--paln;
+
+    }
+    .plan-card:hover {
+        transform: translateY(-5px);
+        transition: all 0.3s ease;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+</style>
