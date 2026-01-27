@@ -17,7 +17,7 @@
 
                             <p class="plan-price mb-2 h5 text-red">
                                @if($plan->is_discount)
-                                   <del> {{ $plan->price }} $</del>
+                                   <del class="text-muted"> {{ $plan->price }} $</del>
                                     {{ $plan->discount }} $
                                @else
                                     {{ $plan->price }} $
