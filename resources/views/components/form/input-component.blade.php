@@ -74,7 +74,8 @@
     @if($helpText)
         <div class="form-text text-red-accent">
             @if($goto!=null)
-                <a class="text-ingo" href="{{$goto??'#'}}">{{$helpText}}</a>
+                {{$helpText}}
+                <a class="text-ingo" href="{{$goto??'#'}}">اضغط هنا</a>
             @else
                 {{$helpText}}
             @endif
