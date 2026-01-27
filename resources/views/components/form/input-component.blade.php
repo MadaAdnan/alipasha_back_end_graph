@@ -10,6 +10,7 @@
     'placeholder' => '',
     'helpText' => '',
     'goto' => '',
+    'linkName' => '',
     'errorKey' => null, // يمكن استخدامه لتجاوز اسم الحقل للرسائل
     'addonBefore' => '',
     'addonAfter' => '',
@@ -75,7 +76,7 @@
         <div class="form-text text-red-accent">
             @if($goto!=null)
                 {{$helpText}}
-                <a class="text-muted fs-6 " href="{{$goto??'#'}}"><sub>اضغط هنا</sub></a>
+                <a class="text-muted fs-6 " href="{{$goto??'#'}}"><sub>{{$linkName}}</sub></a>
             @else
                 {{$helpText}}
             @endif
