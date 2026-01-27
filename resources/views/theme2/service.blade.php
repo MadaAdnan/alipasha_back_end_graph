@@ -47,9 +47,9 @@
                              {{$service->phone}}
                          </a>
 
-                         <a href="https://wa.me/{{$service->user?->full_phone}}" class="contact-item whatsapp">
+                         <a href="https://wa.me/{{$service->phone??$service->user?->full_phone}}" class="contact-item whatsapp">
                              <i class="fa-brands fa-whatsapp"></i>
-                             {{$service->user?->full_phone}}
+                             {{$service->phone??$service->user?->full_phone}}
                          </a>
                      </div>
 
