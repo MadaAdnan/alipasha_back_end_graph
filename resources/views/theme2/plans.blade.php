@@ -32,7 +32,7 @@
                                 {{ $plan->info }}
                             </p>
                       <div class="d-flex flex-column">
-                          <ul class="list-unstyled w-100 h-100 mb-3 ps-0 pe-0 flex-grow-1">
+                          <ul class="list-unstyled w-100 mb-3 ps-0 pe-0 flex-grow-1">
                               @foreach($plan->items as $item)
                                   <li class="d-flex align-items-center mb-1 border border-1 rounded p-1">
                                       @if($item['active'])
@@ -64,8 +64,12 @@
 @push('css')
     <style>
         .plans-wrapper{
-            anchor:--paln;
+            anchor-name: --plan-anchor;
 
+        }
+        .plan-card .btn {
+            position: sticky;       /* أو absolute داخل container */
+            bottom: anchor(--plan-anchor 0px); /* يحاول استخدام النقطة المرجعية */
         }
         .plan-card:hover {
             transform: translateY(-5px);
