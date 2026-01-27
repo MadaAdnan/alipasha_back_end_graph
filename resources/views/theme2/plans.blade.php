@@ -4,7 +4,7 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-12">
-                <h1 class="text-center">Plans</h1>
+                <h1 class="text-center">الخطط</h1>
             </div>
 
 
@@ -16,7 +16,12 @@
 
 
                             <p class="plan-price mb-2 h5 text-primary">
-                                {{ $plan->price }} $
+                               @if($plan->is_discount)
+                                   <del> {{ $plan->price }} $</del>
+                                    {{ $plan->discount }} $
+                               @else
+                                    {{ $plan->price }} $
+                               @endif
                             </p>
 
 
