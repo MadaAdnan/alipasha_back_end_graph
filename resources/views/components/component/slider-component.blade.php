@@ -19,9 +19,9 @@
     @endif
     <!-- Main Carousel -->
     <div id="carousel-{{ $id }}" class="carousel slide flex-grow-1 w-100" data-bs-ride="carousel">
-        <div class="carousel-inner">
+        <div class="carousel-inner w-100">
             @foreach($items as $index => $item)
-                <div class="carousel-item @if($loop->first) active @endif">
+                <div class="carousel-item @if($loop->first) active @endif w-100">
                     <img src="{{ $item }}"
                          class="d-block w-100 main-image"
                          alt="صورة {{ $index + 1 }}"
