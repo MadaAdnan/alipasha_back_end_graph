@@ -20,7 +20,7 @@
                  <div class="col-lg-7">
 
 
-
+{{dd($service->user)}}
 
                      <h3 class="fw-bold mb-3">
                          {{$service->name}}
