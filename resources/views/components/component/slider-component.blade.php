@@ -14,13 +14,12 @@
         @if(count($items) > 1)
             <div class="slider-thumbnails-vertical">
                 @foreach($items as $index => $item)
-                    <a class="thumbnail-item {{ $loop->first ? 'active' : '' }} d-inline-block"
-                         data-bs-target="#{{ $carouselId }}"
-                         data-bs-slide-to="{{ $index }}">
+                    <div class="thumbnail-item {{ $loop->first ? 'active' : '' }}"
+                         data-index="{{ $index }}">
                         <img src="{{ $item }}"
                              alt="صورة {{ $index + 1 }}"
                              onerror="this.src='{{ asset('images/noImage.jpeg') }}'">
-                    </a>
+                    </div>
                 @endforeach
             </div>
         @endif
@@ -102,19 +101,28 @@
     }
 
     document.addEventListener('DOMContentLoaded', function () {
-        document.querySelectorAll('.carousel').forEach(carousel => {
 
-            const thumbnails = carousel
-                .closest('.slider-container')
-                ?.querySelectorAll('.thumbnail-item');
+        document.querySelectorAll('.slider-container').forEach(container => {
 
-            if (!thumbnails) return;
+            const carouselEl = container.querySelector('.carousel');
+            const thumbnails = container.querySelectorAll('.thumbnail-item');
 
-            carousel.addEventListener('slide.bs.carousel', function (e) {
-                thumbnails.forEach((thumb, index) => {
-                    thumb.classList.toggle('active', index === e.to);
+            if (!carouselEl || !thumbnails.length) return;
+
+            const carousel = bootstrap.Carousel.getOrCreateInstance(carouselEl);
+
+            thumbnails.forEach((thumb, index) => {
+                thumb.addEventListener('click', () => {
+                    carousel.to(index);
+                });
+            });
+
+            carouselEl.addEventListener('slid.bs.carousel', function (e) {
+                thumbnails.forEach((thumb, i) => {
+                    thumb.classList.toggle('active', i === e.to);
                 });
             });
         });
+
     });
 </script>
