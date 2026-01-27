@@ -33,7 +33,7 @@
                             </p>
                         <ul class="list-unstyled w-100 mb-3 ps-0 pe-0">
                             @foreach($plan->items as $item)
-                                <li class="d-flex align-items-center mb-1">
+                                <li class="d-flex align-items-center mb-1 border border-1 rounded">
                                     @if($item['active'])
                                         <i class="fa fa-check text-success fs-5 me-1"></i>
                                     @else
