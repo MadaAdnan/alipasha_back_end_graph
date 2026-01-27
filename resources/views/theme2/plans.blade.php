@@ -30,7 +30,7 @@
                             <button class="btn btn-outline-primary w-100" disabled>
                                 الاشتراك
                             </button>
-                        @endif
+
                     </div>
                 @empty
                     <p class="text-center w-100">لا توجد خطط متاحة حالياً</p>
