@@ -61,14 +61,16 @@
         </div>
     </div>
 @endsection
-<style>
-    .plans-wrapper{
-        anchor:--paln;
+@push('css')
+    <style>
+        .plans-wrapper{
+            anchor:--paln;
 
-    }
-    .plan-card:hover {
-        transform: translateY(-5px);
-        transition: all 0.3s ease;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-    }
-</style>
+        }
+        .plan-card:hover {
+            transform: translateY(-5px);
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+    </style>
+@endpush
