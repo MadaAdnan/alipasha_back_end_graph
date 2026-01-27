@@ -33,7 +33,7 @@
                             </p>
 <ul class="d-block w-100">
     @foreach($plan->items as $item)
-        <ol>
+        <ol class="d-inline-block w-100">
             @if($item['active'])
                 <i class="fa fa-check text-success fs-5"></i>
 
