@@ -75,7 +75,7 @@
         <div class="form-text text-red-accent">
             @if($goto!=null)
                 {{$helpText}}
-                <a class="text-ingo" href="{{$goto??'#'}}">اضغط هنا</a>
+                <a class="text-info fs-6 " href="{{$goto??'#'}}">اضغط هنا</a>
             @else
                 {{$helpText}}
             @endif
