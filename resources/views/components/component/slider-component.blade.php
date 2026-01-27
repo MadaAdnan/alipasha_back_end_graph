@@ -1,3 +1,4 @@
+@props([ 'id' => 'main-slider', 'items' => [], ])
 <div class="slider-container">
     <!-- Main Carousel -->
     <div id="carousel-{{ $id }}" class="carousel slide" data-bs-ride="carousel">
