@@ -4,7 +4,7 @@
     @if(count($items) > 1)
         <div class="d-flex flex-row flex-md-column justify-content-center mt-2 thumbnails-wrapper">
             @foreach($items as $index => $item)
-                <div class="thumbnail-item mx-1 @if($loop->first) active @endif"
+                <div class="thumbnail-item mx-1 @if($loop->first) active @endif rounded"
                      data-carousel-id="carousel-{{ $id }}"
                      data-index="{{ $index }}"
                      onclick="goToSlide(this)"
