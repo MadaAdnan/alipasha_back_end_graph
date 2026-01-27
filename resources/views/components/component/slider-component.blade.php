@@ -14,13 +14,13 @@
         @if(count($items) > 1)
             <div class="slider-thumbnails-vertical">
                 @foreach($items as $index => $item)
-                    <div class="thumbnail-item {{ $loop->first ? 'active' : '' }}"
+                    <a class="thumbnail-item {{ $loop->first ? 'active' : '' }} d-inline-block"
                          data-bs-target="#{{ $carouselId }}"
                          data-bs-slide-to="{{ $index }}">
                         <img src="{{ $item }}"
                              alt="صورة {{ $index + 1 }}"
                              onerror="this.src='{{ asset('images/noImage.jpeg') }}'">
-                    </div>
+                    </a>
                 @endforeach
             </div>
         @endif
