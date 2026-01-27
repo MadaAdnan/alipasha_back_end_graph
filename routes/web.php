@@ -129,6 +129,7 @@ Route::middleware([\App\Http\Middleware\XFrameOptionMiddleware::class])->group(f
             Route::resource('/charges', \App\Http\Controllers\Web\ChargeController::class)->only(['index']);
             Route::resource('/galleries', \App\Http\Controllers\Web\GalleryController::class)->only(['show']);
             Route::resource('/notifications', \App\Http\Controllers\Web\NotificationController::class)->only(['index']);
+            Route::resource('/plans', \App\Http\Controllers\Web\PlanController::class)->only(['index','store']);
 
         });
 
