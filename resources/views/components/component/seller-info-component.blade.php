@@ -150,7 +150,7 @@
                })
                .then(data => {
 console.log(typeof data)
-                   if(data?.length >3){
+                   if(data!='' && data>0){
                        window.open(`https://wa.me/${data}`, '_blank');
                    }else{
                        throw new Error('خطأ في رقم الهاتف');
