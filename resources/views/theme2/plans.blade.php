@@ -31,7 +31,7 @@
                             <p class="plan-description mb-3 text-muted" style="min-height:50px;">
                                 {{ $plan->info }}
                             </p>
-<ul>
+<ul class="d-block w-100">
     @foreach($plan->items as $item)
         <ol>
             @if($item['active'])
