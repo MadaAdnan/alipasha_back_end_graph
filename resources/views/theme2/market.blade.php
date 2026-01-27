@@ -28,6 +28,11 @@
                                 <i class="bi bi-patch-check-fill"></i>
                             </span>
                         @endif
+                        @if(auth()->id() == $store->id)
+                            <a href="{{route('profile.index')}}">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                        @endif
                     </div>
 
                     <p class="store-address">
