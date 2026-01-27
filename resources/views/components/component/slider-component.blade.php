@@ -42,7 +42,13 @@
 
 
 </div>
-
+<style>
+    .main-image{
+        width: 100%;
+        aspect-ratio: 3;
+        object-fit: cover;
+    }
+</style>
 @push('js')
     <script>
         function goToSlide(thumbnail) {
