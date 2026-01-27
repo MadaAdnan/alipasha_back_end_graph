@@ -31,25 +31,24 @@
                             <p class="plan-description mb-3 text-muted" style="min-height:50px;">
                                 {{ $plan->info }}
                             </p>
-                      <div class="d-flex flex-column">
-                          <ul class="list-unstyled w-100 mb-3 ps-0 pe-0 flex-grow-1">
-                              @foreach($plan->items as $item)
-                                  <li class="d-flex align-items-center mb-1 border border-1 rounded p-1">
-                                      @if($item['active'])
-                                          <i class="fa fa-check text-success fs-5 me-1"></i>
-                                      @else
-                                          <i class="fa fa-ban text-danger fs-5 me-1"></i>
-                                      @endif
-                                      <span class="flex-grow-1">{{ $item['item'] }}</span>
-                                  </li>
-                              @endforeach
-                          </ul>
+                        <div class="d-flex flex-column" style="height: 100%;">
+                            <ul class="list-unstyled w-100 mb-3 ps-0 pe-0 flex-grow-1 overflow-auto">
+                                @foreach($plan->items as $item)
+                                    <li class="d-flex align-items-center mb-1 border border-1 rounded p-1">
+                                        @if($item['active'])
+                                            <i class="fa fa-check text-success fs-5 me-1"></i>
+                                        @else
+                                            <i class="fa fa-ban text-danger fs-5 me-1"></i>
+                                        @endif
+                                        <span class="flex-grow-1">{{ $item['item'] }}</span>
+                                    </li>
+                                @endforeach
+                            </ul>
 
-
-                          <button class="btn btn-outline-primary w-100" disabled>
-                              الاشتراك
-                          </button>
-                      </div>
+                            <button class="btn btn-outline-primary w-100 mt-auto" disabled>
+                                الاشتراك
+                            </button>
+                        </div>
 
                     </div>
                 @empty
