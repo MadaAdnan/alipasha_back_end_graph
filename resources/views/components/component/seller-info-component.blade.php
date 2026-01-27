@@ -149,8 +149,8 @@
                    throw new Error('Network response was not ok');
                })
                .then(data => {
-console.log(data)
-                   if(data!==''){
+
+                   if(data?.length >3){
                        window.open(`https://wa.me/${data}`, '_blank');
                    }else{
                        throw new Error('خطأ في رقم الهاتف');
