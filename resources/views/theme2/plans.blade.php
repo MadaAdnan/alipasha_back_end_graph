@@ -35,9 +35,9 @@
                             @foreach($plan->items as $item)
                                 <li class="d-flex align-items-center mb-1">
                                     @if($item['active'])
-                                        <i class="fa fa-check text-success fs-5 me-2"></i>
+                                        <i class="fa fa-check text-success fs-5 me-1"></i>
                                     @else
-                                        <i class="fa fa-ban text-danger fs-5 me-2"></i>
+                                        <i class="fa fa-ban text-danger fs-5 me-1"></i>
                                     @endif
                                     <span class="flex-grow-1">{{ $item['item'] }}</span>
                                 </li>
