@@ -10,7 +10,7 @@
 
             <div class="plans-wrapper d-flex flex-wrap justify-content-center gap-4 position-relative ">
                 @forelse($plans as $plan)
-                    <div class="plan-card bg-warning border rounded shadow-sm p-3 text-center flex-fill" style="min-width:250px; max-width:300px;">
+                    <div class="plan-card  border rounded shadow-sm p-3 text-center flex-fill" style="min-width:250px; max-width:300px;">
 
                         <h5 class="plan-name mb-2">{{ $plan->name ?? 'خطة بدون اسم' }}</h5>
 
@@ -44,11 +44,20 @@
                                   </li>
                               @endforeach
                           </ul>
+@php
+$plansId=auth()->user()->plans->pluck('id')->toArray();
+$isActive=in_array($plan->id,$plansId);
+ @endphp
+@if($isActive)
+                              <button class="btn btn-outline-secondary w-100" disabled>
+                                  تم الإشتراك
+                              </button>
+                          @else
+                              <button class="btn btn-outline-secondary w-100" disabled>
+                                   إشترك الآن
+                              </button>
+@endif
 
-
-                          <button class="btn btn-outline-primary w-100" disabled>
-                              الاشتراك
-                          </button>
                       </div>
 
                     </div>
