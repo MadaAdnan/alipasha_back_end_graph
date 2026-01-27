@@ -63,16 +63,26 @@
     <div class="divider my-1 "></div>
     <div class="d-flex justify-content-center gap-1">
         @auth
-        <form action="{{route('communities.store')}}" method="post">
-            @csrf
-            <input type="hidden" name="sellerId" value="{{ $seller?->id ??$post->user_id }}">
-            <button class="btn-green rounded bg-transparent d-flex justify-content-center align-items-center">
-                <i class="fa fa-comments text-black"></i>
-                <span class="small d-none d-md-inline-block  text-black">
+            @if(auth()->id()!= $seller->id)
+                <form action="{{route('communities.store')}}" method="post">
+                    @csrf
+                    <input type="hidden" name="sellerId" value="{{ $seller?->id ??$post->user_id }}">
+                    <button class="btn-green rounded bg-transparent d-flex justify-content-center align-items-center">
+                        <i class="fa fa-comments text-black"></i>
+                        <span class="small d-none d-md-inline-block  text-black">
                    تحدث معه
                 </span>
-            </button>
-        </form>
+                    </button>
+                </form>
+            @else
+                <button class="btn-green rounded bg-transparent d-flex justify-content-center align-items-center" onclick="showToast('لا يمكنك إجراء محادثة مع نفسك','error')">
+                    <i class="fa fa-comments text-black"></i>
+                    <span class="small d-none d-md-inline-block  text-black">
+                   تحدث معه
+                </span>
+                </button>
+            @endif
+
         @else
             <button class="btn-green rounded bg-transparent d-flex justify-content-center align-items-center" onclick="showToast('يرجى تسجيل الدخول اولاً','error')">
                 <i class="fa fa-comments text-black"></i>
