@@ -79,7 +79,7 @@
 
                             <form action="{{ route('communities.store') }}" method="POST" style="display: inline;">
                                 @csrf
-                                <input type="hidden" name="seller_id" value="{{ $store->id }}">
+                                <input type="hidden" name="sellerId" value="{{ $store->id }}">
                                 <button type="submit" class="btn-action btn-chat">
                                     <i class="fa-solid fa-comments"></i>
                                     <span>محادثة</span>
