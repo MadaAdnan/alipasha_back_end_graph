@@ -326,7 +326,7 @@
             item.classList.toggle('active', i === index);
         });
         console.log(index)
-        document.querySelector('.carousel').querySelector('.carousel-inner').children[index].scrollIntoView({
+        document.getElementById('carousel-{{ $id  }}').querySelector('.carousel-inner').children[index].scrollIntoView({
             behavior: 'smooth',
             block: 'nearest',
             inline: 'center'
