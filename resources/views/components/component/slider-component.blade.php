@@ -1,328 +1,48 @@
-@props([
-    'id'=>'main-slider',
-    'items'=>[],
-])
-<div class="slider-wrapper">
-    <div class="slider-container">
-        <!-- Thumbnails Left Side -->
+<div class="slider-container">
+    <!-- Main Carousel -->
+    <div id="carousel-{{ $id }}" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            @foreach($items as $index => $item)
+                <div class="carousel-item @if($loop->first) active @endif">
+                    <img src="{{ $item }}"
+                         class="d-block w-100 main-image"
+                         alt="صورة {{ $index + 1 }}"
+                         onerror="this.src='{{ asset('images/noImage.jpeg') }}'">
+                </div>
+            @endforeach
+        </div>
+
         @if(count($items) > 1)
-            <div class="slider-thumbnails-vertical">
-                @foreach($items as $index => $item)
-                    <div class="thumbnail-item @if($index === 0) active @endif"  onclick="goToSlide(this)"
-                         data-carousel-id="carousel-{{ $id }}"
-                    >
-                        <img src="{{ $item }}" alt="صورة {{ $index + 1 }}"
-                             onerror="this.src='{{ asset('images/noImage.jpeg') }}'">
-                    </div>
-                @endforeach
-            </div>
-        @endif
-
-        <!-- Main Slider -->
-        <div id="carousel-{{ $id  }}" class="carousel slide slider-component rounded" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                @forelse($items as $item)
-                    <div class="carousel-item @if($loop->first) active @endif">
-                        <img src="{{ $item }}"
-                             class="d-block w-100 carousel-img rounded slider-image"
-                             alt="صورة المنتج"
-                             data-bs-toggle="modal"
-                             data-bs-target="#imageModal"
-                             onclick="openImagePreview(this.src)"
-                             onerror="this.src='{{ asset('images/noImage.jpeg') }}'; this.classList.add('no-image-placeholder');">
-                    </div>
-                @empty
-                    <div class="carousel-item active">
-                        <div class="no-image-container">
-                            <img src="{{ asset('images/noImage.jpeg') }}"
-                                 class="d-block w-100 carousel-img rounded no-image-placeholder"
-                                 alt="لا توجد صورة">
-                        </div>
-                    </div>
-                @endforelse
-            </div>
-
-            @if(count($items) > 1)
-                <button class="carousel-control-prev" type="button" data-bs-target="#carousel-{{ $id  }}" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon"></span>
-                </button>
-
-                <button class="carousel-control-next" type="button" data-bs-target="#carousel-{{ $id  }}" data-bs-slide="next">
-                    <span class="carousel-control-next-icon"></span>
-                </button>
-            @endif
-
-            <!-- Zoom Button -->
-            <button class="slider-zoom-btn" data-bs-toggle="modal" data-bs-target="#imageModal" onclick="openImagePreview(document.querySelector('.carousel-item.active .slider-image').src)" title="معاينة الصورة">
-                <i class="fas fa-expand"></i>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carousel-{{ $id }}" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
             </button>
-        </div>
+            <button class="carousel-control-next" type="button" data-bs-target="#carousel-{{ $id }}" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </button>
+        @endif
     </div>
+
+    <!-- Thumbnails -->
+    @if(count($items) > 1)
+        <div class="d-flex justify-content-center mt-2 thumbnails-wrapper">
+            @foreach($items as $index => $item)
+                <div class="thumbnail-item mx-1 @if($loop->first) active @endif"
+                     data-carousel-id="carousel-{{ $id }}"
+                     data-index="{{ $index }}"
+                     onclick="goToSlide(this)"
+                     style="cursor:pointer; border:2px solid transparent;">
+                    <img src="{{ $item }}"
+                         class="img-fluid"
+                         style="width:60px; height:60px; object-fit:cover;"
+                         onerror="this.src='{{ asset('images/noImage.jpeg') }}'">
+                </div>
+            @endforeach
+        </div>
+    @endif
 </div>
 
-<!-- Image Preview Modal -->
-<div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-fullscreen">
-        <div class="modal-content bg-dark">
-            <div class="modal-header border-0">
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body d-flex align-items-center justify-content-center">
-                <img id="previewImage" src="" alt="معاينة الصورة" class="preview-image">
-            </div>
-        </div>
-    </div>
-</div>
-
-<style>
-    .slider-wrapper {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .slider-container {
-        display: flex;
-        gap: 12px;
-        align-items: flex-start;
-    }
-
-    .slider-thumbnails-vertical {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-        padding: 0;
-        background: transparent;
-        overflow-y: auto;
-        max-height: 400px;
-        flex-shrink: 0;
-    }
-
-    .slider-thumbnails-vertical::-webkit-scrollbar {
-        width: 6px;
-    }
-
-    .slider-thumbnails-vertical::-webkit-scrollbar-track {
-        background: #e9ecef;
-        border-radius: 10px;
-    }
-
-    .slider-thumbnails-vertical::-webkit-scrollbar-thumb {
-        background: #e30613;
-        border-radius: 10px;
-    }
-
-    .slider-thumbnails-vertical::-webkit-scrollbar-thumb:hover {
-        background: #c20510;
-    }
-
-    .slider-component {
-        position: relative;
-        overflow: hidden;
-        flex: 1;
-        height: 400px;
-        background: #f8f9fa;
-    }
-
-    .carousel-inner {
-        height: 100%;
-    }
-
-    .carousel-item {
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .carousel-img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        cursor: pointer;
-        transition: transform 0.3s ease;
-    }
-
-    .carousel-img:hover {
-        transform: scale(1.02);
-    }
-
-    .no-image-container {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: linear-gradient(135deg, #f5f6fa 0%, #e9ecef 100%);
-    }
-
-    .carousel-img.no-image-placeholder {
-        background: linear-gradient(135deg, #f5f6fa 0%, #e9ecef 100%);
-        object-fit: contain;
-        padding: 20px;
-    }
-
-    .carousel-control-prev,
-    .carousel-control-next {
-        width: 45px;
-        height: 45px;
-        background: rgba(227, 6, 19, 0.8);
-        border-radius: 50%;
-        top: 50%;
-        transform: translateY(-50%);
-        opacity: 0;
-        transition: all 0.3s ease;
-    }
-
-    .carousel-control-prev:hover,
-    .carousel-control-next:hover {
-        background: rgba(227, 6, 19, 1);
-        opacity: 1;
-    }
-
-    .slider-component:hover .carousel-control-prev,
-    .slider-component:hover .carousel-control-next {
-        opacity: 1;
-    }
-
-    .carousel-control-prev {
-        left: 15px;
-    }
-
-    .carousel-control-next {
-        right: 15px;
-    }
-
-    .slider-zoom-btn {
-        position: absolute;
-        bottom: 15px;
-        right: 15px;
-        width: 45px;
-        height: 45px;
-        background: rgba(227, 6, 19, 0.9);
-        border: none;
-        border-radius: 50%;
-        color: white;
-        font-size: 18px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        z-index: 10;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .slider-zoom-btn:hover {
-        background: rgba(227, 6, 19, 1);
-        transform: scale(1.1);
-    }
-
-    .thumbnail-item {
-        flex-shrink: 0;
-        width: 70px;
-        height: 70px;
-        border: 2px solid transparent;
-        border-radius: 6px;
-        overflow: hidden;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        background: white;
-    }
-
-    .thumbnail-item img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .thumbnail-item:hover {
-        border-color: #e30613;
-        transform: scale(1.05);
-    }
-
-    .thumbnail-item.active {
-        border-color: #e30613;
-        box-shadow: 0 0 0 2px rgba(227, 6, 19, 0.2);
-    }
-
-    .preview-image {
-        max-width: 90vw;
-        max-height: 90vh;
-        object-fit: contain;
-    }
-
-    @media (max-width: 992px) {
-        .slider-container {
-            gap: 8px;
-        }
-
-        .slider-thumbnails-vertical {
-            max-height: 350px;
-        }
-
-        .slider-component {
-            height: 350px;
-        }
-
-        .thumbnail-item {
-            width: 65px;
-            height: 65px;
-        }
-    }
-
-    @media (max-width: 768px) {
-        .slider-container {
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .slider-thumbnails-vertical {
-            flex-direction: row;
-            max-height: none;
-            overflow-x: auto;
-            overflow-y: hidden;
-            max-width: 100%;
-        }
-
-        .slider-component {
-            height: 300px;
-        }
-
-        .carousel-control-prev,
-        .carousel-control-next {
-            width: 40px;
-            height: 40px;
-        }
-
-        .slider-zoom-btn {
-            width: 40px;
-            height: 40px;
-            font-size: 16px;
-        }
-
-        .thumbnail-item {
-            width: 60px;
-            height: 60px;
-        }
-    }
-
-    @media (max-width: 480px) {
-        .slider-component {
-            height: 250px;
-        }
-
-        .thumbnail-item {
-            width: 55px;
-            height: 55px;
-        }
-    }
-</style>
 @push('js')
     <script>
-        function openImagePreview(src) {
-            document.getElementById('previewImage').src = src;
-        }
-
         function goToSlide(thumbnail) {
             const carouselId = thumbnail.dataset.carouselId;
             const index = parseInt(thumbnail.dataset.index);
@@ -330,33 +50,31 @@
             const carouselElement = document.getElementById(carouselId);
             const carousel = bootstrap.Carousel.getOrCreateInstance(carouselElement);
 
-            // الانتقال إلى الشريحة المطلوبة
             carousel.to(index);
 
-            // تحديث حالة الصور المصغّرة داخل نفس السلايدر فقط
-            const thumbnailsWrapper = thumbnail.closest('.slider-container');
+            // تحديث active للصور المصغّرة
+            const thumbnailsWrapper = thumbnail.closest('.slider-container').querySelector('.thumbnails-wrapper');
             thumbnailsWrapper.querySelectorAll('.thumbnail-item').forEach((item, i) => {
                 item.classList.toggle('active', i === index);
+                item.style.border = i === index ? '2px solid #ffc107' : '2px solid transparent';
             });
         }
 
-        // عند تغيير السلايدر بالأسهم أو السحب
+        // تحديث الصور المصغّرة عند السحب أو الأسهم
         document.addEventListener('DOMContentLoaded', function () {
             document.querySelectorAll('.carousel').forEach(carousel => {
                 carousel.addEventListener('slid.bs.carousel', function (e) {
-
                     const sliderContainer = carousel.closest('.slider-container');
-                    if (!sliderContainer) return;
+                    const thumbnailsWrapper = sliderContainer.querySelector('.thumbnails-wrapper');
+                    if (!thumbnailsWrapper) return;
 
-                    const thumbnails = sliderContainer.querySelectorAll('.thumbnail-item');
-
+                    const thumbnails = thumbnailsWrapper.querySelectorAll('.thumbnail-item');
                     thumbnails.forEach((thumb, index) => {
                         thumb.classList.toggle('active', index === e.to);
+                        thumb.style.border = index === e.to ? '2px solid #ffc107' : '2px solid transparent';
                     });
                 });
             });
         });
     </script>
 @endpush
-
-
