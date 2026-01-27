@@ -1,5 +1,5 @@
 @props([ 'id' => 'main-slider', 'items' => [], ])
-<div class="slider-container d-flex flex-column flex-md-row flex-sm-col-reverse">
+<div class="slider-container d-flex flex-column flex-md-row ">
     <!-- Thumbnails -->
     @if(count($items) > 1)
         <div class="d-flex flex-row flex-md-column justify-content-center mt-2 thumbnails-wrapper">
