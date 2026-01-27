@@ -1,4 +1,15 @@
 @props([ 'id' => 'main-slider', 'items' => [], ])
+@php
+    $count = count($items);
+
+    if ($count > 0 && $count < 4) {
+        $needed = 4 - $count; // عدد العناصر المطلوبة للإكمال
+        for ($i = 0; $i < $needed; $i++) {
+            $items[] = $items[$i % $count]; // تكرار العناصر بالتسلسل
+        }
+    }
+
+@endphp
 <div class="slider-container d-flex flex-column flex-md-row  w-100">
     <!-- Thumbnails -->
     @if(count($items) > 1)
