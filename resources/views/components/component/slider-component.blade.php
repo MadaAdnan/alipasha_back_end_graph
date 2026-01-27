@@ -45,7 +45,7 @@
 <style>
     .main-image{
         width: 100%;
-        aspect-ratio: 3;
+        aspect-ratio: 1.5;
         object-fit: cover;
     }
 </style>
