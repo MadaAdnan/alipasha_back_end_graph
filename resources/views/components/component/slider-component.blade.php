@@ -8,7 +8,7 @@
         @if(count($items) > 1)
             <div class="slider-thumbnails-vertical">
                 @foreach($items as $index => $item)
-                    <div class="thumbnail-item @if($index === 0) active @endif" onclick="goToSlide('carousel-{{ $id  }}', {{ $index }})">
+                    <div class="thumbnail-item @if($index === 0) active @endif"  data-bs-target="#carousel-{{ $id ?? uniqid() }}" data-bs-slide-to="{{$index}}">
                         <img src="{{ $item }}" alt="صورة {{ $index + 1 }}"
                              onerror="this.src='{{ asset('images/noImage.jpeg') }}'">
                     </div>
