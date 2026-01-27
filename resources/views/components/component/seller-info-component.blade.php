@@ -63,7 +63,7 @@
     <div class="divider my-1 "></div>
     <div class="d-flex justify-content-center gap-1">
         @auth
-        <form action="{{route('communities.store')}}">
+        <form action="{{route('communities.store')}}" method="post">
             @csrf
             <input type="hidden" name="sellerId" value="{{ $seller?->id ??$post->user_id }}">
             <button class="btn-green rounded bg-transparent d-flex justify-content-center align-items-center">
