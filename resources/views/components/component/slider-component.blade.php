@@ -18,7 +18,7 @@
         </div>
     @endif
     <!-- Main Carousel -->
-    <div id="carousel-{{ $id }}" class="carousel slide flex-grow-1" data-bs-ride="carousel">
+    <div id="carousel-{{ $id }}" class="carousel slide flex-grow-1 w-100" data-bs-ride="carousel">
         <div class="carousel-inner">
             @foreach($items as $index => $item)
                 <div class="carousel-item @if($loop->first) active @endif">
