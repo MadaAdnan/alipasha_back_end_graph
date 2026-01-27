@@ -322,10 +322,11 @@
     }
 
     function goToSlide( index) {
+        console.log(index)
         document.querySelectorAll('.thumbnail-item').forEach((item, i) => {
             item.classList.toggle('active', i === index);
         });
-        console.log(index)
+
         document.getElementById('carousel-{{ $id  }}').querySelector('.carousel-inner').children[index].scrollIntoView({
             behavior: 'smooth',
             block: 'nearest',
