@@ -4,7 +4,7 @@
     <div class="container my-5">
         <div class="row justify-content-center">
             <div class="col-md-9">
-                <x-components.bread-crumb-component class="rounded px-3 py-2 rounded  my-2"  :categories="[
+                <x-components.bread-crumb-component class="rounded px-3 py-2 rounded  my-2" :categories="[
                         ['name' => 'الخدمات', 'url' => route('services.index')],
                         ['name' => $service->category?->name, 'url' => null],
                         ['name' => $service->sub1?->name, 'url' => route('services.index', ['category_id'=>$service->sub1_id])],
@@ -12,68 +12,80 @@
                     ]"/>
             </div>
 
-     <div class="col-md-9">
-         <div class="service-view card p-4">
-             <div class="row align-items-center g-4">
+            <div class="col-md-9">
+                <div class="service-view card p-4">
+                    <div class="row align-items-center g-4">
 
-                 <!-- النص -->
-                 <div class="col-lg-7">
-
-
+                        <!-- النص -->
+                        <div class="col-lg-7">
 
 
-                     <h3 class="fw-bold mb-3">
-                         {{$service->name}}
-                     </h3>
+                            <h3 class="fw-bold mb-3">
+                                {{$service->name}}
+                            </h3>
 
-                     <p class="service-description">
-                         {!! $service->info !!}
-                     </p>
+                            <p class="service-description">
+                                {!! $service->info !!}
+                            </p>
 
-                     <div class="service-meta mt-4">
-                         <div>
-                             <i class="fa-solid fa-location-dot"></i>
-                             <span>{{$service->user?->city?->name}} - {{$service->user?->area?->name}}</span>
-                         </div>
-                         <div>
-                             <i class="fa-solid fa-clock"></i>
-                             <span>{{$service->created_at?->diffForHumans()}}</span>
-                         </div>
-                     </div>
+                            <div class="service-meta mt-4">
+                                <div>
+                                    <i class="fa-solid fa-location-dot"></i>
+                                    <span>{{$service->user?->city?->name}} - {{$service->user?->area?->name}}</span>
+                                </div>
+                                <div>
+                                    <i class="fa-solid fa-clock"></i>
+                                    <span>{{$service->created_at?->diffForHumans()}}</span>
+                                </div>
+                            </div>
 
-                     <div class="contact-box mt-4">
-                         <a href="tel:{{$service->phone}}" class="contact-item">
-                             <i class="fa-solid fa-phone"></i>
-                             {{$service->phone}}
-                         </a>
+                            <div class="contact-box mt-4">
+                                <a href="tel:{{$service->phone}}" class="contact-item">
+                                    <i class="fa-solid fa-phone"></i>
+                                    {{$service->phone}}
+                                </a>
 
-                         <a href="https://wa.me/{{$service->phone??$service->user?->full_phone}}" class="contact-item whatsapp">
-                             <i class="fa-brands fa-whatsapp"></i>
-                             {{$service->phone??$service->user?->full_phone}}
-                         </a>
-                     </div>
+                                <a href="https://wa.me/{{$service->phone??$service->user?->full_phone}}"
+                                   class="contact-item whatsapp">
+                                    <i class="fa-brands fa-whatsapp"></i>
+                                    {{$service->phone??$service->user?->full_phone}}
+                                </a>
+                            </div>
 
-                     <button class="btn btn-outline-danger mt-4 w-100">
-                         <i class="fa-solid fa-flag"></i> إبلاغ عن الخدمة
-                     </button>
+                            <form action="{{route('community.report')}}" method="post">
+                                @php
+                                    $msg="السلام عليكم ورحمة الله وبركاته";
+                                    $msg.="\n\n";
+                                    $msg.="تبليغ عن خدمة";
+                                     $msg.="\n\n";
+                                     $msg.="الإسم : ".$service->user?->name;
+                                     $msg.="\n\n";
+                                     $msg.="معرف الخدمة : ".$service->id;
 
-                 </div>
+                                @endphp
+                                @csrf
+                                <input type="hidden" name="msg" value="{{$msg}}">
+                                <button class="btn btn-outline-danger mt-4 w-100">
+                                    <i class="fa-solid fa-flag"></i> إبلاغ عن الخدمة
+                                </button>
+                            </form>
 
-                 <!-- الصورة -->
-                 <div class="col-lg-5">
-                     <div class="image-wrapper">
-                         <img src="{{$service->getImage()}}"
-                              class="img-fluid"
-                              alt="service">
-                     </div>
-                 </div>
+                        </div>
 
-             </div>
-         </div>
-     </div>
+                        <!-- الصورة -->
+                        <div class="col-lg-5">
+                            <div class="image-wrapper">
+                                <img src="{{$service->getImage()}}"
+                                     class="img-fluid"
+                                     alt="service">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    </div>
-
 
 @endsection
 @push('css')
