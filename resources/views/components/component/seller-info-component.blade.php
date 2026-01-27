@@ -65,7 +65,7 @@
         @auth
         <form action="{{route('communities.store')}}">
             @csrf
-            <input type="hidden" name="sellerId" value="{{$seller->id}}">
+            <input type="hidden" name="sellerId" value="{{ $seller?->id ??$post->user_id }}">
             <button class="btn-green rounded bg-transparent d-flex justify-content-center align-items-center">
                 <i class="fa fa-comments text-black"></i>
                 <span class="small d-none d-md-inline-block  text-black">
