@@ -23,6 +23,7 @@
                                @else
                                     {{ $plan->price }} $
                                @endif
+                                /{{\App\Enums\PlansDurationEnum::tryFrom($plan->duration)?->getLabel()}}
                             </p>
 
 
