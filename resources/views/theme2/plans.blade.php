@@ -33,7 +33,7 @@
                             </p>
 <ul>
     @foreach($plan->items as $item)
-        <ol>{{$item}}</ol>
+        <ol>{{print_r($item)}}</ol>
     @endforeach
 </ul>
 
