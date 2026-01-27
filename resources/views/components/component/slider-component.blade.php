@@ -125,4 +125,5 @@
         });
 
     });
+    console.log(typeof bootstrap);
 </script>
