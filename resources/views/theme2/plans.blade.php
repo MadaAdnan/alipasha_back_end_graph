@@ -53,7 +53,7 @@ $isActive=in_array($plan->id,$plansId);
                                   تم الإشتراك
                               </button>
                           @else
-                              <button class="btn btn-outline-secondary w-100" disabled>
+                              <button class="btn btn-outline-danger w-100" disabled>
                                    إشترك الآن
                               </button>
 @endif
