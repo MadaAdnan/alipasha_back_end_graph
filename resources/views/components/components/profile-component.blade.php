@@ -16,11 +16,11 @@
         <x-form.input-select-component  label="اختر المدينة" id="registerArea"
                                         name="area_id" required />
         <x-form.input-component name="address" :value="old('name')??auth()->user()->address" label="العنوان" placeholder="العنوان" required/>
-        <x-form.input-component :goto="route('plans.index')" helpText="يجب ترقية الحساب, انتقل" name="face" :value="old('face')??auth()->user()->social['face']" label="رابط فيس بوك" :disabled="!auth()->user()->is_verified" placeholder="رابط فيس بوك" type="url"/>
-        <x-form.input-component :goto="route('plans.index')" helpText="يجب ترقية الحساب, انتقل" name="instagram" :value="old('instagram')??auth()->user()->social['instagram']" label="رابط إنستغرام" :disabled="!auth()->user()->is_verified" placeholder="رابط إنستغرام" type="url"/>
-        <x-form.input-component :goto="route('plans.index')" helpText="يجب ترقية الحساب, انتقل" name="tiktok" :value="old('tiktok')??auth()->user()->social['tiktok']" label="رابط تيك توك" :disabled="!auth()->user()->is_verified" placeholder="رابط تيك توك" type="url"/>
-        <x-form.input-component :goto="route('plans.index')" helpText="يجب ترقية الحساب, انتقل" name="twitter" :value="old('twitter')??auth()->user()->social['twitter']" label="رابط تويتر" :disabled="!auth()->user()->is_verified" placeholder="رابط تويتر" type="url"/>
-        <x-form.input-component :goto="route('plans.index')" helpText="يجب ترقية الحساب, انتقل" name="linkedin" :value="old('linkedin')??auth()->user()->social['linkedin']" label="رابط لينكد ان" :disabled="!auth()->user()->is_verified" placeholder="رابط لينكد ان" type="url"/>
+        <x-form.input-component :goto="route('plans.index')" helpText="يجب ترقية الحساب, انتقال" name="face" :value="old('face')??auth()->user()->social['face']" label="رابط فيس بوك" :disabled="!auth()->user()->is_verified" placeholder="رابط فيس بوك" type="url"/>
+        <x-form.input-component :goto="route('plans.index')" helpText="يجب ترقية الحساب, انتقال" name="instagram" :value="old('instagram')??auth()->user()->social['instagram']" label="رابط إنستغرام" :disabled="!auth()->user()->is_verified" placeholder="رابط إنستغرام" type="url"/>
+        <x-form.input-component :goto="route('plans.index')" helpText="يجب ترقية الحساب, انتقال" name="tiktok" :value="old('tiktok')??auth()->user()->social['tiktok']" label="رابط تيك توك" :disabled="!auth()->user()->is_verified" placeholder="رابط تيك توك" type="url"/>
+        <x-form.input-component :goto="route('plans.index')" helpText="يجب ترقية الحساب, انتقال" name="twitter" :value="old('twitter')??auth()->user()->social['twitter']" label="رابط تويتر" :disabled="!auth()->user()->is_verified" placeholder="رابط تويتر" type="url"/>
+        <x-form.input-component :goto="route('plans.index')" helpText="يجب ترقية الحساب, انتقال" name="linkedin" :value="old('linkedin')??auth()->user()->social['linkedin']" label="رابط لينكد ان" :disabled="!auth()->user()->is_verified" placeholder="رابط لينكد ان" type="url"/>
 
         <button class="btn btn-red-accent">حفظ</button>
     </form>
