@@ -4,7 +4,7 @@
     <div class="container my-5">
         <div class="row justify-content-center">
             <div class="col-md-9">
-                <x-components.bread-crumb-component class="rounded px-3 py-2 rounded bg-white my-2"  :categories="[
+                <x-components.bread-crumb-component class="rounded px-3 py-2 rounded  my-2"  :categories="[
                         ['name' => 'الخدمات', 'url' => route('services.index')],
                         ['name' => $service->category?->name, 'url' => null],
                         ['name' => $service->sub1?->name, 'url' => route('services.index', ['category_id'=>$service->sub1_id])],
