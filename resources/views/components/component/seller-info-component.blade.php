@@ -11,7 +11,7 @@
                 $following=auth()->user()->followers()->pluck('seller_id')->toArray();
                 $isFollowing=$following==null?false:in_array($seller->id,$following);
             @endphp
-        <form @if(!$isFollowing) action="{{route('following-to-seller',$seller->id)}}" @endif method="POST">
+        <form @if(!$isFollowing) action="{{route('following-to-seller',$seller->id)}}" @else action="{{route('unfollowing-to-seller',$seller->id)}}"  @endif method="POST">
             @csrf
 
             <button class="btn-follow rounded @if($isFollowing) active @endif ">

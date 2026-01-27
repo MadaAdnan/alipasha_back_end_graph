@@ -114,6 +114,17 @@ Route::middleware([\App\Http\Middleware\XFrameOptionMiddleware::class])->group(f
                 }
                 return back();
             })->name('following-to-seller');
+            Route::post('/unfollwing/{id}', function ($id) {
+                /** @var User $seller */
+                $seller = User::find($id);
+                if ($seller) {
+                    \App\Models\UserFollow::where([
+                        'seller_id' => $seller->id,
+                        'user_id' => auth()->id(),
+                    ])->first()->delete();
+                }
+                return back();
+            })->name('unfollowing-to-seller');
             Route::resource('/comments', \App\Http\Controllers\Web\CommentController::class)->only(['store']);
             Route::resource('/communities', \App\Http\Controllers\Web\CommunityController::class)->only(['index', 'show', 'store']);
             Route::resource('/messages', \App\Http\Controllers\Web\MessageController::class)->only(['store']);
