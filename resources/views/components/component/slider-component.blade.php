@@ -1,5 +1,22 @@
 @props([ 'id' => 'main-slider', 'items' => [], ])
 <div class="slider-container d-flex">
+    <!-- Thumbnails -->
+    @if(count($items) > 1)
+        <div class="d-flex flex-column justify-content-center mt-2 thumbnails-wrapper">
+            @foreach($items as $index => $item)
+                <div class="thumbnail-item mx-1 @if($loop->first) active @endif"
+                     data-carousel-id="carousel-{{ $id }}"
+                     data-index="{{ $index }}"
+                     onclick="goToSlide(this)"
+                     style="cursor:pointer; border:2px solid transparent;">
+                    <img src="{{ $item }}"
+                         class="img-fluid"
+                         style="width:60px; height:60px; object-fit:cover;"
+                         onerror="this.src='{{ asset('images/noImage.jpeg') }}'">
+                </div>
+            @endforeach
+        </div>
+    @endif
     <!-- Main Carousel -->
     <div id="carousel-{{ $id }}" class="carousel slide flex-grow-1" data-bs-ride="carousel">
         <div class="carousel-inner">
@@ -23,23 +40,7 @@
         @endif
     </div>
 
-    <!-- Thumbnails -->
-    @if(count($items) > 1)
-        <div class="d-flex flex-column justify-content-center mt-2 thumbnails-wrapper">
-            @foreach($items as $index => $item)
-                <div class="thumbnail-item mx-1 @if($loop->first) active @endif"
-                     data-carousel-id="carousel-{{ $id }}"
-                     data-index="{{ $index }}"
-                     onclick="goToSlide(this)"
-                     style="cursor:pointer; border:2px solid transparent;">
-                    <img src="{{ $item }}"
-                         class="img-fluid"
-                         style="width:60px; height:60px; object-fit:cover;"
-                         onerror="this.src='{{ asset('images/noImage.jpeg') }}'">
-                </div>
-            @endforeach
-        </div>
-    @endif
+
 </div>
 
 @push('js')
