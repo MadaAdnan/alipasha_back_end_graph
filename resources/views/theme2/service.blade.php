@@ -58,7 +58,7 @@
                                     $msg.="\n\n";
                                     $msg.="تبليغ عن خدمة";
                                      $msg.="\n\n";
-                                     $msg.="الإسم : ".$service->user?->name;
+                                     $msg.="الإسم : ".$service->name;
                                      $msg.="\n\n";
                                      $msg.="معرف الخدمة : ".$service->id;
 
