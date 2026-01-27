@@ -57,7 +57,7 @@
                                 <x-components.add-to-cart-component :post="$post"/>
                                 <x-components.like-btn-component class="mx-2" :post="$post"/>
                                 @if(auth()->id()==$post->user_id)
-                                    <a href="{{url("/admin/products/{$post->id}/edit")}}" class="btn btn-red-accent">
+                                    <a href="{{url("/seller/products/{$post->id}/edit")}}" class="btn btn-red-accent">
                                         <span>تعديل</span>
                                         <i class="fa fa-edit"></i>
                                     </a>
