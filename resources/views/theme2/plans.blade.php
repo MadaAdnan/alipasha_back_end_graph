@@ -31,18 +31,17 @@
                             <p class="plan-description mb-3 text-muted" style="min-height:50px;">
                                 {{ $plan->info }}
                             </p>
-<ul class="d-block w-100">
-    @foreach($plan->items as $item)
-        <ol class="d-inline-block w-100">
-            @if($item['active'])
-                <i class="fa fa-check text-success fs-5"></i>
-
-            @else
-                <i class="fa fa-ban text-danger fs-5"></i>
-            @endif
-                <span>{{$item['item']}}</span>
-        </ol>
-    @endforeach
+                        <ul class="list-unstyled w-100 mb-3">
+                            @foreach($plan->items as $item)
+                                <li class="d-flex align-items-center mb-1">
+                                    @if($item['active'])
+                                        <i class="fa fa-check text-success fs-5 me-2"></i>
+                                    @else
+                                        <i class="fa fa-ban text-danger fs-5 me-2"></i>
+                                    @endif
+                                    <span class="flex-grow-1">{{ $item['item'] }}</span>
+                                </li>
+                            @endforeach
 </ul>
 
 
