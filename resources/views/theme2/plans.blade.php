@@ -15,7 +15,7 @@
                         <h5 class="plan-name mb-2">{{ $plan->name ?? 'خطة بدون اسم' }}</h5>
 
 
-                            <p class="plan-price mb-2 h5 text-primary">
+                            <p class="plan-price mb-2 h5 text-red">
                                @if($plan->is_discount)
                                    <del> {{ $plan->price }} $</del>
                                     {{ $plan->discount }} $
