@@ -2,7 +2,7 @@
 <div class="slider-container d-flex flex-sm-col-reverse">
     <!-- Thumbnails -->
     @if(count($items) > 1)
-        <div class="d-flex flex-column flex-sm-row justify-content-center mt-2 thumbnails-wrapper">
+        <div class="d-flex flex-row flex-md-column justify-content-center mt-2 thumbnails-wrapper">
             @foreach($items as $index => $item)
                 <div class="thumbnail-item mx-1 @if($loop->first) active @endif"
                      data-carousel-id="carousel-{{ $id }}"
