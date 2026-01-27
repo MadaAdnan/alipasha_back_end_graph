@@ -149,7 +149,7 @@
                    throw new Error('Network response was not ok');
                })
                .then(data => {
-console.log(data)
+console.log(typeof data)
                    if(data?.length >3){
                        window.open(`https://wa.me/${data}`, '_blank');
                    }else{
