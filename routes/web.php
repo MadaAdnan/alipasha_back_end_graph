@@ -127,7 +127,7 @@ Route::middleware([\App\Http\Middleware\XFrameOptionMiddleware::class])->group(f
             })->name('unfollowing-to-seller');
             Route::resource('/comments', \App\Http\Controllers\Web\CommentController::class)->only(['store']);
             Route::resource('/communities', \App\Http\Controllers\Web\CommunityController::class)->only(['index', 'show', 'store']);
-            Route::post('/communities', [\App\Http\Controllers\Web\CommunityController::class,'report'])->name('community.report');
+            Route::post('/communities-report', [\App\Http\Controllers\Web\CommunityController::class,'report'])->name('community.report');
             Route::resource('/messages', \App\Http\Controllers\Web\MessageController::class)->only(['store']);
             Route::resource('/balances', \App\Http\Controllers\Web\BalanceController::class)->only(['index']);
             Route::resource('/invoices', \App\Http\Controllers\Web\InvoiceController::class)->only(['index', 'update']);
