@@ -82,14 +82,16 @@
                                 <span>واتساب</span>
                             </button>
 
-                            <form action="{{ route('communities.store') }}" method="POST" style="display: inline;">
-                                @csrf
-                                <input type="hidden" name="sellerId" value="{{ $store->id }}">
-                                <button type="submit" class="btn-action btn-chat">
-                                    <i class="fa-solid fa-comments"></i>
-                                    <span>محادثة</span>
-                                </button>
-                            </form>
+                           @if(auth()->check() && auth()->id() !=$store->id)
+                                <form action="{{ route('communities.store') }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    <input type="hidden" name="sellerId" value="{{ $store->id }}">
+                                    <button type="submit" class="btn-action btn-chat">
+                                        <i class="fa-solid fa-comments"></i>
+                                        <span>محادثة</span>
+                                    </button>
+                                </form>
+                           @endif
                         </div>
 
                         <!-- Social Icons -->
