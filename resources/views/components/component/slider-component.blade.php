@@ -8,7 +8,7 @@
         @if(count($items) > 1)
             <div class="slider-thumbnails-vertical">
                 @foreach($items as $index => $item)
-                    <div class="thumbnail-item @if($index === 0) active @endif"  data-bs-target="#carousel-{{ $id ?? uniqid() }}" data-bs-slide-to="{{$index}}">
+                    <div class="thumbnail-item @if($index === 0) active @endif"  data-bs-target="#carousel-{{ $id ?? uniqid() }}" data-bs-slide-to="{{$index}}" onclick='goToSlide('{{$index}}')">
                         <img src="{{ $item }}" alt="صورة {{ $index + 1 }}"
                              onerror="this.src='{{ asset('images/noImage.jpeg') }}'">
                     </div>
@@ -321,13 +321,15 @@
         document.getElementById('previewImage').src = src;
     }
 
-    function goToSlide(carouselId, index) {
-        const carousel = new bootstrap.Carousel(document.getElementById(carouselId));
-        carousel.to(index);
-
-        // Update active thumbnail
+    function goToSlide( index) {
         document.querySelectorAll('.thumbnail-item').forEach((item, i) => {
             item.classList.toggle('active', i === index);
+        });
+        console.log(index)
+        document.querySelector('.carousel').querySelector('.carousel-inner').children[index].scrollIntoView({
+            behavior: 'smooth',
+            block: 'nearest',
+            inline: 'center'
         });
     }
 
