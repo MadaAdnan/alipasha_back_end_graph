@@ -10,7 +10,7 @@
                      onclick="goToSlide(this)"
                      style="cursor:pointer; border:2px solid transparent;">
                     <img src="{{ $item }}"
-                         class="img-fluid"
+                         class="img-fluid rounded"
                          style="width:60px; height:60px; object-fit:cover;"
                          onerror="this.src='{{ asset('images/noImage.jpeg') }}'">
                 </div>
