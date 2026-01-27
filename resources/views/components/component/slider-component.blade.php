@@ -8,7 +8,9 @@
         @if(count($items) > 1)
             <div class="slider-thumbnails-vertical">
                 @foreach($items as $index => $item)
-                    <div class="thumbnail-item @if($index === 0) active @endif" onclick="goToSlide('carousel-{{ $id  }}', {{ $index }})">
+                    <div class="thumbnail-item @if($index === 0) active @endif"  onclick="goToSlide(this)"
+                         data-carousel-id="carousel-{{ $id }}"
+                    >
                         <img src="{{ $item }}" alt="صورة {{ $index + 1 }}"
                              onerror="this.src='{{ asset('images/noImage.jpeg') }}'">
                     </div>
@@ -17,7 +19,7 @@
         @endif
 
         <!-- Main Slider -->
-        <div id="carousel-{{ $id ?? uniqid() }}" class="carousel slide slider-component rounded" data-bs-ride="carousel">
+        <div id="carousel-{{ $id  }}" class="carousel slide slider-component rounded" data-bs-ride="carousel">
             <div class="carousel-inner">
                 @forelse($items as $item)
                     <div class="carousel-item @if($loop->first) active @endif">
@@ -321,28 +323,40 @@
             document.getElementById('previewImage').src = src;
         }
 
-        function goToSlide(carouselId, index) {
-            const carousel = new bootstrap.Carousel(document.getElementById(carouselId));
+        function goToSlide(thumbnail) {
+            const carouselId = thumbnail.dataset.carouselId;
+            const index = parseInt(thumbnail.dataset.index);
+
+            const carouselElement = document.getElementById(carouselId);
+            const carousel = bootstrap.Carousel.getOrCreateInstance(carouselElement);
+
+            // الانتقال إلى الشريحة المطلوبة
             carousel.to(index);
 
-            // Update active thumbnail
-            document.querySelectorAll('.thumbnail-item').forEach((item, i) => {
+            // تحديث حالة الصور المصغّرة داخل نفس السلايدر فقط
+            const thumbnailsWrapper = thumbnail.closest('.slider-container');
+            thumbnailsWrapper.querySelectorAll('.thumbnail-item').forEach((item, i) => {
                 item.classList.toggle('active', i === index);
             });
         }
 
-        // Update thumbnail when carousel changes
-        document.addEventListener('DOMContentLoaded', function() {
-            const carousels = document.querySelectorAll('.carousel');
-            carousels.forEach(carousel => {
-                carousel.addEventListener('slide.bs.carousel', function(e) {
-                    const thumbnails = document.querySelectorAll('.thumbnail-item');
-                    thumbnails.forEach((item, i) => {
-                        item.classList.toggle('active', i === e.to);
+        // عند تغيير السلايدر بالأسهم أو السحب
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.carousel').forEach(carousel => {
+                carousel.addEventListener('slid.bs.carousel', function (e) {
+
+                    const sliderContainer = carousel.closest('.slider-container');
+                    if (!sliderContainer) return;
+
+                    const thumbnails = sliderContainer.querySelectorAll('.thumbnail-item');
+
+                    thumbnails.forEach((thumb, index) => {
+                        thumb.classList.toggle('active', index === e.to);
                     });
                 });
             });
         });
     </script>
 @endpush
+
 
