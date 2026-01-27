@@ -30,7 +30,7 @@
                         @endif
                         @if(auth()->id() == $store->id)
                             <a href="{{route('profile.index')}}">
-                                <i class="fa fa-edit"></i>
+                                <i class="fa fa-edit fs-5"></i>
                             </a>
                         @endif
                     </div>
