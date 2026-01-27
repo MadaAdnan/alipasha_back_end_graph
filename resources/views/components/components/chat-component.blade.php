@@ -105,7 +105,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // اختيار حاوية المحادثة
-        const chatContainer = document.querySelector('.chat-container');
+        const chatContainer = document.querySelector('.chat-messages-container');
 
         if (chatContainer) {
             // تمرير السكرول إلى الأسفل مباشرة
