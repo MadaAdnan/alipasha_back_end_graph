@@ -5,7 +5,7 @@
     </div>
     <form action="{{route('profile.store')}}" method="POST">
         @csrf
-        <x-form.input-component name="name" :value="old('name')??auth()->user()->name" label="الاسم" placeholder="الاسم" :disabled="auth()->user()->is_verified" :helpText="auth()->user()->is_verified?'حسابك موثق لا يمكن تغيير الاسم':''" required/>
+        <x-form.input-component name="name" :value="old('name')??auth()->user()->name" label="الاسم" placeholder="الاسم" :disabled="auth()->user()->is_verified" @if(auth()->user()->is_verified) :helpText="auth()->user()->is_verified?'حسابك موثق لا يمكن تغيير الاسم':''" required/>
         <x-form.input-component name="seller_name"   :disabled="!auth()->user()->is_verified" :value="old('seller_name')??auth()->user()->seller_name" label="اسم المتجر" placeholder="اسم المتجر" required/>
         <x-form.input-component name="email" :value="old('email')??auth()->user()->email" label="البريد الإلكتروني" disabled placeholder="البريد الإلكتروني" required/>
         <x-form.input-phone-component placeholder="9XXXXXXXX" :value="auth()->user()->phone" :countryValue="auth()->user()->phone_code" label="رقم الهاتف" id="registerPhone"
