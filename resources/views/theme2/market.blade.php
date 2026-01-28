@@ -92,10 +92,12 @@
                                     </button>
                                 </form>
                            @endif
+                            @if(auth()->check() && auth()->id() ==$store->id)
                             <a class="btn-action btn-red-accent" href="{{route('plans.index')}}">
                                 <i class="fa-solid fa-chart-line"></i>
                                 <span>ترقية الحساب</span>
                             </a>
+                                @endif
                         </div>
 
                         <!-- Social Icons -->
