@@ -34,14 +34,14 @@
         </a>
         <a href="{{ route('communities.index') }}"  class="cart-link mx-1 position-relative">
             <i class="fa fa-comments fa-lg"></i>
-            @if(auth()->check())
+           {{-- @if(auth()->check())
                 @php
-                    $notificationsCount = auth()->user()->unread_notifications_count;
+                    $notificationsCount = auth()->user();
                 @endphp
                 @if($notificationsCount > 0)
                     <span class="badge badge-danger position-absolute top-0 start-100 translate-middle rounded-pill bg-danger">{{ $cartCount }}</span>
                 @endif
-            @endif
+            @endif--}}
         </a>
         </span>
         <div class="collapse navbar-collapse" id="navbarNav">
