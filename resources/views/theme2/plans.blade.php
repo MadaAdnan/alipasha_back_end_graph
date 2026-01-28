@@ -57,9 +57,13 @@
                                     تم الإشتراك
                                 </button>
                             @else
-                                <button class="btn btn-red-accent w-100 mt-auto" >
-                                    إشترك الآن
-                                </button>
+                                <form action="{{route('plans.store')}}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="planId" value="{{$plan->id}}">
+                                    <button class="btn btn-red-accent w-100 mt-auto" >
+                                        إشترك الآن
+                                    </button>
+                                </form>
                             @endif
 
                         </div>

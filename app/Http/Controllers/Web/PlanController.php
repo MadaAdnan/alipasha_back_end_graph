@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\Balance;
 use App\Models\Plan;
 use Illuminate\Http\Request;
 
@@ -30,7 +31,30 @@ class PlanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $planId=$request->planId;
+        $plan=Plan::where('is_active',1)->find($planId);
+        if(!$plan){
+            return back()->with('error','الخطة غير متوفرة');
+        }
+        $price=$plan->is_discount?$plan->discount:$plan->price;
+        if(auth()->user()->getTotalBalance()<$price){
+            return back()->with('error','رصيدك غير كافي');
+        }
+        \DB::beginTransaction();
+        try{
+            Balance::create([
+                'user_id'=>auth()->user()->id,
+                'info'=>"اشتراك بالخطة {$plan->name}",
+                'debit'=>$price,
+                'credit'=>0,
+            ]);
+            $plan->users()->attach(auth()->user()->id);
+            return back()->with('success','تم الاشتراك بنجاح');
+        }catch(\Exception $e){
+            \DB::rollBack();
+            return back()->with('error',$e->getMessage());
+        }
+
     }
 
     /**
