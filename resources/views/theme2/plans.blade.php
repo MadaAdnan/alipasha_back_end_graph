@@ -34,7 +34,7 @@
                       <div class="d-flex flex-column">
                           <ul class="list-unstyled w-100 mb-3 ps-0 pe-0 flex-grow-1">
                               @foreach($plan->items as $item)
-                                  <li class="d-flex align-items-start mb-1 border border-1 rounded p-1">
+                                  <li class="d-flex align-items-center mb-1 border border-1 rounded p-1">
                                       @if($item['active'])
 
                                           <i class="fa-regular fa-circle-check text-success fs-5 me-1"></i>
