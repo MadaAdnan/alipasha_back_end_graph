@@ -31,36 +31,38 @@
                             <p class="plan-description mb-3 text-muted" style="min-height:50px;">
                                 {{ $plan->info }}
                             </p>
-                      <div class="d-flex flex-column h-100">
-                          <ul class="list-unstyled w-100 mb-3 ps-0 pe-0 flex-grow-1">
-                              @foreach($plan->items as $item)
-                                  <li class="d-flex align-items-center mb-1 border border-1 rounded p-1">
-                                      @if($item['active'])
+                    <div class="card h-100">
+                        <div class="d-flex flex-column">
+                            <ul class="list-unstyled w-100 mb-3 ps-0 pe-0 flex-grow-1">
+                                @foreach($plan->items as $item)
+                                    <li class="d-flex align-items-center mb-1 border border-1 rounded p-1">
+                                        @if($item['active'])
 
-                                          <i class="fa-regular fa-circle-check text-success fs-5 me-1"></i>
-                                      @else
+                                            <i class="fa-regular fa-circle-check text-success fs-5 me-1"></i>
+                                        @else
 
-                                          <i class="fa-solid fa-circle-xmark text-danger fs-5 me-1"></i>
-                                      @endif
-                                      <span class="flex-grow-1 text-end px-1 text-dark" >{{ $item['item'] }}</span>
-                                  </li>
-                              @endforeach
-                          </ul>
-@php
-$plansId=auth()->user()->plans->pluck('id')->toArray();
-$isActive=in_array($plan->id,$plansId);
- @endphp
-@if($isActive)
-                              <button class="btn btn-outline-secondary w-100 mt-auto" disabled>
-                                  تم الإشتراك
-                              </button>
-                          @else
-                              <button class="btn btn-red-accent w-100 mt-auto" >
-                                   إشترك الآن
-                              </button>
-@endif
+                                            <i class="fa-solid fa-circle-xmark text-danger fs-5 me-1"></i>
+                                        @endif
+                                        <span class="flex-grow-1 text-end px-1 text-dark" >{{ $item['item'] }}</span>
+                                    </li>
+                                @endforeach
+                            </ul>
+                            @php
+                                $plansId=auth()->user()->plans->pluck('id')->toArray();
+                                $isActive=in_array($plan->id,$plansId);
+                            @endphp
+                            @if($isActive)
+                                <button class="btn btn-outline-secondary w-100 mt-auto" disabled>
+                                    تم الإشتراك
+                                </button>
+                            @else
+                                <button class="btn btn-red-accent w-100 mt-auto" >
+                                    إشترك الآن
+                                </button>
+                            @endif
 
-                      </div>
+                        </div>
+                    </div>
 
                     </div>
                 @empty
