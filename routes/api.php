@@ -1,9 +1,15 @@
 <?php
 
+use App\Enums\OrderStatusEnum;
+use App\Exceptions\GraphQLExceptionHandler;
 use App\Jobs\SendFirebaseNotificationJob;
+use App\Models\City;
 use App\Models\ClickWhats;
+use App\Models\Invoice;
+use App\Models\Item;
 use App\Models\Like;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
@@ -104,6 +110,66 @@ Route::middleware('auth:sanctum')->group(function () {
         return $product->user?->full_phone;
     });
     Route::post('orders', function (Request $request) {
+        $data = $args['input'];
+        if (!auth()->user()->is_active) {
+            throw new GraphQLExceptionHandler('تم حظر حسابك يرجى مراجعة الإدارة');
+        }
+
+        /* if (auth()->user()->getTotalBalance() <= 0) {
+             throw new GraphQLExceptionHandler('لا تملك رصيد كاف لإتمام الطلب');
+         }*/
+
+        \DB::beginTransaction();
+        try {
+
+            $weight = 0;
+            if (!auth()->check() || auth()->id() == null) {
+                throw new \Exception('خطأ في الطلب يرجى المحاولة من جديد');
+            }
+            $seller = User::findOrFail($data['seller_id']);
+
+
+            $invoice = new Invoice();
+            $invoice->seller_id = $data['seller_id'];
+            $invoice->user_id = auth()->id();
+            $invoice->phone = $data['phone'] ?? auth()->user()->phone;
+            $invoice->address = $data['address'] ?? auth()->user()->address;
+            $invoice->status = OrderStatusEnum::PENDING->value;
+            $invoice->save();
+
+
+            $total = 0;
+            foreach ($data['items'] as $item) {
+                $product = Product::find($item['product_id']);
+                if ($product->is_delivery) {
+                    $weight += $product->weight;
+                }
+                if (!$product) {
+                    throw new \Exception("Product with ID {$item['product_id']} not found.");
+                }
+                $price = $product->is_discount ? $product->discount : $product->price;
+                $total_price = $price * $item['qty'];
+                Item::create([
+                    'invoice_id' => $invoice->id, // $invoice->id متاح الآن
+                    'product_id' => $item['product_id'],
+                    'price' => $price,
+                    'qty' => $item['qty'],
+                    'total' => $total_price,
+                ]);
+                $total += $total_price;
+            }
+
+            $invoice->weight = $weight;
+            $invoice->shipping = 0;//$far;
+            $invoice->total =0; // $total;
+            $invoice->save();
+
+            \DB::commit();
+            return $invoice;
+        } catch (\Exception | \Error $e) {
+            \DB::rollBack();
+            throw new GraphQLExceptionHandler($e->getMessage());
+        }
         return response()->json($request->all());
     });
 });
