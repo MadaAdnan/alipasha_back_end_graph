@@ -245,8 +245,8 @@
         }
 
         .store-image {
-            width: 180px;
-            height: 180px;
+            width: 120px;
+            aspect-ratio: 1;
             border-radius: 50%;
             object-fit: cover;
         }
@@ -498,8 +498,8 @@
             }
 
             .store-image {
-                width: 100px;
-                height: 100px;
+                width: 75px;
+                aspect-ratio: 1;
             }
 
             .store-info-wrapper {
@@ -551,8 +551,8 @@
             }
 
             .store-image {
-                width: 120px;
-                height: 120px;
+                width: 75px;
+               aspect-ratio: 1;
             }
 
             .store-name {
