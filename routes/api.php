@@ -110,42 +110,40 @@ Route::middleware('auth:sanctum')->group(function () {
         return $product->user?->full_phone;
     });
     Route::post('orders', function (Request $request) {
-        return response()->json($request->all());
+       // return response()->json($request->all());
         if (!auth()->user()->is_active) {
-            throw new GraphQLExceptionHandler('تم حظر حسابك يرجى مراجعة الإدارة');
+            return response()->json(['status'=>'error','msg' => 'حسابك غير مفعل'], 403);
         }
 
-        /* if (auth()->user()->getTotalBalance() <= 0) {
-             throw new GraphQLExceptionHandler('لا تملك رصيد كاف لإتمام الطلب');
-         }*/
 
         \DB::beginTransaction();
         try {
 
             $weight = 0;
             if (!auth()->check() || auth()->id() == null) {
-                throw new \Exception('خطأ في الطلب يرجى المحاولة من جديد');
+                return response()->json(['status'=>'error','msg' => 'خطأ في الطلب يرجى المحاولة من جديد'], 403);
+
             }
-            $seller = User::findOrFail($data['seller_id']);
+            $seller = User::findOrFail($request->seller_id);
 
 
             $invoice = new Invoice();
-            $invoice->seller_id = $data['seller_id'];
+            $invoice->seller_id = $seller->id;
             $invoice->user_id = auth()->id();
-            $invoice->phone = $data['phone'] ?? auth()->user()->phone;
-            $invoice->address = $data['address'] ?? auth()->user()->address;
+            $invoice->phone =  auth()->user()->phone;
+            $invoice->address =  auth()->user()->address;
             $invoice->status = OrderStatusEnum::PENDING->value;
             $invoice->save();
 
 
             $total = 0;
-            foreach ($data['items'] as $item) {
+            foreach ($request->data as $item) {
                 $product = Product::find($item['product_id']);
                 if ($product->is_delivery) {
                     $weight += $product->weight;
                 }
                 if (!$product) {
-                    throw new \Exception("Product with ID {$item['product_id']} not found.");
+                   return response()->json(['status'=>'error','msg'=>"المنتج {$item['product_id']} غير موجود."]);
                 }
                 $price = $product->is_discount ? $product->discount : $product->price;
                 $total_price = $price * $item['qty'];
@@ -165,10 +163,10 @@ Route::middleware('auth:sanctum')->group(function () {
             $invoice->save();
 
             \DB::commit();
-            return $invoice;
+            return response()->json(['status'=>'success']);
         } catch (\Exception | \Error $e) {
             \DB::rollBack();
-            throw new GraphQLExceptionHandler($e->getMessage());
+            return response()->json(['status'=>'error','msg' => $e->getMessage()], 403);
         }
 
     });

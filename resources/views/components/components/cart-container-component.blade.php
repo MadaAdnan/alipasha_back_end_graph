@@ -82,7 +82,8 @@
                 })
             },
             body: JSON.stringify({
-                data:@json($dataForApi)
+                data:@json($dataForApi),
+                seller_id:@json($seller->id)
             })
         })
             .then(response => {
