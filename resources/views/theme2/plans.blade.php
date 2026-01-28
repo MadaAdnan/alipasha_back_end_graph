@@ -40,7 +40,7 @@
                                       @else
                                           <i class="fa fa-ban text-danger fs-5 me-1"></i>
                                       @endif
-                                      <span class="flex-grow-1">{{ $item['item'] }}</span>
+                                      <span class="flex-grow-1 text-dark">{{ $item['item'] }}</span>
                                   </li>
                               @endforeach
                           </ul>
