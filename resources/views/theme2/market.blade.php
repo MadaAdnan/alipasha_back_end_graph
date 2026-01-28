@@ -253,8 +253,8 @@
 
         .store-verified-badge {
             position: absolute;
-            bottom: 10px;
-            right: 10px;
+            bottom: 0px;
+            right: 0px;
             display: flex;
             align-items: center;
             justify-content: center;
