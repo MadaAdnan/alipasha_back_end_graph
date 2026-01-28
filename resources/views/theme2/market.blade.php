@@ -92,7 +92,7 @@
                                     </button>
                                 </form>
                            @endif
-                            <a class="btn-action btn-contact" href="{{route('plans.index)}}">
+                            <a class="btn-action btn-contact" href="{{route('plans.index')}}">
                                 <i class="fa-solid fa-chart-line"></i>
                                 <span>ترقية الحساب</span>
                             </a>
