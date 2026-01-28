@@ -34,11 +34,13 @@
                       <div class="d-flex flex-column">
                           <ul class="list-unstyled w-100 mb-3 ps-0 pe-0 flex-grow-1">
                               @foreach($plan->items as $item)
-                                  <li class="d-flex align-items-center mb-1 border border-1 rounded p-1">
+                                  <li class="d-flex align-items-start mb-1 border border-1 rounded p-1">
                                       @if($item['active'])
-                                          <i class="fa fa-check text-success fs-5 me-1"></i>
+
+                                          <i class="fa-regular fa-circle-check text-success fs-5 me-1"></i>
                                       @else
-                                          <i class="fa fa-ban text-danger fs-5 me-1"></i>
+                                  
+                                          <i class="fa-solid fa-circle-xmark text-danger fs-5 me-1"></i>
                                       @endif
                                       <span class="flex-grow-1 text-dark">{{ $item['item'] }}</span>
                                   </li>
