@@ -42,7 +42,7 @@
 
                                           <i class="fa-solid fa-circle-xmark text-danger fs-5 me-1"></i>
                                       @endif
-                                      <span class="flex-grow-1 text-start  text-dark" style="display: contents">{{ $item['item'] }}</span>
+                                      <span class="flex-grow-1 text-start  text-dark" >{{ $item['item'] }}</span>
                                   </li>
                               @endforeach
                           </ul>
