@@ -10,7 +10,7 @@
 
             <div class="plans-wrapper d-flex flex-wrap justify-content-center gap-4 position-relative ">
                 @forelse($plans as $plan)
-                    <div class="plan-card  border rounded shadow-sm p-3 text-center flex-fill" style="min-width:250px; max-width:300px;">
+                    <div class="plan-card h-100  border rounded shadow-sm p-3 text-center flex-fill" style="min-width:250px; max-width:300px;">
 
                         <h5 class="plan-name mb-2">{{ $plan->name ?? 'خطة بدون اسم' }}</h5>
 
@@ -31,7 +31,7 @@
                             <p class="plan-description mb-3 text-muted" style="min-height:50px;">
                                 {{ $plan->info }}
                             </p>
-                    <div class="card h-100">
+
                         <div class="d-flex flex-column">
                             <ul class="list-unstyled w-100 mb-3 ps-0 pe-0 flex-grow-1">
                                 @foreach($plan->items as $item)
@@ -62,7 +62,7 @@
                             @endif
 
                         </div>
-                    </div>
+
 
                     </div>
                 @empty
