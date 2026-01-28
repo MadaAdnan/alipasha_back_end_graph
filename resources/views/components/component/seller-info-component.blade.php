@@ -99,8 +99,9 @@
             </button>
         @endauth
         @if($productId!=null)
+
             <button class="btn-green rounded d-flex justify-content-center align-items-center" type="button"
-                    onclick="clickWhats("{{$seller->full_phone}}")">
+                    onclick=" clickWhats('{{$seller->full_phone}}')">
             <i class="fa-brands fa-whatsapp"></i>
             <span class="small d-none d-md-inline-block  text-white">
                    واتس آب
