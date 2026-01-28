@@ -103,6 +103,9 @@ Route::middleware('auth:sanctum')->group(function () {
         }
         return $product->user?->full_phone;
     });
+    Route::post('orders', function (Request $request) {
+        return response()->json($request->all());
+    });
 });
 Route::middleware(\App\Http\Middleware\PassApiStatisticsMiddleware::class)->group(function () {
     Route::get('users-count', [\App\Http\Controllers\Api\StatisticsController::class, 'userCount']);
