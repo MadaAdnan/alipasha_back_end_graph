@@ -419,9 +419,7 @@
         .store-actions form {
             display: inline;
         }
-        .plan-card{
-            background-color: #ffffff;
-        }
+
 
         .social-icon-btn {
             display: inline-flex;
