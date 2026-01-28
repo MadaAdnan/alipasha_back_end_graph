@@ -33,7 +33,7 @@
                             </p>
 
                         <div class="d-flex flex-column">
-                            <ul class="list-unstyled w-100 mb-3 ps-0 pe-0 flex-grow-1 flex-fill">
+                            <ul class="list-unstyled w-100 mb-3 ps-0 pe-0 flex-grow-1 ">
                                 @foreach($plan->items as $item)
                                     <li class="d-flex align-items-center mb-1 border border-1 rounded p-1">
                                         @if($item['active'])
@@ -47,6 +47,7 @@
                                     </li>
                                 @endforeach
                             </ul>
+                            <div class="flex-fill"></div>
                             @php
                                 $plansId=auth()->user()->plans->pluck('id')->toArray();
                                 $isActive=in_array($plan->id,$plansId);
