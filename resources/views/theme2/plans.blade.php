@@ -51,11 +51,11 @@ $plansId=auth()->user()->plans->pluck('id')->toArray();
 $isActive=in_array($plan->id,$plansId);
  @endphp
 @if($isActive)
-                              <button class="btn btn-outline-secondary w-100 flex-shrink-1" disabled>
+                              <button class="btn btn-outline-secondary w-100 mt-auto" disabled>
                                   تم الإشتراك
                               </button>
                           @else
-                              <button class="btn btn-red-accent w-100 flex-shrink-1" >
+                              <button class="btn btn-red-accent w-100 mt-auto" >
                                    إشترك الآن
                               </button>
 @endif
