@@ -81,7 +81,7 @@
                     'Authorization': 'Bearer ' + localStorage.getItem('token')
                 })
             },
-            body: JSON.stringify("{{$dataForApi}}")
+            body: @json($dataForApi)
         })
             .then(response => {
 
