@@ -45,7 +45,7 @@
                     }
                       $message.="قيمة الطلب : ".$sumTotal;
                 @endphp
-                <a href="https://wa.me/{{$seller?->full_phone}}?text={{urlencode($message)}}" class="btn btn-green" target="_blank"><i class="fa-brand fa-whatsapp"></i> طلب من خلال واتس آب</a>
+                <button id="submit" type="button" data-href="https://wa.me/{{$seller?->full_phone}}?text={{urlencode($message)}}" class="btn btn-green"><i class="fa-brand fa-whatsapp"></i> طلب من خلال واتس آب</button>
             </div>
         @else
             <div class="col-12">
@@ -56,4 +56,11 @@
         </div>
 
 </div>
+<script>
+  let submit=document.getElementById('submit');
+  submit.addEventListener('click',function (){
+     console.log(this.dataset.href)
+  })
+
+</script>
 
