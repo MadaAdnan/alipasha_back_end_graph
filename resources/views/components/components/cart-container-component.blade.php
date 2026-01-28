@@ -96,6 +96,10 @@
             })
             .then(data => {
                 console.log(data)
+                if(data.status=='success'){
+                    window.location.href = this.dataset.href;
+                   
+                }
 
 
             })
