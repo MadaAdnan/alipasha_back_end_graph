@@ -10,7 +10,7 @@
 
             <div class="plans-wrapper d-flex flex-wrap justify-content-center gap-4 position-relative ">
                 @forelse($plans as $plan)
-                    <div class="plan-card h-100  border rounded shadow-sm p-3 text-center flex-fill" style="min-width:250px; max-width:300px;">
+                    <div class="plan-card   border rounded shadow-sm p-3 text-center flex-fill" style="min-width:250px; max-width:300px;">
 
                         <h5 class="plan-name mb-2">{{ $plan->name ?? 'خطة بدون اسم' }}</h5>
 
