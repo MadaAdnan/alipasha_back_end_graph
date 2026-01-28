@@ -39,7 +39,7 @@
 
                                           <i class="fa-regular fa-circle-check text-success fs-5 me-1"></i>
                                       @else
-                                  
+
                                           <i class="fa-solid fa-circle-xmark text-danger fs-5 me-1"></i>
                                       @endif
                                       <span class="flex-grow-1 text-dark">{{ $item['item'] }}</span>
