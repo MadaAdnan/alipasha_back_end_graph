@@ -110,7 +110,7 @@ Route::middleware('auth:sanctum')->group(function () {
         return $product->user?->full_phone;
     });
     Route::post('orders', function (Request $request) {
-        $data = $args['input'];
+        return response()->json($request->all());
         if (!auth()->user()->is_active) {
             throw new GraphQLExceptionHandler('تم حظر حسابك يرجى مراجعة الإدارة');
         }
@@ -170,7 +170,7 @@ Route::middleware('auth:sanctum')->group(function () {
             \DB::rollBack();
             throw new GraphQLExceptionHandler($e->getMessage());
         }
-        return response()->json($request->all());
+
     });
 });
 Route::middleware(\App\Http\Middleware\PassApiStatisticsMiddleware::class)->group(function () {
