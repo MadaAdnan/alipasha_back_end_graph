@@ -31,7 +31,7 @@
                             <p class="plan-description mb-3 text-muted" style="min-height:50px;">
                                 {{ $plan->info }}
                             </p>
-                      <div class="d-flex flex-column">
+                      <div class="d-flex flex-column h-100">
                           <ul class="list-unstyled w-100 mb-3 ps-0 pe-0 flex-grow-1">
                               @foreach($plan->items as $item)
                                   <li class="d-flex align-items-center mb-1 border border-1 rounded p-1">
