@@ -21,9 +21,9 @@
                         <div class=" d-flex flex-column gap-3 align-items-center justify-content-center w-100">
 
                             <img class="payment-img" src="{{asset('images/payment/payment1.jpg')}}" alt="Payment Method 1">
-                            <div class="divider border-top border-danger"></div>
+                            <div class="divider border-top border-danger w-75 m-auto"></div>
                             <img class="payment-img" src="{{asset('images/payment/payment2.jpg')}}" alt="Payment Method 2">
-                            <div class="divider border-top border-danger"></div>
+                            <div class="divider border-top border-danger w-75 m-auto"></div>
                             <img class="payment-img" src="{{asset('images/payment/payment3.jpg')}}" alt="Payment Method 3">
                         </div>
 
