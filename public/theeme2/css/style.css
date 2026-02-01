@@ -2056,3 +2056,7 @@ option > img {
     align-items: center;
     justify-content: center;
 }
+.fa-copy:hover{
+    cursor: pointer;
+    color: #D4D4D4;
+}
