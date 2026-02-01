@@ -14,8 +14,8 @@
                             $wallet=\App\Models\Setting::first()?->wallet;
                         @endphp
                        <div class="">
-                           <p class="lead "><span>المحفظة:</span> <span  class="d-inline-block border border-1 p-2 fw-bolder rounded">{{$wallet}}</span><i class="fa fa-copy" onclick="copyTextToClipboard('{{$wallet}}')"></i></p>
-                           <p class="lead"><span>معرفك الشخصي:</span> <span class="d-inline-block border border-1 p-2 fw-bolder rounded">{{auth()->id()}}</span><i class="fa fa-copy" onclick="copyTextToClipboard('{{auth()->id()}}')"></i></p>
+                           <p class="lead "><p>المحفظة:</p> <p  class="d-inline-block border border-1 p-2 fw-bolder rounded">{{$wallet}}</p><i class="fa fa-copy" onclick="copyTextToClipboard('{{$wallet}}')"></i></p>
+                           <p class="lead"><p>معرفك الشخصي:</p> <p class="d-inline-block border border-1 p-2 fw-bolder rounded">{{auth()->id()}}</p><i class="fa fa-copy" onclick="copyTextToClipboard('{{auth()->id()}}')"></i></p>
 
                        </div>
                         <div class=" d-flex flex-column gap-3 align-items-center justify-content-center w-100">
