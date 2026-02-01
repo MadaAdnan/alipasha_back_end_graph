@@ -6,7 +6,7 @@
             <div class="col-md-9">
                 <div class="filter-container">
                     <div class="filter-header">
-                        <i class="fas fa-sliders-h"></i>
+                        <i class="fas fa-wallet"></i>
                         <span>طريقة شحن الحساب</span>
                     </div>
                     <div class="bg-white d-flex flex-column gap-2 align-items-start justify-content-start">
