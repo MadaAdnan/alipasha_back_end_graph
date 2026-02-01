@@ -10,8 +10,11 @@
                         <span>طريقة شحن الحساب</span>
                     </div>
                     <div class="bg-white d-flex flex-column gap-2 align-items-center justify-content-center">
-                        <p class="lead "><span>المحفظة:</span> <span  class="d-inline-block border border-1 p-2">{{\App\Models\Setting::first()?->wallet}}</span></p>
-                        <p class="lead"><span>معرفك الشخصي:</span> <span class="d-inline-block border border-1 p-2">{{auth()->id()}}</span></p>
+                        @php
+$wallet=\App\Models\Setting::first()?->wallet;
+ @endphp
+                        <p class="lead "><span>المحفظة:</span> <span  class="d-inline-block border border-1 p-2 fw-bolder">{{$wallet}}</span><i class="fa fa-copy" onclick="copyTextToClipboard('{{$wallet}}')"></i></p>
+                        <p class="lead"><span>معرفك الشخصي:</span> <span class="d-inline-block border border-1 p-2 fw-bolder">{{auth()->id()}}</span><i class="fa fa-copy" onclick="copyTextToClipboard('{{auth()->id()}}')"></i></p>
                         <img class="payment-img" src="{{asset('images/payment/payment1.jpg')}}" alt="Payment Method 1">
                         <img class="payment-img" src="{{asset('images/payment/payment2.jpg')}}" alt="Payment Method 2">
                         <img class="payment-img" src="{{asset('images/payment/payment3.jpg')}}" alt="Payment Method 3">
@@ -22,3 +25,13 @@
     </div>
 
 @endsection
+
+@push('js')
+    <script>
+        function copyTextToClipboard(text) {
+            navigator.clipboard.writeText(text);
+            showToast('تم نسخ النص بنجاح');
+        }
+    </script>
+
+@endpush
