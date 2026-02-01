@@ -10,8 +10,8 @@
                         <span>طريقة شحن الحساب</span>
                     </div>
                     <div class="bg-white d-flex flex-column gap-2 align-items-center justify-content-center">
-                        <p class="lead"><span>المحفظة:</span> <span>{{\App\Models\Setting::first()?->wallet}}</span></p>
-                        <p class="lead"><span>معرفك الشخصي:</span> <span>{{auth()->id()}}</span></p>
+                        <p class="lead "><span>المحفظة:</span> <span  class="d-inline-block border border-1 p-2">{{\App\Models\Setting::first()?->wallet}}</span></p>
+                        <p class="lead"><span>معرفك الشخصي:</span> <span class="d-inline-block border border-1 p-2">{{auth()->id()}}</span></p>
                         <img class="payment-img" src="{{asset('images/payment/payment1.jpg')}}" alt="Payment Method 1">
                         <img class="payment-img" src="{{asset('images/payment/payment2.jpg')}}" alt="Payment Method 2">
                         <img class="payment-img" src="{{asset('images/payment/payment3.jpg')}}" alt="Payment Method 3">
