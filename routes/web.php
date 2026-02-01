@@ -93,7 +93,7 @@ Route::middleware([\App\Http\Middleware\XFrameOptionMiddleware::class])->group(f
         Route::resource('/pricing', \App\Http\Controllers\Web\PricingController::class)->only('index', 'store');
         Route::get('/profile/{id?}', [\App\Http\Controllers\Web\SellerController::class, 'profile'])->name('seller.profile');
         Route::get('/category/{id}', [\App\Http\Controllers\Web\CategoryController::class, 'show'])->name('category.show');
-        Route::resource('payments', \App\Http\Controllers\Web\PaymentController::class)->only('index');
+
 
 
         Route::middleware('auth:web')->group(function () {
@@ -136,8 +136,8 @@ Route::middleware([\App\Http\Middleware\XFrameOptionMiddleware::class])->group(f
             Route::resource('/orders', \App\Http\Controllers\Web\OrderController::class)->only(['index', 'store']);
             Route::post('/markets/followers', [\App\Http\Controllers\Web\SellerController::class, 'followers']);
             Route::post('/products/like', [\App\Http\Controllers\Web\PostController::class, 'like'])->name('post.like');
-            Route::resource('/carts', \App\Http\Controllers\Web\CartController::class)->only(['index', 'show', 'store', 'destroy', 'update'])/*->middleware(\App\Http\Middleware\RateLimitPerSecond::class)*/
-            ;
+            Route::resource('/carts', \App\Http\Controllers\Web\CartController::class)->only(['index', 'show', 'store', 'destroy', 'update'])/*->middleware(\App\Http\Middleware\RateLimitPerSecond::class)*/;
+            Route::resource('payments', \App\Http\Controllers\Web\PaymentController::class)->only('index');
             Route::resource('/charges', \App\Http\Controllers\Web\ChargeController::class)->only(['index']);
             Route::resource('/charges', \App\Http\Controllers\Web\ChargeController::class)->only(['index']);
             Route::resource('/galleries', \App\Http\Controllers\Web\GalleryController::class)->only(['show']);
