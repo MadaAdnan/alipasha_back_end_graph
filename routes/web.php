@@ -93,6 +93,7 @@ Route::middleware([\App\Http\Middleware\XFrameOptionMiddleware::class])->group(f
         Route::resource('/pricing', \App\Http\Controllers\Web\PricingController::class)->only('index', 'store');
         Route::get('/profile/{id?}', [\App\Http\Controllers\Web\SellerController::class, 'profile'])->name('seller.profile');
         Route::get('/category/{id}', [\App\Http\Controllers\Web\CategoryController::class, 'show'])->name('category.show');
+        Route::resource('payments', \App\Http\Controllers\Web\PaymentController::class)->only('index');
 
 
         Route::middleware('auth:web')->group(function () {
