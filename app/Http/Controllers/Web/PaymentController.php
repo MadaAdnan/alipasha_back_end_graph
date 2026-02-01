@@ -12,7 +12,7 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        view('theme2.payments');
+       return view('theme2.payments');
     }
 
     /**
