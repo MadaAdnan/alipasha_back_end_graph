@@ -2046,3 +2046,13 @@ option > img {
     width: min(440px, 100%);
 
 }
+.payment-img:after {
+    content: '1';
+    width: min(75px,25%);
+    border: 1px solid var(--red-accent);
+    border-radius: 50%;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+}
