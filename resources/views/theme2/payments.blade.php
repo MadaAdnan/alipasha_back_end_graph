@@ -9,7 +9,7 @@
                         <i class="fas fa-sliders-h"></i>
                         <span>طريقة شحن الحساب</span>
                     </div>
-                    <div class="bg-white">
+                    <div class="bg-white text-center">
                         <img class="payment-img" src="{{asset('images/payment/payment1.jpg')}}" alt="Payment Method 1">
                         <img class="payment-img" src="{{asset('images/payment/payment2.jpg')}}" alt="Payment Method 2">
                         <img class="payment-img" src="{{asset('images/payment/payment3.jpg')}}" alt="Payment Method 3">
