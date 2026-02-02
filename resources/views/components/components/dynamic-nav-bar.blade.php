@@ -12,8 +12,9 @@
         <span class="d-flex justify-content-end">
             @auth
                 <a href="{{ route('payments.index') }}"  class="cart-link mx-1 position-relative">
+                     <span class="text-red-accent small ">{{auth()->user()->getTotalBalance()}} $</span>
             <i class="fa fa-wallet fa-lg"></i>
-           <span class="text-red-accent small ">{{auth()->user()->getTotalBalance()}} $</span>
+
         </a>
             @endauth
 
