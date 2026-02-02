@@ -14,7 +14,7 @@
                 <a href="{{ route('payments.index') }}"  class="cart-link mx-1 position-relative">
 
             <i class="fa fa-wallet fa-lg"></i>
-                                            <span class="badge badge-danger position-absolute top-0 start-100 translate-middle rounded-pill bg-danger">{{auth()->user()->getTotalBalance()}} $</span>
+                                            <span class="badge badge-danger text-white position-absolute top-0 start-100 translate-middle rounded-pill bg-danger">{{auth()->user()->getTotalBalance()}} $</span>
 
 
         </a>
