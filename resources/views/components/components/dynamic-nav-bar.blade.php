@@ -11,38 +11,42 @@
         <!-- Shopping Cart with Badge -->
         <span class="d-flex justify-content-end">
             @auth
-                <a href="{{ route('payments.index') }}"  class="cart-link mx-1 position-relative">
+                <a href="{{ route('payments.index') }}" class="cart-link mx-1 position-relative">
 
             <i class="fa fa-wallet fa-lg"></i>
-                                            <span class="badge badge-danger text-white position-absolute top-0 start-100 translate-middle rounded-pill bg-danger">{{auth()->user()->getTotalBalance()}} $</span>
-
+                    @if(auth()->user()->getTotalBalance()>0)
+                        <span
+                            class="badge badge-danger text-white position-absolute top-0 start-100 translate-middle rounded-pill bg-danger">{{auth()->user()->getTotalBalance()}} $</span>
+                    @endif
 
         </a>
             @endauth
 
-            <a href="{{ route('carts.index') }}"  class="cart-link mx-1 position-relative">
+            <a href="{{ route('carts.index') }}" class="cart-link mx-1 position-relative">
             <i class="fa fa-shopping-cart fa-lg"></i>
             @if(auth()->check())
                     @php
                         $cartCount = \App\Models\Cart::where('user_id', auth()->id())->count();
                     @endphp
                     @if($cartCount > 0)
-                        <span class="badge badge-danger position-absolute top-0 start-100 translate-middle rounded-pill bg-danger">{{ $cartCount }}</span>
+                        <span
+                            class="badge badge-danger position-absolute top-0 start-100 translate-middle rounded-pill bg-danger">{{ $cartCount }}</span>
                     @endif
                 @endif
         </a>
-        <a href="{{ route('notifications.index') }}"  class="cart-link mx-1 position-relative">
+        <a href="{{ route('notifications.index') }}" class="cart-link mx-1 position-relative">
             <i class="fa fa-bell fa-lg"></i>
             @if(auth()->check())
                 @php
                     $notificationsCount = auth()->user()->unread_notifications_count;
                 @endphp
                 @if($notificationsCount > 0)
-                    <span class="badge badge-danger position-absolute top-0 start-100 translate-middle rounded-pill bg-danger">{{ $cartCount }}</span>
+                    <span
+                        class="badge badge-danger position-absolute top-0 start-100 translate-middle rounded-pill bg-danger">{{ $cartCount }}</span>
                 @endif
             @endif
         </a>
-        <a href="{{ route('communities.index') }}"  class="cart-link mx-1 position-relative">
+        <a href="{{ route('communities.index') }}" class="cart-link mx-1 position-relative">
             <i class="fa fa-comments fa-lg"></i>
            {{-- @if(auth()->check())
                 @php
@@ -65,7 +69,8 @@
 
                     @endphp
                     <li class="nav-item nav-divider">
-                        <a class="nav-link active text-muted" aria-current="page" href="{{$url}}"> <i class="{{$nav->icon}}"></i><span class="d-inline-block mx-1">{{$nav->title}}</span></a>
+                        <a class="nav-link active text-muted" aria-current="page" href="{{$url}}"> <i
+                                class="{{$nav->icon}}"></i><span class="d-inline-block mx-1">{{$nav->title}}</span></a>
                     </li>
                 @endforeach
 
