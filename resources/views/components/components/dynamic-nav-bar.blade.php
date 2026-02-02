@@ -10,6 +10,13 @@
         </button>
         <!-- Shopping Cart with Badge -->
         <span class="d-flex justify-content-end">
+            @auth
+                <a href="{{ route('payments.index') }}"  class="cart-link mx-1 position-relative">
+            <i class="fa fa-wallet fa-lg"></i>
+           <span class="text-red-accent small ">{{auth()->user()->getTotalBalance()}} $</span>
+        </a>
+            @endauth
+
             <a href="{{ route('carts.index') }}"  class="cart-link mx-1 position-relative">
             <i class="fa fa-shopping-cart fa-lg"></i>
             @if(auth()->check())
