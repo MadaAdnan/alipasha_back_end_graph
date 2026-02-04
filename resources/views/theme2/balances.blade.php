@@ -41,7 +41,7 @@
 
                     </table>
 
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-center w-100">
 <x-components.paginator-component :paginator="$balances"/>
                     </div>
                 </div>
