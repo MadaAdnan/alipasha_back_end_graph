@@ -11,7 +11,7 @@
         <div class="carousel-inner">
             @foreach($product->getMedia('images') as $index => $img)
                 <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-                    <a href="{{route('posts.show',  $product->id)}}" target="_blank">
+                    <a href="{{route('posts.show',  $product->id)}}" >
                     <img src="{{ $img->getUrl('webp') }}" class="d-block slider-img" alt="image">
                     </a>
                 </div>
@@ -41,8 +41,9 @@
 
     {{-- التفاصيل --}}
     <div class="estate-info p-2 flex-fill">
-
+        <a href="{{route('posts.show',  $product->id)}}" >
         <h6 class="estate-title pe-2 ">{{ $product->expert }}</h6>
+        </a>
 
         <div class="estate-price text-success fw-bold ">
             <x-components.price-component  :price="$product->price" :discount="$product->discount" :isDiscount="$product->is_discount" />
