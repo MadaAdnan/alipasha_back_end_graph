@@ -14,7 +14,7 @@
                                <span class="text-white">الرصيد</span>
                            </div>
                            <div>
-                               <a href="{{route('payments.index')}}" class="btn btn-primary btn-sm float-left">طريقة شحن الحساب</a>
+                               <a href="{{route('payments.index')}}" class="btn btn-outline-warning btn-sm float-left">طريقة شحن الحساب</a>
                            </div>
                        </div>
                     </div>
