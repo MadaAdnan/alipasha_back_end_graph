@@ -62,7 +62,7 @@
                 <i class="fa fa-phone"></i> الاتصال
             </a>
 
-            <span onclick="clickWhats('{{$product->user?->full_phone}}')" class="text-success fw-bold text-decoration-none">
+            <span onclick="clickWhats('{{$product->user?->full_phone}}')" class="text-success fw-bold text-decoration-none cursor-pointer">
                 <i class="fa-brands fa-whatsapp fs-6"></i>
             </span>
         </div>
