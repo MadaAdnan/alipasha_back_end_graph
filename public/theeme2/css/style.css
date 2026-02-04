@@ -313,6 +313,65 @@ option > img {
     z-index: 1;
 }
 
+/* ===== CHARGE ACCOUNT BUTTON ===== */
+.btn-charge-account {
+    background: var(--white);
+    color: var(--red);
+    border: 2px solid var(--red);
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.btn-charge-account::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--red-accent) 0%, var(--red) 100%);
+    transition: left 0.3s ease;
+    z-index: 0;
+}
+
+.btn-charge-account:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(227, 6, 19, 0.3);
+    border-color: var(--red);
+    color: var(--white);
+    text-decoration: none;
+}
+
+.btn-charge-account:hover::before {
+    left: 0;
+}
+
+.btn-charge-account:active {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(255, 95, 87, 0.3);
+}
+
+.btn-charge-account i {
+    font-size: 16px;
+    position: relative;
+    z-index: 1;
+}
+
+.btn-charge-account span {
+    position: relative;
+    z-index: 1;
+}
+
 /*NavBar Component*/
 .transparent, .transparent:hover, .transparent:active {
     background-color: transparent;
@@ -2003,6 +2062,295 @@ option > img {
     color: var(--white);
 }
 
+/* ===== PAYMENT PAGE STYLES ===== */
+
+/* قسم المعلومات المهمة */
+.payment-info-section {
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.payment-info-card {
+    background: var(--white);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+.payment-info-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.payment-info-header {
+    background: linear-gradient(135deg, var(--red-accent) 0%, var(--red) 100%);
+    color: var(--white);
+    padding: 16px 20px;
+    font-weight: 600;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.payment-info-header i {
+    font-size: 18px;
+}
+
+.payment-info-content {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.info-label {
+    font-weight: 600;
+    color: var(--gray-text);
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.info-value-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--gray-bg);
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: 2px solid #e0e0e0;
+    transition: all 0.3s ease;
+}
+
+.info-value-box:hover {
+    border-color: var(--red);
+    background: #fafafa;
+}
+
+.info-value {
+    flex: 1;
+    font-weight: 600;
+    color: var(--red);
+    font-size: 15px;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 1px;
+}
+
+.info-hint {
+    font-size: 13px;
+    color: var(--gray-text);
+    margin: 0;
+    line-height: 1.5;
+    padding: 8px 0;
+    border-top: 1px solid #e0e0e0;
+    padding-top: 12px;
+    font-style: italic;
+}
+
+.copy-btn {
+    background: var(--red);
+    color: var(--white);
+    border: none;
+    border-radius: 6px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.copy-btn:hover {
+    background: var(--red-accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(227, 6, 19, 0.3);
+}
+
+.copy-btn:active {
+    transform: translateY(0);
+}
+
+.copy-btn i {
+    font-size: 13px;
+}
+
+.warning-box {
+    background: rgba(227, 6, 19, 0.08);
+    border-left: 4px solid var(--red);
+    padding: 16px;
+    border-radius: 6px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    color: var(--gray-text);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.warning-box i {
+    color: var(--red);
+    font-size: 18px;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+/* قسم الخطوات */
+.payment-steps-section {
+    margin-top: 30px;
+}
+
+.steps-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    padding: 24px;
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.step-card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 20px;
+    background: var(--gray-bg);
+    border-radius: 10px;
+    border: 2px solid #e0e0e0;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.step-card:hover {
+    border-color: var(--red);
+    box-shadow: 0 4px 12px rgba(227, 6, 19, 0.15);
+    transform: translateY(-4px);
+}
+
+.step-number {
+    position: absolute;
+    top: -15px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--red-accent) 0%, var(--red) 100%);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 18px;
+    box-shadow: 0 4px 12px rgba(227, 6, 19, 0.3);
+}
+
+.step-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.step-title {
+    font-weight: 600;
+    color: var(--gray-text);
+    font-size: 16px;
+    margin: 0;
+}
+
+.step-description {
+    color: var(--gray-text);
+    font-size: 14px;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.step-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+    border: 2px solid #e0e0e0;
+    transition: all 0.3s ease;
+}
+
+.step-card:hover .step-image {
+    border-color: var(--red);
+    box-shadow: 0 4px 12px rgba(227, 6, 19, 0.2);
+}
+
+.note-box {
+    background: linear-gradient(135deg, rgba(255, 204, 0, 0.1) 0%, rgba(227, 6, 19, 0.05) 100%);
+    border: 2px solid var(--gold);
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--gray-text);
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 20px;
+}
+
+.note-box i {
+    color: var(--gold);
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .payment-info-content {
+        padding: 16px;
+        gap: 16px;
+    }
+
+    .info-value-box {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .copy-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .steps-container {
+        grid-template-columns: 1fr;
+        padding: 16px;
+        gap: 16px;
+    }
+
+    .step-card {
+        padding: 16px;
+    }
+
+    .step-number {
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
+    }
+
+    .step-title {
+        font-size: 15px;
+    }
+
+    .step-description {
+        font-size: 13px;
+    }
+}
+
 @media (max-width: 576px) {
     .pagination-container {
         gap: 4px;
@@ -2059,4 +2407,538 @@ option > img {
 .fa-copy:hover{
     cursor: pointer;
     color: #D4D4D4;
+}
+
+
+/* ===== PLANS PAGE STYLES ===== */
+
+/* رأس صفحة الخطط */
+.plans-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 30px 0;
+}
+
+.plans-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--gray-text);
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+}
+
+.plans-subtitle {
+    font-size: 1.1rem;
+    color: var(--gray-text);
+    opacity: 0.7;
+    margin: 0;
+    font-weight: 400;
+}
+
+/* شبكة الخطط */
+.plans-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 20px 0;
+}
+
+/* حاوية التمرير على الكمبيوتر */
+.plans-carousel-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+}
+
+.plans-grid-container {
+    flex: 1;
+    overflow: hidden;
+    min-width: 0;
+}
+
+/* Desktop - عرض جميع البطاقات مع التمرير الأفقي */
+@media (min-width: 1200px) {
+    .plans-grid {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        grid-template-columns: unset;
+        gap: 15px;
+        padding: 20px 0;
+        align-items: stretch;
+        /* إخفاء شريط التمرير */
+        scrollbar-width: none;
+    }
+
+    .plans-grid::-webkit-scrollbar {
+        display: none;
+    }
+
+    .plans-grid > * {
+        flex: 0 0 auto;
+        width: 330px;
+        min-width: 330px;
+        height: auto;
+    }
+
+    .plan-card-premium {
+        height: auto;
+    }
+}
+
+/* بطاقة الخطة الرئيسية */
+.plan-card-premium {
+    background: var(--white);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    position: relative;
+    border: 2px solid transparent;
+}
+
+.plan-card-premium:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(227, 6, 19, 0.15);
+    border-color: var(--red-accent);
+}
+
+.plan-card-premium.plan-card-active {
+    border-color: var(--green);
+    background: linear-gradient(135deg, rgba(18, 160, 88, 0.02) 0%, rgba(18, 160, 88, 0.05) 100%);
+}
+
+.plan-card-premium.plan-card-featured {
+    transform: scale(1.02);
+    border-color: var(--gold);
+    box-shadow: 0 8px 24px rgba(255, 204, 0, 0.2);
+}
+
+.plan-card-premium.plan-card-featured:hover {
+    transform: scale(1.02) translateY(-8px);
+    box-shadow: 0 16px 32px rgba(255, 204, 0, 0.25);
+}
+
+/* شارة الخطة المميزة */
+.plan-badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: linear-gradient(135deg, var(--gold) 0%, #FFB800 100%);
+    color: #333;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 4px 12px rgba(255, 204, 0, 0.3);
+    z-index: 10;
+}
+
+.plan-badge i {
+    font-size: 13px;
+}
+
+/* Desktop - تقليل حجم الشارة */
+@media (min-width: 1200px) {
+    .plan-badge {
+        top: 10px;
+        right: 10px;
+        padding: 5px 10px;
+        font-size: 10px;
+        gap: 4px;
+    }
+
+    .plan-badge i {
+        font-size: 10px;
+    }
+}
+
+/* رأس البطاقة */
+.plan-header {
+    background: linear-gradient(135deg, var(--red-accent) 0%, var(--red) 100%);
+    color: var(--white);
+    padding: 28px 24px;
+    text-align: center;
+}
+
+.plan-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+    letter-spacing: -0.3px;
+}
+
+.plan-duration {
+    font-size: 0.95rem;
+    opacity: 0.9;
+    margin: 0;
+    font-weight: 400;
+}
+
+/* Desktop - تقليل حجم الخطوط والمسافات */
+@media (min-width: 1200px) {
+    .plan-header {
+        padding: 14px 12px;
+    }
+
+    .plan-title {
+        font-size: 1.2rem;
+        margin: 0 0 3px 0;
+    }
+
+    .plan-duration {
+        font-size: 0.85rem;
+    }
+}
+
+/* قسم السعر */
+.plan-price-section {
+    padding: 24px;
+    text-align: center;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.price-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.price-original {
+    font-size: 0.95rem;
+    color: var(--gray-text);
+    text-decoration: line-through;
+    opacity: 0.6;
+    font-weight: 500;
+}
+
+.price-current {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--red);
+    letter-spacing: -0.5px;
+}
+
+/* Desktop - تقليل حجم السعر والمسافات */
+@media (min-width: 1200px) {
+    .plan-price-section {
+        padding: 12px 12px;
+    }
+
+    .price-wrapper {
+        gap: 6px;
+        margin-bottom: 6px;
+    }
+
+    .price-original {
+        font-size: 0.8rem;
+    }
+
+    .price-current {
+        font-size: 1.8rem;
+    }
+}
+
+.discount-badge {
+    background: rgba(227, 6, 19, 0.1);
+    color: var(--red);
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+/* الوصف */
+.plan-description {
+    padding: 20px 24px;
+    color: var(--gray-text);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+/* قائمة الميزات */
+.plan-features {
+    flex: 1;
+    padding: 20px 24px;
+}
+
+.features-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: var(--gray-bg);
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+    color: var(--gray-text);
+}
+
+/* Desktop - تقليل حجم الوصف والميزات */
+@media (min-width: 1200px) {
+    .plan-description {
+        padding: 10px 12px;
+        font-size: 0.8rem;
+        line-height: 1.4;
+        min-height: 38px;
+    }
+
+    .plan-features {
+        padding: 10px 12px;
+    }
+
+    .features-list {
+        gap: 6px;
+    }
+
+    .feature-item {
+        gap: 6px;
+        padding: 5px 8px;
+        font-size: 0.8rem;
+    }
+}
+
+.feature-item.feature-active {
+    background: rgba(18, 160, 88, 0.08);
+    color: var(--gray-text);
+}
+
+.feature-item.feature-inactive {
+    opacity: 0.6;
+}
+
+.feature-item:hover {
+    background: rgba(227, 6, 19, 0.08);
+}
+
+.feature-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.feature-item.feature-active .feature-icon {
+    color: var(--green);
+}
+
+.feature-item.feature-inactive .feature-icon {
+    color: #ccc;
+}
+
+.feature-text {
+    flex: 1;
+    text-align: right;
+    font-weight: 500;
+}
+
+/* قسم الإجراء */
+.plan-action {
+    padding: 24px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.btn-subscribe {
+    width: 100%;
+    background: linear-gradient(135deg, var(--red-accent) 0%, var(--red) 100%);
+    color: var(--white);
+    border: none;
+    border-radius: 10px;
+    padding: 14px 24px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-subscribe:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(227, 6, 19, 0.3);
+    background: linear-gradient(135deg, var(--red) 0%, #c90410 100%);
+}
+
+.btn-subscribe:active {
+    transform: translateY(0);
+}
+
+.btn-subscribed {
+    width: 100%;
+    background: var(--green);
+    color: var(--white);
+    border: none;
+    border-radius: 10px;
+    padding: 14px 24px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: not-allowed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    opacity: 0.8;
+}
+
+/* Desktop - تقليل حجم الزر */
+@media (min-width: 1200px) {
+    .plan-action {
+        padding: 10px 12px;
+    }
+
+    .btn-subscribe,
+    .btn-subscribed {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+        gap: 5px;
+    }
+}
+
+/* حالة فارغة */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--gray-text);
+}
+
+.empty-state i {
+    font-size: 4rem;
+    color: #ddd;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.empty-state p {
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+/* أسهم التمرير - مخفية على الهاتف */
+.plans-arrow {
+    display: none;
+}
+
+/* أسهم التمرير على الكمبيوتر فقط */
+@media (min-width: 1200px) {
+    .plans-arrow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        border: 2px solid var(--red);
+        background: var(--white);
+        color: var(--red);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        flex-shrink: 0;
+        font-size: 18px;
+        z-index: 5;
+    }
+
+    .plans-arrow:hover:not(:disabled) {
+        background: var(--red);
+        color: var(--white);
+        transform: scale(1.1);
+        box-shadow: 0 4px 12px rgba(227, 6, 19, 0.3);
+    }
+
+    .plans-arrow:active:not(:disabled) {
+        transform: scale(0.95);
+    }
+
+    .plans-arrow:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+        border-color: #ccc;
+        color: #ccc;
+    }
+
+    .plans-arrow-left {
+        order: 3;
+        transform: rotate(180deg);
+    }
+
+    .plans-arrow-right {
+        order: 1;
+        transform: rotate(180deg);
+    }
+
+    .plans-grid-container {
+        order: 2;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .plans-title {
+        font-size: 2rem;
+    }
+
+    .plans-subtitle {
+        font-size: 1rem;
+    }
+
+    .plans-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .plan-header {
+        padding: 20px 16px;
+    }
+
+    .plan-title {
+        font-size: 1.3rem;
+    }
+
+    .price-current {
+        font-size: 1.8rem;
+    }
+
+    .plan-price-section,
+    .plan-description,
+    .plan-features,
+    .plan-action {
+        padding: 16px;
+    }
+
+    .features-list {
+        gap: 10px;
+    }
+
+    .feature-item {
+        padding: 8px 10px;
+        font-size: 0.9rem;
+    }
 }

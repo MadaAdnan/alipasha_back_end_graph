@@ -1,95 +1,90 @@
 @extends('theme2.layouts.master')
 
 @section('content')
-    <div class="container mt-5">
+    <div class="container mt-5 mb-5">
         <div class="row">
+
+
+            <!-- شبكة الخطط مع الأسهم -->
             <div class="col-md-12">
-                <h1 class="text-center">الخطط</h1>
-            </div>
+                <div class="plans-carousel-wrapper">
+                    <!-- السهم الأيسر -->
+                    <button class="plans-arrow plans-arrow-left" id="plansArrowLeft" title="السابق">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
 
-
-            <div class="plans-wrapper d-flex flex-wrap justify-content-center gap-4 position-relative ">
-                @forelse($plans as $plan)
-                    <div class="plan-card   border rounded shadow-sm p-3 text-center flex-fill" style="min-width:250px; max-width:300px;">
-
-                        <h5 class="plan-name mb-2">{{ $plan->name ?? 'خطة بدون اسم' }}</h5>
-
-
-                            <p class="plan-price mb-2 h5 text-red">
-
-                               @if($plan->is_discount)
-                                  <del class="text-muted small"> <sup>{{ $plan->price }} $</sup></del>
-                                {{ $plan->discount }} $
-                               @else
-                                    {{ $plan->price }} $
-                               @endif
-                                   / <sub class="text-muted fs-6"> {{\App\Enums\PlansDurationEnum::tryFrom($plan->duration)?->getLabel()}}</sub>
-                            </p>
-
-
-
-                            <p class="plan-description mb-3 text-muted" style="min-height:50px;">
-                                {{ $plan->info }}
-                            </p>
-
-                        <div class="d-flex flex-column">
-                            <ul class="list-unstyled w-100 mb-3 ps-0 pe-0 ">
-                                @foreach($plan->items as $item)
-                                    <li class="d-flex align-items-center mb-1 border border-1 rounded p-1">
-                                        @if($item['active'])
-
-                                            <i class="fa-regular fa-circle-check text-success fs-5 me-1"></i>
-                                        @else
-
-                                            <i class="fa-solid fa-circle-xmark text-danger fs-5 me-1"></i>
-                                        @endif
-                                        <span class="flex-grow-1 text-end px-1 text-dark" >{{ $item['item'] }}</span>
-                                    </li>
-                                @endforeach
-                            </ul>
-                            <div class="flex-fill  flex-grow-1"></div>
-                            @php
-                                $plansId=auth()->user()->plans->pluck('id')->toArray();
-                                $isActive=in_array($plan->id,$plansId);
-                            @endphp
-                            @if($isActive)
-                                <button class="btn btn-outline-secondary w-100 mt-auto" disabled>
-                                    تم الإشتراك
-                                </button>
-                            @else
-                                <form action="{{route('plans.store')}}" method="post">
-                                    @csrf
-                                    <input type="hidden" name="planId" value="{{$plan->id}}">
-                                    <button class="btn btn-red-accent w-100 mt-auto" >
-                                        إشترك الآن
-                                    </button>
-                                </form>
-                            @endif
-
+                    <!-- شبكة الخطط -->
+                    <div class="plans-grid-container">
+                        <div class="plans-grid" id="plansGrid">
+                            @forelse($plans as $plan)
+                                @php
+                                    $plansId=auth()->user()->plans->pluck('id')->toArray();
+                                    $isActive=in_array($plan->id,$plansId);
+                                    $isFeatured=$loop->iteration === 2;
+                                @endphp
+                                <x-components.plan-card-component
+                                    :plan="$plan"
+                                    :isActive="$isActive"
+                                    :isFeatured="$isFeatured"
+                                />
+                            @empty
+                                <div class="col-12">
+                                    <div class="empty-state">
+                                        <i class="fas fa-inbox"></i>
+                                        <p>لا توجد خطط متاحة حالياً</p>
+                                    </div>
+                                </div>
+                            @endforelse
                         </div>
-
-
                     </div>
-                @empty
-                    <p class="text-center w-100">لا توجد خطط متاحة حالياً</p>
-                @endforelse
+
+                    <!-- السهم الأيمن -->
+                    <button class="plans-arrow plans-arrow-right" id="plansArrowRight" title="التالي">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                </div>
             </div>
-
-
         </div>
     </div>
-@endsection
-@push('css')
-    <style>
 
-        .plan-card .btn {
-            position: relative;       /* أو absolute داخل container */
-            bottom: 0px; /* يحاول استخدام النقطة المرجعية */
-        }
-        .plan-card:hover {
-            transform: translateY(-5px);
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-        }
-    </style>
-@endpush
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const grid = document.getElementById('plansGrid');
+            const leftArrow = document.getElementById('plansArrowLeft');
+            const rightArrow = document.getElementById('plansArrowRight');
+            const cardWidth = 300; // عرض البطاقة
+            const gap = 15; // الفجوة بين البطاقات
+            const scrollAmount = cardWidth + gap; // مقدار التمرير = بطاقة كاملة + فجوة
+
+            // التمرير لليسار
+            leftArrow.addEventListener('click', function() {
+                grid.scrollBy({
+                    left: scrollAmount,
+                    behavior: 'smooth'
+                });
+            });
+
+            // التمرير لليمين
+            rightArrow.addEventListener('click', function() {
+                grid.scrollBy({
+                    left: -scrollAmount,
+                    behavior: 'smooth'
+                });
+            });
+
+            // تحديث حالة الأسهم - الأسهم لا تصبح معطلة (تمرير دوراني)
+            function updateArrowsState() {
+                // الأسهم تبقى مفعلة دائماً للتمرير الدوراني
+                leftArrow.disabled = false;
+                rightArrow.disabled = false;
+            }
+
+            // تحديث الأسهم عند التمرير
+            grid.addEventListener('scroll', updateArrowsState);
+            window.addEventListener('resize', updateArrowsState);
+
+            // تحديث أولي
+            updateArrowsState();
+        });
+    </script>
+@endsection

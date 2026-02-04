@@ -14,7 +14,10 @@
                                <span class="text-white">الرصيد ({{auth()->user()->getTotalBalance()}} $)</span>
                            </div>
                            <div>
-                               <a href="{{route('payments.index')}}" class="btn btn-warning btn-sm float-left">طريقة شحن الحساب</a>
+                               <a href="{{route('payments.index')}}" class="btn btn-charge-account">
+                                   <i class="fas fa-wallet"></i>
+                                   <span>شحن حسابك</span>
+                               </a>
                            </div>
                        </div>
                     </div>
