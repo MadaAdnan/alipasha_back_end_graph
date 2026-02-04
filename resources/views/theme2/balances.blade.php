@@ -8,7 +8,7 @@
             <div class="col-md-9">
                 <div class="filter-container">
                     <div class="filter-header">
-                       <div class="d-flex justify-content-center w-100">
+                       <div class="d-flex justify-content-between w-100">
                            <div>
                                <i class="fas fa-wallet"></i>
                                <span>الرصيد</span>
