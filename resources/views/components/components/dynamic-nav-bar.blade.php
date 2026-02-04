@@ -11,7 +11,7 @@
         <!-- Shopping Cart with Badge -->
         <span class="d-flex justify-content-end">
             @auth
-                <a href="{{ route('payments.index') }}" class="cart-link mx-1 position-relative">
+                <a href="{{ route('balances.index') }}" class="cart-link mx-1 position-relative">
 
             <i class="fa fa-wallet fa-lg"></i>
                     @if(auth()->user()->getTotalBalance()>0)
