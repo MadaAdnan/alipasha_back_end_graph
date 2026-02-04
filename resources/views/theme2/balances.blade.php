@@ -11,7 +11,7 @@
                        <div class="d-flex justify-content-between w-100">
                            <div>
                                <i class="fas fa-wallet"></i>
-                               <span class="text-white">الرصيد</span>
+                               <span class="text-white">الرصيد ({{auth()->user()->getTotalBalance()}} $)</span>
                            </div>
                            <div>
                                <a href="{{route('payments.index')}}" class="btn btn-warning btn-sm float-left">طريقة شحن الحساب</a>
