@@ -97,7 +97,7 @@
                 })
             },
             body: JSON.stringify({
-                product_id: {{$productId}}
+                product_id: {{$product->id}}
             })
         })
             .then(response => {
