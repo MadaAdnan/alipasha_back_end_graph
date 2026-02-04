@@ -58,15 +58,67 @@
         </div>
 
         <div class="estate-actions d-flex gap-4 align-items-center">
-            <a href="{{ $product->user?->full_phone }}" class="text-danger text-decoration-none fw-bold">
+            <a href="tel:{{$product->user?->full_phone}}" class="text-danger text-decoration-none fw-bold" target="_blank">
                 <i class="fa fa-phone"></i> الاتصال
             </a>
 
-            <a href="{{ $product->whatsapp_url }}" class="text-success fw-bold text-decoration-none">
+            <span onclick="clickWhats('{{$product->user?->full_phone}}')" class="text-success fw-bold text-decoration-none">
                 <i class="fa-brands fa-whatsapp fs-6"></i>
-            </a>
+            </span>
         </div>
 
     </div>
 
 </div>
+<script>
+    function clickWhats(full_phone) {
+        const auth = "{{auth()->check()}}";
+        if (auth == "") {
+            localStorage.removeItem('token');
+            showToast('يرجى تسجيل الدخول اولاً', 'error')
+
+            return;
+        } else if (localStorage.getItem('token') == null) {
+
+            @auth localStorage.setItem('token', '{{auth()->user()->createToken('MyApp')->plainTextToken}}') @endauth
+        }
+        if(full_phone==''){
+            return;
+        }
+
+        fetch(`/api/click-whats`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                ...(localStorage.getItem('token') && {
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                })
+            },
+            body: JSON.stringify({
+                product_id: {{$productId}}
+            })
+        })
+            .then(response => {
+
+                if (response) {
+
+                    return response.json(); // نستخدم json() لأن الاستجابة الآن تكون ككائن JSON
+                }
+                throw new Error('Network response was not ok');
+            })
+            .then(data => {
+
+                window.open(`https://wa.me/${full_phone}`, '_blank');
+
+
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showToast(error, 'error');
+            });
+
+
+    }
+</script>
