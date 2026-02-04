@@ -3,7 +3,9 @@
 ])
 <div class="card card-body my-2 ">
 
-
+@php
+    $dataForApi=[];
+ @endphp
     <div class="row g-2">
         @if($items?->count()>0)
             @foreach($items as $product)
@@ -26,7 +28,7 @@
             </div>
             <div class="col-12">
                 @php
-                    $dataForApi=[];
+
                         $message='';
                         $sumTotal=0;
                         if($items->count()>0){
@@ -70,7 +72,7 @@
 <script>
     let submit = document.getElementById('submit');
     submit.addEventListener('click', function () {
-        console.log(this.dataset.href)
+
         fetch(`/api/orders`, {
             method: 'POST',
             headers: {
@@ -82,7 +84,7 @@
                 })
             },
             body: JSON.stringify({
-                data:@json($dataForApi),
+                data: @json($dataForApi) ,
                 seller_id:@json($seller->id)
             })
         })
