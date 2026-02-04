@@ -36,7 +36,7 @@
                             <p class="d-inline-block border border-1 p-2 fw-bolder rounded">{{auth()->id()}} <span
                                     onclick="copyTextToClipboard('{{auth()->id()}}')"> <i
                                         class="fa fa-copy"></i> انسخ</span></p></p>
-                            <p class="border rounded border-danger"><span class="text-danger lead p-0 m-0">ملاحظة :</span> <span class="lead text-black">قم بالتحويل بالدولار وفي حال تم التحويل بعملة أخرى سيتم إحتساب قيمتها بالدولار وشحن حسابك بالدولار</span>
+                            <p class="border rounded border-danger"><span class="text-danger lead p-0 m-0 fs-4">ملاحظة :</span> <span class="fs-4 lead text-black">قم بالتحويل بالدولار وفي حال تم التحويل بعملة أخرى سيتم إحتساب قيمتها بالدولار وشحن حسابك بالدولار</span>
                             </p>
 
                         </div>
