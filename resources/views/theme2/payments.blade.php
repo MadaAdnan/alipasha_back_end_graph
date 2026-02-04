@@ -22,7 +22,7 @@
                             <img class="payment-img" src="{{asset('images/payment/payment1.jpg')}}" alt="Payment Method 1">
                             <p class="lead ">
                             <p>رقم المحفظة الخاص بتطبيق علي باشا يجب نسخه ووضعه في المكان المناسب في تطبيق شام كاش</p>
-                            <p  class="d-inline-block border border-1 p-2 fw-bolder rounded">{{$wallet}}</p><i class="fa fa-copy" onclick="copyTextToClipboard('{{$wallet}}')"></i></p>
+                            <p  class="d-inline-block border border-1 p-2 fw-bolder rounded">{{$wallet}}</p><i class="fa fa-copy" onclick="copyTextToClipboard('{{$wallet}}')"></i> انسخ رقم المحفظة</p>
 
                             <div class="divider border-top border-danger w-75 m-auto"></div>
                             <img class="payment-img" src="{{asset('images/payment/payment2.jpg')}}" alt="Payment Method 2">
