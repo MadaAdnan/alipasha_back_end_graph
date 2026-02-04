@@ -15,7 +15,7 @@ class BalanceController extends Controller
     {
         $sort=\request()->get('sort');
         $balances=Balance::where('user_id',auth()->id())->when($sort=='desc',fn($query)=>$query->latest(),fn($query)=>$query->oldest())->paginate(30);
-        return view('web.balance',compact('balances'));
+        return view('theme2.balances',compact('balances'));
     }
 
     /**
