@@ -16,20 +16,28 @@
 
                         <div class=" d-flex flex-column gap-3 align-items-center justify-content-center w-100">
 
-                            <img class="payment-img" src="{{asset('images/payment/payment1.jpg')}}" alt="Payment Method 1">
+                            <img class="payment-img" src="{{asset('images/payment/payment1.jpg')}}"
+                                 alt="Payment Method 1">
                             <p class="lead ">
                             <p>رقم المحفظة الخاص بتطبيق علي باشا يجب نسخه ووضعه في المكان المناسب في تطبيق شام كاش</p>
-                            <p  class="d-inline-block border border-1 p-2 fw-bolder rounded">{{$wallet}} <span onclick="copyTextToClipboard('{{$wallet}}')"><i class="fa fa-copy" ></i> انسخ </span></p></p>
+                            <p class="d-inline-block border border-1 p-2 fw-bolder rounded">{{$wallet}} <span
+                                    onclick="copyTextToClipboard('{{$wallet}}')"><i class="fa fa-copy"></i> انسخ </span>
+                            </p></p>
 
                             <div class="divider border-top border-danger w-75 m-auto"></div>
-                            <img class="payment-img" src="{{asset('images/payment/payment2.jpg')}}" alt="Payment Method 2">
+                            <img class="payment-img" src="{{asset('images/payment/payment2.jpg')}}"
+                                 alt="Payment Method 2">
 
                             <div class="divider border-top border-danger w-75 m-auto"></div>
-                            <img class="payment-img" src="{{asset('images/payment/payment3.jpg')}}" alt="Payment Method 3">
+                            <img class="payment-img" src="{{asset('images/payment/payment3.jpg')}}"
+                                 alt="Payment Method 3">
                             <p class="lead">
                             <p>يجب وضع رقم المعرف الخاص بك في الملاحظات في تطبيق شام كاش</p>
-                            <p class="d-inline-block border border-1 p-2 fw-bolder rounded">{{auth()->id()}} <span onclick="copyTextToClipboard('{{auth()->id()}}')"> <i class="fa fa-copy" ></i> انسخ</span></p></p>
-<p class="lead"><span class="text-danger">ملاحظة :</span> <span>قم بالتحويل بالدولار وفي حال تم التحويل بعملة أخرى سيتم إحتساب قيمتها بالدولار وشحن حسابك بالدولار</span></p>
+                            <p class="d-inline-block border border-1 p-2 fw-bolder rounded">{{auth()->id()}} <span
+                                    onclick="copyTextToClipboard('{{auth()->id()}}')"> <i
+                                        class="fa fa-copy"></i> انسخ</span></p></p>
+                            <p class=""><span class="text-danger lead">ملاحظة :</span> <span class="lead">قم بالتحويل بالدولار وفي حال تم التحويل بعملة أخرى سيتم إحتساب قيمتها بالدولار وشحن حسابك بالدولار</span>
+                            </p>
                         </div>
 
                     </div>
