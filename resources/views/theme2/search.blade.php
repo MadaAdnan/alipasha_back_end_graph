@@ -27,6 +27,7 @@
 ]" :firstUrl="route('index')" class="bg-transparent"/>
                 @if($products->count()>0)
                     @foreach($products as $product)
+
                         <x-components.estate-card-component :product="$product" class="d-none d-md-flex mt-2"/>
                         <x-components.product-container-item-component :product="$product"
                                                                        class="d-block d-md-none mt-2"/>

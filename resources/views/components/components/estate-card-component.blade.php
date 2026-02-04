@@ -11,7 +11,9 @@
         <div class="carousel-inner">
             @foreach($product->getMedia('images') as $index => $img)
                 <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                    <a href="{{route('posts.show',  $product->id)}}" target="_blank">
                     <img src="{{ $img->getUrl('webp') }}" class="d-block slider-img" alt="image">
+                    </a>
                 </div>
             @endforeach
         </div>
