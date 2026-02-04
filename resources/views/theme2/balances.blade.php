@@ -8,11 +8,18 @@
             <div class="col-md-9">
                 <div class="filter-container">
                     <div class="filter-header">
-                        <i class="fas fa-wallet"></i>
-                        <span>الرصيد</span>
+                       <div class="d-flex justify-content-center w-100">
+                           <div>
+                               <i class="fas fa-wallet"></i>
+                               <span>الرصيد</span>
+                           </div>
+                           <div>
+                               <a href="{{route('payments.index')}}" class="btn btn-primary btn-sm float-left">طريقة شحن الحساب</a>
+                           </div>
+                       </div>
                     </div>
 
-                    <div class="table-responsive" style="margin-top: 100px">
+                    <div class="table-responsive" >
                         <table class="table table-striped" dir="rtl">
                             <thead>
                             <tr>
