@@ -28,7 +28,7 @@
                             <img class="payment-img" src="{{asset('images/payment/payment3.jpg')}}" alt="Payment Method 3">
                             <p class="lead">
                             <p>يجب وضع رقم المعرف الخاص بك في الملاحظات في تطبيق شام كاش</p>
-                            <p class="d-inline-block border border-1 p-2 fw-bolder rounded">{{auth()->id()}}</p><span onclick="copyTextToClipboard('{{auth()->id()}}')"> <i class="fa fa-copy" ></i> انسخ</span></p>
+                            <p class="d-inline-block border border-1 p-2 fw-bolder rounded">{{auth()->id()}} <span onclick="copyTextToClipboard('{{auth()->id()}}')"> <i class="fa fa-copy" ></i> انسخ</span></p></p>
 
                         </div>
 
