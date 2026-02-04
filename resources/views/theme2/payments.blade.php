@@ -29,7 +29,7 @@
                             <p class="lead">
                             <p>يجب وضع رقم المعرف الخاص بك في الملاحظات في تطبيق شام كاش</p>
                             <p class="d-inline-block border border-1 p-2 fw-bolder rounded">{{auth()->id()}} <span onclick="copyTextToClipboard('{{auth()->id()}}')"> <i class="fa fa-copy" ></i> انسخ</span></p></p>
-
+<p><span class="text-danger">ملاحظة :</span> <span>قم بالتحويل بالدولار وفي حال تم التحويل بعملة أخرى سيتم إحتساب قيمتها بالدولار وشحن حسابك بالدولار</span></p>
                         </div>
 
                     </div>
