@@ -3,8 +3,14 @@
     الرصيد
 @endsection
 @section('content')
-    <div class="container">
-        <div class="row">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-9">
+                <div class="filter-container">
+                    <div class="filter-header">
+                        <i class="fas fa-wallet"></i>
+                        <span>طريقة شحن الحساب</span>
+                    </div>
             <div class="col-12 ">
                 <div class="table-responsive" style="margin-top: 100px">
                     <table class="table table-striped" dir="rtl">
@@ -47,6 +53,8 @@
                 </div>
 
             </div>
+        </div>
+    </div>
         </div>
     </div>
 @endsection
