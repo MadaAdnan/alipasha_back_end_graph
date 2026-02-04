@@ -2038,7 +2038,7 @@ option > img {
 /* Product cards spacing on mobile */
 @media (max-width: 768px) {
     .product-card-modern {
-        margin: 0 !important;
+
     }
 }
 
