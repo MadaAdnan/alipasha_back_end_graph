@@ -37,6 +37,7 @@ final class CreateAdvice
          */
         foreach ($plans as $plan) {
             $planUser=PlanUser::where(['plan_id' => $plan->id, 'user_id' => auth()->id()])->where('expired_date','>=',now())->first();
+            throw new GraphQLExceptionHandler("test:".$planUser->plan->name);
             $expiredDate = $planUser->expired_at;
             $currentPlan = $planUser->plan;
             break;
