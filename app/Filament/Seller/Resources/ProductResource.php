@@ -130,6 +130,7 @@ class ProductResource extends Resource implements HasShieldPermissions
                     ->conversion('webp')
                     ->collection('images')
                     ->maxFiles(4)
+                    ->minFiles(1)
                     ->image()->multiple()->imageEditor()->imageCropAspectRatio('1:1')
             ->label('صور '),
                              Forms\Components\TextInput::make('video')->label('رابط الفيديو إن وجد'),
