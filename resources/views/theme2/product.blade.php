@@ -248,7 +248,7 @@
         .info-item {
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: start;
             padding: 15px 0;
             border-bottom: 1px solid #f0f0f0;
         }
