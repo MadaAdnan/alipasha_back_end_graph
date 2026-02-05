@@ -537,7 +537,7 @@
             }
 
             .social-icons-group {
-                display: none !important;
+                display: inline-block !important;
             }
         }
 
