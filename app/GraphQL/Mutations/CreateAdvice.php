@@ -38,7 +38,7 @@ final class CreateAdvice
         foreach ($plans as $plan) {
             $planUser=PlanUser::where(['plan_id' => $plan->id, 'user_id' => auth()->id()])->where('expired_date','>=',now())->first();
             $expiredDate = $planUser->expired_at;
-            $currentPlan = $plan;
+            $currentPlan = $planUser->plan;
             break;
         }
         if (now()->greaterThan($expiredDate) || $currentPlan?->ads_count >= $myAdvices) {
