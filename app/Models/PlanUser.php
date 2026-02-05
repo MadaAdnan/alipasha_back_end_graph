@@ -11,7 +11,7 @@ class PlanUser extends Model
     use HasFactory;
 
     protected $table = 'plan_user';
-
+protected $guarded=[];
     protected $casts=[
         'expired_date' => 'date'
     ];
