@@ -21,7 +21,7 @@ final class CreateAdvice
     {
 
         $plans = auth()->user()->plans()->where('ads_count', '>', 0)->get();
-        $myAdvices = Advice::where(['status' => ProductActiveEnum::ACTIVE->value, 'user_id' => auth()->id()])->count();
+        $myAdvices = Advice::where([ 'user_id' => auth()->id()])->count();
         $currentPlan = null;
         $expiredDate = now();
         $user=auth()->user();
