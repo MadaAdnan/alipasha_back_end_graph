@@ -14,8 +14,8 @@
           integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="{{asset('theeme2/css/style.css?v='.rand(0,100))}}">
-    <link rel="stylesheet" href="{{asset('theeme2/css/style-sm.css?v='.rand(0,100))}}">
+    <link rel="stylesheet" href="{{asset('theeme2/css/style.css')}}">
+    <link rel="stylesheet" href="{{asset('theeme2/css/style-sm.css)}}">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
     <title>علي باشا</title>
