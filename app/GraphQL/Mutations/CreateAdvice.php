@@ -7,6 +7,7 @@ use App\Exceptions\GraphQLExceptionHandler;
 use App\Jobs\SendFirebaseNotificationJob;
 use App\Models\Advice;
 use App\Models\Plan;
+use App\Models\PlanUser;
 use App\Models\Product;
 use Carbon\Carbon;
 
@@ -24,6 +25,7 @@ final class CreateAdvice
         $currentPlan = null;
         $expiredDate = now();
         $user=auth()->user();
+
         if(!auth()->user()->is_active){
             throw new GraphQLExceptionHandler('تم حظر حسابك يرجى مراجعة الإدارة');
         }
@@ -34,7 +36,7 @@ final class CreateAdvice
          * @var $plan Plan
          */
         foreach ($plans as $plan) {
-            $expiredDate = Carbon::parse($plan->pivot->expired_at);
+            $expiredDate = $plan->pivot->expired_at;
             $currentPlan = $plan;
             break;
         }
