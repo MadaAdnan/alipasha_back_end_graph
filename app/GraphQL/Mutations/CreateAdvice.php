@@ -41,7 +41,7 @@ final class CreateAdvice
             $currentPlan = $planUser->plan;
             break;
         }
-        throw new GraphQLExceptionHandler($currentPlan->name.":".$currentPlan?->ads_count.":".$myAdvices);
+        throw new GraphQLExceptionHandler($currentPlan->name.":{".$currentPlan?->ads_count."}:(".$myAdvices.")");
         if (now()->greaterThan($expiredDate) || $currentPlan?->ads_count >= $myAdvices) {
             $data=[
                 'title'=>'تنبيه',
