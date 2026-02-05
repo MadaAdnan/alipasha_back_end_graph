@@ -6,7 +6,7 @@
 
    if($store->social!=null){
        foreach ($store->social as $social){
-           if(Str::startsWith($social,'https://')){
+           if(Str::startsWith('https://',$social)){
                $hasSocial=true;
            }
        }
