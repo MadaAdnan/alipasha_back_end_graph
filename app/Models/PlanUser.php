@@ -12,6 +12,9 @@ class PlanUser extends Model
 
     protected $table = 'plan_user';
 
+    protected $casts=[
+        'expired_date' => 'date'
+    ];
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

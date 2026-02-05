@@ -37,20 +37,19 @@ final class CreateAdvice
          */
         foreach ($plans as $plan) {
             $planUser=PlanUser::where(['plan_id' => $plan->id, 'user_id' => auth()->id()])->where('expired_date','>=',now())->first();
-            throw new GraphQLExceptionHandler("test:".$planUser->expired_date);
             $expiredDate = $planUser->expired_at;
             $currentPlan = $planUser->plan;
             break;
         }
-        if (now()->greaterThan($expiredDate) || $currentPlan?->ads_count >= $myAdvices) {
+        if (now()->lessThan($expiredDate) || $currentPlan?->ads_count >= $myAdvices) {
             $data=[
                 'title'=>'تنبيه',
                 'body'=>'وصلت لحد النشر المسموح لك شهريا انتظر للشهر القادم او قم بترقية حسابك لتحصل على النشر المفتوح'
             ];
             $job=new SendFirebaseNotificationJob([$user->device_token], $data);
             dispatch($job);
-            //خطتك لا تدعم المزيد من الإعلانات يرجى ترقية الحساب للمزيد
-            throw new GraphQLExceptionHandler("test:".now()->greaterThan($expiredDate).":".$expiredDate);
+            //
+            throw new GraphQLExceptionHandler("خطتك لا تدعم المزيد من الإعلانات يرجى ترقية الحساب للمزيد");
         }
         $data = $args['input'];
         // throw new GraphQLExceptionHandler($data['image']);
