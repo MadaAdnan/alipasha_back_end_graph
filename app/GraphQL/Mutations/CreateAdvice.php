@@ -41,8 +41,8 @@ final class CreateAdvice
             $currentPlan = $planUser->plan;
             break;
         }
-      throw new GraphQLExceptionHandler(now()->greaterThan($expiredDate));
-        if (now()->greaterThan($expiredDate) || ($currentPlan?->ads_count >= $myAdvices)) {
+//      throw new GraphQLExceptionHandler(now()->greaterThan($expiredDate));
+        if (now()->greaterThan($expiredDate) || ($currentPlan?->ads_count <= $myAdvices)) {
             $data=[
                 'title'=>'تنبيه',
                 'body'=>'وصلت لحد النشر المسموح لك شهريا انتظر للشهر القادم او قم بترقية حسابك لتحصل على النشر المفتوح'
