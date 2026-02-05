@@ -102,27 +102,27 @@
 
                         <!-- Social Icons -->
                         <div class="social-icons-group">
-                            @if(isset($store->social['face']) && Str::start($store->social['face'],'https://'))
+                            @if(isset($store->social['face']) && Str::startsWith($store->social['face'],'https://'))
                             <a href="{{ $store->social['face'] }}" target="_blank" class="social-icon-btn" title="فيسبوك">
                                 <i class="fa-brands fa-facebook-f"></i>
                             </a>
                             @endif
-                             @if(isset($store->social['instagram'])&& Str::start($store->social['instagram'],'https://'))
+                             @if(isset($store->social['instagram'])&& Str::startsWith($store->social['instagram'],'https://'))
                             <a href="{{ $store->social['instagram'] }}" target="_blank" class="social-icon-btn" title="إنستغرام">
                                 <i class="fa-brands fa-instagram"></i>
                             </a>
                                     @endif
-                                 @if(isset($store->social['tiktok'])&&Str::start($store->social['tiktok'],'https://'))
+                                 @if(isset($store->social['tiktok'])&&Str::startsWith($store->social['tiktok'],'https://'))
                             <a href="{{ $store->social['tiktok'] }}" target="_blank" class="social-icon-btn" title="تيك توك">
                                 <i class="fa-brands fa-tiktok"></i>
                             </a>
                                     @endif
-                              @if(isset($store->social['twitter'])&&Str::start($store->social['twitter'],'https://'))
+                              @if(isset($store->social['twitter'])&&Str::startsWith($store->social['twitter'],'https://'))
                             <a href="{{ $store->social['twitter'] }}" target="_blank" class="social-icon-btn" title="تويتر">
                                 <i class="fa-brands fa-twitter"></i>
                             </a>
                                     @endif
-                                @if(isset($store->social['linkedin'])&&Str::start($store->social['linkedin'],'https://'))
+                                @if(isset($store->social['linkedin'])&&Str::startsWith($store->social['linkedin'],'https://'))
                             <a href="{{ $store->social['linkedin'] }}" target="_blank" class="social-icon-btn" title="لينكد إن">
                                 <i class="fa-brands fa-linkedin-in"></i>
                             </a>
