@@ -48,7 +48,7 @@ final class CreateAdvice
             $job=new SendFirebaseNotificationJob([$user->device_token], $data);
             dispatch($job);
             //خطتك لا تدعم المزيد من الإعلانات يرجى ترقية الحساب للمزيد
-            throw new GraphQLExceptionHandler("test:".now()->greaterThan($expiredDate).":".$currentPlan?->ads_count);
+            throw new GraphQLExceptionHandler("test:".now()->greaterThan($expiredDate).":".$expiredDate);
         }
         $data = $args['input'];
         // throw new GraphQLExceptionHandler($data['image']);
