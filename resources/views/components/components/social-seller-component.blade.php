@@ -3,7 +3,7 @@
 ])
 @if($store->plans()->whereNot('duration','free')->exists())
 <div class="social-media-section text-center py-4">
-    <h5 class="mb-3">تابعنا على</h5>
+    {{--<h5 class="mb-3">تابعنا على</h5>--}}
     <div class="social-links d-flex justify-content-center gap-3 flex-wrap">
         @if(Str::startsWith('https://',$store->social['face']))
             <a href="https://facebook.com/yourpage" target="_blank"
