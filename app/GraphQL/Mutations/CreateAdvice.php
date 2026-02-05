@@ -36,7 +36,8 @@ final class CreateAdvice
          * @var $plan Plan
          */
         foreach ($plans as $plan) {
-            $expiredDate = $plan->pivot->expired_at;
+            $planUser=PlanUser::where(['plan_id' => $plan->id, 'user_id' => auth()->id()])->where('expired_date','>=',now())->first();
+            $expiredDate = $planUser->expired_at;
             $currentPlan = $plan;
             break;
         }
