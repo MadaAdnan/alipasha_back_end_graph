@@ -12,7 +12,8 @@
                     </div>
                     <div>
                         <p class="lead">تم إرسال كود التفعيل إلى بريدك الإلكتروني يرجى التأكد منه</p>
-                        <form action="">
+                        <form action="{{route('confirmedEmail')}}" method="post">
+                            @csrf
                             <x-form.input-component name="code" label="كود التفعيل" placeholder="كود التفعيل"/>
                             <button class="btn btn-red-accent">التأكيد</button>
                         </form>
