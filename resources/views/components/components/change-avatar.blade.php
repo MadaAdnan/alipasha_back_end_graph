@@ -8,7 +8,7 @@
         <label for="avatar" class="position-relative">
 
            <span class="d-flex justify-content-center align-items-center w-25 text-center bg-white position-absolute text-muted rounded p-1" style="z-index: 10;top:5px;right:-5px" >
-                <i class="fa-regular fa-image " ></i>
+                <i class="fa-regular fa-image fs-5" ></i>
            </span>
             <img style="width: 100px;aspect-ratio: 1;border-radius: 50%;border:1px solid red" src="{{auth()->user()->getImage()}}" alt="Avatar" id="IMG_AVATAR">
         </label>
