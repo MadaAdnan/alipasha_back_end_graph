@@ -81,7 +81,6 @@ class CompleteCreatedUserListener
     public function handle(CreatedUserEvent $event): void
     {
         $user = $event->user;
-
         try {
             $setting = Setting::first();
 

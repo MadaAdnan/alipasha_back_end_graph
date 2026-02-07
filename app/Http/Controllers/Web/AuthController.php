@@ -8,10 +8,13 @@ use App\Helpers\StrHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
 use App\Jobs\SendEmailJob;
+use App\Jobs\SmsJob;
 use App\Mail\ForgetPasswordEmail;
+use App\Mail\RegisteredEmail;
 use App\Mail\ResetPasswordForgetEmail;
 use App\Models\City;
 use App\Models\Country;
+use App\Models\Setting;
 use App\Models\User;
 use Auth;
 use Hash;
@@ -197,7 +200,28 @@ class AuthController extends Controller
 
     public function resendCode()
     {
-        event(new CreatedUserEvent(auth()->user()));
+       $setting=Setting::first();
+       $user = auth()->user();
+       $user->update(['code_verified' => StrHelper::generateDigits(6)]);
+       $user->refresh();
+        try {
+            if ($setting->send_via_email) {
+                dispatch(new SendEmailJob([$user], new RegisteredEmail($user)));
+            }
+        } catch (\Throwable $e) {
+            return response()->json([ 'status' => 'error']);
+        }
+
+        // إرسال رسالة واتساب
+        try {
+            $phone = $user->phone_code . $user->phone;
+            if (!empty($phone) && $setting->send_via_whatsapp) {
+                $smsJob = new SMsJob($phone, "أهلا بك في تطبيق علي باشا\nكود التحقق الخاص بك\n{$user->code_verified}");
+                dispatch($smsJob);
+            }
+        } catch (\Throwable $e) {
+            return response()->json([ 'status' => 'error']);
+        }
         return response()->json([ 'status' => 'success']);
     }
 }
