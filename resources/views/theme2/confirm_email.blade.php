@@ -16,7 +16,7 @@
                             <x-form.input-component name="code" label="كود التفعيل" placeholder="كود التفعيل"/>
                             <button class="btn btn-red-accent">التأكيد</button>
                         </form>
-                        <button type="button" onclick="resendEmailConfirmation()" class="btn btn-outline-info">إرسال كود التفعيل مرة أخرى</button>
+                        <button id="BTN-RESEND" type="button" onclick="resendEmailConfirmation()" class="btn btn-outline-info">إرسال كود التفعيل مرة أخرى</button>
                         <span id="counter"></span>
                     </div>
                 </div>
@@ -29,13 +29,16 @@
         let counter = 60;
        function resendEmailConfirmation() {
            let counterElement = document.getElementById('counter');
+           let btnElement = document.getElementById('BTN-RESEND');
            counterElement.innerHTML = `<span class="text-danger">60</span> ثانية`;
+           btnElement.style.display = 'none';
            let interval = setInterval(() => {
                counter--;
                counterElement.innerHTML = `<span class="text-danger">${counter}</span> ثانية`;
                if (counter === 0) {
                    clearInterval(interval);
                    counterElement.innerHTML = '';
+                   btnElement.style.display = 'inline-block';
                }
            }, 1000);
        }
