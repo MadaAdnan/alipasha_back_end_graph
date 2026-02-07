@@ -5,7 +5,8 @@
     </div>
     <form action="{{ route('rechange-password') }}" method="POST" class="d-flex flex-column justify-content-center align-items-center gap-2">
         @csrf
-        <label for="avatar">
+        <label for="avatar" class="position-relative">
+            <i class="fa fa-image position-absolute" style="top:45%;left:40%"></i>
             <img style="width: 100px;aspect-ratio: 1;border-radius: 50%;border:1px solid red" src="{{auth()->user()->getImage()}}" alt="Avatar" id="IMG_AVATAR">
         </label>
             <input type="file" class="d-none" name="avatar" id="avatar">
