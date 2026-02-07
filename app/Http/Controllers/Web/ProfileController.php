@@ -40,7 +40,7 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-$data= [
+$validData= [
     'name' => 'required',
     'phone' => 'required',
     'phone_code' => 'required',
@@ -49,7 +49,7 @@ $data= [
     'area_id' => 'required',
 ];
 if(auth()->user()->is_verified){
-    unset($data['name']);
+    unset($validData['name']);
 }
         $this->validate($request,$data, [
             'name.required' => 'الرجاء ادخال الاسم',
@@ -74,6 +74,7 @@ if(auth()->user()->is_verified){
         ];
         if (auth()->user()->is_verified) {
             $data['seller_name'] = $request->seller_name;
+            $data['name']=auth()->user()->name;
             $data['social'] = [
                 'face' => $request->face,
                 'instagram' => $request->instagram,
