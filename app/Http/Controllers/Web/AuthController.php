@@ -224,4 +224,17 @@ class AuthController extends Controller
         }
         return response()->json([ 'status' => 'success']);
     }
+
+    public function confirmedEmail(Request $request)
+    {
+        $this->validate([
+            'code'=>'required',
+        ]);
+        $user = auth()->user();
+        if ($user->code_verified == $request->code) {
+            $user->update(['email_verified_at' => now()]);
+            return redirect()->route('index');
+        }
+
+    }
 }
