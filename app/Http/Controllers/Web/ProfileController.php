@@ -40,14 +40,18 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'phone' => 'required',
-            'phone_code' => 'required',
-            'address' => 'required',
-            'city_id' => 'required',
-            'area_id' => 'required',
-        ], [
+$data= [
+    'name' => 'required',
+    'phone' => 'required',
+    'phone_code' => 'required',
+    'address' => 'required',
+    'city_id' => 'required',
+    'area_id' => 'required',
+];
+if(auth()->user()->is_verified){
+    unset($data['name']);
+}
+        $this->validate($request,$data, [
             'name.required' => 'الرجاء ادخال الاسم',
             'phone.required' => 'الرجاء ادخال رقم الهاتف',
             'phone_code.required' => 'الرجاء ادخال رقم الهاتف',
