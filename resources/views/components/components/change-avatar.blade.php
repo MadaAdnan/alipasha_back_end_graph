@@ -12,8 +12,18 @@
            </span>
             <img style="width: 100px;aspect-ratio: 1;border-radius: 50%;border:1px solid red" src="{{auth()->user()->getImage()}}" alt="Avatar" id="IMG_AVATAR">
         </label>
-            <input type="file" class="d-none" name="avatar" id="avatar">
+            <input type="file" accept="image/png;image/jpeg;image/webp;" class="d-none" name="avatar" id="avatar">
 
         <button class="btn btn-red-accent">حفظ</button>
     </form>
 </div>
+<script>
+    document.getElementById('avatar').addEventListener('change',function (e) {
+        let file = e.target.files[0];
+        let reader = new FileReader();
+        reader.onload = function (e) {
+            document.getElementById('IMG_AVATAR').src = e.target.result;
+        }
+        reader.readAsDataURL(file);
+    })
+</script>
