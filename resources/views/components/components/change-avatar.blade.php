@@ -7,7 +7,7 @@
         @csrf
         <label for="avatar" class="position-relative">
 
-           <span class="d-flex justify-content-center align-items-center w-25 text-center bg-white position-absolute text-muted rounded " style="z-index: 10;top:45%;left:40%" >
+           <span class="d-flex justify-content-center align-items-center w-25 text-center bg-white position-absolute text-muted rounded p-3" style="z-index: 10;top:45%;left:40%" >
                 <i class="fa-regular fa-image " ></i>
            </span>
             <img style="width: 100px;aspect-ratio: 1;border-radius: 50%;border:1px solid red" src="{{auth()->user()->getImage()}}" alt="Avatar" id="IMG_AVATAR">
