@@ -32,6 +32,7 @@ class ProfileController extends Controller
      */
     public function changeAvatar(Request $request)
     {
+        dd($request->avatar);
         $this->validate($request,[
             'avatar'=>'required|image',
         ],[
