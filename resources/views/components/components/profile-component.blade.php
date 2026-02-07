@@ -6,7 +6,7 @@
     <form action="{{route('profile.store')}}" method="POST">
         @csrf
         <x-form.input-component name="name" :value="old('name')??auth()->user()->name" label="الاسم" placeholder="الاسم"
-                                @if (auth()->user()->is_verified ) disabled="" @endif
+                                :disabled="auth()->user()->is_verified"
                                 :helpText="auth()->user()->is_verified?'حسابك موثق لا يمكن تغيير الاسم':''" required/>
         <x-form.input-component name="seller_name" :disabled="!auth()->user()->is_verified"
                                 :value="old('seller_name')??auth()->user()->seller_name" label="اسم المتجر"

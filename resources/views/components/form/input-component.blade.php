@@ -40,9 +40,12 @@
           'value' => $inputValue,
           'placeholder' => $placeholder,
           'class' => $inputClasses,
-          'disabled' => $disabled,
+
           'readonly' => $readonly,
       ]);
+      if($disabled){
+          $attributes = $attributes->merge(['disabled' => 'disabled']);
+      }
 
       if ($required) {
           $attributes = $attributes->merge(['required' => 'required']);
