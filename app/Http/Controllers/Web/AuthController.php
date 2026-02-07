@@ -235,6 +235,7 @@ class AuthController extends Controller
             $user->update(['email_verified_at' => now()]);
             return redirect()->route('index');
         }
+        return back()->with('error', 'كود التحقق خاطئ');
 
     }
 }
