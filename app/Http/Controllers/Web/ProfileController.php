@@ -38,7 +38,7 @@ class ProfileController extends Controller
         $user = auth()->user();
         if($request->hasFile('avatar')){
             $user->clearMediaCollection('image');
-            $user->addMediaFromRequest('avatar')->toMediaCollection('image');
+            $user->addMedia($request->avatar)->toMediaCollection('image');
         }
         return back()->with('success', 'نجاح العملية');
     }
