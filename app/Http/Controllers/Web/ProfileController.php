@@ -34,6 +34,9 @@ class ProfileController extends Controller
     {
         $this->validate($request,[
             'avatar'=>'required|image',
+        ],[
+            'avatar.required' => 'الرجاء ادخال صورة',
+            'avatar.image' => 'الرجاء ادخال صورة',
         ]);
         $user = auth()->user();
         if($request->hasFile('avatar')){
