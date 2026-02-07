@@ -63,22 +63,27 @@
             </div>
         @endif
     </div>
-    <div class="chat-input-wrapper">
-        <form action="{{route('messages.store')}}" class="chat-input-form" method="post" id="chat-form">
-            @csrf
-            @method('POST')
-            <input type="hidden" name="communityId" value="{{$community->id}}">
-            <div class="chat-input-container">
-                <div class="chat-input-field-wrapper">
-                    <input type="text" name="body" class="chat-input-field" placeholder="اكتب رسالتك هنا..." required>
-                    <span class="chat-input-focus-border"></span>
+    @if($community->type !=  \App\Enums\CommunityTypeEnum::CHANNEL->value || ($community->type ==  \App\Enums\CommunityTypeEnum::CHANNEL->value && $community->manager_id == auth()->id()) )
+        <div class="chat-input-wrapper">
+            <form action="{{route('messages.store')}}" class="chat-input-form" method="post" id="chat-form">
+                @csrf
+                @method('POST')
+                <input type="hidden" name="communityId" value="{{$community->id}}">
+                <div class="chat-input-container">
+                    <div class="chat-input-field-wrapper">
+                        <input type="text" name="body" class="chat-input-field" placeholder="اكتب رسالتك هنا..." required>
+                        <span class="chat-input-focus-border"></span>
+                    </div>
+                    <button class="chat-send-btn" type="submit" title="إرسال الرسالة">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
                 </div>
-                <button class="chat-send-btn" type="submit" title="إرسال الرسالة">
-                    <i class="fas fa-paper-plane"></i>
-                </button>
-            </div>
-        </form>
-    </div>
+            </form>
+        </div>
+
+
+    @endif
+
 
     <script>
         document.getElementById('chat-form').addEventListener('submit', function(e) {
