@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Events\CreatedUserEvent;
 use App\Exceptions\GraphQLExceptionHandler;
 use App\Helpers\StrHelper;
 use App\Http\Controllers\Controller;
@@ -177,20 +178,26 @@ class AuthController extends Controller
 
     public function rechangePassword(Request $request)
     {
-       $this->validate($request,[
-           'old_password'=>'required|min:8',
-           'new_password'=>'required|min:8|same:confirm_password'
-       ]);
-       $user = auth()->user();
-       if(Hash::check($request->old_password,$user->password)){
-           $user->update(['password'=>bcrypt($request->new_password)]);
-           return redirect()->back()->with('success','تم تغيير كلمة المرور بنجاح');
-       }
-       return redirect()->back()->with('error','كلمة المرور غير صحيحة');
+        $this->validate($request, [
+            'old_password' => 'required|min:8',
+            'new_password' => 'required|min:8|same:confirm_password'
+        ]);
+        $user = auth()->user();
+        if (Hash::check($request->old_password, $user->password)) {
+            $user->update(['password' => bcrypt($request->new_password)]);
+            return redirect()->back()->with('success', 'تم تغيير كلمة المرور بنجاح');
+        }
+        return redirect()->back()->with('error', 'كلمة المرور غير صحيحة');
     }
 
     public function confirmEmail()
     {
         return view('theme2.confirm_email');
+    }
+
+    public function resendCode()
+    {
+        event(new CreatedUserEvent(auth()->user()));
+        return response()->json([ 'status' => 'success']);
     }
 }

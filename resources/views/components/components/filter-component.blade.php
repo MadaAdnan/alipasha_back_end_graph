@@ -111,8 +111,6 @@
     function setSearch(text) {
         let search = document.getElementById('Search');
         search.value = text;
-
-
         document.getElementById('suggestionsUl').style.display = 'none';
     }
     function debounce(fn, delay = 300) {

@@ -161,6 +161,7 @@ Route::middleware([\App\Http\Middleware\XFrameOptionMiddleware::class])->group(f
     });
     Route::middleware(['auth:web'])->group(function () {
         Route::get('confirm-email',[\App\Http\Controllers\Web\AuthController::class,'confirmEmail'])->name('confirmEmail');
+        Route::post('resend-code',[\App\Http\Controllers\Web\AuthController::class,'resendCode'])->name('resend-code');
     });
 
     Route::get('/download-file/{record}', function (\App\Models\Export $record) {

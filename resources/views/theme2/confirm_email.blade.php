@@ -32,17 +32,32 @@
        function resendEmailConfirmation() {
            let counterElement = document.getElementById('counter');
            let btnElement = document.getElementById('BTN-RESEND');
-           counterElement.innerHTML = `<span class="text-danger">60</span> ثانية`;
-           btnElement.style.display = 'none';
-           let interval = setInterval(() => {
-               counter--;
-               counterElement.innerHTML = `<span class="text-danger">${counter}</span> ثانية`;
-               if (counter === 0) {
-                   clearInterval(interval);
-                   counterElement.innerHTML = '';
-                   btnElement.style.display = 'inline-block';
+
+
+
+           fetch('{{route('resend-code')}}',{
+               method:'POST',
+               headers:{
+                   'Content-Type':'application/json',
+                   'ACCEPT':'application/json'
                }
-           }, 1000);
+           }) .then(res => res.json())
+               .then(data=>{
+                   console.log(data);
+                   if (data.success) {
+                       btnElement.style.display = 'none';
+                       counterElement.innerHTML = `<span class="text-danger">60</span> ثانية`;
+                       let interval = setInterval(() => {
+                           counter--;
+                           counterElement.innerHTML = `<span class="text-danger">${counter}</span> ثانية`;
+                           if (counter === 0) {
+                               clearInterval(interval);
+                               counterElement.innerHTML = '';
+                               btnElement.style.display = 'inline-block';
+                           }
+                       }, 1000);
+                   }
+               })
        }
     </script>
 @endpush
