@@ -131,7 +131,7 @@ class ProductResource extends Resource implements HasShieldPermissions
                     ->collection('images')
                     ->maxFiles(4)
                     ->minFiles(1)
-                    ->image()->multiple()->imageEditor()->imageCropAspectRatio('1:1')
+                    ->image()->multiple()->imageEditor()->imageCropAspectRatio('1:1')->hint('يجب رفع صورة على الأقل و (4) صور على الأكثر')
             ->label('صور '),
                              Forms\Components\TextInput::make('video')->label('رابط الفيديو إن وجد'),
                     Forms\Components\TextInput::make('name')->label('اسم المنتج'),
