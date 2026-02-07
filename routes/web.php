@@ -96,7 +96,7 @@ Route::middleware([\App\Http\Middleware\XFrameOptionMiddleware::class])->group(f
 
 
 
-        Route::middleware('auth:web')->group(function () {
+        Route::middleware(['auth:web',\App\Http\Middleware\CheckConfirmEmail::class])->group(function () {
             Route::resource('/my-profile', \App\Http\Controllers\Web\ProfileController::class)
                 ->only('index', 'store')
                 ->names([
@@ -145,7 +145,9 @@ Route::middleware([\App\Http\Middleware\XFrameOptionMiddleware::class])->group(f
             Route::resource('/plans', \App\Http\Controllers\Web\PlanController::class)->only(['index','store']);
 
         });
-
+Route::middleware(['auth:web'])->group(function () {
+    Route::get('confirm-email',[\App\Http\Controllers\Web\AuthController::class,'confirmEmail'])->name('confirmEmail');
+});
         Route::get('/.well-known/assetlinks.json', function () {
             return json_decode('[{
   "relation": ["delegate_permission/common.handle_all_urls"],

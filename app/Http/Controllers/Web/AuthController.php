@@ -188,4 +188,9 @@ class AuthController extends Controller
        }
        return redirect()->back()->with('error','كلمة المرور غير صحيحة');
     }
+
+    public function confirmEmail()
+    {
+        return view('theme2.confirm_email');
+    }
 }
