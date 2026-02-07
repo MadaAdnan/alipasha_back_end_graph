@@ -3,7 +3,7 @@
         <i class="fa-solid fa-user-secret"></i>
         <span>تغيير الصورة الشخصية</span>
     </div>
-    <form action="{{ route('rechange-password') }}" method="POST" class="d-flex flex-column justify-content-center align-items-center">
+    <form action="{{ route('rechange-password') }}" method="POST" class="d-flex flex-column justify-content-center align-items-center gap-2">
         @csrf
         <label for="avatar">
             <img style="width: 100px;aspect-ratio: 1;border-radius: 50%;border:1px solid red" src="{{auth()->user()->getImage()}}" alt="Avatar" id="IMG_AVATAR">
