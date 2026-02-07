@@ -5,6 +5,7 @@ namespace App\Providers\Filament;
 use App\Enums\LevelUserEnum;
 use App\Filament\Seller\Pages\DashboardPage;
 use App\Filament\Seller\Pages\RegisterPage;
+use App\Http\Middleware\CheckProfileMiddleware;
 use App\Http\Middleware\IsSellerMiddelware;
 use App\Models\User;
 use DutchCodingCompany\FilamentSocialite\FilamentSocialitePlugin;
@@ -97,7 +98,8 @@ class SellerPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-                IsSellerMiddelware::class
+                IsSellerMiddelware::class,
+                CheckProfileMiddleware::class
             ]);
     }
 }
