@@ -16,7 +16,7 @@
                             <x-form.input-component name="code" label="كود التفعيل" placeholder="كود التفعيل"/>
                             <button class="btn btn-red-accent">التأكيد</button>
                         </form>
-                        <button class="btn btn-outline-info">إرسال كود التفعيل مرة أخرى</button>
+                        <button type="button" onclick="resendEmailConfirmation()" class="btn btn-outline-info">إرسال كود التفعيل مرة أخرى</button>
                         <span id="counter"></span>
                     </div>
                 </div>
