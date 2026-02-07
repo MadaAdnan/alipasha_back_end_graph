@@ -3,7 +3,7 @@
         <i class="fa-solid fa-user-secret"></i>
         <span>تغيير الصورة الشخصية</span>
     </div>
-    <form action="{{ route('change-avatar') }}" method="POST" class="d-flex flex-column justify-content-center align-items-center gap-2">
+    <form action="{{ route('change-avatar') }}" enctype="multipart/form-data" method="POST" class="d-flex flex-column justify-content-center align-items-center gap-2">
         @csrf
         <label for="avatar" class="position-relative">
 
