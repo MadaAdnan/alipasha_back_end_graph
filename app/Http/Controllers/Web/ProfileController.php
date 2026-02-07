@@ -51,7 +51,7 @@ $validData= [
 if(auth()->user()->is_verified){
     unset($validData['name']);
 }
-        $this->validate($request,$data, [
+        $this->validate($request,$validData, [
             'name.required' => 'الرجاء ادخال الاسم',
             'phone.required' => 'الرجاء ادخال رقم الهاتف',
             'phone_code.required' => 'الرجاء ادخال رقم الهاتف',
