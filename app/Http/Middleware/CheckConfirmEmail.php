@@ -15,7 +15,7 @@ class CheckConfirmEmail
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(auth()->user()->email_verified_at==null){
+        if(auth()->check()&& auth()->user()->email_verified_at==null){
             return redirect()->route('confirmEmail');
         }
         return $next($request);
