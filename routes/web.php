@@ -145,9 +145,7 @@ Route::middleware([\App\Http\Middleware\XFrameOptionMiddleware::class])->group(f
             Route::resource('/plans', \App\Http\Controllers\Web\PlanController::class)->only(['index','store']);
 
         });
-Route::middleware(['auth:web'])->group(function () {
-    Route::get('confirm-email',[\App\Http\Controllers\Web\AuthController::class,'confirmEmail'])->name('confirmEmail');
-});
+
         Route::get('/.well-known/assetlinks.json', function () {
             return json_decode('[{
   "relation": ["delegate_permission/common.handle_all_urls"],
@@ -161,7 +159,9 @@ Route::middleware(['auth:web'])->group(function () {
 }]');
         });
     });
-
+    Route::middleware(['auth:web'])->group(function () {
+        Route::get('confirm-email',[\App\Http\Controllers\Web\AuthController::class,'confirmEmail'])->name('confirmEmail');
+    });
 
     Route::get('/download-file/{record}', function (\App\Models\Export $record) {
         $path = "filament_exports/$record->id/$record->file_name.xlsx";
