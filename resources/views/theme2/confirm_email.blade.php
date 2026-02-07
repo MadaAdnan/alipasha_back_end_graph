@@ -14,11 +14,30 @@
                         <p class="lead">تم إرسال كود التفعيل إلى بريدك الإلكتروني يرجى التأكد منه</p>
                         <form action="">
                             <x-form.input-component name="code" label="كود التفعيل" placeholder="كود التفعيل"/>
-                            <button class="btn btn-red">التأكيد</button>
+                            <button class="btn btn-red-accent">التأكيد</button>
                         </form>
+                        <button class="btn btn-outline-info">إرسال كود التفعيل مرة أخرى</button>
+                        <span id="counter"></span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 @endsection
+@push('js')
+    <script>
+        let counter = 60;
+       function resendEmailConfirmation() {
+           let counterElement = document.getElementById('counter');
+           counterElement.innerHTML = `<span class="text-danger">60</span> ثانية`;
+           let interval = setInterval(() => {
+               counter--;
+               counterElement.innerHTML = `<span class="text-danger">${counter}</span> ثانية`;
+               if (counter === 0) {
+                   clearInterval(interval);
+                   counterElement.innerHTML = '';
+               }
+           }, 1000);
+       }
+    </script>
+@endpush
