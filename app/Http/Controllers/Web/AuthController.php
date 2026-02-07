@@ -227,7 +227,7 @@ class AuthController extends Controller
 
     public function confirmedEmail(Request $request)
     {
-        $this->validate([
+        $this->validate($request,[
             'code'=>'required',
         ]);
         $user = auth()->user();
