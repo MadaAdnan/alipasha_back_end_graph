@@ -1,6 +1,6 @@
 <div class="filter-container">
     <div class="filter-header">
-        <i class="fa-solid fa-user-secret"></i>
+        <i class="fa-regular fa-image"></i>
         <span>تغيير الصورة الشخصية</span>
     </div>
     <form action="{{ route('change-avatar') }}" enctype="multipart/form-data" method="POST" class="d-flex flex-column justify-content-center align-items-center gap-2">
