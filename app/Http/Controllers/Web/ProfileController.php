@@ -30,9 +30,17 @@ class ProfileController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function changeAvatar(Request $request)
     {
-        //
+        $this->validate($request,[
+            'avatar'=>'required|image',
+        ]);
+        $user = auth()->user();
+        if($request->hasFile('avatar')){
+            $user->clearMediaCollection('image');
+            $user->addMediaFromRequest('avatar')->toMediaCollection('image');
+        }
+        return back()->with('success', 'نجاح العملية');
     }
 
     /**

@@ -103,6 +103,7 @@ Route::middleware([\App\Http\Middleware\XFrameOptionMiddleware::class])->group(f
                     'index' => 'profile.index',
                     'store' => 'profile.store',
                 ]);
+            Route::post('change-avatar',[\App\Http\Controllers\Web\ProfileController::class,'changeAvatar'])->name('change-avatar');
             Route::post('/follwing/{id}', function ($id) {
                 /** @var User $seller */
                 $seller = User::find($id);
