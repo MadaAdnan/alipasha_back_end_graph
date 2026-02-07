@@ -284,7 +284,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
 
     public function getIsSocialAttribute(): bool
     {
-        return $this->plans->where('social', true)->first() != null;
+        return $this->plans?->where('social', true)?->first() != null;
     }
 
     public function identities(): HasMany
