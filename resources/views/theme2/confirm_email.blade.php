@@ -45,7 +45,7 @@
            }) .then(res => res.json())
                .then(data=>{
                    console.log(data);
-                   if (data.success) {
+                   if (data.status=='success') {
                        btnElement.style.display = 'none';
                        counterElement.innerHTML = `<span class="text-danger">60</span> ثانية`;
                        let interval = setInterval(() => {
