@@ -13,7 +13,7 @@ class BalanceController extends Controller
      */
     public function index()
     {
-        $sort=\request()->get('sort');
+        $sort=\request()->get('sort')??'desc';
         $balances=Balance::where('user_id',auth()->id())->when($sort=='desc',fn($query)=>$query->latest(),fn($query)=>$query->oldest())->paginate(30);
         return view('theme2.balances',compact('balances'));
     }
