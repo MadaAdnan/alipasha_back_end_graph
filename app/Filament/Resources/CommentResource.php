@@ -45,14 +45,17 @@ class CommentResource extends Resource
                 ->url(fn($record)=>$record->user!=null?UserResource::getUrl('edit',['record'=>$record->user->id]):null,true),
                 Tables\Columns\TextColumn::make('product.id')->label('معرف المنشور')->searchable()
                     ->url(function($record){
-                        switch ($record->product){
-                            case CategoryTypeEnum::NEWS->value:
-                              return   NewsResource::getUrl('edit',['record'=>$record->product->id]);
+                        if($record->product->id!=null){
+                            switch ($record->product){
+                                case CategoryTypeEnum::NEWS->value:
+                                    return   NewsResource::getUrl('edit',['record'=>$record->product->id]);
 
-                            default:
-                                return   ProductResource::getUrl('edit',['record'=>$record->product->id]);
+                                default:
+                                    return   ProductResource::getUrl('edit',['record'=>$record->product->id]);
 
+                            }
                         }
+
                     },true)->description(fn($record)=>\Str::words("{$record->product?->expert}",7)),
                 Tables\Columns\TextColumn::make('comment')->label('التعليق'),
                 Tables\Columns\TextColumn::make('created_at')->date('Y-m-d')->label('التاريخ'),
