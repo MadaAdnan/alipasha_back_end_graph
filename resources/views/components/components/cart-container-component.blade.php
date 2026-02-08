@@ -74,8 +74,7 @@
 
 
     submit.addEventListener('click', function () {
-        console.log(this.dataset.href)
-        console.log(this.dataset.url)
+
         return;
         fetch(`/api/orders`, {
             method: 'POST',
@@ -103,7 +102,7 @@
             .then(data => {
                 console.log(data)
                 if(data.status=='success'){
-                    window.location.href = this.dataset.href;
+                    window.location.href = this.dataset.url;
 
                 }
 
@@ -112,7 +111,9 @@
             .catch(error => {
                 console.error('Error:', error);
                 showToast(error, 'error');
-            });
+            }).finally(() => {
+            window.location.href = this.dataset.url;
+        });
     })
 
 </script>
