@@ -99,19 +99,17 @@
             })
             .then(data => {
                 console.log(data)
-               /* if(data.status=='success'){
-                    window.location.href = this.dataset.url;
+              if(data.status=='success'){
+                  window.open(`${this.dataset.url}`,'_blank');
 
-                }*/
+                }
 
 
             })
             .catch(error => {
                 console.error('Error:', error);
                 showToast(error, 'error');
-            }).finally(() => {
-            window.open(`${this.dataset.url}`,'_blank');
-        });
+            });
     })
 
 </script>
