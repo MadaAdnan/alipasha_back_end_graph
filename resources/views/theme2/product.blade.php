@@ -11,7 +11,12 @@
                         <x-component.slider-component :items="$post->getImages('images')"/>
                     </div>
                     <div class="product-seller-col">
-                        <x-component.seller-info-component :seller="$post->user" :productId="$post->id" :post="$post"/>
+                        @php
+$message="السلام عليكم ورحمة الله وبركاته\n";
+$message.="معرف المنتج : ".$post->id."\n";
+$message.="استفسار عن المنتج : ".$post->name."\n";
+ @endphp
+                        <x-component.seller-info-component message="{{$message}}" :seller="$post->user" :productId="$post->id" :post="$post"/>
                         @if($post->user->plans()->whereNot('duration','free')->exists())
                             <x-components.social-seller-component :store="$post->user"/>
                         @endif

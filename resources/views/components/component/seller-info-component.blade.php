@@ -2,6 +2,7 @@
     'seller'=>null,
     'productId'=>null,
     'post'=>null,
+    'message'=>'السلام عليكم ورحمة الله وبركاته'
 ])
 
 <div class="card card-body seller-data">
@@ -160,7 +161,7 @@ if(full_phone==''){
             })
             .then(data => {
 
-                    window.open(`https://wa.me/${full_phone}`, '_blank');
+                    window.open(`https://wa.me/${full_phone}?text={{urlencode($message)}}`, '_blank');
 
 
             })
