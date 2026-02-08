@@ -135,19 +135,26 @@ class ProductResource extends Resource implements HasShieldPermissions
             ->label('صور '),*/
                     Forms\Components\SpatieMediaLibraryFileUpload::make('images')
                         ->collection('images')
-                        ->multiple()                 // مهم جدًا
+                        ->multiple()
                         ->minFiles(1)
                         ->maxFiles(4)
                         ->image()
                         ->imageEditor()
                         ->imageCropAspectRatio('1:1')
                         ->conversion('webp')
-                        ->hint('يجب رفع صورة واحدة على الأقل وبحد أقصى 4 صور')
                         ->label('صور')
-                        ->validationMessages([
-                            'min_files' => 'يجب رفع صورة واحدة على الأقل',
-                            'max_files' => 'لا يمكن رفع أكثر من 4 صور',
-                        ]),
+                        ->hint('من 1 إلى 4 صور فقط')
+                        ->afterStateUpdated(function ($state, callable $set) {
+                            if (count($state ?? []) > 4) {
+                                $set('images', array_slice($state, 0, 4));
+
+                                Notification::make()
+                                    ->title('عدد الصور أكبر من المسموح')
+                                    ->body('يمكنك رفع 4 صور كحد أقصى')
+                                    ->danger()
+                                    ->send();
+                            }
+                        }),
                              Forms\Components\TextInput::make('video')->label('رابط الفيديو إن وجد'),
                     Forms\Components\TextInput::make('name')->label('اسم المنتج'),
                     Forms\Components\Textarea::make('info')->label('وصف المنتج'),
