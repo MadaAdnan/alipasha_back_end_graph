@@ -133,7 +133,7 @@ class ProductResource extends Resource implements HasShieldPermissions
                     ->minFiles(1)
                     ->image()->multiple()->imageEditor()->imageCropAspectRatio('1:1')->hint('يجب رفع صورة على الأقل و (4) صور على الأكثر')
             ->label('صور '),*/
-                    SpatieMediaLibraryFileUpload::make('images')
+                    Forms\Components\SpatieMediaLibraryFileUpload::make('images')
                         ->collection('images')
                         ->multiple() // مهم: للسماح بتعدد الصور في الحقل
                         ->image()
