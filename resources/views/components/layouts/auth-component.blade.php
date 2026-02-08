@@ -4,7 +4,7 @@
             <ul class="nav nav-tabs p-0" id="authTabs" role="tablist">
                 <li class="nav-item w-50" role="presentation">
                     <a href="#" class="nav-link active w-100 text-gray"
-                            id="login-tab"
+                          {{--  id="login-tab"--}}
 {{--                            data-bs-toggle="tab"--}}
                           {{--  data-bs-target="#login"
                             type="button"--}}
