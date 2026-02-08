@@ -45,7 +45,7 @@ class CommentResource extends Resource
                 ->url(fn($record)=>$record->user!=null?UserResource::getUrl('edit',['record'=>$record->user->id]):null,true),
                 Tables\Columns\TextColumn::make('product.id')->label('معرف المنشور')->searchable()
                     ->url(function($record){
-                        if($record->product->id!=null){
+                        if($record->product?->id!=null){
                             switch ($record->product){
                                 case CategoryTypeEnum::NEWS->value:
                                     return   NewsResource::getUrl('edit',['record'=>$record->product->id]);
