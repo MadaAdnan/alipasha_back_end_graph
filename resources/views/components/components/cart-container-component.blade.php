@@ -75,7 +75,7 @@
 
     submit.addEventListener('click', function () {
 
-        return;
+
         fetch(`/api/orders`, {
             method: 'POST',
             headers: {
