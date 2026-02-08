@@ -71,11 +71,12 @@
 </div>
 <script>
     let submit = document.getElementById('submit');
-    console.log(this.dataset.href)
-    console.log(this.dataset.url)
-   close()
-    submit.addEventListener('click', function () {
 
+
+    submit.addEventListener('click', function () {
+        console.log(this.dataset.href)
+        console.log(this.dataset.url)
+        return;
         fetch(`/api/orders`, {
             method: 'POST',
             headers: {
