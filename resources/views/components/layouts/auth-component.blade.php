@@ -3,28 +3,28 @@
         <div class="col-md-6">
             <ul class="nav nav-tabs p-0" id="authTabs" role="tablist">
                 <li class="nav-item w-50" role="presentation">
-                    <button class="nav-link active w-100 text-gray"
+                    <a href="#" class="nav-link active w-100 text-gray"
                             id="login-tab"
                             data-bs-toggle="tab"
-                            data-bs-target="#login"
-                            type="button"
+                          {{--  data-bs-target="#login"
+                            type="button"--}}
                             role="tab"
                             aria-controls="login"
                             aria-selected="true">
                         تسجيل الدخول
-                    </button>
+                    </a>
                 </li>
                 <li class="nav-item w-50" role="presentation">
-                    <button class="nav-link w-100 text-gray"
+                    <a href="{{route('register.ui')}}" class="nav-link w-100 text-gray"
                             id="register-tab"
                             data-bs-toggle="tab"
-                            data-bs-target="#register"
+                          {{--  data-bs-target="#register"
                             type="button"
-                            role="tab"
+                            role="tab"--}}
                             aria-controls="register"
                             aria-selected="false">
                         إشتراك جديد
-                    </button>
+                    </a>
                 </li>
             </ul>
 
@@ -64,7 +64,7 @@
                     </div>
                 </div>
 
-                <div class="tab-pane fade shadow-sm active px-3 py-2 bg-white"
+             {{--   <div class="tab-pane fade shadow-sm active px-3 py-2 bg-white"
                      id="register"
                      role="tabpanel"
                      aria-labelledby="register-tab">
@@ -114,7 +114,7 @@
 
                         <a href="{{route('index')}}" class="my-1">عودة للصفحة الرئيسية</a>
                     </div>
-                </div>
+                </div>--}}
             </div>
         </div>
     </div>
