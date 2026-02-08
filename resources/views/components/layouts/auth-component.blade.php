@@ -47,6 +47,11 @@
                         <div class="d-flex justify-content-end">
                             <a href="{{route('forget-password.ui')}}" class="my-1">نسيت كلمة المرور؟</a>
                         </div>
+                        <div class="form-group">
+                            <label for="rememberMe">تذكرني</label>
+                            <input type="checkbox" class="form-check" id="rememberMe" name="rememberMe"/>
+                        </div>
+
                         <button type="submit" class="btn bg-gold w-100">تسجيل الدخول</button>
 
                     </form>
