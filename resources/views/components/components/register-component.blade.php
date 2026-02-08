@@ -3,7 +3,7 @@
         <div class="col-md-6">
             <ul class="nav nav-tabs p-0" id="authTabs" role="tablist">
                 <li class="nav-item w-50" role="presentation">
-                    <a href="{{route('login.ui')}}" class="nav-link active w-100 text-gray"
+                    <a href="{{route('login.ui')}}" class="nav-link  w-100 text-gray"
                             id="login-tab"
                           {{--  data-bs-toggle="tab"--}}
                            {{-- data-bs-target="#login"--}}
@@ -15,7 +15,7 @@
                     </a>
                 </li>
                 <li class="nav-item w-50" role="presentation">
-                    <a class="nav-link w-100 text-gray"
+                    <a class="nav-link w-100 text-gray active"
                            id="register-tab"
                             data-bs-toggle="tab"
                             data-bs-target="#register"
