@@ -169,10 +169,10 @@
     }
 
     // عند تغيير المحافظة يدويًا
-    document.getElementById('registerGovernorate').addEventListener('change', loadCities);
+ //   document.getElementById('registerGovernorate').addEventListener('change', loadCities);
 
     // عند تحميل الصفحة... شغّل نفس الوظيفة تلقائيًا
-    window.addEventListener('DOMContentLoaded', loadCities);
+  //  window.addEventListener('DOMContentLoaded', loadCities);
 </script>
 
 
