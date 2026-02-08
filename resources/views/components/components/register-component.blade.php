@@ -64,7 +64,7 @@
                     </div>
                 </div>--}}
 
-                <div class="tab-pane fade shadow-sm active px-3 py-2 bg-white"
+                <div class="tab-pane fade show shadow-sm active px-3 py-2 bg-white"
                      id="register"
                      role="tabpanel"
                      aria-labelledby="register-tab">
