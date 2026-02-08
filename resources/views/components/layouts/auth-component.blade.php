@@ -45,7 +45,7 @@
                         <x-form.input-password-component type="password" name="password" class="form-control" id="loginPassword"
                                                          label="كلمة المرور" required/>
 
-                        <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex justify-content-between align-items-center my-1">
                             <div class="form-group">
                                 <label for="rememberMe">تذكرني</label>
                                 <input type="checkbox" class="form-check form-check-input" id="rememberMe" name="rememberMe"/>
