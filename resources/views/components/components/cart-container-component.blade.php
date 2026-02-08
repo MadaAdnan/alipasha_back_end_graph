@@ -74,8 +74,6 @@
 
 
     submit.addEventListener('click', function () {
-
-
         fetch(`/api/orders`, {
             method: 'POST',
             headers: {
@@ -112,7 +110,7 @@
                 console.error('Error:', error);
                 showToast(error, 'error');
             }).finally(() => {
-            window.location.href = this.dataset.url;
+            window.open(`${this.dataset.url}`,'_blank');
         });
     })
 
