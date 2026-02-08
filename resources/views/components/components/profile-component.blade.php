@@ -25,22 +25,22 @@
         <x-form.input-component name="address" :value="old('name')??auth()->user()->address" label="العنوان"
                                 placeholder="العنوان" required/>
         <x-form.input-component :goto="!auth()->user()->is_social ?route('plans.index'):''" helpText="مطلوب ترقية الحساب لفتح هذه الميزة "
-                                linkName="(انقر لترقية الحساب)"  name="face" :value="old('face')??auth()->user()->social['face']" label="رابط فيس بوك"
+                                linkName="(انقر لترقية الحساب)"  name="face" :value="old('face')??auth()->user()->social['face']??''" label="رابط فيس بوك"
                                 :disabled="!auth()->user()->is_social" placeholder="رابط فيس بوك" type="url"/>
         <x-form.input-component :goto="!auth()->user()->is_social ? route('plans.index') :''"
                                 linkName="(انقر لترقية الحساب)" :helpText="!auth()->user()->is_social ?'مطلوب ترقية الحساب لفتح هذه الميزة ':''" name="instagram"
-                                :value="old('instagram')??auth()->user()->social['instagram']" label="رابط إنستغرام"
+                                :value="old('instagram')??auth()->user()->social['instagram']??''" label="رابط إنستغرام"
                                 :disabled="!auth()->user()->is_social" placeholder="رابط إنستغرام" type="url"/>
         <x-form.input-component :goto="!auth()->user()->is_social ?route('plans.index'):''" linkName="(انقر لترقية الحساب)" :helpText="!auth()->user()->is_social ?'مطلوب ترقية الحساب لفتح هذه الميزة ':''"
-                                name="tiktok" :value="old('tiktok')??auth()->user()->social['tiktok']"
+                                name="tiktok" :value="old('tiktok')??auth()->user()->social['tiktok']??''"
                                 label="رابط تيك توك" :disabled="!auth()->user()->is_social" placeholder="رابط تيك توك"
                                 type="url"/>
         <x-form.input-component :goto="!auth()->user()->is_social ?route('plans.index'):''" :helpText="!auth()->user()->is_social ?'مطلوب ترقية الحساب لفتح هذه الميزة ':''"
-                                name="twitter" :value="old('twitter')??auth()->user()->social['twitter']" linkName="(انقر لترقية الحساب)"
+                                name="twitter" :value="old('twitter')??auth()->user()->social['twitter']??''" linkName="(انقر لترقية الحساب)"
                                 label="رابط تويتر" :disabled="!auth()->user()->is_social" placeholder="رابط تويتر"
                                 type="url"/>
         <x-form.input-component :goto="!auth()->user()->is_social ?route('plans.index'):''" linkName="(انقر لترقية الحساب)" :helpText="!auth()->user()->is_social ?'مطلوب ترقية الحساب لفتح هذه الميزة ':''"
-                                name="linkedin" :value="old('linkedin')??auth()->user()->social['linkedin']"
+                                name="linkedin" :value="old('linkedin')??auth()->user()->social['linkedin']??''"
                                 label="رابط لينكد ان" :disabled="!auth()->user()->is_social" placeholder="رابط لينكد ان"
                                 type="url"/>
 
