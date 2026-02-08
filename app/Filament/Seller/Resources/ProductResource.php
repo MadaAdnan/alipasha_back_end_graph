@@ -142,7 +142,7 @@ class ProductResource extends Resource implements HasShieldPermissions
                         ->imageCropAspectRatio('1:1')
                         ->label('صور')
                         ->helperText('يمكنك رفع 4 صور كحد أقصى (صورة واحدة في كل مرة)')
-                        ->disableAddButton(fn ($state) => count($state ?? []) >= 4),
+                      ,
                              Forms\Components\TextInput::make('video')->label('رابط الفيديو إن وجد'),
                     Forms\Components\TextInput::make('name')->label('اسم المنتج'),
                     Forms\Components\Textarea::make('info')->label('وصف المنتج'),
