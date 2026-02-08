@@ -16,6 +16,9 @@ class IsSellerMiddelware
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if(auth()->user()->email_verified_at==null){
+            return redirect()->route('confirmEmail');
+        }
 
         return $next($request);
     }
