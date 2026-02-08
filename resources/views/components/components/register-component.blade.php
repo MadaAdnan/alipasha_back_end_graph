@@ -4,24 +4,24 @@
             <ul class="nav nav-tabs p-0" id="authTabs" role="tablist">
                 <li class="nav-item w-50" role="presentation">
                     <a href="{{route('login.ui')}}" class="nav-link active w-100 text-gray"
-                            id="login-tab"
-                            data-bs-toggle="tab"
+                          {{--  id="login-tab"
+                            data-bs-toggle="tab"--}}
                            {{-- data-bs-target="#login"--}}
                           {{--  type="button"--}}
                             role="tab"
-                            aria-controls="login"
-                            aria-selected="false">
+                           {{-- aria-controls="login"
+                            aria-selected="false"--}}>
                         تسجيل الدخول
                     </a>
                 </li>
                 <li class="nav-item w-50" role="presentation">
                     <a class="nav-link w-100 text-gray"
-                            id="register-tab"
+                          {{--  id="register-tab"
                             data-bs-toggle="tab"
                             data-bs-target="#register"
                             type="button"
                             role="tab"
-                            aria-controls="register"
+                            aria-controls="register"--}}
                             aria-selected="true">
                         إشتراك جديد
                     </a>

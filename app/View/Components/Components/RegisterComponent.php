@@ -2,6 +2,7 @@
 
 namespace App\View\Components\Components;
 
+use App\Models\City;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
