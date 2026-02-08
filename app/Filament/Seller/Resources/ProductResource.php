@@ -132,7 +132,7 @@ class ProductResource extends Resource implements HasShieldPermissions
                     ->maxFiles(4)
                     ->minFiles(1)
                    ->acceptedFileTypes(['image/png','image/jpeg','image/jpg','image/webp'])
-                   ->activeUrl()
+
                     ->image()->multiple()->imageEditor()->imageCropAspectRatio('1:1') ->helperText('يمكنك رفع 4 صور كحد أقصى (صورة واحدة في كل مرة)')
             ->label('صور '),
 
