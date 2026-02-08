@@ -44,13 +44,16 @@
                                                 label="البريد الإلكتروني" placeholder="example@domain.com" required/>
                         <x-form.input-password-component type="password" name="password" class="form-control" id="loginPassword"
                                                          label="كلمة المرور" required/>
-                        <div class="d-flex justify-content-end">
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="form-group">
+                                <label for="rememberMe">تذكرني</label>
+                                <input type="checkbox" class="form-check" id="rememberMe" name="rememberMe"/>
+                            </div>
                             <a href="{{route('forget-password.ui')}}" class="my-1">نسيت كلمة المرور؟</a>
+
                         </div>
-                        <div class="form-group">
-                            <label for="rememberMe">تذكرني</label>
-                            <input type="checkbox" class="form-check" id="rememberMe" name="rememberMe"/>
-                        </div>
+
 
                         <button type="submit" class="btn bg-gold w-100">تسجيل الدخول</button>
 
