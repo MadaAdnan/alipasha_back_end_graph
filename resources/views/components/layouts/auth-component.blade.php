@@ -48,7 +48,7 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="form-group">
                                 <label for="rememberMe">تذكرني</label>
-                                <input type="checkbox" class="form-check" id="rememberMe" name="rememberMe"/>
+                                <input type="checkbox" class="form-check form-check-input" id="rememberMe" name="rememberMe"/>
                             </div>
                             <a href="{{route('forget-password.ui')}}" class="my-1">نسيت كلمة المرور؟</a>
 
