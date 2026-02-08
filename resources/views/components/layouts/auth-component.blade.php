@@ -16,12 +16,12 @@
                 </li>
                 <li class="nav-item w-50" role="presentation">
                     <a href="{{route('register.ui')}}" class="nav-link w-100 text-gray"
-                            id="register-tab"
-                            data-bs-toggle="tab"
+                          {{--  id="register-tab"--}}
+                          {{--  data-bs-toggle="tab"--}}
                           {{--  data-bs-target="#register"
                             type="button"
                             role="tab"--}}
-                            aria-controls="register"
+                           {{-- aria-controls="register"--}}
                             aria-selected="false">
                         إشتراك جديد
                     </a>
