@@ -56,7 +56,7 @@
                           $message.="قيمة الطلب : ".$sumTotal;
                 @endphp
                 <button id="submit" type="button"
-                        data-href="https://wa.me/{{$seller?->full_phone}}?text={{urlencode($message)}}"
+                        data-url="https://wa.me/{{$seller?->full_phone}}?text={{urlencode($message)}}"
                         class="btn btn-green"><i class="fa-brand fa-whatsapp"></i> طلب من خلال واتس آب
                 </button>
             </div>
@@ -71,6 +71,9 @@
 </div>
 <script>
     let submit = document.getElementById('submit');
+    console.log(this.dataset.href)
+    console.log(this.dataset.url)
+   close()
     submit.addEventListener('click', function () {
 
         fetch(`/api/orders`, {
