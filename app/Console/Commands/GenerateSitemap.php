@@ -56,7 +56,7 @@ class GenerateSitemap extends Command
         ##################################################################
         ####################  Products #######################################
         #################################################################
-        Product::product()->active()->latest()->chunk(200, function ($products) use ($sitemap, $domain) {
+        Product::product()->active()->upTo20()->latest()->chunk(200, function ($products) use ($sitemap, $domain) {
             foreach ($products as $product) {
                 $lastMod = $product->updated_at ?? now();
                 if ($product->getImageSiteMap()) {
@@ -82,7 +82,7 @@ class GenerateSitemap extends Command
         ####################  JOBS #######################################
         #################################################################
         $sitemap = Sitemap::create();
-        Product::job()->active()->where('end_date', '>=', now())->latest()->chunk(200, function ($products) use ($sitemap, $domain) {
+        Product::job()->active()->upTo20()->where('end_date', '>=', now())->latest()->chunk(200, function ($products) use ($sitemap, $domain) {
 
             foreach ($products as $product) {
                 $lastMod = $product->updated_at ?? now();
@@ -98,7 +98,7 @@ class GenerateSitemap extends Command
         ####################  tenders #######################################
         #################################################################
         $sitemap = Sitemap::create();
-        Product::tender()->active()->where('end_date', '>=', now())->latest()->chunk(200, function ($products) use ($sitemap, $domain) {
+        Product::tender()->active()->upTo20()->where('end_date', '>=', now())->latest()->chunk(200, function ($products) use ($sitemap, $domain) {
 
             foreach ($products as $product) {
                 $lastMod = $product->updated_at ?? now();
