@@ -32,12 +32,15 @@ class SellerController extends Controller
         }
 
         $store=User::findOrFail($id);
+
+        $categorisId = \DB::table('products')->whereNull('deleted_at')->where('user_id', $store->id)->pluck('sub1_id')->toArray();
+
         $categoryId=\request()->get('category_id');
         $products=Product::whereActive(ProductActiveEnum::ACTIVE->value)->where('user_id',$id)
             ->when(!empty($categoryId),fn($query)=>$query->where('category_id',$categoryId))
             ->latest()->paginate(12);
-        $categoryIds=$store->products->pluck('category_id')->toArray();
-        $categories = Category::whereIn('id', $categoryIds)
+      //  $categoryIds=$store->products->pluck('category_id')->toArray();
+        $categories =Category::where('is_active',true)->whereIn('id', $categorisId) ->orderBy('sortable')
             ->withCount(['products' => function ($query) use ($store) {
                 $query->where('user_id', $store->id);
             }])->get();
