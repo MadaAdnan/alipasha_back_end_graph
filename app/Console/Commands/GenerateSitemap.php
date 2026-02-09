@@ -81,7 +81,7 @@ class GenerateSitemap extends Command
         ##################################################################
         ####################  JOBS #######################################
         #################################################################
-        $sitemap = Sitemap::create();
+      /*  $sitemap = Sitemap::create();
         Product::job()->active()->upTo20()->where('end_date', '>=', now())->latest()->chunk(200, function ($products) use ($sitemap, $domain) {
 
             foreach ($products as $product) {
@@ -93,23 +93,23 @@ class GenerateSitemap extends Command
                 $sitemap->add($url);
             }
         });
-        $sitemap->writeToFile(public_path('jobs.xml'));
+        $sitemap->writeToFile(public_path('jobs.xml'));*/
         ##################################################################
         ####################  tenders #######################################
         #################################################################
         $sitemap = Sitemap::create();
-        Product::tender()->active()->upTo20()->where('end_date', '>=', now())->latest()->chunk(200, function ($products) use ($sitemap, $domain) {
+        Product::service()->active()->latest()->chunk(200, function ($products) use ($sitemap, $domain) {
 
             foreach ($products as $product) {
                 $lastMod = $product->updated_at ?? now();
-                $url = Url::create("{$domain}/tenders/{$product->id}")
+                $url = Url::create("{$domain}/services/{$product->id}")
                     ->setLastModificationDate($lastMod)
                     ->setPriority(0.8)
                     ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY);
                 $sitemap->add($url);
             }
         });
-        $sitemap->writeToFile(public_path('tenders.xml'));
+        $sitemap->writeToFile(public_path('services.xml'));
         $this->info('Sitemap generated successfully!');
     }
 

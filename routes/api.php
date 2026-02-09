@@ -110,7 +110,7 @@ Route::middleware('auth:sanctum')->group(function () {
         return $product->user?->full_phone;
     });
     Route::post('orders', function (Request $request) {
-       // return response()->json($request->all());
+      
         if (!auth()->user()->is_active) {
             return response()->json(['status'=>'error','msg' => 'حسابك غير مفعل'], 403);
         }

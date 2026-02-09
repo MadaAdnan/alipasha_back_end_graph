@@ -71,7 +71,7 @@ area_id*/
      */
     public function show(string $id)
     {
-        $service=Product::service()->findOrFail($id);
+        $service=Product::active()->service()->findOrFail($id);
         $ids = [$service->id];
         $today = today();
         \DB::transaction(function () use ($ids, $today) {
