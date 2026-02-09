@@ -5,8 +5,11 @@ use App\Events\MessageSentEvent;
 use App\Helpers\ProductsHelper;
 use App\Http\Controllers\ImportController;
 use App\Http\Resources\WebHok\ProductResource;
+use App\Jobs\SendFirebaseNotificationJob;
+use App\Models\ClickWhats;
 use App\Models\Interaction;
 use App\Models\Plan;
+use App\Models\Product;
 use App\Models\Setting;
 use App\Models\ShippingPrice;
 use App\Models\User;
@@ -134,7 +137,7 @@ Route::middleware([\App\Http\Middleware\XFrameOptionMiddleware::class])->group(f
             Route::resource('/balances', \App\Http\Controllers\Web\BalanceController::class)->only(['index']);
             Route::resource('/invoices', \App\Http\Controllers\Web\InvoiceController::class)->only(['index', 'update']);
             Route::resource('/my-invoices', \App\Http\Controllers\Web\MyInvoiceController::class)->only(['index', 'store']);
-            Route::resource('/orders', \App\Http\Controllers\Web\OrderController::class)->only(['index', 'store']);
+//            Route::resource('/orders', \App\Http\Controllers\Web\OrderController::class)->only(['index', 'store']);
             Route::post('/markets/followers', [\App\Http\Controllers\Web\SellerController::class, 'followers']);
             Route::post('/products/like', [\App\Http\Controllers\Web\PostController::class, 'like'])->name('post.like');
             Route::resource('/carts', \App\Http\Controllers\Web\CartController::class)->only(['index', 'show', 'store', 'destroy', 'update'])/*->middleware(\App\Http\Middleware\RateLimitPerSecond::class)*/;
@@ -144,7 +147,32 @@ Route::middleware([\App\Http\Middleware\XFrameOptionMiddleware::class])->group(f
             Route::resource('/galleries', \App\Http\Controllers\Web\GalleryController::class)->only(['show']);
             Route::resource('/notifications', \App\Http\Controllers\Web\NotificationController::class)->only(['index']);
             Route::resource('/plans', \App\Http\Controllers\Web\PlanController::class)->only(['index','store']);
+            Route::post('/orders',[\App\Http\Controllers\Web\OrderController::class,'addToCart']);
+            Route::post('/click-whats', function (Request $request) {
 
+                $productId = $request->product_id;
+                $product = Product::find($productId);
+                if (!$product) {
+                    return '';
+                }
+                $user = auth()->user();
+                $name = $product->name ?? \Str::substr($product->expert, 0, 20);
+                $data['title'] = 'مراسلة جديدة';
+                $data['body'] = "قد يتواصل الزبون {$user->name} عبر واتسأب للإستفسار عن المنتج {$name}";
+                try {
+
+                    $job = new SendFirebaseNotificationJob([$product->user->device_token], $data);
+                    dispatch($job);
+                    ClickWhats::create([
+                        'product_id' => $productId,
+                        'user_id' => $user->id,
+                        'seller_id' => $product->user_id
+                    ]);
+                } catch (Exception|\Error $e) {
+                    Log::error($e->getMessage());
+                }
+                return $product->user?->full_phone;
+            });
         });
 
         Route::get('/.well-known/assetlinks.json', function () {

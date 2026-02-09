@@ -137,15 +137,13 @@ if(full_phone==''){
     return;
 }
 
-        fetch(`/api/click-whats`, {
+        fetch(`/click-whats`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
                 'X-Requested-With': 'XMLHttpRequest',
-                ...(localStorage.getItem('token') && {
-                    'Authorization': 'Bearer ' + localStorage.getItem('token')
-                })
+                'X-CSRF-TOKEN':'{{csrf_token()}}'
             },
             body: JSON.stringify({
                 product_id: {{$productId}}

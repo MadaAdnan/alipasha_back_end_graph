@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Enums\OrderStatusEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Balance;
 use App\Models\City;
+use App\Models\Invoice;
+use App\Models\Item;
 use App\Models\Order;
+use App\Models\Product;
 use App\Models\ShippingPrice;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -145,5 +150,67 @@ class OrderController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function addToCart(Request $request)
+    {
+        if (!auth()->user()->is_active) {
+            return response()->json(['status'=>'error','msg' => 'حسابك غير مفعل'], 403);
+        }
+
+
+        \DB::beginTransaction();
+        try {
+
+            $weight = 0;
+            if (!auth()->check() || auth()->id() == null) {
+                return response()->json(['status'=>'error','msg' => 'خطأ في الطلب يرجى المحاولة من جديد'], 403);
+
+            }
+            $seller = User::findOrFail($request->seller_id);
+
+
+            $invoice = new Invoice();
+            $invoice->seller_id = $seller->id;
+            $invoice->user_id = auth()->id();
+            $invoice->phone =  auth()->user()->phone;
+            $invoice->address =  auth()->user()->address;
+            $invoice->status = OrderStatusEnum::PENDING->value;
+            $invoice->save();
+
+
+            $total = 0;
+            foreach ($request->data as $item) {
+                $product = Product::find($item['product_id']);
+                if ($product->is_delivery) {
+                    $weight += $product->weight;
+                }
+                if (!$product) {
+                    return response()->json(['status'=>'error','msg'=>"المنتج {$item['product_id']} غير موجود."]);
+                }
+                $price = $product->is_discount ? $product->discount : $product->price;
+                $total_price = $price * $item['qty'];
+                Item::create([
+                    'invoice_id' => $invoice->id, // $invoice->id متاح الآن
+                    'product_id' => $item['product_id'],
+                    'price' => $price,
+                    'qty' => $item['qty'],
+                    'total' => $total_price,
+                ]);
+                $total += $total_price;
+            }
+
+            $invoice->weight = $weight;
+            $invoice->shipping = 0;//$far;
+            $invoice->total =0; // $total;
+            $invoice->save();
+
+            \DB::commit();
+            return response()->json(['status'=>'success']);
+        } catch (\Exception | \Error $e) {
+            \DB::rollBack();
+            return response()->json(['status'=>'error','msg' => $e->getMessage()], 403);
+        }
+
     }
 }

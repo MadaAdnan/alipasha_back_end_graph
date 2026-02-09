@@ -74,15 +74,13 @@
 
 
     submit.addEventListener('click', function () {
-        fetch(`/api/orders`, {
+        fetch(`/orders`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
+                'X-CSRF-TOKEN': "{{csrf_token()}}",
                 'X-Requested-With': 'XMLHttpRequest',
-                ...(localStorage.getItem('token') && {
-                    'Authorization': 'Bearer ' + localStorage.getItem('token')
-                })
             },
             body: JSON.stringify({
                 data: @json($dataForApi) ,
