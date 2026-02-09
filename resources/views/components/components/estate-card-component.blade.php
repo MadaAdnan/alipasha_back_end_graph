@@ -74,13 +74,10 @@
     function clickWhats(full_phone) {
         const auth = "{{auth()->check()}}";
         if (auth == "") {
-            localStorage.removeItem('token');
+
             showToast('يرجى تسجيل الدخول اولاً', 'error')
 
             return;
-        } else if (localStorage.getItem('token') == null) {
-
-            @auth localStorage.setItem('token', '{{auth()->user()->createToken('MyApp')->plainTextToken}}') @endauth
         }
         if(full_phone==''){
             return;
