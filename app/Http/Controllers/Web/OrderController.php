@@ -4,15 +4,19 @@ namespace App\Http\Controllers\Web;
 
 use App\Enums\OrderStatusEnum;
 use App\Http\Controllers\Controller;
+use App\Jobs\SendFirebaseNotificationJob;
 use App\Models\Balance;
 use App\Models\City;
+use App\Models\ClickWhats;
 use App\Models\Invoice;
 use App\Models\Item;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\ShippingPrice;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
+use Log;
 
 class OrderController extends Controller
 {
@@ -114,7 +118,7 @@ class OrderController extends Controller
             ]);
             \DB::commit();
             return back()->with('success', 'تم إرسال الطلب بنجاح');
-        } catch (\Exception | \Error $e) {
+        } catch (\Exception|\Error $e) {
             \DB::rollBack();
             return back()->with('error', $e->getMessage());
         }
@@ -155,7 +159,7 @@ class OrderController extends Controller
     public function addToCart(Request $request)
     {
         if (!auth()->user()->is_active) {
-            return response()->json(['status'=>'error','msg' => 'حسابك غير مفعل'], 403);
+            return response()->json(['status' => 'error', 'msg' => 'حسابك غير مفعل'], 403);
         }
 
 
@@ -164,7 +168,7 @@ class OrderController extends Controller
 
             $weight = 0;
             if (!auth()->check() || auth()->id() == null) {
-                return response()->json(['status'=>'error','msg' => 'خطأ في الطلب يرجى المحاولة من جديد'], 403);
+                return response()->json(['status' => 'error', 'msg' => 'خطأ في الطلب يرجى المحاولة من جديد'], 403);
 
             }
             $seller = User::findOrFail($request->seller_id);
@@ -173,8 +177,8 @@ class OrderController extends Controller
             $invoice = new Invoice();
             $invoice->seller_id = $seller->id;
             $invoice->user_id = auth()->id();
-            $invoice->phone =  auth()->user()->phone;
-            $invoice->address =  auth()->user()->address;
+            $invoice->phone = auth()->user()->phone;
+            $invoice->address = auth()->user()->address;
             $invoice->status = OrderStatusEnum::PENDING->value;
             $invoice->save();
 
@@ -186,7 +190,7 @@ class OrderController extends Controller
                     $weight += $product->weight;
                 }
                 if (!$product) {
-                    return response()->json(['status'=>'error','msg'=>"المنتج {$item['product_id']} غير موجود."]);
+                    return response()->json(['status' => 'error', 'msg' => "المنتج {$item['product_id']} غير موجود."]);
                 }
                 $price = $product->is_discount ? $product->discount : $product->price;
                 $total_price = $price * $item['qty'];
@@ -202,15 +206,43 @@ class OrderController extends Controller
 
             $invoice->weight = $weight;
             $invoice->shipping = 0;//$far;
-            $invoice->total =0; // $total;
+            $invoice->total = 0; // $total;
             $invoice->save();
 
             \DB::commit();
-            return response()->json(['status'=>'success']);
-        } catch (\Exception | \Error $e) {
+            return response()->json(['status' => 'success']);
+        } catch (\Exception|\Error $e) {
             \DB::rollBack();
-            return response()->json(['status'=>'error','msg' => $e->getMessage()], 403);
+            return response()->json(['status' => 'error', 'msg' => $e->getMessage()], 403);
         }
 
     }
+
+    public function clickWhats(Request $request)
+    {
+
+        $productId = $request->product_id;
+        $product = Product::find($productId);
+        if (!$product) {
+            return '';
+        }
+        $user = auth()->user();
+        $name = $product->name ?? \Str::substr($product->expert, 0, 20);
+        $data['title'] = 'مراسلة جديدة';
+        $data['body'] = "قد يتواصل الزبون {$user->name} عبر واتسأب للإستفسار عن المنتج {$name}";
+        try {
+
+            $job = new SendFirebaseNotificationJob([$product->user->device_token], $data);
+            dispatch($job);
+            ClickWhats::create([
+                'product_id' => $productId,
+                'user_id' => $user->id,
+                'seller_id' => $product->user_id
+            ]);
+        } catch (Exception|\Error $e) {
+            Log::error($e->getMessage());
+        }
+        return $product->user?->full_phone;
+    }
+
 }

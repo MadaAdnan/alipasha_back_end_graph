@@ -148,31 +148,7 @@ Route::middleware([\App\Http\Middleware\XFrameOptionMiddleware::class])->group(f
             Route::resource('/notifications', \App\Http\Controllers\Web\NotificationController::class)->only(['index']);
             Route::resource('/plans', \App\Http\Controllers\Web\PlanController::class)->only(['index','store']);
             Route::post('/orders',[\App\Http\Controllers\Web\OrderController::class,'addToCart']);
-            Route::post('/click-whats', function (Request $request) {
-
-                $productId = $request->product_id;
-                $product = Product::find($productId);
-                if (!$product) {
-                    return '';
-                }
-                $user = auth()->user();
-                $name = $product->name ?? \Str::substr($product->expert, 0, 20);
-                $data['title'] = 'مراسلة جديدة';
-                $data['body'] = "قد يتواصل الزبون {$user->name} عبر واتسأب للإستفسار عن المنتج {$name}";
-                try {
-
-                    $job = new SendFirebaseNotificationJob([$product->user->device_token], $data);
-                    dispatch($job);
-                    ClickWhats::create([
-                        'product_id' => $productId,
-                        'user_id' => $user->id,
-                        'seller_id' => $product->user_id
-                    ]);
-                } catch (Exception|\Error $e) {
-                    Log::error($e->getMessage());
-                }
-                return $product->user?->full_phone;
-            });
+            Route::post('/click-whats', [\App\Http\Controllers\Web\OrderController::class,'clickWhats']);
         });
 
         Route::get('/.well-known/assetlinks.json', function () {
