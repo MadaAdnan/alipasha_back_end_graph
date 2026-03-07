@@ -132,7 +132,7 @@ class ProductResource extends Resource
                     Forms\Components\Select::make('city_id')->options(City::selectRaw('id,name')->pluck('name', 'id'))->searchable()->label('المدينة'),
                     SpatieMediaLibraryFileUpload::make('image')->collection('image')->conversion('webp')->label('الصورة الرئيسية')->image()
                         ->imageEditor()->imageCropAspectRatio("1:1")->openable()->downloadable()->deletable() ->afterStateUpdated(function ($component, $state) {
-                            $component->dispatchBrowserEvent('open-image-editor');
+                            $component->dispatchEvent('open-image-editor');
                         }),
                     SpatieMediaLibraryFileUpload::make('images')->collection('images')->conversion('webp')->label('صور إضافية')->multiple()->image()
                         ->imageEditor()->imageCropAspectRatio("1:1")->openable()->downloadable()->deletable(),
