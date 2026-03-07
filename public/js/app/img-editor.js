@@ -1,6 +1,12 @@
 console.log("hello");
 document.addEventListener('open-image-editor', () => {
     setTimeout(() => {
-        document.querySelector('[data-image-editor] button')?.click();
-    }, 300);
+
+        const editBtn = document.querySelector('.filepond--action-edit-item');
+
+        if (editBtn) {
+            editBtn.click();
+        }
+
+    }, 400);
 });
