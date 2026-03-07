@@ -1,4 +1,4 @@
-console.log("hello");
+
 document.addEventListener('open-image-editor', () => {
     setTimeout(() => {
 
