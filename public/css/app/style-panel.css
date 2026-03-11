@@ -4,4 +4,14 @@
 }
 .filepond--action-edit-item.filepond--action-edit-item:after{
     content: "قص الصورة";
+    position: absolute;
+    top: -37px;
+    width: 100px;
+    display: flex;
+    background-color: #0009;
+    border-radius: 100%;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    aspect-ratio: 1;
 }
