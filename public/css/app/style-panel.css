@@ -2,15 +2,14 @@
     padding: 3rem;
     display: flex;
     margin-block: 3% !important;
-    position: relative;
+    position: absolute;
 }
 .filepond--action-edit-item.filepond--action-edit-item:after{
     content: "قص الصورة";
     position: absolute;
-    top: -37px;
-    width: 100px;
+
     display: flex;
-    background-color: #0009;
+
     border-radius: 100%;
     justify-content: center;
     align-content: center;
