@@ -16,6 +16,8 @@ use Filament\Navigation\NavigationItem;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
+use Filament\Support\Assets\Css;
+use Filament\Support\Assets\Js;
 use Filament\Support\Colors\Color;
 use Filament\Widgets;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
@@ -95,6 +97,10 @@ class SellerPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
+            ])
+            ->assets([
+                Js::make('img-editor', resource_path('js/img-editor.js')),
+                Css::make('style-panel',asset('css/app/style-panel.css'))
             ])
             ->authMiddleware([
                 Authenticate::class,
