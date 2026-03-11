@@ -19,4 +19,7 @@
 .filepond--file-action-button.filepond--file-action-button svg{
     display: none;
 }
+.filepond--file [data-align*="center"] {
+    left: calc(50% - 2.813em);
+}
 
