@@ -2,6 +2,7 @@
     padding: 3rem;
     display: flex;
     margin-block: 3% !important;
+    position: relative;
 }
 .filepond--action-edit-item.filepond--action-edit-item:after{
     content: "قص الصورة";
