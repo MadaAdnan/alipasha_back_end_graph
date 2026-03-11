@@ -1,25 +1,35 @@
-.filepond--action-edit-item.filepond--action-edit-item{
-    padding: 3rem;
-    display: flex;
-    margin-block: 3% !important;
-    position: absolute;
+.filepond--file-action-button.filepond--file-action-button svg {
+    height: 70%;
+    width: 100%;
 }
-.filepond--action-edit-item.filepond--action-edit-item:after{
+
+.filepond--action-edit-item.filepond--action-edit-item[data-align*=bottom] {
+    margin-bottom: 3em;
+}
+
+.filepond--action-edit-item.filepond--action-edit-item[data-align*=center] {
+    margin-left: -1.5em;
+}
+
+
+
+.filepond--action-edit-item.filepond--action-edit-item {
+    width: 100px;
+    height: 100px;
+}
+
+
+
+.filepond--action-edit-item.filepond--action-edit-item:after {
     content: "قص الصورة";
     position: absolute;
-
+    top: 27px;
+    /* width: 100px; */
     display: flex;
-
+    /* background-color: #0009; */
     border-radius: 100%;
     justify-content: center;
     align-content: center;
     align-items: center;
     aspect-ratio: 1;
 }
-.filepond--file-action-button.filepond--file-action-button svg{
-    display: none;
-}
-.filepond--file [data-align*="center"] {
-    left: calc(50% - 2.813em);
-}
-
