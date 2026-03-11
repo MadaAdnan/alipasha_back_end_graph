@@ -83,7 +83,7 @@ class AdminPanelProvider extends PanelProvider
             ])->spa()
             ->assets([
                 Js::make('img-editor', resource_path('js/img-editor.js')),
-                Css::make('style-panel',asset('css/assets/style-panel.css'))
+                Css::make('style-panel',asset('css/app/style-panel.css'))
             ]);
     }
 
