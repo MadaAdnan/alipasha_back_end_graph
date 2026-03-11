@@ -12,6 +12,7 @@ use Filament\Navigation\NavigationItem;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
+use Filament\Support\Assets\Css;
 use Filament\Support\Colors\Color;
 use Filament\Support\Enums\FontFamily;
 use Filament\Support\Facades\FilamentAsset;
@@ -82,6 +83,7 @@ class AdminPanelProvider extends PanelProvider
             ])->spa()
             ->assets([
                 Js::make('img-editor', resource_path('js/img-editor.js')),
+                Css::make('style-panel',asset('css/assets/style-panel.css'))
             ]);
     }
 
